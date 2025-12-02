@@ -2,8 +2,8 @@
 
 ## Project Overview
 **Purpose**: Full-stack Direct-to-Consumer + B2B smoothie and wellness brand platform
-**Status**: Phase 2 Complete - D2C, B2B Portal, Admin Dashboard, AI Tools
-**Stack**: Next.js 15 + React 19, Supabase (Auth + DB), AI Content Helper
+**Status**: Phase 2.5 Complete - D2C, B2B Portal, Enterprise Admin Dashboard with 9 Intelligence Modules
+**Stack**: Next.js 15 + React 19, Supabase (Auth + DB), AI Command Assistant
 
 ## Platform Features
 
@@ -28,37 +28,117 @@
   - Order history tracking
   - Partner-specific pricing display
 
-### Master Admin Dashboard (Shopify-Style)
-- `/admin` - Overview with revenue, orders, D2C/B2B stats
-- `/admin/products` - Full product CRUD (create, edit, delete, images)
-- `/admin/orders` - Order management with status updates
-- `/admin/partners` - Retail partner management (create accounts, view info)
-- `/admin/analytics` - Revenue tracking, top products, event logs
+### Enterprise Admin Dashboard (9 Intelligence Modules)
+
+#### 1. Command Center (`/admin/command-center`)
+- Real-time business intelligence dashboard
+- Orders today/week/month metrics
+- Total revenue and net margin
+- D2C vs B2B order breakdown
+- Average order value tracking
+- Revenue trend visualization (30 days)
+- Channel distribution chart
+- Conversion funnel metrics
+- Time filtering (Today, 7 Days, 30 Days, 90 Days, Year)
+- CSV export functionality
+
+#### 2. AI Command Assistant (`/admin/ai-assistant`)
+- ChatGPT-like interface for business queries
+- Example prompts: revenue summary, top products, order trends, cash flow
+- Intent recognition for: revenue, products, orders, financial, profit, runway queries
+- OpenAI GPT integration (optional - works with pattern matching fallback)
+- Contextual business data responses
+
+#### 3. Product Intelligence (`/admin/product-intel`)
+- Enhanced SKU management with cost tracking
+- Cost breakdown: ingredients, packaging, labor
+- Margin analysis with color-coded indicators
+- Expandable rows with nutrition data
+- AI optimization suggestions
+- Category filtering and search
+- Sort by margin, cost, price
+
+#### 4. Inventory Management (`/admin/inventory`)
+- Three tabs: Ingredients, Packaging, Finished Goods
+- Stock level progress bars
+- Low stock alerts (red badge)
+- Expiration warnings (yellow badge, 30 days)
+- Lot number and supplier tracking
+- Storage location management
+- Add/Edit item modals
+
+#### 5. Factory Intelligence (`/admin/factory`)
+- Production monitoring dashboard
+- Today's batches with status
+- Production efficiency percentage
+- Active batches vs QA hold
+- Production goals vs actual chart
+- Predictive restocking alerts
+- Ingredient burn rate analysis
+- Shift tracking (Morning/Afternoon/Night)
+- Recent batch history
+
+#### 6. Order Intelligence (`/admin/order-intel`)
+- D2C analytics section:
+  - Total revenue with trends
+  - Average order value
+  - Refund rate tracking
+  - Customer satisfaction score
+  - Orders by location (top cities)
+  - Shipping performance (on-time %, avg delivery days)
+  - New vs returning customers
+- B2B analytics section:
+  - Total B2B revenue
+  - Active wholesale accounts
+  - Top B2B customers by volume
+  - PO tracking summary
+  - Credit terms overview
+  - Predicted reorders
+
+#### 7. Video Manager (`/admin/video-manager`)
+- Landing page video CMS
+- Grid layout with thumbnails
+- Drag-and-drop reordering
+- Arrow buttons for positioning
+- Autoplay/Loop toggles
+- Platform targeting (Desktop/Mobile/Both)
+- Active/Inactive status
+- Add/Edit/Delete modals
+- Video preview overlay
+
+#### 8. Social Media Control Center (`/admin/social`)
+- Connected accounts (Instagram, TikTok, Facebook)
+- Platform badges (IG, TT, FB)
+- Total followers and engagement metrics
+- Overview tab with stats cards
+- Posts tab with performance table
+- Analytics tab with engagement trends
+- Social wall with recent posts
+- Schedule post placeholder
+- Connect account placeholder
+
+#### 9. Banking Intelligence (`/admin/banking`)
+- Mercury API integration
+- Total cash balance across accounts
+- Income/Expenses (30-day rolling)
+- Net Profit/Loss calculation
+- Monthly burn rate
+- Cash runway projection (months)
+- Account balances table
+- Recent transactions list
+- Demo data when API not configured
+
+### Legacy Admin Pages
+- `/admin` - Overview dashboard with quick actions
+- `/admin/products` - Full product CRUD
+- `/admin/orders` - Order management
+- `/admin/partners` - Retail partner management
+- `/admin/analytics` - Event logs and reporting
 - `/admin/ai` - AI content generation tool
-
-### AI Content Helper
-- `/api/ai/content` - Content generation API
-- Supports hero, product, email, and social content types
-- Ready for OpenAI integration (placeholder responses for now)
-- Add OPENAI_API_KEY to enable real AI generation
-
-### Banking Intelligence (Mercury Integration)
-- `/admin/banking` - Financial dashboard
-- Features:
-  - Total cash balance across all accounts
-  - Income/Expenses tracking (30-day rolling)
-  - Net Profit/Loss calculation
-  - Monthly burn rate
-  - Cash runway projection
-  - Account balances table
-  - Recent transactions list
-  - AI insights (coming soon)
-- Connects to Mercury Banking API
-- Shows demo data when MERCURY_API_KEY not configured
 
 ## Database Architecture (Supabase)
 
-### Tables
+### Core Tables
 - **profiles** - User profiles with roles (customer/partner/admin)
 - **products** - Product catalog with D2C + wholesale pricing
 - **orders** - D2C and B2B orders with status tracking
@@ -67,6 +147,19 @@
 - **analytics_events** - Event tracking for analytics
 - **cart_items** - Real-time shopping cart
 
+### Admin Extension Tables (11 new tables)
+- **role_permissions** - RBAC permission arrays per role
+- **user_role_assignments** - Map users to roles
+- **product_costs** - Extended product costing (ingredients, packaging, labor)
+- **product_ingredients** - Ingredients per SKU with nutrition data
+- **inventory_items** - Ingredient/packaging/finished goods tracking
+- **manufacturing_batches** - Production batch tracking
+- **media_assets** - Video/image management for CMS
+- **social_accounts** - Connected social media accounts
+- **social_posts** - Social post tracking with engagement
+- **ai_insights** - AI-generated insights log
+- **command_center_snapshots** - Daily analytics snapshots
+
 ### Row Level Security (RLS)
 All tables protected with RLS policies for:
 - Users can only access their own data
@@ -74,13 +167,25 @@ All tables protected with RLS policies for:
 - Admins have full access
 
 Schema files:
-- `/database/supabase-schema.sql` - Complete database schema
-- `/database/retail-partners-migration.sql` - Migration for retail partners table
+- `/database/supabase-schema.sql` - Core database schema
+- `/database/retail-partners-migration.sql` - Retail partners table
+- `/database/admin-extensions-schema.sql` - Admin extension tables (11 new)
 
-## User Roles
-1. **customer** - Standard D2C customer (default)
-2. **partner** - B2B retail partner with wholesale access
-3. **admin** - Full admin dashboard access
+## Role-Based Access Control
+
+### Available Roles
+1. **super_admin** - Full access to all modules
+2. **factory_manager** - Factory, Inventory modules
+3. **finance** - Banking, Order Intel, Command Center
+4. **marketing** - Social Media, Video Manager, AI Assistant
+5. **support** - Orders, Partners
+6. **warehouse** - Inventory, Factory
+7. **b2b_sales** - Partners, Order Intel (B2B section)
+
+### Permission System
+- Roles stored in `role_permissions` table with JSONB permissions array
+- User assignments in `user_role_assignments` table
+- Helper functions: `has_permission()`, `get_user_permissions()`
 
 ## File Structure
 ```
@@ -89,70 +194,91 @@ Schema files:
   - db.ts - Database operations (CRUD for all tables)
   - analytics.ts - Event tracking + reporting functions
   - auth.ts - Authentication functions
+  - mercuryClient.ts - Mercury Banking API client
+  - commandCenterService.ts - Command Center analytics
+  - aiAssistantService.ts - AI intent parsing and responses
+  - productIntelService.ts - Product costing logic
+  - inventoryService.ts - Inventory management
+  - orderIntelService.ts - Order analytics
+  - videoManagerService.ts - Video CMS logic
+  - socialService.ts - Social media integration
 /hooks
   - useAuth.ts - User authentication hook
   - useRole.ts - Role-based access guards
   - useCart.ts - Shopping cart management
 /pages
-  - /admin/* - Admin dashboard pages
+  - /admin/* - Admin dashboard pages (15 pages)
   - /retail-partner/* - B2B partner portal
   - /retail - Partner login
   - All D2C pages (products, checkout, etc.)
 /pages/api
-  - /admin/stats.ts - Dashboard statistics API
-  - /admin/products.ts - Product CRUD operations API
-  - /admin/orders.ts - Order management API
-  - /admin/partners.ts - Partner listing API
-  - /admin/analytics.ts - Analytics data API
-  - /admin/partners/[id].ts - Partner status update API
-  - /ai/content.ts - AI content generation endpoint
+  - /admin/command-center/* - Command Center API
+  - /admin/ai-assistant/* - AI Assistant API
+  - /admin/product-intel/* - Product Intelligence API
+  - /admin/inventory/* - Inventory API
+  - /admin/factory/* - Factory API
+  - /admin/order-intel/* - Order Intelligence API
+  - /admin/video-manager/* - Video Manager API
+  - /admin/social/* - Social Media API
+  - /admin/banking/* - Banking API
+  - Plus all legacy admin APIs
 /database
-  - supabase-schema.sql - Complete database schema
+  - supabase-schema.sql - Core schema
+  - retail-partners-migration.sql - Partners migration
+  - admin-extensions-schema.sql - Admin extension tables
 ```
 
 ## Design System
 - **Typography**: DM Sans (headings), Inter (body)
 - **Colors**: Black (#000), white (#fff), grays (#f9f9f9, #e8e8e8)
 - **Style**: Apple 3000 minimal aesthetic, Shopify-inspired admin
+- **Cards**: White background, subtle borders, 16-20px radius
+- **Effects**: Glass/blur surfaces, hover transforms, shadow expansion
 - **Layout**: 1280px centered max-width
 
 ## Environment Variables
 ```
 NEXT_PUBLIC_SUPABASE_URL=your-url
 NEXT_PUBLIC_SUPABASE_ANON_KEY=your-key
-SUPABASE_SERVICE_ROLE_KEY=your-key (for admin API routes to bypass RLS)
-MERCURY_API_KEY=your-key (for Banking Intelligence dashboard)
+SUPABASE_SERVICE_ROLE_KEY=your-key (for admin APIs to bypass RLS)
+MERCURY_API_KEY=your-key (for Banking Intelligence)
 OPENAI_API_KEY=your-key (optional - for AI features)
 STRIPE_SECRET_KEY=your-key (Phase 3)
 NEXT_PUBLIC_STRIPE_KEY=your-key (Phase 3)
 ```
 
-## Admin Portal
-The admin portal uses server-side API routes that bypass Row Level Security (RLS) policies using the Supabase service role key. In development mode, access is allowed without authentication for testing. In production, users must have `role = 'admin'` in the profiles table.
+## Demo Mode
+All admin modules show realistic mock data when:
+- Database tables not configured
+- API keys not set
+- Allows full UI testing without setup
+
+## Documentation
+- `ADMIN_ADDON.md` - Comprehensive admin extension documentation (816 lines)
+- Covers all 9 modules, APIs, database schema, RBAC, setup instructions
 
 ## Setup Instructions
 
 ### 1. Database Setup
-Run the SQL in `/database/supabase-schema.sql` in your Supabase SQL Editor.
+Run SQL files in order in Supabase SQL Editor:
+1. `/database/supabase-schema.sql` - Core schema
+2. `/database/retail-partners-migration.sql` - Partners table
+3. `/database/admin-extensions-schema.sql` - Admin extension tables
 
 ### 2. Create Admin User
-After creating an account, update the role in Supabase:
 ```sql
 UPDATE profiles SET role = 'admin' WHERE email = 'your-email@example.com';
 ```
 
-### 3. Create Partner User
-Use the admin dashboard `/admin/partners` to create retail partner accounts.
+### 3. Configure Environment Variables
+Add required secrets in Replit Secrets tab.
 
 ## Access Points
 - **Customer Site**: `/` (homepage)
 - **Retail Partner Login**: `/retail`
 - **Admin Dashboard**: `/admin`
-
-## Internationalization (i18n)
-Supported: English, Spanish, French, German, Italian, Portuguese, Chinese, Japanese, Korean, Arabic, Hindi, Russian
-
-Translation files: `/messages/{locale}.json`
+- **Command Center**: `/admin/command-center`
+- **AI Assistant**: `/admin/ai-assistant`
 
 ## Development
 - `npm run dev` - Start dev server (port 5000)
@@ -167,4 +293,5 @@ Translation files: `/messages/{locale}.json`
 4. Real OpenAI integration for AI content
 5. Image upload for product management
 6. Subscription/recurring orders
-
+7. Real social media API connections
+8. Mobile app (React Native)
