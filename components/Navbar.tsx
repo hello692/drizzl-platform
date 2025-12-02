@@ -50,8 +50,14 @@ const MenuIcon = () => (
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const router = useRouter();
 
   const toggleMenu = () => setMenuOpen(!menuOpen);
+  
+  const navigateTo = (path: string) => {
+    setMenuOpen(false);
+    router.push(path);
+  };
 
   return (
     <>
@@ -137,22 +143,22 @@ export default function Navbar() {
                 </div>
                 
                 <div className="menu-section-2100">
-                  <Link href="/smoothies" className="menu-item-2100" onClick={() => setMenuOpen(false)}>
+                  <div className="menu-item-2100" onClick={() => navigateTo('/smoothies')}>
                     <span className="item-label">Smoothies</span>
                     <span className="item-subtitle">Fresh Frozen Blends</span>
-                  </Link>
-                  <Link href="/bowls" className="menu-item-2100" onClick={() => setMenuOpen(false)}>
+                  </div>
+                  <div className="menu-item-2100" onClick={() => navigateTo('/bowls')}>
                     <span className="item-label">Bowls</span>
                     <span className="item-subtitle">Nutrient Packed</span>
-                  </Link>
-                  <Link href="/juices" className="menu-item-2100" onClick={() => setMenuOpen(false)}>
+                  </div>
+                  <div className="menu-item-2100" onClick={() => navigateTo('/juices')}>
                     <span className="item-label">Juices</span>
                     <span className="item-subtitle">Cold Pressed</span>
-                  </Link>
-                  <Link href="/wellness" className="menu-item-2100" onClick={() => setMenuOpen(false)}>
+                  </div>
+                  <div className="menu-item-2100" onClick={() => navigateTo('/wellness')}>
                     <span className="item-label">Wellness</span>
                     <span className="item-subtitle">Health Boosters</span>
-                  </Link>
+                  </div>
                 </div>
                 
                 <div className="menu-divider-2100"></div>
@@ -162,18 +168,18 @@ export default function Navbar() {
                 </div>
                 
                 <div className="menu-section-2100">
-                  <Link href="/about" className="menu-item-2100" onClick={() => setMenuOpen(false)}>
+                  <div className="menu-item-2100" onClick={() => navigateTo('/about')}>
                     <span className="item-label">About Us</span>
-                  </Link>
-                  <Link href="/sustainability" className="menu-item-2100" onClick={() => setMenuOpen(false)}>
+                  </div>
+                  <div className="menu-item-2100" onClick={() => navigateTo('/sustainability')}>
                     <span className="item-label">Sustainability</span>
-                  </Link>
-                  <Link href="/careers" className="menu-item-2100" onClick={() => setMenuOpen(false)}>
+                  </div>
+                  <div className="menu-item-2100" onClick={() => navigateTo('/careers')}>
                     <span className="item-label">Careers</span>
-                  </Link>
-                  <Link href="/blog" className="menu-item-2100" onClick={() => setMenuOpen(false)}>
+                  </div>
+                  <div className="menu-item-2100" onClick={() => navigateTo('/blog')}>
                     <span className="item-label">Blog</span>
-                  </Link>
+                  </div>
                 </div>
                 
                 <div className="menu-divider-2100"></div>
@@ -183,18 +189,18 @@ export default function Navbar() {
                 </div>
                 
                 <div className="menu-section-2100">
-                  <Link href="/contact" className="menu-item-2100" onClick={() => setMenuOpen(false)}>
+                  <div className="menu-item-2100" onClick={() => navigateTo('/contact')}>
                     <span className="item-label">Contact</span>
-                  </Link>
-                  <Link href="/faq" className="menu-item-2100" onClick={() => setMenuOpen(false)}>
+                  </div>
+                  <div className="menu-item-2100" onClick={() => navigateTo('/faq')}>
                     <span className="item-label">FAQ</span>
-                  </Link>
-                  <Link href="/shipping" className="menu-item-2100" onClick={() => setMenuOpen(false)}>
+                  </div>
+                  <div className="menu-item-2100" onClick={() => navigateTo('/shipping')}>
                     <span className="item-label">Shipping</span>
-                  </Link>
-                  <Link href="/returns" className="menu-item-2100" onClick={() => setMenuOpen(false)}>
+                  </div>
+                  <div className="menu-item-2100" onClick={() => navigateTo('/returns')}>
                     <span className="item-label">Returns</span>
-                  </Link>
+                  </div>
                 </div>
               </div>
             </div>
