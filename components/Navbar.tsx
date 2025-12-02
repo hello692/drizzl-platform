@@ -43,283 +43,296 @@ export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   const menuItems = [
-    { label: 'Smoothies', href: '/products/smoothies', description: 'Frozen blends crafted with superfoods' },
-    { label: 'High Protein', href: '/products/high-protein', description: 'Maximum nutrition for active lifestyles' },
-    { label: 'Bowls', href: '/products/bowls', description: 'Nutrient-dense breakfast bowls' },
-    { label: 'Bites', href: '/products/bites', description: 'Convenient snacks on the go' },
-    { label: 'Protein Shop', href: '/products/protein', description: 'Premium protein supplements' },
-    { label: 'Gift Guide', href: '/products/gift', description: 'Perfect gifts for wellness lovers' },
+    { label: 'Smoothies', href: '/products/smoothies' },
+    { label: 'High Protein', href: '/products/high-protein' },
+    { label: 'Bowls', href: '/products/bowls' },
+    { label: 'Bites', href: '/products/bites' },
+    { label: 'Protein Shop', href: '/products/protein' },
+    { label: 'Gift Guide', href: '/products/gift' },
   ];
 
-  const closeMenu = () => setMenuOpen(false);
-
   return (
-    <nav className="glass" style={{
-      background: 'rgba(255, 255, 255, 0.85)',
-      borderBottom: '1px solid rgba(255, 255, 255, 0.5)',
-      padding: '14px 60px',
-      position: 'sticky',
-      top: 0,
-      zIndex: 1000,
-      backdropFilter: 'blur(20px)',
-      WebkitBackdropFilter: 'blur(20px)',
-      boxShadow: '0 8px 32px rgba(66, 133, 244, 0.08)',
-    }}>
-      <div style={{
-        maxWidth: '1440px',
-        margin: '0 auto',
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        flexWrap: 'nowrap',
-        gap: '32px',
+    <>
+      <nav className="glass" style={{
+        background: 'rgba(255, 255, 255, 0.85)',
+        borderBottom: '1px solid rgba(255, 255, 255, 0.5)',
+        padding: '14px 60px',
+        position: 'sticky',
+        top: 0,
+        zIndex: 100,
+        backdropFilter: 'blur(20px)',
+        WebkitBackdropFilter: 'blur(20px)',
+        boxShadow: '0 8px 32px rgba(66, 133, 244, 0.08)',
       }}>
-        {/* Left: Search + Find in stores */}
         <div style={{
+          maxWidth: '1440px',
+          margin: '0 auto',
           display: 'flex',
-          gap: '32px',
+          justifyContent: 'space-between',
           alignItems: 'center',
-          flex: 0,
+          flexWrap: 'nowrap',
+          gap: '32px',
         }}>
-          {/* Search */}
-          <div style={{ 
-            display: 'flex', 
-            alignItems: 'center', 
-            gap: '8px', 
-            color: '#000',
-            cursor: 'pointer',
-            opacity: 0.7,
-            transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-            whiteSpace: 'nowrap',
-          }} onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')} onMouseLeave={(e) => (e.currentTarget.style.opacity = '0.7')}>
-            <div style={{
-              width: '24px',
-              height: '24px',
+          {/* Left: Search + Find in stores */}
+          <div style={{
+            display: 'flex',
+            gap: '32px',
+            alignItems: 'center',
+            flex: 0,
+          }}>
+            <div style={{ 
+              display: 'flex', 
+              alignItems: 'center', 
+              gap: '8px', 
+              color: '#000',
+              cursor: 'pointer',
+              opacity: 0.7,
+              transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+              whiteSpace: 'nowrap',
+            }} onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')} onMouseLeave={(e) => (e.currentTarget.style.opacity = '0.7')}>
+              <div style={{
+                width: '24px',
+                height: '24px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                color: '#000',
+              }}>
+                <SearchIcon />
+              </div>
+              <span style={{ fontSize: '14px', fontWeight: '500', letterSpacing: '-0.3px' }}>Search</span>
+            </div>
+
+            <button style={{
+              padding: '0',
+              border: 'none',
+              background: 'none',
+              color: '#000',
+              cursor: 'pointer',
+              fontSize: '14px',
+              fontWeight: '500',
               display: 'flex',
               alignItems: 'center',
-              justifyContent: 'center',
-              color: '#000',
-            }}>
-              <SearchIcon />
-            </div>
-            <span style={{ fontSize: '14px', fontWeight: '500', letterSpacing: '-0.3px' }}>Search</span>
+              gap: '8px',
+              opacity: 0.7,
+              transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+              letterSpacing: '-0.3px',
+              whiteSpace: 'nowrap',
+            }} onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')} onMouseLeave={(e) => (e.currentTarget.style.opacity = '0.7')}>
+              <div style={{
+                width: '24px',
+                height: '24px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                color: '#000',
+              }}>
+                <LocationIcon />
+              </div>
+              Find in stores
+            </button>
           </div>
 
-          {/* Find in stores */}
-          <button style={{
-            padding: '0',
-            border: 'none',
-            background: 'none',
-            color: '#000',
-            cursor: 'pointer',
-            fontSize: '14px',
-            fontWeight: '500',
+          {/* Center: Logo */}
+          <div style={{ flex: 1, display: 'flex', justifyContent: 'center' }}>
+            <Link href="/" className="heading-2100 text-glow" style={{
+              fontSize: '32px',
+              textDecoration: 'none',
+              whiteSpace: 'nowrap',
+              transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+              lineHeight: '1',
+              letterSpacing: '0.2px',
+            }} onMouseEnter={(e) => {
+              e.currentTarget.style.textShadow = '0 0 20px rgba(66, 133, 244, 0.6)';
+            }} onMouseLeave={(e) => {
+              e.currentTarget.style.textShadow = '0 0 10px rgba(66, 133, 244, 0.3)';
+            }}>
+              DRIZZL
+            </Link>
+          </div>
+
+          {/* Right: Login + Cart + Menu */}
+          <div style={{
             display: 'flex',
             alignItems: 'center',
-            gap: '8px',
-            opacity: 0.7,
-            transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-            letterSpacing: '-0.3px',
-            whiteSpace: 'nowrap',
-          }} onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')} onMouseLeave={(e) => (e.currentTarget.style.opacity = '0.7')}>
-            <div style={{
-              width: '24px',
-              height: '24px',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              color: '#000',
-            }}>
-              <LocationIcon />
-            </div>
-            Find in stores
-          </button>
-        </div>
-
-        {/* Center: Logo */}
-        <div style={{ flex: 1, display: 'flex', justifyContent: 'center' }}>
-          <Link href="/" className="heading-2100 text-glow" style={{
-            fontSize: '32px',
-            textDecoration: 'none',
-            whiteSpace: 'nowrap',
-            transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
-            lineHeight: '1',
-            letterSpacing: '0.2px',
-          }} onMouseEnter={(e) => {
-            e.currentTarget.style.textShadow = '0 0 20px rgba(66, 133, 244, 0.6)';
-          }} onMouseLeave={(e) => {
-            e.currentTarget.style.textShadow = '0 0 10px rgba(66, 133, 244, 0.3)';
+            gap: '24px',
+            flex: 0,
           }}>
-            DRIZZL
-          </Link>
-        </div>
-
-        {/* Right: Login + Cart */}
-        <div style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: '24px',
-          flex: 0,
-          position: 'relative',
-        }}>
-          {/* Login */}
-          <Link href="/auth" style={{
-            color: '#000',
-            fontSize: '14px',
-            fontWeight: '500',
-            textDecoration: 'none',
-            display: 'flex',
-            alignItems: 'center',
-            gap: '8px',
-            opacity: 0.7,
-            transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-            letterSpacing: '-0.3px',
-            whiteSpace: 'nowrap',
-          }} onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')} onMouseLeave={(e) => (e.currentTarget.style.opacity = '0.7')}>
-            <div style={{
-              width: '24px',
-              height: '24px',
+            <Link href="/auth" style={{
+              color: '#000',
+              fontSize: '14px',
+              fontWeight: '500',
+              textDecoration: 'none',
               display: 'flex',
               alignItems: 'center',
-              justifyContent: 'center',
-              color: '#000',
-            }}>
+              gap: '8px',
+              opacity: 0.7,
+              transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+              letterSpacing: '-0.3px',
+              whiteSpace: 'nowrap',
+            }} onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')} onMouseLeave={(e) => (e.currentTarget.style.opacity = '0.7')}>
               <UserIcon />
-            </div>
-            Log in
-          </Link>
+              Log in
+            </Link>
 
-          {/* Retail Partner Login */}
-          <Link href="/retail-partner" style={{
-            color: '#000',
-            fontSize: '14px',
-            fontWeight: '500',
-            textDecoration: 'none',
-            display: 'flex',
-            alignItems: 'center',
-            gap: '8px',
-            opacity: 0.7,
-            transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-            letterSpacing: '-0.3px',
-            whiteSpace: 'nowrap',
-          }} onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')} onMouseLeave={(e) => (e.currentTarget.style.opacity = '0.7')}>
-            <div style={{
-              width: '24px',
-              height: '24px',
+            <Link href="/retail-partner" style={{
+              color: '#000',
+              fontSize: '14px',
+              fontWeight: '500',
+              textDecoration: 'none',
               display: 'flex',
               alignItems: 'center',
-              justifyContent: 'center',
-              color: '#000',
-            }}>
+              gap: '8px',
+              opacity: 0.7,
+              transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+              letterSpacing: '-0.3px',
+              whiteSpace: 'nowrap',
+            }} onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')} onMouseLeave={(e) => (e.currentTarget.style.opacity = '0.7')}>
               <BriefcaseIcon />
-            </div>
-            Partner Login
-          </Link>
+              Partner Login
+            </Link>
 
-          {/* Cart */}
-          <Link href="/cart" style={{
-            fontSize: '14px',
-            fontWeight: '500',
-            color: '#000',
-            textDecoration: 'none',
-            display: 'flex',
-            alignItems: 'center',
-            gap: '8px',
-            opacity: 0.7,
-            transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-            letterSpacing: '-0.3px',
-            whiteSpace: 'nowrap',
-          }} onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')} onMouseLeave={(e) => (e.currentTarget.style.opacity = '0.7')}>
-            <div style={{
-              width: '24px',
-              height: '24px',
+            <Link href="/cart" style={{
+              fontSize: '14px',
+              fontWeight: '500',
+              color: '#000',
+              textDecoration: 'none',
               display: 'flex',
               alignItems: 'center',
-              justifyContent: 'center',
-              color: '#000',
-            }}>
+              gap: '8px',
+              opacity: 0.7,
+              transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+              letterSpacing: '-0.3px',
+              whiteSpace: 'nowrap',
+            }} onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')} onMouseLeave={(e) => (e.currentTarget.style.opacity = '0.7')}>
               <CartIcon />
-            </div>
-            <span>Cart (0)</span>
-          </Link>
+              <span>Cart (0)</span>
+            </Link>
 
-          {/* Hamburger Menu - Desktop & Mobile */}
-          <button
-            className="hamburger-icon-2100"
-            onClick={() => setMenuOpen(!menuOpen)}
-            style={{
-              background: 'none',
-              border: 'none',
-              padding: '8px',
-              cursor: 'pointer',
-              marginLeft: '8px',
-            }}
-            title="Menu"
-          >
-            <div className="hamburger-line" style={{
-              transform: menuOpen ? 'rotate(45deg) translateY(8px)' : 'rotate(0) translateY(0)',
-            }}></div>
-            <div className="hamburger-line" style={{
-              opacity: menuOpen ? 0 : 1,
-            }}></div>
-            <div className="hamburger-line" style={{
-              transform: menuOpen ? 'rotate(-45deg) translateY(-8px)' : 'rotate(0) translateY(0)',
-            }}></div>
-          </button>
-
-          {/* Full-Screen Menu - Impossible Style */}
-          {menuOpen && (
-            <>
-              {/* Overlay Backdrop */}
-              <div
-                style={{
-                  position: 'fixed',
-                  top: 0,
-                  left: 0,
-                  right: 0,
-                  bottom: 0,
-                  zIndex: 997,
-                }}
-                onClick={closeMenu}
-              ></div>
-
-              {/* Menu Container */}
-              <div className="menu-dropdown-2100">
-                <div className="menu-overlay-2100" onClick={(e) => e.stopPropagation()}>
-                  <div className="menu-content-wrapper">
-                    {/* Left: Menu Items */}
-                    <div className="menu-grid-2100">
-                      {menuItems.map((item, index) => (
-                        <div
-                          key={item.href}
-                          className="menu-item-2100"
-                          style={{
-                            animation: `menuItemSlideInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) ${
-                              index * 0.1 + 0.2
-                            }s both`,
-                          }}
-                        >
-                          <Link href={item.href} onClick={closeMenu}>
-                            {item.label}
-                          </Link>
-                        </div>
-                      ))}
-                    </div>
-
-                    {/* Right: Visual Elements */}
-                    <div className="menu-right-visuals">
-                      <div className="menu-visual-item">🥤</div>
-                      <div className="menu-visual-item">🍹</div>
-                      <div className="menu-visual-item">🥑</div>
-                      <div className="menu-visual-item">✨</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </>
-          )}
+            {/* Hamburger Menu Button */}
+            <button
+              onClick={() => setMenuOpen(!menuOpen)}
+              style={{
+                background: 'none',
+                border: 'none',
+                padding: '8px',
+                cursor: 'pointer',
+                marginLeft: '8px',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '6px',
+              }}
+            >
+              <div style={{
+                width: '24px',
+                height: '2.5px',
+                background: 'linear-gradient(135deg, #000 0%, #4285f4 100%)',
+                borderRadius: '2px',
+                transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                transform: menuOpen ? 'rotate(45deg) translateY(8px)' : 'rotate(0)',
+                boxShadow: '0 0 8px rgba(66, 133, 244, 0.3)',
+              }}></div>
+              <div style={{
+                width: '24px',
+                height: '2.5px',
+                background: 'linear-gradient(135deg, #000 0%, #4285f4 100%)',
+                borderRadius: '2px',
+                transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                opacity: menuOpen ? 0 : 1,
+                boxShadow: '0 0 8px rgba(66, 133, 244, 0.3)',
+              }}></div>
+              <div style={{
+                width: '24px',
+                height: '2.5px',
+                background: 'linear-gradient(135deg, #000 0%, #4285f4 100%)',
+                borderRadius: '2px',
+                transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                transform: menuOpen ? 'rotate(-45deg) translateY(-8px)' : 'rotate(0)',
+                boxShadow: '0 0 8px rgba(66, 133, 244, 0.3)',
+              }}></div>
+            </button>
+          </div>
         </div>
-      </div>
-    </nav>
+      </nav>
+
+      {/* Full-Screen Menu */}
+      {menuOpen && (
+        <>
+          {/* Overlay Background */}
+          <div
+            onClick={() => setMenuOpen(false)}
+            style={{
+              position: 'fixed',
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              background: 'linear-gradient(135deg, #4285f4 0%, #2e5dd9 50%, #1a73e8 100%)',
+              zIndex: 200,
+              animation: 'menuFadeIn 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
+              clipPath: 'polygon(0 0, 100% 0, 100% 85%, 50% 95%, 0 85%)',
+            }}
+          >
+            {/* Left Content */}
+            <div style={{
+              position: 'absolute',
+              left: '80px',
+              top: '140px',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '40px',
+            }}>
+              {menuItems.map((item, index) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  onClick={() => setMenuOpen(false)}
+                  style={{
+                    fontSize: '48px',
+                    fontWeight: '700',
+                    fontFamily: "'Space Mono', monospace",
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.5px',
+                    color: 'white',
+                    textDecoration: 'none',
+                    transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+                    lineHeight: '1.1',
+                    display: 'inline-block',
+                    animation: `menuItemSlideInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) ${index * 0.1}s both`,
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.textShadow = '0 0 30px rgba(255, 255, 255, 0.5)';
+                    e.currentTarget.style.transform = 'translateX(20px)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.textShadow = 'none';
+                    e.currentTarget.style.transform = 'translateX(0)';
+                  }}
+                >
+                  {item.label} →
+                </Link>
+              ))}
+            </div>
+
+            {/* Right Visual Elements */}
+            <div style={{
+              position: 'absolute',
+              right: '80px',
+              top: '140px',
+              fontSize: '120px',
+              opacity: 0.3,
+              display: 'flex',
+              alignItems: 'center',
+              height: '400px',
+              gap: '60px',
+            }}>
+              <span style={{ animation: 'float 4s ease-in-out infinite' }}>🥤</span>
+              <span style={{ animation: 'float 4s ease-in-out infinite', animationDelay: '0.5s' }}>🍹</span>
+              <span style={{ animation: 'float 4s ease-in-out infinite', animationDelay: '1s' }}>🥑</span>
+            </div>
+          </div>
+        </>
+      )}
+    </>
   );
 }
