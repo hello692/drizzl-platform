@@ -1,0 +1,182 @@
+You are my senior full-stack engineer working inside an existing Next.js + Tailwind project for “Drizzl Wellness”.
+
+IMPORTANT:
+- Do NOT remove or radically change the existing homepage layout, hero, top nav, or “Shop by Category / Popular Products” sections.
+- Keep the current design and components, just extend the app with backend + dashboards.
+
+---
+
+### GOAL
+
+Take this existing UI and connect the rest of the platform we discussed:
+
+1. Supabase integration (DB + Auth)
+2. User roles: customer, retail partner, admin
+3. Retail Partner Login + portal
+4. Master Admin dashboard (Shopify-style) to manage products, partners, and orders
+5. Orders saved in DB (mock checkout is OK)
+6. Basic analytics
+7. Simple AI “content helper” stub we can later connect to OpenAI
+
+---
+
+### 1. SUPABASE CLIENT + AUTH
+
+1. Create a Supabase client file (e.g. `lib/supabaseClient.ts`) using `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY` from env.
+2. Wire auth for:
+   - Email/password signup / login
+   - Optionally magic link
+3. Add a simple auth hook, e.g. `useUser()` to read the logged-in user and role.
+
+---
+
+### 2. DATABASE SCHEMA (SUPABASE)
+
+Create these tables in Supabase (you can give me SQL migrations in a file `supabase-schema.sql` and comments):
+
+- `profiles`
+  - id (uuid, PK, matches auth user id)
+  - email
+  - name
+  - role: 'customer' | 'partner' | 'admin'
+  - created_at, updated_at
+
+- `products`
+  - id (uuid)
+  - name
+  - slug
+  - description
+  - category
+  - price_cents
+  - wholesale_price_cents
+  - hero_image_url
+  - is_active
+  - created_at, updated_at
+
+- `orders`
+  - id (uuid)
+  - user_id (uuid, FK to profiles)
+  - order_type: 'd2c' | 'b2b'
+  - status: 'pending' | 'paid' | 'shipped' | 'delivered' | 'cancelled'
+  - total_cents
+  - created_at, updated_at
+
+- `order_items`
+  - id (uuid)
+  - order_id (FK)
+  - product_id (FK)
+  - quantity
+  - unit_price_cents
+
+- `retail_partners`
+  - id (uuid)
+  - user_id (FK to profiles)
+  - store_name
+  - contact_name
+  - contact_email
+  - phone
+  - address
+  - city, state, zip, country
+  - created_at, updated_at
+
+- `analytics_events`
+  - id (uuid)
+  - user_id (nullable FK)
+  - event_type
+  - metadata (jsonb)
+  - created_at
+
+Don’t run SQL here, just give clear SQL and ensure the code assumes these tables exist.
+
+---
+
+### 3. ROUTES / PAGES TO ADD (KEEP EXISTING ONES)
+
+Add or complete these pages:
+
+**Public / D2C**
+- `/shop` – list all products from `products`.
+- `/product/[slug]` – product detail reading from DB.
+- `/cart` – cart page stored in local state for now.
+- `/checkout` – mock checkout that:
+  - Creates an `orders` row
+  - Creates `order_items`
+  - Sets status to `paid`
+  - Shows confirmation page.
+
+**Auth**
+- `/login` and `/signup` using Supabase auth.
+- `/account` – shows profile + past orders for the logged-in customer.
+
+**Retail Partner**
+- In the top nav, keep “Retail Partner Login”.
+- Route `/retail-partner/login` – uses same Supabase auth, but only allows access if `role = 'partner'`.
+- Route `/retail-partner/dashboard`:
+  - Show wholesale product list (from `products.wholesale_price_cents`).
+  - Allow placing a B2B order (similar to checkout, but `order_type = 'b2b'`).
+  - Show partner’s past orders.
+
+**Admin**
+- `/admin/login` – reuse auth but require `role = 'admin'`.
+- `/admin` – overview page with:
+  - Total orders count
+  - Total revenue (sum of `total_cents`)
+  - D2C vs B2B counts
+- `/admin/products`:
+  - List products
+  - Simple create / edit / delete form
+- `/admin/partners`:
+  - List `retail_partners`
+  - Ability to create a new retail partner and assign a user with role `partner`
+- `/admin/orders`:
+  - Table of all orders with basic filters
+
+Protect partner and admin routes with a simple role guard (redirect to `/login` if not allowed).
+
+---
+
+### 4. ANALYTICS
+
+1. Create a helper function, e.g. `logEvent(event_type, metadata)` that inserts into `analytics_events`.
+2. Call it on:
+   - Page view for homepage
+   - Add to cart
+   - Order completed
+   - B2B order created
+3. On `/admin` or `/admin/analytics`, show:
+   - Count of orders in last 7 days
+   - Top 3 products by orders
+   - D2C vs B2B order counts
+
+Simple queries are fine.
+
+---
+
+### 5. AI CONTENT HELPER (STUB)
+
+Add a small AI helper in the admin content area:
+
+- Create `/api/ai/content` route that:
+  - For now returns a canned suggested hero subtitle string (no real AI yet).
+- On `/admin` or `/admin/content`, create a small UI:
+  - Textarea + “Suggest copy” button
+  - Calls `/api/ai/content` and displays suggestion
+  - Button “Use this” that fills a form field
+
+Just structure this so I can later plug in OpenAI.
+
+---
+
+### 6. IMPLEMENTATION STYLE
+
+- Use existing components and Tailwind style – keep everything visually consistent.
+- Add comments where environment variables, Supabase keys, and future Stripe / AI integration should go.
+- Ensure the app compiles and runs in Replit when you’re done.
+
+Start by:
+1. Adding Supabase client + auth.
+2. Creating the DB models/interfaces in the code.
+3. Building partner + admin dashboards.
+4. Wiring checkout to save orders.
+
+Do not wipe out or redesign the existing homepage; extend the project.
