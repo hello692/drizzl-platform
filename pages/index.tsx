@@ -159,17 +159,28 @@ export default function Home() {
     if (carouselRef.current) {
       const { scrollLeft, scrollWidth, clientWidth } = carouselRef.current;
       const itemWidth = 312; // 280px width + 32px gap
+      const totalItems = POPULAR_SMOOTHIES.length;
+      const sectionWidth = itemWidth * totalItems;
       
-      // Loop to beginning
-      if (scrollLeft < itemWidth) {
-        carouselRef.current.scrollLeft = scrollWidth - clientWidth - itemWidth * 2;
+      // When scrolled to end of first section, jump to middle section
+      if (scrollLeft <= itemWidth / 2) {
+        carouselRef.current.scrollLeft = sectionWidth + scrollLeft;
       }
-      // Loop to end
-      else if (scrollLeft >= scrollWidth - clientWidth - itemWidth) {
-        carouselRef.current.scrollLeft = itemWidth;
+      // When scrolled past middle section, jump back
+      else if (scrollLeft >= sectionWidth * 2 - clientWidth) {
+        carouselRef.current.scrollLeft = sectionWidth + (scrollLeft - sectionWidth * 2 + clientWidth);
       }
     }
   };
+
+  // Initialize scroll position to middle section on mount
+  useEffect(() => {
+    if (carouselRef.current) {
+      const itemWidth = 312;
+      const totalItems = POPULAR_SMOOTHIES.length;
+      carouselRef.current.scrollLeft = itemWidth * totalItems;
+    }
+  }, []);
 
   return (
     <>
@@ -315,7 +326,7 @@ export default function Home() {
           </AnimatedSection>
 
           {/* Carousel Container */}
-          <div style={{ position: 'relative', paddingLeft: 'clamp(40px, 8vw, 80px)', paddingRight: 'clamp(40px, 8vw, 80px)' }}>
+          <div style={{ position: 'relative', paddingLeft: 'clamp(50px, 8vw, 70px)', paddingRight: 'clamp(50px, 8vw, 70px)' }}>
             {/* Left Arrow */}
             <button
               onClick={() => scroll('left')}
@@ -324,34 +335,40 @@ export default function Home() {
                 left: '0',
                 top: '50%',
                 transform: 'translateY(-50%)',
-                background: '#000',
-                border: 'none',
-                width: '40px',
-                height: '40px',
-                borderRadius: '8px',
-                color: 'white',
+                background: '#ffffff',
+                border: '1px solid #e0e0e0',
+                width: '48px',
+                height: '48px',
+                borderRadius: '50%',
+                color: '#000',
                 fontSize: '18px',
                 cursor: 'pointer',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                transition: 'all 1s cubic-bezier(0.32, 0, 0.67, 0)',
+                transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
                 zIndex: 10,
-                boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)',
+                boxShadow: '0 2px 12px rgba(0, 0, 0, 0.08)',
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.background = '#333';
-                e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.15)';
+                e.currentTarget.style.background = '#000';
+                e.currentTarget.style.color = '#fff';
+                e.currentTarget.style.borderColor = '#000';
+                e.currentTarget.style.transform = 'translateY(-50%) scale(1.05)';
+                e.currentTarget.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.15)';
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.background = '#000';
-                e.currentTarget.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.1)';
+                e.currentTarget.style.background = '#ffffff';
+                e.currentTarget.style.color = '#000';
+                e.currentTarget.style.borderColor = '#e0e0e0';
+                e.currentTarget.style.transform = 'translateY(-50%) scale(1)';
+                e.currentTarget.style.boxShadow = '0 2px 12px rgba(0, 0, 0, 0.08)';
               }}
             >
               <ModernArrowLeft />
             </button>
 
-            {/* Carousel */}
+            {/* Carousel - Infinite Scroll */}
             <div
               ref={carouselRef}
               onMouseDown={handleMouseDown}
@@ -373,9 +390,10 @@ export default function Home() {
                 userSelect: 'none',
               }}
             >
-              {POPULAR_SMOOTHIES.map((product) => (
+              {/* Triple the products for seamless infinite scroll */}
+              {[...POPULAR_SMOOTHIES, ...POPULAR_SMOOTHIES, ...POPULAR_SMOOTHIES].map((product, index) => (
                 <Link
-                  key={product.id}
+                  key={`${product.id}-${index}`}
                   href={`/products/${product.id}`}
                   style={{
                     flexShrink: 0,
@@ -395,8 +413,8 @@ export default function Home() {
                 >
                   {/* Product Image */}
                   <div style={{
-                    background: '#f5f5f5',
-                    borderRadius: '12px',
+                    background: '#ffffff',
+                    borderRadius: '16px',
                     height: '300px',
                     marginBottom: '20px',
                     overflow: 'hidden',
@@ -404,14 +422,17 @@ export default function Home() {
                     alignItems: 'center',
                     justifyContent: 'center',
                     cursor: 'pointer',
-                    border: '1px solid #e0e0e0',
-                    transition: 'all 1s cubic-bezier(0.32, 0, 0.67, 0)',
+                    border: '1px solid #e8e8e8',
+                    transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                    boxShadow: '0 2px 8px rgba(0, 0, 0, 0.04)',
                   }}
                     onMouseEnter={(e) => {
-                      e.currentTarget.style.borderColor = '#ccc';
+                      e.currentTarget.style.borderColor = '#d0d0d0';
+                      e.currentTarget.style.boxShadow = '0 8px 24px rgba(0, 0, 0, 0.08)';
                     }}
                     onMouseLeave={(e) => {
-                      e.currentTarget.style.borderColor = '#e0e0e0';
+                      e.currentTarget.style.borderColor = '#e8e8e8';
+                      e.currentTarget.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.04)';
                     }}
                   >
                     <img
@@ -430,7 +451,7 @@ export default function Home() {
                   {/* Product Name */}
                   <h3 style={{
                     fontSize: '16px',
-                    fontWeight: '700',
+                    fontWeight: '600',
                     marginBottom: '6px',
                     letterSpacing: '-0.3px',
                   }}>
@@ -440,7 +461,7 @@ export default function Home() {
                   {/* Category */}
                   <p style={{
                     fontSize: '13px',
-                    color: '#79747e',
+                    color: '#86868b',
                     marginBottom: '8px',
                     letterSpacing: '-0.2px',
                   }}>
@@ -458,30 +479,34 @@ export default function Home() {
                 right: '0',
                 top: '50%',
                 transform: 'translateY(-50%)',
-                background: '#000000',
-                border: 'none',
-                width: '44px',
-                height: '44px',
+                background: '#ffffff',
+                border: '1px solid #e0e0e0',
+                width: '48px',
+                height: '48px',
                 borderRadius: '50%',
-                color: 'white',
-                fontSize: '20px',
+                color: '#000',
+                fontSize: '18px',
                 cursor: 'pointer',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
                 zIndex: 10,
-                boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
+                boxShadow: '0 2px 12px rgba(0, 0, 0, 0.08)',
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.background = '#424245';
-                e.currentTarget.style.transform = 'translateY(-50%) scale(1.08)';
-                e.currentTarget.style.boxShadow = '0 8px 20px rgba(0, 0, 0, 0.25)';
+                e.currentTarget.style.background = '#000';
+                e.currentTarget.style.color = '#fff';
+                e.currentTarget.style.borderColor = '#000';
+                e.currentTarget.style.transform = 'translateY(-50%) scale(1.05)';
+                e.currentTarget.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.15)';
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.background = '#000000';
+                e.currentTarget.style.background = '#ffffff';
+                e.currentTarget.style.color = '#000';
+                e.currentTarget.style.borderColor = '#e0e0e0';
                 e.currentTarget.style.transform = 'translateY(-50%) scale(1)';
-                e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.15)';
+                e.currentTarget.style.boxShadow = '0 2px 12px rgba(0, 0, 0, 0.08)';
               }}
             >
               <ModernArrowRight />
