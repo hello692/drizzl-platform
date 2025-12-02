@@ -51,7 +51,7 @@ const AnimatedMenuItem = ({ label, href, index }: { label: string; href: string;
       } else {
         clearInterval(interval);
       }
-    }, 30);
+    }, 40);
 
     return () => clearInterval(interval);
   }, [label]);
@@ -59,28 +59,29 @@ const AnimatedMenuItem = ({ label, href, index }: { label: string; href: string;
   return (
     <Link
       href={href}
+      onClick={() => {}}
       style={{
-        fontSize: '28px',
+        fontSize: '44px',
         fontWeight: '700',
         fontFamily: "'Space Mono', monospace",
         textTransform: 'uppercase',
-        letterSpacing: '0.5px',
+        letterSpacing: '1px',
         color: '#1a1a1a',
         textDecoration: 'none',
-        transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+        transition: 'all 0.3s ease-out',
         display: 'block',
-        minHeight: '40px',
-        animation: `slideDown 0.5s cubic-bezier(0.4, 0, 0.2, 1) ${index * 0.08}s both`,
+        minHeight: '52px',
+        animation: `slideDownMenu 0.5s cubic-bezier(0.4, 0, 0.2, 1) ${index * 0.1}s both`,
       }}
       onMouseEnter={(e) => {
         e.currentTarget.style.color = '#d4af00';
-        e.currentTarget.style.textShadow = '0 0 15px rgba(212, 175, 0, 0.4)';
-        e.currentTarget.style.transform = 'translateX(12px)';
+        e.currentTarget.style.textShadow = '0 0 20px rgba(212, 175, 0, 0.6)';
+        e.currentTarget.style.transform = 'scale(1.05)';
       }}
       onMouseLeave={(e) => {
         e.currentTarget.style.color = '#1a1a1a';
         e.currentTarget.style.textShadow = 'none';
-        e.currentTarget.style.transform = 'translateX(0)';
+        e.currentTarget.style.transform = 'scale(1)';
       }}
     >
       {displayedText}
@@ -163,54 +164,90 @@ export default function Navbar() {
       </nav>
 
       {menuOpen && (
-        <div
-          style={{
-            position: 'fixed',
-            top: 60,
-            left: 0,
-            right: 0,
-            width: '100%',
-            background: '#f0ed7f',
-            zIndex: 99,
-            animation: 'dropdownSlide 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards',
-            overflow: 'visible',
-          }}
-        >
-          <svg style={{ position: 'absolute', top: '-40px', left: 0, right: 0, width: '100%', height: '60px' }} viewBox="0 0 1000 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <linearGradient id="dropGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stopColor="#f0ed7f" stopOpacity="1" />
-                <stop offset="100%" stopColor="#f0ed7f" stopOpacity="0.9" />
-              </linearGradient>
-            </defs>
-            <path d="M 0,30 Q 50,5 100,25 T 200,20 Q 250,0 300,25 T 400,15 Q 450,0 500,30 T 600,20 Q 650,0 700,25 T 800,15 Q 850,0 900,25 T 1000,20 L 1000,60 L 0,60 Z" fill="url(#dropGradient)" />
-            <path d="M 100,25 Q 95,40 100,55" stroke="#f0ed7f" strokeWidth="8" fill="none" opacity="0.6" />
-            <path d="M 350,25 Q 345,42 350,58" stroke="#f0ed7f" strokeWidth="8" fill="none" opacity="0.5" />
-            <path d="M 550,30 Q 545,45 550,60" stroke="#f0ed7f" strokeWidth="8" fill="none" opacity="0.6" />
-            <path d="M 750,25 Q 745,42 750,58" stroke="#f0ed7f" strokeWidth="8" fill="none" opacity="0.5" />
-            <path d="M 900,25 Q 895,40 900,55" stroke="#f0ed7f" strokeWidth="8" fill="none" opacity="0.6" />
-          </svg>
+        <>
+          <div
+            onClick={() => setMenuOpen(false)}
+            style={{
+              position: 'fixed',
+              top: 60,
+              left: 0,
+              right: 0,
+              width: '100%',
+              background: '#f0ed7f',
+              zIndex: 99,
+              animation: 'dropdownOpen 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards',
+              minHeight: '400px',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'center',
+              overflow: 'visible',
+            }}
+          >
+            {/* Dripping SVG at top */}
+            <svg 
+              style={{ 
+                position: 'absolute', 
+                top: '-80px', 
+                left: 0, 
+                right: 0, 
+                width: '100%', 
+                height: '100px',
+                pointerEvents: 'none'
+              }} 
+              viewBox="0 0 1000 100" 
+              preserveAspectRatio="none" 
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <defs>
+                <linearGradient id="dripTop" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stopColor="#f0ed7f" stopOpacity="1" />
+                  <stop offset="100%" stopColor="#f0ed7f" stopOpacity="0.8" />
+                </linearGradient>
+              </defs>
+              {/* Wavy top */}
+              <path d="M 0,40 Q 50,0 100,30 T 200,25 Q 250,0 300,35 T 400,20 Q 450,0 500,40 T 600,25 Q 650,0 700,35 T 800,20 Q 850,0 900,30 T 1000,25 L 1000,100 L 0,100 Z" fill="url(#dripTop)" />
+              
+              {/* Large hanging drips */}
+              <ellipse cx="120" cy="45" rx="14" ry="35" fill="#f0ed7f" opacity="0.9" />
+              <path d="M 120,80 Q 115,95 118,105" stroke="#f0ed7f" strokeWidth="10" fill="none" opacity="0.7" strokeLinecap="round" />
+              
+              <ellipse cx="380" cy="40" rx="16" ry="40" fill="#f0ed7f" opacity="0.85" />
+              <path d="M 380,80 Q 375,98 378,110" stroke="#f0ed7f" strokeWidth="11" fill="none" opacity="0.65" strokeLinecap="round" />
+              
+              <ellipse cx="620" cy="45" rx="15" ry="38" fill="#f0ed7f" opacity="0.9" />
+              <path d="M 620,83 Q 615,100 618,112" stroke="#f0ed7f" strokeWidth="10" fill="none" opacity="0.7" strokeLinecap="round" />
+              
+              <ellipse cx="880" cy="40" rx="14" ry="36" fill="#f0ed7f" opacity="0.85" />
+              <path d="M 880,76 Q 875,92 878,105" stroke="#f0ed7f" strokeWidth="10" fill="none" opacity="0.65" strokeLinecap="round" />
+            </svg>
 
-          <div style={{
-            maxWidth: '1320px',
-            margin: '0 auto',
-            padding: '40px 60px 60px 60px',
-            display: 'grid',
-            gridTemplateColumns: 'repeat(2, 1fr)',
-            gap: '40px 80px',
-          }}>
-            {menuItems.map((item, index) => (
-              <AnimatedMenuItem key={item.href} label={item.label} href={item.href} index={index} />
-            ))}
+            {/* Menu items centered */}
+            <div style={{ 
+              display: 'flex', 
+              flexDirection: 'column', 
+              gap: '32px', 
+              alignItems: 'center',
+              justifyContent: 'center',
+              zIndex: 10,
+              paddingTop: '60px',
+              paddingBottom: '80px',
+            }}>
+              {menuItems.map((item, index) => (
+                <div key={item.href} onClick={() => setMenuOpen(false)}>
+                  <AnimatedMenuItem label={item.label} href={item.href} index={index} />
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
+        </>
       )}
 
       <style>{`
-        @keyframes dropdownSlide {
+        @keyframes dropdownOpen {
           from {
             opacity: 0;
-            transform: translateY(-20px);
+            transform: translateY(-30px);
           }
           to {
             opacity: 1;
@@ -218,10 +255,10 @@ export default function Navbar() {
           }
         }
 
-        @keyframes slideDown {
+        @keyframes slideDownMenu {
           from {
             opacity: 0;
-            transform: translateY(-10px);
+            transform: translateY(-20px);
           }
           to {
             opacity: 1;
