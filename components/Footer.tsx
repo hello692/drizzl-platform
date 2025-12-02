@@ -3,9 +3,9 @@ import Link from 'next/link';
 export default function Footer() {
   return (
     <footer style={{
-      background: '#f9f9f9',
-      borderTop: '1px solid #e8e8e8',
-      padding: '80px 40px 40px 40px',
+      background: '#f5f5f5',
+      borderTop: '1px solid #e0e0e0',
+      padding: '120px 60px 60px 60px',
     }}>
       <div style={{
         maxWidth: '1280px',
