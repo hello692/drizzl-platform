@@ -145,10 +145,6 @@ export default function Navbar() {
               Support
             </Link>
 
-            <button style={{ padding: '0', border: 'none', background: 'none', color: '#000', cursor: 'pointer', opacity: 0.6, transition: 'all 1s cubic-bezier(0.32, 0, 0.67, 0)', fontSize: '16px', display: 'flex', alignItems: 'center' }} onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')} onMouseLeave={(e) => (e.currentTarget.style.opacity = '0.6')}>
-              ○
-            </button>
-
             <div style={{ position: 'relative' }}>
               <button 
                 onClick={toggleLang}
