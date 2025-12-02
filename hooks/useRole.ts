@@ -3,6 +3,8 @@ import { useRouter } from 'next/router';
 import { useAuth } from './useAuth';
 import { supabase, UserRole } from '../lib/supabaseClient';
 
+const isDevelopment = process.env.NODE_ENV === 'development';
+
 export function useRole() {
   const { user, loading: authLoading } = useAuth();
   const [role, setRole] = useState<UserRole | null>(null);
@@ -68,7 +70,32 @@ export function useRequireRole(requiredRole: UserRole | UserRole[]) {
 }
 
 export function useRequireAdmin() {
-  return useRequireRole('admin');
+  const { user, role, loading } = useRole();
+  const router = useRouter();
+  const [authorized, setAuthorized] = useState(false);
+
+  useEffect(() => {
+    if (loading) return;
+
+    if (isDevelopment) {
+      setAuthorized(true);
+      return;
+    }
+
+    if (!user) {
+      router.push('/auth');
+      return;
+    }
+
+    if (role !== 'admin') {
+      router.push('/');
+      return;
+    }
+
+    setAuthorized(true);
+  }, [user, role, loading, router]);
+
+  return { user, role, loading, authorized };
 }
 
 export function useRequirePartner() {

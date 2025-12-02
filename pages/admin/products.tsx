@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRequireAdmin } from '../../hooks/useRole';
-import { getProducts, createProduct, updateProduct, deleteProduct } from '../../lib/db';
 import { Product } from '../../lib/supabaseClient';
 
 export default function AdminProducts() {
   const { loading, authorized } = useRequireAdmin();
   const [products, setProducts] = useState<Product[]>([]);
   const [loadingProducts, setLoadingProducts] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [showForm, setShowForm] = useState(false);
   const [editingProduct, setEditingProduct] = useState<Product | null>(null);
+  const [saving, setSaving] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     slug: '',
@@ -29,10 +30,18 @@ export default function AdminProducts() {
 
   async function loadProducts() {
     try {
-      const data = await getProducts(false);
-      setProducts(data);
-    } catch (error) {
-      console.error('Error loading products:', error);
+      const response = await fetch('/api/admin/products');
+      const data = await response.json();
+      setProducts(data.products || []);
+      if (data.message) {
+        setError(data.message);
+      } else {
+        setError(null);
+      }
+    } catch (err) {
+      console.error('Error loading products:', err);
+      setError('Unable to load products');
+      setProducts([]);
     } finally {
       setLoadingProducts(false);
     }
@@ -70,33 +79,59 @@ export default function AdminProducts() {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+    setSaving(true);
     try {
       if (editingProduct) {
-        await updateProduct(editingProduct.id, formData);
+        const response = await fetch(`/api/admin/products?id=${editingProduct.id}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(formData),
+        });
+        if (!response.ok) {
+          throw new Error('Failed to update product');
+        }
       } else {
-        await createProduct(formData);
+        const response = await fetch('/api/admin/products', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(formData),
+        });
+        if (!response.ok) {
+          throw new Error('Failed to create product');
+        }
       }
       setShowForm(false);
       loadProducts();
-    } catch (error) {
-      console.error('Error saving product:', error);
+    } catch (err) {
+      console.error('Error saving product:', err);
       alert('Error saving product');
+    } finally {
+      setSaving(false);
     }
   }
 
   async function handleDelete(id: string) {
     if (!confirm('Are you sure you want to delete this product?')) return;
     try {
-      await deleteProduct(id);
+      const response = await fetch(`/api/admin/products?id=${id}`, {
+        method: 'DELETE',
+      });
+      if (!response.ok) {
+        throw new Error('Failed to delete product');
+      }
       loadProducts();
-    } catch (error) {
-      console.error('Error deleting product:', error);
+    } catch (err) {
+      console.error('Error deleting product:', err);
       alert('Error deleting product');
     }
   }
 
-  if (loading || !authorized) {
+  if (loading) {
     return <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#f5f5f5' }}><p>Loading...</p></div>;
+  }
+
+  if (!authorized) {
+    return <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#f5f5f5' }}><p>Checking authorization...</p></div>;
   }
 
   return (
@@ -122,6 +157,12 @@ export default function AdminProducts() {
             background: '#000', color: '#fff', border: 'none', padding: '12px 24px', borderRadius: '8px', fontSize: '14px', fontWeight: '600', cursor: 'pointer'
           }}>Add Product</button>
         </div>
+
+        {error && (
+          <div style={{ background: '#fff3e0', border: '1px solid #ffcc02', borderRadius: '8px', padding: '16px', marginBottom: '24px' }}>
+            <p style={{ color: '#e65100', fontSize: '14px' }}>{error}</p>
+          </div>
+        )}
 
         {showForm && (
           <div style={{ background: '#fff', borderRadius: '12px', padding: '32px', marginBottom: '32px', boxShadow: '0 1px 3px rgba(0,0,0,0.08)' }}>
@@ -170,8 +211,8 @@ export default function AdminProducts() {
                 </div>
               </div>
               <div style={{ display: 'flex', gap: '12px', marginTop: '24px' }}>
-                <button type="submit" style={{ background: '#000', color: '#fff', border: 'none', padding: '10px 20px', borderRadius: '6px', fontSize: '14px', fontWeight: '600', cursor: 'pointer' }}>
-                  {editingProduct ? 'Save Changes' : 'Create Product'}
+                <button type="submit" disabled={saving} style={{ background: '#000', color: '#fff', border: 'none', padding: '10px 20px', borderRadius: '6px', fontSize: '14px', fontWeight: '600', cursor: saving ? 'default' : 'pointer', opacity: saving ? 0.7 : 1 }}>
+                  {saving ? 'Saving...' : editingProduct ? 'Save Changes' : 'Create Product'}
                 </button>
                 <button type="button" onClick={() => setShowForm(false)} style={{ background: '#f5f5f5', color: '#000', border: 'none', padding: '10px 20px', borderRadius: '6px', fontSize: '14px', cursor: 'pointer' }}>Cancel</button>
               </div>

@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRequireAdmin } from '../../hooks/useRole';
-import { getOrders, updateOrderStatus } from '../../lib/db';
 
 export default function AdminOrders() {
   const { loading, authorized } = useRequireAdmin();
   const [orders, setOrders] = useState<any[]>([]);
   const [loadingOrders, setLoadingOrders] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [filter, setFilter] = useState<'all' | 'd2c' | 'b2b'>('all');
   const [statusFilter, setStatusFilter] = useState<string>('all');
+  const [updating, setUpdating] = useState<string | null>(null);
 
   useEffect(() => {
     if (authorized) {
@@ -19,31 +20,55 @@ export default function AdminOrders() {
   async function loadOrders() {
     setLoadingOrders(true);
     try {
-      const filters: any = {};
-      if (filter !== 'all') filters.orderType = filter;
-      if (statusFilter !== 'all') filters.status = statusFilter;
+      const params = new URLSearchParams();
+      if (filter !== 'all') params.append('orderType', filter);
+      if (statusFilter !== 'all') params.append('status', statusFilter);
       
-      const data = await getOrders(filters);
-      setOrders(data || []);
-    } catch (error) {
-      console.error('Error loading orders:', error);
+      const response = await fetch(`/api/admin/orders?${params.toString()}`);
+      const data = await response.json();
+      setOrders(data.orders || []);
+      if (data.message) {
+        setError(data.message);
+      } else {
+        setError(null);
+      }
+    } catch (err) {
+      console.error('Error loading orders:', err);
+      setError('Unable to load orders');
+      setOrders([]);
     } finally {
       setLoadingOrders(false);
     }
   }
 
   async function handleStatusChange(orderId: string, newStatus: string) {
+    setUpdating(orderId);
     try {
-      await updateOrderStatus(orderId, newStatus as any);
+      const response = await fetch('/api/admin/orders', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ orderId, status: newStatus }),
+      });
+      
+      if (!response.ok) {
+        throw new Error('Failed to update order status');
+      }
+      
       loadOrders();
-    } catch (error) {
-      console.error('Error updating order:', error);
+    } catch (err) {
+      console.error('Error updating order:', err);
       alert('Error updating order status');
+    } finally {
+      setUpdating(null);
     }
   }
 
-  if (loading || !authorized) {
+  if (loading) {
     return <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#f5f5f5' }}><p>Loading...</p></div>;
+  }
+
+  if (!authorized) {
+    return <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#f5f5f5' }}><p>Checking authorization...</p></div>;
   }
 
   return (
@@ -82,6 +107,12 @@ export default function AdminOrders() {
           </div>
         </div>
 
+        {error && (
+          <div style={{ background: '#fff3e0', border: '1px solid #ffcc02', borderRadius: '8px', padding: '16px', marginBottom: '24px' }}>
+            <p style={{ color: '#e65100', fontSize: '14px' }}>{error}</p>
+          </div>
+        )}
+
         <div style={{ background: '#fff', borderRadius: '12px', overflow: 'hidden', boxShadow: '0 1px 3px rgba(0,0,0,0.08)' }}>
           <table style={{ width: '100%', borderCollapse: 'collapse' }}>
             <thead>
@@ -111,15 +142,16 @@ export default function AdminOrders() {
                     </td>
                     <td style={{ padding: '16px' }}>
                       <span style={{ display: 'inline-block', padding: '4px 10px', borderRadius: '20px', fontSize: '12px', fontWeight: '500', background: order.order_type === 'b2b' ? '#e3f2fd' : '#f5f5f5', color: order.order_type === 'b2b' ? '#1565c0' : '#666' }}>
-                        {order.order_type.toUpperCase()}
+                        {order.order_type?.toUpperCase() || 'N/A'}
                       </span>
                     </td>
-                    <td style={{ padding: '16px', fontSize: '14px', fontWeight: '600' }}>${(order.total_cents / 100).toFixed(2)}</td>
+                    <td style={{ padding: '16px', fontSize: '14px', fontWeight: '600' }}>${((order.total_cents || 0) / 100).toFixed(2)}</td>
                     <td style={{ padding: '16px' }}>
                       <select 
                         value={order.status} 
                         onChange={(e) => handleStatusChange(order.id, e.target.value)}
-                        style={{ padding: '6px 12px', border: '1px solid #ddd', borderRadius: '6px', fontSize: '13px', background: getStatusColor(order.status).bg, color: getStatusColor(order.status).text }}
+                        disabled={updating === order.id}
+                        style={{ padding: '6px 12px', border: '1px solid #ddd', borderRadius: '6px', fontSize: '13px', background: getStatusColor(order.status).bg, color: getStatusColor(order.status).text, opacity: updating === order.id ? 0.7 : 1 }}
                       >
                         <option value="pending">Pending</option>
                         <option value="paid">Paid</option>

@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRequireAdmin } from '../../hooks/useRole';
-import { getOrderStats } from '../../lib/db';
-import { getAnalyticsSummary, getRevenueStats } from '../../lib/analytics';
 
 interface DashboardStats {
   totalOrders: number;
@@ -16,25 +14,28 @@ export default function AdminDashboard() {
   const { user, loading, authorized } = useRequireAdmin();
   const [stats, setStats] = useState<DashboardStats | null>(null);
   const [loadingStats, setLoadingStats] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     async function loadStats() {
       try {
-        const [orderStats, analyticsSummary, revenueStats] = await Promise.all([
-          getOrderStats(),
-          getAnalyticsSummary(),
-          getRevenueStats(),
-        ]);
-
+        const response = await fetch('/api/admin/stats');
+        if (!response.ok) {
+          throw new Error('Failed to fetch stats');
+        }
+        const data = await response.json();
+        setStats(data);
+        setError(null);
+      } catch (err) {
+        console.error('Error loading stats:', err);
+        setError('Unable to load dashboard statistics');
         setStats({
-          totalOrders: orderStats.totalOrders,
-          totalRevenue: revenueStats.totalRevenue,
-          d2cOrders: analyticsSummary.d2cOrders,
-          b2bOrders: analyticsSummary.b2bOrders,
-          ordersLast7Days: analyticsSummary.ordersLast7Days,
+          totalOrders: 0,
+          totalRevenue: 0,
+          d2cOrders: 0,
+          b2bOrders: 0,
+          ordersLast7Days: 0,
         });
-      } catch (error) {
-        console.error('Error loading stats:', error);
       } finally {
         setLoadingStats(false);
       }
@@ -45,10 +46,18 @@ export default function AdminDashboard() {
     }
   }, [authorized]);
 
-  if (loading || !authorized) {
+  if (loading) {
     return (
       <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#f5f5f5' }}>
         <p>Loading...</p>
+      </div>
+    );
+  }
+
+  if (!authorized) {
+    return (
+      <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#f5f5f5' }}>
+        <p>Checking authorization...</p>
       </div>
     );
   }
@@ -72,8 +81,14 @@ export default function AdminDashboard() {
       <main style={{ padding: '40px', maxWidth: '1400px', margin: '0 auto' }}>
         <div style={{ marginBottom: '40px' }}>
           <h1 style={{ fontSize: '32px', fontWeight: '700', marginBottom: '8px', letterSpacing: '-0.5px' }}>Dashboard</h1>
-          <p style={{ color: '#666', fontSize: '14px' }}>Welcome back, {user?.email}</p>
+          <p style={{ color: '#666', fontSize: '14px' }}>Welcome back{user?.email ? `, ${user.email}` : ''}</p>
         </div>
+
+        {error && (
+          <div style={{ background: '#fff3e0', border: '1px solid #ffcc02', borderRadius: '8px', padding: '16px', marginBottom: '24px' }}>
+            <p style={{ color: '#e65100', fontSize: '14px' }}>{error}</p>
+          </div>
+        )}
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '24px', marginBottom: '40px' }}>
           <StatCard

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRequireAdmin } from '../../hooks/useRole';
-import { supabase } from '../../lib/supabaseClient';
 
 interface ApplicationData {
   legalBusinessName?: string;
@@ -98,6 +97,7 @@ export default function AdminPartners() {
   const { user, loading, authorized } = useRequireAdmin();
   const [partners, setPartners] = useState<Partner[]>([]);
   const [loadingData, setLoadingData] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [filter, setFilter] = useState<string>('all');
   const [selectedPartner, setSelectedPartner] = useState<Partner | null>(null);
   const [showDetail, setShowDetail] = useState(false);
@@ -115,16 +115,18 @@ export default function AdminPartners() {
   async function loadPartners() {
     setLoadingData(true);
     try {
-      const { data, error } = await supabase
-        .from('retail_partners')
-        .select('*')
-        .order('created_at', { ascending: false });
-
-      if (!error && data) {
-        setPartners(data);
+      const response = await fetch('/api/admin/partners');
+      const data = await response.json();
+      setPartners(data.partners || []);
+      if (data.message) {
+        setError(data.message);
+      } else {
+        setError(null);
       }
     } catch (err) {
       console.error('Error loading partners:', err);
+      setError('Unable to load partners');
+      setPartners([]);
     } finally {
       setLoadingData(false);
     }
@@ -140,7 +142,7 @@ export default function AdminPartners() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           status: newStatus,
-          adminId: user.id,
+          adminId: user.id || 'dev-admin',
           adminNotes: notes || adminNotes,
           rejectionReason: newStatus === 'rejected' ? rejectionReason : undefined,
         }),
@@ -167,8 +169,12 @@ export default function AdminPartners() {
 
   const pendingCount = partners.filter(p => p.status === 'pending').length;
 
-  if (loading || !authorized) {
+  if (loading) {
     return <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#f5f5f5' }}><p>Loading...</p></div>;
+  }
+
+  if (!authorized) {
+    return <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#f5f5f5' }}><p>Checking authorization...</p></div>;
   }
 
   return (
@@ -195,6 +201,12 @@ export default function AdminPartners() {
             </p>
           </div>
         </div>
+
+        {error && (
+          <div style={{ background: '#fff3e0', border: '1px solid #ffcc02', borderRadius: '8px', padding: '16px', marginBottom: '24px' }}>
+            <p style={{ color: '#e65100', fontSize: '14px' }}>{error}</p>
+          </div>
+        )}
 
         <div style={{ display: 'flex', gap: '8px', marginBottom: '24px', flexWrap: 'wrap' }}>
           {['all', 'pending', 'approved', 'rejected', 'suspended'].map(status => (
@@ -430,9 +442,9 @@ export default function AdminPartners() {
                     <button
                       onClick={() => updatePartnerStatus(selectedPartner.id, 'approved', 'Account reactivated by admin')}
                       disabled={actionLoading}
-                      style={{ padding: '14px 24px', background: '#1e7e34', color: '#fff', border: 'none', borderRadius: '8px', fontSize: '14px', fontWeight: '600', cursor: actionLoading ? 'default' : 'pointer' }}
+                      style={{ padding: '14px 24px', background: '#1e7e34', color: '#fff', border: 'none', borderRadius: '8px', fontSize: '14px', fontWeight: '600', cursor: actionLoading ? 'default' : 'pointer', opacity: actionLoading ? 0.7 : 1 }}
                     >
-                      Approve / Reactivate
+                      {actionLoading ? 'Processing...' : 'Reactivate Partner'}
                     </button>
                   </div>
                 )}
@@ -442,32 +454,32 @@ export default function AdminPartners() {
         );
       })()}
 
-      {showRejectionModal && (
-        <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0,0,0,0.7)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1001 }}>
-          <div style={{ background: '#fff', borderRadius: '16px', padding: '32px', width: '90%', maxWidth: '500px' }}>
-            <h3 style={{ fontSize: '18px', fontWeight: '600', marginBottom: '16px' }}>Reject Application</h3>
+      {showRejectionModal && selectedPartner && (
+        <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0,0,0,0.7)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1100, padding: '20px' }}>
+          <div style={{ background: '#fff', borderRadius: '16px', width: '100%', maxWidth: '500px', padding: '32px' }}>
+            <h3 style={{ fontSize: '20px', fontWeight: '700', marginBottom: '16px' }}>Reject Application</h3>
             <p style={{ color: '#666', fontSize: '14px', marginBottom: '20px' }}>
-              Please provide a reason for rejecting this application. This will be shared with the applicant.
+              Please provide a reason for rejecting this application. This will be visible to the applicant.
             </p>
             <textarea
               value={rejectionReason}
               onChange={(e) => setRejectionReason(e.target.value)}
               placeholder="Reason for rejection..."
-              style={{ width: '100%', padding: '12px', border: '1px solid #ddd', borderRadius: '8px', fontSize: '14px', minHeight: '100px', resize: 'vertical', marginBottom: '20px', boxSizing: 'border-box' }}
+              style={{ width: '100%', padding: '12px', border: '1px solid #ddd', borderRadius: '8px', fontSize: '14px', minHeight: '120px', resize: 'vertical', marginBottom: '24px', boxSizing: 'border-box' }}
             />
             <div style={{ display: 'flex', gap: '12px' }}>
               <button
-                onClick={() => { setShowRejectionModal(false); setRejectionReason(''); }}
-                style={{ flex: 1, padding: '12px', background: '#f5f5f5', color: '#333', border: 'none', borderRadius: '8px', fontSize: '14px', fontWeight: '600', cursor: 'pointer' }}
-              >
-                Cancel
-              </button>
-              <button
-                onClick={() => selectedPartner && updatePartnerStatus(selectedPartner.id, 'rejected')}
-                disabled={!rejectionReason.trim() || actionLoading}
-                style={{ flex: 1, padding: '12px', background: rejectionReason.trim() ? '#c53929' : '#ccc', color: '#fff', border: 'none', borderRadius: '8px', fontSize: '14px', fontWeight: '600', cursor: rejectionReason.trim() && !actionLoading ? 'pointer' : 'default' }}
+                onClick={() => updatePartnerStatus(selectedPartner.id, 'rejected')}
+                disabled={actionLoading || !rejectionReason.trim()}
+                style={{ flex: 1, padding: '14px', background: '#c53929', color: '#fff', border: 'none', borderRadius: '8px', fontSize: '14px', fontWeight: '600', cursor: actionLoading || !rejectionReason.trim() ? 'default' : 'pointer', opacity: actionLoading || !rejectionReason.trim() ? 0.7 : 1 }}
               >
                 {actionLoading ? 'Processing...' : 'Confirm Rejection'}
+              </button>
+              <button
+                onClick={() => { setShowRejectionModal(false); setRejectionReason(''); }}
+                style={{ padding: '14px 24px', background: '#f5f5f5', color: '#000', border: 'none', borderRadius: '8px', fontSize: '14px', cursor: 'pointer' }}
+              >
+                Cancel
               </button>
             </div>
           </div>

@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRequireAdmin } from '../../hooks/useRole';
-import { getAnalyticsSummary, getRevenueStats, getTopProducts } from '../../lib/analytics';
-import { supabase } from '../../lib/supabaseClient';
 
 export default function AdminAnalytics() {
   const { loading, authorized } = useRequireAdmin();
@@ -11,6 +9,7 @@ export default function AdminAnalytics() {
   const [topProducts, setTopProducts] = useState<any[]>([]);
   const [recentEvents, setRecentEvents] = useState<any[]>([]);
   const [loadingData, setLoadingData] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     if (authorized) {
@@ -20,26 +19,48 @@ export default function AdminAnalytics() {
 
   async function loadAnalytics() {
     try {
-      const [statsData, revenueData, topProductsData, eventsData] = await Promise.all([
-        getAnalyticsSummary(),
-        getRevenueStats(),
-        getTopProducts(5),
-        supabase.from('analytics_events').select('*').order('created_at', { ascending: false }).limit(20),
-      ]);
-
-      setStats(statsData);
-      setRevenue(revenueData);
-      setTopProducts(topProductsData);
-      setRecentEvents(eventsData.data || []);
-    } catch (error) {
-      console.error('Error loading analytics:', error);
+      const response = await fetch('/api/admin/analytics');
+      const data = await response.json();
+      
+      setStats(data.stats || {
+        ordersLast7Days: 0,
+        d2cOrders: 0,
+        b2bOrders: 0,
+      });
+      setRevenue(data.revenue || {
+        totalRevenue: 0,
+        d2cRevenue: 0,
+        b2bRevenue: 0,
+      });
+      setTopProducts(data.topProducts || []);
+      setRecentEvents(data.recentEvents || []);
+      setError(null);
+    } catch (err) {
+      console.error('Error loading analytics:', err);
+      setError('Unable to load analytics data');
+      setStats({
+        ordersLast7Days: 0,
+        d2cOrders: 0,
+        b2bOrders: 0,
+      });
+      setRevenue({
+        totalRevenue: 0,
+        d2cRevenue: 0,
+        b2bRevenue: 0,
+      });
+      setTopProducts([]);
+      setRecentEvents([]);
     } finally {
       setLoadingData(false);
     }
   }
 
-  if (loading || !authorized) {
+  if (loading) {
     return <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#f5f5f5' }}><p>Loading...</p></div>;
+  }
+
+  if (!authorized) {
+    return <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#f5f5f5' }}><p>Checking authorization...</p></div>;
   }
 
   return (
@@ -60,6 +81,12 @@ export default function AdminAnalytics() {
           <h1 style={{ fontSize: '28px', fontWeight: '700', marginBottom: '4px' }}>Analytics</h1>
           <p style={{ color: '#666', fontSize: '14px' }}>Performance metrics and insights</p>
         </div>
+
+        {error && (
+          <div style={{ background: '#fff3e0', border: '1px solid #ffcc02', borderRadius: '8px', padding: '16px', marginBottom: '24px' }}>
+            <p style={{ color: '#e65100', fontSize: '14px' }}>{error}</p>
+          </div>
+        )}
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '24px', marginBottom: '40px' }}>
           <StatCard title="Orders (7 days)" value={stats?.ordersLast7Days || 0} loading={loadingData} />
