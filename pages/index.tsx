@@ -34,8 +34,9 @@ export default function Home() {
   const [featuredProducts, setFeaturedProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const carouselRef = useRef<HTMLDivElement>(null);
-  const [canScrollLeft, setCanScrollLeft] = useState(false);
-  const [canScrollRight, setCanScrollRight] = useState(true);
+  const [isDragging, setIsDragging] = useState(false);
+  const [startX, setStartX] = useState(0);
+  const [scrollLeft, setScrollLeft] = useState(0);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -62,25 +63,70 @@ export default function Home() {
         left: direction === 'left' ? -scrollAmount : scrollAmount,
         behavior: 'smooth',
       });
-      setTimeout(checkScroll, 600);
     }
   };
 
-  const checkScroll = () => {
+  // Touch and drag handlers
+  const handleMouseDown = (e: React.MouseEvent) => {
     if (carouselRef.current) {
-      setCanScrollLeft(carouselRef.current.scrollLeft > 0);
-      setCanScrollRight(
-        carouselRef.current.scrollLeft < 
-        carouselRef.current.scrollWidth - carouselRef.current.clientWidth - 10
-      );
+      setIsDragging(true);
+      setStartX(e.pageX - carouselRef.current.offsetLeft);
+      setScrollLeft(carouselRef.current.scrollLeft);
     }
   };
 
-  useEffect(() => {
-    checkScroll();
-    carouselRef.current?.addEventListener('scroll', checkScroll);
-    return () => carouselRef.current?.removeEventListener('scroll', checkScroll);
-  }, []);
+  const handleMouseLeave = () => {
+    setIsDragging(false);
+  };
+
+  const handleMouseUp = () => {
+    setIsDragging(false);
+  };
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!isDragging || !carouselRef.current) return;
+    e.preventDefault();
+    const x = e.pageX - carouselRef.current.offsetLeft;
+    const walk = (x - startX) * 1.5;
+    carouselRef.current.scrollLeft = scrollLeft - walk;
+  };
+
+  // Touch handlers for mobile
+  const handleTouchStart = (e: React.TouchEvent) => {
+    if (carouselRef.current) {
+      setIsDragging(true);
+      setStartX(e.touches[0].pageX - carouselRef.current.offsetLeft);
+      setScrollLeft(carouselRef.current.scrollLeft);
+    }
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    if (!isDragging || !carouselRef.current) return;
+    const x = e.touches[0].pageX - carouselRef.current.offsetLeft;
+    const walk = (x - startX) * 1.5;
+    carouselRef.current.scrollLeft = scrollLeft - walk;
+  };
+
+  const handleTouchEnd = () => {
+    setIsDragging(false);
+  };
+
+  // Infinite scroll handler
+  const handleScroll = () => {
+    if (carouselRef.current) {
+      const { scrollLeft, scrollWidth, clientWidth } = carouselRef.current;
+      const itemWidth = 312; // 280px width + 32px gap
+      
+      // Loop to beginning
+      if (scrollLeft < itemWidth) {
+        carouselRef.current.scrollLeft = scrollWidth - clientWidth - itemWidth * 2;
+      }
+      // Loop to end
+      else if (scrollLeft >= scrollWidth - clientWidth - itemWidth) {
+        carouselRef.current.scrollLeft = itemWidth;
+      }
+    }
+  };
 
   return (
     <>
@@ -189,7 +235,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Our Most Popular - Carousel */}
+      {/* Our Most Popular - Infinite Carousel */}
       <section style={{
         background: '#ffffff',
         padding: '80px 40px',
@@ -218,36 +264,31 @@ export default function Home() {
           </div>
 
           {/* Carousel Container */}
-          <div style={{ position: 'relative' }}>
+          <div style={{ position: 'relative', paddingLeft: '80px', paddingRight: '80px' }}>
             {/* Left Arrow */}
             <button
               onClick={() => scroll('left')}
-              disabled={!canScrollLeft}
               style={{
                 position: 'absolute',
-                left: '-50px',
+                left: '0',
                 top: '50%',
                 transform: 'translateY(-50%)',
-                background: canScrollLeft ? '#000' : '#e8e8e8',
+                background: '#000',
                 border: 'none',
                 width: '40px',
                 height: '40px',
                 borderRadius: '50%',
                 color: 'white',
                 fontSize: '20px',
-                cursor: canScrollLeft ? 'pointer' : 'not-allowed',
+                cursor: 'pointer',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 transition: 'all 0.2s',
                 zIndex: 10,
               }}
-              onMouseEnter={(e) => {
-                if (canScrollLeft) e.currentTarget.style.opacity = '0.8';
-              }}
-              onMouseLeave={(e) => {
-                if (canScrollLeft) e.currentTarget.style.opacity = '1';
-              }}
+              onMouseEnter={(e) => e.currentTarget.style.opacity = '0.8'}
+              onMouseLeave={(e) => e.currentTarget.style.opacity = '1'}
             >
               ←
             </button>
@@ -255,15 +296,24 @@ export default function Home() {
             {/* Carousel */}
             <div
               ref={carouselRef}
+              onMouseDown={handleMouseDown}
+              onMouseLeave={handleMouseLeave}
+              onMouseUp={handleMouseUp}
+              onMouseMove={handleMouseMove}
+              onTouchStart={handleTouchStart}
+              onTouchMove={handleTouchMove}
+              onTouchEnd={handleTouchEnd}
+              onScroll={handleScroll}
               style={{
                 display: 'flex',
                 gap: '32px',
-                overflowX: 'auto',
-                scrollBehavior: 'smooth',
+                overflowX: 'scroll',
+                scrollBehavior: isDragging ? 'auto' : 'smooth',
                 scrollbarWidth: 'none',
                 paddingBottom: '16px',
+                cursor: isDragging ? 'grabbing' : 'grab',
+                userSelect: 'none',
               }}
-              onScroll={checkScroll}
             >
               {POPULAR_SMOOTHIES.map((product) => (
                 <div
@@ -272,6 +322,7 @@ export default function Home() {
                     flexShrink: 0,
                     width: '280px',
                     textAlign: 'center',
+                    pointerEvents: isDragging ? 'none' : 'auto',
                   }}
                 >
                   {/* Product Image */}
@@ -284,6 +335,7 @@ export default function Home() {
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
+                    cursor: 'grab',
                   }}>
                     <img
                       src={product.image}
@@ -292,7 +344,9 @@ export default function Home() {
                         width: '100%',
                         height: '100%',
                         objectFit: 'cover',
+                        userSelect: 'none',
                       }}
+                      draggable={false}
                     />
                   </div>
                   
@@ -338,32 +392,27 @@ export default function Home() {
             {/* Right Arrow */}
             <button
               onClick={() => scroll('right')}
-              disabled={!canScrollRight}
               style={{
                 position: 'absolute',
-                right: '-50px',
+                right: '0',
                 top: '50%',
                 transform: 'translateY(-50%)',
-                background: canScrollRight ? '#000' : '#e8e8e8',
+                background: '#000',
                 border: 'none',
                 width: '40px',
                 height: '40px',
                 borderRadius: '50%',
                 color: 'white',
                 fontSize: '20px',
-                cursor: canScrollRight ? 'pointer' : 'not-allowed',
+                cursor: 'pointer',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 transition: 'all 0.2s',
                 zIndex: 10,
               }}
-              onMouseEnter={(e) => {
-                if (canScrollRight) e.currentTarget.style.opacity = '0.8';
-              }}
-              onMouseLeave={(e) => {
-                if (canScrollRight) e.currentTarget.style.opacity = '1';
-              }}
+              onMouseEnter={(e) => e.currentTarget.style.opacity = '0.8'}
+              onMouseLeave={(e) => e.currentTarget.style.opacity = '1'}
             >
               →
             </button>
