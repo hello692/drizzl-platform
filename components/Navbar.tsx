@@ -141,7 +141,7 @@ export default function Navbar() {
           </div>
 
           <div style={{ display: 'flex', alignItems: 'center', gap: 'clamp(12px, 2vw, 24px)', flex: 0, flexShrink: 0 }}>
-            <Link href="/contact" style={{ fontSize: '13px', fontWeight: '500', color: '#000', padding: '6px 14px', background: '#f5f5f5', borderRadius: '20px', textDecoration: 'none', border: 'none', cursor: 'pointer', transition: 'all 1s cubic-bezier(0.32, 0, 0.67, 0)', display: 'inline-flex', alignItems: 'center', gap: '8px', whiteSpace: 'nowrap' }} onMouseEnter={(e) => { e.currentTarget.style.background = '#ececec'; }} onMouseLeave={(e) => { e.currentTarget.style.background = '#f5f5f5'; }}>
+            <Link href="/retail" style={{ fontSize: '13px', fontWeight: '500', color: '#000', padding: '6px 14px', background: '#f5f5f5', borderRadius: '20px', textDecoration: 'none', border: 'none', cursor: 'pointer', transition: 'all 1s cubic-bezier(0.32, 0, 0.67, 0)', display: 'inline-flex', alignItems: 'center', gap: '8px', whiteSpace: 'nowrap' }} onMouseEnter={(e) => { e.currentTarget.style.background = '#ececec'; }} onMouseLeave={(e) => { e.currentTarget.style.background = '#f5f5f5'; }}>
               Retail Partner Login
               <svg width="14" height="14" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M2 4h16l-1.5 9H3.5L2 4z" />
