@@ -228,12 +228,9 @@ export default function ProductDetail() {
               </p>
 
               {/* Product Name */}
-              <h1 style={{
+              <h1 className="heading-2100 text-glow" style={{
                 fontSize: '56px',
-                fontWeight: '900',
                 margin: '0 0 16px 0',
-                letterSpacing: '-1px',
-                textTransform: 'uppercase',
               }}>
                 {product.name}
               </h1>

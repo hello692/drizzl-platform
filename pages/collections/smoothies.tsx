@@ -28,7 +28,7 @@ export default function Smoothies() {
                 style={{ width: '100%', height: 'auto', borderRadius: '4px' }}
               />
             </div>
-            <h1 style={{ marginBottom: '16px', fontSize: '48px', backgroundImage: 'linear-gradient(135deg, #000 0%, #424245 100%)', backgroundClip: 'text', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>Smoothies</h1>
+            <h1 className="heading-2100 text-glow" style={{ marginBottom: '16px', fontSize: '48px' }}>Smoothies</h1>
             <p style={{ fontSize: '16px', color: '#666', maxWidth: '600px', lineHeight: '1.6' }}>
               It's never been easier—or healthier—to build a delicious daily routine.
             </p>

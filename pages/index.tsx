@@ -174,20 +174,12 @@ export default function Home() {
         alignItems: 'center',
         justifyContent: 'center',
       }}>
-        <h1 className="slide-up" style={{
+        <h1 className="slide-up heading-2100 text-glow" style={{
           fontSize: '64px',
-          fontWeight: '800',
           marginBottom: '32px',
-          letterSpacing: '-1.2px',
           maxWidth: '1000px',
-          color: '#000000',
-          fontFamily: "-apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif",
-          backgroundImage: 'linear-gradient(135deg, #000 0%, #424245 50%, #000 100%)',
-          backgroundClip: 'text',
-          WebkitBackgroundClip: 'text',
-          WebkitTextFillColor: 'transparent',
         }}>
-          Frozen smoothies and bowls for a better you
+          Frozen Smoothies & Bowls
         </h1>
         <p style={{
           fontSize: '17px',

@@ -24,7 +24,7 @@ export default function AuthPage() {
           backdropFilter: 'blur(20px)',
           boxShadow: '0 8px 32px rgba(66, 133, 244, 0.1), inset 0 0 20px rgba(66, 133, 244, 0.05)',
         }}>
-          <h1 style={{ fontSize: '28px', marginBottom: '32px', textAlign: 'center', backgroundImage: 'linear-gradient(135deg, #000 0%, #424245 100%)', backgroundClip: 'text', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>Log In</h1>
+          <h1 className="heading-2100 text-glow" style={{ fontSize: '28px', marginBottom: '32px', textAlign: 'center' }}>LOG IN</h1>
           
           <form style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
             <div>
