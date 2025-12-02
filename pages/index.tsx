@@ -369,22 +369,6 @@ export default function Home() {
                   }}>
                     {product.description}
                   </p>
-
-                  {/* Price */}
-                  <div style={{
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    gap: '12px',
-                  }}>
-                    <span style={{
-                      fontSize: '18px',
-                      fontWeight: '700',
-                      fontFamily: "'DM Sans', sans-serif",
-                    }}>
-                      ${product.price.toFixed(2)}
-                    </span>
-                  </div>
                 </div>
               ))}
             </div>
