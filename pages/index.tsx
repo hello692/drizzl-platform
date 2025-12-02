@@ -165,8 +165,7 @@ export default function Home() {
       <Navbar />
 
       {/* Hero Section */}
-      <section style={{
-        background: '#ffffff',
+      <section className="gradient-animated" style={{
         padding: '140px 60px',
         textAlign: 'center',
         minHeight: '680px',
@@ -175,7 +174,7 @@ export default function Home() {
         alignItems: 'center',
         justifyContent: 'center',
       }}>
-        <h1 style={{
+        <h1 className="slide-up" style={{
           fontSize: '64px',
           fontWeight: '800',
           marginBottom: '32px',
@@ -183,6 +182,10 @@ export default function Home() {
           maxWidth: '1000px',
           color: '#000000',
           fontFamily: "-apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif",
+          backgroundImage: 'linear-gradient(135deg, #000 0%, #424245 50%, #000 100%)',
+          backgroundClip: 'text',
+          WebkitBackgroundClip: 'text',
+          WebkitTextFillColor: 'transparent',
         }}>
           Frozen smoothies and bowls for a better you
         </h1>
@@ -197,26 +200,29 @@ export default function Home() {
         }}>
           Skip the blender. Embrace the possibilities. Order your first smoothie today.
         </p>
-        <Link href="/products" style={{
+        <Link href="/products" className="tech-shine float-animation" style={{
           display: 'inline-block',
           padding: '14px 40px',
-          background: '#000000',
+          background: 'linear-gradient(135deg, #000 0%, #1a1a1a 100%)',
           color: 'white',
           textDecoration: 'none',
           borderRadius: '28px',
           fontSize: '16px',
           fontWeight: '600',
-          transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-          boxShadow: '0 8px 24px rgba(0, 0, 0, 0.15)',
+          transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+          boxShadow: '0 8px 24px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.2)',
           letterSpacing: '-0.3px',
+          border: '1px solid rgba(255, 255, 255, 0.1)',
         }}
           onMouseEnter={(e) => {
-            e.currentTarget.style.boxShadow = '0 12px 32px rgba(0, 0, 0, 0.2)';
-            e.currentTarget.style.transform = 'translateY(-2px)';
+            e.currentTarget.style.boxShadow = '0 20px 40px rgba(66, 133, 244, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.3)';
+            e.currentTarget.style.transform = 'translateY(-4px) scale(1.02)';
+            e.currentTarget.style.background = 'linear-gradient(135deg, #1a1a1a 0%, #000 100%)';
           }}
           onMouseLeave={(e) => {
-            e.currentTarget.style.boxShadow = '0 8px 24px rgba(0, 0, 0, 0.15)';
-            e.currentTarget.style.transform = 'translateY(0)';
+            e.currentTarget.style.boxShadow = '0 8px 24px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.2)';
+            e.currentTarget.style.transform = 'translateY(0) scale(1)';
+            e.currentTarget.style.background = 'linear-gradient(135deg, #000 0%, #1a1a1a 100%)';
           }}
         >
           Order Now
@@ -247,27 +253,28 @@ export default function Home() {
             gap: '28px',
           }}>
             {CATEGORIES.map((category) => (
-              <Link key={category.slug} href={`/products?category=${category.slug}`} style={{
+              <Link key={category.slug} href={`/products?category=${category.slug}`} className="glass tech-shine" style={{
                 padding: '48px 32px',
                 textAlign: 'center',
-                background: '#f8f9fa',
-                border: '1px solid #e8e8e8',
+                background: 'rgba(248, 249, 250, 0.8)',
+                border: '1px solid rgba(255, 255, 255, 0.6)',
                 borderRadius: '16px',
                 textDecoration: 'none',
                 color: '#000',
-                transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+                backdropFilter: 'blur(12px)',
               }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.borderColor = '#d8d8d8';
-                  e.currentTarget.style.boxShadow = '0 12px 28px rgba(0, 0, 0, 0.08)';
-                  e.currentTarget.style.transform = 'translateY(-4px)';
-                  e.currentTarget.style.background = '#ffffff';
+                  e.currentTarget.style.borderColor = 'rgba(66, 133, 244, 0.5)';
+                  e.currentTarget.style.boxShadow = '0 20px 40px rgba(66, 133, 244, 0.2), inset 0 0 20px rgba(66, 133, 244, 0.05)';
+                  e.currentTarget.style.transform = 'translateY(-8px) scale(1.02)';
+                  e.currentTarget.style.background = 'rgba(255, 255, 255, 0.95)';
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.borderColor = '#e8e8e8';
+                  e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.6)';
                   e.currentTarget.style.boxShadow = 'none';
-                  e.currentTarget.style.transform = 'translateY(0)';
-                  e.currentTarget.style.background = '#f8f9fa';
+                  e.currentTarget.style.transform = 'translateY(0) scale(1)';
+                  e.currentTarget.style.background = 'rgba(248, 249, 250, 0.8)';
                 }}
               >
                 <h3 style={{
@@ -395,8 +402,8 @@ export default function Home() {
                   }}
                 >
                   {/* Product Image */}
-                  <div style={{
-                    background: '#f8f9fa',
+                  <div className="tech-shine" style={{
+                    background: 'linear-gradient(135deg, #f8f9fa 0%, #f0f0f0 100%)',
                     borderRadius: '16px',
                     height: '300px',
                     marginBottom: '20px',
@@ -405,8 +412,17 @@ export default function Home() {
                     alignItems: 'center',
                     justifyContent: 'center',
                     cursor: 'pointer',
-                    border: '1px solid #e8e8e8',
-                  }}>
+                    border: '1px solid rgba(224, 224, 224, 0.6)',
+                    boxShadow: 'inset 0 0 20px rgba(66, 133, 244, 0.05)',
+                    transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+                  }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.boxShadow = 'inset 0 0 30px rgba(66, 133, 244, 0.15), 0 0 20px rgba(66, 133, 244, 0.1)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.boxShadow = 'inset 0 0 20px rgba(66, 133, 244, 0.05)';
+                    }}
+                  >
                     <img
                       src={product.image}
                       alt={product.name}
