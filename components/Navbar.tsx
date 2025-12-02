@@ -115,39 +115,22 @@ export default function Navbar() {
         {/* Center: Logo */}
         <div style={{ flex: 1, display: 'flex', justifyContent: 'center' }}>
           <Link href="/" style={{
+            fontSize: '32px',
+            fontWeight: '900',
             textDecoration: 'none',
             color: '#000',
+            letterSpacing: '-0.8px',
+            textTransform: 'uppercase',
+            whiteSpace: 'nowrap',
             transition: 'all 0.2s ease-out',
             fontFamily: "'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif",
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            lineHeight: '1.1',
+            lineHeight: '1',
           }} onMouseEnter={(e) => {
             e.currentTarget.style.opacity = '0.7';
           }} onMouseLeave={(e) => {
             e.currentTarget.style.opacity = '1';
           }}>
-            <div style={{
-              fontSize: '32px',
-              fontWeight: '900',
-              letterSpacing: '-1.2px',
-              textTransform: 'uppercase',
-              whiteSpace: 'nowrap',
-            }}>
-              DRIZZL
-            </div>
-            <div style={{
-              fontSize: '11px',
-              fontWeight: '700',
-              letterSpacing: '3.2px',
-              textTransform: 'uppercase',
-              whiteSpace: 'nowrap',
-              textAlign: 'center',
-              display: 'block',
-            }}>
-              WELLNESS
-            </div>
+            DRIZZL WELLNESS
           </Link>
         </div>
 
