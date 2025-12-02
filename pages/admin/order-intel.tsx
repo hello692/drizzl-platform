@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import Link from 'next/link';
 import { useRequireAdmin } from '../../hooks/useRole';
 import { OrderIntelMetrics } from '../../lib/orderIntelService';
+import AdminLayout from '../../components/AdminLayout';
 
 type TimeRange = '7d' | '30d' | '90d';
 
@@ -231,57 +231,26 @@ export default function OrderIntelligence() {
   }
 
   return (
-    <div style={styles.container}>
-      <div style={styles.meshGradient} />
-      <div style={styles.orbOne} />
-      <div style={styles.orbTwo} />
-      <div style={styles.orbThree} />
-
-      <nav style={styles.nav}>
-        <Link href="/admin" style={styles.logo}>
-          <span style={styles.logoIcon}>D</span>
-          <span style={styles.logoText}>DRIZZL ADMIN</span>
-        </Link>
-        <div style={styles.navLinks}>
-          <Link href="/admin/command-center" style={styles.navLink}>Command Center</Link>
-          <Link href="/admin/products" style={styles.navLink}>Products</Link>
-          <Link href="/admin/product-intel" style={styles.navLink}>Product Intel</Link>
-          <Link href="/admin/orders" style={styles.navLink}>Orders</Link>
-          <Link href="/admin/order-intel" style={styles.navLinkActive}>Order Intel</Link>
-          <Link href="/admin/partners" style={styles.navLink}>Partners</Link>
-          <Link href="/admin/banking" style={styles.navLink}>Banking</Link>
-          <Link href="/admin/ai-assistant" style={styles.navLink}>AI Assistant</Link>
-          <Link href="/" style={styles.exitLink}>Exit</Link>
-        </div>
-      </nav>
-
-      <main style={styles.main}>
-        <div style={styles.header}>
-          <div>
-            <p style={styles.greeting}>Intelligence Hub</p>
-            <h1 style={styles.title}>Order Intelligence</h1>
-            <p style={styles.subtitle}>D2C & B2B analytics dashboard</p>
+    <AdminLayout title="Order Intelligence" subtitle="D2C & B2B Analytics">
+      <div style={styles.headerControls}>
+        {metrics?.demoMode && (
+          <div style={styles.demoBadge}>
+            <div style={styles.demoDot} />
+            Demo Mode
           </div>
-          <div style={styles.headerRight}>
-            {metrics?.demoMode && (
-              <div style={styles.demoBadge}>
-                <div style={styles.demoDot} />
-                Demo Mode
-              </div>
-            )}
-            <div style={styles.timeFilter}>
-              {(['7d', '30d', '90d'] as TimeRange[]).map((range) => (
-                <button
-                  key={range}
-                  onClick={() => setTimeRange(range)}
-                  style={timeRange === range ? styles.timeButtonActive : styles.timeButton}
-                >
-                  {range}
-                </button>
-              ))}
-            </div>
-          </div>
+        )}
+        <div style={styles.timeFilter}>
+          {(['7d', '30d', '90d'] as TimeRange[]).map((range) => (
+            <button
+              key={range}
+              onClick={() => setTimeRange(range)}
+              style={timeRange === range ? styles.timeButtonActive : styles.timeButton}
+            >
+              {range}
+            </button>
+          ))}
         </div>
+      </div>
 
         {error && (
           <div style={styles.errorBanner}>
@@ -562,31 +531,7 @@ export default function OrderIntelligence() {
             </section>
           </>
         ) : null}
-      </main>
-
-      <style jsx global>{`
-        @keyframes float {
-          0%, 100% { transform: translateY(0px) rotate(0deg); }
-          50% { transform: translateY(-20px) rotate(5deg); }
-        }
-        @keyframes pulse {
-          0%, 100% { opacity: 0.4; transform: scale(1); }
-          50% { opacity: 0.8; transform: scale(1.05); }
-        }
-        @keyframes shimmer {
-          0% { background-position: -200% 0; }
-          100% { background-position: 200% 0; }
-        }
-        @keyframes glow {
-          0%, 100% { box-shadow: 0 0 20px rgba(0, 212, 255, 0.3); }
-          50% { box-shadow: 0 0 40px rgba(0, 212, 255, 0.6); }
-        }
-        @keyframes glowB2B {
-          0%, 100% { box-shadow: 0 0 20px rgba(168, 85, 247, 0.3); }
-          50% { box-shadow: 0 0 40px rgba(168, 85, 247, 0.6); }
-        }
-      `}</style>
-    </div>
+    </AdminLayout>
   );
 }
 
@@ -710,52 +655,6 @@ function POStatusCard({ label, count, color }: { label: string; count: number; c
 }
 
 const styles: { [key: string]: React.CSSProperties } = {
-  container: {
-    minHeight: '100vh',
-    background: '#050505',
-    color: '#fff',
-    position: 'relative',
-    overflow: 'hidden',
-  },
-  meshGradient: {
-    position: 'fixed',
-    inset: 0,
-    background: 'radial-gradient(ellipse at 20% 20%, rgba(0, 212, 255, 0.08) 0%, transparent 50%), radial-gradient(ellipse at 80% 80%, rgba(168, 85, 247, 0.06) 0%, transparent 50%), radial-gradient(ellipse at 50% 50%, rgba(236, 72, 153, 0.04) 0%, transparent 50%)',
-    pointerEvents: 'none',
-  },
-  orbOne: {
-    position: 'fixed',
-    width: '600px',
-    height: '600px',
-    borderRadius: '50%',
-    background: 'radial-gradient(circle, rgba(0, 212, 255, 0.12) 0%, transparent 70%)',
-    top: '-200px',
-    right: '-200px',
-    animation: 'float 20s ease-in-out infinite',
-    pointerEvents: 'none',
-  },
-  orbTwo: {
-    position: 'fixed',
-    width: '400px',
-    height: '400px',
-    borderRadius: '50%',
-    background: 'radial-gradient(circle, rgba(168, 85, 247, 0.1) 0%, transparent 70%)',
-    bottom: '-100px',
-    left: '-100px',
-    animation: 'float 15s ease-in-out infinite reverse',
-    pointerEvents: 'none',
-  },
-  orbThree: {
-    position: 'fixed',
-    width: '300px',
-    height: '300px',
-    borderRadius: '50%',
-    background: 'radial-gradient(circle, rgba(236, 72, 153, 0.08) 0%, transparent 70%)',
-    top: '50%',
-    left: '30%',
-    animation: 'float 25s ease-in-out infinite',
-    pointerEvents: 'none',
-  },
   loadingContainer: {
     minHeight: '100vh',
     display: 'flex',
@@ -786,111 +685,13 @@ const styles: { [key: string]: React.CSSProperties } = {
     padding: '80px',
     gap: '24px',
   },
-  nav: {
-    position: 'sticky',
-    top: 0,
-    zIndex: 100,
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    padding: '16px 40px',
-    background: 'rgba(5, 5, 5, 0.8)',
-    backdropFilter: 'blur(20px)',
-    borderBottom: '1px solid rgba(255, 255, 255, 0.06)',
-  },
-  logo: {
+  headerControls: {
     display: 'flex',
     alignItems: 'center',
-    gap: '12px',
-    textDecoration: 'none',
-    color: '#fff',
-  },
-  logoIcon: {
-    width: '36px',
-    height: '36px',
-    borderRadius: '10px',
-    background: 'linear-gradient(135deg, #00d4ff 0%, #0066ff 100%)',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    fontSize: '18px',
-    fontWeight: '700',
-  },
-  logoText: {
-    fontSize: '16px',
-    fontWeight: '600',
-    letterSpacing: '1px',
-  },
-  navLinks: {
-    display: 'flex',
-    gap: '24px',
-    alignItems: 'center',
-    flexWrap: 'wrap',
-  },
-  navLink: {
-    color: 'rgba(255, 255, 255, 0.6)',
-    textDecoration: 'none',
-    fontSize: '13px',
-    fontWeight: '500',
-    transition: 'color 0.2s',
-  },
-  navLinkActive: {
-    color: '#fff',
-    textDecoration: 'none',
-    fontSize: '13px',
-    fontWeight: '600',
-    background: 'linear-gradient(135deg, #00d4ff 0%, #0066ff 100%)',
-    WebkitBackgroundClip: 'text',
-    WebkitTextFillColor: 'transparent',
-  },
-  exitLink: {
-    color: 'rgba(255, 255, 255, 0.4)',
-    textDecoration: 'none',
-    fontSize: '13px',
-    fontWeight: '500',
-    padding: '8px 16px',
-    border: '1px solid rgba(255, 255, 255, 0.1)',
-    borderRadius: '8px',
-  },
-  main: {
-    position: 'relative',
-    zIndex: 1,
-    padding: '40px',
-    maxWidth: '1400px',
-    margin: '0 auto',
-  },
-  header: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'flex-start',
-    marginBottom: '40px',
-    flexWrap: 'wrap',
-    gap: '24px',
-  },
-  greeting: {
-    fontSize: '12px',
-    color: 'rgba(255, 255, 255, 0.5)',
-    textTransform: 'uppercase',
-    letterSpacing: '2px',
-    marginBottom: '8px',
-  },
-  title: {
-    fontSize: '36px',
-    fontWeight: '700',
-    letterSpacing: '-1px',
-    background: 'linear-gradient(135deg, #fff 0%, rgba(255, 255, 255, 0.7) 100%)',
-    WebkitBackgroundClip: 'text',
-    WebkitTextFillColor: 'transparent',
-    marginBottom: '8px',
-  },
-  subtitle: {
-    fontSize: '14px',
-    color: 'rgba(255, 255, 255, 0.5)',
-  },
-  headerRight: {
-    display: 'flex',
-    alignItems: 'center',
+    justifyContent: 'flex-end',
     gap: '16px',
+    marginBottom: '32px',
+    flexWrap: 'wrap',
   },
   demoBadge: {
     display: 'flex',

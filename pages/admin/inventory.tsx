@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import Link from 'next/link';
 import { useRequireAdmin } from '../../hooks/useRole';
+import AdminLayout from '../../components/AdminLayout';
 import {
   IngredientItem,
   PackagingItem,
@@ -215,62 +215,32 @@ export default function InventoryDashboard() {
   const expiringCount = ingredients.filter(i => i.status === 'expiring_soon' || i.status === 'expired').length;
 
   return (
-    <div style={styles.container}>
-      <div style={styles.meshGradient} />
-      <div style={styles.orbOne} />
-      <div style={styles.orbTwo} />
-      <div style={styles.orbThree} />
-
-      <nav style={styles.nav}>
-        <Link href="/admin" style={styles.logo}>
-          <span style={styles.logoIcon}>D</span>
-          <span style={styles.logoText}>DRIZZL</span>
-        </Link>
-        <div style={styles.navLinks}>
-          <Link href="/admin/command-center" style={styles.navLink}>Command Center</Link>
-          <Link href="/admin/inventory" style={styles.navLinkActive}>Inventory</Link>
-          <Link href="/admin/factory" style={styles.navLink}>Factory</Link>
-          <Link href="/admin/products" style={styles.navLink}>Products</Link>
-          <Link href="/admin/orders" style={styles.navLink}>Orders</Link>
-          <Link href="/admin/partners" style={styles.navLink}>Partners</Link>
-          <Link href="/admin/banking" style={styles.navLink}>Banking</Link>
-          <Link href="/" style={styles.exitLink}>Exit</Link>
-        </div>
-      </nav>
-
-      <main style={styles.main}>
-        <div style={styles.header}>
-          <div>
-            <p style={styles.headerLabel}>Intelligence Module</p>
-            <h1 style={styles.title}>Inventory</h1>
-            <p style={styles.subtitle}>Track ingredients, packaging, and finished goods</p>
+    <AdminLayout title="Inventory" subtitle="Stock Management">
+      <div style={styles.alertsRow}>
+        {lowStockCount > 0 && (
+          <div style={styles.alertBadge}>
+            <div style={styles.alertIconLow}>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                <path d="M12 9v4M12 17h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" />
+              </svg>
+            </div>
+            <span style={styles.alertText}>{lowStockCount} low stock</span>
           </div>
-          <div style={styles.alertsContainer}>
-            {lowStockCount > 0 && (
-              <div style={styles.alertBadge}>
-                <div style={styles.alertIconLow}>
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                    <path d="M12 9v4M12 17h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" />
-                  </svg>
-                </div>
-                <span style={styles.alertText}>{lowStockCount} low stock</span>
-              </div>
-            )}
-            {expiringCount > 0 && (
-              <div style={styles.alertBadgeExpiring}>
-                <div style={styles.alertIconExpiring}>
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                    <circle cx="12" cy="12" r="10" />
-                    <polyline points="12,6 12,12 16,14" />
-                  </svg>
-                </div>
-                <span style={styles.alertTextExpiring}>{expiringCount} expiring</span>
-              </div>
-            )}
+        )}
+        {expiringCount > 0 && (
+          <div style={styles.alertBadgeExpiring}>
+            <div style={styles.alertIconExpiring}>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                <circle cx="12" cy="12" r="10" />
+                <polyline points="12,6 12,12 16,14" />
+              </svg>
+            </div>
+            <span style={styles.alertTextExpiring}>{expiringCount} expiring</span>
           </div>
-        </div>
+        )}
+      </div>
 
-        <div style={styles.controlsRow}>
+      <div style={styles.controlsRow}>
           <div style={styles.tabsContainer}>
             {(['ingredients', 'packaging', 'finished_goods'] as TabType[]).map(tab => (
               <button
@@ -458,7 +428,6 @@ export default function InventoryDashboard() {
             </>
           )}
         </div>
-      </main>
 
       {modalMode && (
         <InventoryModal
@@ -471,7 +440,7 @@ export default function InventoryDashboard() {
       )}
 
       <style jsx global>{globalAnimations}</style>
-    </div>
+    </AdminLayout>
   );
 }
 
@@ -635,52 +604,6 @@ const globalAnimations = `
 `;
 
 const styles: { [key: string]: React.CSSProperties } = {
-  container: {
-    minHeight: '100vh',
-    background: '#050505',
-    color: '#fff',
-    position: 'relative',
-    overflow: 'hidden',
-  },
-  meshGradient: {
-    position: 'fixed',
-    inset: 0,
-    background: 'radial-gradient(ellipse at 20% 20%, rgba(67, 233, 123, 0.08) 0%, transparent 50%), radial-gradient(ellipse at 80% 80%, rgba(56, 249, 215, 0.06) 0%, transparent 50%), radial-gradient(ellipse at 50% 50%, rgba(102, 126, 234, 0.04) 0%, transparent 50%)',
-    pointerEvents: 'none',
-  },
-  orbOne: {
-    position: 'fixed',
-    width: '500px',
-    height: '500px',
-    borderRadius: '50%',
-    background: 'radial-gradient(circle, rgba(67, 233, 123, 0.12) 0%, transparent 70%)',
-    top: '-150px',
-    right: '-150px',
-    animation: 'float 20s ease-in-out infinite',
-    pointerEvents: 'none',
-  },
-  orbTwo: {
-    position: 'fixed',
-    width: '400px',
-    height: '400px',
-    borderRadius: '50%',
-    background: 'radial-gradient(circle, rgba(56, 249, 215, 0.1) 0%, transparent 70%)',
-    bottom: '-100px',
-    left: '-100px',
-    animation: 'float 15s ease-in-out infinite reverse',
-    pointerEvents: 'none',
-  },
-  orbThree: {
-    position: 'fixed',
-    width: '300px',
-    height: '300px',
-    borderRadius: '50%',
-    background: 'radial-gradient(circle, rgba(102, 126, 234, 0.08) 0%, transparent 70%)',
-    top: '40%',
-    left: '25%',
-    animation: 'float 25s ease-in-out infinite',
-    pointerEvents: 'none',
-  },
   loadingContainer: {
     minHeight: '100vh',
     display: 'flex',
@@ -703,104 +626,10 @@ const styles: { [key: string]: React.CSSProperties } = {
     letterSpacing: '3px',
     textTransform: 'uppercase',
   },
-  nav: {
-    position: 'sticky',
-    top: 0,
-    zIndex: 100,
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    padding: '20px 40px',
-    background: 'rgba(5, 5, 5, 0.8)',
-    backdropFilter: 'blur(20px)',
-    borderBottom: '1px solid rgba(255,255,255,0.06)',
-  },
-  logo: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: '12px',
-    textDecoration: 'none',
-    color: '#fff',
-  },
-  logoIcon: {
-    width: '36px',
-    height: '36px',
-    borderRadius: '10px',
-    background: 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    fontSize: '18px',
-    fontWeight: '700',
-  },
-  logoText: {
-    fontSize: '16px',
-    fontWeight: '600',
-    letterSpacing: '2px',
-  },
-  navLinks: {
-    display: 'flex',
-    gap: '28px',
-    alignItems: 'center',
-  },
-  navLink: {
-    color: 'rgba(255,255,255,0.5)',
-    textDecoration: 'none',
-    fontSize: '13px',
-    fontWeight: '500',
-    transition: 'color 0.2s',
-  },
-  navLinkActive: {
-    color: '#fff',
-    textDecoration: 'none',
-    fontSize: '13px',
-    fontWeight: '600',
-  },
-  exitLink: {
-    color: 'rgba(255,255,255,0.4)',
-    textDecoration: 'none',
-    fontSize: '13px',
-    fontWeight: '500',
-    padding: '8px 16px',
-    border: '1px solid rgba(255,255,255,0.1)',
-    borderRadius: '8px',
-  },
-  main: {
-    position: 'relative',
-    zIndex: 1,
-    padding: '40px',
-    maxWidth: '1500px',
-    margin: '0 auto',
-  },
-  header: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'flex-start',
-    marginBottom: '36px',
-  },
-  headerLabel: {
-    fontSize: '12px',
-    color: 'rgba(255,255,255,0.4)',
-    textTransform: 'uppercase',
-    letterSpacing: '2px',
-    marginBottom: '8px',
-  },
-  title: {
-    fontSize: '36px',
-    fontWeight: '700',
-    letterSpacing: '-1px',
-    background: 'linear-gradient(135deg, #fff 0%, rgba(255,255,255,0.7) 100%)',
-    WebkitBackgroundClip: 'text',
-    WebkitTextFillColor: 'transparent',
-    marginBottom: '8px',
-  },
-  subtitle: {
-    fontSize: '14px',
-    color: 'rgba(255,255,255,0.5)',
-  },
-  alertsContainer: {
+  alertsRow: {
     display: 'flex',
     gap: '12px',
+    marginBottom: '24px',
   },
   alertBadge: {
     background: 'rgba(239, 68, 68, 0.15)',

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import Link from 'next/link';
 import { useRequireAdmin } from '../../hooks/useRole';
+import AdminLayout from '../../components/AdminLayout';
 
 const TrendUpIcon = () => (
   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -108,12 +108,6 @@ export default function AdminAnalytics() {
   const [recentEvents, setRecentEvents] = useState<any[]>([]);
   const [loadingData, setLoadingData] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [time, setTime] = useState(new Date());
-
-  useEffect(() => {
-    const timer = setInterval(() => setTime(new Date()), 1000);
-    return () => clearInterval(timer);
-  }, []);
 
   useEffect(() => {
     if (authorized) {
@@ -180,234 +174,193 @@ export default function AdminAnalytics() {
   const maxProductQuantity = topProducts.reduce((max, p) => Math.max(max, p.quantity || 0), 1);
 
   return (
-    <div style={styles.container}>
-      <div style={styles.meshGradient} />
-      <div style={styles.orbOne} />
-      <div style={styles.orbTwo} />
-      <div style={styles.orbThree} />
-      <div style={styles.orbFour} />
-
-      <nav style={styles.nav}>
-        <div style={styles.navLeft}>
-          <Link href="/admin" style={styles.logo}>
-            <span style={styles.logoIcon}>D</span>
-            <span style={styles.logoText}>DRIZZL</span>
-          </Link>
+    <AdminLayout title="Analytics" subtitle="Performance Metrics">
+      {error && (
+        <div style={styles.errorBanner}>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M12 8v4M12 16h.01"/>
+          </svg>
+          <p style={styles.errorText}>{error}</p>
         </div>
-        <div style={styles.navLinks}>
-          <Link href="/admin/command-center" style={styles.navLink}>Command Center</Link>
-          <Link href="/admin/products" style={styles.navLink}>Products</Link>
-          <Link href="/admin/orders" style={styles.navLink}>Orders</Link>
-          <Link href="/admin/banking" style={styles.navLink}>Banking</Link>
-          <Link href="/admin/analytics" style={styles.navLinkActive}>Analytics</Link>
-          <Link href="/admin/ai-assistant" style={styles.navLink}>AI Assistant</Link>
-          <Link href="/" style={styles.exitLink}>Exit</Link>
-        </div>
-      </nav>
+      )}
 
-      <main style={styles.main}>
-        <header style={styles.header}>
-          <div>
-            <p style={styles.greeting}>Performance Overview</p>
-            <h1 style={styles.title}>Analytics</h1>
-          </div>
-          <div style={styles.timeDisplay}>
-            <span style={styles.timeText}>{time.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}</span>
-            <span style={styles.dateText}>{time.toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' })}</span>
-          </div>
-        </header>
+      <section style={styles.statsGrid}>
+        <StatCard 
+          label="Orders (7 days)" 
+          value={stats?.ordersLast7Days || 0} 
+          loading={loadingData} 
+          accent="#667eea"
+          gradient="linear-gradient(135deg, #667eea 0%, #764ba2 100%)"
+          icon={<OrdersIcon />}
+        />
+        <StatCard 
+          label="D2C Orders" 
+          value={stats?.d2cOrders || 0} 
+          loading={loadingData} 
+          accent="#4facfe"
+          gradient="linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)"
+          icon={<D2CIcon />}
+        />
+        <StatCard 
+          label="B2B Orders" 
+          value={stats?.b2bOrders || 0} 
+          loading={loadingData} 
+          accent="#f093fb"
+          gradient="linear-gradient(135deg, #f093fb 0%, #f5576c 100%)"
+          icon={<B2BIcon />}
+        />
+        <StatCard 
+          label="Revenue (30 days)" 
+          value={`$${((revenue?.totalRevenue || 0) / 100).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`} 
+          loading={loadingData} 
+          accent="#43e97b"
+          gradient="linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)"
+          icon={<RevenueIcon />}
+        />
+        <StatCard 
+          label="D2C Revenue" 
+          value={`$${((revenue?.d2cRevenue || 0) / 100).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`} 
+          loading={loadingData} 
+          accent="#4facfe"
+          gradient="linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)"
+          icon={<TrendUpIcon />}
+        />
+        <StatCard 
+          label="B2B Revenue" 
+          value={`$${((revenue?.b2bRevenue || 0) / 100).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`} 
+          loading={loadingData} 
+          accent="#f093fb"
+          gradient="linear-gradient(135deg, #f093fb 0%, #f5576c 100%)"
+          icon={<ChartIcon />}
+        />
+      </section>
 
-        {error && (
-          <div style={styles.errorBanner}>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <circle cx="12" cy="12" r="10"/>
-              <path d="M12 8v4M12 16h.01"/>
-            </svg>
-            <p style={styles.errorText}>{error}</p>
-          </div>
-        )}
-
-        <section style={styles.statsGrid}>
-          <StatCard 
-            label="Orders (7 days)" 
-            value={stats?.ordersLast7Days || 0} 
-            loading={loadingData} 
-            accent="#667eea"
-            gradient="linear-gradient(135deg, #667eea 0%, #764ba2 100%)"
-            icon={<OrdersIcon />}
-          />
-          <StatCard 
-            label="D2C Orders" 
-            value={stats?.d2cOrders || 0} 
-            loading={loadingData} 
-            accent="#4facfe"
-            gradient="linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)"
-            icon={<D2CIcon />}
-          />
-          <StatCard 
-            label="B2B Orders" 
-            value={stats?.b2bOrders || 0} 
-            loading={loadingData} 
-            accent="#f093fb"
-            gradient="linear-gradient(135deg, #f093fb 0%, #f5576c 100%)"
-            icon={<B2BIcon />}
-          />
-          <StatCard 
-            label="Revenue (30 days)" 
-            value={`$${((revenue?.totalRevenue || 0) / 100).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`} 
-            loading={loadingData} 
-            accent="#43e97b"
-            gradient="linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)"
-            icon={<RevenueIcon />}
-          />
-          <StatCard 
-            label="D2C Revenue" 
-            value={`$${((revenue?.d2cRevenue || 0) / 100).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`} 
-            loading={loadingData} 
-            accent="#4facfe"
-            gradient="linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)"
-            icon={<TrendUpIcon />}
-          />
-          <StatCard 
-            label="B2B Revenue" 
-            value={`$${((revenue?.b2bRevenue || 0) / 100).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`} 
-            loading={loadingData} 
-            accent="#f093fb"
-            gradient="linear-gradient(135deg, #f093fb 0%, #f5576c 100%)"
-            icon={<ChartIcon />}
-          />
-        </section>
-
-        <div style={styles.cardsGrid}>
-          <div style={styles.glassCard}>
-            <div style={styles.cardHeader}>
-              <div style={styles.cardIconWrapper}>
-                <ProductIcon />
-              </div>
-              <h2 style={styles.cardTitle}>Top Products</h2>
+      <div style={styles.cardsGrid}>
+        <div style={styles.glassCard}>
+          <div style={styles.cardHeader}>
+            <div style={styles.cardIconWrapper}>
+              <ProductIcon />
             </div>
-            {loadingData ? (
-              <div style={styles.loadingContent}>
-                {[1, 2, 3].map((i) => (
-                  <div key={i} style={styles.skeletonRow} />
-                ))}
+            <h2 style={styles.cardTitle}>Top Products</h2>
+          </div>
+          {loadingData ? (
+            <div style={styles.loadingContent}>
+              {[1, 2, 3].map((i) => (
+                <div key={i} style={styles.skeletonRow} />
+              ))}
+            </div>
+          ) : topProducts.length === 0 ? (
+            <div style={styles.emptyState}>
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.2)" strokeWidth="1">
+                <path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/>
+              </svg>
+              <p style={styles.emptyText}>No product data yet</p>
+            </div>
+          ) : (
+            <div style={styles.productList}>
+              {topProducts.map((item, i) => (
+                <div key={i} style={styles.productItem}>
+                  <div style={styles.productInfo}>
+                    <span style={styles.productRank}>#{i + 1}</span>
+                    <span style={styles.productName}>{item.products?.name || 'Unknown'}</span>
+                  </div>
+                  <div style={styles.productBarWrapper}>
+                    <div 
+                      style={{
+                        ...styles.productBar,
+                        width: `${(item.quantity / maxProductQuantity) * 100}%`,
+                      }}
+                    />
+                  </div>
+                  <span style={styles.productQuantity}>{item.quantity} sold</span>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+
+        <div style={styles.glassCard}>
+          <div style={styles.cardHeader}>
+            <div style={styles.cardIconWrapper}>
+              <EventIcon />
+            </div>
+            <h2 style={styles.cardTitle}>Recent Events</h2>
+          </div>
+          {loadingData ? (
+            <div style={styles.loadingContent}>
+              {[1, 2, 3, 4, 5].map((i) => (
+                <div key={i} style={styles.skeletonRow} />
+              ))}
+            </div>
+          ) : recentEvents.length === 0 ? (
+            <div style={styles.emptyState}>
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.2)" strokeWidth="1">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M12 6v6l4 2"/>
+              </svg>
+              <p style={styles.emptyText}>No events yet</p>
+            </div>
+          ) : (
+            <div style={styles.eventTable}>
+              <div style={styles.eventTableHeader}>
+                <span style={styles.eventTableHeaderCell}>Event Type</span>
+                <span style={styles.eventTableHeaderCell}>Timestamp</span>
               </div>
-            ) : topProducts.length === 0 ? (
-              <div style={styles.emptyState}>
-                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.2)" strokeWidth="1">
-                  <path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/>
-                </svg>
-                <p style={styles.emptyText}>No product data yet</p>
-              </div>
-            ) : (
-              <div style={styles.productList}>
-                {topProducts.map((item, i) => (
-                  <div key={i} style={styles.productItem}>
-                    <div style={styles.productInfo}>
-                      <span style={styles.productRank}>#{i + 1}</span>
-                      <span style={styles.productName}>{item.products?.name || 'Unknown'}</span>
-                    </div>
-                    <div style={styles.productBarWrapper}>
-                      <div 
-                        style={{
-                          ...styles.productBar,
-                          width: `${(item.quantity / maxProductQuantity) * 100}%`,
-                        }}
-                      />
-                    </div>
-                    <span style={styles.productQuantity}>{item.quantity} sold</span>
+              <div style={styles.eventTableBody}>
+                {recentEvents.map((event) => (
+                  <div key={event.id} style={styles.eventRow}>
+                    <span style={styles.eventType}>
+                      <span style={styles.eventDot} />
+                      {event.event_type}
+                    </span>
+                    <span style={styles.eventTime}>{new Date(event.created_at).toLocaleString()}</span>
                   </div>
                 ))}
               </div>
-            )}
-          </div>
-
-          <div style={styles.glassCard}>
-            <div style={styles.cardHeader}>
-              <div style={styles.cardIconWrapper}>
-                <EventIcon />
-              </div>
-              <h2 style={styles.cardTitle}>Recent Events</h2>
             </div>
-            {loadingData ? (
-              <div style={styles.loadingContent}>
-                {[1, 2, 3, 4, 5].map((i) => (
-                  <div key={i} style={styles.skeletonRow} />
-                ))}
-              </div>
-            ) : recentEvents.length === 0 ? (
-              <div style={styles.emptyState}>
-                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.2)" strokeWidth="1">
-                  <circle cx="12" cy="12" r="10"/>
-                  <path d="M12 6v6l4 2"/>
-                </svg>
-                <p style={styles.emptyText}>No events yet</p>
-              </div>
-            ) : (
-              <div style={styles.eventTable}>
-                <div style={styles.eventTableHeader}>
-                  <span style={styles.eventTableHeaderCell}>Event Type</span>
-                  <span style={styles.eventTableHeaderCell}>Timestamp</span>
-                </div>
-                <div style={styles.eventTableBody}>
-                  {recentEvents.map((event) => (
-                    <div key={event.id} style={styles.eventRow}>
-                      <span style={styles.eventType}>
-                        <span style={styles.eventDot} />
-                        {event.event_type}
-                      </span>
-                      <span style={styles.eventTime}>{new Date(event.created_at).toLocaleString()}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-          </div>
+          )}
         </div>
+      </div>
 
-        <div style={styles.chartSection}>
-          <div style={styles.glassCard}>
-            <div style={styles.cardHeader}>
-              <div style={styles.cardIconWrapper}>
-                <ChartIcon />
-              </div>
-              <h2 style={styles.cardTitle}>Revenue Distribution</h2>
+      <div style={styles.chartSection}>
+        <div style={styles.glassCard}>
+          <div style={styles.cardHeader}>
+            <div style={styles.cardIconWrapper}>
+              <ChartIcon />
             </div>
-            <div style={styles.chartContainer}>
-              <div style={styles.chartBars}>
-                <ChartBar 
-                  label="D2C" 
-                  value={revenue?.d2cRevenue || 0} 
-                  maxValue={Math.max(revenue?.d2cRevenue || 0, revenue?.b2bRevenue || 0, 1)} 
-                  gradient="linear-gradient(180deg, #4facfe 0%, #00f2fe 100%)"
-                />
-                <ChartBar 
-                  label="B2B" 
-                  value={revenue?.b2bRevenue || 0} 
-                  maxValue={Math.max(revenue?.d2cRevenue || 0, revenue?.b2bRevenue || 0, 1)} 
-                  gradient="linear-gradient(180deg, #f093fb 0%, #f5576c 100%)"
-                />
+            <h2 style={styles.cardTitle}>Revenue Distribution</h2>
+          </div>
+          <div style={styles.chartContainer}>
+            <div style={styles.chartBars}>
+              <ChartBar 
+                label="D2C" 
+                value={revenue?.d2cRevenue || 0} 
+                maxValue={Math.max(revenue?.d2cRevenue || 0, revenue?.b2bRevenue || 0, 1)} 
+                gradient="linear-gradient(180deg, #4facfe 0%, #00f2fe 100%)"
+              />
+              <ChartBar 
+                label="B2B" 
+                value={revenue?.b2bRevenue || 0} 
+                maxValue={Math.max(revenue?.d2cRevenue || 0, revenue?.b2bRevenue || 0, 1)} 
+                gradient="linear-gradient(180deg, #f093fb 0%, #f5576c 100%)"
+              />
+            </div>
+            <div style={styles.chartLegend}>
+              <div style={styles.legendItem}>
+                <span style={{ ...styles.legendDot, background: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)' }} />
+                <span style={styles.legendLabel}>D2C Revenue</span>
               </div>
-              <div style={styles.chartLegend}>
-                <div style={styles.legendItem}>
-                  <span style={{ ...styles.legendDot, background: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)' }} />
-                  <span style={styles.legendLabel}>D2C Revenue</span>
-                </div>
-                <div style={styles.legendItem}>
-                  <span style={{ ...styles.legendDot, background: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)' }} />
-                  <span style={styles.legendLabel}>B2B Revenue</span>
-                </div>
+              <div style={styles.legendItem}>
+                <span style={{ ...styles.legendDot, background: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)' }} />
+                <span style={styles.legendLabel}>B2B Revenue</span>
               </div>
             </div>
           </div>
         </div>
-      </main>
+      </div>
 
       <style jsx global>{`
-        @keyframes float {
-          0%, 100% { transform: translateY(0px) rotate(0deg); }
-          50% { transform: translateY(-20px) rotate(5deg); }
-        }
         @keyframes pulse {
           0%, 100% { opacity: 0.4; }
           50% { opacity: 0.8; }
@@ -425,7 +378,7 @@ export default function AdminAnalytics() {
           to { transform: scaleY(1); }
         }
       `}</style>
-    </div>
+    </AdminLayout>
   );
 }
 
@@ -487,63 +440,6 @@ function ChartBar({ label, value, maxValue, gradient }: {
 }
 
 const styles: { [key: string]: React.CSSProperties } = {
-  container: {
-    minHeight: '100vh',
-    background: '#050505',
-    color: '#fff',
-    position: 'relative',
-    overflow: 'hidden',
-  },
-  meshGradient: {
-    position: 'fixed',
-    inset: 0,
-    background: 'radial-gradient(ellipse at 20% 20%, rgba(102, 126, 234, 0.08) 0%, transparent 50%), radial-gradient(ellipse at 80% 80%, rgba(240, 147, 251, 0.06) 0%, transparent 50%), radial-gradient(ellipse at 50% 50%, rgba(67, 233, 123, 0.04) 0%, transparent 50%)',
-    pointerEvents: 'none',
-  },
-  orbOne: {
-    position: 'fixed',
-    width: '600px',
-    height: '600px',
-    borderRadius: '50%',
-    background: 'radial-gradient(circle, rgba(102, 126, 234, 0.15) 0%, transparent 70%)',
-    top: '-200px',
-    right: '-200px',
-    animation: 'float 20s ease-in-out infinite',
-    pointerEvents: 'none',
-  },
-  orbTwo: {
-    position: 'fixed',
-    width: '400px',
-    height: '400px',
-    borderRadius: '50%',
-    background: 'radial-gradient(circle, rgba(240, 147, 251, 0.12) 0%, transparent 70%)',
-    bottom: '-100px',
-    left: '-100px',
-    animation: 'float 15s ease-in-out infinite reverse',
-    pointerEvents: 'none',
-  },
-  orbThree: {
-    position: 'fixed',
-    width: '300px',
-    height: '300px',
-    borderRadius: '50%',
-    background: 'radial-gradient(circle, rgba(67, 233, 123, 0.1) 0%, transparent 70%)',
-    top: '50%',
-    left: '30%',
-    animation: 'float 25s ease-in-out infinite',
-    pointerEvents: 'none',
-  },
-  orbFour: {
-    position: 'fixed',
-    width: '500px',
-    height: '500px',
-    borderRadius: '50%',
-    background: 'radial-gradient(circle, rgba(79, 172, 254, 0.08) 0%, transparent 70%)',
-    top: '20%',
-    right: '10%',
-    animation: 'float 18s ease-in-out infinite',
-    pointerEvents: 'none',
-  },
   loadingContainer: {
     minHeight: '100vh',
     display: 'flex',
@@ -565,115 +461,6 @@ const styles: { [key: string]: React.CSSProperties } = {
     fontSize: '14px',
     letterSpacing: '3px',
     textTransform: 'uppercase',
-  },
-  nav: {
-    position: 'sticky',
-    top: 0,
-    zIndex: 100,
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    padding: '20px 40px',
-    background: 'rgba(5, 5, 5, 0.8)',
-    backdropFilter: 'blur(20px)',
-    borderBottom: '1px solid rgba(255,255,255,0.06)',
-  },
-  navLeft: {
-    display: 'flex',
-    alignItems: 'center',
-  },
-  logo: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: '12px',
-    textDecoration: 'none',
-    color: '#fff',
-  },
-  logoIcon: {
-    width: '36px',
-    height: '36px',
-    borderRadius: '10px',
-    background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    fontSize: '18px',
-    fontWeight: '700',
-  },
-  logoText: {
-    fontSize: '16px',
-    fontWeight: '600',
-    letterSpacing: '2px',
-  },
-  navLinks: {
-    display: 'flex',
-    gap: '32px',
-    alignItems: 'center',
-  },
-  navLink: {
-    color: 'rgba(255,255,255,0.6)',
-    textDecoration: 'none',
-    fontSize: '13px',
-    fontWeight: '500',
-    transition: 'color 0.2s',
-  },
-  navLinkActive: {
-    color: '#fff',
-    textDecoration: 'none',
-    fontSize: '13px',
-    fontWeight: '600',
-    position: 'relative',
-  },
-  exitLink: {
-    color: 'rgba(255,255,255,0.4)',
-    textDecoration: 'none',
-    fontSize: '13px',
-    fontWeight: '500',
-    padding: '8px 16px',
-    border: '1px solid rgba(255,255,255,0.1)',
-    borderRadius: '8px',
-  },
-  main: {
-    position: 'relative',
-    zIndex: 1,
-    padding: '40px',
-    maxWidth: '1400px',
-    margin: '0 auto',
-  },
-  header: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'flex-end',
-    marginBottom: '48px',
-  },
-  greeting: {
-    fontSize: '14px',
-    color: 'rgba(255,255,255,0.5)',
-    marginBottom: '8px',
-    letterSpacing: '1px',
-  },
-  title: {
-    fontSize: '42px',
-    fontWeight: '700',
-    letterSpacing: '-1px',
-    background: 'linear-gradient(135deg, #fff 0%, rgba(255,255,255,0.7) 100%)',
-    WebkitBackgroundClip: 'text',
-    WebkitTextFillColor: 'transparent',
-  },
-  timeDisplay: {
-    textAlign: 'right' as const,
-  },
-  timeText: {
-    display: 'block',
-    fontSize: '28px',
-    fontWeight: '300',
-    letterSpacing: '-0.5px',
-    color: 'rgba(255,255,255,0.9)',
-  },
-  dateText: {
-    fontSize: '13px',
-    color: 'rgba(255,255,255,0.4)',
-    letterSpacing: '0.5px',
   },
   errorBanner: {
     display: 'flex',

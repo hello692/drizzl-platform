@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import Link from 'next/link';
 import { useRequireAdmin } from '../../hooks/useRole';
+import AdminLayout from '../../components/AdminLayout';
 
 interface ApplicationData {
   legalBusinessName?: string;
@@ -304,182 +304,157 @@ export default function AdminPartners() {
 
   if (loading) {
     return (
-      <div style={styles.loadingContainer}>
-        <div style={styles.loadingOrb} />
-        <p style={styles.loadingText}>Initializing</p>
-      </div>
+      <AdminLayout title="Partners" subtitle="Retail Partner Management">
+        <div style={styles.loadingContainer}>
+          <div style={styles.loadingOrb} />
+          <p style={styles.loadingText}>Initializing</p>
+        </div>
+      </AdminLayout>
     );
   }
 
   if (!authorized) {
     return (
-      <div style={styles.loadingContainer}>
-        <div style={styles.loadingOrb} />
-        <p style={styles.loadingText}>Authenticating</p>
-      </div>
+      <AdminLayout title="Partners" subtitle="Retail Partner Management">
+        <div style={styles.loadingContainer}>
+          <div style={styles.loadingOrb} />
+          <p style={styles.loadingText}>Authenticating</p>
+        </div>
+      </AdminLayout>
     );
   }
 
   return (
-    <div style={styles.container}>
-      <div style={styles.meshGradient} />
-      <div style={styles.orbOne} />
-      <div style={styles.orbTwo} />
-      <div style={styles.orbThree} />
-
-      <nav style={styles.nav}>
-        <div style={styles.navLeft}>
-          <Link href="/admin" style={styles.logo}>
-            <span style={styles.logoIcon}>D</span>
-            <span style={styles.logoText}>DRIZZL</span>
-          </Link>
+    <AdminLayout title="Partners" subtitle="Retail Partner Management">
+      <div style={styles.statsBar}>
+        <div style={styles.statItem}>
+          <UsersIcon />
+          <span style={styles.statValue}>{partners.length}</span>
+          <span style={styles.statLabel}>Total Applications</span>
         </div>
-        <div style={styles.navLinks}>
-          <Link href="/admin/command-center" style={styles.navLink}>Command Center</Link>
-          <Link href="/admin/products" style={styles.navLink}>Products</Link>
-          <Link href="/admin/orders" style={styles.navLink}>Orders</Link>
-          <Link href="/admin/partners" style={styles.navLinkActive}>Partners</Link>
-          <Link href="/admin/banking" style={styles.navLink}>Banking</Link>
-          <Link href="/admin/ai-assistant" style={styles.navLink}>AI Assistant</Link>
-          <Link href="/" style={styles.exitLink}>Exit</Link>
-        </div>
-      </nav>
-
-      <main style={styles.main}>
-        <header style={styles.header}>
-          <div>
-            <div style={styles.headerIcon}>
-              <UsersIcon />
-            </div>
-            <h1 style={styles.title}>Wholesale Partners</h1>
-            <p style={styles.subtitle}>
-              {partners.length} total applications
-              {pendingCount > 0 && (
-                <span style={styles.pendingBadge}>
-                  <StatusIcon status="pending" />
-                  {pendingCount} pending review
-                </span>
-              )}
-            </p>
-          </div>
-        </header>
-
-        {error && (
-          <div style={styles.errorCard}>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" style={{ marginRight: '10px' }}>
-              <circle cx="12" cy="12" r="10" stroke="#f59e0b" strokeWidth="2"/>
-              <line x1="12" y1="8" x2="12" y2="12" stroke="#f59e0b" strokeWidth="2" strokeLinecap="round"/>
-              <circle cx="12" cy="16" r="1" fill="#f59e0b"/>
-            </svg>
-            <p style={styles.errorText}>{error}</p>
+        {pendingCount > 0 && (
+          <div style={styles.pendingBadge}>
+            <StatusIcon status="pending" />
+            {pendingCount} pending review
           </div>
         )}
+      </div>
 
-        <div style={styles.filterContainer}>
-          {['all', 'pending', 'approved', 'rejected', 'suspended'].map(status => {
-            const count = status === 'all' ? partners.length : partners.filter(p => p.status === status).length;
-            const isActive = filter === status;
-            return (
-              <button
-                key={status}
-                onClick={() => setFilter(status)}
-                style={{
-                  ...styles.filterButton,
-                  background: isActive ? 'linear-gradient(135deg, rgba(102, 126, 234, 0.3) 0%, rgba(118, 75, 162, 0.3) 100%)' : 'rgba(255,255,255,0.03)',
-                  borderColor: isActive ? 'rgba(102, 126, 234, 0.5)' : 'rgba(255,255,255,0.08)',
-                  color: isActive ? '#fff' : 'rgba(255,255,255,0.6)',
-                }}
-              >
-                {status !== 'all' && <StatusIcon status={status} />}
-                <span style={{ textTransform: 'capitalize' }}>{status}</span>
-                <span style={styles.filterCount}>{count}</span>
-              </button>
-            );
-          })}
+      {error && (
+        <div style={styles.errorCard}>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" style={{ marginRight: '10px' }}>
+            <circle cx="12" cy="12" r="10" stroke="#f59e0b" strokeWidth="2"/>
+            <line x1="12" y1="8" x2="12" y2="12" stroke="#f59e0b" strokeWidth="2" strokeLinecap="round"/>
+            <circle cx="12" cy="16" r="1" fill="#f59e0b"/>
+          </svg>
+          <p style={styles.errorText}>{error}</p>
         </div>
+      )}
 
-        <div style={styles.tableCard}>
-          <table style={styles.table}>
-            <thead>
+      <div style={styles.filterContainer}>
+        {['all', 'pending', 'approved', 'rejected', 'suspended'].map(status => {
+          const count = status === 'all' ? partners.length : partners.filter(p => p.status === status).length;
+          const isActive = filter === status;
+          return (
+            <button
+              key={status}
+              onClick={() => setFilter(status)}
+              style={{
+                ...styles.filterButton,
+                background: isActive ? 'linear-gradient(135deg, rgba(102, 126, 234, 0.3) 0%, rgba(118, 75, 162, 0.3) 100%)' : 'rgba(255,255,255,0.03)',
+                borderColor: isActive ? 'rgba(102, 126, 234, 0.5)' : 'rgba(255,255,255,0.08)',
+                color: isActive ? '#fff' : 'rgba(255,255,255,0.6)',
+              }}
+            >
+              {status !== 'all' && <StatusIcon status={status} />}
+              <span style={{ textTransform: 'capitalize' }}>{status}</span>
+              <span style={styles.filterCount}>{count}</span>
+            </button>
+          );
+        })}
+      </div>
+
+      <div style={styles.tableCard}>
+        <table style={styles.table}>
+          <thead>
+            <tr>
+              <th style={styles.th}><div style={styles.thContent}><BuildingIcon /><span style={{ marginLeft: '8px' }}>Business</span></div></th>
+              <th style={styles.th}>Type</th>
+              <th style={styles.th}><div style={styles.thContent}><MapPinIcon /><span style={{ marginLeft: '6px' }}>Location</span></div></th>
+              <th style={styles.th}><div style={styles.thContent}><DollarIcon /><span style={{ marginLeft: '6px' }}>Est. Volume</span></div></th>
+              <th style={styles.th}>Status</th>
+              <th style={styles.th}><div style={styles.thContent}><ClockIcon /><span style={{ marginLeft: '6px' }}>Applied</span></div></th>
+              <th style={styles.th}>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {loadingData ? (
               <tr>
-                <th style={styles.th}><div style={styles.thContent}><BuildingIcon /><span style={{ marginLeft: '8px' }}>Business</span></div></th>
-                <th style={styles.th}>Type</th>
-                <th style={styles.th}><div style={styles.thContent}><MapPinIcon /><span style={{ marginLeft: '6px' }}>Location</span></div></th>
-                <th style={styles.th}><div style={styles.thContent}><DollarIcon /><span style={{ marginLeft: '6px' }}>Est. Volume</span></div></th>
-                <th style={styles.th}>Status</th>
-                <th style={styles.th}><div style={styles.thContent}><ClockIcon /><span style={{ marginLeft: '6px' }}>Applied</span></div></th>
-                <th style={styles.th}>Actions</th>
+                <td colSpan={7} style={styles.emptyCell}>
+                  <div style={styles.loadingSpinner} />
+                  <span>Loading partners...</span>
+                </td>
               </tr>
-            </thead>
-            <tbody>
-              {loadingData ? (
-                <tr>
-                  <td colSpan={7} style={styles.emptyCell}>
-                    <div style={styles.loadingSpinner} />
-                    <span>Loading partners...</span>
-                  </td>
-                </tr>
-              ) : filteredPartners.length === 0 ? (
-                <tr>
-                  <td colSpan={7} style={styles.emptyCell}>
-                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" style={{ marginBottom: '12px', opacity: 0.3 }}>
-                      <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" stroke="white" strokeWidth="1.5"/>
-                      <circle cx="9" cy="7" r="4" stroke="white" strokeWidth="1.5"/>
-                      <line x1="23" y1="21" x2="17" y2="15" stroke="white" strokeWidth="1.5"/>
-                    </svg>
-                    <span>No partners found</span>
-                  </td>
-                </tr>
-              ) : (
-                filteredPartners.map((partner, index) => {
-                  const appData = getAppData(partner);
-                  return (
-                    <tr key={partner.id} style={{
-                      ...styles.tr,
-                      animationDelay: `${index * 0.05}s`,
-                    }}>
-                      <td style={styles.td}>
-                        <p style={styles.businessName}>{partner.company_name || appData.legalBusinessName || '-'}</p>
-                        {appData.dbaStoreName && <p style={styles.dbaName}>DBA: {appData.dbaStoreName}</p>}
-                        <p style={styles.email}>{partner.email || appData.businessEmail || '-'}</p>
-                      </td>
-                      <td style={styles.td}>
-                        <span style={styles.typeLabel}>{businessTypeLabels[appData.businessType || ''] || appData.businessType || '-'}</span>
-                      </td>
-                      <td style={styles.td}>
-                        <span style={styles.location}>{appData.city || '-'}{appData.state ? `, ${appData.state}` : ''}</span>
-                      </td>
-                      <td style={styles.td}>
-                        <span style={styles.volume}>{volumeLabels[appData.estimatedMonthlyVolume || ''] || appData.estimatedMonthlyVolume || '-'}</span>
-                      </td>
-                      <td style={styles.td}>
-                        <StatusBadge status={partner.status} />
-                      </td>
-                      <td style={styles.td}>
-                        <span style={styles.date}>{new Date(partner.created_at).toLocaleDateString()}</span>
-                      </td>
-                      <td style={styles.td}>
-                        <button
-                          onClick={() => { setSelectedPartner(partner); setShowDetail(true); setAdminNotes(partner.admin_notes || ''); }}
-                          style={{
-                            ...styles.actionButton,
-                            background: partner.status === 'pending' 
-                              ? 'linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%)' 
-                              : 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-                          }}
-                        >
-                          {partner.status === 'pending' ? 'Review' : 'View'}
-                          <ArrowIcon />
-                        </button>
-                      </td>
-                    </tr>
-                  );
-                })
-              )}
-            </tbody>
-          </table>
-        </div>
-      </main>
+            ) : filteredPartners.length === 0 ? (
+              <tr>
+                <td colSpan={7} style={styles.emptyCell}>
+                  <svg width="40" height="40" viewBox="0 0 24 24" fill="none" style={{ marginBottom: '12px', opacity: 0.3 }}>
+                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" stroke="white" strokeWidth="1.5"/>
+                    <circle cx="9" cy="7" r="4" stroke="white" strokeWidth="1.5"/>
+                    <line x1="23" y1="21" x2="17" y2="15" stroke="white" strokeWidth="1.5"/>
+                  </svg>
+                  <span>No partners found</span>
+                </td>
+              </tr>
+            ) : (
+              filteredPartners.map((partner, index) => {
+                const appData = getAppData(partner);
+                return (
+                  <tr key={partner.id} style={{
+                    ...styles.tr,
+                    animationDelay: `${index * 0.05}s`,
+                  }}>
+                    <td style={styles.td}>
+                      <p style={styles.businessName}>{partner.company_name || appData.legalBusinessName || '-'}</p>
+                      {appData.dbaStoreName && <p style={styles.dbaName}>DBA: {appData.dbaStoreName}</p>}
+                      <p style={styles.email}>{partner.email || appData.businessEmail || '-'}</p>
+                    </td>
+                    <td style={styles.td}>
+                      <span style={styles.typeLabel}>{businessTypeLabels[appData.businessType || ''] || appData.businessType || '-'}</span>
+                    </td>
+                    <td style={styles.td}>
+                      <span style={styles.location}>{appData.city || '-'}{appData.state ? `, ${appData.state}` : ''}</span>
+                    </td>
+                    <td style={styles.td}>
+                      <span style={styles.volume}>{volumeLabels[appData.estimatedMonthlyVolume || ''] || appData.estimatedMonthlyVolume || '-'}</span>
+                    </td>
+                    <td style={styles.td}>
+                      <StatusBadge status={partner.status} />
+                    </td>
+                    <td style={styles.td}>
+                      <span style={styles.date}>{new Date(partner.created_at).toLocaleDateString()}</span>
+                    </td>
+                    <td style={styles.td}>
+                      <button
+                        onClick={() => { setSelectedPartner(partner); setShowDetail(true); setAdminNotes(partner.admin_notes || ''); }}
+                        style={{
+                          ...styles.actionButton,
+                          background: partner.status === 'pending' 
+                            ? 'linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%)' 
+                            : 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                        }}
+                      >
+                        {partner.status === 'pending' ? 'Review' : 'View'}
+                        <ArrowIcon />
+                      </button>
+                    </td>
+                  </tr>
+                );
+              })
+            )}
+          </tbody>
+        </table>
+      </div>
 
       {showDetail && selectedPartner && (() => {
         const appData = getAppData(selectedPartner);
@@ -741,71 +716,24 @@ export default function AdminPartners() {
           to { opacity: 1; transform: translateY(0); }
         }
       `}</style>
-    </div>
+    </AdminLayout>
   );
 }
 
 const styles: { [key: string]: React.CSSProperties } = {
-  container: {
-    minHeight: '100vh',
-    background: '#050505',
-    color: '#fff',
-    position: 'relative',
-    overflow: 'hidden',
-  },
-  meshGradient: {
-    position: 'fixed',
-    inset: 0,
-    background: 'radial-gradient(ellipse at 20% 20%, rgba(246, 211, 101, 0.06) 0%, transparent 50%), radial-gradient(ellipse at 80% 80%, rgba(253, 160, 133, 0.05) 0%, transparent 50%), radial-gradient(ellipse at 50% 50%, rgba(102, 126, 234, 0.04) 0%, transparent 50%)',
-    pointerEvents: 'none',
-  },
-  orbOne: {
-    position: 'fixed',
-    width: '500px',
-    height: '500px',
-    borderRadius: '50%',
-    background: 'radial-gradient(circle, rgba(246, 211, 101, 0.12) 0%, transparent 70%)',
-    top: '-150px',
-    right: '-150px',
-    animation: 'float 20s ease-in-out infinite',
-    pointerEvents: 'none',
-  },
-  orbTwo: {
-    position: 'fixed',
-    width: '400px',
-    height: '400px',
-    borderRadius: '50%',
-    background: 'radial-gradient(circle, rgba(253, 160, 133, 0.1) 0%, transparent 70%)',
-    bottom: '-100px',
-    left: '-100px',
-    animation: 'float 15s ease-in-out infinite reverse',
-    pointerEvents: 'none',
-  },
-  orbThree: {
-    position: 'fixed',
-    width: '300px',
-    height: '300px',
-    borderRadius: '50%',
-    background: 'radial-gradient(circle, rgba(102, 126, 234, 0.08) 0%, transparent 70%)',
-    top: '40%',
-    left: '20%',
-    animation: 'float 25s ease-in-out infinite',
-    pointerEvents: 'none',
-  },
   loadingContainer: {
-    minHeight: '100vh',
+    minHeight: '50vh',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
-    background: '#050505',
     gap: '24px',
   },
   loadingOrb: {
     width: '60px',
     height: '60px',
     borderRadius: '50%',
-    background: 'linear-gradient(135deg, #f6d365 0%, #fda085 100%)',
+    background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
     animation: 'pulse 2s ease-in-out infinite, glow 2s ease-in-out infinite',
   },
   loadingText: {
@@ -814,114 +742,30 @@ const styles: { [key: string]: React.CSSProperties } = {
     letterSpacing: '3px',
     textTransform: 'uppercase',
   },
-  nav: {
-    position: 'sticky',
-    top: 0,
-    zIndex: 100,
+  statsBar: {
     display: 'flex',
-    justifyContent: 'space-between',
     alignItems: 'center',
-    padding: '20px 40px',
-    background: 'rgba(5, 5, 5, 0.8)',
-    backdropFilter: 'blur(20px)',
-    borderBottom: '1px solid rgba(255,255,255,0.06)',
+    gap: '20px',
+    marginBottom: '28px',
   },
-  navLeft: {
+  statItem: {
     display: 'flex',
     alignItems: 'center',
+    gap: '10px',
   },
-  logo: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: '12px',
-    textDecoration: 'none',
+  statValue: {
+    fontSize: '24px',
+    fontWeight: '700',
     color: '#fff',
   },
-  logoIcon: {
-    width: '36px',
-    height: '36px',
-    borderRadius: '10px',
-    background: 'linear-gradient(135deg, #f6d365 0%, #fda085 100%)',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    fontSize: '18px',
-    fontWeight: '700',
-  },
-  logoText: {
-    fontSize: '16px',
-    fontWeight: '600',
-    letterSpacing: '2px',
-  },
-  navLinks: {
-    display: 'flex',
-    gap: '28px',
-    alignItems: 'center',
-  },
-  navLink: {
+  statLabel: {
+    fontSize: '14px',
     color: 'rgba(255,255,255,0.5)',
-    textDecoration: 'none',
-    fontSize: '13px',
-    fontWeight: '500',
-    transition: 'color 0.2s',
-  },
-  navLinkActive: {
-    color: '#fff',
-    textDecoration: 'none',
-    fontSize: '13px',
-    fontWeight: '600',
-  },
-  exitLink: {
-    color: 'rgba(255,255,255,0.4)',
-    textDecoration: 'none',
-    fontSize: '13px',
-    fontWeight: '500',
-    padding: '8px 16px',
-    border: '1px solid rgba(255,255,255,0.1)',
-    borderRadius: '8px',
-    transition: 'all 0.2s',
-  },
-  main: {
-    position: 'relative',
-    zIndex: 1,
-    padding: '40px',
-    maxWidth: '1500px',
-    margin: '0 auto',
-  },
-  header: {
-    marginBottom: '40px',
-  },
-  headerIcon: {
-    display: 'inline-flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: '48px',
-    height: '48px',
-    borderRadius: '14px',
-    background: 'rgba(255,255,255,0.05)',
-    border: '1px solid rgba(255,255,255,0.08)',
-    marginBottom: '20px',
-  },
-  title: {
-    fontSize: '36px',
-    fontWeight: '700',
-    letterSpacing: '-1px',
-    marginBottom: '12px',
-    background: 'linear-gradient(135deg, #fff 0%, rgba(255,255,255,0.7) 100%)',
-    WebkitBackgroundClip: 'text',
-    WebkitTextFillColor: 'transparent',
-  },
-  subtitle: {
-    fontSize: '15px',
-    color: 'rgba(255,255,255,0.5)',
-    display: 'flex',
-    alignItems: 'center',
-    gap: '12px',
   },
   pendingBadge: {
     display: 'inline-flex',
     alignItems: 'center',
-    padding: '4px 12px',
+    padding: '6px 14px',
     background: 'rgba(245, 158, 11, 0.15)',
     border: '1px solid rgba(245, 158, 11, 0.3)',
     borderRadius: '20px',
@@ -1046,7 +890,7 @@ const styles: { [key: string]: React.CSSProperties } = {
     width: '24px',
     height: '24px',
     border: '2px solid rgba(255,255,255,0.1)',
-    borderTopColor: 'rgba(246, 211, 101, 0.8)',
+    borderTopColor: 'rgba(102, 126, 234, 0.8)',
     borderRadius: '50%',
     animation: 'spin 1s linear infinite',
     marginBottom: '12px',

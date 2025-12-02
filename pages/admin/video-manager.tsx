@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import Link from 'next/link';
 import { useRequireAdmin } from '../../hooks/useRole';
 import { Video } from '../../lib/videoManagerService';
+import AdminLayout from '../../components/AdminLayout';
 
 type ModalMode = 'add' | 'edit' | 'delete' | 'preview' | null;
 
@@ -211,123 +211,99 @@ export default function VideoManagerDashboard() {
 
   if (loading) {
     return (
-      <div style={styles.loadingContainer}>
-        <div style={styles.loadingOrb} />
-        <p style={styles.loadingText}>Initializing</p>
-      </div>
+      <AdminLayout title="Video Manager" subtitle="Landing Page CMS">
+        <div style={styles.loadingState}>
+          <div style={styles.loadingOrb} />
+          <p style={styles.loadingText}>Initializing</p>
+        </div>
+      </AdminLayout>
     );
   }
 
   if (!authorized) {
     return (
-      <div style={styles.loadingContainer}>
-        <div style={styles.loadingOrb} />
-        <p style={styles.loadingText}>Authenticating</p>
-      </div>
+      <AdminLayout title="Video Manager" subtitle="Landing Page CMS">
+        <div style={styles.loadingState}>
+          <div style={styles.loadingOrb} />
+          <p style={styles.loadingText}>Authenticating</p>
+        </div>
+      </AdminLayout>
     );
   }
 
   const activeCount = videos.filter(v => v.isActive).length;
 
   return (
-    <div style={styles.container}>
-      <div style={styles.meshGradient} />
-      <div style={styles.orbOne} />
-      <div style={styles.orbTwo} />
-      <div style={styles.orbThree} />
-      <div style={styles.orbFour} />
-
-      <nav style={styles.nav}>
-        <div style={styles.navLeft}>
-          <Link href="/admin" style={styles.logo}>
-            <span style={styles.logoIcon}>D</span>
-            <span style={styles.logoText}>DRIZZL</span>
-          </Link>
+    <AdminLayout title="Video Manager" subtitle="Landing Page CMS">
+      <div style={styles.pageHeader}>
+        <div style={styles.headerInfo}>
+          <p style={styles.videoCount}>{activeCount} active of {videos.length} total</p>
         </div>
-        <div style={styles.navLinks}>
-          <Link href="/admin/command-center" style={styles.navLink}>Command Center</Link>
-          <Link href="/admin/video-manager" style={styles.navLinkActive}>Videos</Link>
-          <Link href="/admin/products" style={styles.navLink}>Products</Link>
-          <Link href="/admin/orders" style={styles.navLink}>Orders</Link>
-          <Link href="/admin/partners" style={styles.navLink}>Partners</Link>
-          <Link href="/admin/analytics" style={styles.navLink}>Analytics</Link>
-          <Link href="/" style={styles.exitLink}>Exit</Link>
-        </div>
-      </nav>
-
-      <main style={styles.main}>
-        <div style={styles.header}>
-          <div>
-            <p style={styles.greeting}>Video Library</p>
-            <h1 style={styles.title}>Video Manager</h1>
-            <p style={styles.subtitle}>{activeCount} active of {videos.length} total</p>
-          </div>
-          <div style={styles.headerActions}>
-            {hasChanges && (
-              <button
-                onClick={saveOrder}
-                disabled={saving}
-                style={styles.saveOrderBtn}
-              >
-                <span style={styles.saveOrderGlow} />
-                {saving ? 'Saving...' : 'Save Order'}
-              </button>
-            )}
-            <button onClick={openAddModal} style={styles.addBtn}>
-              <span style={styles.addBtnIcon}>+</span>
-              Add Video
+        <div style={styles.headerActions}>
+          {hasChanges && (
+            <button
+              onClick={saveOrder}
+              disabled={saving}
+              style={styles.saveOrderBtn}
+            >
+              <span style={styles.saveOrderGlow} />
+              {saving ? 'Saving...' : 'Save Order'}
             </button>
-          </div>
+          )}
+          <button onClick={openAddModal} style={styles.addBtn}>
+            <span style={styles.addBtnIcon}>+</span>
+            Add Video
+          </button>
         </div>
+      </div>
 
-        {loadingData ? (
-          <div style={styles.loadingState}>
-            <div style={styles.loadingOrb} />
-            <p style={styles.loadingText}>Loading videos...</p>
+      {loadingData ? (
+        <div style={styles.loadingState}>
+          <div style={styles.loadingOrb} />
+          <p style={styles.loadingText}>Loading videos...</p>
+        </div>
+      ) : videos.length === 0 ? (
+        <div style={styles.emptyState}>
+          <div style={styles.emptyIcon}>
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="url(#emptyGrad)" strokeWidth="1.5">
+              <defs>
+                <linearGradient id="emptyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stopColor="#ff0844" />
+                  <stop offset="100%" stopColor="#ffb199" />
+                </linearGradient>
+              </defs>
+              <polygon points="23 7 16 12 23 17 23 7" />
+              <rect x="1" y="5" width="15" height="14" rx="2" ry="2" />
+            </svg>
           </div>
-        ) : videos.length === 0 ? (
-          <div style={styles.emptyState}>
-            <div style={styles.emptyIcon}>
-              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="url(#emptyGrad)" strokeWidth="1.5">
-                <defs>
-                  <linearGradient id="emptyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stopColor="#ff0844" />
-                    <stop offset="100%" stopColor="#ffb199" />
-                  </linearGradient>
-                </defs>
-                <polygon points="23 7 16 12 23 17 23 7" />
-                <rect x="1" y="5" width="15" height="14" rx="2" ry="2" />
-              </svg>
-            </div>
-            <h3 style={styles.emptyTitle}>No videos yet</h3>
-            <p style={styles.emptyDesc}>Add your first video to get started</p>
-            <button onClick={openAddModal} style={styles.emptyAddBtn}>
-              Add Video
-            </button>
-          </div>
-        ) : (
-          <div style={styles.videosGrid}>
-            {videos.map((video, index) => (
-              <VideoCard
-                key={video.id}
-                video={video}
-                index={index}
-                totalVideos={videos.length}
-                draggedId={draggedId}
-                onDragStart={handleDragStart}
-                onDragOver={handleDragOver}
-                onDrop={handleDrop}
-                onDragEnd={handleDragEnd}
-                onPreview={openPreviewModal}
-                onEdit={openEditModal}
-                onDelete={openDeleteModal}
-                onToggleActive={toggleVideoActive}
-                onMove={moveVideo}
-              />
-            ))}
-          </div>
-        )}
-      </main>
+          <h3 style={styles.emptyTitle}>No videos yet</h3>
+          <p style={styles.emptyDesc}>Add your first video to get started</p>
+          <button onClick={openAddModal} style={styles.emptyAddBtn}>
+            Add Video
+          </button>
+        </div>
+      ) : (
+        <div style={styles.videosGrid}>
+          {videos.map((video, index) => (
+            <VideoCard
+              key={video.id}
+              video={video}
+              index={index}
+              totalVideos={videos.length}
+              draggedId={draggedId}
+              onDragStart={handleDragStart}
+              onDragOver={handleDragOver}
+              onDrop={handleDrop}
+              onDragEnd={handleDragEnd}
+              onPreview={openPreviewModal}
+              onEdit={openEditModal}
+              onDelete={openDeleteModal}
+              onToggleActive={toggleVideoActive}
+              onMove={moveVideo}
+            />
+          ))}
+        </div>
+      )}
 
       {modalMode && (
         <div
@@ -541,7 +517,7 @@ export default function VideoManagerDashboard() {
           100% { background-position: 0% 50%; }
         }
       `}</style>
-    </div>
+    </AdminLayout>
   );
 }
 
@@ -702,77 +678,11 @@ function VideoCard({
 }
 
 const styles: { [key: string]: React.CSSProperties } = {
-  container: {
-    minHeight: '100vh',
-    background: '#050505',
-    color: '#fff',
-    position: 'relative',
-    overflow: 'hidden',
-  },
-  meshGradient: {
-    position: 'fixed',
-    inset: 0,
-    background: 'radial-gradient(ellipse at 20% 20%, rgba(255, 8, 68, 0.08) 0%, transparent 50%), radial-gradient(ellipse at 80% 80%, rgba(255, 177, 153, 0.06) 0%, transparent 50%), radial-gradient(ellipse at 50% 50%, rgba(79, 172, 254, 0.04) 0%, transparent 50%)',
-    pointerEvents: 'none',
-  },
-  orbOne: {
-    position: 'fixed',
-    width: '600px',
-    height: '600px',
-    borderRadius: '50%',
-    background: 'radial-gradient(circle, rgba(255, 8, 68, 0.15) 0%, transparent 70%)',
-    top: '-200px',
-    right: '-200px',
-    animation: 'float 20s ease-in-out infinite',
-    pointerEvents: 'none',
-  },
-  orbTwo: {
-    position: 'fixed',
-    width: '400px',
-    height: '400px',
-    borderRadius: '50%',
-    background: 'radial-gradient(circle, rgba(255, 177, 153, 0.12) 0%, transparent 70%)',
-    bottom: '-100px',
-    left: '-100px',
-    animation: 'float 15s ease-in-out infinite reverse',
-    pointerEvents: 'none',
-  },
-  orbThree: {
-    position: 'fixed',
-    width: '300px',
-    height: '300px',
-    borderRadius: '50%',
-    background: 'radial-gradient(circle, rgba(79, 172, 254, 0.1) 0%, transparent 70%)',
-    top: '50%',
-    left: '30%',
-    animation: 'float 25s ease-in-out infinite',
-    pointerEvents: 'none',
-  },
-  orbFour: {
-    position: 'fixed',
-    width: '250px',
-    height: '250px',
-    borderRadius: '50%',
-    background: 'radial-gradient(circle, rgba(168, 85, 247, 0.08) 0%, transparent 70%)',
-    top: '20%',
-    right: '20%',
-    animation: 'float 18s ease-in-out infinite',
-    pointerEvents: 'none',
-  },
-  loadingContainer: {
-    minHeight: '100vh',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-    background: '#050505',
-    gap: '24px',
-  },
   loadingOrb: {
     width: '60px',
     height: '60px',
     borderRadius: '50%',
-    background: 'linear-gradient(135deg, #ff0844 0%, #ffb199 100%)',
+    background: 'linear-gradient(135deg, #667eea 0%, #a855f7 100%)',
     animation: 'pulse 2s ease-in-out infinite, glow 2s ease-in-out infinite',
   },
   loadingText: {
@@ -789,106 +699,22 @@ const styles: { [key: string]: React.CSSProperties } = {
     padding: '80px 20px',
     gap: '24px',
   },
-  nav: {
-    position: 'sticky',
-    top: 0,
-    zIndex: 100,
+  pageHeader: {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-    padding: '20px 40px',
-    background: 'rgba(5, 5, 5, 0.8)',
-    backdropFilter: 'blur(20px)',
-    borderBottom: '1px solid rgba(255,255,255,0.06)',
-  },
-  navLeft: {
-    display: 'flex',
-    alignItems: 'center',
-  },
-  logo: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: '12px',
-    textDecoration: 'none',
-    color: '#fff',
-  },
-  logoIcon: {
-    width: '36px',
-    height: '36px',
-    borderRadius: '10px',
-    background: 'linear-gradient(135deg, #ff0844 0%, #ffb199 100%)',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    fontSize: '18px',
-    fontWeight: '700',
-  },
-  logoText: {
-    fontSize: '16px',
-    fontWeight: '600',
-    letterSpacing: '2px',
-  },
-  navLinks: {
-    display: 'flex',
-    gap: '32px',
-    alignItems: 'center',
-  },
-  navLink: {
-    color: 'rgba(255,255,255,0.6)',
-    textDecoration: 'none',
-    fontSize: '13px',
-    fontWeight: '500',
-    transition: 'color 0.2s',
-  },
-  navLinkActive: {
-    color: '#fff',
-    textDecoration: 'none',
-    fontSize: '13px',
-    fontWeight: '600',
-  },
-  exitLink: {
-    color: 'rgba(255,255,255,0.4)',
-    textDecoration: 'none',
-    fontSize: '13px',
-    fontWeight: '500',
-    padding: '8px 16px',
-    border: '1px solid rgba(255,255,255,0.1)',
-    borderRadius: '8px',
-  },
-  main: {
-    position: 'relative',
-    zIndex: 1,
-    padding: '40px',
-    maxWidth: '1400px',
-    margin: '0 auto',
-  },
-  header: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'flex-start',
-    marginBottom: '48px',
+    marginBottom: '32px',
     flexWrap: 'wrap',
-    gap: '24px',
+    gap: '16px',
   },
-  greeting: {
+  headerInfo: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+  videoCount: {
     fontSize: '14px',
     color: 'rgba(255,255,255,0.5)',
-    marginBottom: '8px',
-    letterSpacing: '1px',
-    textTransform: 'uppercase',
-  },
-  title: {
-    fontSize: '42px',
-    fontWeight: '700',
-    letterSpacing: '-1px',
-    background: 'linear-gradient(135deg, #fff 0%, rgba(255,255,255,0.7) 100%)',
-    WebkitBackgroundClip: 'text',
-    WebkitTextFillColor: 'transparent',
-    marginBottom: '8px',
-  },
-  subtitle: {
-    fontSize: '14px',
-    color: 'rgba(255,255,255,0.4)',
+    margin: 0,
   },
   headerActions: {
     display: 'flex',

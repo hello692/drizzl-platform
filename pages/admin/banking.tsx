@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import Link from 'next/link';
 import { useRequireAdmin } from '../../hooks/useRole';
+import AdminLayout from '../../components/AdminLayout';
 
 interface Account {
   id: string;
@@ -52,18 +52,6 @@ function formatDate(dateString: string): string {
     year: 'numeric',
   });
 }
-
-const BankIcon = () => (
-  <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-    <defs>
-      <linearGradient id="bankGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stopColor="#00d4aa" />
-        <stop offset="100%" stopColor="#00b4d8" />
-      </linearGradient>
-    </defs>
-    <path d="M3 21h18M3 10h18M5 6l7-3 7 3M4 10v11M20 10v11M8 14v3M12 14v3M16 14v3" stroke="url(#bankGrad)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-  </svg>
-);
 
 const TrendUpIcon = () => (
   <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
@@ -198,286 +186,227 @@ export default function BankingDashboard() {
   }
 
   return (
-    <div style={styles.container}>
-      <div style={styles.meshGradient} />
-      <div style={styles.orbOne} />
-      <div style={styles.orbTwo} />
-      <div style={styles.orbThree} />
-      <div style={styles.orbFour} />
-
-      <nav style={styles.nav}>
-        <Link href="/admin" style={styles.logo}>
-          <span style={styles.logoIcon}>D</span>
-          <span style={styles.logoText}>DRIZZL</span>
-        </Link>
-        <div style={styles.navLinks}>
-          <Link href="/admin/command-center" style={styles.navLink}>Command Center</Link>
-          <Link href="/admin/products" style={styles.navLink}>Products</Link>
-          <Link href="/admin/product-intel" style={styles.navLink}>Product Intel</Link>
-          <Link href="/admin/orders" style={styles.navLink}>Orders</Link>
-          <Link href="/admin/partners" style={styles.navLink}>Partners</Link>
-          <Link href="/admin/banking" style={styles.navLinkActive}>Banking</Link>
-          <Link href="/admin/analytics" style={styles.navLink}>Analytics</Link>
-          <Link href="/admin/ai-assistant" style={styles.navLink}>AI Assistant</Link>
-          <Link href="/" style={styles.exitLink}>Exit</Link>
+    <AdminLayout title="Banking Intelligence" subtitle="Financial Overview">
+      {data?.isDemo && (
+        <div style={styles.demoTag}>
+          <InfoIcon />
+          <span>Demo Mode - Connect Mercury API for live data</span>
         </div>
-      </nav>
+      )}
 
-      <main style={styles.main}>
-        <div style={styles.header}>
-          <div>
-            <div style={styles.headerIconRow}>
-              <BankIcon />
-              <p style={styles.greeting}>Financial Intelligence</p>
-            </div>
-            <h1 style={styles.title}>Banking</h1>
-            <p style={styles.subtitle}>Cash flow analysis and financial overview</p>
-          </div>
-          {data?.isDemo && (
-            <div style={styles.demoTag}>
-              <InfoIcon />
-              <span>Demo Mode - Connect Mercury API for live data</span>
-            </div>
-          )}
+      {error && (
+        <div style={styles.errorCard}>
+          <p style={styles.errorText}>{error}</p>
         </div>
+      )}
 
-        {error && (
-          <div style={styles.errorCard}>
-            <p style={styles.errorText}>{error}</p>
+      {loadingData ? (
+        <div style={styles.loadingDataContainer}>
+          <div style={styles.loadingOrb} />
+          <p style={styles.loadingText}>Loading financial data...</p>
+        </div>
+      ) : (
+        <>
+          <div style={styles.kpiGrid}>
+            <KPICard
+              title="Total Cash"
+              value={formatCurrency(data?.totalBalance || 0)}
+              subtitle="All accounts"
+              icon={<WalletIcon />}
+              accent="purple"
+            />
+            <KPICard
+              title="Income (30d)"
+              value={formatCurrency(data?.incomingLast30Days || 0)}
+              subtitle="Deposits & transfers"
+              icon={<TrendUpIcon />}
+              accent="green"
+              positive
+            />
+            <KPICard
+              title="Expenses (30d)"
+              value={formatCurrency(data?.outgoingLast30Days || 0)}
+              subtitle="Payments & withdrawals"
+              icon={<TrendDownIcon />}
+              accent="red"
+              negative
+            />
+            <KPICard
+              title="Net P/L (30d)"
+              value={formatCurrency(data?.netProfitLoss || 0)}
+              subtitle="Income - Expenses"
+              icon={<ChartIcon />}
+              accent={(data?.netProfitLoss || 0) >= 0 ? "green" : "red"}
+              positive={(data?.netProfitLoss || 0) >= 0}
+              negative={(data?.netProfitLoss || 0) < 0}
+            />
           </div>
-        )}
 
-        {loadingData ? (
-          <div style={styles.loadingDataContainer}>
-            <div style={styles.loadingOrb} />
-            <p style={styles.loadingText}>Loading financial data...</p>
-          </div>
-        ) : (
-          <>
-            <div style={styles.kpiGrid}>
-              <KPICard
-                title="Total Cash"
-                value={formatCurrency(data?.totalBalance || 0)}
-                subtitle="All accounts"
-                icon={<WalletIcon />}
-                accent="purple"
-              />
-              <KPICard
-                title="Income (30d)"
-                value={formatCurrency(data?.incomingLast30Days || 0)}
-                subtitle="Deposits & transfers"
-                icon={<TrendUpIcon />}
-                accent="green"
-                positive
-              />
-              <KPICard
-                title="Expenses (30d)"
-                value={formatCurrency(data?.outgoingLast30Days || 0)}
-                subtitle="Payments & withdrawals"
-                icon={<TrendDownIcon />}
-                accent="red"
-                negative
-              />
-              <KPICard
-                title="Net P/L (30d)"
-                value={formatCurrency(data?.netProfitLoss || 0)}
-                subtitle="Income - Expenses"
-                icon={<ChartIcon />}
-                accent={(data?.netProfitLoss || 0) >= 0 ? "green" : "red"}
-                positive={(data?.netProfitLoss || 0) >= 0}
-                negative={(data?.netProfitLoss || 0) < 0}
-              />
-            </div>
-
-            <div style={styles.secondaryGrid}>
-              <div style={styles.glassCard}>
-                <div style={styles.cardHeader}>
-                  <ClockIcon />
-                  <h2 style={styles.cardTitle}>Burn Rate & Runway</h2>
-                </div>
-                <div style={styles.burnRateContent}>
-                  <div style={styles.burnMetric}>
-                    <p style={styles.burnValue}>{formatCurrency(data?.monthlyBurn || 0)}</p>
-                    <p style={styles.burnLabel}>Monthly burn</p>
-                  </div>
-                  <div style={styles.burnMetric}>
-                    <p style={styles.runwayValue}>
-                      {data?.cashRunway !== null ? `${data?.cashRunway} mo` : 'N/A'}
-                    </p>
-                    <p style={styles.burnLabel}>Cash runway</p>
-                  </div>
-                </div>
-                {data?.cashRunway !== null && (
-                  <div style={styles.runwayProgress}>
-                    <div style={styles.progressTrack}>
-                      <div style={{
-                        ...styles.progressFill,
-                        width: `${Math.min((data?.cashRunway || 0) / 24 * 100, 100)}%`,
-                        background: (data?.cashRunway || 0) > 12 
-                          ? 'linear-gradient(90deg, #00d4aa 0%, #00ff88 100%)' 
-                          : (data?.cashRunway || 0) > 6 
-                            ? 'linear-gradient(90deg, #f0c419 0%, #f5a623 100%)' 
-                            : 'linear-gradient(90deg, #ff6b6b 0%, #ff4757 100%)',
-                      }} />
-                    </div>
-                    <p style={styles.runwayStatus}>
-                      {(data?.cashRunway || 0) > 12 ? 'Healthy runway' : (data?.cashRunway || 0) > 6 ? 'Moderate runway' : 'Low runway - monitor closely'}
-                    </p>
-                  </div>
-                )}
+          <div style={styles.secondaryGrid}>
+            <div style={styles.glassCard}>
+              <div style={styles.cardHeader}>
+                <ClockIcon />
+                <h2 style={styles.cardTitle}>Burn Rate & Runway</h2>
               </div>
+              <div style={styles.burnRateContent}>
+                <div style={styles.burnMetric}>
+                  <p style={styles.burnValue}>{formatCurrency(data?.monthlyBurn || 0)}</p>
+                  <p style={styles.burnLabel}>Monthly burn</p>
+                </div>
+                <div style={styles.burnMetric}>
+                  <p style={styles.runwayValue}>
+                    {data?.cashRunway !== null ? `${data?.cashRunway} mo` : 'N/A'}
+                  </p>
+                  <p style={styles.burnLabel}>Cash runway</p>
+                </div>
+              </div>
+              {data?.cashRunway !== null && (
+                <div style={styles.runwayProgress}>
+                  <div style={styles.progressTrack}>
+                    <div style={{
+                      ...styles.progressFill,
+                      width: `${Math.min((data?.cashRunway || 0) / 24 * 100, 100)}%`,
+                      background: (data?.cashRunway || 0) > 12 
+                        ? 'linear-gradient(90deg, #00d4aa 0%, #00ff88 100%)' 
+                        : (data?.cashRunway || 0) > 6 
+                          ? 'linear-gradient(90deg, #f0c419 0%, #f5a623 100%)' 
+                          : 'linear-gradient(90deg, #ff6b6b 0%, #ff4757 100%)',
+                    }} />
+                  </div>
+                  <p style={styles.runwayStatus}>
+                    {(data?.cashRunway || 0) > 12 ? 'Healthy runway' : (data?.cashRunway || 0) > 6 ? 'Moderate runway' : 'Low runway - monitor closely'}
+                  </p>
+                </div>
+              )}
+            </div>
 
-              <div style={styles.glassCard}>
-                <div style={styles.cardHeader}>
+            <div style={styles.glassCard}>
+              <div style={styles.cardHeader}>
+                <SparkleIcon />
+                <h2 style={styles.cardTitle}>AI Insights</h2>
+              </div>
+              <div style={styles.aiInsightsPlaceholder}>
+                <div style={styles.aiIconContainer}>
                   <SparkleIcon />
-                  <h2 style={styles.cardTitle}>AI Insights</h2>
                 </div>
-                <div style={styles.aiInsightsPlaceholder}>
-                  <div style={styles.aiIconContainer}>
-                    <SparkleIcon />
-                  </div>
-                  <p style={styles.aiTitle}>AI-powered insights coming soon</p>
-                  <p style={styles.aiSubtitle}>Anomaly detection, spending patterns, and forecasting</p>
-                </div>
+                <p style={styles.aiTitle}>AI-powered insights coming soon</p>
+                <p style={styles.aiSubtitle}>Anomaly detection, spending patterns, and forecasting</p>
               </div>
             </div>
+          </div>
 
-            <div style={styles.tertiaryGrid}>
-              <div style={styles.glassCard}>
-                <div style={styles.cardHeader}>
-                  <WalletIcon />
-                  <h2 style={styles.cardTitle}>Account Balances</h2>
-                </div>
-                {data?.accounts && data.accounts.length > 0 ? (
-                  <div style={styles.accountsList}>
-                    {data.accounts.map((account) => (
-                      <div key={account.id} style={styles.accountCard}>
-                        <div style={styles.accountInfo}>
-                          <p style={styles.accountName}>{account.name}</p>
-                          <p style={styles.accountType}>
-                            {account.type.charAt(0).toUpperCase() + account.type.slice(1)} {account.accountNumber}
-                          </p>
-                        </div>
-                        <div style={styles.accountBalance}>
-                          <p style={styles.balanceValue}>{formatCurrency(account.currentBalance)}</p>
-                          <p style={styles.availableBalance}>
-                            Available: {formatCurrency(account.availableBalance)}
-                          </p>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                ) : (
-                  <p style={styles.emptyState}>No accounts found</p>
-                )}
+          <div style={styles.tertiaryGrid}>
+            <div style={styles.glassCard}>
+              <div style={styles.cardHeader}>
+                <WalletIcon />
+                <h2 style={styles.cardTitle}>Account Balances</h2>
               </div>
-
-              <div style={styles.glassCard}>
-                <div style={styles.cardHeader}>
-                  <ChartIcon />
-                  <h2 style={styles.cardTitle}>Recent Transactions</h2>
-                </div>
-                {data?.recentTransactions && data.recentTransactions.length > 0 ? (
-                  <div style={styles.transactionsList}>
-                    {data.recentTransactions.slice(0, 10).map((tx) => (
-                      <div key={tx.id} style={styles.transactionRow}>
-                        <div style={styles.transactionLeft}>
-                          <span style={{
-                            ...styles.transactionBadge,
-                            background: tx.amount > 0 
-                              ? 'linear-gradient(135deg, rgba(0, 212, 170, 0.2) 0%, rgba(0, 255, 136, 0.1) 100%)'
-                              : 'linear-gradient(135deg, rgba(255, 107, 107, 0.2) 0%, rgba(255, 71, 87, 0.1) 100%)',
-                            color: tx.amount > 0 ? '#00d4aa' : '#ff6b6b',
-                          }}>
-                            {tx.amount > 0 ? 'Income' : 'Expense'}
-                          </span>
-                          <div>
-                            <p style={styles.transactionName}>
-                              {tx.counterpartyName || tx.bankDescription}
-                            </p>
-                            <p style={styles.transactionDate}>{formatDate(tx.createdAt)}</p>
-                          </div>
-                        </div>
-                        <p style={{
-                          ...styles.transactionAmount,
-                          background: tx.amount > 0 
-                            ? 'linear-gradient(135deg, #00d4aa 0%, #00ff88 100%)'
-                            : 'linear-gradient(135deg, #ff6b6b 0%, #ff4757 100%)',
-                          WebkitBackgroundClip: 'text',
-                          WebkitTextFillColor: 'transparent',
-                        }}>
-                          {tx.amount > 0 ? '+' : ''}{formatCurrency(tx.amount)}
+              {data?.accounts && data.accounts.length > 0 ? (
+                <div style={styles.accountsList}>
+                  {data.accounts.map((account) => (
+                    <div key={account.id} style={styles.accountCard}>
+                      <div style={styles.accountInfo}>
+                        <p style={styles.accountName}>{account.name}</p>
+                        <p style={styles.accountType}>
+                          {account.type.charAt(0).toUpperCase() + account.type.slice(1)} {account.accountNumber}
                         </p>
                       </div>
-                    ))}
-                  </div>
-                ) : (
-                  <p style={styles.emptyState}>No recent transactions</p>
-                )}
-              </div>
+                      <div style={styles.accountBalance}>
+                        <p style={styles.balanceValue}>{formatCurrency(account.currentBalance)}</p>
+                        <p style={styles.availableBalance}>
+                          Available: {formatCurrency(account.availableBalance)}
+                        </p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <p style={styles.emptyState}>No accounts found</p>
+              )}
             </div>
 
-            <div style={styles.cashFlowSection}>
-              <div style={styles.glassCard}>
-                <div style={styles.cardHeader}>
-                  <ChartIcon />
-                  <h2 style={styles.cardTitle}>Cash Flow Overview</h2>
+            <div style={styles.glassCard}>
+              <div style={styles.cardHeader}>
+                <ChartIcon />
+                <h2 style={styles.cardTitle}>Recent Transactions</h2>
+              </div>
+              {data?.recentTransactions && data.recentTransactions.length > 0 ? (
+                <div style={styles.transactionsList}>
+                  {data.recentTransactions.slice(0, 10).map((tx) => (
+                    <div key={tx.id} style={styles.transactionRow}>
+                      <div style={styles.transactionLeft}>
+                        <span style={{
+                          ...styles.transactionBadge,
+                          background: tx.amount > 0 
+                            ? 'linear-gradient(135deg, rgba(0, 212, 170, 0.2) 0%, rgba(0, 255, 136, 0.1) 100%)'
+                            : 'linear-gradient(135deg, rgba(255, 107, 107, 0.2) 0%, rgba(255, 71, 87, 0.1) 100%)',
+                          color: tx.amount > 0 ? '#00d4aa' : '#ff6b6b',
+                        }}>
+                          {tx.amount > 0 ? 'Income' : 'Expense'}
+                        </span>
+                        <div>
+                          <p style={styles.transactionName}>
+                            {tx.counterpartyName || tx.bankDescription}
+                          </p>
+                          <p style={styles.transactionDate}>{formatDate(tx.createdAt)}</p>
+                        </div>
+                      </div>
+                      <p style={{
+                        ...styles.transactionAmount,
+                        background: tx.amount > 0 
+                          ? 'linear-gradient(135deg, #00d4aa 0%, #00ff88 100%)'
+                          : 'linear-gradient(135deg, #ff6b6b 0%, #ff4757 100%)',
+                        WebkitBackgroundClip: 'text',
+                        WebkitTextFillColor: 'transparent',
+                      }}>
+                        {tx.amount > 0 ? '+' : ''}{formatCurrency(tx.amount)}
+                      </p>
+                    </div>
+                  ))}
                 </div>
-                <div style={styles.cashFlowVisual}>
-                  <div style={styles.flowBar}>
-                    <div style={styles.flowLabel}>Income</div>
-                    <div style={styles.flowTrack}>
-                      <div style={{
-                        ...styles.flowFill,
-                        width: `${Math.min(((data?.incomingLast30Days || 0) / Math.max(data?.incomingLast30Days || 1, Math.abs(data?.outgoingLast30Days || 1))) * 100, 100)}%`,
-                        background: 'linear-gradient(90deg, #00d4aa 0%, #00ff88 50%, #00d4aa 100%)',
-                        boxShadow: '0 0 20px rgba(0, 212, 170, 0.4)',
-                      }} />
-                    </div>
-                    <div style={styles.flowValue}>{formatCurrency(data?.incomingLast30Days || 0)}</div>
+              ) : (
+                <p style={styles.emptyState}>No recent transactions</p>
+              )}
+            </div>
+          </div>
+
+          <div style={styles.cashFlowSection}>
+            <div style={styles.glassCard}>
+              <div style={styles.cardHeader}>
+                <ChartIcon />
+                <h2 style={styles.cardTitle}>Cash Flow Overview</h2>
+              </div>
+              <div style={styles.cashFlowVisual}>
+                <div style={styles.flowBar}>
+                  <div style={styles.flowLabel}>Income</div>
+                  <div style={styles.flowTrack}>
+                    <div style={{
+                      ...styles.flowFill,
+                      width: `${Math.min(((data?.incomingLast30Days || 0) / Math.max(data?.incomingLast30Days || 1, Math.abs(data?.outgoingLast30Days || 1))) * 100, 100)}%`,
+                      background: 'linear-gradient(90deg, #00d4aa 0%, #00ff88 50%, #00d4aa 100%)',
+                      boxShadow: '0 0 20px rgba(0, 212, 170, 0.4)',
+                    }} />
                   </div>
-                  <div style={styles.flowBar}>
-                    <div style={styles.flowLabel}>Expenses</div>
-                    <div style={styles.flowTrack}>
-                      <div style={{
-                        ...styles.flowFill,
-                        width: `${Math.min((Math.abs(data?.outgoingLast30Days || 0) / Math.max(data?.incomingLast30Days || 1, Math.abs(data?.outgoingLast30Days || 1))) * 100, 100)}%`,
-                        background: 'linear-gradient(90deg, #ff6b6b 0%, #ff4757 50%, #ff6b6b 100%)',
-                        boxShadow: '0 0 20px rgba(255, 107, 107, 0.4)',
-                      }} />
-                    </div>
-                    <div style={styles.flowValue}>{formatCurrency(Math.abs(data?.outgoingLast30Days || 0))}</div>
+                  <div style={styles.flowValue}>{formatCurrency(data?.incomingLast30Days || 0)}</div>
+                </div>
+                <div style={styles.flowBar}>
+                  <div style={styles.flowLabel}>Expenses</div>
+                  <div style={styles.flowTrack}>
+                    <div style={{
+                      ...styles.flowFill,
+                      width: `${Math.min((Math.abs(data?.outgoingLast30Days || 0) / Math.max(data?.incomingLast30Days || 1, Math.abs(data?.outgoingLast30Days || 1))) * 100, 100)}%`,
+                      background: 'linear-gradient(90deg, #ff6b6b 0%, #ff4757 50%, #ff6b6b 100%)',
+                      boxShadow: '0 0 20px rgba(255, 107, 107, 0.4)',
+                    }} />
                   </div>
+                  <div style={styles.flowValue}>{formatCurrency(Math.abs(data?.outgoingLast30Days || 0))}</div>
                 </div>
               </div>
             </div>
-          </>
-        )}
-      </main>
-
-      <style jsx global>{`
-        @keyframes float {
-          0%, 100% { transform: translateY(0px) rotate(0deg); }
-          50% { transform: translateY(-30px) rotate(3deg); }
-        }
-        @keyframes pulse {
-          0%, 100% { opacity: 0.4; transform: scale(1); }
-          50% { opacity: 0.8; transform: scale(1.05); }
-        }
-        @keyframes shimmer {
-          0% { background-position: -200% 0; }
-          100% { background-position: 200% 0; }
-        }
-        @keyframes glow {
-          0%, 100% { box-shadow: 0 0 20px rgba(0, 212, 170, 0.3); }
-          50% { box-shadow: 0 0 40px rgba(0, 212, 170, 0.6); }
-        }
-        @keyframes gradientShift {
-          0%, 100% { background-position: 0% 50%; }
-          50% { background-position: 100% 50%; }
-        }
-      `}</style>
-    </div>
+          </div>
+        </>
+      )}
+    </AdminLayout>
   );
 }
 
@@ -534,63 +463,6 @@ function KPICard({
 }
 
 const styles: { [key: string]: React.CSSProperties } = {
-  container: {
-    minHeight: '100vh',
-    background: '#050505',
-    color: '#fff',
-    position: 'relative',
-    overflow: 'hidden',
-  },
-  meshGradient: {
-    position: 'fixed',
-    inset: 0,
-    background: 'radial-gradient(ellipse at 20% 20%, rgba(0, 212, 170, 0.08) 0%, transparent 50%), radial-gradient(ellipse at 80% 80%, rgba(102, 126, 234, 0.06) 0%, transparent 50%), radial-gradient(ellipse at 50% 50%, rgba(240, 147, 251, 0.04) 0%, transparent 50%)',
-    pointerEvents: 'none',
-  },
-  orbOne: {
-    position: 'fixed',
-    width: '600px',
-    height: '600px',
-    borderRadius: '50%',
-    background: 'radial-gradient(circle, rgba(0, 212, 170, 0.12) 0%, transparent 70%)',
-    top: '-200px',
-    right: '-200px',
-    animation: 'float 20s ease-in-out infinite',
-    pointerEvents: 'none',
-  },
-  orbTwo: {
-    position: 'fixed',
-    width: '400px',
-    height: '400px',
-    borderRadius: '50%',
-    background: 'radial-gradient(circle, rgba(102, 126, 234, 0.1) 0%, transparent 70%)',
-    bottom: '-100px',
-    left: '-100px',
-    animation: 'float 15s ease-in-out infinite reverse',
-    pointerEvents: 'none',
-  },
-  orbThree: {
-    position: 'fixed',
-    width: '350px',
-    height: '350px',
-    borderRadius: '50%',
-    background: 'radial-gradient(circle, rgba(240, 147, 251, 0.08) 0%, transparent 70%)',
-    top: '40%',
-    left: '20%',
-    animation: 'float 25s ease-in-out infinite',
-    pointerEvents: 'none',
-  },
-  orbFour: {
-    position: 'fixed',
-    width: '250px',
-    height: '250px',
-    borderRadius: '50%',
-    background: 'radial-gradient(circle, rgba(0, 255, 136, 0.06) 0%, transparent 70%)',
-    top: '60%',
-    right: '15%',
-    animation: 'float 18s ease-in-out infinite reverse',
-    pointerEvents: 'none',
-  },
   loadingContainer: {
     minHeight: '100vh',
     display: 'flex',
@@ -621,111 +493,6 @@ const styles: { [key: string]: React.CSSProperties } = {
     padding: '80px 0',
     gap: '24px',
   },
-  nav: {
-    position: 'sticky',
-    top: 0,
-    zIndex: 100,
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    padding: '20px 40px',
-    background: 'rgba(5, 5, 5, 0.85)',
-    backdropFilter: 'blur(20px)',
-    borderBottom: '1px solid rgba(255,255,255,0.06)',
-  },
-  logo: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: '12px',
-    textDecoration: 'none',
-    color: '#fff',
-  },
-  logoIcon: {
-    width: '36px',
-    height: '36px',
-    borderRadius: '10px',
-    background: 'linear-gradient(135deg, #00d4aa 0%, #00ff88 100%)',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    fontSize: '18px',
-    fontWeight: '700',
-  },
-  logoText: {
-    fontSize: '16px',
-    fontWeight: '600',
-    letterSpacing: '2px',
-  },
-  navLinks: {
-    display: 'flex',
-    gap: '28px',
-    alignItems: 'center',
-  },
-  navLink: {
-    color: 'rgba(255,255,255,0.5)',
-    textDecoration: 'none',
-    fontSize: '13px',
-    fontWeight: '500',
-    transition: 'color 0.2s',
-  },
-  navLinkActive: {
-    color: '#fff',
-    textDecoration: 'none',
-    fontSize: '13px',
-    fontWeight: '600',
-    background: 'linear-gradient(135deg, #00d4aa 0%, #00ff88 100%)',
-    WebkitBackgroundClip: 'text',
-    WebkitTextFillColor: 'transparent',
-  },
-  exitLink: {
-    color: 'rgba(255,255,255,0.4)',
-    textDecoration: 'none',
-    fontSize: '13px',
-    fontWeight: '500',
-    padding: '8px 16px',
-    border: '1px solid rgba(255,255,255,0.1)',
-    borderRadius: '8px',
-    transition: 'all 0.2s',
-  },
-  main: {
-    position: 'relative',
-    zIndex: 1,
-    padding: '40px',
-    maxWidth: '1400px',
-    margin: '0 auto',
-  },
-  header: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'flex-start',
-    marginBottom: '48px',
-  },
-  headerIconRow: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: '10px',
-    marginBottom: '12px',
-  },
-  greeting: {
-    fontSize: '13px',
-    color: 'rgba(255,255,255,0.5)',
-    letterSpacing: '2px',
-    textTransform: 'uppercase',
-  },
-  title: {
-    fontSize: '48px',
-    fontWeight: '700',
-    letterSpacing: '-2px',
-    background: 'linear-gradient(135deg, #fff 0%, rgba(255,255,255,0.7) 100%)',
-    WebkitBackgroundClip: 'text',
-    WebkitTextFillColor: 'transparent',
-    marginBottom: '8px',
-  },
-  subtitle: {
-    fontSize: '15px',
-    color: 'rgba(255,255,255,0.4)',
-    letterSpacing: '0.5px',
-  },
   demoTag: {
     display: 'flex',
     alignItems: 'center',
@@ -737,6 +504,8 @@ const styles: { [key: string]: React.CSSProperties } = {
     backdropFilter: 'blur(10px)',
     fontSize: '12px',
     color: 'rgba(255,255,255,0.5)',
+    marginBottom: '24px',
+    width: 'fit-content',
   },
   errorCard: {
     background: 'rgba(255, 107, 107, 0.08)',

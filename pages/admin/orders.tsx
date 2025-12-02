@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import Link from 'next/link';
 import { useRequireAdmin } from '../../hooks/useRole';
+import AdminLayout from '../../components/AdminLayout';
 
 const OrderIcon = () => (
   <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
@@ -163,193 +163,164 @@ export default function AdminOrders() {
   }
 
   return (
-    <div style={styles.container}>
-      <div style={styles.meshGradient} />
-      <div style={styles.orbOne} />
-      <div style={styles.orbTwo} />
-      <div style={styles.orbThree} />
-      <div style={styles.orbFour} />
-
-      <nav style={styles.nav}>
-        <div style={styles.navLeft}>
-          <Link href="/admin" style={styles.logo}>
-            <span style={styles.logoIcon}>D</span>
-            <span style={styles.logoText}>DRIZZL</span>
-          </Link>
+    <AdminLayout title="Orders" subtitle="Order Management">
+      <div style={styles.filtersBar}>
+        <div style={styles.orderCount}>
+          <OrderIcon />
+          <span>{orders.length} total orders</span>
         </div>
-        <div style={styles.navLinks}>
-          <Link href="/admin/command-center" style={styles.navLink}>Command Center</Link>
-          <Link href="/admin/products" style={styles.navLink}>Products</Link>
-          <Link href="/admin/orders" style={styles.navLinkActive}>Orders</Link>
-          <Link href="/admin/partners" style={styles.navLink}>Partners</Link>
-          <Link href="/admin/banking" style={styles.navLink}>Banking</Link>
-          <Link href="/admin/ai-assistant" style={styles.navLink}>AI Assistant</Link>
-          <Link href="/" style={styles.exitLink}>Exit</Link>
+        <div style={styles.filters}>
+          <div style={styles.filterGroup}>
+            <FilterIcon />
+            <select 
+              value={filter} 
+              onChange={(e) => setFilter(e.target.value as any)} 
+              style={styles.select}
+            >
+              <option value="all">All Types</option>
+              <option value="d2c">D2C</option>
+              <option value="b2b">B2B</option>
+            </select>
+          </div>
+          <div style={styles.filterGroup}>
+            <select 
+              value={statusFilter} 
+              onChange={(e) => setStatusFilter(e.target.value)} 
+              style={styles.select}
+            >
+              <option value="all">All Status</option>
+              <option value="pending">Pending</option>
+              <option value="processing">Processing</option>
+              <option value="shipped">Shipped</option>
+              <option value="delivered">Delivered</option>
+              <option value="cancelled">Cancelled</option>
+            </select>
+          </div>
         </div>
-      </nav>
+      </div>
 
-      <main style={styles.main}>
-        <header style={styles.header}>
-          <div style={styles.headerLeft}>
-            <div style={styles.headerIcon}><OrderIcon /></div>
-            <div>
-              <h1 style={styles.title}>Orders</h1>
-              <p style={styles.subtitle}>{orders.length} total orders</p>
-            </div>
+      {error && (
+        <div style={styles.errorBanner}>
+          <div style={styles.errorIcon}>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M12 8v4m0 4h.01"/>
+            </svg>
           </div>
-          <div style={styles.filters}>
-            <div style={styles.filterGroup}>
-              <FilterIcon />
-              <select 
-                value={filter} 
-                onChange={(e) => setFilter(e.target.value as any)} 
-                style={styles.select}
-              >
-                <option value="all">All Types</option>
-                <option value="d2c">D2C</option>
-                <option value="b2b">B2B</option>
-              </select>
-            </div>
-            <div style={styles.filterGroup}>
-              <select 
-                value={statusFilter} 
-                onChange={(e) => setStatusFilter(e.target.value)} 
-                style={styles.select}
-              >
-                <option value="all">All Status</option>
-                <option value="pending">Pending</option>
-                <option value="processing">Processing</option>
-                <option value="shipped">Shipped</option>
-                <option value="delivered">Delivered</option>
-                <option value="cancelled">Cancelled</option>
-              </select>
-            </div>
-          </div>
-        </header>
+          <p style={styles.errorText}>{error}</p>
+        </div>
+      )}
 
-        {error && (
-          <div style={styles.errorBanner}>
-            <div style={styles.errorIcon}>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <circle cx="12" cy="12" r="10"/>
-                <path d="M12 8v4m0 4h.01"/>
-              </svg>
-            </div>
-            <p style={styles.errorText}>{error}</p>
-          </div>
-        )}
-
-        <div style={styles.tableContainer}>
-          <table style={styles.table}>
-            <thead>
+      <div style={styles.tableContainer}>
+        <table style={styles.table}>
+          <thead>
+            <tr>
+              <th style={styles.th}>Order ID</th>
+              <th style={styles.th}>Customer</th>
+              <th style={styles.th}>Type</th>
+              <th style={styles.th}>Total</th>
+              <th style={styles.th}>Status</th>
+              <th style={styles.th}>Date</th>
+              <th style={styles.th}>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {loadingOrders ? (
               <tr>
-                <th style={styles.th}>Order ID</th>
-                <th style={styles.th}>Customer</th>
-                <th style={styles.th}>Type</th>
-                <th style={styles.th}>Total</th>
-                <th style={styles.th}>Status</th>
-                <th style={styles.th}>Date</th>
-                <th style={styles.th}>Actions</th>
+                <td colSpan={7} style={styles.emptyCell}>
+                  <div style={styles.loadingInline}>
+                    <div style={styles.loadingDot} />
+                    <div style={{ ...styles.loadingDot, animationDelay: '0.2s' }} />
+                    <div style={{ ...styles.loadingDot, animationDelay: '0.4s' }} />
+                  </div>
+                </td>
               </tr>
-            </thead>
-            <tbody>
-              {loadingOrders ? (
-                <tr>
-                  <td colSpan={7} style={styles.emptyCell}>
-                    <div style={styles.loadingInline}>
-                      <div style={styles.loadingDot} />
-                      <div style={{ ...styles.loadingDot, animationDelay: '0.2s' }} />
-                      <div style={{ ...styles.loadingDot, animationDelay: '0.4s' }} />
+            ) : orders.length === 0 ? (
+              <tr>
+                <td colSpan={7} style={styles.emptyCell}>
+                  <div style={styles.emptyState}>
+                    <OrderIcon />
+                    <p>No orders found</p>
+                  </div>
+                </td>
+              </tr>
+            ) : (
+              orders.map(order => (
+                <tr 
+                  key={order.id} 
+                  style={{
+                    ...styles.tr,
+                    background: hoveredRow === order.id 
+                      ? 'rgba(255,255,255,0.06)' 
+                      : 'transparent',
+                    boxShadow: hoveredRow === order.id 
+                      ? '0 0 30px rgba(102, 126, 234, 0.15)' 
+                      : 'none',
+                  }}
+                  onMouseEnter={() => setHoveredRow(order.id)}
+                  onMouseLeave={() => setHoveredRow(null)}
+                >
+                  <td style={styles.td}>
+                    <span style={styles.orderId}>{order.id.slice(0, 8)}</span>
+                  </td>
+                  <td style={styles.td}>
+                    <div style={styles.customerCell}>
+                      <div style={styles.customerAvatar}>
+                        <UserIcon />
+                      </div>
+                      <div>
+                        <p style={styles.customerEmail}>{order.profiles?.email || 'Guest'}</p>
+                        <p style={styles.customerName}>{order.profiles?.name || ''}</p>
+                      </div>
                     </div>
                   </td>
-                </tr>
-              ) : orders.length === 0 ? (
-                <tr>
-                  <td colSpan={7} style={styles.emptyCell}>
-                    <div style={styles.emptyState}>
-                      <OrderIcon />
-                      <p>No orders found</p>
+                  <td style={styles.td}>
+                    <span style={{
+                      ...styles.typeBadge,
+                      background: order.order_type === 'b2b' 
+                        ? 'linear-gradient(135deg, rgba(79, 172, 254, 0.2) 0%, rgba(0, 242, 254, 0.2) 100%)'
+                        : 'linear-gradient(135deg, rgba(102, 126, 234, 0.2) 0%, rgba(118, 75, 162, 0.2) 100%)',
+                      borderColor: order.order_type === 'b2b' 
+                        ? 'rgba(79, 172, 254, 0.3)'
+                        : 'rgba(102, 126, 234, 0.3)',
+                    }}>
+                      {order.order_type?.toUpperCase() || 'N/A'}
+                    </span>
+                  </td>
+                  <td style={styles.td}>
+                    <div style={styles.totalCell}>
+                      <DollarIcon />
+                      <span style={styles.totalAmount}>${((order.total_cents || 0) / 100).toFixed(2)}</span>
                     </div>
                   </td>
+                  <td style={styles.td}>
+                    <StatusBadge 
+                      status={order.status} 
+                      onChange={(newStatus) => handleStatusChange(order.id, newStatus)}
+                      updating={updating === order.id}
+                    />
+                  </td>
+                  <td style={styles.td}>
+                    <div style={styles.dateCell}>
+                      <CalendarIcon />
+                      <span>{new Date(order.created_at).toLocaleDateString()}</span>
+                    </div>
+                  </td>
+                  <td style={styles.td}>
+                    <button 
+                      style={styles.viewButton}
+                      onClick={() => setSelectedOrder(order)}
+                    >
+                      <EyeIcon />
+                      <span>View</span>
+                    </button>
+                  </td>
                 </tr>
-              ) : (
-                orders.map(order => (
-                  <tr 
-                    key={order.id} 
-                    style={{
-                      ...styles.tr,
-                      background: hoveredRow === order.id 
-                        ? 'rgba(255,255,255,0.06)' 
-                        : 'transparent',
-                      boxShadow: hoveredRow === order.id 
-                        ? '0 0 30px rgba(102, 126, 234, 0.15)' 
-                        : 'none',
-                    }}
-                    onMouseEnter={() => setHoveredRow(order.id)}
-                    onMouseLeave={() => setHoveredRow(null)}
-                  >
-                    <td style={styles.td}>
-                      <span style={styles.orderId}>{order.id.slice(0, 8)}</span>
-                    </td>
-                    <td style={styles.td}>
-                      <div style={styles.customerCell}>
-                        <div style={styles.customerAvatar}>
-                          <UserIcon />
-                        </div>
-                        <div>
-                          <p style={styles.customerEmail}>{order.profiles?.email || 'Guest'}</p>
-                          <p style={styles.customerName}>{order.profiles?.name || ''}</p>
-                        </div>
-                      </div>
-                    </td>
-                    <td style={styles.td}>
-                      <span style={{
-                        ...styles.typeBadge,
-                        background: order.order_type === 'b2b' 
-                          ? 'linear-gradient(135deg, rgba(79, 172, 254, 0.2) 0%, rgba(0, 242, 254, 0.2) 100%)'
-                          : 'linear-gradient(135deg, rgba(102, 126, 234, 0.2) 0%, rgba(118, 75, 162, 0.2) 100%)',
-                        borderColor: order.order_type === 'b2b' 
-                          ? 'rgba(79, 172, 254, 0.3)'
-                          : 'rgba(102, 126, 234, 0.3)',
-                      }}>
-                        {order.order_type?.toUpperCase() || 'N/A'}
-                      </span>
-                    </td>
-                    <td style={styles.td}>
-                      <div style={styles.totalCell}>
-                        <DollarIcon />
-                        <span style={styles.totalAmount}>${((order.total_cents || 0) / 100).toFixed(2)}</span>
-                      </div>
-                    </td>
-                    <td style={styles.td}>
-                      <StatusBadge 
-                        status={order.status} 
-                        onChange={(newStatus) => handleStatusChange(order.id, newStatus)}
-                        updating={updating === order.id}
-                      />
-                    </td>
-                    <td style={styles.td}>
-                      <div style={styles.dateCell}>
-                        <CalendarIcon />
-                        <span>{new Date(order.created_at).toLocaleDateString()}</span>
-                      </div>
-                    </td>
-                    <td style={styles.td}>
-                      <button 
-                        style={styles.viewButton}
-                        onClick={() => setSelectedOrder(order)}
-                      >
-                        <EyeIcon />
-                        <span>View</span>
-                      </button>
-                    </td>
-                  </tr>
-                ))
-              )}
-            </tbody>
-          </table>
-        </div>
-      </main>
+              ))
+            )}
+          </tbody>
+        </table>
+      </div>
 
       {selectedOrder && (
         <OrderDetailModal 
@@ -361,10 +332,6 @@ export default function AdminOrders() {
       )}
 
       <style jsx global>{`
-        @keyframes float {
-          0%, 100% { transform: translateY(0px) rotate(0deg); }
-          50% { transform: translateY(-20px) rotate(5deg); }
-        }
         @keyframes pulse {
           0%, 100% { opacity: 0.4; transform: scale(1); }
           50% { opacity: 0.8; transform: scale(1.05); }
@@ -377,16 +344,12 @@ export default function AdminOrders() {
           0%, 100% { opacity: 0.3; transform: scale(0.8); }
           50% { opacity: 1; transform: scale(1); }
         }
-        @keyframes shimmer {
-          0% { background-position: -200% 0; }
-          100% { background-position: 200% 0; }
-        }
         @keyframes fadeIn {
           from { opacity: 0; transform: scale(0.95); }
           to { opacity: 1; transform: scale(1); }
         }
       `}</style>
-    </div>
+    </AdminLayout>
   );
 }
 
@@ -575,63 +538,6 @@ function getStatusConfig(status: string) {
 }
 
 const styles: { [key: string]: React.CSSProperties } = {
-  container: {
-    minHeight: '100vh',
-    background: '#050505',
-    color: '#fff',
-    position: 'relative',
-    overflow: 'hidden',
-  },
-  meshGradient: {
-    position: 'fixed',
-    inset: 0,
-    background: 'radial-gradient(ellipse at 20% 20%, rgba(102, 126, 234, 0.08) 0%, transparent 50%), radial-gradient(ellipse at 80% 80%, rgba(240, 147, 251, 0.06) 0%, transparent 50%), radial-gradient(ellipse at 50% 50%, rgba(67, 233, 123, 0.04) 0%, transparent 50%)',
-    pointerEvents: 'none',
-  },
-  orbOne: {
-    position: 'fixed',
-    width: '500px',
-    height: '500px',
-    borderRadius: '50%',
-    background: 'radial-gradient(circle, rgba(72, 198, 239, 0.12) 0%, transparent 70%)',
-    top: '-150px',
-    right: '-100px',
-    animation: 'float 20s ease-in-out infinite',
-    pointerEvents: 'none',
-  },
-  orbTwo: {
-    position: 'fixed',
-    width: '400px',
-    height: '400px',
-    borderRadius: '50%',
-    background: 'radial-gradient(circle, rgba(111, 134, 214, 0.1) 0%, transparent 70%)',
-    bottom: '-100px',
-    left: '-100px',
-    animation: 'float 15s ease-in-out infinite reverse',
-    pointerEvents: 'none',
-  },
-  orbThree: {
-    position: 'fixed',
-    width: '300px',
-    height: '300px',
-    borderRadius: '50%',
-    background: 'radial-gradient(circle, rgba(168, 128, 255, 0.08) 0%, transparent 70%)',
-    top: '40%',
-    left: '60%',
-    animation: 'float 25s ease-in-out infinite',
-    pointerEvents: 'none',
-  },
-  orbFour: {
-    position: 'fixed',
-    width: '350px',
-    height: '350px',
-    borderRadius: '50%',
-    background: 'radial-gradient(circle, rgba(67, 233, 123, 0.06) 0%, transparent 70%)',
-    top: '60%',
-    left: '20%',
-    animation: 'float 18s ease-in-out infinite',
-    pointerEvents: 'none',
-  },
   loadingContainer: {
     minHeight: '100vh',
     display: 'flex',
@@ -654,118 +560,20 @@ const styles: { [key: string]: React.CSSProperties } = {
     letterSpacing: '3px',
     textTransform: 'uppercase',
   },
-  nav: {
-    position: 'sticky',
-    top: 0,
-    zIndex: 100,
+  filtersBar: {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-    padding: '16px 40px',
-    background: 'rgba(5, 5, 5, 0.85)',
-    backdropFilter: 'blur(20px)',
-    borderBottom: '1px solid rgba(255,255,255,0.06)',
-  },
-  navLeft: {
-    display: 'flex',
-    alignItems: 'center',
-  },
-  logo: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: '12px',
-    textDecoration: 'none',
-    color: '#fff',
-  },
-  logoIcon: {
-    width: '36px',
-    height: '36px',
-    borderRadius: '10px',
-    background: 'linear-gradient(135deg, #48c6ef 0%, #6f86d6 100%)',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    fontSize: '18px',
-    fontWeight: '700',
-  },
-  logoText: {
-    fontSize: '16px',
-    fontWeight: '600',
-    letterSpacing: '2px',
-  },
-  navLinks: {
-    display: 'flex',
-    gap: '28px',
-    alignItems: 'center',
-  },
-  navLink: {
-    color: 'rgba(255,255,255,0.5)',
-    textDecoration: 'none',
-    fontSize: '13px',
-    fontWeight: '500',
-    transition: 'color 0.2s',
-  },
-  navLinkActive: {
-    color: '#fff',
-    textDecoration: 'none',
-    fontSize: '13px',
-    fontWeight: '600',
-    background: 'linear-gradient(135deg, #48c6ef, #6f86d6)',
-    WebkitBackgroundClip: 'text',
-    WebkitTextFillColor: 'transparent',
-  },
-  exitLink: {
-    color: 'rgba(255,255,255,0.4)',
-    textDecoration: 'none',
-    fontSize: '13px',
-    fontWeight: '500',
-    padding: '8px 16px',
-    border: '1px solid rgba(255,255,255,0.1)',
-    borderRadius: '8px',
-    transition: 'all 0.2s',
-  },
-  main: {
-    position: 'relative',
-    zIndex: 1,
-    padding: '40px',
-    maxWidth: '1500px',
-    margin: '0 auto',
-  },
-  header: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: '32px',
+    marginBottom: '24px',
     flexWrap: 'wrap',
-    gap: '20px',
-  },
-  headerLeft: {
-    display: 'flex',
-    alignItems: 'center',
     gap: '16px',
   },
-  headerIcon: {
-    width: '48px',
-    height: '48px',
-    borderRadius: '14px',
-    background: 'linear-gradient(135deg, rgba(72, 198, 239, 0.15) 0%, rgba(111, 134, 214, 0.15) 100%)',
-    border: '1px solid rgba(72, 198, 239, 0.2)',
+  orderCount: {
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'center',
-  },
-  title: {
-    fontSize: '28px',
-    fontWeight: '700',
-    letterSpacing: '-0.5px',
-    background: 'linear-gradient(135deg, #fff 0%, rgba(255,255,255,0.8) 100%)',
-    WebkitBackgroundClip: 'text',
-    WebkitTextFillColor: 'transparent',
-  },
-  subtitle: {
+    gap: '10px',
     fontSize: '14px',
-    color: 'rgba(255,255,255,0.5)',
-    marginTop: '4px',
+    color: 'rgba(255,255,255,0.6)',
   },
   filters: {
     display: 'flex',

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import Link from 'next/link';
 import { useRequireAdmin } from '../../hooks/useRole';
+import AdminLayout from '../../components/AdminLayout';
 import {
   SocialAccount,
   SocialPost,
@@ -222,51 +222,19 @@ export default function SocialDashboard() {
   }
 
   return (
-    <div style={styles.container}>
-      <div style={styles.meshGradient} />
-      <div style={styles.orbOne} />
-      <div style={styles.orbTwo} />
-      <div style={styles.orbThree} />
+    <AdminLayout title="Social Media" subtitle="Account Management">
+      <div style={styles.headerActions}>
+        <button onClick={() => showComingSoon('Post Scheduling')} style={styles.secondaryButton}>
+          <GradientIcon type="calendar" size={16} />
+          <span>Schedule Post</span>
+        </button>
+        <button onClick={() => showComingSoon('Account Connection')} style={styles.primaryButton}>
+          <GradientIcon type="plus" size={16} />
+          <span>Connect Account</span>
+        </button>
+      </div>
 
-      <nav style={styles.nav}>
-        <div style={styles.navLeft}>
-          <Link href="/admin" style={styles.logo}>
-            <span style={styles.logoIcon}>D</span>
-            <span style={styles.logoText}>DRIZZL</span>
-          </Link>
-        </div>
-        <div style={styles.navLinks}>
-          <Link href="/admin/command-center" style={styles.navLink}>Command Center</Link>
-          <Link href="/admin/video-manager" style={styles.navLink}>Videos</Link>
-          <Link href="/admin/social" style={styles.navLinkActive}>Social</Link>
-          <Link href="/admin/inventory" style={styles.navLink}>Inventory</Link>
-          <Link href="/admin/products" style={styles.navLink}>Products</Link>
-          <Link href="/admin/orders" style={styles.navLink}>Orders</Link>
-          <Link href="/admin/partners" style={styles.navLink}>Partners</Link>
-          <Link href="/admin/banking" style={styles.navLink}>Banking</Link>
-          <Link href="/" style={styles.exitLink}>Exit</Link>
-        </div>
-      </nav>
-
-      <main style={styles.main}>
-        <div style={styles.header}>
-          <div>
-            <p style={styles.greeting}>Social Intelligence</p>
-            <h1 style={styles.title}>Social Media</h1>
-          </div>
-          <div style={styles.headerActions}>
-            <button onClick={() => showComingSoon('Post Scheduling')} style={styles.secondaryButton}>
-              <GradientIcon type="calendar" size={16} />
-              <span>Schedule Post</span>
-            </button>
-            <button onClick={() => showComingSoon('Account Connection')} style={styles.primaryButton}>
-              <GradientIcon type="plus" size={16} />
-              <span>Connect Account</span>
-            </button>
-          </div>
-        </div>
-
-        <div style={styles.statsGrid}>
+      <div style={styles.statsGrid}>
           <StatCard 
             label="Total Followers" 
             value={formatNumber(totalFollowers)} 
@@ -574,7 +542,6 @@ export default function SocialDashboard() {
             )}
           </>
         )}
-      </main>
 
       {showComingSoonModal && (
         <div
@@ -597,28 +564,16 @@ export default function SocialDashboard() {
       )}
 
       <style jsx global>{`
-        @keyframes float {
-          0%, 100% { transform: translateY(0px) rotate(0deg); }
-          50% { transform: translateY(-20px) rotate(5deg); }
-        }
-        @keyframes pulse {
-          0%, 100% { opacity: 0.4; }
-          50% { opacity: 0.8; }
-        }
         @keyframes shimmer {
           0% { background-position: -200% 0; }
           100% { background-position: 200% 0; }
-        }
-        @keyframes glow {
-          0%, 100% { box-shadow: 0 0 20px rgba(102, 126, 234, 0.3); }
-          50% { box-shadow: 0 0 40px rgba(102, 126, 234, 0.6); }
         }
         @keyframes spin {
           from { transform: rotate(0deg); }
           to { transform: rotate(360deg); }
         }
       `}</style>
-    </div>
+    </AdminLayout>
   );
 }
 
@@ -644,52 +599,6 @@ function StatCard({ label, value, change, subtext, loading, accent }: {
 }
 
 const styles: { [key: string]: React.CSSProperties } = {
-  container: {
-    minHeight: '100vh',
-    background: '#050505',
-    color: '#fff',
-    position: 'relative',
-    overflow: 'hidden',
-  },
-  meshGradient: {
-    position: 'fixed',
-    inset: 0,
-    background: 'radial-gradient(ellipse at 20% 20%, rgba(240, 147, 251, 0.08) 0%, transparent 50%), radial-gradient(ellipse at 80% 80%, rgba(0, 245, 212, 0.06) 0%, transparent 50%), radial-gradient(ellipse at 50% 50%, rgba(79, 172, 254, 0.04) 0%, transparent 50%)',
-    pointerEvents: 'none',
-  },
-  orbOne: {
-    position: 'fixed',
-    width: '600px',
-    height: '600px',
-    borderRadius: '50%',
-    background: 'radial-gradient(circle, rgba(240, 147, 251, 0.15) 0%, transparent 70%)',
-    top: '-200px',
-    right: '-200px',
-    animation: 'float 20s ease-in-out infinite',
-    pointerEvents: 'none',
-  },
-  orbTwo: {
-    position: 'fixed',
-    width: '400px',
-    height: '400px',
-    borderRadius: '50%',
-    background: 'radial-gradient(circle, rgba(0, 245, 212, 0.12) 0%, transparent 70%)',
-    bottom: '-100px',
-    left: '-100px',
-    animation: 'float 15s ease-in-out infinite reverse',
-    pointerEvents: 'none',
-  },
-  orbThree: {
-    position: 'fixed',
-    width: '300px',
-    height: '300px',
-    borderRadius: '50%',
-    background: 'radial-gradient(circle, rgba(79, 172, 254, 0.1) 0%, transparent 70%)',
-    top: '50%',
-    left: '30%',
-    animation: 'float 25s ease-in-out infinite',
-    pointerEvents: 'none',
-  },
   loadingContainer: {
     minHeight: '100vh',
     display: 'flex',
@@ -728,102 +637,6 @@ const styles: { [key: string]: React.CSSProperties } = {
     borderTopColor: '#f093fb',
     borderRadius: '50%',
     animation: 'spin 1s linear infinite',
-  },
-  nav: {
-    position: 'sticky',
-    top: 0,
-    zIndex: 100,
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    padding: '20px 40px',
-    background: 'rgba(5, 5, 5, 0.8)',
-    backdropFilter: 'blur(20px)',
-    borderBottom: '1px solid rgba(255,255,255,0.06)',
-  },
-  navLeft: {
-    display: 'flex',
-    alignItems: 'center',
-  },
-  logo: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: '12px',
-    textDecoration: 'none',
-    color: '#fff',
-  },
-  logoIcon: {
-    width: '36px',
-    height: '36px',
-    borderRadius: '10px',
-    background: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    fontSize: '18px',
-    fontWeight: '700',
-  },
-  logoText: {
-    fontSize: '16px',
-    fontWeight: '600',
-    letterSpacing: '2px',
-  },
-  navLinks: {
-    display: 'flex',
-    gap: '32px',
-    alignItems: 'center',
-    flexWrap: 'wrap' as const,
-  },
-  navLink: {
-    color: 'rgba(255,255,255,0.6)',
-    textDecoration: 'none',
-    fontSize: '13px',
-    fontWeight: '500',
-    transition: 'color 0.2s',
-  },
-  navLinkActive: {
-    color: '#fff',
-    textDecoration: 'none',
-    fontSize: '13px',
-    fontWeight: '600',
-  },
-  exitLink: {
-    color: 'rgba(255,255,255,0.4)',
-    textDecoration: 'none',
-    fontSize: '13px',
-    fontWeight: '500',
-    padding: '8px 16px',
-    border: '1px solid rgba(255,255,255,0.1)',
-    borderRadius: '8px',
-  },
-  main: {
-    position: 'relative',
-    zIndex: 1,
-    padding: '40px',
-    maxWidth: '1400px',
-    margin: '0 auto',
-  },
-  header: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'flex-start',
-    marginBottom: '32px',
-    flexWrap: 'wrap' as const,
-    gap: '16px',
-  },
-  greeting: {
-    fontSize: '14px',
-    color: 'rgba(255,255,255,0.5)',
-    marginBottom: '8px',
-    letterSpacing: '1px',
-  },
-  title: {
-    fontSize: '42px',
-    fontWeight: '700',
-    letterSpacing: '-1px',
-    background: 'linear-gradient(135deg, #fff 0%, rgba(255,255,255,0.7) 100%)',
-    WebkitBackgroundClip: 'text',
-    WebkitTextFillColor: 'transparent',
   },
   headerActions: {
     display: 'flex',

@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
-import Link from 'next/link';
 import { useRequireAdmin } from '../../hooks/useRole';
+import AdminLayout from '../../components/AdminLayout';
 
 interface Message {
   id: string;
@@ -116,29 +116,8 @@ export default function AIAssistant() {
   }
 
   return (
-    <div style={styles.container}>
-      <div style={styles.meshGradient} />
-      <div style={styles.orbOne} />
-      <div style={styles.orbTwo} />
-      <div style={styles.orbThree} />
-      <div style={styles.orbFour} />
-
-      <nav style={styles.nav}>
-        <Link href="/admin" style={styles.logo}>
-          <span style={styles.logoIcon}>D</span>
-          <span style={styles.logoText}>DRIZZL</span>
-        </Link>
-        <div style={styles.navLinks}>
-          <Link href="/admin/command-center" style={styles.navLink}>Command Center</Link>
-          <Link href="/admin/products" style={styles.navLink}>Products</Link>
-          <Link href="/admin/orders" style={styles.navLink}>Orders</Link>
-          <Link href="/admin/banking" style={styles.navLink}>Banking</Link>
-          <Link href="/admin/ai-assistant" style={styles.navLinkActive}>AI Assistant</Link>
-          <Link href="/" style={styles.exitLink}>Exit</Link>
-        </div>
-      </nav>
-
-      <main style={styles.main}>
+    <AdminLayout title="AI Assistant" subtitle="Natural Language Intelligence">
+      <div style={styles.chatWrapper}>
         <div style={styles.chatContainer}>
           {messages.length === 0 && (
             <div style={styles.welcomeContainer}>
@@ -158,7 +137,7 @@ export default function AIAssistant() {
                   </svg>
                 </div>
               </div>
-              <h1 style={styles.welcomeTitle}>AI Assistant</h1>
+              <h2 style={styles.welcomeTitle}>Ask me anything</h2>
               <p style={styles.welcomeSubtitle}>
                 Ask questions about your business metrics, revenue, orders, or financial health.
               </p>
@@ -272,13 +251,9 @@ export default function AIAssistant() {
             AI responses are based on current business data. Results may vary.
           </p>
         </div>
-      </main>
+      </div>
 
       <style jsx global>{`
-        @keyframes float {
-          0%, 100% { transform: translateY(0px) rotate(0deg); }
-          50% { transform: translateY(-20px) rotate(5deg); }
-        }
         @keyframes pulse {
           0%, 100% { opacity: 0.4; transform: scale(0.8); }
           50% { opacity: 1; transform: scale(1); }
@@ -301,86 +276,12 @@ export default function AIAssistant() {
             transform: scale(1);
           }
         }
-        @keyframes shimmer {
-          0% { background-position: -200% 0; }
-          100% { background-position: 200% 0; }
-        }
-        @keyframes orbFloat1 {
-          0%, 100% { transform: translate(0, 0) scale(1); }
-          25% { transform: translate(30px, -20px) scale(1.05); }
-          50% { transform: translate(-10px, -40px) scale(0.95); }
-          75% { transform: translate(-30px, -10px) scale(1.02); }
-        }
-        @keyframes orbFloat2 {
-          0%, 100% { transform: translate(0, 0) scale(1); }
-          33% { transform: translate(-40px, 20px) scale(1.08); }
-          66% { transform: translate(20px, 30px) scale(0.92); }
-        }
       `}</style>
-    </div>
+    </AdminLayout>
   );
 }
 
 const styles: { [key: string]: React.CSSProperties } = {
-  container: {
-    minHeight: '100vh',
-    background: '#050505',
-    color: '#fff',
-    position: 'relative',
-    overflow: 'hidden',
-    display: 'flex',
-    flexDirection: 'column',
-  },
-  meshGradient: {
-    position: 'fixed',
-    inset: 0,
-    background: 'radial-gradient(ellipse at 20% 20%, rgba(168, 85, 247, 0.08) 0%, transparent 50%), radial-gradient(ellipse at 80% 80%, rgba(236, 72, 153, 0.06) 0%, transparent 50%), radial-gradient(ellipse at 50% 50%, rgba(139, 92, 246, 0.04) 0%, transparent 50%)',
-    pointerEvents: 'none',
-  },
-  orbOne: {
-    position: 'fixed',
-    width: '500px',
-    height: '500px',
-    borderRadius: '50%',
-    background: 'radial-gradient(circle, rgba(168, 85, 247, 0.12) 0%, transparent 70%)',
-    top: '-150px',
-    right: '-150px',
-    animation: 'orbFloat1 25s ease-in-out infinite',
-    pointerEvents: 'none',
-  },
-  orbTwo: {
-    position: 'fixed',
-    width: '400px',
-    height: '400px',
-    borderRadius: '50%',
-    background: 'radial-gradient(circle, rgba(236, 72, 153, 0.1) 0%, transparent 70%)',
-    bottom: '-100px',
-    left: '-100px',
-    animation: 'orbFloat2 20s ease-in-out infinite',
-    pointerEvents: 'none',
-  },
-  orbThree: {
-    position: 'fixed',
-    width: '300px',
-    height: '300px',
-    borderRadius: '50%',
-    background: 'radial-gradient(circle, rgba(139, 92, 246, 0.08) 0%, transparent 70%)',
-    top: '40%',
-    left: '20%',
-    animation: 'float 30s ease-in-out infinite',
-    pointerEvents: 'none',
-  },
-  orbFour: {
-    position: 'fixed',
-    width: '250px',
-    height: '250px',
-    borderRadius: '50%',
-    background: 'radial-gradient(circle, rgba(168, 85, 247, 0.06) 0%, transparent 70%)',
-    top: '20%',
-    right: '30%',
-    animation: 'orbFloat1 35s ease-in-out infinite reverse',
-    pointerEvents: 'none',
-  },
   loadingContainer: {
     minHeight: '100vh',
     display: 'flex',
@@ -403,87 +304,18 @@ const styles: { [key: string]: React.CSSProperties } = {
     letterSpacing: '3px',
     textTransform: 'uppercase',
   },
-  nav: {
-    position: 'sticky',
-    top: 0,
-    zIndex: 100,
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    padding: '20px 40px',
-    background: 'rgba(5, 5, 5, 0.8)',
-    backdropFilter: 'blur(20px)',
-    borderBottom: '1px solid rgba(255,255,255,0.06)',
-  },
-  logo: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: '12px',
-    textDecoration: 'none',
-    color: '#fff',
-  },
-  logoIcon: {
-    width: '36px',
-    height: '36px',
-    borderRadius: '10px',
-    background: 'linear-gradient(135deg, #a855f7 0%, #ec4899 100%)',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    fontSize: '18px',
-    fontWeight: '700',
-  },
-  logoText: {
-    fontSize: '16px',
-    fontWeight: '600',
-    letterSpacing: '2px',
-  },
-  navLinks: {
-    display: 'flex',
-    gap: '32px',
-    alignItems: 'center',
-  },
-  navLink: {
-    color: 'rgba(255,255,255,0.6)',
-    textDecoration: 'none',
-    fontSize: '13px',
-    fontWeight: '500',
-    transition: 'color 0.2s',
-  },
-  navLinkActive: {
-    color: '#fff',
-    textDecoration: 'none',
-    fontSize: '13px',
-    fontWeight: '600',
-    background: 'linear-gradient(135deg, #a855f7 0%, #ec4899 100%)',
-    WebkitBackgroundClip: 'text',
-    WebkitTextFillColor: 'transparent',
-  },
-  exitLink: {
-    color: 'rgba(255,255,255,0.4)',
-    textDecoration: 'none',
-    fontSize: '13px',
-    fontWeight: '500',
-    padding: '8px 16px',
-    border: '1px solid rgba(255,255,255,0.1)',
-    borderRadius: '8px',
-  },
-  main: {
-    flex: 1,
+  chatWrapper: {
     display: 'flex',
     flexDirection: 'column',
-    position: 'relative',
-    zIndex: 1,
+    minHeight: 'calc(100vh - 200px)',
     maxWidth: '900px',
     width: '100%',
     margin: '0 auto',
-    padding: '0 24px',
   },
   chatContainer: {
     flex: 1,
     display: 'flex',
     flexDirection: 'column',
-    paddingTop: '32px',
   },
   welcomeContainer: {
     flex: 1,
@@ -523,13 +355,14 @@ const styles: { [key: string]: React.CSSProperties } = {
     boxShadow: '0 0 40px rgba(168, 85, 247, 0.2)',
   },
   welcomeTitle: {
-    fontSize: '32px',
+    fontSize: '28px',
     fontWeight: '700',
     letterSpacing: '-0.5px',
     background: 'linear-gradient(135deg, #fff 0%, rgba(255,255,255,0.8) 100%)',
     WebkitBackgroundClip: 'text',
     WebkitTextFillColor: 'transparent',
     textAlign: 'center',
+    margin: 0,
   },
   welcomeSubtitle: {
     color: 'rgba(255,255,255,0.5)',
@@ -537,6 +370,7 @@ const styles: { [key: string]: React.CSSProperties } = {
     maxWidth: '400px',
     textAlign: 'center',
     lineHeight: '1.6',
+    margin: 0,
   },
   promptsGrid: {
     display: 'grid',

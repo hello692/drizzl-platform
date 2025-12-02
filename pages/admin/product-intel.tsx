@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import Link from 'next/link';
 import { useRequireAdmin } from '../../hooks/useRole';
 import { ProductWithCosts, ProductDetails } from '../../lib/productIntelService';
+import AdminLayout from '../../components/AdminLayout';
 
 type SortField = 'name' | 'margin_percent' | 'cost_per_unit' | 'price_cents';
 type SortDirection = 'asc' | 'desc';
@@ -228,54 +228,26 @@ export default function ProductIntelligence() {
   }
 
   return (
-    <div style={styles.container}>
-      <div style={styles.meshGradient} />
-      <div style={styles.orbOne} />
-      <div style={styles.orbTwo} />
-      <div style={styles.orbThree} />
-
-      <nav style={styles.nav}>
-        <div style={styles.navLeft}>
-          <Link href="/admin" style={styles.logo}>
-            <span style={styles.logoIcon}>D</span>
-            <span style={styles.logoText}>DRIZZL</span>
-          </Link>
-        </div>
-        <div style={styles.navLinks}>
-          <Link href="/admin/command-center" style={styles.navLink}>Command Center</Link>
-          <Link href="/admin/products" style={styles.navLink}>Products</Link>
-          <Link href="/admin/product-intel" style={styles.navLinkActive}>Product Intel</Link>
-          <Link href="/admin/orders" style={styles.navLink}>Orders</Link>
-          <Link href="/admin/order-intel" style={styles.navLink}>Order Intel</Link>
-          <Link href="/admin/partners" style={styles.navLink}>Partners</Link>
-          <Link href="/admin/banking" style={styles.navLink}>Banking</Link>
-          <Link href="/admin/analytics" style={styles.navLink}>Analytics</Link>
-          <Link href="/admin/ai-assistant" style={styles.navLink}>AI Assistant</Link>
-          <Link href="/" style={styles.exitLink}>Exit</Link>
-        </div>
-      </nav>
-
-      <main style={styles.main}>
-        <header style={styles.header}>
-          <div>
-            <div style={styles.headerBadge}>
-              <GradientIcon type="chart" />
-              <span>Intelligence Module</span>
-            </div>
-            <h1 style={styles.title}>Product Intelligence</h1>
-            <p style={styles.subtitle}>
-              {filteredProducts.length} products analyzed
-            </p>
+    <AdminLayout title="Product Intelligence" subtitle="SKU Analytics">
+      <div style={styles.pageHeader}>
+        <div>
+          <div style={styles.headerBadge}>
+            <GradientIcon type="chart" />
+            <span>Intelligence Module</span>
           </div>
-          {demoMode && (
-            <div style={styles.demoBadge}>
-              <div style={styles.demoDot} />
-              Demo Mode
-            </div>
-          )}
-        </header>
+          <p style={styles.productCount}>
+            {filteredProducts.length} products analyzed
+          </p>
+        </div>
+        {demoMode && (
+          <div style={styles.demoBadge}>
+            <div style={styles.demoDot} />
+            Demo Mode
+          </div>
+        )}
+      </div>
 
-        {error && (
+      {error && (
           <div style={styles.errorCard}>
             <div style={styles.errorGlow} />
             <p style={styles.errorText}>{error}</p>
@@ -432,10 +404,9 @@ export default function ProductIntelligence() {
             </tbody>
           </table>
         </div>
-      </main>
 
       <style jsx global>{globalStyles}</style>
-    </div>
+    </AdminLayout>
   );
 }
 
@@ -669,52 +640,6 @@ function NutritionItem({ label, value }: { label: string; value: string }) {
 }
 
 const styles: { [key: string]: React.CSSProperties } = {
-  container: {
-    minHeight: '100vh',
-    background: '#050505',
-    color: '#fff',
-    position: 'relative',
-    overflow: 'hidden',
-  },
-  meshGradient: {
-    position: 'fixed',
-    inset: 0,
-    background: 'radial-gradient(ellipse at 20% 10%, rgba(79, 172, 254, 0.08) 0%, transparent 50%), radial-gradient(ellipse at 80% 90%, rgba(168, 85, 247, 0.06) 0%, transparent 50%), radial-gradient(ellipse at 50% 50%, rgba(34, 211, 238, 0.04) 0%, transparent 50%)',
-    pointerEvents: 'none',
-  },
-  orbOne: {
-    position: 'fixed',
-    width: '600px',
-    height: '600px',
-    borderRadius: '50%',
-    background: 'radial-gradient(circle, rgba(79, 172, 254, 0.12) 0%, transparent 70%)',
-    top: '-200px',
-    right: '-200px',
-    animation: 'float 20s ease-in-out infinite',
-    pointerEvents: 'none',
-  },
-  orbTwo: {
-    position: 'fixed',
-    width: '400px',
-    height: '400px',
-    borderRadius: '50%',
-    background: 'radial-gradient(circle, rgba(168, 85, 247, 0.1) 0%, transparent 70%)',
-    bottom: '-100px',
-    left: '-100px',
-    animation: 'float 15s ease-in-out infinite reverse',
-    pointerEvents: 'none',
-  },
-  orbThree: {
-    position: 'fixed',
-    width: '300px',
-    height: '300px',
-    borderRadius: '50%',
-    background: 'radial-gradient(circle, rgba(34, 211, 238, 0.08) 0%, transparent 70%)',
-    top: '40%',
-    left: '20%',
-    animation: 'float 25s ease-in-out infinite',
-    pointerEvents: 'none',
-  },
   loadingContainer: {
     minHeight: '100vh',
     display: 'flex',
@@ -737,86 +662,11 @@ const styles: { [key: string]: React.CSSProperties } = {
     letterSpacing: '3px',
     textTransform: 'uppercase',
   },
-  nav: {
-    position: 'sticky',
-    top: 0,
-    zIndex: 100,
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    padding: '16px 32px',
-    background: 'rgba(5, 5, 5, 0.8)',
-    backdropFilter: 'blur(20px)',
-    borderBottom: '1px solid rgba(255,255,255,0.06)',
-  },
-  navLeft: {
-    display: 'flex',
-    alignItems: 'center',
-  },
-  logo: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: '12px',
-    textDecoration: 'none',
-    color: '#fff',
-  },
-  logoIcon: {
-    width: '36px',
-    height: '36px',
-    borderRadius: '10px',
-    background: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    fontSize: '18px',
-    fontWeight: '700',
-  },
-  logoText: {
-    fontSize: '15px',
-    fontWeight: '600',
-    letterSpacing: '2px',
-  },
-  navLinks: {
-    display: 'flex',
-    gap: '24px',
-    alignItems: 'center',
-    flexWrap: 'wrap',
-  },
-  navLink: {
-    color: 'rgba(255,255,255,0.5)',
-    textDecoration: 'none',
-    fontSize: '13px',
-    fontWeight: '500',
-    transition: 'color 0.2s ease',
-  },
-  navLinkActive: {
-    color: '#fff',
-    textDecoration: 'none',
-    fontSize: '13px',
-    fontWeight: '600',
-  },
-  exitLink: {
-    color: 'rgba(255,255,255,0.4)',
-    textDecoration: 'none',
-    fontSize: '13px',
-    fontWeight: '500',
-    padding: '8px 16px',
-    border: '1px solid rgba(255,255,255,0.1)',
-    borderRadius: '8px',
-    transition: 'all 0.2s ease',
-  },
-  main: {
-    position: 'relative',
-    zIndex: 1,
-    padding: '40px',
-    maxWidth: '1600px',
-    margin: '0 auto',
-  },
-  header: {
+  pageHeader: {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'flex-start',
-    marginBottom: '40px',
+    marginBottom: '32px',
   },
   headerBadge: {
     display: 'inline-flex',
@@ -828,21 +678,13 @@ const styles: { [key: string]: React.CSSProperties } = {
     border: '1px solid rgba(255,255,255,0.08)',
     fontSize: '12px',
     color: 'rgba(255,255,255,0.6)',
-    marginBottom: '16px',
+    marginBottom: '12px',
   },
-  title: {
-    fontSize: '36px',
-    fontWeight: '700',
-    letterSpacing: '-1px',
-    background: 'linear-gradient(135deg, #fff 0%, rgba(255,255,255,0.7) 100%)',
-    WebkitBackgroundClip: 'text',
-    WebkitTextFillColor: 'transparent',
-    marginBottom: '8px',
-  },
-  subtitle: {
+  productCount: {
     fontSize: '14px',
     color: 'rgba(255,255,255,0.5)',
     letterSpacing: '0.5px',
+    margin: 0,
   },
   demoBadge: {
     display: 'flex',

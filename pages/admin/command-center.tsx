@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import Link from 'next/link';
+import AdminLayout from '../../components/AdminLayout';
 import { useRequireAdmin } from '../../hooks/useRole';
 
 type TimeFilter = 'today' | '7days' | '30days' | '90days' | 'year';
@@ -90,12 +90,6 @@ export default function CommandCenter() {
   const [loadingStats, setLoadingStats] = useState(true);
   const [filter, setFilter] = useState<TimeFilter>('30days');
   const [exporting, setExporting] = useState(false);
-  const [time, setTime] = useState(new Date());
-
-  useEffect(() => {
-    const timer = setInterval(() => setTime(new Date()), 1000);
-    return () => clearInterval(timer);
-  }, []);
 
   const fetchStats = useCallback(async () => {
     setLoadingStats(true);
@@ -155,209 +149,163 @@ export default function CommandCenter() {
   }
 
   return (
-    <div style={styles.container}>
-      <div style={styles.meshGradient} />
-      <div style={styles.orbOne} />
-      <div style={styles.orbTwo} />
-      <div style={styles.orbThree} />
-      <div style={styles.orbFour} />
-
-      <nav style={styles.nav}>
-        <div style={styles.navLeft}>
-          <Link href="/admin" style={styles.logo}>
-            <span style={styles.logoIcon}>D</span>
-            <span style={styles.logoText}>DRIZZL</span>
-          </Link>
-        </div>
-        <div style={styles.navLinks}>
-          <Link href="/admin/command-center" style={styles.navLinkActive}>Command Center</Link>
-          <Link href="/admin/products" style={styles.navLink}>Products</Link>
-          <Link href="/admin/orders" style={styles.navLink}>Orders</Link>
-          <Link href="/admin/banking" style={styles.navLink}>Banking</Link>
-          <Link href="/admin/ai-assistant" style={styles.navLink}>AI Assistant</Link>
-          <Link href="/" style={styles.exitLink}>Exit</Link>
-        </div>
-      </nav>
-
-      <main style={styles.main}>
-        <header style={styles.header}>
-          <div>
-            <p style={styles.greeting}>Intelligence Hub</p>
-            <h1 style={styles.title}>Command Center</h1>
+    <AdminLayout title="Command Center" subtitle="Intelligence Hub">
+      <div style={styles.controlsRow}>
+        {stats?.isDemo && (
+          <div style={styles.demoBadge}>
+            <div style={styles.demoDot} />
+            <span style={styles.demoText}>Demo Mode</span>
           </div>
-          <div style={styles.headerRight}>
-            <div style={styles.timeDisplay}>
-              <span style={styles.timeText}>{time.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}</span>
-              <span style={styles.dateText}>{time.toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' })}</span>
-            </div>
-          </div>
-        </header>
+        )}
+        <TimeFilterButtons filter={filter} setFilter={setFilter} />
+        <button
+          onClick={handleExport}
+          disabled={exporting}
+          style={{
+            ...styles.exportButton,
+            opacity: exporting ? 0.6 : 1,
+            cursor: exporting ? 'not-allowed' : 'pointer',
+          }}
+        >
+          <ExportIcon />
+          {exporting ? 'Exporting...' : 'Export CSV'}
+        </button>
+      </div>
 
-        <div style={styles.controlsRow}>
-          {stats?.isDemo && (
-            <div style={styles.demoBadge}>
-              <div style={styles.demoDot} />
-              <span style={styles.demoText}>Demo Mode</span>
+      <section style={styles.statsGrid}>
+        <StatCard 
+          label="Orders Today" 
+          value={stats?.ordersToday || 0} 
+          loading={loadingStats} 
+          accent={accentColors.purple}
+          gradient={gradientAccents.purple}
+        />
+        <StatCard 
+          label="Orders This Week" 
+          value={stats?.ordersThisWeek || 0} 
+          loading={loadingStats} 
+          accent={accentColors.cyan}
+          gradient={gradientAccents.cyan}
+        />
+        <StatCard 
+          label="Orders This Month" 
+          value={stats?.ordersThisMonth || 0} 
+          loading={loadingStats} 
+          accent={accentColors.green}
+          gradient={gradientAccents.green}
+        />
+        <StatCard 
+          label="Total Revenue" 
+          value={formatCurrency(stats?.totalRevenue || 0)} 
+          loading={loadingStats} 
+          accent={accentColors.pink}
+          gradient={gradientAccents.pink}
+          highlight
+        />
+        <StatCard 
+          label="Net Margin" 
+          value={formatCurrency(stats?.netMargin || 0)} 
+          loading={loadingStats} 
+          accent={accentColors.orange}
+          gradient={gradientAccents.orange}
+        />
+        <StatCard 
+          label="Avg Order Value" 
+          value={formatCurrency(stats?.averageOrderValue || 0)} 
+          loading={loadingStats} 
+          accent={accentColors.teal}
+          gradient={gradientAccents.teal}
+        />
+      </section>
+
+      <div style={styles.channelGrid}>
+        <GlassCard title="D2C Orders" icon={<D2CIcon />} gradient={gradientAccents.cyan}>
+          {loadingStats ? <Skeleton height={80} /> : (
+            <div style={styles.channelContent}>
+              <div>
+                <p style={styles.channelValue}>{formatNumber(stats?.d2cOrders || 0)}</p>
+                <p style={styles.channelLabel}>orders</p>
+              </div>
+              <div style={{ textAlign: 'right' }}>
+                <p style={styles.channelRevenue}>{formatCurrency(stats?.d2cRevenue || 0)}</p>
+                <p style={styles.channelLabel}>revenue</p>
+              </div>
             </div>
           )}
-          <TimeFilterButtons filter={filter} setFilter={setFilter} />
-          <button
-            onClick={handleExport}
-            disabled={exporting}
-            style={{
-              ...styles.exportButton,
-              opacity: exporting ? 0.6 : 1,
-              cursor: exporting ? 'not-allowed' : 'pointer',
-            }}
-          >
-            <ExportIcon />
-            {exporting ? 'Exporting...' : 'Export CSV'}
-          </button>
-        </div>
-
-        <section style={styles.statsGrid}>
-          <StatCard 
-            label="Orders Today" 
-            value={stats?.ordersToday || 0} 
-            loading={loadingStats} 
-            accent={accentColors.purple}
-            gradient={gradientAccents.purple}
-          />
-          <StatCard 
-            label="Orders This Week" 
-            value={stats?.ordersThisWeek || 0} 
-            loading={loadingStats} 
-            accent={accentColors.cyan}
-            gradient={gradientAccents.cyan}
-          />
-          <StatCard 
-            label="Orders This Month" 
-            value={stats?.ordersThisMonth || 0} 
-            loading={loadingStats} 
-            accent={accentColors.green}
-            gradient={gradientAccents.green}
-          />
-          <StatCard 
-            label="Total Revenue" 
-            value={formatCurrency(stats?.totalRevenue || 0)} 
-            loading={loadingStats} 
-            accent={accentColors.pink}
-            gradient={gradientAccents.pink}
-            highlight
-          />
-          <StatCard 
-            label="Net Margin" 
-            value={formatCurrency(stats?.netMargin || 0)} 
-            loading={loadingStats} 
-            accent={accentColors.orange}
-            gradient={gradientAccents.orange}
-          />
-          <StatCard 
-            label="Avg Order Value" 
-            value={formatCurrency(stats?.averageOrderValue || 0)} 
-            loading={loadingStats} 
-            accent={accentColors.teal}
-            gradient={gradientAccents.teal}
-          />
-        </section>
-
-        <div style={styles.channelGrid}>
-          <GlassCard title="D2C Orders" icon={<D2CIcon />} gradient={gradientAccents.cyan}>
-            {loadingStats ? <Skeleton height={80} /> : (
-              <div style={styles.channelContent}>
-                <div>
-                  <p style={styles.channelValue}>{formatNumber(stats?.d2cOrders || 0)}</p>
-                  <p style={styles.channelLabel}>orders</p>
-                </div>
-                <div style={{ textAlign: 'right' }}>
-                  <p style={styles.channelRevenue}>{formatCurrency(stats?.d2cRevenue || 0)}</p>
-                  <p style={styles.channelLabel}>revenue</p>
-                </div>
+        </GlassCard>
+        <GlassCard title="B2B Orders" icon={<B2BIcon />} gradient={gradientAccents.purple}>
+          {loadingStats ? <Skeleton height={80} /> : (
+            <div style={styles.channelContent}>
+              <div>
+                <p style={styles.channelValue}>{formatNumber(stats?.b2bOrders || 0)}</p>
+                <p style={styles.channelLabel}>orders</p>
               </div>
-            )}
-          </GlassCard>
-          <GlassCard title="B2B Orders" icon={<B2BIcon />} gradient={gradientAccents.purple}>
-            {loadingStats ? <Skeleton height={80} /> : (
-              <div style={styles.channelContent}>
-                <div>
-                  <p style={styles.channelValue}>{formatNumber(stats?.b2bOrders || 0)}</p>
-                  <p style={styles.channelLabel}>orders</p>
-                </div>
-                <div style={{ textAlign: 'right' }}>
-                  <p style={styles.channelRevenue}>{formatCurrency(stats?.b2bRevenue || 0)}</p>
-                  <p style={styles.channelLabel}>revenue</p>
-                </div>
-              </div>
-            )}
-          </GlassCard>
-        </div>
-
-        <div style={styles.chartsGrid}>
-          <GlassCard title="Revenue Trend" icon={<ChartIcon />} gradient={gradientAccents.green}>
-            {loadingStats ? <Skeleton height={200} /> : (
-              <RevenueChart data={stats?.revenueTrend || []} />
-            )}
-          </GlassCard>
-          <GlassCard title="Channel Distribution" icon={<PieIcon />} gradient={gradientAccents.pink}>
-            {loadingStats ? <Skeleton height={200} /> : (
-              <ChannelPieChart data={stats?.channelBreakdown || []} />
-            )}
-          </GlassCard>
-        </div>
-
-        <div style={styles.bottomGrid}>
-          <GlassCard title="Top 5 Best-Selling SKUs" icon={<TrophyIcon />} gradient={gradientAccents.orange}>
-            {loadingStats ? (
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                {[...Array(5)].map((_, i) => <Skeleton key={i} height={56} />)}
-              </div>
-            ) : (
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                {(stats?.topProducts || []).map((product, i) => (
-                  <ProductRow key={product.id} product={product} rank={i + 1} />
-                ))}
-              </div>
-            )}
-          </GlassCard>
-          <GlassCard title="Conversion Funnel" icon={<FunnelIcon />} gradient={gradientAccents.teal}>
-            {loadingStats ? <Skeleton height={200} /> : (
-              <ConversionFunnel metrics={stats?.conversionMetrics} />
-            )}
-          </GlassCard>
-        </div>
-
-        <GlassCard title="AI Insights" icon={<AIIcon />} gradient={gradientAccents.purple}>
-          <div style={styles.aiInsightsContent}>
-            <div style={styles.aiIconContainer}>
-              <div style={styles.aiIconInner}>
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="url(#aiGradient)" strokeWidth="1.5">
-                  <defs>
-                    <linearGradient id="aiGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                      <stop offset="0%" stopColor="#667eea" />
-                      <stop offset="100%" stopColor="#f093fb" />
-                    </linearGradient>
-                  </defs>
-                  <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" />
-                </svg>
+              <div style={{ textAlign: 'right' }}>
+                <p style={styles.channelRevenue}>{formatCurrency(stats?.b2bRevenue || 0)}</p>
+                <p style={styles.channelLabel}>revenue</p>
               </div>
             </div>
-            <p style={styles.aiTitle}>AI-Powered Insights Coming Soon</p>
-            <p style={styles.aiDescription}>
-              Get intelligent recommendations, anomaly detection, and predictive analytics powered by machine learning.
-            </p>
-          </div>
+          )}
         </GlassCard>
-      </main>
+      </div>
+
+      <div style={styles.chartsGrid}>
+        <GlassCard title="Revenue Trend" icon={<ChartIcon />} gradient={gradientAccents.green}>
+          {loadingStats ? <Skeleton height={200} /> : (
+            <RevenueChart data={stats?.revenueTrend || []} />
+          )}
+        </GlassCard>
+        <GlassCard title="Channel Distribution" icon={<PieIcon />} gradient={gradientAccents.pink}>
+          {loadingStats ? <Skeleton height={200} /> : (
+            <ChannelPieChart data={stats?.channelBreakdown || []} />
+          )}
+        </GlassCard>
+      </div>
+
+      <div style={styles.bottomGrid}>
+        <GlassCard title="Top 5 Best-Selling SKUs" icon={<TrophyIcon />} gradient={gradientAccents.orange}>
+          {loadingStats ? (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+              {[...Array(5)].map((_, i) => <Skeleton key={i} height={56} />)}
+            </div>
+          ) : (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+              {(stats?.topProducts || []).map((product, i) => (
+                <ProductRow key={product.id} product={product} rank={i + 1} />
+              ))}
+            </div>
+          )}
+        </GlassCard>
+        <GlassCard title="Conversion Funnel" icon={<FunnelIcon />} gradient={gradientAccents.teal}>
+          {loadingStats ? <Skeleton height={200} /> : (
+            <ConversionFunnel metrics={stats?.conversionMetrics} />
+          )}
+        </GlassCard>
+      </div>
+
+      <GlassCard title="AI Insights" icon={<AIIcon />} gradient={gradientAccents.purple}>
+        <div style={styles.aiInsightsContent}>
+          <div style={styles.aiIconContainer}>
+            <div style={styles.aiIconInner}>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="url(#aiGradient)" strokeWidth="1.5">
+                <defs>
+                  <linearGradient id="aiGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stopColor="#667eea" />
+                    <stop offset="100%" stopColor="#f093fb" />
+                  </linearGradient>
+                </defs>
+                <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" />
+              </svg>
+            </div>
+          </div>
+          <p style={styles.aiTitle}>AI-Powered Insights Coming Soon</p>
+          <p style={styles.aiDescription}>
+            Get intelligent recommendations, anomaly detection, and predictive analytics powered by machine learning.
+          </p>
+        </div>
+      </GlassCard>
 
       <style jsx global>{`
-        @keyframes float {
-          0%, 100% { transform: translateY(0px) rotate(0deg); }
-          50% { transform: translateY(-20px) rotate(5deg); }
-        }
-        @keyframes pulse {
-          0%, 100% { opacity: 0.4; }
-          50% { opacity: 0.8; }
-        }
         @keyframes shimmer {
           0% { background-position: -200% 0; }
           100% { background-position: 200% 0; }
@@ -370,8 +318,12 @@ export default function CommandCenter() {
           0%, 100% { filter: drop-shadow(0 0 3px currentColor); }
           50% { filter: drop-shadow(0 0 8px currentColor); }
         }
+        @keyframes pulse {
+          0%, 100% { opacity: 0.4; }
+          50% { opacity: 0.8; }
+        }
       `}</style>
-    </div>
+    </AdminLayout>
   );
 }
 
@@ -752,63 +704,6 @@ function ConversionFunnel({ metrics }: { metrics?: ConversionMetrics }) {
 }
 
 const styles: { [key: string]: React.CSSProperties } = {
-  container: {
-    minHeight: '100vh',
-    background: '#050505',
-    color: '#fff',
-    position: 'relative',
-    overflow: 'hidden',
-  },
-  meshGradient: {
-    position: 'fixed',
-    inset: 0,
-    background: 'radial-gradient(ellipse at 20% 20%, rgba(102, 126, 234, 0.08) 0%, transparent 50%), radial-gradient(ellipse at 80% 80%, rgba(240, 147, 251, 0.06) 0%, transparent 50%), radial-gradient(ellipse at 50% 50%, rgba(67, 233, 123, 0.04) 0%, transparent 50%)',
-    pointerEvents: 'none',
-  },
-  orbOne: {
-    position: 'fixed',
-    width: '600px',
-    height: '600px',
-    borderRadius: '50%',
-    background: 'radial-gradient(circle, rgba(102, 126, 234, 0.15) 0%, transparent 70%)',
-    top: '-200px',
-    right: '-200px',
-    animation: 'float 20s ease-in-out infinite',
-    pointerEvents: 'none',
-  },
-  orbTwo: {
-    position: 'fixed',
-    width: '400px',
-    height: '400px',
-    borderRadius: '50%',
-    background: 'radial-gradient(circle, rgba(240, 147, 251, 0.12) 0%, transparent 70%)',
-    bottom: '-100px',
-    left: '-100px',
-    animation: 'float 15s ease-in-out infinite reverse',
-    pointerEvents: 'none',
-  },
-  orbThree: {
-    position: 'fixed',
-    width: '300px',
-    height: '300px',
-    borderRadius: '50%',
-    background: 'radial-gradient(circle, rgba(67, 233, 123, 0.1) 0%, transparent 70%)',
-    top: '50%',
-    left: '30%',
-    animation: 'float 25s ease-in-out infinite',
-    pointerEvents: 'none',
-  },
-  orbFour: {
-    position: 'fixed',
-    width: '350px',
-    height: '350px',
-    borderRadius: '50%',
-    background: 'radial-gradient(circle, rgba(79, 172, 254, 0.1) 0%, transparent 70%)',
-    top: '20%',
-    right: '20%',
-    animation: 'float 18s ease-in-out infinite reverse',
-    pointerEvents: 'none',
-  },
   loadingContainer: {
     minHeight: '100vh',
     display: 'flex',
@@ -830,119 +725,6 @@ const styles: { [key: string]: React.CSSProperties } = {
     fontSize: '14px',
     letterSpacing: '3px',
     textTransform: 'uppercase',
-  },
-  nav: {
-    position: 'sticky',
-    top: 0,
-    zIndex: 100,
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    padding: '20px 40px',
-    background: 'rgba(5, 5, 5, 0.8)',
-    backdropFilter: 'blur(20px)',
-    borderBottom: '1px solid rgba(255,255,255,0.06)',
-  },
-  navLeft: {
-    display: 'flex',
-    alignItems: 'center',
-  },
-  logo: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: '12px',
-    textDecoration: 'none',
-    color: '#fff',
-  },
-  logoIcon: {
-    width: '36px',
-    height: '36px',
-    borderRadius: '10px',
-    background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    fontSize: '18px',
-    fontWeight: '700',
-  },
-  logoText: {
-    fontSize: '16px',
-    fontWeight: '600',
-    letterSpacing: '2px',
-  },
-  navLinks: {
-    display: 'flex',
-    gap: '32px',
-    alignItems: 'center',
-  },
-  navLink: {
-    color: 'rgba(255,255,255,0.6)',
-    textDecoration: 'none',
-    fontSize: '13px',
-    fontWeight: '500',
-    transition: 'color 0.2s',
-  },
-  navLinkActive: {
-    color: '#fff',
-    textDecoration: 'none',
-    fontSize: '13px',
-    fontWeight: '600',
-  },
-  exitLink: {
-    color: 'rgba(255,255,255,0.4)',
-    textDecoration: 'none',
-    fontSize: '13px',
-    fontWeight: '500',
-    padding: '8px 16px',
-    border: '1px solid rgba(255,255,255,0.1)',
-    borderRadius: '8px',
-  },
-  main: {
-    position: 'relative',
-    zIndex: 1,
-    padding: '40px',
-    maxWidth: '1600px',
-    margin: '0 auto',
-  },
-  header: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'flex-end',
-    marginBottom: '32px',
-  },
-  greeting: {
-    fontSize: '14px',
-    color: 'rgba(255,255,255,0.5)',
-    marginBottom: '8px',
-    letterSpacing: '1px',
-  },
-  title: {
-    fontSize: '42px',
-    fontWeight: '700',
-    letterSpacing: '-1px',
-    background: 'linear-gradient(135deg, #fff 0%, rgba(255,255,255,0.7) 100%)',
-    WebkitBackgroundClip: 'text',
-    WebkitTextFillColor: 'transparent',
-  },
-  headerRight: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: '24px',
-  },
-  timeDisplay: {
-    textAlign: 'right' as const,
-  },
-  timeText: {
-    display: 'block',
-    fontSize: '28px',
-    fontWeight: '300',
-    letterSpacing: '-0.5px',
-    color: 'rgba(255,255,255,0.9)',
-  },
-  dateText: {
-    fontSize: '13px',
-    color: 'rgba(255,255,255,0.4)',
-    letterSpacing: '0.5px',
   },
   controlsRow: {
     display: 'flex',

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import Link from 'next/link';
 import { useRequireAdmin } from '../../hooks/useRole';
+import AdminLayout from '../../components/AdminLayout';
 
 const contentTypeIcons = {
   hero: (
@@ -143,43 +143,8 @@ export default function AdminAI() {
   }
 
   return (
-    <div style={styles.container}>
-      <div style={styles.meshGradient} />
-      <div style={styles.orbOne} />
-      <div style={styles.orbTwo} />
-      <div style={styles.orbThree} />
-      <div style={styles.orbFour} />
-
-      <nav style={styles.nav}>
-        <div style={styles.navLeft}>
-          <Link href="/admin" style={styles.logo}>
-            <span style={styles.logoIcon}>D</span>
-            <span style={styles.logoText}>DRIZZL</span>
-          </Link>
-        </div>
-        <div style={styles.navLinks}>
-          <Link href="/admin/command-center" style={styles.navLink}>Command Center</Link>
-          <Link href="/admin/products" style={styles.navLink}>Products</Link>
-          <Link href="/admin/orders" style={styles.navLink}>Orders</Link>
-          <Link href="/admin/banking" style={styles.navLink}>Banking</Link>
-          <Link href="/admin/ai" style={styles.navLinkActive}>AI Tools</Link>
-          <Link href="/admin/ai-assistant" style={styles.navLink}>AI Assistant</Link>
-          <Link href="/" style={styles.exitLink}>Exit</Link>
-        </div>
-      </nav>
-
-      <main style={styles.main}>
-        <header style={styles.header}>
-          <div style={styles.headerIcon}>
-            <SparkleIcon />
-          </div>
-          <div>
-            <p style={styles.greeting}>AI-Powered</p>
-            <h1 style={styles.title}>Content Generator</h1>
-            <p style={styles.subtitle}>Create compelling marketing copy with neural intelligence</p>
-          </div>
-        </header>
-
+    <AdminLayout title="AI Content" subtitle="Content Generation">
+      <div style={styles.contentWrapper}>
         <div style={styles.formCard}>
           <div style={styles.cardGlow} />
           
@@ -308,21 +273,9 @@ export default function AdminAI() {
             </div>
           </div>
         </div>
-      </main>
+      </div>
 
       <style jsx global>{`
-        @keyframes float {
-          0%, 100% { transform: translateY(0px) rotate(0deg); }
-          50% { transform: translateY(-30px) rotate(3deg); }
-        }
-        @keyframes floatReverse {
-          0%, 100% { transform: translateY(0px) rotate(0deg); }
-          50% { transform: translateY(20px) rotate(-3deg); }
-        }
-        @keyframes pulse {
-          0%, 100% { opacity: 0.4; transform: scale(1); }
-          50% { opacity: 0.8; transform: scale(1.05); }
-        }
         @keyframes spin {
           from { transform: rotate(0deg); }
           to { transform: rotate(360deg); }
@@ -332,82 +285,16 @@ export default function AdminAI() {
           50% { background-position: 100% 50%; }
           100% { background-position: 0% 50%; }
         }
-        @keyframes glow {
-          0%, 100% { box-shadow: 0 0 20px rgba(102, 126, 234, 0.3); }
-          50% { box-shadow: 0 0 40px rgba(102, 126, 234, 0.6), 0 0 60px rgba(240, 147, 251, 0.3); }
-        }
         @keyframes borderGlow {
           0%, 100% { opacity: 0.5; }
           50% { opacity: 1; }
         }
       `}</style>
-    </div>
+    </AdminLayout>
   );
 }
 
 const styles: { [key: string]: React.CSSProperties } = {
-  container: {
-    minHeight: '100vh',
-    background: '#050505',
-    color: '#fff',
-    position: 'relative',
-    overflow: 'hidden',
-  },
-  meshGradient: {
-    position: 'fixed',
-    inset: 0,
-    background: `
-      radial-gradient(ellipse at 10% 20%, rgba(102, 126, 234, 0.12) 0%, transparent 40%),
-      radial-gradient(ellipse at 90% 80%, rgba(240, 147, 251, 0.08) 0%, transparent 40%),
-      radial-gradient(ellipse at 50% 50%, rgba(67, 233, 123, 0.05) 0%, transparent 50%),
-      radial-gradient(ellipse at 80% 20%, rgba(79, 172, 254, 0.06) 0%, transparent 35%)
-    `,
-    pointerEvents: 'none',
-  },
-  orbOne: {
-    position: 'fixed',
-    width: '500px',
-    height: '500px',
-    borderRadius: '50%',
-    background: 'radial-gradient(circle, rgba(102, 126, 234, 0.15) 0%, transparent 70%)',
-    top: '-150px',
-    right: '-100px',
-    animation: 'float 20s ease-in-out infinite',
-    pointerEvents: 'none',
-  },
-  orbTwo: {
-    position: 'fixed',
-    width: '400px',
-    height: '400px',
-    borderRadius: '50%',
-    background: 'radial-gradient(circle, rgba(240, 147, 251, 0.12) 0%, transparent 70%)',
-    bottom: '-100px',
-    left: '-80px',
-    animation: 'floatReverse 18s ease-in-out infinite',
-    pointerEvents: 'none',
-  },
-  orbThree: {
-    position: 'fixed',
-    width: '300px',
-    height: '300px',
-    borderRadius: '50%',
-    background: 'radial-gradient(circle, rgba(67, 233, 123, 0.1) 0%, transparent 70%)',
-    top: '40%',
-    left: '20%',
-    animation: 'float 25s ease-in-out infinite',
-    pointerEvents: 'none',
-  },
-  orbFour: {
-    position: 'fixed',
-    width: '250px',
-    height: '250px',
-    borderRadius: '50%',
-    background: 'radial-gradient(circle, rgba(79, 172, 254, 0.1) 0%, transparent 70%)',
-    top: '20%',
-    right: '30%',
-    animation: 'floatReverse 22s ease-in-out infinite',
-    pointerEvents: 'none',
-  },
   loadingContainer: {
     minHeight: '100vh',
     display: 'flex',
@@ -431,121 +318,9 @@ const styles: { [key: string]: React.CSSProperties } = {
     textTransform: 'uppercase',
     fontWeight: '300',
   },
-  nav: {
-    position: 'sticky',
-    top: 0,
-    zIndex: 100,
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    padding: '16px 40px',
-    background: 'rgba(5, 5, 5, 0.7)',
-    backdropFilter: 'blur(24px)',
-    borderBottom: '1px solid rgba(255,255,255,0.05)',
-  },
-  navLeft: {
-    display: 'flex',
-    alignItems: 'center',
-  },
-  logo: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: '12px',
-    textDecoration: 'none',
-    color: '#fff',
-  },
-  logoIcon: {
-    width: '36px',
-    height: '36px',
-    borderRadius: '10px',
-    background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    fontSize: '16px',
-    fontWeight: '700',
-  },
-  logoText: {
-    fontSize: '15px',
-    fontWeight: '600',
-    letterSpacing: '2px',
-  },
-  navLinks: {
-    display: 'flex',
-    gap: '28px',
-    alignItems: 'center',
-  },
-  navLink: {
-    color: 'rgba(255,255,255,0.5)',
-    textDecoration: 'none',
-    fontSize: '13px',
-    fontWeight: '500',
-    transition: 'color 0.2s',
-  },
-  navLinkActive: {
-    color: '#fff',
-    textDecoration: 'none',
-    fontSize: '13px',
-    fontWeight: '600',
-    background: 'linear-gradient(135deg, #667eea 0%, #f093fb 100%)',
-    WebkitBackgroundClip: 'text',
-    WebkitTextFillColor: 'transparent',
-  },
-  exitLink: {
-    color: 'rgba(255,255,255,0.4)',
-    textDecoration: 'none',
-    fontSize: '13px',
-    fontWeight: '500',
-    padding: '8px 16px',
-    border: '1px solid rgba(255,255,255,0.1)',
-    borderRadius: '8px',
-    transition: 'all 0.2s',
-  },
-  main: {
-    position: 'relative',
-    zIndex: 1,
-    padding: '60px 40px',
+  contentWrapper: {
     maxWidth: '900px',
     margin: '0 auto',
-  },
-  header: {
-    display: 'flex',
-    alignItems: 'flex-start',
-    gap: '20px',
-    marginBottom: '48px',
-  },
-  headerIcon: {
-    width: '56px',
-    height: '56px',
-    borderRadius: '16px',
-    background: 'rgba(255,255,255,0.03)',
-    border: '1px solid rgba(255,255,255,0.08)',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    backdropFilter: 'blur(10px)',
-  },
-  greeting: {
-    fontSize: '13px',
-    color: 'rgba(255,255,255,0.4)',
-    marginBottom: '6px',
-    letterSpacing: '2px',
-    textTransform: 'uppercase',
-    fontWeight: '500',
-  },
-  title: {
-    fontSize: '38px',
-    fontWeight: '700',
-    letterSpacing: '-1px',
-    background: 'linear-gradient(135deg, #fff 0%, rgba(255,255,255,0.7) 100%)',
-    WebkitBackgroundClip: 'text',
-    WebkitTextFillColor: 'transparent',
-    marginBottom: '8px',
-  },
-  subtitle: {
-    fontSize: '15px',
-    color: 'rgba(255,255,255,0.5)',
-    fontWeight: '400',
   },
   formCard: {
     position: 'relative',
