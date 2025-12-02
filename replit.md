@@ -1,355 +1,61 @@
 # Drizzl Wellness - Production D2C + B2B E-Commerce Platform
 
-## Project Overview
-**Purpose**: Full-stack Direct-to-Consumer + B2B smoothie and wellness brand platform
-**Status**: Phase 2.6 Complete - D2C, B2B Portal, Enterprise Admin Dashboard with 11 Intelligence Modules + Persistent Global Navigation
-**Stack**: Next.js 15 + React 19, Supabase (Auth + DB), AI Command Assistant
+## Overview
+Drizzl Wellness is a full-stack e-commerce platform for a smoothie and wellness brand, supporting both Direct-to-Consumer (D2C) and Business-to-Business (B2B) operations. The platform aims to provide a comprehensive solution for managing sales, retail partnerships, and internal business intelligence. Key capabilities include a customer-facing e-commerce store, a dedicated B2B portal for wholesale partners, and an enterprise-grade admin dashboard with 11 specialized intelligence modules for advanced business management and analytics. The project's ambition is to streamline operations, enhance decision-making through AI-powered insights, and foster growth in both D2C and B2B markets.
 
-## Recent Changes (Dec 2024)
-- Added persistent global navigation across all admin pages (AdminLayout component)
-- Created Project Management module with Kanban board interface
-- Added Settings page with configuration sections
-- All 17 admin pages now use unified navigation layout
-- Upgraded navigation bar with DRIZZL branding, time display, and Exit button
+## User Preferences
+- I prefer simple language and clear explanations.
+- I like iterative development with regular updates.
+- Please ask before making major architectural changes or significant code refactoring.
+- Ensure all new features have corresponding database schema updates and API endpoints.
+- I prioritize robust error handling and data integrity, especially for financial and inventory data.
+- For AI features, prioritize practical business applications and actionable insights over experimental functionalities.
+- All new UI components should adhere to the established design system for consistency.
 
-## Platform Features
+## System Architecture
 
-### D2C E-Commerce (Customer-Facing)
-- Product browsing & filtering by category
-- Shopping cart (add/remove/update quantities)
-- Two-step checkout with order saving to database
-- User authentication (email, password, magic links)
-- Order history and account management
-- Multi-language support (12 languages)
+### UI/UX Decisions
+- **Admin Portal Aesthetic**: "Apple AI 2500 Dark" theme featuring deep black backgrounds, mesh gradient overlays, animated floating orbs, glassmorphism cards with subtle glow borders, and gradient text. Accent colors include purple, cyan, pink, and green. Custom gradient SVG icons and subtle animations (float, pulse, glow, shimmer) are used.
+- **D2C Storefront Aesthetic**: "Apple 3000 Minimal" theme with a clean, modern design. Uses DM Sans for headings and Inter for body text. Features a black, white, and gray color palette, white background cards with subtle borders, glass/blur surfaces, and hover effects. Layout is centered with a 1280px max-width.
 
-### B2B Retail Partner Portal
-- `/retail` - Partner login page
-- `/retail/apply` - 4-step wholesale partner application:
-  - Step 1: Business Information with address autocomplete (OpenStreetMap)
-  - Step 2: Business Verification with drag-drop file upload for certificates
-  - Step 3: Decision Maker contact details
-  - Step 4: Order & Logistics preferences with terms agreement
-- `/retail-partner/dashboard` - Full wholesale portal
-  - Wholesale product catalog with discounted pricing
-  - B2B cart and order placement
-  - Order history tracking
-  - Partner-specific pricing display
+### Technical Implementations
+- **Core Stack**: Next.js 15, React 19, Supabase (Auth + Database).
+- **Global Navigation**: Persistent global navigation across all admin pages via an `AdminLayout` component, featuring DRIZZL branding, live time display, and exit functionality.
+- **Multi-language Support**: D2C platform supports 12 languages.
+- **Address Autocomplete**: Utilizes OpenStreetMap for B2B application.
+- **File Uploads**: Drag-and-drop functionality for business verification documents in B2B applications.
+- **Role-Based Access Control (RBAC)**: Implemented with distinct roles (`super_admin`, `factory_manager`, `finance`, `marketing`, `support`, `warehouse`, `b2b_sales`) and a permission system using `role_permissions` and `user_role_assignments` tables.
+- **Demo Mode**: Admin modules display realistic mock data when database tables are not configured or API keys are unset, enabling full UI testing without complete setup.
 
-### Enterprise Admin Dashboard (11 Intelligence Modules + Persistent Navigation)
+### Feature Specifications
+- **D2C E-Commerce**: Product browsing, filtering, shopping cart, two-step checkout, user authentication, order history.
+- **B2B Retail Partner Portal**:
+    - **Application Process**: 4-step application including business info, verification, contact details, and logistics preferences.
+    - **Dashboard**: Overview, wholesale catalog with partner pricing, order management, analytics, messaging, POS integration, and AI-powered restocking recommendations.
+- **Enterprise Admin Dashboard**: Comprises 11 intelligence modules:
+    1.  **Command Center**: Real-time business intelligence with key metrics (revenue, orders, AOV), trend visualization, channel distribution, conversion funnel, time filtering, and CSV export.
+    2.  **AI Command Assistant**: ChatGPT-like interface for business queries with intent recognition (revenue, products, orders, financial, profit, runway) and contextual business data responses.
+    3.  **Product Intelligence**: SKU management with cost tracking (ingredients, packaging, labor), margin analysis, and AI optimization suggestions.
+    4.  **Inventory Management**: Tracking for ingredients, packaging, and finished goods; low stock/expiration alerts, lot/supplier tracking, storage location management.
+    5.  **Factory Intelligence**: Production monitoring (batches, efficiency, goals), predictive restocking, ingredient burn rate, shift tracking.
+    6.  **Order Intelligence**: D2C analytics (revenue, AOV, refund rate, customer satisfaction, shipping performance) and B2B analytics (revenue, accounts, top customers, PO tracking).
+    7.  **Video Manager**: CMS for landing page videos with drag-and-drop reordering, autoplay/loop toggles, platform targeting, and status management.
+    8.  **Social Media Control Center**: Integrates connected accounts (Instagram, TikTok, Facebook) with follower/engagement metrics, post performance, and analytics trends.
+    9.  **Banking Intelligence**: Integration for cash balance, income/expenses, net profit/loss, burn rate, and cash runway projections.
+    10. **Project Management**: Kanban board with drag-and-drop tasks, department filters, priority badges, assignee avatars, and due dates.
+    11. **Settings**: Configurable sections for general settings, notifications, team & roles, integrations, billing, and security.
 
-**Global Navigation Bar (AdminLayout)**
-- DRIZZL branded logo with gradient icon
-- Persistent tabs visible on all pages: Command Center, Orders, Products, Inventory, Factory, Partners, Banking, Analytics, AI Assistant, Projects, Social, Videos, Settings
-- Live time display with date
-- Exit button to return to storefront
-- Horizontally scrollable for responsive design
+### System Design Choices
+- **Database**: Supabase is used for both authentication and database management.
+- **Core Tables**: `profiles`, `products`, `orders`, `order_items`, `retail_partners`, `analytics_events`, `cart_items`.
+- **Admin Extension Tables**: `role_permissions`, `user_role_assignments`, `product_costs`, `product_ingredients`, `inventory_items`, `manufacturing_batches`, `media_assets`, `social_accounts`, `social_posts`, `ai_insights`, `command_center_snapshots`.
+- **Row Level Security (RLS)**: Implemented across all tables to ensure data access control based on user roles (customer, partner, admin).
 
-#### 1. Command Center (`/admin/command-center`)
-- Real-time business intelligence dashboard
-- Orders today/week/month metrics
-- Total revenue and net margin
-- D2C vs B2B order breakdown
-- Average order value tracking
-- Revenue trend visualization (30 days)
-- Channel distribution chart
-- Conversion funnel metrics
-- Time filtering (Today, 7 Days, 30 Days, 90 Days, Year)
-- CSV export functionality
-
-#### 2. AI Command Assistant (`/admin/ai-assistant`)
-- ChatGPT-like interface for business queries
-- Example prompts: revenue summary, top products, order trends, cash flow
-- Intent recognition for: revenue, products, orders, financial, profit, runway queries
-- OpenAI GPT integration (optional - works with pattern matching fallback)
-- Contextual business data responses
-
-#### 3. Product Intelligence (`/admin/product-intel`)
-- Enhanced SKU management with cost tracking
-- Cost breakdown: ingredients, packaging, labor
-- Margin analysis with color-coded indicators
-- Expandable rows with nutrition data
-- AI optimization suggestions
-- Category filtering and search
-- Sort by margin, cost, price
-
-#### 4. Inventory Management (`/admin/inventory`)
-- Three tabs: Ingredients, Packaging, Finished Goods
-- Stock level progress bars
-- Low stock alerts (red badge)
-- Expiration warnings (yellow badge, 30 days)
-- Lot number and supplier tracking
-- Storage location management
-- Add/Edit item modals
-
-#### 5. Factory Intelligence (`/admin/factory`)
-- Production monitoring dashboard
-- Today's batches with status
-- Production efficiency percentage
-- Active batches vs QA hold
-- Production goals vs actual chart
-- Predictive restocking alerts
-- Ingredient burn rate analysis
-- Shift tracking (Morning/Afternoon/Night)
-- Recent batch history
-
-#### 6. Order Intelligence (`/admin/order-intel`)
-- D2C analytics section:
-  - Total revenue with trends
-  - Average order value
-  - Refund rate tracking
-  - Customer satisfaction score
-  - Orders by location (top cities)
-  - Shipping performance (on-time %, avg delivery days)
-  - New vs returning customers
-- B2B analytics section:
-  - Total B2B revenue
-  - Active wholesale accounts
-  - Top B2B customers by volume
-  - PO tracking summary
-  - Credit terms overview
-  - Predicted reorders
-
-#### 7. Video Manager (`/admin/video-manager`)
-- Landing page video CMS
-- Grid layout with thumbnails
-- Drag-and-drop reordering
-- Arrow buttons for positioning
-- Autoplay/Loop toggles
-- Platform targeting (Desktop/Mobile/Both)
-- Active/Inactive status
-- Add/Edit/Delete modals
-- Video preview overlay
-
-#### 8. Social Media Control Center (`/admin/social`)
-- Connected accounts (Instagram, TikTok, Facebook)
-- Platform badges (IG, TT, FB)
-- Total followers and engagement metrics
-- Overview tab with stats cards
-- Posts tab with performance table
-- Analytics tab with engagement trends
-- Social wall with recent posts
-- Schedule post placeholder
-- Connect account placeholder
-
-#### 9. Banking Intelligence (`/admin/banking`)
-- Mercury API integration
-- Total cash balance across accounts
-- Income/Expenses (30-day rolling)
-- Net Profit/Loss calculation
-- Monthly burn rate
-- Cash runway projection (months)
-- Account balances table
-- Recent transactions list
-- Demo data when API not configured
-
-#### 10. Project Management (`/admin/projects`)
-- Kanban board with 4 columns: Backlog, In Progress, Review, Completed
-- Drag-and-drop task movement between columns
-- Department filters: Marketing, Factory, Finance, Tech, Sales, Operations
-- Task cards with:
-  - Priority badges (Low, Medium, High, Urgent)
-  - Department color coding
-  - Assignee avatars
-  - Due dates
-  - Description preview
-- Create/Edit task modal with full form
-- Team member assignment
-- Demo tasks for each department
-
-#### 11. Settings (`/admin/settings`)
-- Sidebar navigation with 6 sections:
-  - General: Company name, timezone, currency
-  - Notifications: Order alerts, low stock, partner applications, weekly reports
-  - Team & Roles: Team member list with role badges, invite functionality
-  - Integrations: Connected services (Stripe, Mercury, Shopify, QuickBooks)
-  - Billing: Current plan display and subscription management
-  - Security: Two-factor authentication, session timeout settings
-- Toggle switches for notification preferences
-- Form inputs for configuration values
-
-### Legacy Admin Pages
-- `/admin` - Overview dashboard with quick actions
-- `/admin/products` - Full product CRUD
-- `/admin/orders` - Order management
-- `/admin/partners` - Retail partner management
-- `/admin/analytics` - Event logs and reporting
-- `/admin/ai` - AI content generation tool
-
-## Database Architecture (Supabase)
-
-### Core Tables
-- **profiles** - User profiles with roles (customer/partner/admin)
-- **products** - Product catalog with D2C + wholesale pricing
-- **orders** - D2C and B2B orders with status tracking
-- **order_items** - Line items with historical pricing
-- **retail_partners** - B2B partner company information
-- **analytics_events** - Event tracking for analytics
-- **cart_items** - Real-time shopping cart
-
-### Admin Extension Tables (11 new tables)
-- **role_permissions** - RBAC permission arrays per role
-- **user_role_assignments** - Map users to roles
-- **product_costs** - Extended product costing (ingredients, packaging, labor)
-- **product_ingredients** - Ingredients per SKU with nutrition data
-- **inventory_items** - Ingredient/packaging/finished goods tracking
-- **manufacturing_batches** - Production batch tracking
-- **media_assets** - Video/image management for CMS
-- **social_accounts** - Connected social media accounts
-- **social_posts** - Social post tracking with engagement
-- **ai_insights** - AI-generated insights log
-- **command_center_snapshots** - Daily analytics snapshots
-
-### Row Level Security (RLS)
-All tables protected with RLS policies for:
-- Users can only access their own data
-- Partners can access B2B features
-- Admins have full access
-
-Schema files:
-- `/database/supabase-schema.sql` - Core database schema
-- `/database/retail-partners-migration.sql` - Retail partners table
-- `/database/admin-extensions-schema.sql` - Admin extension tables (11 new)
-
-## Role-Based Access Control
-
-### Available Roles
-1. **super_admin** - Full access to all modules
-2. **factory_manager** - Factory, Inventory modules
-3. **finance** - Banking, Order Intel, Command Center
-4. **marketing** - Social Media, Video Manager, AI Assistant
-5. **support** - Orders, Partners
-6. **warehouse** - Inventory, Factory
-7. **b2b_sales** - Partners, Order Intel (B2B section)
-
-### Permission System
-- Roles stored in `role_permissions` table with JSONB permissions array
-- User assignments in `user_role_assignments` table
-- Helper functions: `has_permission()`, `get_user_permissions()`
-
-## File Structure
-```
-/lib
-  - supabaseClient.ts - Supabase config + TypeScript types
-  - db.ts - Database operations (CRUD for all tables)
-  - analytics.ts - Event tracking + reporting functions
-  - auth.ts - Authentication functions
-  - mercuryClient.ts - Mercury Banking API client
-  - commandCenterService.ts - Command Center analytics
-  - aiAssistantService.ts - AI intent parsing and responses
-  - productIntelService.ts - Product costing logic
-  - inventoryService.ts - Inventory management
-  - orderIntelService.ts - Order analytics
-  - videoManagerService.ts - Video CMS logic
-  - socialService.ts - Social media integration
-/hooks
-  - useAuth.ts - User authentication hook
-  - useRole.ts - Role-based access guards
-  - useCart.ts - Shopping cart management
-/components
-  - AdminLayout.tsx - Persistent global admin navigation wrapper
-/pages
-  - /admin/* - Admin dashboard pages (17 pages)
-  - /retail-partner/* - B2B partner portal
-  - /retail - Partner login
-  - All D2C pages (products, checkout, etc.)
-/pages/api
-  - /admin/command-center/* - Command Center API
-  - /admin/ai-assistant/* - AI Assistant API
-  - /admin/product-intel/* - Product Intelligence API
-  - /admin/inventory/* - Inventory API
-  - /admin/factory/* - Factory API
-  - /admin/order-intel/* - Order Intelligence API
-  - /admin/video-manager/* - Video Manager API
-  - /admin/social/* - Social Media API
-  - /admin/banking/* - Banking API
-  - Plus all legacy admin APIs
-/database
-  - supabase-schema.sql - Core schema
-  - retail-partners-migration.sql - Partners migration
-  - admin-extensions-schema.sql - Admin extension tables
-```
-
-## Design System
-
-### Admin Portal (Apple AI 2500 Dark Aesthetic)
-- **Background**: Deep black (#050505) with mesh gradient overlays
-- **Floating Orbs**: 4 animated gradient orbs per page (purple, pink, green, cyan)
-- **Cards**: Glassmorphism with backdrop-blur(20px), rgba(255,255,255,0.03) background
-- **Borders**: Subtle glow borders (rgba(255,255,255,0.06))
-- **Accent Colors**: 
-  - Purple: #667eea, #a855f7
-  - Cyan: #22d3ee, #4facfe
-  - Pink: #f093fb, #f472b6
-  - Green: #43e97b, #22c55e
-- **Typography**: Clean thin weights, gradient text for titles
-- **Icons**: Custom gradient SVG icons (no emojis)
-- **Animations**: Float, pulse, glow, shimmer effects
-- **Stats Cards**: Colored accent bars on left side with hover glow
-
-### D2C Storefront
-- **Typography**: DM Sans (headings), Inter (body)
-- **Colors**: Black (#000), white (#fff), grays (#f9f9f9, #e8e8e8)
-- **Style**: Apple 3000 minimal aesthetic
-- **Cards**: White background, subtle borders, 16-20px radius
-- **Effects**: Glass/blur surfaces, hover transforms, shadow expansion
-- **Layout**: 1280px centered max-width
-
-## Environment Variables
-```
-NEXT_PUBLIC_SUPABASE_URL=your-url
-NEXT_PUBLIC_SUPABASE_ANON_KEY=your-key
-SUPABASE_SERVICE_ROLE_KEY=your-key (for admin APIs to bypass RLS)
-MERCURY_API_KEY=your-key (for Banking Intelligence)
-OPENAI_API_KEY=your-key (optional - for AI features)
-STRIPE_SECRET_KEY=your-key (Phase 3)
-NEXT_PUBLIC_STRIPE_KEY=your-key (Phase 3)
-```
-
-## Demo Mode
-All admin modules show realistic mock data when:
-- Database tables not configured
-- API keys not set
-- Allows full UI testing without setup
-
-## Documentation
-- `ADMIN_ADDON.md` - Comprehensive admin extension documentation (816 lines)
-- Covers all 9 modules, APIs, database schema, RBAC, setup instructions
-
-## Setup Instructions
-
-### 1. Database Setup
-Run SQL files in order in Supabase SQL Editor:
-1. `/database/supabase-schema.sql` - Core schema
-2. `/database/retail-partners-migration.sql` - Partners table
-3. `/database/admin-extensions-schema.sql` - Admin extension tables
-
-### 2. Create Admin User
-```sql
-UPDATE profiles SET role = 'admin' WHERE email = 'your-email@example.com';
-```
-
-### 3. Configure Environment Variables
-Add required secrets in Replit Secrets tab.
-
-## Access Points
-- **Customer Site**: `/` (homepage)
-- **Retail Partner Login**: `/retail`
-- **Admin Dashboard**: `/admin`
-- **Command Center**: `/admin/command-center`
-- **AI Assistant**: `/admin/ai-assistant`
-
-## Development
-- `npm run dev` - Start dev server (port 5000)
-- TypeScript enabled
-- ESLint configured
-- Hot reload enabled
-
-## Next Steps (Phase 3)
-1. Stripe payment integration
-2. Email confirmations (order receipts)
-3. Order tracking with notifications
-4. Real OpenAI integration for AI content
-5. Image upload for product management
-6. Subscription/recurring orders
-7. Real social media API connections
-8. Mobile app (React Native)
+## External Dependencies
+- **Supabase**: Backend-as-a-Service for database and authentication.
+- **OpenStreetMap**: Used for address autocomplete in the B2B application.
+- **OpenAI GPT**: (Optional) Integrated for AI Command Assistant functionality.
+- **Mercury API**: Used for Banking Intelligence module to fetch financial data.
+- **POS Integrations**: Connects with Square, Clover, Toast, Lightspeed, Shopify for B2B portal.
+- **Social Media APIs**: (Placeholder, future integration) Instagram, TikTok, Facebook for Social Media Control Center.
+- **Stripe**: (Future integration) For payment processing.
