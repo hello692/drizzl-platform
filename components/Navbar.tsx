@@ -41,13 +41,15 @@ export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   const menuItems = [
-    { label: 'Smoothies', href: '/products/smoothies' },
-    { label: 'High Protein', href: '/products/high-protein' },
-    { label: 'Bowls', href: '/products/bowls' },
-    { label: 'Bites', href: '/products/bites' },
-    { label: 'Protein Shop', href: '/products/protein' },
-    { label: 'Gift Guide', href: '/products/gift' },
+    { label: 'Smoothies', href: '/products/smoothies', description: 'Frozen blends crafted with superfoods' },
+    { label: 'High Protein', href: '/products/high-protein', description: 'Maximum nutrition for active lifestyles' },
+    { label: 'Bowls', href: '/products/bowls', description: 'Nutrient-dense breakfast bowls' },
+    { label: 'Bites', href: '/products/bites', description: 'Convenient snacks on the go' },
+    { label: 'Protein Shop', href: '/products/protein', description: 'Premium protein supplements' },
+    { label: 'Gift Guide', href: '/products/gift', description: 'Perfect gifts for wellness lovers' },
   ];
+
+  const closeMenu = () => setMenuOpen(false);
 
   return (
     <nav className="glass" style={{
@@ -263,25 +265,38 @@ export default function Navbar() {
             }}></div>
           </button>
 
-          {/* Dropdown Menu */}
+          {/* Full-Screen Menu Overlay & Dropdown */}
           {menuOpen && (
-            <div className="menu-dropdown-2100" style={{
-              position: 'absolute',
-              top: '100%',
-              right: 0,
-              marginTop: '12px',
-            }}>
-              {menuItems.map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className="menu-item-2100"
-                  onClick={() => setMenuOpen(false)}
-                >
-                  {item.label}
-                </Link>
-              ))}
-            </div>
+            <>
+              {/* Overlay */}
+              <div
+                className="menu-overlay-2100"
+                onClick={closeMenu}
+                style={{ position: 'fixed' }}
+              ></div>
+
+              {/* Full-Screen Dropdown Menu */}
+              <div className="menu-dropdown-2100">
+                <div className="menu-grid-2100">
+                  {menuItems.map((item, index) => (
+                    <div
+                      key={item.href}
+                      className="menu-item-2100"
+                      style={{
+                        animation: `menuItemSlideInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) ${
+                          index * 0.08
+                        }s both`,
+                      }}
+                    >
+                      <Link href={item.href} onClick={closeMenu}>
+                        {item.label}
+                      </Link>
+                      <p className="menu-description">{item.description}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </>
           )}
         </div>
       </div>
