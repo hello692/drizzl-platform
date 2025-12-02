@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
 import { useCart } from '../hooks/useCart';
 import { useRequireAuth } from '../hooks/useAuth';
 
@@ -200,6 +201,7 @@ export default function Cart() {
           </div>
         )}
       </div>
+      <Footer />
     </>
   );
 }

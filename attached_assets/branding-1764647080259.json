@@ -1,0 +1,111 @@
+{
+  "colorScheme": "light",
+  "fonts": [
+    {
+      "family": "Sailec",
+      "role": "body"
+    },
+    {
+      "family": "Futura",
+      "role": "heading"
+    },
+    {
+      "family": "Playfair Display",
+      "role": "display"
+    },
+    {
+      "family": "Times New Roman",
+      "role": "body"
+    },
+    {
+      "family": "sans-serif",
+      "role": "body"
+    }
+  ],
+  "colors": {
+    "primary": "#373F47",
+    "accent": "#E3F7FF",
+    "background": "#000000",
+    "textPrimary": "#000000",
+    "link": "#E3F7FF"
+  },
+  "typography": {
+    "fontFamilies": {
+      "primary": "Sailec",
+      "heading": "Futura"
+    },
+    "fontStacks": {
+      "heading": [
+        "PlayfairDisplay",
+        "sans-serif"
+      ],
+      "body": [
+        "Sailec",
+        "sans-serif"
+      ],
+      "paragraph": [
+        "Sailec",
+        "sans-serif"
+      ]
+    },
+    "fontSizes": {
+      "h1": "56px",
+      "h2": "40px",
+      "body": "14px"
+    }
+  },
+  "spacing": {
+    "baseUnit": 4,
+    "borderRadius": "4px"
+  },
+  "components": {
+    "input": {
+      "borderColor": "#CCCCCC",
+      "borderRadius": "4px"
+    },
+    "buttonPrimary": {
+      "background": "#000000",
+      "textColor": "#FFFFFF",
+      "borderRadius": "0px",
+      "shadow": "none"
+    }
+  },
+  "images": {
+    "logo": "File saved at: attached_assets/logo.svg",
+    "favicon": "File saved at: attached_assets/favicon.svg",
+    "ogImage": "http://daily-harvest.com/cdn/shop/files/DH_logo.jpg?v=1760391224"
+  },
+  "__framework_hints": [],
+  "__llm_logo_reasoning": {
+    "selectedIndex": 0,
+    "reasoning": "Logo #0 is the only one that visually represents the brand name 'Daily Harvest' and is located in the header linking to the homepage, making it the most suitable choice.",
+    "confidence": 0.95
+  },
+  "__llm_button_reasoning": {
+    "primary": {
+      "index": 0,
+      "text": "Stock your freezer",
+      "reasoning": "Button #0 has action-oriented text 'Stock your freezer' and is the only button with a vibrant color that stands out as a primary call-to-action."
+    },
+    "secondary": {
+      "index": 1,
+      "text": "Learn More",
+      "reasoning": "Button #1 has the text 'Learn More', which is typically a secondary action. It shares the same background color as the primary button, so it cannot be selected as secondary. Button #2 is also the same color, thus secondary is set to -1."
+    },
+    "confidence": 0.9
+  },
+  "personality": {
+    "tone": "modern",
+    "energy": "medium",
+    "targetAudience": "health-conscious individuals seeking convenient meal solutions."
+  },
+  "designSystem": {
+    "framework": "tailwind",
+    "componentLibrary": null
+  },
+  "confidence": {
+    "buttons": 0.9,
+    "colors": 0.8,
+    "overall": 0.8500000000000001
+  }
+}

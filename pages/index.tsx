@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
 
 interface Product {
   id: string;
@@ -301,6 +302,7 @@ export default function Home() {
           Create Your Account
         </Link>
       </section>
+      <Footer />
     </>
   );
 }
