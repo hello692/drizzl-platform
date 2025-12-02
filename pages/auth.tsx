@@ -1,7 +1,73 @@
+import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import { supabase } from '../lib/supabaseClient';
+import { useAuth } from '../hooks/useAuth';
 
 export default function AuthPage() {
+  const router = useRouter();
+  const { user } = useAuth();
+  const [mode, setMode] = useState<'signin' | 'signup'>('signin');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [name, setName] = useState('');
+  const [error, setError] = useState('');
+  const [message, setMessage] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+
+  const { redirect } = router.query;
+
+  useEffect(() => {
+    if (user) {
+      const redirectUrl = typeof redirect === 'string' ? redirect : '/';
+      router.push(redirectUrl);
+    }
+  }, [user, redirect, router]);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError('');
+    setMessage('');
+    setIsLoading(true);
+
+    try {
+      if (mode === 'signup') {
+        const { data, error: signUpError } = await supabase.auth.signUp({
+          email,
+          password,
+          options: {
+            data: {
+              name: name,
+            },
+          },
+        });
+
+        if (signUpError) throw signUpError;
+
+        if (data.user) {
+          setMessage('Account created successfully! You can now sign in.');
+          setMode('signin');
+          setPassword('');
+        }
+      } else {
+        const { error: signInError } = await supabase.auth.signInWithPassword({
+          email,
+          password,
+        });
+
+        if (signInError) throw signInError;
+
+        const redirectUrl = typeof redirect === 'string' ? redirect : '/';
+        router.push(redirectUrl);
+      }
+    } catch (err: any) {
+      setError(err.message || 'An error occurred. Please try again.');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <>
       <Navbar />
@@ -12,75 +78,125 @@ export default function AuthPage() {
         justifyContent: 'center',
         padding: 'clamp(20px, 4vw, 40px)',
         background: '#ffffff',
-        animation: 'delicateFade 1s cubic-bezier(0.32, 0, 0.67, 0)',
       }}>
         <div style={{
-          maxWidth: '480px',
+          maxWidth: '420px',
           width: '100%',
-          animation: 'smoothScale 1s cubic-bezier(0.32, 0, 0.67, 0)',
         }}>
           <div style={{
             textAlign: 'center',
-            marginBottom: '48px',
+            marginBottom: '40px',
           }}>
             <h1 style={{
-              fontSize: 'clamp(32px, 6vw, 48px)',
+              fontSize: 'clamp(28px, 6vw, 36px)',
               fontWeight: '700',
-              letterSpacing: '-0.8px',
-              marginBottom: '12px',
-              animation: 'subtleFloat 6s ease-in-out infinite',
+              letterSpacing: '-0.5px',
+              marginBottom: '8px',
             }}>
-              Sign In
+              {mode === 'signin' ? 'Sign In' : 'Create Account'}
             </h1>
             <p style={{
-              fontSize: 'clamp(14px, 3vw, 16px)',
+              fontSize: '14px',
               color: '#666',
-              lineHeight: '1.7',
+              lineHeight: '1.6',
               margin: 0,
             }}>
-              Access your wellness account securely
+              {mode === 'signin' 
+                ? 'Access your wellness account securely' 
+                : 'Join Drizzl Wellness today'}
             </p>
           </div>
 
-          <form style={{
+          {error && (
+            <div style={{
+              padding: '12px 16px',
+              background: '#fce8e6',
+              borderRadius: '8px',
+              marginBottom: '20px',
+              fontSize: '14px',
+              color: '#c53929',
+            }}>
+              {error}
+            </div>
+          )}
+
+          {message && (
+            <div style={{
+              padding: '12px 16px',
+              background: '#e6f4ea',
+              borderRadius: '8px',
+              marginBottom: '20px',
+              fontSize: '14px',
+              color: '#1e7e34',
+            }}>
+              {message}
+            </div>
+          )}
+
+          <form onSubmit={handleSubmit} style={{
             display: 'flex',
             flexDirection: 'column',
             gap: '20px',
           }}>
+            {mode === 'signup' && (
+              <div style={{
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '8px',
+              }}>
+                <label style={{
+                  fontSize: '13px',
+                  fontWeight: '600',
+                  color: '#000',
+                }}>
+                  Full Name
+                </label>
+                <input
+                  type="text"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  placeholder="Your name"
+                  style={{
+                    padding: '14px 16px',
+                    border: '1px solid #d0d0d0',
+                    borderRadius: '8px',
+                    fontSize: '14px',
+                    fontFamily: 'inherit',
+                    backgroundColor: '#fff',
+                    boxSizing: 'border-box',
+                    width: '100%',
+                  }}
+                />
+              </div>
+            )}
+
             <div style={{
               display: 'flex',
               flexDirection: 'column',
               gap: '8px',
-              animation: 'delicateFade 1s cubic-bezier(0.32, 0, 0.67, 0) 0.2s forwards',
-              opacity: 0,
             }}>
               <label style={{
-                fontSize: '14px',
+                fontSize: '13px',
                 fontWeight: '600',
                 color: '#000',
-                letterSpacing: '-0.2px',
               }}>
-                Email
+                Email Address
               </label>
               <input
                 type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 placeholder="you@example.com"
+                required
                 style={{
                   padding: '14px 16px',
-                  border: '1px solid rgba(0, 0, 0, 0.12)',
+                  border: '1px solid #d0d0d0',
                   borderRadius: '8px',
-                  fontSize: '15px',
-                  transition: 'all 1s cubic-bezier(0.32, 0, 0.67, 0)',
+                  fontSize: '14px',
                   fontFamily: 'inherit',
                   backgroundColor: '#fff',
-                }}
-                onFocus={(e) => {
-                  e.currentTarget.style.borderColor = 'rgba(0, 0, 0, 0.3)';
-                  e.currentTarget.style.boxShadow = 'inset 0 0 0 1px rgba(0, 0, 0, 0.06)';
-                }}
-                onBlur={(e) => {
-                  e.currentTarget.style.borderColor = 'rgba(0, 0, 0, 0.12)';
-                  e.currentTarget.style.boxShadow = 'none';
+                  boxSizing: 'border-box',
+                  width: '100%',
                 }}
               />
             </div>
@@ -89,93 +205,118 @@ export default function AuthPage() {
               display: 'flex',
               flexDirection: 'column',
               gap: '8px',
-              animation: 'delicateFade 1s cubic-bezier(0.32, 0, 0.67, 0) 0.4s forwards',
-              opacity: 0,
             }}>
               <label style={{
-                fontSize: '14px',
+                fontSize: '13px',
                 fontWeight: '600',
                 color: '#000',
-                letterSpacing: '-0.2px',
               }}>
                 Password
               </label>
               <input
                 type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••"
+                required
+                minLength={6}
                 style={{
                   padding: '14px 16px',
-                  border: '1px solid rgba(0, 0, 0, 0.12)',
+                  border: '1px solid #d0d0d0',
                   borderRadius: '8px',
-                  fontSize: '15px',
-                  transition: 'all 1s cubic-bezier(0.32, 0, 0.67, 0)',
+                  fontSize: '14px',
                   fontFamily: 'inherit',
                   backgroundColor: '#fff',
-                }}
-                onFocus={(e) => {
-                  e.currentTarget.style.borderColor = 'rgba(0, 0, 0, 0.3)';
-                  e.currentTarget.style.boxShadow = 'inset 0 0 0 1px rgba(0, 0, 0, 0.06)';
-                }}
-                onBlur={(e) => {
-                  e.currentTarget.style.borderColor = 'rgba(0, 0, 0, 0.12)';
-                  e.currentTarget.style.boxShadow = 'none';
+                  boxSizing: 'border-box',
+                  width: '100%',
                 }}
               />
+              {mode === 'signup' && (
+                <p style={{ fontSize: '12px', color: '#666', margin: '4px 0 0 0' }}>
+                  Password must be at least 6 characters
+                </p>
+              )}
             </div>
 
             <button
               type="submit"
+              disabled={isLoading}
               style={{
                 padding: '14px 32px',
                 background: '#000',
                 color: '#fff',
                 border: 'none',
                 borderRadius: '8px',
-                fontSize: '15px',
+                fontSize: '14px',
                 fontWeight: '600',
-                cursor: 'pointer',
-                transition: 'all 1s cubic-bezier(0.32, 0, 0.67, 0)',
-                marginTop: '12px',
-                boxShadow: '0 4px 12px rgba(0, 0, 0, 0.08)',
-                animation: 'smoothScale 1s cubic-bezier(0.32, 0, 0.67, 0) 0.6s forwards',
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.background = '#333';
-                e.currentTarget.style.boxShadow = '0 8px 24px rgba(0, 0, 0, 0.12)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.background = '#000';
-                e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.08)';
+                cursor: isLoading ? 'default' : 'pointer',
+                marginTop: '8px',
+                opacity: isLoading ? 0.7 : 1,
               }}
             >
-              Sign In
+              {isLoading 
+                ? (mode === 'signin' ? 'Signing In...' : 'Creating Account...') 
+                : (mode === 'signin' ? 'Sign In' : 'Create Account')}
             </button>
           </form>
 
           <div style={{
             textAlign: 'center',
             marginTop: '32px',
-            paddingTop: '32px',
-            borderTop: '1px solid rgba(0, 0, 0, 0.06)',
-            animation: 'delicateFade 1s cubic-bezier(0.32, 0, 0.67, 0) 0.8s forwards',
-            opacity: 0,
+            paddingTop: '24px',
+            borderTop: '1px solid #e8e8e8',
           }}>
             <p style={{
               fontSize: '14px',
               color: '#666',
               margin: 0,
-              marginBottom: '12px',
             }}>
-              Don't have an account?{' '}
-              <a href="/signup" style={{
-                color: '#000',
-                fontWeight: '600',
-                textDecoration: 'none',
-                transition: 'all 1s cubic-bezier(0.32, 0, 0.67, 0)',
-              }} onMouseEnter={(e) => e.currentTarget.style.color = '#666'} onMouseLeave={(e) => e.currentTarget.style.color = '#000'}>
-                Sign up
-              </a>
+              {mode === 'signin' ? (
+                <>
+                  Don't have an account?{' '}
+                  <button
+                    onClick={() => { setMode('signup'); setError(''); setMessage(''); }}
+                    style={{
+                      background: 'none',
+                      border: 'none',
+                      color: '#000',
+                      fontWeight: '600',
+                      cursor: 'pointer',
+                      padding: 0,
+                      fontSize: '14px',
+                      textDecoration: 'underline',
+                    }}
+                  >
+                    Sign up
+                  </button>
+                </>
+              ) : (
+                <>
+                  Already have an account?{' '}
+                  <button
+                    onClick={() => { setMode('signin'); setError(''); setMessage(''); }}
+                    style={{
+                      background: 'none',
+                      border: 'none',
+                      color: '#000',
+                      fontWeight: '600',
+                      cursor: 'pointer',
+                      padding: 0,
+                      fontSize: '14px',
+                      textDecoration: 'underline',
+                    }}
+                  >
+                    Sign in
+                  </button>
+                </>
+              )}
             </p>
+          </div>
+
+          <div style={{ marginTop: '24px', textAlign: 'center' }}>
+            <a href="/retail" style={{ fontSize: '13px', color: '#999', textDecoration: 'none' }}>
+              Retail Partner Portal
+            </a>
           </div>
         </div>
       </main>
