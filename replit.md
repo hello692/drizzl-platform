@@ -85,6 +85,12 @@ Schema files:
   - /retail - Partner login
   - All D2C pages (products, checkout, etc.)
 /pages/api
+  - /admin/stats.ts - Dashboard statistics API
+  - /admin/products.ts - Product CRUD operations API
+  - /admin/orders.ts - Order management API
+  - /admin/partners.ts - Partner listing API
+  - /admin/analytics.ts - Analytics data API
+  - /admin/partners/[id].ts - Partner status update API
   - /ai/content.ts - AI content generation endpoint
 /database
   - supabase-schema.sql - Complete database schema
@@ -100,10 +106,14 @@ Schema files:
 ```
 NEXT_PUBLIC_SUPABASE_URL=your-url
 NEXT_PUBLIC_SUPABASE_ANON_KEY=your-key
+SUPABASE_SERVICE_ROLE_KEY=your-key (for admin API routes to bypass RLS)
 OPENAI_API_KEY=your-key (optional - for AI features)
 STRIPE_SECRET_KEY=your-key (Phase 3)
 NEXT_PUBLIC_STRIPE_KEY=your-key (Phase 3)
 ```
+
+## Admin Portal
+The admin portal uses server-side API routes that bypass Row Level Security (RLS) policies using the Supabase service role key. In development mode, access is allowed without authentication for testing. In production, users must have `role = 'admin'` in the profiles table.
 
 ## Setup Instructions
 
