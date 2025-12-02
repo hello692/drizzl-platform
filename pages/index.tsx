@@ -180,6 +180,7 @@ export default function Home() {
           marginBottom: '32px',
           maxWidth: '1000px',
           animation: 'slideUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards',
+          color: '#000',
         }}>
           <TypedText text="Frozen Smoothies & Bowls" delay={0.2} speed={0.04} />
         </h1>
