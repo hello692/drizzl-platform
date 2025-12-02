@@ -1,15 +1,35 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import Navbar from '@/components/Navbar';
-import Footer from '@/components/Footer';
+import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
+import { supabase } from '../lib/supabaseClient';
+import { useAuth } from '../hooks/useAuth';
 
 export default function RetailLogin() {
   const router = useRouter();
+  const { user } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    async function checkRole() {
+      if (user) {
+        const { data } = await supabase
+          .from('profiles')
+          .select('role')
+          .eq('id', user.id)
+          .single();
+        
+        if (data?.role === 'partner' || data?.role === 'admin') {
+          router.push('/retail-partner/dashboard');
+        }
+      }
+    }
+    checkRole();
+  }, [user, router]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -17,12 +37,29 @@ export default function RetailLogin() {
     setIsLoading(true);
 
     try {
-      // TODO: Integrate with Supabase B2B auth
-      console.log('B2B Login:', { email, password });
-      // Placeholder for future integration
-      setError('B2B portal coming soon. Contact sales@drizzlwellness.com');
-    } catch (err) {
-      setError('Login failed. Please try again.');
+      const { data, error: authError } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
+
+      if (authError) throw authError;
+
+      if (data.user) {
+        const { data: profile } = await supabase
+          .from('profiles')
+          .select('role')
+          .eq('id', data.user.id)
+          .single();
+
+        if (profile?.role === 'partner' || profile?.role === 'admin') {
+          router.push('/retail-partner/dashboard');
+        } else {
+          await supabase.auth.signOut();
+          setError('Access denied. This portal is for retail partners only.');
+        }
+      }
+    } catch (err: any) {
+      setError(err.message || 'Login failed. Please try again.');
     } finally {
       setIsLoading(false);
     }
@@ -73,11 +110,11 @@ export default function RetailLogin() {
             {error && (
               <div style={{
                 padding: '12px 16px',
-                background: '#fef3cd',
-                border: '1px solid #ffc107',
+                background: '#fce8e6',
+                border: '1px solid #f5c6cb',
                 borderRadius: '8px',
                 fontSize: '13px',
-                color: '#856404',
+                color: '#c53929',
                 lineHeight: '1.5',
               }}>
                 {error}
@@ -199,7 +236,7 @@ export default function RetailLogin() {
               marginBottom: '12px',
               lineHeight: '1.6',
             }}>
-              Don't have an account? Contact our sales team
+              Want to become a retail partner? Contact our sales team
             </p>
             <a href="mailto:sales@drizzlwellness.com" style={{
               fontSize: '13px',
@@ -218,6 +255,19 @@ export default function RetailLogin() {
             >
               sales@drizzlwellness.com
             </a>
+          </div>
+
+          <div style={{
+            marginTop: '24px',
+            textAlign: 'center',
+          }}>
+            <Link href="/admin" style={{
+              fontSize: '12px',
+              color: '#999',
+              textDecoration: 'none',
+            }}>
+              Admin Portal
+            </Link>
           </div>
         </div>
       </section>
