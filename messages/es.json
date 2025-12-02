@@ -1,0 +1,91 @@
+{
+  "nav": {
+    "search": "Buscar",
+    "selectLanguage": "Seleccionar Idioma"
+  },
+  "home": {
+    "hero": {
+      "title": "SIENTE EL SABOR",
+      "subtitle": "Fresco. Congelado. Fantástico. Batidos que te hacen sonreír.",
+      "cta": "¡A Mezclar!"
+    },
+    "categories": {
+      "title": "Comprar por Categoría",
+      "smoothies": "Batidos",
+      "smoothiesDesc": "Mezclas frescas congeladas",
+      "bowls": "Bowls",
+      "bowlsDesc": "Llenos de nutrientes",
+      "juices": "Jugos",
+      "juicesDesc": "Prensado en frío",
+      "wellness": "Bienestar",
+      "wellnessDesc": "Potenciadores de salud"
+    },
+    "fanFavorites": {
+      "title": "Favoritos del Público",
+      "subtitle": "Las mezclas que todos aman. ¡Prueba lo que miles ya están disfrutando!"
+    },
+    "cta": {
+      "shopAll": "Ver Todos los Productos",
+      "freeShipping": "Envío gratis en pedidos superiores a $50"
+    }
+  },
+  "menu": {
+    "products": "Productos",
+    "smoothies": "Batidos",
+    "smoothiesDesc": "Mezclas Frescas Congeladas",
+    "bowls": "Bowls",
+    "bowlsDesc": "Llenos de Nutrientes",
+    "juices": "Jugos",
+    "juicesDesc": "Prensado en Frío",
+    "wellness": "Bienestar",
+    "wellnessDesc": "Potenciadores de Salud",
+    "company": "Empresa",
+    "about": "Sobre Nosotros",
+    "sustainability": "Sostenibilidad",
+    "careers": "Carreras",
+    "blog": "Blog",
+    "support": "Soporte",
+    "contact": "Contacto",
+    "faq": "Preguntas Frecuentes",
+    "shipping": "Envío",
+    "returns": "Devoluciones"
+  },
+  "pages": {
+    "smoothies": {
+      "badge": "Nuestros Más Vendidos",
+      "title": "Batidos",
+      "subtitle": "Mezclas frescas congeladas llenas de frutas, verduras y superalimentos. Solo agrega líquido y mezcla.",
+      "allTitle": "Todos los Batidos",
+      "allSubtitle": "Elige tu aventura de sabor"
+    },
+    "bowls": {
+      "badge": "Favoritos del Desayuno",
+      "title": "Bowls de Desayuno",
+      "subtitle": "Comienza tu día con una explosión de nutrición. Nuestros bowls están llenos de superalimentos.",
+      "allTitle": "Todos los Bowls",
+      "allSubtitle": "Bowls nutritivos para impulsar tu mañana"
+    },
+    "about": {
+      "badge": "Nuestra Historia",
+      "title": "Somos Drizzl",
+      "subtitle": "En una misión para que el bienestar se sienta tan bien como sabe.",
+      "storyTitle": "Comenzó con una pregunta",
+      "storyP1": "¿Por qué la comida saludable tiene que saber a cartón? Nos negamos a aceptar ese compromiso.",
+      "storyP2": "En 2020, nos propusimos demostrar que puedes tenerlo todo: sabores vibrantes, ingredientes limpios y conveniencia real.",
+      "storyP3": "Hoy, estamos orgullosos de servir a miles de clientes felices que han descubierto que el bienestar puede ser delicioso.",
+      "valuesTitle": "Nuestros Valores",
+      "valuesSubtitle": "Los principios que guían todo lo que hacemos",
+      "teamTitle": "Conoce al Equipo",
+      "teamSubtitle": "Los humanos detrás de Drizzl"
+    }
+  },
+  "common": {
+    "reviews": "reseñas",
+    "addToCart": "Añadir al Carrito",
+    "readyTo": "¿Listo para",
+    "blend": "mezclar",
+    "fuelUp": "recargar",
+    "movement": "movimiento",
+    "difference": "diferencia"
+  }
+}

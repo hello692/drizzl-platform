@@ -1,0 +1,91 @@
+{
+  "nav": {
+    "search": "Rechercher",
+    "selectLanguage": "Choisir la Langue"
+  },
+  "home": {
+    "hero": {
+      "title": "RESSENTEZ LA SAVEUR",
+      "subtitle": "Frais. Surgelé. Fantastique. Des smoothies qui vous font sourire.",
+      "cta": "Mixons!"
+    },
+    "categories": {
+      "title": "Acheter par Catégorie",
+      "smoothies": "Smoothies",
+      "smoothiesDesc": "Mélanges frais surgelés",
+      "bowls": "Bols",
+      "bowlsDesc": "Riches en nutriments",
+      "juices": "Jus",
+      "juicesDesc": "Pressé à froid",
+      "wellness": "Bien-être",
+      "wellnessDesc": "Boosters de santé"
+    },
+    "fanFavorites": {
+      "title": "Favoris des Fans",
+      "subtitle": "Les mélanges dont tout le monde raffole. Essayez ce que des milliers adorent déjà!"
+    },
+    "cta": {
+      "shopAll": "Voir Tous les Produits",
+      "freeShipping": "Livraison gratuite pour les commandes de plus de 50$"
+    }
+  },
+  "menu": {
+    "products": "Produits",
+    "smoothies": "Smoothies",
+    "smoothiesDesc": "Mélanges Frais Surgelés",
+    "bowls": "Bols",
+    "bowlsDesc": "Riches en Nutriments",
+    "juices": "Jus",
+    "juicesDesc": "Pressé à Froid",
+    "wellness": "Bien-être",
+    "wellnessDesc": "Boosters de Santé",
+    "company": "Entreprise",
+    "about": "À Propos",
+    "sustainability": "Durabilité",
+    "careers": "Carrières",
+    "blog": "Blog",
+    "support": "Support",
+    "contact": "Contact",
+    "faq": "FAQ",
+    "shipping": "Livraison",
+    "returns": "Retours"
+  },
+  "pages": {
+    "smoothies": {
+      "badge": "Nos Best-Sellers",
+      "title": "Smoothies",
+      "subtitle": "Des mélanges frais surgelés remplis de fruits, légumes et superaliments. Ajoutez du liquide et mixez.",
+      "allTitle": "Tous les Smoothies",
+      "allSubtitle": "Choisissez votre aventure gustative"
+    },
+    "bowls": {
+      "badge": "Favoris du Petit-Déjeuner",
+      "title": "Bols Petit-Déjeuner",
+      "subtitle": "Commencez votre journée avec une explosion de nutrition. Nos bols sont remplis de superaliments.",
+      "allTitle": "Tous les Bols",
+      "allSubtitle": "Des bols nutritifs pour alimenter votre matinée"
+    },
+    "about": {
+      "badge": "Notre Histoire",
+      "title": "Nous sommes Drizzl",
+      "subtitle": "En mission pour que le bien-être soit aussi bon qu'il en a le goût.",
+      "storyTitle": "Tout a commencé avec une question",
+      "storyP1": "Pourquoi la nourriture saine doit-elle avoir le goût du carton? Nous avons refusé d'accepter ce compromis.",
+      "storyP2": "En 2020, nous avons décidé de prouver que vous pouvez tout avoir: des saveurs vibrantes, des ingrédients propres et une vraie commodité.",
+      "storyP3": "Aujourd'hui, nous sommes fiers de servir des milliers de clients satisfaits qui ont découvert que le bien-être peut être délicieux.",
+      "valuesTitle": "Nos Valeurs",
+      "valuesSubtitle": "Les principes qui guident tout ce que nous faisons",
+      "teamTitle": "Rencontrez l'Équipe",
+      "teamSubtitle": "Les humains derrière Drizzl"
+    }
+  },
+  "common": {
+    "reviews": "avis",
+    "addToCart": "Ajouter au Panier",
+    "readyTo": "Prêt à",
+    "blend": "mixer",
+    "fuelUp": "faire le plein",
+    "movement": "mouvement",
+    "difference": "différence"
+  }
+}

@@ -1,0 +1,91 @@
+{
+  "nav": {
+    "search": "搜索",
+    "selectLanguage": "选择语言"
+  },
+  "home": {
+    "hero": {
+      "title": "感受风味",
+      "subtitle": "新鲜。冷冻。美味。让你微笑的果昔。",
+      "cta": "开始混合！"
+    },
+    "categories": {
+      "title": "按类别购物",
+      "smoothies": "果昔",
+      "smoothiesDesc": "新鲜冷冻混合",
+      "bowls": "碗装",
+      "bowlsDesc": "营养丰富",
+      "juices": "果汁",
+      "juicesDesc": "冷榨",
+      "wellness": "健康",
+      "wellnessDesc": "健康助推器"
+    },
+    "fanFavorites": {
+      "title": "粉丝最爱",
+      "subtitle": "每个人都喜欢的混合饮品。尝试数千人已经爱上的口味！"
+    },
+    "cta": {
+      "shopAll": "查看所有产品",
+      "freeShipping": "订单满50美元免运费"
+    }
+  },
+  "menu": {
+    "products": "产品",
+    "smoothies": "果昔",
+    "smoothiesDesc": "新鲜冷冻混合",
+    "bowls": "碗装",
+    "bowlsDesc": "营养丰富",
+    "juices": "果汁",
+    "juicesDesc": "冷榨",
+    "wellness": "健康",
+    "wellnessDesc": "健康助推器",
+    "company": "公司",
+    "about": "关于我们",
+    "sustainability": "可持续发展",
+    "careers": "职业",
+    "blog": "博客",
+    "support": "支持",
+    "contact": "联系",
+    "faq": "常见问题",
+    "shipping": "配送",
+    "returns": "退货"
+  },
+  "pages": {
+    "smoothies": {
+      "badge": "我们的畅销品",
+      "title": "果昔",
+      "subtitle": "富含水果、蔬菜和超级食品的新鲜冷冻混合物。只需加入液体并混合。",
+      "allTitle": "所有果昔",
+      "allSubtitle": "选择您的风味冒险"
+    },
+    "bowls": {
+      "badge": "早餐最爱",
+      "title": "早餐碗",
+      "subtitle": "用营养爆发开始你的一天。我们的碗装满了超级食品。",
+      "allTitle": "所有碗装",
+      "allSubtitle": "为您的早晨加油的营养碗"
+    },
+    "about": {
+      "badge": "我们的故事",
+      "title": "我们是Drizzl",
+      "subtitle": "致力于让健康感觉和尝起来一样美好。",
+      "storyTitle": "这一切始于一个问题",
+      "storyP1": "为什么健康食品必须尝起来像纸板？我们拒绝接受这种妥协。",
+      "storyP2": "2020年，我们开始证明你可以拥有一切：鲜艳的口味、干净的配料和真正的便利。",
+      "storyP3": "今天，我们自豪地为数千名满意的客户服务，他们发现健康可以是美味的。",
+      "valuesTitle": "我们的价值观",
+      "valuesSubtitle": "指导我们一切行动的原则",
+      "teamTitle": "认识团队",
+      "teamSubtitle": "Drizzl背后的人们"
+    }
+  },
+  "common": {
+    "reviews": "评价",
+    "addToCart": "加入购物车",
+    "readyTo": "准备好",
+    "blend": "混合",
+    "fuelUp": "加油",
+    "movement": "运动",
+    "difference": "不同"
+  }
+}

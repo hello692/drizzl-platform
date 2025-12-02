@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { useState } from 'react';
 import { useRouter } from 'next/router';
+import { useTranslations } from 'next-intl';
 
 const SearchIcon = () => (
   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
@@ -74,15 +75,29 @@ const LANGUAGES = [
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [langOpen, setLangOpen] = useState(false);
-  const [currentLang, setCurrentLang] = useState('en');
   const router = useRouter();
+  const currentLang = router.locale || 'en';
+  
+  let t: (key: string) => string;
+  try {
+    t = useTranslations('nav');
+  } catch {
+    t = (key: string) => key;
+  }
+  
+  let tMenu: (key: string) => string;
+  try {
+    tMenu = useTranslations('menu');
+  } catch {
+    tMenu = (key: string) => key;
+  }
 
   const toggleMenu = () => setMenuOpen(!menuOpen);
   const toggleLang = () => setLangOpen(!langOpen);
   
   const selectLanguage = (code: string) => {
-    setCurrentLang(code);
     setLangOpen(false);
+    router.push(router.pathname, router.asPath, { locale: code });
   };
   
   const getCurrentLangData = () => LANGUAGES.find(l => l.code === currentLang) || LANGUAGES[0];

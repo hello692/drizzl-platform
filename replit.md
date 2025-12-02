@@ -74,6 +74,16 @@ All tables have RLS (Row-Level Security) policies for data protection.
 ✅ Complete site navigation
 ✅ Footer with organized links
 ✅ Responsive design
+✅ TikTok-style scroll animations (Intersection Observer)
+✅ Multi-language support (12 languages via next-intl)
+
+## Internationalization (i18n)
+Supported languages: English, Spanish, French, German, Italian, Portuguese, Chinese, Japanese, Korean, Arabic, Hindi, Russian
+
+Translation files: `/messages/{locale}.json`
+- Click the globe icon in navbar to switch languages
+- URLs are prefixed with locale: `/es`, `/fr`, `/de`, etc.
+- Uses next-intl with Next.js built-in i18n routing
 
 ## Upcoming (Phase 2-3)
 - Stripe payment integration
@@ -89,15 +99,20 @@ All tables have RLS (Row-Level Security) policies for data protection.
 /lib - Core utilities
   - auth.ts - Authentication functions
   - supabaseClient.ts - Supabase config
+  - getMessages.ts - i18n message loader
 /hooks - Custom React hooks
   - useAuth.ts - User authentication
   - useCart.ts - Shopping cart management
+  - useScrollAnimation.ts - Scroll-triggered animations
 /components - Reusable components
-  - Navbar.tsx - Main navigation
+  - Navbar.tsx - Main navigation with language switcher
   - Footer.tsx - Footer with links
   - AuthForm.tsx - Auth form
+  - ScrollAnimations.tsx - Animated section components
+  - PageLayout.tsx - Reusable page template
 /pages - Next.js pages (all routes above)
-/styles - Global CSS
+/messages - Translation files (en.json, es.json, fr.json, etc.)
+/styles - Global CSS with TikTok-style animations
 /database - Schema
 ```
 

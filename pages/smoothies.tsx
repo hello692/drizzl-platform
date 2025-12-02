@@ -1,5 +1,8 @@
 import PageLayout, { PageHero, PageSection, SectionHeader, ProductGrid, AnimatedSection } from '../components/PageLayout';
 import Link from 'next/link';
+import { GetStaticPropsContext } from 'next';
+import { useTranslations } from 'next-intl';
+import { getMessages } from '../lib/getMessages';
 
 const SMOOTHIES = [
   { id: '1', name: 'Strawberry + Peach', price: 8.49, image: 'https://daily-harvest.com/cdn/shop/files/strawberry-peach-smoothie-daily-harvest-3657974.jpg?v=1760509351&width=500', category: 'Fruity', reviews: 185 },
@@ -13,19 +16,33 @@ const SMOOTHIES = [
 ];
 
 export default function Smoothies() {
+  let t: ReturnType<typeof useTranslations>;
+  try {
+    t = useTranslations('pages.smoothies');
+  } catch {
+    t = ((key: string) => key) as any;
+  }
+  
+  let tCta: ReturnType<typeof useTranslations>;
+  try {
+    tCta = useTranslations('home.cta');
+  } catch {
+    tCta = ((key: string) => key) as any;
+  }
+
   return (
     <PageLayout>
       <PageHero
-        badge="Our Bestsellers"
-        title="Smoothies"
-        subtitle="Fresh frozen blends packed with whole fruits, vegetables, and superfoods. Just add liquid and blend."
+        badge={t('badge')}
+        title={t('title')}
+        subtitle={t('subtitle')}
       />
       
       <PageSection background="white">
         <SectionHeader
           emoji="🥤"
-          title="All Smoothies"
-          subtitle="Choose your flavor adventure"
+          title={t('allTitle')}
+          subtitle={t('allSubtitle')}
         />
         
         <div style={{
@@ -94,13 +111,21 @@ export default function Smoothies() {
             Ready to <span className="tiktok-heading-gradient">blend</span>?
           </h2>
           <p className="tiktok-subheading" style={{ margin: '0 auto 32px' }}>
-            Free shipping on orders over $50
+            {tCta('freeShipping')}
           </p>
           <Link href="/products" className="tiktok-button tiktok-button-gradient">
-            Shop All Products
+            {tCta('shopAll')}
           </Link>
         </AnimatedSection>
       </PageSection>
     </PageLayout>
   );
+}
+
+export async function getStaticProps({ locale }: GetStaticPropsContext) {
+  return {
+    props: {
+      messages: await getMessages(locale || 'en'),
+    },
+  };
 }

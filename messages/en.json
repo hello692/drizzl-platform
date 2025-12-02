@@ -1,0 +1,91 @@
+{
+  "nav": {
+    "search": "Search",
+    "selectLanguage": "Select Language"
+  },
+  "home": {
+    "hero": {
+      "title": "FEEL THE FLAVOR",
+      "subtitle": "Fresh. Frozen. Fantastic. Smoothies that make you smile.",
+      "cta": "Let's Blend!"
+    },
+    "categories": {
+      "title": "Shop By Category",
+      "smoothies": "Smoothies",
+      "smoothiesDesc": "Fresh frozen blends",
+      "bowls": "Bowls",
+      "bowlsDesc": "Nutrient packed",
+      "juices": "Juices",
+      "juicesDesc": "Cold pressed",
+      "wellness": "Wellness",
+      "wellnessDesc": "Health boosters"
+    },
+    "fanFavorites": {
+      "title": "Fan Favorites",
+      "subtitle": "The blends everyone's obsessed with. Try what thousands are already loving!"
+    },
+    "cta": {
+      "shopAll": "Shop All Products",
+      "freeShipping": "Free shipping on orders over $50"
+    }
+  },
+  "menu": {
+    "products": "Products",
+    "smoothies": "Smoothies",
+    "smoothiesDesc": "Fresh Frozen Blends",
+    "bowls": "Bowls",
+    "bowlsDesc": "Nutrient Packed",
+    "juices": "Juices",
+    "juicesDesc": "Cold Pressed",
+    "wellness": "Wellness",
+    "wellnessDesc": "Health Boosters",
+    "company": "Company",
+    "about": "About Us",
+    "sustainability": "Sustainability",
+    "careers": "Careers",
+    "blog": "Blog",
+    "support": "Support",
+    "contact": "Contact",
+    "faq": "FAQ",
+    "shipping": "Shipping",
+    "returns": "Returns"
+  },
+  "pages": {
+    "smoothies": {
+      "badge": "Our Bestsellers",
+      "title": "Smoothies",
+      "subtitle": "Fresh frozen blends packed with whole fruits, vegetables, and superfoods. Just add liquid and blend.",
+      "allTitle": "All Smoothies",
+      "allSubtitle": "Choose your flavor adventure"
+    },
+    "bowls": {
+      "badge": "Breakfast Favorites",
+      "title": "Breakfast Bowls",
+      "subtitle": "Start your day with a burst of nutrition. Our bowls are packed with superfoods and topped with goodness.",
+      "allTitle": "All Bowls",
+      "allSubtitle": "Nutrient-packed bowls to fuel your morning"
+    },
+    "about": {
+      "badge": "Our Story",
+      "title": "We're Drizzl",
+      "subtitle": "On a mission to make wellness feel as good as it tastes.",
+      "storyTitle": "It started with a question",
+      "storyP1": "Why does healthy food have to taste like cardboard? We refused to accept that trade-off.",
+      "storyP2": "In 2020, we set out to prove that you can have it all: vibrant flavors, clean ingredients, and real convenience. No more choosing between what's good for you and what tastes good.",
+      "storyP3": "Today, we're proud to serve thousands of happy customers who've discovered that wellness can be delicious.",
+      "valuesTitle": "Our Values",
+      "valuesSubtitle": "The principles that guide everything we do",
+      "teamTitle": "Meet the Team",
+      "teamSubtitle": "The humans behind Drizzl"
+    }
+  },
+  "common": {
+    "reviews": "reviews",
+    "addToCart": "Add to Cart",
+    "readyTo": "Ready to",
+    "blend": "blend",
+    "fuelUp": "fuel up",
+    "movement": "movement",
+    "difference": "difference"
+  }
+}

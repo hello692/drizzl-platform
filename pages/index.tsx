@@ -1,8 +1,11 @@
 import { useEffect, useState, useRef } from 'react';
 import Link from 'next/link';
+import { GetStaticPropsContext } from 'next';
+import { useTranslations } from 'next-intl';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { AnimatedSection, AnimatedText, StaggeredGrid } from '../components/ScrollAnimations';
+import { getMessages } from '../lib/getMessages';
 
 const ModernArrowLeft = () => (
   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
@@ -70,6 +73,13 @@ export default function Home() {
   const [customerPosition, setCustomerPosition] = useState(0);
   const [unMutedExpert, setUnMutedExpert] = useState<string | null>(null);
   const [unMutedCustomer, setUnMutedCustomer] = useState<string | null>(null);
+  
+  let t: ReturnType<typeof useTranslations>;
+  try {
+    t = useTranslations('home');
+  } catch {
+    t = ((key: string) => key) as any;
+  }
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -191,12 +201,12 @@ export default function Home() {
             fontFamily: "'Space Mono', monospace",
             textAlign: 'center',
           }}>
-            Feel the Flavor
+            {t('hero.title')}
           </h1>
         </AnimatedSection>
         <AnimatedSection animation="fadeUp" delay={100}>
           <p className="tiktok-subheading" style={{ textAlign: 'center', margin: '0 auto 48px' }}>
-            Fresh. Frozen. Fantastic. Smoothies that make you smile.
+            {t('hero.subtitle')}
           </p>
         </AnimatedSection>
         <AnimatedSection animation="fadeUp" delay={200}>
@@ -211,7 +221,7 @@ export default function Home() {
               e.currentTarget.style.transform = 'translateY(0) scale(1)';
             }}
           >
-            Let's Blend! 🥤
+            {t('hero.cta')} 🥤
           </Link>
         </AnimatedSection>
       </section>
@@ -1033,4 +1043,12 @@ export default function Home() {
       <Footer />
     </>
   );
+}
+
+export async function getStaticProps({ locale }: GetStaticPropsContext) {
+  return {
+    props: {
+      messages: await getMessages(locale || 'en'),
+    },
+  };
 }
