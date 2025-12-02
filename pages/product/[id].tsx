@@ -139,8 +139,7 @@ export default function ProductDetail() {
   const { id } = router.query;
   const product = id ? smoothies[id as string] : null;
   const [selectedIngredient, setSelectedIngredient] = useState(0);
-  const [scrollPosition, setScrollPosition] = useState(0);
-  const carouselRef = useState<HTMLDivElement | null>(null)[0];
+  const [relatedScrollPosition, setRelatedScrollPosition] = useState(0);
 
   if (!product) {
     return (
@@ -642,67 +641,159 @@ export default function ProductDetail() {
                 You Might Also Like
               </h2>
               <div style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(3, 1fr)',
-                gap: '40px',
+                position: 'relative',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '20px',
               }}>
-                {relatedProducts.map((relProduct: any) => (
-                  <Link key={relProduct.id} href={`/product/${relProduct.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
-                    <div style={{
-                      cursor: 'pointer',
-                      transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-                    }}
-                      onMouseEnter={(e) => {
-                        e.currentTarget.style.transform = 'translateY(-4px)';
-                      }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.style.transform = 'translateY(0)';
-                      }}
+                {/* Left Arrow */}
+                <button
+                  onClick={() => {
+                    setRelatedScrollPosition(Math.max(0, relatedScrollPosition - 1));
+                  }}
+                  style={{
+                    position: 'absolute',
+                    left: '-40px',
+                    zIndex: 10,
+                    background: '#000',
+                    border: 'none',
+                    width: '36px',
+                    height: '36px',
+                    borderRadius: '50%',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    cursor: relatedScrollPosition > 0 ? 'pointer' : 'default',
+                    color: '#ffffff',
+                    opacity: relatedScrollPosition > 0 ? 1 : 0.3,
+                    transition: 'opacity 0.2s',
+                    fontSize: '18px',
+                    fontWeight: '700',
+                  }}
+                  onMouseEnter={(e) => {
+                    if (relatedScrollPosition > 0) e.currentTarget.style.opacity = '0.8';
+                  }}
+                  onMouseLeave={(e) => {
+                    if (relatedScrollPosition > 0) e.currentTarget.style.opacity = '1';
+                  }}
+                  disabled={relatedScrollPosition === 0}
+                >
+                  ←
+                </button>
+
+                {/* Products Container */}
+                <div style={{
+                  display: 'grid',
+                  gridTemplateColumns: 'repeat(4, 1fr)',
+                  gap: '32px',
+                  width: '100%',
+                }}>
+                  {relatedProducts.slice(relatedScrollPosition, relatedScrollPosition + 4).map((relProduct: any) => (
+                    <Link
+                      key={relProduct.id}
+                      href={`/product/${relProduct.id}`}
+                      style={{ textDecoration: 'none', color: 'inherit' }}
                     >
-                      <div style={{
-                        background: '#ffffff',
-                        borderRadius: '0px',
-                        overflow: 'hidden',
-                        border: '1px solid #e8e8e8',
-                        marginBottom: '20px',
-                        aspectRatio: '1',
-                      }}>
-                        <img
-                          src={relProduct.image}
-                          alt={relProduct.name}
-                          style={{
-                            width: '100%',
-                            height: '100%',
-                            objectFit: 'cover',
-                          }}
-                        />
+                      <div
+                        style={{
+                          cursor: 'pointer',
+                          transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                        }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.transform = 'translateY(-4px)';
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.transform = 'translateY(0)';
+                        }}
+                      >
+                        <div style={{
+                          background: '#ffffff',
+                          borderRadius: '0px',
+                          overflow: 'hidden',
+                          border: '1px solid #e8e8e8',
+                          marginBottom: '16px',
+                          aspectRatio: '1',
+                        }}>
+                          <img
+                            src={relProduct.image}
+                            alt={relProduct.name}
+                            style={{
+                              width: '100%',
+                              height: '100%',
+                              objectFit: 'cover',
+                            }}
+                          />
+                        </div>
+                        <h3 style={{
+                          fontSize: '14px',
+                          fontWeight: '700',
+                          marginBottom: '8px',
+                          letterSpacing: '-0.3px',
+                        }}>
+                          {relProduct.name}
+                        </h3>
+                        <p style={{
+                          fontSize: '12px',
+                          color: '#79747e',
+                          marginBottom: '8px',
+                          letterSpacing: '-0.2px',
+                        }}>
+                          {relProduct.type || 'Smoothie'}
+                        </p>
+                        <p style={{
+                          fontSize: '12px',
+                          color: '#79747e',
+                          marginBottom: '8px',
+                          letterSpacing: '-0.2px',
+                        }}>
+                          {'★'.repeat(Math.floor(relProduct.rating))}{'☆'.repeat(5 - Math.floor(relProduct.rating))} {relProduct.reviews.toLocaleString()} reviews
+                        </p>
+                        <p style={{
+                          fontSize: '14px',
+                          fontWeight: '700',
+                          letterSpacing: '-0.3px',
+                        }}>
+                          ${relProduct.price.toFixed(2)}
+                        </p>
                       </div>
-                      <h3 style={{
-                        fontSize: '16px',
-                        fontWeight: '700',
-                        marginBottom: '8px',
-                        letterSpacing: '-0.3px',
-                      }}>
-                        {relProduct.name}
-                      </h3>
-                      <p style={{
-                        fontSize: '14px',
-                        color: '#79747e',
-                        marginBottom: '8px',
-                        letterSpacing: '-0.2px',
-                      }}>
-                        {'★'.repeat(Math.floor(relProduct.rating))}{'☆'.repeat(5 - Math.floor(relProduct.rating))} {relProduct.reviews.toLocaleString()} reviews
-                      </p>
-                      <p style={{
-                        fontSize: '16px',
-                        fontWeight: '700',
-                        letterSpacing: '-0.3px',
-                      }}>
-                        ${relProduct.price.toFixed(2)}
-                      </p>
-                    </div>
-                  </Link>
-                ))}
+                    </Link>
+                  ))}
+                </div>
+
+                {/* Right Arrow */}
+                <button
+                  onClick={() => {
+                    setRelatedScrollPosition(Math.min(relatedProducts.length - 4, relatedScrollPosition + 1));
+                  }}
+                  style={{
+                    position: 'absolute',
+                    right: '-40px',
+                    zIndex: 10,
+                    background: '#000',
+                    border: 'none',
+                    width: '36px',
+                    height: '36px',
+                    borderRadius: '50%',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    cursor: relatedScrollPosition < relatedProducts.length - 4 ? 'pointer' : 'default',
+                    color: '#ffffff',
+                    opacity: relatedScrollPosition < relatedProducts.length - 4 ? 1 : 0.3,
+                    transition: 'opacity 0.2s',
+                    fontSize: '18px',
+                    fontWeight: '700',
+                  }}
+                  onMouseEnter={(e) => {
+                    if (relatedScrollPosition < relatedProducts.length - 4) e.currentTarget.style.opacity = '0.8';
+                  }}
+                  onMouseLeave={(e) => {
+                    if (relatedScrollPosition < relatedProducts.length - 4) e.currentTarget.style.opacity = '1';
+                  }}
+                  disabled={relatedScrollPosition >= relatedProducts.length - 4}
+                >
+                  →
+                </button>
               </div>
             </div>
           )}
