@@ -667,32 +667,33 @@ svg:hover {
   cursor: pointer;
 }
 
-/* DROPDOWN PANEL - OPENAI STYLE */
+/* DROPDOWN PANEL - FULL SCREEN OVERLAY */
 .drip-dropdown {
-  position: absolute;
-  top: 48px;
+  position: fixed;
+  top: 0;
+  left: 0;
   right: 0;
-  width: 380px;
+  bottom: 0;
+  width: 100%;
+  height: 100vh;
   background: #ffffff;
-  border-radius: 12px;
-  padding: 20px 0;
+  padding: 80px 40px 40px;
   display: flex;
   flex-direction: column;
   gap: 0;
-  transform-origin: top;
-  transform: scaleY(0);
+  justify-content: flex-start;
+  align-items: center;
+  transform: translateX(-100%);
   opacity: 0;
   pointer-events: none;
-  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.25s ease;
-  z-index: 100;
-  overflow: visible;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
-  border: 1px solid rgba(0, 0, 0, 0.06);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
+  z-index: 99;
+  overflow-y: auto;
 }
 
 /* SHOW ON HOVER */
 .nav-menu:hover .drip-dropdown {
-  transform: scaleY(1);
+  transform: translateX(0);
   opacity: 1;
   pointer-events: auto;
 }
@@ -700,51 +701,51 @@ svg:hover {
 /* DROPDOWN SECTIONS */
 .dropdown-section {
   padding: 0;
+  width: 100%;
+  max-width: 600px;
+  text-align: center;
 }
 
 .dropdown-label {
-  color: #666;
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.05em;
+  color: #999;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  padding: 12px 24px 8px;
+  padding: 32px 0 24px;
   display: block;
 }
 
 /* MENU LINKS */
 .drip-dropdown a.dropdown-item {
   color: #000;
-  font-size: 15px;
-  font-weight: 500;
+  font-size: 42px;
+  font-weight: 600;
   text-decoration: none;
-  padding: 12px 24px;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  transition: background-color 0.15s ease, color 0.15s ease;
+  padding: 20px 0;
+  display: block;
+  transition: color 0.2s ease, opacity 0.2s ease;
 }
 
 .drip-dropdown a.dropdown-item:hover {
-  background-color: #f9f9f9;
-  color: #1a1a1a;
+  color: #4285f4;
+  opacity: 0.8;
 }
 
 .drip-dropdown a.dropdown-item span:first-child {
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .item-desc {
-  font-size: 13px;
-  color: #888;
+  font-size: 14px;
+  color: #999;
   font-weight: 400;
+  display: none;
 }
 
 /* DIVIDER */
 .dropdown-divider {
-  height: 1px;
-  background: rgba(0, 0, 0, 0.06);
-  margin: 12px 0;
+  display: none;
 }
 
 /* DRIPS - HIDDEN */
