@@ -13,7 +13,19 @@ const smoothies: { [key: string]: any } = {
     reviews: 4619,
     rating: 4.5,
     badge: 'BEST SELLER',
-    image: 'https://daily-harvest.com/cdn/shop/files/strawberry-peach-smoothie-daily-harvest-3657974.jpg?v=1760509351&width=2048',
+    image: '/products/strawberry-peach/transparent-glass-1.jpg',
+    images: [
+      '/products/strawberry-peach/transparent-glass-1.jpg',
+      '/products/strawberry-peach/transparent-glass-2.jpg',
+      '/products/strawberry-peach/transparent-glass-3.jpg',
+      '/products/strawberry-peach/product-1.jpg',
+      '/products/strawberry-peach/product-2.jpg',
+      '/products/strawberry-peach/product-3.jpg',
+      '/products/strawberry-peach/lifestyle-1.jpg',
+      '/products/strawberry-peach/lifestyle-2.jpg',
+      '/products/strawberry-peach/detail-1.jpg',
+      '/products/strawberry-peach/detail-2.jpg',
+    ],
     description: 'If you asked a peach what it wanted to be when it grew up, it would tell you: THIS SMOOTHIE. Sweet strawberries, bright raspberries, and a hint of tartness from goji berries round out that irresistibly juicy peach flavor. Bananas, oats, and flax seeds make the whole thing creamy and satisfying.',
     ingredients: ['organic strawberries', 'organic bananas', 'organic peaches', 'organic raspberries', 'organic gluten-free whole grain oats', 'organic flax seeds', 'organic goji berries'],
     nutrition: {
@@ -158,6 +170,7 @@ export default function ProductDetail() {
   const product = id ? smoothies[id as string] : null;
   const [selectedIngredient, setSelectedIngredient] = useState(0);
   const [relatedScrollPosition, setRelatedScrollPosition] = useState(0);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   if (!product) {
     return (
@@ -199,18 +212,155 @@ export default function ProductDetail() {
 
           {/* Main Product Section */}
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '80px', marginBottom: '100px' }}>
-            {/* Left: Product Image */}
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <img
-                src={product.image}
-                alt={product.name}
-                style={{
-                  width: '100%',
-                  maxWidth: '500px',
-                  height: 'auto',
-                  borderRadius: '0px',
-                }}
-              />
+            {/* Left: Product Image Carousel */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+              {/* Main Image */}
+              <div style={{ 
+                position: 'relative',
+                display: 'flex', 
+                alignItems: 'center', 
+                justifyContent: 'center',
+                background: '#f8f9fa',
+                borderRadius: '12px',
+                overflow: 'hidden',
+              }}>
+                <img
+                  src={product.images ? product.images[currentImageIndex] : product.image}
+                  alt={product.name}
+                  style={{
+                    width: '100%',
+                    maxWidth: '500px',
+                    height: 'auto',
+                    borderRadius: '0px',
+                    transition: 'opacity 0.3s ease',
+                  }}
+                />
+                
+                {/* Navigation Arrows */}
+                {product.images && product.images.length > 1 && (
+                  <>
+                    <button
+                      onClick={() => setCurrentImageIndex(prev => (prev - 1 + product.images.length) % product.images.length)}
+                      style={{
+                        position: 'absolute',
+                        left: '16px',
+                        top: '50%',
+                        transform: 'translateY(-50%)',
+                        background: '#ffffff',
+                        border: '1px solid #e0e0e0',
+                        width: '48px',
+                        height: '48px',
+                        borderRadius: '50%',
+                        color: '#000',
+                        cursor: 'pointer',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        transition: 'all 0.2s ease',
+                        zIndex: 10,
+                        boxShadow: '0 2px 12px rgba(0, 0, 0, 0.1)',
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.background = '#000';
+                        e.currentTarget.style.color = '#fff';
+                        e.currentTarget.style.borderColor = '#000';
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.background = '#ffffff';
+                        e.currentTarget.style.color = '#000';
+                        e.currentTarget.style.borderColor = '#e0e0e0';
+                      }}
+                    >
+                      <ModernArrowLeft />
+                    </button>
+
+                    <button
+                      onClick={() => setCurrentImageIndex(prev => (prev + 1) % product.images.length)}
+                      style={{
+                        position: 'absolute',
+                        right: '16px',
+                        top: '50%',
+                        transform: 'translateY(-50%)',
+                        background: '#ffffff',
+                        border: '1px solid #e0e0e0',
+                        width: '48px',
+                        height: '48px',
+                        borderRadius: '50%',
+                        color: '#000',
+                        cursor: 'pointer',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        transition: 'all 0.2s ease',
+                        zIndex: 10,
+                        boxShadow: '0 2px 12px rgba(0, 0, 0, 0.1)',
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.background = '#000';
+                        e.currentTarget.style.color = '#fff';
+                        e.currentTarget.style.borderColor = '#000';
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.background = '#ffffff';
+                        e.currentTarget.style.color = '#000';
+                        e.currentTarget.style.borderColor = '#e0e0e0';
+                      }}
+                    >
+                      <ModernArrowRight />
+                    </button>
+                  </>
+                )}
+              </div>
+
+              {/* Thumbnail Strip */}
+              {product.images && product.images.length > 1 && (
+                <div style={{
+                  display: 'flex',
+                  gap: '12px',
+                  justifyContent: 'center',
+                  flexWrap: 'wrap',
+                }}>
+                  {product.images.map((img: string, idx: number) => (
+                    <button
+                      key={idx}
+                      onClick={() => setCurrentImageIndex(idx)}
+                      style={{
+                        width: '64px',
+                        height: '64px',
+                        borderRadius: '8px',
+                        overflow: 'hidden',
+                        border: idx === currentImageIndex ? '2px solid #000' : '2px solid #e0e0e0',
+                        padding: 0,
+                        cursor: 'pointer',
+                        transition: 'all 0.2s ease',
+                        opacity: idx === currentImageIndex ? 1 : 0.7,
+                      }}
+                      onMouseEnter={(e) => {
+                        if (idx !== currentImageIndex) {
+                          e.currentTarget.style.opacity = '1';
+                          e.currentTarget.style.borderColor = '#999';
+                        }
+                      }}
+                      onMouseLeave={(e) => {
+                        if (idx !== currentImageIndex) {
+                          e.currentTarget.style.opacity = '0.7';
+                          e.currentTarget.style.borderColor = '#e0e0e0';
+                        }
+                      }}
+                    >
+                      <img
+                        src={img}
+                        alt={`${product.name} - View ${idx + 1}`}
+                        style={{
+                          width: '100%',
+                          height: '100%',
+                          objectFit: 'cover',
+                        }}
+                      />
+                    </button>
+                  ))}
+                </div>
+              )}
             </div>
 
             {/* Right: Product Details */}

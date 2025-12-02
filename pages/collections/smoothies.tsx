@@ -3,18 +3,14 @@ import Footer from '../../components/Footer';
 import Link from 'next/link';
 import { useState } from 'react';
 
-interface ProductImage {
-  src: string;
-  alt: string;
-}
-
 interface Product {
   id: string;
   name: string;
   price: number;
   reviews: number;
   badge: string;
-  images: ProductImage[];
+  defaultImage: string;
+  hoverImage: string;
 }
 
 const products: Product[] = [
@@ -24,16 +20,8 @@ const products: Product[] = [
     price: 8.49, 
     reviews: 4619, 
     badge: 'Best Seller',
-    images: [
-      { src: '/products/strawberry-peach/transparent-glass-1.jpg', alt: 'Strawberry Peach - Transparent Glass' },
-      { src: '/products/strawberry-peach/transparent-glass-2.jpg', alt: 'Strawberry Peach - Glass with Fruits' },
-      { src: '/products/strawberry-peach/transparent-glass-3.jpg', alt: 'Strawberry Peach - Ingredients' },
-      { src: '/products/strawberry-peach/product-1.jpg', alt: 'Strawberry Peach - Product Shot' },
-      { src: '/products/strawberry-peach/product-2.jpg', alt: 'Strawberry Peach - Smoothie Ready' },
-      { src: '/products/strawberry-peach/product-3.jpg', alt: 'Strawberry Peach - Fresh Blend' },
-      { src: '/products/strawberry-peach/lifestyle-1.jpg', alt: 'Strawberry Peach - Lifestyle' },
-      { src: '/products/strawberry-peach/detail-1.jpg', alt: 'Strawberry Peach - Detail' },
-    ]
+    defaultImage: '/products/strawberry-peach/transparent-glass-1.jpg',
+    hoverImage: '/products/strawberry-peach/product-1.jpg',
   },
   { 
     id: '2', 
@@ -41,7 +29,8 @@ const products: Product[] = [
     price: 8.49, 
     reviews: 2686, 
     badge: 'Best Seller',
-    images: [{ src: 'https://via.placeholder.com/400x400?text=Acai+Cherry', alt: 'Acai Cherry' }]
+    defaultImage: 'https://daily-harvest.com/cdn/shop/files/acai-cherry-smoothie-daily-harvest-8004331.jpg?v=1760509351&width=2048',
+    hoverImage: 'https://daily-harvest.com/cdn/shop/files/acai-cherry-smoothie-daily-harvest-2748098.jpg?v=1760509351&width=2048',
   },
   { 
     id: '3', 
@@ -49,7 +38,8 @@ const products: Product[] = [
     price: 8.49, 
     reviews: 2200, 
     badge: '',
-    images: [{ src: 'https://via.placeholder.com/400x400?text=Mint+Cacao', alt: 'Mint Cacao' }]
+    defaultImage: 'https://daily-harvest.com/cdn/shop/files/mint-cacao-smoothie-daily-harvest-5348712.jpg?v=1760509343&width=2048',
+    hoverImage: 'https://daily-harvest.com/cdn/shop/files/mint-cacao-smoothie-daily-harvest-9561489.jpg?v=1760509343&width=2048',
   },
   { 
     id: '4', 
@@ -57,7 +47,8 @@ const products: Product[] = [
     price: 9.49, 
     reviews: 43, 
     badge: 'New',
-    images: [{ src: 'https://via.placeholder.com/400x400?text=Tropical+Greens', alt: 'Tropical Greens' }]
+    defaultImage: 'https://daily-harvest.com/cdn/shop/files/tropical-greens-protein-smoothie-daily-harvest-8021323.jpg?v=1760509314&width=2048',
+    hoverImage: 'https://daily-harvest.com/cdn/shop/files/tropical-greens-protein-smoothie-daily-harvest-2811664.jpg?v=1760509314&width=2048',
   },
   { 
     id: '5', 
@@ -65,7 +56,8 @@ const products: Product[] = [
     price: 9.49, 
     reviews: 48, 
     badge: 'New',
-    images: [{ src: 'https://via.placeholder.com/400x400?text=Strawberry+Banana', alt: 'Strawberry Banana' }]
+    defaultImage: 'https://daily-harvest.com/cdn/shop/files/strawberry-banana-protein-smoothie-daily-harvest-3370693.jpg?v=1760509314&width=2048',
+    hoverImage: 'https://daily-harvest.com/cdn/shop/files/strawberry-banana-protein-smoothie-daily-harvest-5085917.jpg?v=1760509314&width=2048',
   },
   { 
     id: '6', 
@@ -73,7 +65,8 @@ const products: Product[] = [
     price: 9.49, 
     reviews: 185, 
     badge: 'Best Seller',
-    images: [{ src: 'https://via.placeholder.com/400x400?text=Mixed+Berry', alt: 'Mixed Berry' }]
+    defaultImage: 'https://daily-harvest.com/cdn/shop/files/mixed-berry-protein-smoothie-daily-harvest-3950952.jpg?v=1760509317&width=2048',
+    hoverImage: 'https://daily-harvest.com/cdn/shop/files/mixed-berry-protein-smoothie-daily-harvest-5924387.jpg?v=1760509318&width=2048',
   },
   { 
     id: '7', 
@@ -81,7 +74,8 @@ const products: Product[] = [
     price: 9.49, 
     reviews: 207, 
     badge: 'Best Seller',
-    images: [{ src: 'https://via.placeholder.com/400x400?text=Vanilla+Bean', alt: 'Vanilla Bean' }]
+    defaultImage: 'https://daily-harvest.com/cdn/shop/files/vanilla-bean-protein-smoothie-daily-harvest-1407106.jpg?v=1760509317&width=2048',
+    hoverImage: 'https://daily-harvest.com/cdn/shop/files/vanilla-bean-protein-smoothie-daily-harvest-8692813.jpg?v=1760509317&width=2048',
   },
   { 
     id: '8', 
@@ -89,54 +83,34 @@ const products: Product[] = [
     price: 9.49, 
     reviews: 199, 
     badge: 'Best Seller',
-    images: [{ src: 'https://via.placeholder.com/400x400?text=Dark+Chocolate', alt: 'Dark Chocolate' }]
+    defaultImage: 'https://daily-harvest.com/cdn/shop/files/dark-chocolate-protein-smoothie-daily-harvest-4692961.jpg?v=1760509316&width=2048',
+    hoverImage: 'https://daily-harvest.com/cdn/shop/files/dark-chocolate-protein-smoothie-daily-harvest-3901097.jpg?v=1760509317&width=2048',
   },
 ];
 
 function ProductCard({ product }: { product: Product }) {
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const hasMultipleImages = product.images.length > 1;
-
-  const nextImage = (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setCurrentImageIndex((prev) => (prev + 1) % product.images.length);
-  };
-
-  const prevImage = (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setCurrentImageIndex((prev) => (prev - 1 + product.images.length) % product.images.length);
-  };
-
-  const goToImage = (e: React.MouseEvent, index: number) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setCurrentImageIndex(index);
-  };
+  const [isHovered, setIsHovered] = useState(false);
 
   return (
     <Link href={`/product/${product.id}`}>
-      <div className="glass tech-shine" style={{
-        cursor: 'pointer',
-        border: '1px solid rgba(255, 255, 255, 0.5)',
-        borderRadius: '14px',
-        overflow: 'hidden',
-        transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
-        background: 'rgba(255, 255, 255, 0.8)',
-        backdropFilter: 'blur(12px)',
-        boxShadow: '0 8px 24px rgba(66, 133, 244, 0.08)',
-      }}
-        onMouseEnter={(e) => {
-          e.currentTarget.style.boxShadow = '0 20px 40px rgba(66, 133, 244, 0.2), inset 0 0 20px rgba(66, 133, 244, 0.05)';
-          e.currentTarget.style.transform = 'translateY(-8px) scale(1.02)';
-          e.currentTarget.style.borderColor = 'rgba(66, 133, 244, 0.4)';
+      <div 
+        className="glass tech-shine" 
+        style={{
+          cursor: 'pointer',
+          border: '1px solid rgba(255, 255, 255, 0.5)',
+          borderRadius: '14px',
+          overflow: 'hidden',
+          transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+          background: 'rgba(255, 255, 255, 0.8)',
+          backdropFilter: 'blur(12px)',
+          boxShadow: isHovered 
+            ? '0 20px 40px rgba(66, 133, 244, 0.2), inset 0 0 20px rgba(66, 133, 244, 0.05)'
+            : '0 8px 24px rgba(66, 133, 244, 0.08)',
+          transform: isHovered ? 'translateY(-8px) scale(1.02)' : 'translateY(0) scale(1)',
+          borderColor: isHovered ? 'rgba(66, 133, 244, 0.4)' : 'rgba(255, 255, 255, 0.5)',
         }}
-        onMouseLeave={(e) => {
-          e.currentTarget.style.boxShadow = '0 8px 24px rgba(66, 133, 244, 0.08)';
-          e.currentTarget.style.transform = 'translateY(0) scale(1)';
-          e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.5)';
-        }}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
       >
         <div style={{
           background: 'linear-gradient(135deg, #f9f9fa 0%, #f0f0f0 100%)',
@@ -170,122 +144,15 @@ function ProductCard({ product }: { product: Product }) {
           )}
           
           <img
-            src={product.images[currentImageIndex].src}
-            alt={product.images[currentImageIndex].alt}
+            src={isHovered ? product.hoverImage : product.defaultImage}
+            alt={product.name}
             style={{ 
               width: '100%', 
               height: '100%', 
               objectFit: 'cover',
-              transition: 'opacity 0.3s ease',
+              transition: 'opacity 0.4s ease',
             }}
           />
-
-          {hasMultipleImages && (
-            <>
-              <button
-                onClick={prevImage}
-                style={{
-                  position: 'absolute',
-                  left: '8px',
-                  top: '50%',
-                  transform: 'translateY(-50%)',
-                  background: '#ffffff',
-                  border: '1px solid #e0e0e0',
-                  width: '32px',
-                  height: '32px',
-                  borderRadius: '50%',
-                  color: '#000',
-                  cursor: 'pointer',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  transition: 'all 0.2s ease',
-                  zIndex: 10,
-                  boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)',
-                  fontSize: '14px',
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.background = '#000';
-                  e.currentTarget.style.color = '#fff';
-                  e.currentTarget.style.borderColor = '#000';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.background = '#ffffff';
-                  e.currentTarget.style.color = '#000';
-                  e.currentTarget.style.borderColor = '#e0e0e0';
-                }}
-              >
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                  <polyline points="15 18 9 12 15 6"></polyline>
-                </svg>
-              </button>
-
-              <button
-                onClick={nextImage}
-                style={{
-                  position: 'absolute',
-                  right: '8px',
-                  top: '50%',
-                  transform: 'translateY(-50%)',
-                  background: '#ffffff',
-                  border: '1px solid #e0e0e0',
-                  width: '32px',
-                  height: '32px',
-                  borderRadius: '50%',
-                  color: '#000',
-                  cursor: 'pointer',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  transition: 'all 0.2s ease',
-                  zIndex: 10,
-                  boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)',
-                  fontSize: '14px',
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.background = '#000';
-                  e.currentTarget.style.color = '#fff';
-                  e.currentTarget.style.borderColor = '#000';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.background = '#ffffff';
-                  e.currentTarget.style.color = '#000';
-                  e.currentTarget.style.borderColor = '#e0e0e0';
-                }}
-              >
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                  <polyline points="9 18 15 12 9 6"></polyline>
-                </svg>
-              </button>
-
-              <div style={{
-                position: 'absolute',
-                bottom: '12px',
-                left: '50%',
-                transform: 'translateX(-50%)',
-                display: 'flex',
-                gap: '6px',
-                zIndex: 10,
-              }}>
-                {product.images.map((_, index) => (
-                  <button
-                    key={index}
-                    onClick={(e) => goToImage(e, index)}
-                    style={{
-                      width: index === currentImageIndex ? '20px' : '8px',
-                      height: '8px',
-                      borderRadius: '4px',
-                      background: index === currentImageIndex ? '#000' : 'rgba(255, 255, 255, 0.8)',
-                      border: '1px solid rgba(0, 0, 0, 0.2)',
-                      cursor: 'pointer',
-                      padding: 0,
-                      transition: 'all 0.2s ease',
-                    }}
-                  />
-                ))}
-              </div>
-            </>
-          )}
         </div>
         <div style={{ padding: '20px' }}>
           <h3 style={{ fontSize: '16px', fontWeight: '600', marginBottom: '8px' }}>
@@ -341,7 +208,7 @@ export default function Smoothies() {
           <div style={{ marginBottom: '60px' }}>
             <div className="tech-shine" style={{ background: 'linear-gradient(135deg, #f9f9fa 0%, #f0f0f0 100%)', borderRadius: '16px', padding: '40px', marginBottom: '40px', border: '1px solid rgba(255, 255, 255, 0.4)', boxShadow: '0 8px 32px rgba(66, 133, 244, 0.08)' }}>
               <img
-                src="https://via.placeholder.com/1200x200?text=Smoothies+Hero"
+                src="https://daily-harvest.com/cdn/shop/files/ModelSmoothieHeaderwAttributes.jpg?v=1755195930&width=1580"
                 alt="Smoothies"
                 style={{ width: '100%', height: 'auto', borderRadius: '4px' }}
               />
