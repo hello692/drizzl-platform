@@ -96,8 +96,13 @@ export default function Navbar() {
   const toggleLang = () => setLangOpen(!langOpen);
   
   const selectLanguage = (code: string) => {
+    if (code === currentLang) {
+      setLangOpen(false);
+      return;
+    }
     setLangOpen(false);
-    router.push(router.pathname, router.asPath, { locale: code });
+    const path = code === 'en' ? router.pathname : `/${code}${router.pathname}`;
+    window.location.href = path;
   };
   
   const getCurrentLangData = () => LANGUAGES.find(l => l.code === currentLang) || LANGUAGES[0];

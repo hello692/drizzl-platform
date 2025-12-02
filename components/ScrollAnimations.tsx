@@ -21,26 +21,26 @@ export function AnimatedSection({
   const animationStyles: Record<string, CSSProperties> = {
     fadeUp: {
       opacity: isVisible ? 1 : 0,
-      transform: isVisible ? 'translateY(0)' : 'translateY(60px)',
+      transform: isVisible ? 'translateY(0)' : 'translateY(40px)',
     },
     fadeUpSlow: {
       opacity: isVisible ? 1 : 0,
-      transform: isVisible ? 'translateY(0)' : 'translateY(80px)',
+      transform: isVisible ? 'translateY(0)' : 'translateY(50px)',
     },
     fadeIn: {
       opacity: isVisible ? 1 : 0,
     },
     slideLeft: {
       opacity: isVisible ? 1 : 0,
-      transform: isVisible ? 'translateX(0)' : 'translateX(100px)',
+      transform: isVisible ? 'translateX(0)' : 'translateX(60px)',
     },
     slideRight: {
       opacity: isVisible ? 1 : 0,
-      transform: isVisible ? 'translateX(0)' : 'translateX(-100px)',
+      transform: isVisible ? 'translateX(0)' : 'translateX(-60px)',
     },
     scaleUp: {
       opacity: isVisible ? 1 : 0,
-      transform: isVisible ? 'scale(1)' : 'scale(0.9)',
+      transform: isVisible ? 'scale(1)' : 'scale(0.95)',
     },
   };
 
@@ -51,7 +51,7 @@ export function AnimatedSection({
       style={{
         ...style,
         ...animationStyles[animation],
-        transition: `all 0.8s cubic-bezier(0.16, 1, 0.3, 1) ${delay}ms`,
+        transition: `all 1.2s cubic-bezier(0.32, 0, 0.67, 0) ${delay}ms`,
         willChange: 'transform, opacity',
       }}
     >
@@ -84,8 +84,8 @@ export function AnimatedText({
       style={{
         ...style,
         opacity: isVisible ? 1 : 0,
-        transform: isVisible ? 'translateY(0)' : 'translateY(40px)',
-        transition: `all 0.7s cubic-bezier(0.16, 1, 0.3, 1) ${delay}ms`,
+        transform: isVisible ? 'translateY(0)' : 'translateY(30px)',
+        transition: `all 1s cubic-bezier(0.32, 0, 0.67, 0) ${delay}ms`,
       }}
     >
       {children}
@@ -118,8 +118,8 @@ export function StaggeredGrid({
           className={`stagger-item ${itemClassName}`}
           style={{
             opacity: visibleItems[index] ? 1 : 0,
-            transform: visibleItems[index] ? 'translateY(0) scale(1)' : 'translateY(40px) scale(0.95)',
-            transition: `all 0.6s cubic-bezier(0.16, 1, 0.3, 1)`,
+            transform: visibleItems[index] ? 'translateY(0) scale(1)' : 'translateY(30px) scale(0.98)',
+            transition: `all 1s cubic-bezier(0.32, 0, 0.67, 0)`,
           }}
         >
           {child}
@@ -150,8 +150,8 @@ export function ParallaxSection({
       className={`parallax-section ${className}`}
       style={{
         ...style,
-        transform: isVisible ? `translateY(${speed * -20}px)` : 'translateY(0)',
-        transition: 'transform 0.3s ease-out',
+        transform: isVisible ? `translateY(${speed * -12}px)` : 'translateY(0)',
+        transition: 'transform 1.2s cubic-bezier(0.32, 0, 0.67, 0)',
       }}
     >
       {children}
@@ -182,8 +182,8 @@ export function RevealText({
           style={{
             display: 'inline-block',
             opacity: isVisible ? 1 : 0,
-            transform: isVisible ? 'translateY(0)' : 'translateY(20px)',
-            transition: `all 0.4s cubic-bezier(0.16, 1, 0.3, 1) ${index * charDelay}ms`,
+            transform: isVisible ? 'translateY(0)' : 'translateY(15px)',
+            transition: `all 0.6s cubic-bezier(0.32, 0, 0.67, 0) ${index * charDelay}ms`,
           }}
         >
           {char === ' ' ? '\u00A0' : char}
