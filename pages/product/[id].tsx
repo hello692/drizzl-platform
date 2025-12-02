@@ -176,18 +176,21 @@ export default function ProductDetail() {
   return (
     <>
       <Navbar />
-      <div style={{ background: '#ffffff', padding: '60px' }}>
+      <div className="gradient-animated" style={{ padding: '60px', background: 'linear-gradient(-45deg, #ffffff, #f8f9fa, #ffffff, #f0f0f0)', backgroundSize: '400% 400%' }}>
         <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
           {/* Product Header with Badge */}
           <div style={{ marginBottom: '40px', display: 'flex', alignItems: 'center', gap: '20px' }}>
             {product.badge && (
-              <div style={{
-                background: '#ffffff',
-                border: '2px solid #000',
+              <div className="tech-shine" style={{
+                background: 'linear-gradient(135deg, #000 0%, #1a1a1a 100%)',
+                border: '1px solid rgba(255, 255, 255, 0.2)',
+                color: '#fff',
                 padding: '8px 16px',
                 fontSize: '12px',
                 fontWeight: '800',
                 letterSpacing: '1px',
+                borderRadius: '20px',
+                boxShadow: '0 4px 12px rgba(66, 133, 244, 0.2)',
               }}>
                 {product.badge}
               </div>

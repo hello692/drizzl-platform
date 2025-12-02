@@ -38,15 +38,16 @@ const BriefcaseIcon = () => (
 
 export default function Navbar() {
   return (
-    <nav style={{
-      background: 'rgba(255, 255, 255, 0.99)',
-      borderBottom: '1px solid #e8e8e8',
+    <nav className="glass" style={{
+      background: 'rgba(255, 255, 255, 0.85)',
+      borderBottom: '1px solid rgba(255, 255, 255, 0.5)',
       padding: '14px 60px',
       position: 'sticky',
       top: 0,
       zIndex: 1000,
-      backdropFilter: 'blur(12px)',
-      boxShadow: '0 1px 3px rgba(0, 0, 0, 0.05)',
+      backdropFilter: 'blur(20px)',
+      WebkitBackdropFilter: 'blur(20px)',
+      boxShadow: '0 8px 32px rgba(66, 133, 244, 0.08)',
     }}>
       <div style={{
         maxWidth: '1440px',

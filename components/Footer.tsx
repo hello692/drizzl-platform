@@ -2,10 +2,11 @@ import Link from 'next/link';
 
 export default function Footer() {
   return (
-    <footer style={{
-      background: '#ffffff',
-      borderTop: '1px solid #e8e8e8',
+    <footer className="gradient-animated" style={{
+      borderTop: '1px solid rgba(224, 224, 224, 0.4)',
       padding: '140px 60px 60px 60px',
+      background: 'linear-gradient(-45deg, #ffffff, #f8f9fa, #ffffff, #f0f0f0)',
+      backgroundSize: '400% 400%',
     }}>
       <div style={{
         maxWidth: '1280px',
@@ -31,7 +32,7 @@ export default function Footer() {
               Shop
             </h4>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
-              <Link href="/products/smoothies" style={{ fontSize: '14px', color: '#424245', textDecoration: 'none', transition: 'all 0.3s' }} onMouseEnter={(e) => e.currentTarget.style.color = '#000'} onMouseLeave={(e) => e.currentTarget.style.color = '#424245'}>
+              <Link href="/products/smoothies" style={{ fontSize: '14px', color: '#424245', textDecoration: 'none', transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)' }} onMouseEnter={(e) => { e.currentTarget.style.color = '#000'; e.currentTarget.style.letterSpacing = '0.5px'; }} onMouseLeave={(e) => { e.currentTarget.style.color = '#424245'; e.currentTarget.style.letterSpacing = '0'; }}>
                 Smoothies
               </Link>
               <Link href="/products/high-protein" style={{ fontSize: '14px', color: '#424245', textDecoration: 'none', transition: 'all 0.3s' }} onMouseEnter={(e) => e.currentTarget.style.color = '#000'} onMouseLeave={(e) => e.currentTarget.style.color = '#424245'}>
@@ -189,25 +190,36 @@ export default function Footer() {
               style={{
                 flex: 1,
                 padding: '14px 20px',
-                border: '1px solid #e8e8e8',
-                borderRadius: '8px',
+                border: '1px solid rgba(224, 224, 224, 0.6)',
+                borderRadius: '12px',
                 fontSize: '14px',
-                backgroundColor: '#f8f9fa',
+                backgroundColor: 'rgba(248, 249, 250, 0.8)',
+                backdropFilter: 'blur(12px)',
+                transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
               }}
+              onMouseEnter={(e) => { e.currentTarget.style.boxShadow = 'inset 0 0 20px rgba(66, 133, 244, 0.1)'; e.currentTarget.style.borderColor = 'rgba(66, 133, 244, 0.3)'; }}
+              onMouseLeave={(e) => { e.currentTarget.style.boxShadow = 'none'; e.currentTarget.style.borderColor = 'rgba(224, 224, 224, 0.6)'; }}
             />
-            <button style={{
+            <button className="tech-shine" style={{
               padding: '14px 32px',
-              background: '#000',
+              background: 'linear-gradient(135deg, #000 0%, #1a1a1a 100%)',
               color: 'white',
-              border: 'none',
-              borderRadius: '8px',
+              border: '1px solid rgba(255, 255, 255, 0.1)',
+              borderRadius: '12px',
               fontSize: '14px',
               fontWeight: '600',
               cursor: 'pointer',
-              transition: 'all 0.3s',
+              transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+              boxShadow: '0 8px 24px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.2)',
             }}
-              onMouseEnter={(e) => e.currentTarget.style.opacity = '0.8'}
-              onMouseLeave={(e) => e.currentTarget.style.opacity = '1'}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.boxShadow = '0 20px 40px rgba(66, 133, 244, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.3)';
+                e.currentTarget.style.transform = 'translateY(-2px)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.boxShadow = '0 8px 24px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.2)';
+                e.currentTarget.style.transform = 'translateY(0)';
+              }}
             >
               Subscribe
             </button>
