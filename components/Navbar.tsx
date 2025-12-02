@@ -5,58 +5,6 @@ import { useState } from 'react';
 import { useRouter } from 'next/router';
 import { useTranslations } from 'next-intl';
 
-const SearchIcon = () => (
-  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-    <circle cx="11" cy="11" r="7"></circle>
-    <path d="m21 21-4.35-4.35"></path>
-  </svg>
-);
-
-const LocationIcon = () => (
-  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-    <circle cx="12" cy="10" r="3"></circle>
-  </svg>
-);
-
-const UserIcon = () => (
-  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-    <circle cx="12" cy="8" r="4"></circle>
-    <path d="M20 21a8 8 0 1 0-16 0"></path>
-  </svg>
-);
-
-const CartIcon = () => (
-  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
-    <line x1="3" y1="6" x2="21" y2="6"></line>
-    <path d="M16 10a4 4 0 0 1-8 0"></path>
-  </svg>
-);
-
-const BriefcaseIcon = () => (
-  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-    <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
-    <path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"></path>
-  </svg>
-);
-
-const GlobeIcon = () => (
-  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-    <circle cx="12" cy="12" r="10"></circle>
-    <line x1="2" y1="12" x2="22" y2="12"></line>
-    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
-  </svg>
-);
-
-const MenuIcon = () => (
-  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-    <line x1="4" y1="6" x2="20" y2="6"></line>
-    <line x1="4" y1="12" x2="20" y2="12"></line>
-    <line x1="4" y1="18" x2="20" y2="18"></line>
-  </svg>
-);
-
 const LANGUAGES = [
   { code: 'en', name: 'English', flag: '🇺🇸' },
   { code: 'es', name: 'Español', flag: '🇪🇸' },
@@ -136,71 +84,31 @@ export default function Navbar() {
         
         <div className="menu-content-animated">
           <div className="menu-section-animated">
-            <div className="section-title-animated">Products</div>
-            <button className="menu-item-animated" onClick={() => navigateTo('/smoothies')} style={{ animationDelay: '0.05s' }}>
-              <span className="item-text">Smoothies</span>
-              <span className="item-sub">Fresh Frozen Blends</span>
-              <span className="item-arrow">→</span>
-            </button>
-            <button className="menu-item-animated" onClick={() => navigateTo('/bowls')} style={{ animationDelay: '0.1s' }}>
-              <span className="item-text">Bowls</span>
-              <span className="item-sub">Nutrient Packed</span>
-              <span className="item-arrow">→</span>
-            </button>
-            <button className="menu-item-animated" onClick={() => navigateTo('/juices')} style={{ animationDelay: '0.15s' }}>
-              <span className="item-text">Juices</span>
-              <span className="item-sub">Cold Pressed</span>
-              <span className="item-arrow">→</span>
-            </button>
-            <button className="menu-item-animated" onClick={() => navigateTo('/wellness')} style={{ animationDelay: '0.2s' }}>
-              <span className="item-text">Wellness</span>
-              <span className="item-sub">Health Boosters</span>
-              <span className="item-arrow">→</span>
-            </button>
+            <div className="section-title-animated">Shop</div>
+            <button className="menu-item-animated" onClick={() => navigateTo('/smoothies')}>Smoothies</button>
+            <button className="menu-item-animated" onClick={() => navigateTo('/bowls')}>Bowls</button>
+            <button className="menu-item-animated" onClick={() => navigateTo('/juices')}>Juices</button>
+            <button className="menu-item-animated" onClick={() => navigateTo('/wellness')}>Wellness</button>
           </div>
           
           <div className="menu-divider-animated"></div>
           
           <div className="menu-section-animated">
             <div className="section-title-animated">Company</div>
-            <button className="menu-item-animated simple" onClick={() => navigateTo('/about')} style={{ animationDelay: '0.25s' }}>
-              <span className="item-text">About Us</span>
-              <span className="item-arrow">→</span>
-            </button>
-            <button className="menu-item-animated simple" onClick={() => navigateTo('/sustainability')} style={{ animationDelay: '0.3s' }}>
-              <span className="item-text">Sustainability</span>
-              <span className="item-arrow">→</span>
-            </button>
-            <button className="menu-item-animated simple" onClick={() => navigateTo('/careers')} style={{ animationDelay: '0.35s' }}>
-              <span className="item-text">Careers</span>
-              <span className="item-arrow">→</span>
-            </button>
-            <button className="menu-item-animated simple" onClick={() => navigateTo('/blog')} style={{ animationDelay: '0.4s' }}>
-              <span className="item-text">Blog</span>
-              <span className="item-arrow">→</span>
-            </button>
+            <button className="menu-item-animated" onClick={() => navigateTo('/about')}>About</button>
+            <button className="menu-item-animated" onClick={() => navigateTo('/sustainability')}>Sustainability</button>
+            <button className="menu-item-animated" onClick={() => navigateTo('/careers')}>Careers</button>
+            <button className="menu-item-animated" onClick={() => navigateTo('/blog')}>Blog</button>
           </div>
           
           <div className="menu-divider-animated"></div>
           
           <div className="menu-section-animated">
             <div className="section-title-animated">Support</div>
-            <button className="menu-item-animated simple" onClick={() => navigateTo('/contact')} style={{ animationDelay: '0.45s' }}>
-              <span className="item-text">Contact</span>
-              <span className="item-arrow">→</span>
-            </button>
-            <button className="menu-item-animated simple" onClick={() => navigateTo('/faq')} style={{ animationDelay: '0.5s' }}>
-              <span className="item-text">FAQ</span>
-              <span className="item-arrow">→</span>
-            </button>
-            <button className="menu-item-animated simple" onClick={() => navigateTo('/shipping')} style={{ animationDelay: '0.55s' }}>
-              <span className="item-text">Shipping</span>
-              <span className="item-arrow">→</span>
-            </button>
-            <button className="menu-item-animated simple" onClick={() => navigateTo('/returns')} style={{ animationDelay: '0.6s' }}>
-              <span className="item-text">Returns</span>
-              <span className="item-arrow">→</span>
-            </button>
+            <button className="menu-item-animated" onClick={() => navigateTo('/contact')}>Contact</button>
+            <button className="menu-item-animated" onClick={() => navigateTo('/faq')}>FAQ</button>
+            <button className="menu-item-animated" onClick={() => navigateTo('/shipping')}>Shipping</button>
+            <button className="menu-item-animated" onClick={() => navigateTo('/returns')}>Returns</button>
           </div>
         </div>
       </div>
@@ -226,36 +134,30 @@ export default function Navbar() {
           gap: '32px',
         }}>
           <div style={{ flex: 1, display: 'flex', justifyContent: 'flex-start' }}>
-            <Link href="/" style={{ fontSize: '24px', textDecoration: 'none', whiteSpace: 'nowrap', transition: 'all 0.3s ease', fontWeight: '900', letterSpacing: '-0.02em', fontFamily: 'Geist, system-ui, sans-serif', color: '#000' }}>
-              DRIZZL WELLNESS
+            <Link href="/" style={{ fontSize: '16px', textDecoration: 'none', whiteSpace: 'nowrap', transition: 'all 1s cubic-bezier(0.32, 0, 0.67, 0)', fontWeight: '600', letterSpacing: '-0.3px', color: '#000' }}>
+              Drizzl
             </Link>
           </div>
 
-          <div style={{ display: 'flex', alignItems: 'center', gap: '20px', flex: 0 }}>
-            <button style={{ padding: '8px', border: 'none', background: 'none', color: '#000', cursor: 'pointer', opacity: 0.6, transition: 'all 0.2s ease' }} onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')} onMouseLeave={(e) => (e.currentTarget.style.opacity = '0.6')}>
-              <SearchIcon />
-            </button>
-
+          <div style={{ display: 'flex', alignItems: 'center', gap: '40px', flex: 0 }}>
             <div style={{ position: 'relative' }}>
               <button 
                 onClick={toggleLang}
                 style={{ 
-                  padding: '8px', 
+                  padding: '0', 
                   border: 'none', 
                   background: 'none', 
                   color: '#000', 
                   cursor: 'pointer', 
                   opacity: langOpen ? 1 : 0.6, 
-                  transition: 'all 0.2s ease',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '4px',
+                  transition: 'all 1s cubic-bezier(0.32, 0, 0.67, 0)',
+                  fontSize: '13px',
+                  fontWeight: '500',
                 }} 
                 onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')} 
                 onMouseLeave={(e) => !langOpen && (e.currentTarget.style.opacity = '0.6')}
               >
-                <GlobeIcon />
-                <span style={{ fontSize: '12px', fontWeight: '500' }}>{getCurrentLangData().code.toUpperCase()}</span>
+                {getCurrentLangData().code.toUpperCase()}
               </button>
               
               {langOpen && (
@@ -273,23 +175,12 @@ export default function Navbar() {
                     top: 'calc(100% + 12px)',
                     right: 0,
                     background: '#fff',
-                    borderRadius: '12px',
-                    boxShadow: '0 4px 24px rgba(0,0,0,0.12), 0 0 0 1px rgba(0,0,0,0.05)',
+                    borderRadius: '8px',
+                    boxShadow: '0 2px 12px rgba(0,0,0,0.1)',
                     padding: '8px 0',
-                    minWidth: '200px',
+                    minWidth: '160px',
                     zIndex: 999,
-                    animation: 'fadeIn 0.15s ease-out',
                   }}>
-                    <div style={{ 
-                      padding: '12px 16px 8px', 
-                      fontSize: '11px', 
-                      fontWeight: '600', 
-                      color: '#888',
-                      textTransform: 'uppercase',
-                      letterSpacing: '0.5px',
-                    }}>
-                      Select Language
-                    </div>
                     <div style={{ maxHeight: '320px', overflowY: 'auto' }}>
                       {LANGUAGES.map((lang) => (
                         <button
@@ -301,24 +192,15 @@ export default function Navbar() {
                             border: 'none',
                             background: currentLang === lang.code ? '#f5f5f5' : 'transparent',
                             cursor: 'pointer',
-                            display: 'flex',
-                            alignItems: 'center',
-                            gap: '12px',
-                            fontSize: '14px',
+                            fontSize: '13px',
                             color: '#333',
-                            transition: 'background 0.15s ease',
+                            transition: 'background 0.6s cubic-bezier(0.32, 0, 0.67, 0)',
                             textAlign: 'left',
                           }}
                           onMouseEnter={(e) => e.currentTarget.style.background = '#f5f5f5'}
                           onMouseLeave={(e) => e.currentTarget.style.background = currentLang === lang.code ? '#f5f5f5' : 'transparent'}
                         >
-                          <span style={{ fontSize: '18px' }}>{lang.flag}</span>
-                          <span style={{ flex: 1 }}>{lang.name}</span>
-                          {currentLang === lang.code && (
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#000" strokeWidth="2">
-                              <polyline points="20 6 9 17 4 12"></polyline>
-                            </svg>
-                          )}
+                          {lang.name}
                         </button>
                       ))}
                     </div>
@@ -327,16 +209,16 @@ export default function Navbar() {
               )}
             </div>
 
-            <Link href="/cart" style={{ padding: '8px', color: '#000', opacity: 0.6, transition: 'all 0.2s ease', display: 'flex' }} onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')} onMouseLeave={(e) => (e.currentTarget.style.opacity = '0.6')}>
-              <CartIcon />
+            <Link href="/cart" style={{ fontSize: '13px', color: '#000', opacity: 0.6, transition: 'all 1s cubic-bezier(0.32, 0, 0.67, 0)' }} onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')} onMouseLeave={(e) => (e.currentTarget.style.opacity = '0.6')}>
+              Bag
             </Link>
 
-            <Link href="/auth" style={{ padding: '8px', color: '#000', opacity: 0.6, transition: 'all 0.2s ease', display: 'flex' }} onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')} onMouseLeave={(e) => (e.currentTarget.style.opacity = '0.6')}>
-              <UserIcon />
+            <Link href="/auth" style={{ fontSize: '13px', color: '#000', opacity: 0.6, transition: 'all 1s cubic-bezier(0.32, 0, 0.67, 0)' }} onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')} onMouseLeave={(e) => (e.currentTarget.style.opacity = '0.6')}>
+              Account
             </Link>
 
-            <button className="menu-button" style={{ padding: '8px', border: 'none', background: 'none', color: '#000', cursor: 'pointer', opacity: 0.6, transition: 'all 0.2s ease' }} onClick={toggleMenu} onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')} onMouseLeave={(e) => (e.currentTarget.style.opacity = '0.6')}>
-              <MenuIcon />
+            <button style={{ padding: '0', border: 'none', background: 'none', color: '#000', cursor: 'pointer', opacity: 0.6, transition: 'all 1s cubic-bezier(0.32, 0, 0.67, 0)', fontSize: '13px', fontWeight: '500' }} onClick={toggleMenu} onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')} onMouseLeave={(e) => (e.currentTarget.style.opacity = '0.6')}>
+              Menu
             </button>
           </div>
         </div>
