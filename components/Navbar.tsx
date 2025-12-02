@@ -135,8 +135,8 @@ export default function Navbar() {
           gap: 'clamp(16px, 4vw, 32px)',
         }}>
           <div style={{ flex: 1, display: 'flex', justifyContent: 'flex-start', minWidth: 0 }}>
-            <Link href="/" style={{ fontSize: 'clamp(14px, 4vw, 16px)', textDecoration: 'none', whiteSpace: 'nowrap', transition: 'all 1s cubic-bezier(0.32, 0, 0.67, 0)', fontWeight: '600', letterSpacing: '-0.3px', color: '#000' }}>
-              Drizzl
+            <Link href="/" style={{ fontSize: 'clamp(14px, 4vw, 16px)', textDecoration: 'none', whiteSpace: 'nowrap', transition: 'all 1s cubic-bezier(0.32, 0, 0.67, 0)', fontWeight: '900', letterSpacing: '-0.5px', color: '#000' }}>
+              DRIZZL
             </Link>
           </div>
 
