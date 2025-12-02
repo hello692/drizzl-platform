@@ -144,10 +144,9 @@ export default function Navbar() {
             <Link href="/contact" style={{ fontSize: '13px', fontWeight: '500', color: '#000', padding: '6px 14px', background: '#f5f5f5', borderRadius: '20px', textDecoration: 'none', border: 'none', cursor: 'pointer', transition: 'all 1s cubic-bezier(0.32, 0, 0.67, 0)', display: 'inline-flex', alignItems: 'center', gap: '8px', whiteSpace: 'nowrap' }} onMouseEnter={(e) => { e.currentTarget.style.background = '#ececec'; }} onMouseLeave={(e) => { e.currentTarget.style.background = '#f5f5f5'; }}>
               Retail Partner Login
               <svg width="14" height="14" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M13 12v-2H7v2" />
-                <path d="M13 10V6c0-1 0.5-1.5 1-1.5h2c.5 0 1 .5 1 1.5v8c0 1-.5 1.5-1 1.5h-2c-.5 0-1-.5-1-1.5v-2" />
-                <path d="M4 17c0-3.3 2.7-6 6-6s6 2.7 6 6" />
-                <path d="M10 7a2 2 0 1 1 4 0 2 2 0 0 1-4 0" />
+                <path d="M2 4h16l-1.5 9H3.5L2 4z" />
+                <circle cx="5" cy="17" r="1" fill="currentColor" />
+                <circle cx="14" cy="17" r="1" fill="currentColor" />
               </svg>
             </Link>
 
