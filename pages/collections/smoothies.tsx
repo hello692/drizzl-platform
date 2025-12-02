@@ -17,18 +17,18 @@ export default function Smoothies() {
   return (
     <>
       <Navbar />
-      <div style={{ minHeight: '100vh', padding: '60px 40px' }}>
+      <div className="gradient-animated" style={{ minHeight: '100vh', padding: '60px 40px', background: 'linear-gradient(-45deg, #ffffff, #f8f9fa, #ffffff, #f0f0f0)', backgroundSize: '400% 400%' }}>
         <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
           {/* Header Section */}
           <div style={{ marginBottom: '60px' }}>
-            <div style={{ background: '#f9f9f9', borderRadius: '4px', padding: '40px', marginBottom: '40px' }}>
+            <div className="tech-shine" style={{ background: 'linear-gradient(135deg, #f9f9fa 0%, #f0f0f0 100%)', borderRadius: '16px', padding: '40px', marginBottom: '40px', border: '1px solid rgba(255, 255, 255, 0.4)', boxShadow: '0 8px 32px rgba(66, 133, 244, 0.08)' }}>
               <img
                 src="https://via.placeholder.com/1200x200?text=Smoothies+Hero"
                 alt="Smoothies"
                 style={{ width: '100%', height: 'auto', borderRadius: '4px' }}
               />
             </div>
-            <h1 style={{ marginBottom: '16px', fontSize: '48px' }}>Smoothies</h1>
+            <h1 style={{ marginBottom: '16px', fontSize: '48px', backgroundImage: 'linear-gradient(135deg, #000 0%, #424245 100%)', backgroundClip: 'text', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>Smoothies</h1>
             <p style={{ fontSize: '16px', color: '#666', maxWidth: '600px', lineHeight: '1.6' }}>
               It's never been easier—or healthier—to build a delicious daily routine.
             </p>
@@ -48,43 +48,51 @@ export default function Smoothies() {
           }}>
             {products.map(product => (
               <Link key={product.id} href={`/product/${product.id}`}>
-                <div style={{
+                <div className="glass tech-shine" style={{
                   cursor: 'pointer',
-                  border: '1px solid #e8e8e8',
-                  borderRadius: '4px',
+                  border: '1px solid rgba(255, 255, 255, 0.5)',
+                  borderRadius: '14px',
                   overflow: 'hidden',
-                  transition: 'all 0.2s',
+                  transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+                  background: 'rgba(255, 255, 255, 0.8)',
+                  backdropFilter: 'blur(12px)',
+                  boxShadow: '0 8px 24px rgba(66, 133, 244, 0.08)',
                 }}
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.boxShadow = '0 4px 16px rgba(0,0,0,0.1)';
-                    e.currentTarget.style.transform = 'translateY(-2px)';
+                    e.currentTarget.style.boxShadow = '0 20px 40px rgba(66, 133, 244, 0.2), inset 0 0 20px rgba(66, 133, 244, 0.05)';
+                    e.currentTarget.style.transform = 'translateY(-8px) scale(1.02)';
+                    e.currentTarget.style.borderColor = 'rgba(66, 133, 244, 0.4)';
                   }}
                   onMouseLeave={(e) => {
-                    e.currentTarget.style.boxShadow = 'none';
-                    e.currentTarget.style.transform = 'translateY(0)';
+                    e.currentTarget.style.boxShadow = '0 8px 24px rgba(66, 133, 244, 0.08)';
+                    e.currentTarget.style.transform = 'translateY(0) scale(1)';
+                    e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.5)';
                   }}
                 >
                   <div style={{
-                    background: '#f9f9f9',
+                    background: 'linear-gradient(135deg, #f9f9fa 0%, #f0f0f0 100%)',
                     height: '240px',
-                    borderRadius: '4px 4px 0 0',
+                    borderRadius: '14px 14px 0 0',
                     position: 'relative',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
+                    boxShadow: 'inset 0 0 15px rgba(66, 133, 244, 0.05)',
                   }}>
                     {product.badge && (
-                      <span style={{
+                      <span className="tech-shine" style={{
                         position: 'absolute',
                         top: '12px',
                         right: '12px',
-                        background: product.badge === 'Best Seller' ? '#000' : '#373f47',
+                        background: product.badge === 'Best Seller' ? 'linear-gradient(135deg, #000 0%, #1a1a1a 100%)' : 'linear-gradient(135deg, #373f47 0%, #4a5361 100%)',
                         color: 'white',
-                        padding: '4px 12px',
-                        borderRadius: '4px',
+                        padding: '6px 12px',
+                        borderRadius: '8px',
                         fontSize: '11px',
                         fontWeight: '700',
                         textTransform: 'uppercase',
+                        border: '1px solid rgba(255, 255, 255, 0.2)',
+                        boxShadow: '0 4px 12px rgba(66, 133, 244, 0.2)',
                       }}>
                         {product.badge}
                       </span>
@@ -108,15 +116,26 @@ export default function Smoothies() {
                         onClick={(e) => {
                           e.preventDefault();
                         }}
+                        className="tech-shine"
                         style={{
                           padding: '8px 16px',
-                          background: '#000',
+                          background: 'linear-gradient(135deg, #000 0%, #1a1a1a 100%)',
                           color: 'white',
-                          border: 'none',
-                          borderRadius: '4px',
+                          border: '1px solid rgba(255, 255, 255, 0.1)',
+                          borderRadius: '8px',
                           fontSize: '14px',
                           fontWeight: '500',
                           cursor: 'pointer',
+                          transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                          boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.1)',
+                        }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.boxShadow = '0 12px 24px rgba(66, 133, 244, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.2)';
+                          e.currentTarget.style.transform = 'translateY(-2px)';
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.1)';
+                          e.currentTarget.style.transform = 'translateY(0)';
                         }}
                       >
                         Add
