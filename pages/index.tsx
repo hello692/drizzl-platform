@@ -179,7 +179,7 @@ export default function Home() {
       <section style={{
         padding: 'clamp(60px, 10vw, 140px) clamp(16px, 4vw, 60px)',
         textAlign: 'center',
-        minHeight: 'clamp(400px, 70vh, 720px)',
+        minHeight: 'clamp(600px, 85vh, 920px)',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
