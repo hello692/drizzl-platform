@@ -84,11 +84,11 @@ export default function Navbar() {
         {/* Center: Logo */}
         <div style={{ flex: 1, display: 'flex', justifyContent: 'center' }}>
           <Link href="/" style={{
-            fontSize: '72px',
+            fontSize: '36px',
             fontWeight: '900',
             textDecoration: 'none',
             color: '#000',
-            letterSpacing: '-2px',
+            letterSpacing: '-1px',
             textTransform: 'uppercase',
             whiteSpace: 'nowrap',
             transition: 'all 0.2s ease-out',
