@@ -192,103 +192,95 @@ export default function ProductDetail() {
 
             {/* Right: Product Details */}
             <div>
-              {/* Category Link */}
-              <Link href="/products/smoothies" style={{ fontSize: '13px', color: '#666', textDecoration: 'underline', marginBottom: '16px', display: 'block' }}>
+              {/* Category */}
+              <p style={{
+                fontSize: '13px',
+                fontWeight: '700',
+                textTransform: 'uppercase',
+                letterSpacing: '1px',
+                margin: '0 0 16px 0',
+                color: '#000',
+              }}>
                 Smoothie
-              </Link>
+              </p>
 
               {/* Product Name */}
               <h1 style={{
-                fontSize: '48px',
-                fontWeight: '700',
-                margin: '0 0 12px 0',
-                letterSpacing: '-0.8px',
+                fontSize: '56px',
+                fontWeight: '900',
+                margin: '0 0 16px 0',
+                letterSpacing: '-1px',
+                textTransform: 'uppercase',
               }}>
                 {product.name}
               </h1>
 
               {/* Tagline */}
               <p style={{
-                fontSize: '16px',
-                color: '#666',
-                margin: '0 0 20px 0',
-                fontStyle: 'italic',
+                fontSize: '14px',
+                color: '#000',
+                margin: '0 0 28px 0',
+                fontWeight: '500',
+                letterSpacing: '-0.2px',
               }}>
-                {product.tagline}
+                <span style={{ fontWeight: '700' }}>Inspired by:</span> {product.tagline.replace('Inspired by a scoop of ', '')}
               </p>
 
               {/* Rating */}
               <div style={{
                 display: 'flex',
                 alignItems: 'center',
-                gap: '8px',
-                marginBottom: '32px',
+                gap: '12px',
+                marginBottom: '28px',
                 fontSize: '14px',
               }}>
-                <span>{'★'.repeat(Math.floor(product.rating))}{'☆'.repeat(5 - Math.floor(product.rating))}</span>
-                <span style={{ color: '#666' }}>{product.reviews.toLocaleString()} reviews</span>
-              </div>
-
-              {/* Price Section */}
-              <div style={{
-                borderBottom: '1px solid #e8e8e8',
-                paddingBottom: '28px',
-                marginBottom: '28px',
-              }}>
-                <p style={{
-                  fontSize: '24px',
-                  fontWeight: '700',
-                  margin: '0 0 16px 0',
-                }}>
-                  ${product.price.toFixed(2)}
-                </p>
-
-                {/* Subscribe & Save */}
-                <label style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px', cursor: 'pointer' }}>
-                  <input type="radio" defaultChecked style={{ width: '18px', height: '18px', cursor: 'pointer' }} />
-                  <span style={{ fontSize: '14px', fontWeight: '600' }}>Subscribe & Save</span>
-                </label>
-                <p style={{ fontSize: '13px', color: '#666', margin: '0' }}>Get $35 off your next order over $100*</p>
+                <span style={{ fontSize: '20px' }}>{'★'.repeat(Math.floor(product.rating))}{'☆'.repeat(5 - Math.floor(product.rating))}</span>
+                <span style={{ color: '#424245', fontWeight: '500' }}>{product.reviews.toLocaleString()} reviews</span>
               </div>
 
               {/* Add to Cart Button */}
               <button style={{
                 width: '100%',
-                padding: '18px 24px',
+                padding: '20px 24px',
                 background: '#000',
                 color: '#ffffff',
                 border: 'none',
                 borderRadius: '0px',
-                fontSize: '14px',
+                fontSize: '13px',
                 fontWeight: '700',
-                letterSpacing: '0.5px',
+                letterSpacing: '0.8px',
                 cursor: 'pointer',
                 marginBottom: '32px',
                 transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                textTransform: 'uppercase',
               }}
                 onMouseEnter={(e) => { e.currentTarget.style.opacity = '0.8'; }}
                 onMouseLeave={(e) => { e.currentTarget.style.opacity = '1'; }}
               >
-                Add to cart
+                ADD TO CART ${product.price.toFixed(2)}
               </button>
 
-              {/* Attributes */}
+              {/* Attributes - Single Row */}
               <div style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(2, 1fr)',
-                gap: '16px',
+                display: 'flex',
+                flexWrap: 'wrap',
+                gap: '24px',
+                justifyContent: 'flex-start',
               }}>
                 {product.attributes.map((attr: string, idx: number) => (
                   <div key={idx} style={{
-                    background: '#f9f9f9',
-                    padding: '16px',
-                    borderRadius: '4px',
-                    textAlign: 'center',
-                    fontSize: '12px',
-                    fontWeight: '600',
-                    letterSpacing: '0.5px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '8px',
+                    fontSize: '13px',
+                    fontWeight: '500',
+                    color: '#000',
                   }}>
-                    ✓ {attr}
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                      <circle cx="12" cy="12" r="10"></circle>
+                      <path d="M7 12l2.5 2.5 4-5"></path>
+                    </svg>
+                    <span>{attr}</span>
                   </div>
                 ))}
               </div>
