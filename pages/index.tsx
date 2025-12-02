@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import Link from 'next/link';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
@@ -21,9 +21,21 @@ const CATEGORIES = [
   { name: 'Gift Guide', slug: 'gift' },
 ];
 
+const POPULAR_SMOOTHIES = [
+  { id: '1', name: 'Strawberry + Peach', price: 8.49, image: 'https://daily-harvest.com/cdn/shop/files/strawberry-peach-smoothie-daily-harvest-3657974.jpg?v=1760509351&width=500', description: 'Creamy strawberry bliss' },
+  { id: '2', name: 'Acai + Cherry', price: 8.49, image: 'https://daily-harvest.com/cdn/shop/files/acai-cherry-smoothie-daily-harvest-8004331.jpg?v=1760509351&width=500', description: 'Antioxidant powerhouse' },
+  { id: '3', name: 'Mixed Berry Protein', price: 9.49, image: 'https://daily-harvest.com/cdn/shop/files/mixed-berry-protein-smoothie-daily-harvest-3950952.jpg?v=1760509317&width=500', description: 'Protein-packed berries' },
+  { id: '4', name: 'Dark Chocolate Protein', price: 9.49, image: 'https://daily-harvest.com/cdn/shop/files/dark-chocolate-protein-smoothie-daily-harvest-4692961.jpg?v=1760509316&width=500', description: 'Indulgent chocolate' },
+  { id: '5', name: 'Vanilla Bean Protein', price: 9.49, image: 'https://daily-harvest.com/cdn/shop/files/vanilla-bean-protein-smoothie-daily-harvest-1407106.jpg?v=1760509317&width=500', description: 'Smooth vanilla goodness' },
+  { id: '6', name: 'Tropical Greens Protein', price: 9.49, image: 'https://daily-harvest.com/cdn/shop/files/tropical-greens-protein-smoothie-daily-harvest-8021323.jpg?v=1760509314&width=500', description: 'Tropical & green' },
+];
+
 export default function Home() {
   const [featuredProducts, setFeaturedProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
+  const carouselRef = useRef<HTMLDivElement>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(true);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -41,6 +53,33 @@ export default function Home() {
     };
 
     fetchProducts();
+  }, []);
+
+  const scroll = (direction: 'left' | 'right') => {
+    if (carouselRef.current) {
+      const scrollAmount = 320;
+      carouselRef.current.scrollBy({
+        left: direction === 'left' ? -scrollAmount : scrollAmount,
+        behavior: 'smooth',
+      });
+      setTimeout(checkScroll, 600);
+    }
+  };
+
+  const checkScroll = () => {
+    if (carouselRef.current) {
+      setCanScrollLeft(carouselRef.current.scrollLeft > 0);
+      setCanScrollRight(
+        carouselRef.current.scrollLeft < 
+        carouselRef.current.scrollWidth - carouselRef.current.clientWidth - 10
+      );
+    }
+  };
+
+  useEffect(() => {
+    checkScroll();
+    carouselRef.current?.addEventListener('scroll', checkScroll);
+    return () => carouselRef.current?.removeEventListener('scroll', checkScroll);
   }, []);
 
   return (
@@ -150,7 +189,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Featured Products */}
+      {/* Our Most Popular - Carousel */}
       <section style={{
         background: '#ffffff',
         padding: '80px 40px',
@@ -159,107 +198,176 @@ export default function Home() {
           maxWidth: '1280px',
           margin: '0 auto',
         }}>
-          <h2 style={{
-            textAlign: 'center',
-            marginBottom: '60px',
-            fontSize: '32px',
-          }}>
-            Our Most Popular
-          </h2>
-
-          {loading ? (
-            <p style={{ textAlign: 'center', color: '#999' }}>Loading...</p>
-          ) : featuredProducts.length === 0 ? (
-            <p style={{ textAlign: 'center', color: '#999' }}>No products available</p>
-          ) : (
-            <div style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-              gap: '40px',
+          <div style={{ marginBottom: '60px' }}>
+            <h2 style={{
+              fontSize: '42px',
+              fontWeight: '700',
+              marginBottom: '12px',
+              fontFamily: "'DM Sans', sans-serif",
             }}>
-              {featuredProducts.map(product => (
-                <div key={product.id} style={{
-                  background: 'white',
-                  borderRadius: '4px',
-                  overflow: 'hidden',
-                  border: '1px solid #e8e8e8',
-                  transition: 'all 0.2s',
-                }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.boxShadow = '0 8px 24px rgba(0,0,0,0.08)';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.boxShadow = 'none';
+              Our Most Popular
+            </h2>
+            <p style={{
+              fontSize: '16px',
+              color: '#666',
+              maxWidth: '500px',
+              lineHeight: '1.6',
+            }}>
+              Discover our customers' favorite smoothie blends. Each one crafted with whole fruits and superfoods.
+            </p>
+          </div>
+
+          {/* Carousel Container */}
+          <div style={{ position: 'relative' }}>
+            {/* Left Arrow */}
+            <button
+              onClick={() => scroll('left')}
+              disabled={!canScrollLeft}
+              style={{
+                position: 'absolute',
+                left: '-50px',
+                top: '50%',
+                transform: 'translateY(-50%)',
+                background: canScrollLeft ? '#000' : '#e8e8e8',
+                border: 'none',
+                width: '40px',
+                height: '40px',
+                borderRadius: '50%',
+                color: 'white',
+                fontSize: '20px',
+                cursor: canScrollLeft ? 'pointer' : 'not-allowed',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                transition: 'all 0.2s',
+                zIndex: 10,
+              }}
+              onMouseEnter={(e) => {
+                if (canScrollLeft) e.currentTarget.style.opacity = '0.8';
+              }}
+              onMouseLeave={(e) => {
+                if (canScrollLeft) e.currentTarget.style.opacity = '1';
+              }}
+            >
+              ←
+            </button>
+
+            {/* Carousel */}
+            <div
+              ref={carouselRef}
+              style={{
+                display: 'flex',
+                gap: '32px',
+                overflowX: 'auto',
+                scrollBehavior: 'smooth',
+                scrollbarWidth: 'none',
+                paddingBottom: '16px',
+              }}
+              onScroll={checkScroll}
+            >
+              {POPULAR_SMOOTHIES.map((product) => (
+                <div
+                  key={product.id}
+                  style={{
+                    flexShrink: 0,
+                    width: '280px',
+                    textAlign: 'center',
                   }}
                 >
-                  {product.image_url && (
-                    <div style={{
-                      width: '100%',
-                      height: '280px',
-                      overflow: 'hidden',
-                      background: '#f9f9f9',
-                    }}>
-                      <img
-                        src={product.image_url}
-                        alt={product.name}
-                        style={{
-                          width: '100%',
-                          height: '100%',
-                          objectFit: 'cover',
-                        }}
-                      />
-                    </div>
-                  )}
-                  <div style={{ padding: '24px' }}>
-                    <h3 style={{
+                  {/* Product Image */}
+                  <div style={{
+                    background: '#f5f5f5',
+                    borderRadius: '8px',
+                    height: '280px',
+                    marginBottom: '16px',
+                    overflow: 'hidden',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}>
+                    <img
+                      src={product.image}
+                      alt={product.name}
+                      style={{
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'cover',
+                      }}
+                    />
+                  </div>
+                  
+                  {/* Product Name */}
+                  <h3 style={{
+                    fontSize: '16px',
+                    fontWeight: '700',
+                    marginBottom: '4px',
+                    fontFamily: "'DM Sans', sans-serif",
+                  }}>
+                    {product.name}
+                  </h3>
+
+                  {/* Description */}
+                  <p style={{
+                    fontSize: '14px',
+                    color: '#999',
+                    marginBottom: '12px',
+                    minHeight: '20px',
+                  }}>
+                    {product.description}
+                  </p>
+
+                  {/* Price */}
+                  <div style={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    gap: '12px',
+                  }}>
+                    <span style={{
                       fontSize: '18px',
-                      fontWeight: '600',
-                      marginBottom: '8px',
+                      fontWeight: '700',
                       fontFamily: "'DM Sans', sans-serif",
                     }}>
-                      {product.name}
-                    </h3>
-                    <p style={{
-                      fontSize: '15px',
-                      color: '#666',
-                      marginBottom: '16px',
-                      minHeight: '42px',
-                      lineHeight: '1.6',
-                    }}>
-                      {product.description}
-                    </p>
-                    <div style={{
-                      display: 'flex',
-                      justifyContent: 'space-between',
-                      alignItems: 'center',
-                    }}>
-                      <span style={{
-                        fontSize: '16px',
-                        fontWeight: '600',
-                        fontFamily: "'DM Sans', sans-serif",
-                      }}>
-                        ${product.price}
-                      </span>
-                      <Link href="/products" style={{
-                        padding: '10px 20px',
-                        background: '#1a1a1a',
-                        color: 'white',
-                        borderRadius: '4px',
-                        fontSize: '14px',
-                        fontWeight: '500',
-                        textDecoration: 'none',
-                      }}
-                        onMouseEnter={(e) => e.currentTarget.style.opacity = '0.8'}
-                        onMouseLeave={(e) => e.currentTarget.style.opacity = '1'}
-                      >
-                        Add to Cart
-                      </Link>
-                    </div>
+                      ${product.price.toFixed(2)}
+                    </span>
                   </div>
                 </div>
               ))}
             </div>
-          )}
+
+            {/* Right Arrow */}
+            <button
+              onClick={() => scroll('right')}
+              disabled={!canScrollRight}
+              style={{
+                position: 'absolute',
+                right: '-50px',
+                top: '50%',
+                transform: 'translateY(-50%)',
+                background: canScrollRight ? '#000' : '#e8e8e8',
+                border: 'none',
+                width: '40px',
+                height: '40px',
+                borderRadius: '50%',
+                color: 'white',
+                fontSize: '20px',
+                cursor: canScrollRight ? 'pointer' : 'not-allowed',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                transition: 'all 0.2s',
+                zIndex: 10,
+              }}
+              onMouseEnter={(e) => {
+                if (canScrollRight) e.currentTarget.style.opacity = '0.8';
+              }}
+              onMouseLeave={(e) => {
+                if (canScrollRight) e.currentTarget.style.opacity = '1';
+              }}
+            >
+              →
+            </button>
+          </div>
         </div>
       </section>
 
