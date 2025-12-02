@@ -146,10 +146,10 @@ export default function Footer() {
           }}>
             Get wellness updates and exclusive offers
           </p>
-          <div style={{
+          <div className="footer-newsletter" style={{
             display: 'flex',
             gap: 'clamp(6px, 2vw, 8px)',
-            flexDirection: window && window.innerWidth < 640 ? 'column' : 'row',
+            flexDirection: 'row',
           }}>
             <input
               type="email"
@@ -195,9 +195,9 @@ export default function Footer() {
         </div>
 
         {/* Copyright */}
-        <div style={{
+        <div className="footer-copyright" style={{
           display: 'flex',
-          flexDirection: window && window.innerWidth < 768 ? 'column' : 'row',
+          flexDirection: 'row',
           justifyContent: 'space-between',
           alignItems: 'center',
           gap: 'clamp(16px, 3vw, 24px)',
@@ -208,15 +208,15 @@ export default function Footer() {
             fontSize: 'clamp(11px, 2.5vw, 13px)',
             color: '#999',
             letterSpacing: '-0.2px',
-            textAlign: window && window.innerWidth < 768 ? 'center' : 'left',
+            textAlign: 'left',
           }}>
             © 2025 Drizzl Wellness. All rights reserved.
           </p>
-          <div style={{
+          <div className="footer-social" style={{
             display: 'flex',
             gap: 'clamp(16px, 4vw, 24px)',
             flexWrap: 'wrap',
-            justifyContent: window && window.innerWidth < 768 ? 'center' : 'flex-end',
+            justifyContent: 'flex-end',
           }}>
             <Link href="#" style={{ fontSize: 'clamp(11px, 2.5vw, 13px)', color: '#999', transition: 'all 1s cubic-bezier(0.32, 0, 0.67, 0)' }} onMouseEnter={(e) => e.currentTarget.style.color = '#000'} onMouseLeave={(e) => e.currentTarget.style.color = '#999'}>
               Facebook
