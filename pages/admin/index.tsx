@@ -68,13 +68,19 @@ export default function AdminDashboard() {
         <Link href="/admin" style={{ color: '#fff', textDecoration: 'none', fontSize: '18px', fontWeight: '700', letterSpacing: '-0.5px' }}>
           DRIZZL ADMIN
         </Link>
-        <div style={{ display: 'flex', gap: '24px', alignItems: 'center' }}>
+        <div style={{ display: 'flex', gap: '24px', alignItems: 'center', flexWrap: 'wrap' }}>
+          <Link href="/admin/command-center" style={{ color: '#fff', textDecoration: 'none', fontSize: '13px', opacity: 0.8 }}>Command Center</Link>
+          <Link href="/admin/video-manager" style={{ color: '#fff', textDecoration: 'none', fontSize: '13px', opacity: 0.8 }}>Videos</Link>
+          <Link href="/admin/social" style={{ color: '#fff', textDecoration: 'none', fontSize: '13px', opacity: 0.8 }}>Social</Link>
+          <Link href="/admin/inventory" style={{ color: '#fff', textDecoration: 'none', fontSize: '13px', opacity: 0.8 }}>Inventory</Link>
+          <Link href="/admin/factory" style={{ color: '#fff', textDecoration: 'none', fontSize: '13px', opacity: 0.8 }}>Factory</Link>
           <Link href="/admin/products" style={{ color: '#fff', textDecoration: 'none', fontSize: '13px', opacity: 0.8 }}>Products</Link>
           <Link href="/admin/orders" style={{ color: '#fff', textDecoration: 'none', fontSize: '13px', opacity: 0.8 }}>Orders</Link>
+          <Link href="/admin/order-intel" style={{ color: '#fff', textDecoration: 'none', fontSize: '13px', opacity: 0.8 }}>Order Intel</Link>
           <Link href="/admin/partners" style={{ color: '#fff', textDecoration: 'none', fontSize: '13px', opacity: 0.8 }}>Partners</Link>
           <Link href="/admin/banking" style={{ color: '#fff', textDecoration: 'none', fontSize: '13px', opacity: 0.8 }}>Banking</Link>
           <Link href="/admin/analytics" style={{ color: '#fff', textDecoration: 'none', fontSize: '13px', opacity: 0.8 }}>Analytics</Link>
-          <Link href="/admin/ai" style={{ color: '#fff', textDecoration: 'none', fontSize: '13px', opacity: 0.8 }}>AI Tools</Link>
+          <Link href="/admin/ai-assistant" style={{ color: '#fff', textDecoration: 'none', fontSize: '13px', opacity: 0.8 }}>AI Assistant</Link>
           <Link href="/" style={{ color: '#fff', textDecoration: 'none', fontSize: '13px', opacity: 0.6 }}>Exit</Link>
         </div>
       </nav>
@@ -116,16 +122,58 @@ export default function AdminDashboard() {
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '24px' }}>
           <QuickActionCard
+            title="Command Center"
+            description="Real-time business intelligence"
+            link="/admin/command-center"
+            icon="🎯"
+          />
+          <QuickActionCard
+            title="Video Manager"
+            description="Manage landing page videos"
+            link="/admin/video-manager"
+            icon="🎬"
+          />
+          <QuickActionCard
+            title="Social Media"
+            description="Manage accounts & track performance"
+            link="/admin/social"
+            icon="📱"
+          />
+          <QuickActionCard
+            title="Inventory"
+            description="Track ingredients, packaging & stock"
+            link="/admin/inventory"
+            icon="📋"
+          />
+          <QuickActionCard
+            title="Factory"
+            description="Production monitoring & batches"
+            link="/admin/factory"
+            icon="🏭"
+          />
+          <QuickActionCard
             title="Products"
             description="Manage your product catalog"
             link="/admin/products"
             icon="📦"
           />
           <QuickActionCard
+            title="Product Intel"
+            description="SKU costing & margin analysis"
+            link="/admin/product-intel"
+            icon="📈"
+          />
+          <QuickActionCard
             title="Orders"
             description="View and manage orders"
             link="/admin/orders"
             icon="🛒"
+          />
+          <QuickActionCard
+            title="Order Intel"
+            description="D2C & B2B order analytics"
+            link="/admin/order-intel"
+            icon="📍"
           />
           <QuickActionCard
             title="Partners"
@@ -150,6 +198,12 @@ export default function AdminDashboard() {
             description="Generate marketing copy"
             link="/admin/ai"
             icon="✨"
+          />
+          <QuickActionCard
+            title="AI Assistant"
+            description="Ask questions about your business"
+            link="/admin/ai-assistant"
+            icon="💬"
           />
         </div>
       </main>
