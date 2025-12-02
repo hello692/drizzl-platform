@@ -265,15 +265,26 @@ export default function Navbar() {
             }}></div>
           </button>
 
-          {/* Full-Screen Menu Overlay & Dropdown */}
+          {/* Full-Screen Menu Overlay with Drizzle Drop */}
           {menuOpen && (
             <>
-              {/* Overlay */}
+              {/* Overlay with Drizzle Drop Background */}
               <div
                 className="menu-overlay-2100"
                 onClick={closeMenu}
-                style={{ position: 'fixed' }}
-              ></div>
+              >
+                {/* Drizzle Drop Shape */}
+                <div className="drizzle-drop-container">
+                  <div className="drizzle-drop">
+                    <div className="drip-lines">
+                      <div className="drip-line"></div>
+                      <div className="drip-line"></div>
+                      <div className="drip-line"></div>
+                      <div className="drip-line"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
 
               {/* Full-Screen Dropdown Menu */}
               <div className="menu-dropdown-2100">
@@ -284,7 +295,7 @@ export default function Navbar() {
                       className="menu-item-2100"
                       style={{
                         animation: `menuItemSlideInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) ${
-                          index * 0.08
+                          index * 0.08 + 0.3
                         }s both`,
                       }}
                     >
