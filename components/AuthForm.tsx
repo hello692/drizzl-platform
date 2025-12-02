@@ -1,165 +1,112 @@
-import { useState, useEffect } from "react";
-import { useRouter } from "next/router";
-import { supabase } from "../lib/supabaseClient";
+import { useState } from 'react';
+import { useRouter } from 'next/router';
+import { signUp, signIn, signInWithMagicLink } from '../lib/auth';
 
-type Mode = "login" | "signup";
+type Mode = 'login' | 'signup' | 'magic';
 
 export default function AuthForm() {
   const router = useRouter();
-  const [mode, setMode] = useState<Mode>("login");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [mode, setMode] = useState<Mode>('login');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [isClient, setIsClient] = useState(false);
 
-  // Only run auth checks on client
-  useEffect(() => {
-    setIsClient(true);
-
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      (event, session) => {
-        if (event === "SIGNED_IN" && session) {
-          router.push("/");
-        }
-      }
-    );
-
-    return () => subscription?.unsubscribe();
-  }, [router]);
-
-  const resetMessages = () => {
-    setMessage(null);
+  const handleSignUp = async (e: React.FormEvent) => {
+    e.preventDefault();
     setError(null);
+    setMessage(null);
+    setLoading(true);
+
+    try {
+      await signUp(email, password);
+      setMessage('Signup successful! Check your email to verify your account.');
+      setEmail('');
+      setPassword('');
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Signup failed');
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const handleSignup = async (e: React.FormEvent) => {
+  const handleSignIn = async (e: React.FormEvent) => {
     e.preventDefault();
-    resetMessages();
+    setError(null);
+    setMessage(null);
     setLoading(true);
 
-    const { error } = await supabase.auth.signUp({
-      email,
-      password,
-    });
-
-    setLoading(false);
-
-    if (error) {
-      setError(error.message);
-      return;
+    try {
+      await signIn(email, password);
+      router.push('/');
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Login failed');
+    } finally {
+      setLoading(false);
     }
-
-    setMessage(
-      "Signup successful! Check your email to confirm your account before logging in."
-    );
-    setEmail("");
-    setPassword("");
   };
 
-  const handleLogin = async (e: React.FormEvent) => {
+  const handleMagicLink = async (e: React.FormEvent) => {
     e.preventDefault();
-    resetMessages();
+    setError(null);
+    setMessage(null);
     setLoading(true);
 
-    const { error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
-
-    setLoading(false);
-
-    if (error) {
-      setError(error.message);
-      return;
+    try {
+      await signInWithMagicLink(email);
+      setMessage('Magic link sent! Check your email to log in.');
+      setEmail('');
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Failed to send magic link');
+    } finally {
+      setLoading(false);
     }
-
-    setMessage("Logged in successfully!");
-    setEmail("");
-    setPassword("");
-  };
-
-  const handleMagicLink = async () => {
-    resetMessages();
-    if (!email) {
-      setError("Please enter your email first.");
-      return;
-    }
-
-    setLoading(true);
-
-    const { error } = await supabase.auth.signInWithOtp({
-      email,
-      options: {
-        emailRedirectTo: window.location.origin,
-      },
-    });
-
-    setLoading(false);
-
-    if (error) {
-      setError(error.message);
-      return;
-    }
-
-    setMessage("Magic link sent! Check your email to log in.");
-    setEmail("");
   };
 
   return (
-    <div
-      style={{
-        minHeight: "100vh",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        background: "#f5f5f5",
-        padding: "24px",
-      }}
-    >
-      <div
-        style={{
-          width: "100%",
-          maxWidth: "420px",
-          background: "white",
-          borderRadius: "12px",
-          padding: "32px 28px",
-          boxShadow: "0 10px 30px rgba(0,0,0,0.08)",
-        }}
-      >
-        <h1 style={{ margin: 0, marginBottom: "8px", fontSize: "24px" }}>
+    <div style={{
+      minHeight: 'calc(100vh - 70px)',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      background: '#f5f5f5',
+      padding: '24px',
+    }}>
+      <div style={{
+        width: '100%',
+        maxWidth: '420px',
+        background: 'white',
+        borderRadius: '12px',
+        padding: '32px 28px',
+        boxShadow: '0 10px 30px rgba(0,0,0,0.08)',
+      }}>
+        <h1 style={{ margin: 0, marginBottom: '8px', fontSize: '24px' }}>
           Drizzl Account
         </h1>
-        <p style={{ marginTop: 0, marginBottom: "24px", color: "#555" }}>
-          {mode === "login"
-            ? "Log in to your Drizzl dashboard."
-            : "Create your Drizzl account."}
+        <p style={{ marginTop: 0, marginBottom: '24px', color: '#555' }}>
+          {mode === 'login' ? 'Log in to your account' : mode === 'signup' ? 'Create your account' : 'Get a magic login link'}
         </p>
 
-        <div
-          style={{
-            display: "flex",
-            marginBottom: "20px",
-            borderRadius: "999px",
-            background: "#f0f0f0",
-            padding: "4px",
-          }}
-        >
+        {/* Mode toggle */}
+        <div style={{
+          display: 'flex',
+          marginBottom: '20px',
+          borderRadius: '999px',
+          background: '#f0f0f0',
+          padding: '4px',
+        }}>
           <button
             type="button"
-            onClick={() => {
-              resetMessages();
-              setMode("login");
-            }}
+            onClick={() => setMode('login')}
             style={{
               flex: 1,
-              border: "none",
-              borderRadius: "999px",
-              padding: "8px 0",
-              cursor: "pointer",
-              background: mode === "login" ? "#111" : "transparent",
-              color: mode === "login" ? "white" : "#333",
+              border: 'none',
+              borderRadius: '999px',
+              padding: '8px 0',
+              cursor: 'pointer',
+              background: mode === 'login' ? '#111' : 'transparent',
+              color: mode === 'login' ? 'white' : '#333',
               fontWeight: 500,
             }}
           >
@@ -167,150 +114,126 @@ export default function AuthForm() {
           </button>
           <button
             type="button"
-            onClick={() => {
-              resetMessages();
-              setMode("signup");
-            }}
+            onClick={() => setMode('signup')}
             style={{
               flex: 1,
-              border: "none",
-              borderRadius: "999px",
-              padding: "8px 0",
-              cursor: "pointer",
-              background: mode === "signup" ? "#111" : "transparent",
-              color: mode === "signup" ? "white" : "#333",
+              border: 'none',
+              borderRadius: '999px',
+              padding: '8px 0',
+              cursor: 'pointer',
+              background: mode === 'signup' ? '#111' : 'transparent',
+              color: mode === 'signup' ? 'white' : '#333',
               fontWeight: 500,
             }}
           >
             Sign up
           </button>
+          <button
+            type="button"
+            onClick={() => setMode('magic')}
+            style={{
+              flex: 1,
+              border: 'none',
+              borderRadius: '999px',
+              padding: '8px 0',
+              cursor: 'pointer',
+              background: mode === 'magic' ? '#111' : 'transparent',
+              color: mode === 'magic' ? 'white' : '#333',
+              fontWeight: 500,
+              fontSize: '12px',
+            }}
+          >
+            Magic Link
+          </button>
         </div>
 
-        <form
-          onSubmit={mode === "login" ? handleLogin : handleSignup}
-          style={{ display: "flex", flexDirection: "column", gap: "14px" }}
-        >
-          <div style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
-            <label style={{ fontSize: "14px" }}>Email</label>
+        <form onSubmit={mode === 'login' ? handleSignIn : mode === 'signup' ? handleSignUp : handleMagicLink} style={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '14px',
+        }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+            <label style={{ fontSize: '14px' }}>Email</label>
             <input
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
               placeholder="you@example.com"
-              autoComplete="email"
               style={{
-                padding: "10px 12px",
-                borderRadius: "8px",
-                border: "1px solid #ccc",
-                fontSize: "14px",
+                padding: '10px 12px',
+                borderRadius: '8px',
+                border: '1px solid #ccc',
+                fontSize: '14px',
               }}
             />
           </div>
 
-          <div style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
-            <label style={{ fontSize: "14px" }}>Password</label>
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required={mode === "signup" || mode === "login"}
-              placeholder="••••••••"
-              autoComplete="current-password"
-              style={{
-                padding: "10px 12px",
-                borderRadius: "8px",
-                border: "1px solid #ccc",
-                fontSize: "14px",
-              }}
-            />
-          </div>
+          {mode !== 'magic' && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+              <label style={{ fontSize: '14px' }}>Password</label>
+              <input
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required={mode !== 'magic'}
+                placeholder="••••••••"
+                style={{
+                  padding: '10px 12px',
+                  borderRadius: '8px',
+                  border: '1px solid #ccc',
+                  fontSize: '14px',
+                }}
+              />
+            </div>
+          )}
 
           <button
             type="submit"
             disabled={loading}
             style={{
-              marginTop: "4px",
-              padding: "10px 14px",
-              borderRadius: "8px",
-              border: "none",
-              background: "#111",
-              color: "white",
+              marginTop: '4px',
+              padding: '10px 14px',
+              borderRadius: '8px',
+              border: 'none',
+              background: '#111',
+              color: 'white',
               fontWeight: 600,
-              cursor: loading ? "default" : "pointer",
+              cursor: loading ? 'default' : 'pointer',
               opacity: loading ? 0.6 : 1,
             }}
           >
-            {loading
-              ? "Please wait…"
-              : mode === "login"
-                ? "Log in"
-                : "Create account"}
+            {loading ? 'Please wait…' : mode === 'login' ? 'Log in' : mode === 'signup' ? 'Create account' : 'Send magic link'}
           </button>
         </form>
 
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: "12px",
-            margin: "18px 0 10px",
-          }}
-        >
-          <div style={{ flex: 1, height: 1, background: "#eee" }} />
-          <span style={{ fontSize: "12px", color: "#888" }}>or</span>
-          <div style={{ flex: 1, height: 1, background: "#eee" }} />
-        </div>
-
-        <button
-          type="button"
-          onClick={handleMagicLink}
-          disabled={loading}
-          style={{
-            width: "100%",
-            padding: "10px 14px",
-            borderRadius: "8px",
-            border: "1px solid #ccc",
-            background: "white",
-            cursor: loading ? "default" : "pointer",
-            fontSize: "14px",
-            fontWeight: 500,
-          }}
-        >
-          {loading ? "Sending…" : "Send me a magic login link"}
-        </button>
-
         {message && (
-          <div
-            style={{
-              marginTop: "16px",
-              padding: "10px 12px",
-              borderRadius: "8px",
-              background: "#e6ffed",
-              color: "#126b34",
-              fontSize: "13px",
-            }}
-          >
+          <div style={{
+            marginTop: '16px',
+            padding: '10px 12px',
+            borderRadius: '8px',
+            background: '#e6ffed',
+            color: '#126b34',
+            fontSize: '13px',
+          }}>
             {message}
           </div>
         )}
         {error && (
-          <div
-            style={{
-              marginTop: "16px",
-              padding: "10px 12px",
-              borderRadius: "8px",
-              background: "#ffe6e6",
-              color: "#a11a1a",
-              fontSize: "13px",
-            }}
-          >
+          <div style={{
+            marginTop: '16px',
+            padding: '10px 12px',
+            borderRadius: '8px',
+            background: '#ffe6e6',
+            color: '#a11a1a',
+            fontSize: '13px',
+          }}>
             {error}
           </div>
         )}
 
-        <p style={{ marginTop: "18px", fontSize: "12px", color: "#888" }}>
-          Magic link + password auth powered by Supabase.
+        <p style={{ marginTop: '18px', fontSize: '12px', color: '#888' }}>
+          Secure authentication powered by Supabase.
         </p>
       </div>
     </div>
