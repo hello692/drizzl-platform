@@ -191,9 +191,18 @@ export default function Footer() {
 
             {/* Social Icons */}
             <div style={{ display: 'flex', gap: '16px', marginTop: '20px' }}>
-              <a href="#" style={{ fontSize: '16px' }}>f</a>
-              <a href="#" style={{ fontSize: '16px' }}>📷</a>
-              <a href="#" style={{ fontSize: '16px' }}>𝕏</a>
+              <a href="#" style={{ fontSize: '18px', textDecoration: 'none', color: '#000' }} title="Facebook">
+                f
+              </a>
+              <a href="#" style={{ fontSize: '18px', textDecoration: 'none', color: '#000' }} title="Instagram">
+                ⊙
+              </a>
+              <a href="#" style={{ fontSize: '18px', textDecoration: 'none', color: '#000' }} title="Twitter">
+                𝕏
+              </a>
+              <a href="#" style={{ fontSize: '18px', textDecoration: 'none', color: '#000' }} title="TikTok">
+                ♪
+              </a>
             </div>
           </div>
         </div>
