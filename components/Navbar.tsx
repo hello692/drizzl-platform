@@ -90,7 +90,7 @@ export default function Navbar() {
           </div>
 
           <div style={{ flex: 1, display: 'flex', justifyContent: 'center' }}>
-            <Link href="/" style={{ fontSize: '20px', textDecoration: 'none', whiteSpace: 'nowrap', transition: 'all 0.3s ease', fontWeight: '700', letterSpacing: '-0.01em', fontFamily: 'Geist, system-ui, sans-serif', color: '#000' }}>
+            <Link href="/" style={{ fontSize: '28px', textDecoration: 'none', whiteSpace: 'nowrap', transition: 'all 0.3s ease', fontWeight: '900', letterSpacing: '-0.02em', fontFamily: 'Geist, system-ui, sans-serif', color: '#000' }}>
               DRIZZL WELLNESS
             </Link>
           </div>
