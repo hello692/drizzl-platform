@@ -2,6 +2,7 @@ import { useEffect, useState, useRef } from 'react';
 import Link from 'next/link';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import TypedText from '../components/TypedText';
 
 const ModernArrowLeft = () => (
   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
@@ -174,16 +175,13 @@ export default function Home() {
         alignItems: 'center',
         justifyContent: 'center',
       }}>
-        <h1 className="slide-up heading-2100 text-glow" style={{
+        <h1 className="heading-2100 text-glow slide-up" style={{
           fontSize: '64px',
           marginBottom: '32px',
           maxWidth: '1000px',
-          animation: 'autoType 2s steps(40, end) 0.3s forwards, gradientTextShift 6s ease infinite 2s',
-          overflow: 'hidden',
-          whiteSpace: 'nowrap',
-          opacity: 0,
+          animation: 'slideUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards',
         }}>
-          Frozen Smoothies & Bowls
+          <TypedText text="Frozen Smoothies & Bowls" delay={0.2} speed={0.04} />
         </h1>
         <p style={{
           fontSize: '17px',
@@ -193,12 +191,9 @@ export default function Home() {
           lineHeight: '1.8',
           fontWeight: '400',
           letterSpacing: '-0.3px',
-          animation: 'autoType 1.5s steps(60, end) 2.5s forwards',
-          overflow: 'hidden',
-          whiteSpace: 'nowrap',
-          opacity: 0,
+          animation: 'wordFadeInUp 0.8s ease-out 1.2s both',
         }}>
-          Skip the blender. Embrace the possibilities. Order your first smoothie today.
+          <TypedText text="Skip the blender. Embrace the possibilities. Order your first smoothie today." delay={1.2} speed={0.025} animated={true} />
         </p>
         <Link href="/products" className="cta-button-2100 tech-shine float-animation" style={{
           display: 'inline-flex',
@@ -223,8 +218,9 @@ export default function Home() {
             textAlign: 'center',
             marginBottom: '80px',
             fontSize: '52px',
+            animation: 'smoothReveal 0.8s ease-out forwards',
           }}>
-            Shop by Category
+            <TypedText text="Shop by Category" delay={0.1} speed={0.05} animated={true} />
           </h2>
           <div style={{
             display: 'grid',
