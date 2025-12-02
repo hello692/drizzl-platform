@@ -3,6 +3,18 @@ import Link from 'next/link';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 
+const ModernArrowLeft = () => (
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+    <polyline points="15 18 9 12 15 6"></polyline>
+  </svg>
+);
+
+const ModernArrowRight = () => (
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+    <polyline points="9 18 15 12 9 6"></polyline>
+  </svg>
+);
+
 interface Product {
   id: string;
   name: string;
@@ -30,6 +42,22 @@ const POPULAR_SMOOTHIES = [
   { id: '6', name: 'Tropical Greens Protein', price: 9.49, image: 'https://daily-harvest.com/cdn/shop/files/tropical-greens-protein-smoothie-daily-harvest-8021323.jpg?v=1760509314&width=500', description: 'Tropical & green' },
 ];
 
+const EXPERTS = [
+  { id: '1', name: 'Elizabeth Russano, FNP-C, AFSM', image: 'https://cdn.shopify.com/s/files/1/0281/3212/3079/files/Dermatologist_1_3aba9f8c-7476-4f47-9a8b-6b394a5bea60.png?v=1714514403&width=400', product: 'S24 Rapid Recovery Hair Mask', productImage: 'https://cdn.shopify.com/s/files/1/0281/3212/3079/products/gold.jpg?v=1684269408&width=400' },
+  { id: '2', name: 'Morgan Rackley, LE', image: 'https://cdn.shopify.com/s/files/1/0281/3212/3079/files/Dermatologist_2_5d8d8c18-5eca-4cfe-b4e5-66d5a8b8a5fa.png?v=1714514403&width=400', product: 'S27+ Anti-Aging Hyaluronic Lift Moisturizer', productImage: 'https://cdn.shopify.com/s/files/1/0281/3212/3079/products/Purple.jpg?v=1684269408&width=400' },
+  { id: '3', name: 'Nurse Lila, RM', image: 'https://cdn.shopify.com/s/files/1/0281/3212/3079/files/Dermatologist_3_a3b5f8c1-4f8e-41a9-9c5d-5e7b8f9c0a1b.png?v=1714514403&width=400', product: 'F38+ Anti-Aging Retm + Night Rewind Serum', productImage: 'https://cdn.shopify.com/s/files/1/0281/3212/3079/products/Blue.jpg?v=1684269408&width=400' },
+  { id: '4', name: 'Dr. Gabriella Veals', image: 'https://cdn.shopify.com/s/files/1/0281/3212/3079/files/Dermatologist_4_b6c8d9e2-7a5f-42b8-8d6e-9f0a1b2c3d4e.png?v=1714514403&width=400', product: 'A35 Anti-Aging Glycolic Renewing Serum', productImage: 'https://cdn.shopify.com/s/files/1/0281/3212/3079/products/Green.jpg?v=1684269408&width=400' },
+  { id: '5', name: 'Dr. Sarah Martinez', image: 'https://cdn.shopify.com/s/files/1/0281/3212/3079/files/Dermatologist_5_c7d9eaf3-8b6f-53c9-9e7f-0a1b2c3d4e5f.png?v=1714514403&width=400', product: 'S24 Rapid Recovery Hair Mask', productImage: 'https://cdn.shopify.com/s/files/1/0281/3212/3079/products/gold.jpg?v=1684269408&width=400' },
+];
+
+const CUSTOMERS = [
+  { id: '1', name: 'Taylor Kay', image: 'https://cdn.shopify.com/s/files/1/0281/3212/3079/files/Customer_1_1a2b3c4d-5e6f-47a8-9b0c-1d2e3f4g5h6i.png?v=1714514403&width=400', product: 'S34 Clarifying Prebiotic Treatment', productImage: 'https://cdn.shopify.com/s/files/1/0281/3212/3079/products/Green_Serum.jpg?v=1684269408&width=400' },
+  { id: '2', name: 'Brittney Adderfly', image: 'https://cdn.shopify.com/s/files/1/0281/3212/3079/files/Customer_2_2b3c4d5e-6f7a-48b9-0c1d-2e3f4g5h6i7j.png?v=1714514403&width=400', product: 'S24 Rapid Recovery Hair Mask', productImage: 'https://cdn.shopify.com/s/files/1/0281/3212/3079/products/gold.jpg?v=1684269408&width=400' },
+  { id: '3', name: 'Lily Sanchez', image: 'https://cdn.shopify.com/s/files/1/0281/3212/3079/files/Customer_3_3c4d5e6f-7a8b-49ca-1d2e-3f4g5h6i7j8k.png?v=1714514403&width=400', product: 'O36+ Anti-Aging Triple-Peptide Moisturizer', productImage: 'https://cdn.shopify.com/s/files/1/0281/3212/3079/products/Pink.jpg?v=1684269408&width=400' },
+  { id: '4', name: 'Sarah Butler', image: 'https://cdn.shopify.com/s/files/1/0281/3212/3079/files/Customer_4_4d5e6f7a-8b9c-50db-2e3f-4g5h6i7j8k9l.png?v=1714514403&width=400', product: 'G25+ Anti-Aging Retm + Night Rewind Serum', productImage: 'https://cdn.shopify.com/s/files/1/0281/3212/3079/products/Blue.jpg?v=1684269408&width=400' },
+  { id: '5', name: 'Jessica Chen', image: 'https://cdn.shopify.com/s/files/1/0281/3212/3079/files/Customer_5_5e6f7a8b-9cad-51ec-3f4g-5h6i7j8k9l0m.png?v=1714514403&width=400', product: 'S24 Rapid Recovery Hair Mask', productImage: 'https://cdn.shopify.com/s/files/1/0281/3212/3079/products/gold.jpg?v=1684269408&width=400' },
+];
+
 export default function Home() {
   const [featuredProducts, setFeaturedProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
@@ -37,6 +65,8 @@ export default function Home() {
   const [isDragging, setIsDragging] = useState(false);
   const [startX, setStartX] = useState(0);
   const [scrollLeft, setScrollLeft] = useState(0);
+  const [expertPosition, setExpertPosition] = useState(0);
+  const [customerPosition, setCustomerPosition] = useState(0);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -317,7 +347,7 @@ export default function Home() {
                 e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.15)';
               }}
             >
-              ←
+              <ModernArrowLeft />
             </button>
 
             {/* Carousel */}
@@ -465,7 +495,403 @@ export default function Home() {
                 e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.15)';
               }}
             >
-              →
+              <ModernArrowRight />
+            </button>
+          </div>
+        </div>
+      </section>
+
+      {/* Experts Section */}
+      <section style={{
+        background: '#f8f9fa',
+        padding: '140px 60px',
+      }}>
+        <div style={{
+          maxWidth: '1280px',
+          margin: '0 auto',
+        }}>
+          <h2 style={{
+            fontSize: '48px',
+            fontWeight: '800',
+            marginBottom: '16px',
+            letterSpacing: '-0.8px',
+            textAlign: 'center',
+            textTransform: 'uppercase',
+          }}>
+            Powered by AI, Formulated by Data
+          </h2>
+          <p style={{
+            fontSize: '14px',
+            color: '#424245',
+            textAlign: 'center',
+            marginBottom: '64px',
+            letterSpacing: '0.5px',
+            textTransform: 'uppercase',
+          }}>
+            Approved by Dermatologists & Experts*
+          </p>
+
+          {/* Carousel Container */}
+          <div style={{ position: 'relative', paddingLeft: '80px', paddingRight: '80px' }}>
+            {/* Left Arrow */}
+            <button
+              onClick={() => setExpertPosition(Math.max(0, expertPosition - 1))}
+              style={{
+                position: 'absolute',
+                left: '0',
+                top: '50%',
+                transform: 'translateY(-50%)',
+                background: '#000000',
+                border: 'none',
+                width: '44px',
+                height: '44px',
+                borderRadius: '50%',
+                color: 'white',
+                cursor: expertPosition > 0 ? 'pointer' : 'default',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                zIndex: 10,
+                boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
+                opacity: expertPosition > 0 ? 1 : 0.4,
+              }}
+              onMouseEnter={(e) => {
+                if (expertPosition > 0) {
+                  e.currentTarget.style.background = '#424245';
+                  e.currentTarget.style.transform = 'translateY(-50%) scale(1.08)';
+                  e.currentTarget.style.boxShadow = '0 8px 20px rgba(0, 0, 0, 0.25)';
+                }
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = '#000000';
+                e.currentTarget.style.transform = 'translateY(-50%) scale(1)';
+                e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.15)';
+              }}
+              disabled={expertPosition === 0}
+            >
+              <ModernArrowLeft />
+            </button>
+
+            {/* Carousel */}
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(4, 1fr)',
+              gap: '32px',
+            }}>
+              {EXPERTS.slice(expertPosition, expertPosition + 4).map((expert) => (
+                <div key={expert.id} style={{
+                  background: '#ffffff',
+                  borderRadius: '16px',
+                  overflow: 'hidden',
+                  boxShadow: '0 4px 16px rgba(0, 0, 0, 0.08)',
+                  transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                  cursor: 'pointer',
+                }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.transform = 'translateY(-4px)';
+                    e.currentTarget.style.boxShadow = '0 8px 28px rgba(0, 0, 0, 0.12)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.transform = 'translateY(0)';
+                    e.currentTarget.style.boxShadow = '0 4px 16px rgba(0, 0, 0, 0.08)';
+                  }}
+                >
+                  <div style={{
+                    position: 'relative',
+                    background: '#f8f9fa',
+                    aspectRatio: '1',
+                    overflow: 'hidden',
+                  }}>
+                    <img
+                      src={expert.image}
+                      alt={expert.name}
+                      style={{
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'cover',
+                      }}
+                    />
+                  </div>
+                  <div style={{ padding: '20px' }}>
+                    <p style={{
+                      fontSize: '12px',
+                      color: '#79747e',
+                      margin: '0 0 12px 0',
+                      fontWeight: '600',
+                      letterSpacing: '0.3px',
+                    }}>
+                      {expert.name}
+                    </p>
+                    <div style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '12px',
+                      marginTop: '12px',
+                    }}>
+                      <div style={{
+                        width: '40px',
+                        height: '40px',
+                        background: '#f0f0f0',
+                        borderRadius: '6px',
+                        overflow: 'hidden',
+                      }}>
+                        <img
+                          src={expert.productImage}
+                          alt={expert.product}
+                          style={{
+                            width: '100%',
+                            height: '100%',
+                            objectFit: 'cover',
+                          }}
+                        />
+                      </div>
+                      <p style={{
+                        fontSize: '11px',
+                        color: '#424245',
+                        margin: 0,
+                        lineHeight: '1.4',
+                        letterSpacing: '-0.2px',
+                      }}>
+                        {expert.product}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Right Arrow */}
+            <button
+              onClick={() => setExpertPosition(Math.min(EXPERTS.length - 4, expertPosition + 1))}
+              style={{
+                position: 'absolute',
+                right: '0',
+                top: '50%',
+                transform: 'translateY(-50%)',
+                background: '#000000',
+                border: 'none',
+                width: '44px',
+                height: '44px',
+                borderRadius: '50%',
+                color: 'white',
+                cursor: expertPosition < EXPERTS.length - 4 ? 'pointer' : 'default',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                zIndex: 10,
+                boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
+                opacity: expertPosition < EXPERTS.length - 4 ? 1 : 0.4,
+              }}
+              onMouseEnter={(e) => {
+                if (expertPosition < EXPERTS.length - 4) {
+                  e.currentTarget.style.background = '#424245';
+                  e.currentTarget.style.transform = 'translateY(-50%) scale(1.08)';
+                  e.currentTarget.style.boxShadow = '0 8px 20px rgba(0, 0, 0, 0.25)';
+                }
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = '#000000';
+                e.currentTarget.style.transform = 'translateY(-50%) scale(1)';
+                e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.15)';
+              }}
+              disabled={expertPosition >= EXPERTS.length - 4}
+            >
+              <ModernArrowRight />
+            </button>
+          </div>
+        </div>
+      </section>
+
+      {/* Customers Section */}
+      <section style={{
+        background: '#ffffff',
+        padding: '140px 60px',
+      }}>
+        <div style={{
+          maxWidth: '1280px',
+          margin: '0 auto',
+        }}>
+          <h2 style={{
+            fontSize: '48px',
+            fontWeight: '800',
+            marginBottom: '64px',
+            letterSpacing: '-0.8px',
+            textAlign: 'center',
+          }}>
+            Loved by the Spoiled*
+          </h2>
+
+          {/* Carousel Container */}
+          <div style={{ position: 'relative', paddingLeft: '80px', paddingRight: '80px' }}>
+            {/* Left Arrow */}
+            <button
+              onClick={() => setCustomerPosition(Math.max(0, customerPosition - 1))}
+              style={{
+                position: 'absolute',
+                left: '0',
+                top: '50%',
+                transform: 'translateY(-50%)',
+                background: '#000000',
+                border: 'none',
+                width: '44px',
+                height: '44px',
+                borderRadius: '50%',
+                color: 'white',
+                cursor: customerPosition > 0 ? 'pointer' : 'default',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                zIndex: 10,
+                boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
+                opacity: customerPosition > 0 ? 1 : 0.4,
+              }}
+              onMouseEnter={(e) => {
+                if (customerPosition > 0) {
+                  e.currentTarget.style.background = '#424245';
+                  e.currentTarget.style.transform = 'translateY(-50%) scale(1.08)';
+                  e.currentTarget.style.boxShadow = '0 8px 20px rgba(0, 0, 0, 0.25)';
+                }
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = '#000000';
+                e.currentTarget.style.transform = 'translateY(-50%) scale(1)';
+                e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.15)';
+              }}
+              disabled={customerPosition === 0}
+            >
+              <ModernArrowLeft />
+            </button>
+
+            {/* Carousel */}
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(4, 1fr)',
+              gap: '32px',
+            }}>
+              {CUSTOMERS.slice(customerPosition, customerPosition + 4).map((customer) => (
+                <div key={customer.id} style={{
+                  background: '#ffffff',
+                  borderRadius: '16px',
+                  overflow: 'hidden',
+                  boxShadow: '0 4px 16px rgba(0, 0, 0, 0.08)',
+                  transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                  cursor: 'pointer',
+                  border: '1px solid #e8e8e8',
+                }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.transform = 'translateY(-4px)';
+                    e.currentTarget.style.boxShadow = '0 8px 28px rgba(0, 0, 0, 0.12)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.transform = 'translateY(0)';
+                    e.currentTarget.style.boxShadow = '0 4px 16px rgba(0, 0, 0, 0.08)';
+                  }}
+                >
+                  <div style={{
+                    position: 'relative',
+                    background: '#f8f9fa',
+                    aspectRatio: '1',
+                    overflow: 'hidden',
+                  }}>
+                    <img
+                      src={customer.image}
+                      alt={customer.name}
+                      style={{
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'cover',
+                      }}
+                    />
+                  </div>
+                  <div style={{ padding: '20px' }}>
+                    <p style={{
+                      fontSize: '12px',
+                      color: '#79747e',
+                      margin: '0 0 12px 0',
+                      fontWeight: '600',
+                      letterSpacing: '0.3px',
+                    }}>
+                      {customer.name}
+                    </p>
+                    <div style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '12px',
+                      marginTop: '12px',
+                    }}>
+                      <div style={{
+                        width: '40px',
+                        height: '40px',
+                        background: '#f0f0f0',
+                        borderRadius: '6px',
+                        overflow: 'hidden',
+                      }}>
+                        <img
+                          src={customer.productImage}
+                          alt={customer.product}
+                          style={{
+                            width: '100%',
+                            height: '100%',
+                            objectFit: 'cover',
+                          }}
+                        />
+                      </div>
+                      <p style={{
+                        fontSize: '11px',
+                        color: '#424245',
+                        margin: 0,
+                        lineHeight: '1.4',
+                        letterSpacing: '-0.2px',
+                      }}>
+                        {customer.product}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Right Arrow */}
+            <button
+              onClick={() => setCustomerPosition(Math.min(CUSTOMERS.length - 4, customerPosition + 1))}
+              style={{
+                position: 'absolute',
+                right: '0',
+                top: '50%',
+                transform: 'translateY(-50%)',
+                background: '#000000',
+                border: 'none',
+                width: '44px',
+                height: '44px',
+                borderRadius: '50%',
+                color: 'white',
+                cursor: customerPosition < CUSTOMERS.length - 4 ? 'pointer' : 'default',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                zIndex: 10,
+                boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
+                opacity: customerPosition < CUSTOMERS.length - 4 ? 1 : 0.4,
+              }}
+              onMouseEnter={(e) => {
+                if (customerPosition < CUSTOMERS.length - 4) {
+                  e.currentTarget.style.background = '#424245';
+                  e.currentTarget.style.transform = 'translateY(-50%) scale(1.08)';
+                  e.currentTarget.style.boxShadow = '0 8px 20px rgba(0, 0, 0, 0.25)';
+                }
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = '#000000';
+                e.currentTarget.style.transform = 'translateY(-50%) scale(1)';
+                e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.15)';
+              }}
+              disabled={customerPosition >= CUSTOMERS.length - 4}
+            >
+              <ModernArrowRight />
             </button>
           </div>
         </div>
