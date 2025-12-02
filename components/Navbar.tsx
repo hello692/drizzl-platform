@@ -140,7 +140,15 @@ export default function Navbar() {
             </Link>
           </div>
 
-          <div style={{ display: 'flex', alignItems: 'center', gap: 'clamp(16px, 3vw, 40px)', flex: 0, flexShrink: 0 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 'clamp(12px, 2vw, 24px)', flex: 0, flexShrink: 0 }}>
+            <Link href="/contact" style={{ fontSize: '13px', fontWeight: '500', color: '#000', padding: '6px 14px', background: '#f5f5f5', borderRadius: '20px', textDecoration: 'none', border: 'none', cursor: 'pointer', transition: 'all 1s cubic-bezier(0.32, 0, 0.67, 0)', display: 'inline-block' }} onMouseEnter={(e) => { e.currentTarget.style.background = '#ececec'; }} onMouseLeave={(e) => { e.currentTarget.style.background = '#f5f5f5'; }}>
+              Support
+            </Link>
+
+            <button style={{ padding: '0', border: 'none', background: 'none', color: '#000', cursor: 'pointer', opacity: 0.6, transition: 'all 1s cubic-bezier(0.32, 0, 0.67, 0)', fontSize: '16px', display: 'flex', alignItems: 'center' }} onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')} onMouseLeave={(e) => (e.currentTarget.style.opacity = '0.6')}>
+              ○
+            </button>
+
             <div style={{ position: 'relative' }}>
               <button 
                 onClick={toggleLang}
@@ -152,13 +160,16 @@ export default function Navbar() {
                   cursor: 'pointer', 
                   opacity: langOpen ? 1 : 0.6, 
                   transition: 'all 1s cubic-bezier(0.32, 0, 0.67, 0)',
-                  fontSize: '13px',
-                  fontWeight: '500',
+                  fontSize: '16px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '6px',
                 }} 
                 onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')} 
                 onMouseLeave={(e) => !langOpen && (e.currentTarget.style.opacity = '0.6')}
               >
-                {getCurrentLangData().code.toUpperCase()}
+                <span>🌐</span>
+                <span style={{ fontSize: '12px', fontWeight: '600' }}>{getCurrentLangData().code.toUpperCase()}</span>
               </button>
               
               {langOpen && (
@@ -210,16 +221,16 @@ export default function Navbar() {
               )}
             </div>
 
-            <Link href="/cart" style={{ fontSize: 'clamp(12px, 3vw, 13px)', color: '#000', opacity: 0.6, transition: 'all 1s cubic-bezier(0.32, 0, 0.67, 0)', display: 'none' }} className="nav-link-desktop" onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')} onMouseLeave={(e) => (e.currentTarget.style.opacity = '0.6')}>
-              Bag
+            <Link href="/cart" style={{ fontSize: '16px', color: '#000', opacity: 0.6, transition: 'all 1s cubic-bezier(0.32, 0, 0.67, 0)' }} onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')} onMouseLeave={(e) => (e.currentTarget.style.opacity = '0.6')}>
+              🛍
             </Link>
 
-            <Link href="/auth" style={{ fontSize: 'clamp(12px, 3vw, 13px)', color: '#000', opacity: 0.6, transition: 'all 1s cubic-bezier(0.32, 0, 0.67, 0)', display: 'none' }} className="nav-link-desktop" onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')} onMouseLeave={(e) => (e.currentTarget.style.opacity = '0.6')}>
-              Account
+            <Link href="/auth" style={{ fontSize: '16px', color: '#000', opacity: 0.6, transition: 'all 1s cubic-bezier(0.32, 0, 0.67, 0)' }} onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')} onMouseLeave={(e) => (e.currentTarget.style.opacity = '0.6')}>
+              👤
             </Link>
 
-            <button style={{ padding: '0', border: 'none', background: 'none', color: '#000', cursor: 'pointer', opacity: 0.6, transition: 'all 1s cubic-bezier(0.32, 0, 0.67, 0)', fontSize: 'clamp(12px, 3vw, 13px)', fontWeight: '500' }} onClick={toggleMenu} onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')} onMouseLeave={(e) => (e.currentTarget.style.opacity = '0.6')}>
-              Menu
+            <button style={{ padding: '0', border: 'none', background: 'none', color: '#000', cursor: 'pointer', opacity: 0.6, transition: 'all 1s cubic-bezier(0.32, 0, 0.67, 0)', fontSize: '16px' }} onClick={toggleMenu} onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')} onMouseLeave={(e) => (e.currentTarget.style.opacity = '0.6')}>
+              ≡
             </button>
           </div>
         </div>
