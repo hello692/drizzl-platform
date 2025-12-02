@@ -136,22 +136,22 @@ export default function Navbar() {
                 </div>
                 
                 <div className="menu-section-2100">
-                  <a href="/smoothies" className="menu-item-2100" onClick={() => setMenuOpen(false)}>
+                  <Link href="/smoothies" className="menu-item-2100" onClick={() => setMenuOpen(false)}>
                     <span className="item-label">Smoothies</span>
                     <span className="item-subtitle">Fresh Frozen Blends</span>
-                  </a>
-                  <a href="/bowls" className="menu-item-2100" onClick={() => setMenuOpen(false)}>
+                  </Link>
+                  <Link href="/bowls" className="menu-item-2100" onClick={() => setMenuOpen(false)}>
                     <span className="item-label">Bowls</span>
                     <span className="item-subtitle">Nutrient Packed</span>
-                  </a>
-                  <a href="/juices" className="menu-item-2100" onClick={() => setMenuOpen(false)}>
+                  </Link>
+                  <Link href="/juices" className="menu-item-2100" onClick={() => setMenuOpen(false)}>
                     <span className="item-label">Juices</span>
                     <span className="item-subtitle">Cold Pressed</span>
-                  </a>
-                  <a href="/wellness" className="menu-item-2100" onClick={() => setMenuOpen(false)}>
+                  </Link>
+                  <Link href="/wellness" className="menu-item-2100" onClick={() => setMenuOpen(false)}>
                     <span className="item-label">Wellness</span>
                     <span className="item-subtitle">Health Boosters</span>
-                  </a>
+                  </Link>
                 </div>
                 
                 <div className="menu-divider-2100"></div>
@@ -161,18 +161,18 @@ export default function Navbar() {
                 </div>
                 
                 <div className="menu-section-2100">
-                  <a href="/about" className="menu-item-2100" onClick={() => setMenuOpen(false)}>
+                  <Link href="/about" className="menu-item-2100" onClick={() => setMenuOpen(false)}>
                     <span className="item-label">About Us</span>
-                  </a>
-                  <a href="/sustainability" className="menu-item-2100" onClick={() => setMenuOpen(false)}>
+                  </Link>
+                  <Link href="/sustainability" className="menu-item-2100" onClick={() => setMenuOpen(false)}>
                     <span className="item-label">Sustainability</span>
-                  </a>
-                  <a href="/careers" className="menu-item-2100" onClick={() => setMenuOpen(false)}>
+                  </Link>
+                  <Link href="/careers" className="menu-item-2100" onClick={() => setMenuOpen(false)}>
                     <span className="item-label">Careers</span>
-                  </a>
-                  <a href="/blog" className="menu-item-2100" onClick={() => setMenuOpen(false)}>
+                  </Link>
+                  <Link href="/blog" className="menu-item-2100" onClick={() => setMenuOpen(false)}>
                     <span className="item-label">Blog</span>
-                  </a>
+                  </Link>
                 </div>
                 
                 <div className="menu-divider-2100"></div>
@@ -182,18 +182,18 @@ export default function Navbar() {
                 </div>
                 
                 <div className="menu-section-2100">
-                  <a href="/contact" className="menu-item-2100" onClick={() => setMenuOpen(false)}>
+                  <Link href="/contact" className="menu-item-2100" onClick={() => setMenuOpen(false)}>
                     <span className="item-label">Contact</span>
-                  </a>
-                  <a href="/faq" className="menu-item-2100" onClick={() => setMenuOpen(false)}>
+                  </Link>
+                  <Link href="/faq" className="menu-item-2100" onClick={() => setMenuOpen(false)}>
                     <span className="item-label">FAQ</span>
-                  </a>
-                  <a href="/shipping" className="menu-item-2100" onClick={() => setMenuOpen(false)}>
+                  </Link>
+                  <Link href="/shipping" className="menu-item-2100" onClick={() => setMenuOpen(false)}>
                     <span className="item-label">Shipping</span>
-                  </a>
-                  <a href="/returns" className="menu-item-2100" onClick={() => setMenuOpen(false)}>
+                  </Link>
+                  <Link href="/returns" className="menu-item-2100" onClick={() => setMenuOpen(false)}>
                     <span className="item-label">Returns</span>
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>
