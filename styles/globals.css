@@ -685,35 +685,67 @@ svg:hover {
   width: 100%;
 }
 
-/* FUTURISTIC AI 2100 MENU - GOOGLE STYLE */
-.menu-container {
-  position: relative;
-}
-
-.menu-dropdown-2100 {
-  position: absolute;
-  top: 42px;
+/* FUTURISTIC AI 2100 FULL SCREEN SIDEBAR MENU */
+.menu-overlay-2100 {
+  position: fixed;
+  top: 0;
+  left: 0;
   right: 0;
-  width: 340px;
-  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
-  border: 1px solid rgba(66, 133, 244, 0.15);
-  border-radius: 12px;
-  padding: 16px 0;
-  transform: scaleY(0);
-  opacity: 0;
-  pointer-events: none;
-  transform-origin: top right;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
   z-index: 101;
-  box-shadow: 0 12px 48px rgba(66, 133, 244, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.6);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  animation: fadeIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.menu-container:hover .menu-dropdown-2100 {
-  transform: scaleY(1);
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.menu-sidebar-2100 {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 100%;
+  max-width: 480px;
+  height: 100vh;
+  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+  border-left: 1px solid rgba(66, 133, 244, 0.15);
+  padding: 0;
+  transform: translateX(0);
   opacity: 1;
   pointer-events: auto;
+  transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 102;
+  box-shadow: -12px 0 48px rgba(66, 133, 244, 0.15);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  overflow-y: auto;
+}
+
+.menu-sidebar-2100.open {
+  right: 0;
+}
+
+.menu-header-sidebar {
+  position: sticky;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 20px 24px;
+  border-bottom: 1px solid rgba(66, 133, 244, 0.1);
+  z-index: 10;
+}
+
+.menu-content-sidebar {
+  padding: 24px 0;
 }
 
 .menu-header-2100 {

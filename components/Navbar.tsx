@@ -48,8 +48,16 @@ const MenuIcon = () => (
 );
 
 export default function Navbar() {
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  const toggleMenu = () => setMenuOpen(!menuOpen);
+
   return (
     <>
+      {menuOpen && (
+        <div className="menu-overlay-2100" onClick={() => setMenuOpen(false)} />
+      )}
+      
       <nav className="glass" style={{
         background: 'rgba(255, 255, 255, 0.85)',
         borderBottom: '1px solid rgba(255, 255, 255, 0.5)',
@@ -103,12 +111,22 @@ export default function Navbar() {
               <span>Cart (0)</span>
             </Link>
 
-            <div className="menu-container" style={{ position: 'relative' }}>
-              <button className="menu-button" style={{ padding: '0', border: 'none', background: 'none', color: '#000', cursor: 'pointer', fontSize: '14px', fontWeight: '500', display: 'flex', alignItems: 'center', gap: '8px', opacity: 0.7, transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)', whiteSpace: 'nowrap' }} onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')} onMouseLeave={(e) => (e.currentTarget.style.opacity = '0.7')}>
-                <MenuIcon />
-              </button>
+            <button className="menu-button" style={{ padding: '0', border: 'none', background: 'none', color: '#000', cursor: 'pointer', fontSize: '14px', fontWeight: '500', display: 'flex', alignItems: 'center', gap: '8px', opacity: 0.7, transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)', whiteSpace: 'nowrap' }} onClick={toggleMenu} onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')} onMouseLeave={(e) => (e.currentTarget.style.opacity = '0.7')}>
+              <MenuIcon />
+            </button>
+            
+            <div className={`menu-sidebar-2100 ${menuOpen ? 'open' : ''}`}>
+              <div className="menu-header-sidebar">
+                <button 
+                  className="menu-close-btn"
+                  onClick={() => setMenuOpen(false)}
+                  style={{ padding: '0', border: 'none', background: 'none', color: '#000', cursor: 'pointer', fontSize: '24px', fontWeight: '300', display: 'flex', alignItems: 'center', justifyContent: 'center', width: '32px', height: '32px' }}
+                >
+                  ✕
+                </button>
+              </div>
               
-              <div className="menu-dropdown-2100">
+              <div className="menu-content-sidebar">
                 <div className="menu-header-2100">
                   <span style={{ fontFamily: "'Space Mono', monospace", fontWeight: '700', fontSize: '12px', letterSpacing: '0.15em', textTransform: 'uppercase' }}>Navigation</span>
                 </div>
@@ -116,11 +134,11 @@ export default function Navbar() {
                 <div className="menu-divider-2100"></div>
                 
                 <div className="menu-section-2100">
-                  <a href="/smoothies" className="menu-item-2100">
+                  <a href="/smoothies" className="menu-item-2100" onClick={() => setMenuOpen(false)}>
                     <span className="item-label">Smoothies</span>
                     <span className="item-subtitle">Fresh Frozen</span>
                   </a>
-                  <a href="/bowls" className="menu-item-2100">
+                  <a href="/bowls" className="menu-item-2100" onClick={() => setMenuOpen(false)}>
                     <span className="item-label">Bowls</span>
                     <span className="item-subtitle">Nutrient Packed</span>
                   </a>
@@ -129,10 +147,10 @@ export default function Navbar() {
                 <div className="menu-divider-2100"></div>
                 
                 <div className="menu-section-2100">
-                  <a href="/about" className="menu-item-2100">
+                  <a href="/about" className="menu-item-2100" onClick={() => setMenuOpen(false)}>
                     <span className="item-label">About</span>
                   </a>
-                  <a href="/contact" className="menu-item-2100">
+                  <a href="/contact" className="menu-item-2100" onClick={() => setMenuOpen(false)}>
                     <span className="item-label">Contact</span>
                   </a>
                 </div>
