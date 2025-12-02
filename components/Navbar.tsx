@@ -120,6 +120,7 @@ export default function Navbar() {
       <div 
         className={`menu-overlay-animated ${menuOpen ? 'active' : ''}`}
         onClick={() => setMenuOpen(false)} 
+        style={{ zIndex: 998 }}
       />
       
       <div className={`menu-sidebar-animated ${menuOpen ? 'active' : ''}`}>
@@ -205,15 +206,15 @@ export default function Navbar() {
       </div>
       
       <nav className="glass" style={{
-        background: 'rgba(255, 255, 255, 0.85)',
-        borderBottom: '1px solid rgba(255, 255, 255, 0.5)',
+        background: 'rgba(255, 255, 255, 0.9)',
+        borderBottom: '1px solid rgba(0, 0, 0, 0.06)',
         padding: '14px 60px',
         position: 'sticky',
         top: 0,
         zIndex: 100,
-        backdropFilter: 'blur(20px)',
-        WebkitBackdropFilter: 'blur(20px)',
-        boxShadow: '0 8px 32px rgba(66, 133, 244, 0.08)',
+        backdropFilter: 'blur(12px)',
+        WebkitBackdropFilter: 'blur(12px)',
+        boxShadow: '0 2px 8px rgba(0, 0, 0, 0.04)',
       }}>
         <div style={{
           maxWidth: '1440px',
