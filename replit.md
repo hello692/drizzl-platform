@@ -42,6 +42,20 @@
 - Ready for OpenAI integration (placeholder responses for now)
 - Add OPENAI_API_KEY to enable real AI generation
 
+### Banking Intelligence (Mercury Integration)
+- `/admin/banking` - Financial dashboard
+- Features:
+  - Total cash balance across all accounts
+  - Income/Expenses tracking (30-day rolling)
+  - Net Profit/Loss calculation
+  - Monthly burn rate
+  - Cash runway projection
+  - Account balances table
+  - Recent transactions list
+  - AI insights (coming soon)
+- Connects to Mercury Banking API
+- Shows demo data when MERCURY_API_KEY not configured
+
 ## Database Architecture (Supabase)
 
 ### Tables
@@ -107,6 +121,7 @@ Schema files:
 NEXT_PUBLIC_SUPABASE_URL=your-url
 NEXT_PUBLIC_SUPABASE_ANON_KEY=your-key
 SUPABASE_SERVICE_ROLE_KEY=your-key (for admin API routes to bypass RLS)
+MERCURY_API_KEY=your-key (for Banking Intelligence dashboard)
 OPENAI_API_KEY=your-key (optional - for AI features)
 STRIPE_SECRET_KEY=your-key (Phase 3)
 NEXT_PUBLIC_STRIPE_KEY=your-key (Phase 3)
