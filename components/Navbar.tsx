@@ -103,9 +103,41 @@ export default function Navbar() {
               <span>Cart (0)</span>
             </Link>
 
-            <button style={{ padding: '0', border: 'none', background: 'none', color: '#000', cursor: 'pointer', fontSize: '14px', fontWeight: '500', display: 'flex', alignItems: 'center', gap: '8px', opacity: 0.7, transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)', whiteSpace: 'nowrap' }} onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')} onMouseLeave={(e) => (e.currentTarget.style.opacity = '0.7')}>
-              <MenuIcon />
-            </button>
+            <div className="menu-container" style={{ position: 'relative' }}>
+              <button className="menu-button" style={{ padding: '0', border: 'none', background: 'none', color: '#000', cursor: 'pointer', fontSize: '14px', fontWeight: '500', display: 'flex', alignItems: 'center', gap: '8px', opacity: 0.7, transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)', whiteSpace: 'nowrap' }} onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')} onMouseLeave={(e) => (e.currentTarget.style.opacity = '0.7')}>
+                <MenuIcon />
+              </button>
+              
+              <div className="menu-dropdown-2100">
+                <div className="menu-header-2100">
+                  <span style={{ fontFamily: "'Space Mono', monospace", fontWeight: '700', fontSize: '12px', letterSpacing: '0.15em', textTransform: 'uppercase' }}>Navigation</span>
+                </div>
+                
+                <div className="menu-divider-2100"></div>
+                
+                <div className="menu-section-2100">
+                  <a href="/smoothies" className="menu-item-2100">
+                    <span className="item-label">Smoothies</span>
+                    <span className="item-subtitle">Fresh Frozen</span>
+                  </a>
+                  <a href="/bowls" className="menu-item-2100">
+                    <span className="item-label">Bowls</span>
+                    <span className="item-subtitle">Nutrient Packed</span>
+                  </a>
+                </div>
+                
+                <div className="menu-divider-2100"></div>
+                
+                <div className="menu-section-2100">
+                  <a href="/about" className="menu-item-2100">
+                    <span className="item-label">About</span>
+                  </a>
+                  <a href="/contact" className="menu-item-2100">
+                    <span className="item-label">Contact</span>
+                  </a>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </nav>
