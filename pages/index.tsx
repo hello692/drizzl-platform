@@ -134,47 +134,61 @@ export default function Home() {
 
       {/* Hero Section */}
       <section style={{
-        background: '#ffffff',
-        padding: '100px 40px',
+        background: 'linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%)',
+        padding: '120px 60px',
         textAlign: 'center',
-        minHeight: '600px',
+        minHeight: '640px',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
       }}>
         <h1 style={{
-          fontSize: '52px',
-          fontWeight: '600',
-          marginBottom: '20px',
-          letterSpacing: '0.3px',
-          maxWidth: '900px',
+          fontSize: '64px',
+          fontWeight: '800',
+          marginBottom: '24px',
+          letterSpacing: '-1.2px',
+          maxWidth: '1000px',
+          background: 'linear-gradient(135deg, #000000 0%, #424245 100%)',
+          backgroundClip: 'text',
+          WebkitBackgroundClip: 'text',
+          WebkitTextFillColor: 'transparent',
+          fontFamily: "-apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif",
         }}>
           Frozen smoothies and bowls for a better you
         </h1>
         <p style={{
           fontSize: '18px',
-          color: '#666',
-          marginBottom: '40px',
-          maxWidth: '700px',
-          lineHeight: '1.7',
+          color: '#424245',
+          marginBottom: '56px',
+          maxWidth: '720px',
+          lineHeight: '1.8',
           fontWeight: '400',
+          letterSpacing: '-0.3px',
         }}>
           Skip the blender. Embrace the possibilities. Order your first smoothie today.
         </p>
         <Link href="/products" style={{
           display: 'inline-block',
-          padding: '16px 48px',
-          background: '#1a1a1a',
+          padding: '14px 40px',
+          background: '#000000',
           color: 'white',
           textDecoration: 'none',
-          borderRadius: '4px',
+          borderRadius: '28px',
           fontSize: '16px',
-          fontWeight: '500',
-          transition: 'all 0.2s',
+          fontWeight: '600',
+          transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+          boxShadow: '0 8px 24px rgba(0, 0, 0, 0.15)',
+          letterSpacing: '-0.3px',
         }}
-          onMouseEnter={(e) => e.currentTarget.style.opacity = '0.8'}
-          onMouseLeave={(e) => e.currentTarget.style.opacity = '1'}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.boxShadow = '0 12px 32px rgba(0, 0, 0, 0.2)';
+            e.currentTarget.style.transform = 'translateY(-2px)';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.boxShadow = '0 8px 24px rgba(0, 0, 0, 0.15)';
+            e.currentTarget.style.transform = 'translateY(0)';
+          }}
         >
           Order Now
         </Link>
@@ -186,7 +200,7 @@ export default function Home() {
         padding: '120px 60px',
       }}>
         <div style={{
-          maxWidth: '1200px',
+          maxWidth: '1280px',
           margin: '0 auto',
         }}>
           <h2 style={{
@@ -194,43 +208,44 @@ export default function Home() {
             marginBottom: '80px',
             fontSize: '48px',
             fontWeight: '700',
-            letterSpacing: '-0.4px',
+            letterSpacing: '-0.8px',
           }}>
             Shop by Category
           </h2>
           <div style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
-            gap: '32px',
+            gap: '28px',
           }}>
             {CATEGORIES.map((category) => (
               <Link key={category.slug} href={`/products?category=${category.slug}`} style={{
-                padding: '48px 28px',
+                padding: '48px 32px',
                 textAlign: 'center',
-                background: '#f5f5f5',
-                border: '1px solid #e0e0e0',
-                borderRadius: '8px',
+                background: '#f8f9fa',
+                border: '1px solid #e8e8e8',
+                borderRadius: '16px',
                 textDecoration: 'none',
                 color: '#000',
-                transition: 'all 0.3s ease-out',
+                transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
               }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.borderColor = '#ccc';
-                  e.currentTarget.style.boxShadow = '0 8px 24px rgba(0,0,0,0.06)';
-                  e.currentTarget.style.transform = 'translateY(-2px)';
+                  e.currentTarget.style.borderColor = '#d8d8d8';
+                  e.currentTarget.style.boxShadow = '0 12px 28px rgba(0, 0, 0, 0.08)';
+                  e.currentTarget.style.transform = 'translateY(-4px)';
+                  e.currentTarget.style.background = '#ffffff';
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.borderColor = '#e0e0e0';
+                  e.currentTarget.style.borderColor = '#e8e8e8';
                   e.currentTarget.style.boxShadow = 'none';
                   e.currentTarget.style.transform = 'translateY(0)';
+                  e.currentTarget.style.background = '#f8f9fa';
                 }}
               >
                 <h3 style={{
-                  fontSize: '20px',
+                  fontSize: '18px',
                   fontWeight: '600',
                   margin: 0,
-                  fontFamily: "'DM Sans', sans-serif",
-                  letterSpacing: '-0.2px',
+                  letterSpacing: '-0.4px',
                 }}>
                   {category.name}
                 </h3>
@@ -242,11 +257,11 @@ export default function Home() {
 
       {/* Our Most Popular - Infinite Carousel */}
       <section style={{
-        background: '#f5f5f5',
+        background: '#f8f9fa',
         padding: '120px 60px',
       }}>
         <div style={{
-          maxWidth: '1200px',
+          maxWidth: '1280px',
           margin: '0 auto',
         }}>
           <div style={{ marginBottom: '80px' }}>
@@ -254,17 +269,16 @@ export default function Home() {
               fontSize: '48px',
               fontWeight: '700',
               marginBottom: '16px',
-              fontFamily: "'DM Sans', sans-serif",
-              letterSpacing: '-0.4px',
+              letterSpacing: '-0.8px',
             }}>
               Our Most Popular
             </h2>
             <p style={{
-              fontSize: '18px',
-              color: '#555',
-              maxWidth: '580px',
-              lineHeight: '1.7',
-              letterSpacing: '-0.2px',
+              fontSize: '17px',
+              color: '#424245',
+              maxWidth: '620px',
+              lineHeight: '1.8',
+              letterSpacing: '-0.3px',
             }}>
               Discover our customers' favorite smoothie blends. Each one crafted with whole fruits and superfoods.
             </p>
@@ -280,10 +294,10 @@ export default function Home() {
                 left: '0',
                 top: '50%',
                 transform: 'translateY(-50%)',
-                background: '#000',
+                background: '#000000',
                 border: 'none',
-                width: '40px',
-                height: '40px',
+                width: '44px',
+                height: '44px',
                 borderRadius: '50%',
                 color: 'white',
                 fontSize: '20px',
@@ -291,11 +305,20 @@ export default function Home() {
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                transition: 'all 0.2s',
+                transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
                 zIndex: 10,
+                boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
               }}
-              onMouseEnter={(e) => e.currentTarget.style.opacity = '0.8'}
-              onMouseLeave={(e) => e.currentTarget.style.opacity = '1'}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = '#424245';
+                e.currentTarget.style.transform = 'translateY(-50%) scale(1.08)';
+                e.currentTarget.style.boxShadow = '0 8px 20px rgba(0, 0, 0, 0.25)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = '#000000';
+                e.currentTarget.style.transform = 'translateY(-50%) scale(1)';
+                e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.15)';
+              }}
             >
               ←
             </button>
@@ -334,8 +357,8 @@ export default function Home() {
                 >
                   {/* Product Image */}
                   <div style={{
-                    background: '#f9f9f9',
-                    borderRadius: '12px',
+                    background: '#f8f9fa',
+                    borderRadius: '16px',
                     height: '300px',
                     marginBottom: '24px',
                     overflow: 'hidden',
@@ -391,10 +414,10 @@ export default function Home() {
                 right: '0',
                 top: '50%',
                 transform: 'translateY(-50%)',
-                background: '#000',
+                background: '#000000',
                 border: 'none',
-                width: '40px',
-                height: '40px',
+                width: '44px',
+                height: '44px',
                 borderRadius: '50%',
                 color: 'white',
                 fontSize: '20px',
@@ -402,11 +425,20 @@ export default function Home() {
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                transition: 'all 0.2s',
+                transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
                 zIndex: 10,
+                boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
               }}
-              onMouseEnter={(e) => e.currentTarget.style.opacity = '0.8'}
-              onMouseLeave={(e) => e.currentTarget.style.opacity = '1'}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = '#424245';
+                e.currentTarget.style.transform = 'translateY(-50%) scale(1.08)';
+                e.currentTarget.style.boxShadow = '0 8px 20px rgba(0, 0, 0, 0.25)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = '#000000';
+                e.currentTarget.style.transform = 'translateY(-50%) scale(1)';
+                e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.15)';
+              }}
             >
               →
             </button>
@@ -416,50 +448,53 @@ export default function Home() {
 
       {/* CTA Section */}
       <section style={{
-        background: '#ffffff',
+        background: 'linear-gradient(135deg, #000000 0%, #1a1a1a 100%)',
         padding: '140px 60px',
         textAlign: 'center',
-        borderTop: '1px solid #e0e0e0',
+        borderTop: '1px solid #e8e8e8',
       }}>
         <h2 style={{
           fontSize: '52px',
           marginBottom: '24px',
           fontWeight: '700',
-          letterSpacing: '-0.4px',
-          fontFamily: "'DM Sans', sans-serif",
+          letterSpacing: '-0.8px',
+          color: '#ffffff',
         }}>
           Start Your Wellness Journey Today
         </h2>
         <p style={{
-          fontSize: '19px',
-          color: '#555',
+          fontSize: '18px',
+          color: '#b0b0b0',
           marginBottom: '48px',
-          maxWidth: '680px',
+          maxWidth: '720px',
           margin: '0 auto 48px auto',
-          lineHeight: '1.7',
-          letterSpacing: '-0.2px',
+          lineHeight: '1.8',
+          letterSpacing: '-0.3px',
         }}>
           Join thousands of people who have made smoothies and bowls their daily habit.
         </p>
         <Link href="/auth" style={{
           display: 'inline-block',
-          padding: '16px 48px',
-          background: '#000',
-          color: 'white',
+          padding: '14px 40px',
+          background: '#ffffff',
+          color: '#000',
           textDecoration: 'none',
           borderRadius: '28px',
           fontSize: '16px',
-          fontWeight: '500',
-          transition: 'all 0.3s ease-out',
-          letterSpacing: '-0.1px',
+          fontWeight: '600',
+          transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+          letterSpacing: '-0.3px',
+          boxShadow: '0 8px 24px rgba(255, 255, 255, 0.2)',
         }}
           onMouseEnter={(e) => {
-            e.currentTarget.style.opacity = '0.85';
-            e.currentTarget.style.transform = 'scale(1.02)';
+            e.currentTarget.style.background = '#f0f0f0';
+            e.currentTarget.style.transform = 'translateY(-2px)';
+            e.currentTarget.style.boxShadow = '0 12px 32px rgba(255, 255, 255, 0.3)';
           }}
           onMouseLeave={(e) => {
-            e.currentTarget.style.opacity = '1';
-            e.currentTarget.style.transform = 'scale(1)';
+            e.currentTarget.style.background = '#ffffff';
+            e.currentTarget.style.transform = 'translateY(0)';
+            e.currentTarget.style.boxShadow = '0 8px 24px rgba(255, 255, 255, 0.2)';
           }}
         >
           Create Your Account

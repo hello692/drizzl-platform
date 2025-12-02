@@ -32,17 +32,17 @@ const CartIcon = () => (
 export default function Navbar() {
   return (
     <nav style={{
-      background: '#ffffff',
-      borderBottom: '1px solid #e5e5e5',
-      padding: '16px 60px',
+      background: 'rgba(255, 255, 255, 0.99)',
+      borderBottom: '1px solid #e8e8e8',
+      padding: '14px 60px',
       position: 'sticky',
       top: 0,
       zIndex: 1000,
-      backdropFilter: 'blur(10px)',
-      backgroundColor: 'rgba(255, 255, 255, 0.98)',
+      backdropFilter: 'blur(12px)',
+      boxShadow: '0 1px 3px rgba(0, 0, 0, 0.05)',
     }}>
       <div style={{
-        maxWidth: '1400px',
+        maxWidth: '1440px',
         margin: '0 auto',
         display: 'flex',
         justifyContent: 'space-between',
@@ -64,10 +64,10 @@ export default function Navbar() {
             gap: '8px', 
             color: '#000',
             cursor: 'pointer',
-            opacity: 0.85,
-            transition: 'all 0.2s ease-out',
+            opacity: 0.7,
+            transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
             whiteSpace: 'nowrap',
-          }} onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')} onMouseLeave={(e) => (e.currentTarget.style.opacity = '0.85')}>
+          }} onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')} onMouseLeave={(e) => (e.currentTarget.style.opacity = '0.7')}>
             <div style={{
               width: '24px',
               height: '24px',
@@ -78,7 +78,7 @@ export default function Navbar() {
             }}>
               <SearchIcon />
             </div>
-            <span style={{ fontSize: '14px', fontWeight: '600', letterSpacing: '-0.3px' }}>Search</span>
+            <span style={{ fontSize: '14px', fontWeight: '500', letterSpacing: '-0.3px' }}>Search</span>
           </div>
 
           {/* Find in stores */}
@@ -89,15 +89,15 @@ export default function Navbar() {
             color: '#000',
             cursor: 'pointer',
             fontSize: '14px',
-            fontWeight: '600',
+            fontWeight: '500',
             display: 'flex',
             alignItems: 'center',
             gap: '8px',
-            opacity: 0.85,
-            transition: 'all 0.2s ease-out',
+            opacity: 0.7,
+            transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
             letterSpacing: '-0.3px',
             whiteSpace: 'nowrap',
-          }} onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')} onMouseLeave={(e) => (e.currentTarget.style.opacity = '0.85')}>
+          }} onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')} onMouseLeave={(e) => (e.currentTarget.style.opacity = '0.7')}>
             <div style={{
               width: '24px',
               height: '24px',
@@ -116,17 +116,17 @@ export default function Navbar() {
         <div style={{ flex: 1, display: 'flex', justifyContent: 'center' }}>
           <Link href="/" style={{
             fontSize: '32px',
-            fontWeight: '900',
+            fontWeight: '800',
             textDecoration: 'none',
             color: '#000',
-            letterSpacing: '-0.8px',
+            letterSpacing: '-1px',
             textTransform: 'uppercase',
             whiteSpace: 'nowrap',
-            transition: 'all 0.2s ease-out',
-            fontFamily: "'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif",
+            transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+            fontFamily: "-apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif",
             lineHeight: '1',
           }} onMouseEnter={(e) => {
-            e.currentTarget.style.opacity = '0.7';
+            e.currentTarget.style.opacity = '0.6';
           }} onMouseLeave={(e) => {
             e.currentTarget.style.opacity = '1';
           }}>
@@ -145,16 +145,16 @@ export default function Navbar() {
           <Link href="/auth" style={{
             color: '#000',
             fontSize: '14px',
-            fontWeight: '600',
+            fontWeight: '500',
             textDecoration: 'none',
             display: 'flex',
             alignItems: 'center',
             gap: '8px',
-            opacity: 0.85,
-            transition: 'all 0.2s ease-out',
+            opacity: 0.7,
+            transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
             letterSpacing: '-0.3px',
             whiteSpace: 'nowrap',
-          }} onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')} onMouseLeave={(e) => (e.currentTarget.style.opacity = '0.85')}>
+          }} onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')} onMouseLeave={(e) => (e.currentTarget.style.opacity = '0.7')}>
             <div style={{
               width: '24px',
               height: '24px',
@@ -171,17 +171,17 @@ export default function Navbar() {
           {/* Cart */}
           <Link href="/cart" style={{
             fontSize: '14px',
-            fontWeight: '600',
+            fontWeight: '500',
             color: '#000',
             textDecoration: 'none',
             display: 'flex',
             alignItems: 'center',
             gap: '8px',
-            opacity: 0.85,
-            transition: 'all 0.2s ease-out',
+            opacity: 0.7,
+            transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
             letterSpacing: '-0.3px',
             whiteSpace: 'nowrap',
-          }} onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')} onMouseLeave={(e) => (e.currentTarget.style.opacity = '0.85')}>
+          }} onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')} onMouseLeave={(e) => (e.currentTarget.style.opacity = '0.7')}>
             <div style={{
               width: '24px',
               height: '24px',
