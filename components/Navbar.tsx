@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 const SearchIcon = () => (
   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ filter: 'drop-shadow(0 0 8px rgba(66, 133, 244, 0.3))' }}>
@@ -39,16 +39,63 @@ const BriefcaseIcon = () => (
   </svg>
 );
 
+const AnimatedMenuItem = ({ label, href, index }: { label: string; href: string; index: number }) => {
+  const [displayedText, setDisplayedText] = useState('');
+
+  useEffect(() => {
+    let i = 0;
+    const interval = setInterval(() => {
+      if (i <= label.length) {
+        setDisplayedText(label.substring(0, i));
+        i++;
+      } else {
+        clearInterval(interval);
+      }
+    }, 30);
+
+    return () => clearInterval(interval);
+  }, [label]);
+
+  return (
+    <Link
+      href={href}
+      style={{
+        fontSize: '28px',
+        fontWeight: '700',
+        fontFamily: "'Space Mono', monospace",
+        textTransform: 'uppercase',
+        letterSpacing: '0.5px',
+        color: '#1a1a1a',
+        textDecoration: 'none',
+        transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+        display: 'block',
+        minHeight: '40px',
+        animation: `slideDown 0.5s cubic-bezier(0.4, 0, 0.2, 1) ${index * 0.08}s both`,
+      }}
+      onMouseEnter={(e) => {
+        e.currentTarget.style.color = '#d4af00';
+        e.currentTarget.style.textShadow = '0 0 15px rgba(212, 175, 0, 0.4)';
+        e.currentTarget.style.transform = 'translateX(12px)';
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.color = '#1a1a1a';
+        e.currentTarget.style.textShadow = 'none';
+        e.currentTarget.style.transform = 'translateX(0)';
+      }}
+    >
+      {displayedText}
+    </Link>
+  );
+};
+
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   const menuItems = [
     { label: 'Smoothies', href: '/products/smoothies' },
-    { label: 'High Protein', href: '/products/high-protein' },
     { label: 'Bowls', href: '/products/bowls' },
-    { label: 'Bites', href: '/products/bites' },
-    { label: 'Protein Shop', href: '/products/protein' },
-    { label: 'Gift Guide', href: '/products/gift' },
+    { label: 'About Us', href: '/about' },
+    { label: 'Contact', href: '/contact' },
   ];
 
   return (
@@ -107,49 +154,81 @@ export default function Navbar() {
             </Link>
 
             <button onClick={() => setMenuOpen(!menuOpen)} style={{ background: 'none', border: 'none', padding: '8px', cursor: 'pointer', marginLeft: '8px', display: 'flex', flexDirection: 'column', gap: '6px' }}>
-              <div style={{ width: '24px', height: '2.5px', background: 'linear-gradient(135deg, #000 0%, #4285f4 100%)', borderRadius: '2px', transition: 'all 0.3s', transform: menuOpen ? 'rotate(45deg) translateY(8px)' : 'rotate(0)', boxShadow: '0 0 8px rgba(66, 133, 244, 0.3)' }}></div>
-              <div style={{ width: '24px', height: '2.5px', background: 'linear-gradient(135deg, #000 0%, #4285f4 100%)', borderRadius: '2px', transition: 'all 0.3s', opacity: menuOpen ? 0 : 1, boxShadow: '0 0 8px rgba(66, 133, 244, 0.3)' }}></div>
-              <div style={{ width: '24px', height: '2.5px', background: 'linear-gradient(135deg, #000 0%, #4285f4 100%)', borderRadius: '2px', transition: 'all 0.3s', transform: menuOpen ? 'rotate(-45deg) translateY(-8px)' : 'rotate(0)', boxShadow: '0 0 8px rgba(66, 133, 244, 0.3)' }}></div>
+              <div style={{ width: '24px', height: '2.5px', background: 'linear-gradient(135deg, #000 0%, #d4af00 100%)', borderRadius: '2px', transition: 'all 0.3s', transform: menuOpen ? 'rotate(45deg) translateY(8px)' : 'rotate(0)', boxShadow: '0 0 8px rgba(212, 175, 0, 0.3)' }}></div>
+              <div style={{ width: '24px', height: '2.5px', background: 'linear-gradient(135deg, #000 0%, #d4af00 100%)', borderRadius: '2px', transition: 'all 0.3s', opacity: menuOpen ? 0 : 1, boxShadow: '0 0 8px rgba(212, 175, 0, 0.3)' }}></div>
+              <div style={{ width: '24px', height: '2.5px', background: 'linear-gradient(135deg, #000 0%, #d4af00 100%)', borderRadius: '2px', transition: 'all 0.3s', transform: menuOpen ? 'rotate(-45deg) translateY(-8px)' : 'rotate(0)', boxShadow: '0 0 8px rgba(212, 175, 0, 0.3)' }}></div>
             </button>
           </div>
         </div>
       </nav>
 
       {menuOpen && (
-        <>
-          <div onClick={() => setMenuOpen(false)} style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'linear-gradient(135deg, #4285f4 0%, #2e5dd9 50%, #1a73e8 100%)', zIndex: 200, animation: 'menuFadeIn 0.5s cubic-bezier(0.4, 0, 0.2, 1)', overflow: 'hidden' }}>
-            <svg style={{ position: 'absolute', bottom: 0, left: 0, right: 0, width: '100%', height: '250px' }} viewBox="0 0 1000 250" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-              <defs>
-                <linearGradient id="dripGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-                  <stop offset="0%" stopColor="#4285f4" stopOpacity="0.7" />
-                  <stop offset="50%" stopColor="#2e5dd9" stopOpacity="0.4" />
-                  <stop offset="100%" stopColor="#1a73e8" stopOpacity="0" />
-                </linearGradient>
-              </defs>
-              <path d="M 0,80 Q 50,40 100,60 T 200,50 Q 250,30 300,70 T 400,45 Q 450,25 500,65 T 600,50 Q 650,30 700,70 T 800,45 Q 850,25 900,65 T 1000,50 L 1000,250 L 0,250 Z" fill="url(#dripGradient)" />
-              <path d="M 80,65 Q 75,90 80,120 Q 85,150 80,180 Q 75,200 80,220 L 90,220 Q 95,200 90,180 Q 95,150 90,120 Q 95,90 90,65 Z" fill="url(#dripGradient)" opacity="0.8" />
-              <path d="M 300,70 Q 295,100 305,135 Q 310,165 305,195 Q 300,215 305,235 L 315,235 Q 320,215 315,195 Q 320,165 315,135 Q 325,100 315,70 Z" fill="url(#dripGradient)" opacity="0.7" />
-              <path d="M 500,65 Q 492,95 505,130 Q 512,170 505,205 Q 500,230 505,250 L 520,250 Q 525,230 520,205 Q 528,170 520,130 Q 533,95 520,65 Z" fill="url(#dripGradient)" opacity="0.8" />
-              <path d="M 700,70 Q 695,100 710,140 Q 718,170 710,200 Q 705,220 710,238 L 720,238 Q 725,220 720,200 Q 728,170 720,140 Q 735,100 720,70 Z" fill="url(#dripGradient)" opacity="0.7" />
-              <path d="M 920,50 Q 912,80 925,115 Q 932,150 925,185 Q 920,210 925,235 L 935,235 Q 940,210 935,185 Q 942,150 935,115 Q 948,80 935,50 Z" fill="url(#dripGradient)" opacity="0.75" />
-            </svg>
+        <div
+          style={{
+            position: 'fixed',
+            top: 60,
+            left: 0,
+            right: 0,
+            width: '100%',
+            background: '#f0ed7f',
+            zIndex: 99,
+            animation: 'dropdownSlide 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards',
+            overflow: 'visible',
+          }}
+        >
+          <svg style={{ position: 'absolute', top: '-40px', left: 0, right: 0, width: '100%', height: '60px' }} viewBox="0 0 1000 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="dropGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stopColor="#f0ed7f" stopOpacity="1" />
+                <stop offset="100%" stopColor="#f0ed7f" stopOpacity="0.9" />
+              </linearGradient>
+            </defs>
+            <path d="M 0,30 Q 50,5 100,25 T 200,20 Q 250,0 300,25 T 400,15 Q 450,0 500,30 T 600,20 Q 650,0 700,25 T 800,15 Q 850,0 900,25 T 1000,20 L 1000,60 L 0,60 Z" fill="url(#dropGradient)" />
+            <path d="M 100,25 Q 95,40 100,55" stroke="#f0ed7f" strokeWidth="8" fill="none" opacity="0.6" />
+            <path d="M 350,25 Q 345,42 350,58" stroke="#f0ed7f" strokeWidth="8" fill="none" opacity="0.5" />
+            <path d="M 550,30 Q 545,45 550,60" stroke="#f0ed7f" strokeWidth="8" fill="none" opacity="0.6" />
+            <path d="M 750,25 Q 745,42 750,58" stroke="#f0ed7f" strokeWidth="8" fill="none" opacity="0.5" />
+            <path d="M 900,25 Q 895,40 900,55" stroke="#f0ed7f" strokeWidth="8" fill="none" opacity="0.6" />
+          </svg>
 
-            <div style={{ position: 'absolute', left: '80px', top: '140px', display: 'flex', flexDirection: 'column', gap: '40px', zIndex: 10 }}>
-              {menuItems.map((item, index) => (
-                <Link key={item.href} href={item.href} onClick={() => setMenuOpen(false)} style={{ fontSize: '48px', fontWeight: '700', fontFamily: "'Space Mono', monospace", textTransform: 'uppercase', letterSpacing: '0.5px', color: 'white', textDecoration: 'none', transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)', lineHeight: '1.1', display: 'inline-block', animation: `menuItemSlideInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) ${index * 0.1}s both` }} onMouseEnter={(e) => { e.currentTarget.style.textShadow = '0 0 30px rgba(255, 255, 255, 0.5)'; e.currentTarget.style.transform = 'translateX(20px)'; }} onMouseLeave={(e) => { e.currentTarget.style.textShadow = 'none'; e.currentTarget.style.transform = 'translateX(0)'; }}>
-                  {item.label} →
-                </Link>
-              ))}
-            </div>
-
-            <div style={{ position: 'absolute', right: '80px', top: '140px', fontSize: '120px', opacity: 0.3, display: 'flex', alignItems: 'center', height: '400px', gap: '60px', zIndex: 10 }}>
-              <span style={{ animation: 'float 4s ease-in-out infinite' }}>🥤</span>
-              <span style={{ animation: 'float 4s ease-in-out infinite', animationDelay: '0.5s' }}>🍹</span>
-              <span style={{ animation: 'float 4s ease-in-out infinite', animationDelay: '1s' }}>🥑</span>
-            </div>
+          <div style={{
+            maxWidth: '1320px',
+            margin: '0 auto',
+            padding: '40px 60px 60px 60px',
+            display: 'grid',
+            gridTemplateColumns: 'repeat(2, 1fr)',
+            gap: '40px 80px',
+          }}>
+            {menuItems.map((item, index) => (
+              <AnimatedMenuItem key={item.href} label={item.label} href={item.href} index={index} />
+            ))}
           </div>
-        </>
+        </div>
       )}
+
+      <style>{`
+        @keyframes dropdownSlide {
+          from {
+            opacity: 0;
+            transform: translateY(-20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        @keyframes slideDown {
+          from {
+            opacity: 0;
+            transform: translateY(-10px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+      `}</style>
     </>
   );
 }
