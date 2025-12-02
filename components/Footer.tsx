@@ -18,7 +18,7 @@ export default function Footer() {
           gap: 'clamp(30px, 6vw, 60px)',
           marginBottom: 'clamp(40px, 6vw, 80px)',
         }}>
-          {/* SHOP */}
+          {/* PRODUCTS */}
           <div>
             <h4 style={{ 
               fontSize: 'clamp(11px, 2.5vw, 12px)', 
@@ -28,20 +28,54 @@ export default function Footer() {
               marginBottom: 'clamp(12px, 3vw, 20px)',
               color: '#000',
             }}>
-              Shop
+              Products
             </h4>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 'clamp(10px, 2vw, 12px)' }}>
-              <Link href="/products/smoothies" style={{ fontSize: 'clamp(12px, 3vw, 14px)', color: '#666', textDecoration: 'none', transition: 'all 1s cubic-bezier(0.32, 0, 0.67, 0)' }} onMouseEnter={(e) => { e.currentTarget.style.color = '#000'; }} onMouseLeave={(e) => { e.currentTarget.style.color = '#666'; }}>
+              <Link href="/collections/smoothies" style={{ fontSize: 'clamp(12px, 3vw, 14px)', color: '#666', textDecoration: 'none', transition: 'all 1s cubic-bezier(0.32, 0, 0.67, 0)' }} onMouseEnter={(e) => { e.currentTarget.style.color = '#000'; }} onMouseLeave={(e) => { e.currentTarget.style.color = '#666'; }}>
                 Smoothies
               </Link>
-              <Link href="/products/high-protein" style={{ fontSize: '14px', color: '#666', textDecoration: 'none', transition: 'all 1s cubic-bezier(0.32, 0, 0.67, 0)' }} onMouseEnter={(e) => e.currentTarget.style.color = '#000'} onMouseLeave={(e) => e.currentTarget.style.color = '#666'}>
+              <Link href="/collections/high-protein" style={{ fontSize: 'clamp(12px, 3vw, 14px)', color: '#666', textDecoration: 'none', transition: 'all 1s cubic-bezier(0.32, 0, 0.67, 0)' }} onMouseEnter={(e) => e.currentTarget.style.color = '#000'} onMouseLeave={(e) => e.currentTarget.style.color = '#666'}>
                 High Protein
               </Link>
-              <Link href="/products/bowls" style={{ fontSize: '14px', color: '#666', textDecoration: 'none', transition: 'all 1s cubic-bezier(0.32, 0, 0.67, 0)' }} onMouseEnter={(e) => e.currentTarget.style.color = '#000'} onMouseLeave={(e) => e.currentTarget.style.color = '#666'}>
-                Bowls
+              <Link href="/collections/breakfast-bowls" style={{ fontSize: 'clamp(12px, 3vw, 14px)', color: '#666', textDecoration: 'none', transition: 'all 1s cubic-bezier(0.32, 0, 0.67, 0)' }} onMouseEnter={(e) => e.currentTarget.style.color = '#000'} onMouseLeave={(e) => e.currentTarget.style.color = '#666'}>
+                Breakfast Bowls
               </Link>
-              <Link href="/products/bites" style={{ fontSize: '14px', color: '#666', textDecoration: 'none', transition: 'all 1s cubic-bezier(0.32, 0, 0.67, 0)' }} onMouseEnter={(e) => e.currentTarget.style.color = '#000'} onMouseLeave={(e) => e.currentTarget.style.color = '#666'}>
+              <Link href="/collections/bites" style={{ fontSize: 'clamp(12px, 3vw, 14px)', color: '#666', textDecoration: 'none', transition: 'all 1s cubic-bezier(0.32, 0, 0.67, 0)' }} onMouseEnter={(e) => e.currentTarget.style.color = '#000'} onMouseLeave={(e) => e.currentTarget.style.color = '#666'}>
                 Bites
+              </Link>
+              <Link href="/collections/protein-shop" style={{ fontSize: 'clamp(12px, 3vw, 14px)', color: '#666', textDecoration: 'none', transition: 'all 1s cubic-bezier(0.32, 0, 0.67, 0)' }} onMouseEnter={(e) => e.currentTarget.style.color = '#000'} onMouseLeave={(e) => e.currentTarget.style.color = '#666'}>
+                Protein Shop
+              </Link>
+              <Link href="/collections/best-sellers" style={{ fontSize: 'clamp(12px, 3vw, 14px)', color: '#666', textDecoration: 'none', transition: 'all 1s cubic-bezier(0.32, 0, 0.67, 0)' }} onMouseEnter={(e) => e.currentTarget.style.color = '#000'} onMouseLeave={(e) => e.currentTarget.style.color = '#666'}>
+                Best Sellers
+              </Link>
+            </div>
+          </div>
+
+          {/* COLLECTIONS */}
+          <div>
+            <h4 style={{ 
+              fontSize: 'clamp(11px, 2.5vw, 12px)', 
+              fontWeight: '600', 
+              textTransform: 'uppercase', 
+              letterSpacing: '0.8px',
+              marginBottom: 'clamp(12px, 3vw, 20px)',
+              color: '#000',
+            }}>
+              Collections
+            </h4>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 'clamp(10px, 2vw, 12px)' }}>
+              <Link href="/collections/new-arrivals" style={{ fontSize: 'clamp(12px, 3vw, 14px)', color: '#666', textDecoration: 'none', transition: 'all 1s cubic-bezier(0.32, 0, 0.67, 0)' }} onMouseEnter={(e) => e.currentTarget.style.color = '#000'} onMouseLeave={(e) => e.currentTarget.style.color = '#666'}>
+                New Arrivals
+              </Link>
+              <Link href="/collections/smoothie-boxes" style={{ fontSize: 'clamp(12px, 3vw, 14px)', color: '#666', textDecoration: 'none', transition: 'all 1s cubic-bezier(0.32, 0, 0.67, 0)' }} onMouseEnter={(e) => e.currentTarget.style.color = '#000'} onMouseLeave={(e) => e.currentTarget.style.color = '#666'}>
+                Smoothie Boxes
+              </Link>
+              <Link href="/collections/gift-guide" style={{ fontSize: 'clamp(12px, 3vw, 14px)', color: '#666', textDecoration: 'none', transition: 'all 1s cubic-bezier(0.32, 0, 0.67, 0)' }} onMouseEnter={(e) => e.currentTarget.style.color = '#000'} onMouseLeave={(e) => e.currentTarget.style.color = '#666'}>
+                Gift Guide
+              </Link>
+              <Link href="/shop-all" style={{ fontSize: 'clamp(12px, 3vw, 14px)', color: '#666', textDecoration: 'none', transition: 'all 1s cubic-bezier(0.32, 0, 0.67, 0)' }} onMouseEnter={(e) => e.currentTarget.style.color = '#000'} onMouseLeave={(e) => e.currentTarget.style.color = '#666'}>
+                Shop All
               </Link>
             </div>
           </div>
@@ -49,27 +83,27 @@ export default function Footer() {
           {/* LEARN */}
           <div>
             <h4 style={{ 
-              fontSize: '12px', 
+              fontSize: 'clamp(11px, 2.5vw, 12px)', 
               fontWeight: '600', 
               textTransform: 'uppercase', 
               letterSpacing: '0.8px',
-              marginBottom: '20px',
+              marginBottom: 'clamp(12px, 3vw, 20px)',
               color: '#000',
             }}>
               Learn
             </h4>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-              <Link href="/contact" style={{ fontSize: '14px', color: '#666', textDecoration: 'none', transition: 'all 1s cubic-bezier(0.32, 0, 0.67, 0)' }} onMouseEnter={(e) => e.currentTarget.style.color = '#000'} onMouseLeave={(e) => e.currentTarget.style.color = '#666'}>
-                Contact
-              </Link>
-              <Link href="/faq" style={{ fontSize: '14px', color: '#666', textDecoration: 'none', transition: 'all 1s cubic-bezier(0.32, 0, 0.67, 0)' }} onMouseEnter={(e) => e.currentTarget.style.color = '#000'} onMouseLeave={(e) => e.currentTarget.style.color = '#666'}>
-                FAQ
-              </Link>
-              <Link href="/our-story" style={{ fontSize: '14px', color: '#666', textDecoration: 'none', transition: 'all 1s cubic-bezier(0.32, 0, 0.67, 0)' }} onMouseEnter={(e) => e.currentTarget.style.color = '#000'} onMouseLeave={(e) => e.currentTarget.style.color = '#666'}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 'clamp(10px, 2vw, 12px)' }}>
+              <Link href="/our-story" style={{ fontSize: 'clamp(12px, 3vw, 14px)', color: '#666', textDecoration: 'none', transition: 'all 1s cubic-bezier(0.32, 0, 0.67, 0)' }} onMouseEnter={(e) => e.currentTarget.style.color = '#000'} onMouseLeave={(e) => e.currentTarget.style.color = '#666'}>
                 Our Story
               </Link>
-              <Link href="/blog" style={{ fontSize: '14px', color: '#666', textDecoration: 'none', transition: 'all 1s cubic-bezier(0.32, 0, 0.67, 0)' }} onMouseEnter={(e) => e.currentTarget.style.color = '#000'} onMouseLeave={(e) => e.currentTarget.style.color = '#666'}>
-                Blog
+              <Link href="/blog" style={{ fontSize: 'clamp(12px, 3vw, 14px)', color: '#666', textDecoration: 'none', transition: 'all 1s cubic-bezier(0.32, 0, 0.67, 0)' }} onMouseEnter={(e) => e.currentTarget.style.color = '#000'} onMouseLeave={(e) => e.currentTarget.style.color = '#666'}>
+                Blog & Recipes
+              </Link>
+              <Link href="/contact" style={{ fontSize: 'clamp(12px, 3vw, 14px)', color: '#666', textDecoration: 'none', transition: 'all 1s cubic-bezier(0.32, 0, 0.67, 0)' }} onMouseEnter={(e) => e.currentTarget.style.color = '#000'} onMouseLeave={(e) => e.currentTarget.style.color = '#666'}>
+                Contact
+              </Link>
+              <Link href="/faq" style={{ fontSize: 'clamp(12px, 3vw, 14px)', color: '#666', textDecoration: 'none', transition: 'all 1s cubic-bezier(0.32, 0, 0.67, 0)' }} onMouseEnter={(e) => e.currentTarget.style.color = '#000'} onMouseLeave={(e) => e.currentTarget.style.color = '#666'}>
+                FAQ
               </Link>
             </div>
           </div>
@@ -77,23 +111,23 @@ export default function Footer() {
           {/* COMPANY */}
           <div>
             <h4 style={{ 
-              fontSize: '12px', 
+              fontSize: 'clamp(11px, 2.5vw, 12px)', 
               fontWeight: '600', 
               textTransform: 'uppercase', 
               letterSpacing: '0.8px',
-              marginBottom: '20px',
+              marginBottom: 'clamp(12px, 3vw, 20px)',
               color: '#000',
             }}>
               Company
             </h4>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-              <Link href="/careers" style={{ fontSize: '14px', color: '#666', textDecoration: 'none', transition: 'all 1s cubic-bezier(0.32, 0, 0.67, 0)' }} onMouseEnter={(e) => e.currentTarget.style.color = '#000'} onMouseLeave={(e) => e.currentTarget.style.color = '#666'}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 'clamp(10px, 2vw, 12px)' }}>
+              <Link href="/careers" style={{ fontSize: 'clamp(12px, 3vw, 14px)', color: '#666', textDecoration: 'none', transition: 'all 1s cubic-bezier(0.32, 0, 0.67, 0)' }} onMouseEnter={(e) => e.currentTarget.style.color = '#000'} onMouseLeave={(e) => e.currentTarget.style.color = '#666'}>
                 Careers
               </Link>
-              <Link href="/refer" style={{ fontSize: '14px', color: '#666', textDecoration: 'none', transition: 'all 1s cubic-bezier(0.32, 0, 0.67, 0)' }} onMouseEnter={(e) => e.currentTarget.style.color = '#000'} onMouseLeave={(e) => e.currentTarget.style.color = '#666'}>
-                Refer
+              <Link href="/refer" style={{ fontSize: 'clamp(12px, 3vw, 14px)', color: '#666', textDecoration: 'none', transition: 'all 1s cubic-bezier(0.32, 0, 0.67, 0)' }} onMouseEnter={(e) => e.currentTarget.style.color = '#000'} onMouseLeave={(e) => e.currentTarget.style.color = '#666'}>
+                Referral Program
               </Link>
-              <Link href="/student-discount" style={{ fontSize: '14px', color: '#666', textDecoration: 'none', transition: 'all 1s cubic-bezier(0.32, 0, 0.67, 0)' }} onMouseEnter={(e) => e.currentTarget.style.color = '#000'} onMouseLeave={(e) => e.currentTarget.style.color = '#666'}>
+              <Link href="/student-discount" style={{ fontSize: 'clamp(12px, 3vw, 14px)', color: '#666', textDecoration: 'none', transition: 'all 1s cubic-bezier(0.32, 0, 0.67, 0)' }} onMouseEnter={(e) => e.currentTarget.style.color = '#000'} onMouseLeave={(e) => e.currentTarget.style.color = '#666'}>
                 Student Discount
               </Link>
             </div>
@@ -102,21 +136,21 @@ export default function Footer() {
           {/* LEGAL */}
           <div>
             <h4 style={{ 
-              fontSize: '12px', 
+              fontSize: 'clamp(11px, 2.5vw, 12px)', 
               fontWeight: '600', 
               textTransform: 'uppercase', 
               letterSpacing: '0.8px',
-              marginBottom: '20px',
+              marginBottom: 'clamp(12px, 3vw, 20px)',
               color: '#000',
             }}>
               Legal
             </h4>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-              <Link href="/privacy" style={{ fontSize: '14px', color: '#666', textDecoration: 'none', transition: 'all 1s cubic-bezier(0.32, 0, 0.67, 0)' }} onMouseEnter={(e) => e.currentTarget.style.color = '#000'} onMouseLeave={(e) => e.currentTarget.style.color = '#666'}>
-                Privacy
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 'clamp(10px, 2vw, 12px)' }}>
+              <Link href="/privacy" style={{ fontSize: 'clamp(12px, 3vw, 14px)', color: '#666', textDecoration: 'none', transition: 'all 1s cubic-bezier(0.32, 0, 0.67, 0)' }} onMouseEnter={(e) => e.currentTarget.style.color = '#000'} onMouseLeave={(e) => e.currentTarget.style.color = '#666'}>
+                Privacy Policy
               </Link>
-              <Link href="/terms" style={{ fontSize: '14px', color: '#666', textDecoration: 'none', transition: 'all 1s cubic-bezier(0.32, 0, 0.67, 0)' }} onMouseEnter={(e) => e.currentTarget.style.color = '#000'} onMouseLeave={(e) => e.currentTarget.style.color = '#666'}>
-                Terms
+              <Link href="/terms" style={{ fontSize: 'clamp(12px, 3vw, 14px)', color: '#666', textDecoration: 'none', transition: 'all 1s cubic-bezier(0.32, 0, 0.67, 0)' }} onMouseEnter={(e) => e.currentTarget.style.color = '#000'} onMouseLeave={(e) => e.currentTarget.style.color = '#666'}>
+                Terms of Service
               </Link>
             </div>
           </div>
