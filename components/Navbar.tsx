@@ -56,11 +56,36 @@ const MenuIcon = () => (
   </svg>
 );
 
+const LANGUAGES = [
+  { code: 'en', name: 'English', flag: '🇺🇸' },
+  { code: 'es', name: 'Español', flag: '🇪🇸' },
+  { code: 'fr', name: 'Français', flag: '🇫🇷' },
+  { code: 'de', name: 'Deutsch', flag: '🇩🇪' },
+  { code: 'it', name: 'Italiano', flag: '🇮🇹' },
+  { code: 'pt', name: 'Português', flag: '🇧🇷' },
+  { code: 'zh', name: '中文', flag: '🇨🇳' },
+  { code: 'ja', name: '日本語', flag: '🇯🇵' },
+  { code: 'ko', name: '한국어', flag: '🇰🇷' },
+  { code: 'ar', name: 'العربية', flag: '🇸🇦' },
+  { code: 'hi', name: 'हिन्दी', flag: '🇮🇳' },
+  { code: 'ru', name: 'Русский', flag: '🇷🇺' },
+];
+
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [langOpen, setLangOpen] = useState(false);
+  const [currentLang, setCurrentLang] = useState('en');
   const router = useRouter();
 
   const toggleMenu = () => setMenuOpen(!menuOpen);
+  const toggleLang = () => setLangOpen(!langOpen);
+  
+  const selectLanguage = (code: string) => {
+    setCurrentLang(code);
+    setLangOpen(false);
+  };
+  
+  const getCurrentLangData = () => LANGUAGES.find(l => l.code === currentLang) || LANGUAGES[0];
   
   const navigateTo = (path: string) => {
     console.log('Navigating to:', path);
@@ -190,9 +215,96 @@ export default function Navbar() {
               <SearchIcon />
             </button>
 
-            <button style={{ padding: '8px', border: 'none', background: 'none', color: '#000', cursor: 'pointer', opacity: 0.6, transition: 'all 0.2s ease' }} onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')} onMouseLeave={(e) => (e.currentTarget.style.opacity = '0.6')}>
-              <GlobeIcon />
-            </button>
+            <div style={{ position: 'relative' }}>
+              <button 
+                onClick={toggleLang}
+                style={{ 
+                  padding: '8px', 
+                  border: 'none', 
+                  background: 'none', 
+                  color: '#000', 
+                  cursor: 'pointer', 
+                  opacity: langOpen ? 1 : 0.6, 
+                  transition: 'all 0.2s ease',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '4px',
+                }} 
+                onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')} 
+                onMouseLeave={(e) => !langOpen && (e.currentTarget.style.opacity = '0.6')}
+              >
+                <GlobeIcon />
+                <span style={{ fontSize: '12px', fontWeight: '500' }}>{getCurrentLangData().code.toUpperCase()}</span>
+              </button>
+              
+              {langOpen && (
+                <>
+                  <div 
+                    onClick={() => setLangOpen(false)}
+                    style={{
+                      position: 'fixed',
+                      inset: 0,
+                      zIndex: 998,
+                    }}
+                  />
+                  <div style={{
+                    position: 'absolute',
+                    top: 'calc(100% + 12px)',
+                    right: 0,
+                    background: '#fff',
+                    borderRadius: '12px',
+                    boxShadow: '0 4px 24px rgba(0,0,0,0.12), 0 0 0 1px rgba(0,0,0,0.05)',
+                    padding: '8px 0',
+                    minWidth: '200px',
+                    zIndex: 999,
+                    animation: 'fadeIn 0.15s ease-out',
+                  }}>
+                    <div style={{ 
+                      padding: '12px 16px 8px', 
+                      fontSize: '11px', 
+                      fontWeight: '600', 
+                      color: '#888',
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.5px',
+                    }}>
+                      Select Language
+                    </div>
+                    <div style={{ maxHeight: '320px', overflowY: 'auto' }}>
+                      {LANGUAGES.map((lang) => (
+                        <button
+                          key={lang.code}
+                          onClick={() => selectLanguage(lang.code)}
+                          style={{
+                            width: '100%',
+                            padding: '10px 16px',
+                            border: 'none',
+                            background: currentLang === lang.code ? '#f5f5f5' : 'transparent',
+                            cursor: 'pointer',
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '12px',
+                            fontSize: '14px',
+                            color: '#333',
+                            transition: 'background 0.15s ease',
+                            textAlign: 'left',
+                          }}
+                          onMouseEnter={(e) => e.currentTarget.style.background = '#f5f5f5'}
+                          onMouseLeave={(e) => e.currentTarget.style.background = currentLang === lang.code ? '#f5f5f5' : 'transparent'}
+                        >
+                          <span style={{ fontSize: '18px' }}>{lang.flag}</span>
+                          <span style={{ flex: 1 }}>{lang.name}</span>
+                          {currentLang === lang.code && (
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#000" strokeWidth="2">
+                              <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg>
+                          )}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                </>
+              )}
+            </div>
 
             <Link href="/cart" style={{ padding: '8px', color: '#000', opacity: 0.6, transition: 'all 0.2s ease', display: 'flex' }} onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')} onMouseLeave={(e) => (e.currentTarget.style.opacity = '0.6')}>
               <CartIcon />
