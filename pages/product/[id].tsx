@@ -139,6 +139,8 @@ export default function ProductDetail() {
   const { id } = router.query;
   const product = id ? smoothies[id as string] : null;
   const [selectedIngredient, setSelectedIngredient] = useState(0);
+  const [scrollPosition, setScrollPosition] = useState(0);
+  const carouselRef = useState<HTMLDivElement | null>(null)[0];
 
   if (!product) {
     return (
@@ -354,107 +356,177 @@ export default function ProductDetail() {
             borderTop: '1px solid #e8e8e8',
             paddingTop: '60px',
           }}>
-            <div style={{
-              display: 'grid',
-              gridTemplateColumns: '1fr 1fr',
-              gap: '60px',
-              alignItems: 'flex-start',
+            <h2 style={{
+              fontSize: '28px',
+              fontWeight: '700',
+              marginBottom: '20px',
+              letterSpacing: '-0.5px',
+              textTransform: 'uppercase',
             }}>
-              {/* Left: Image */}
-              <div style={{
-                background: '#f0f0f0',
-                borderRadius: '0px',
-                height: '350px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                overflow: 'hidden',
-              }}>
-                <img
-                  src="https://daily-harvest.com/cdn/shop/files/DH_Shopify_KeyIngredient_688x458-Smoothies_A04.jpg?v=1715720942"
-                  alt="Key ingredients"
+              Key Ingredients
+            </h2>
+
+            {/* Tabs */}
+            <div style={{
+              display: 'flex',
+              gap: '12px',
+              marginBottom: '32px',
+              paddingBottom: '20px',
+              borderBottom: '1px solid #e8e8e8',
+              overflowX: 'auto',
+            }}>
+              {product.keyIngredients.map((ing: any, idx: number) => (
+                <button
+                  key={idx}
+                  onClick={() => setSelectedIngredient(idx)}
                   style={{
-                    width: '100%',
-                    height: '100%',
-                    objectFit: 'cover',
+                    background: selectedIngredient === idx ? '#000' : '#ffffff',
+                    color: selectedIngredient === idx ? '#ffffff' : '#000',
+                    border: selectedIngredient === idx ? 'none' : '1px solid #e8e8e8',
+                    padding: '8px 16px',
+                    fontSize: '13px',
+                    fontWeight: '600',
+                    letterSpacing: '0.5px',
+                    cursor: 'pointer',
+                    borderRadius: '0px',
+                    transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                    whiteSpace: 'nowrap',
                   }}
-                />
-              </div>
+                  onMouseEnter={(e) => {
+                    if (selectedIngredient !== idx) {
+                      e.currentTarget.style.borderColor = '#000';
+                    }
+                  }}
+                  onMouseLeave={(e) => {
+                    if (selectedIngredient !== idx) {
+                      e.currentTarget.style.borderColor = '#e8e8e8';
+                    }
+                  }}
+                >
+                  {ing.name}
+                </button>
+              ))}
+            </div>
 
-              {/* Right: Content */}
-              <div>
-                <h2 style={{
-                  fontSize: '18px',
-                  fontWeight: '700',
-                  marginBottom: '24px',
-                  letterSpacing: '1px',
-                  textTransform: 'uppercase',
-                }}>
-                  Key Ingredients
-                </h2>
+            {/* Scrollable Carousel */}
+            <div style={{
+              position: 'relative',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '16px',
+            }}>
+              {/* Left Arrow */}
+              <button
+                onClick={() => {
+                  const container = document.querySelector('[data-carousel]') as HTMLDivElement;
+                  if (container) {
+                    container.scrollBy({ left: -500, behavior: 'smooth' });
+                  }
+                }}
+                style={{
+                  position: 'absolute',
+                  left: '-50px',
+                  zIndex: 10,
+                  background: 'none',
+                  border: 'none',
+                  fontSize: '24px',
+                  cursor: 'pointer',
+                  color: '#000',
+                  opacity: 0.6,
+                  transition: 'opacity 0.2s',
+                  padding: '8px',
+                }}
+                onMouseEnter={(e) => { e.currentTarget.style.opacity = '1'; }}
+                onMouseLeave={(e) => { e.currentTarget.style.opacity = '0.6'; }}
+              >
+                ←
+              </button>
 
-                {/* Tabs */}
-                <div style={{
+              {/* Carousel Container */}
+              <div
+                data-carousel
+                style={{
                   display: 'flex',
-                  flexWrap: 'wrap',
-                  gap: '16px',
-                  marginBottom: '24px',
-                  paddingBottom: '24px',
-                  borderBottom: '1px solid #e8e8e8',
-                }}>
-                  {product.keyIngredients.map((ing: any, idx: number) => (
-                    <button
-                      key={idx}
-                      onClick={() => setSelectedIngredient(idx)}
-                      style={{
-                        background: selectedIngredient === idx ? '#000' : '#ffffff',
-                        color: selectedIngredient === idx ? '#ffffff' : '#000',
-                        border: selectedIngredient === idx ? 'none' : '1px solid #e8e8e8',
-                        padding: '8px 16px',
-                        fontSize: '12px',
-                        fontWeight: '600',
-                        letterSpacing: '0.5px',
-                        cursor: 'pointer',
-                        borderRadius: '0px',
-                        transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-                      }}
-                      onMouseEnter={(e) => {
-                        if (selectedIngredient !== idx) {
-                          e.currentTarget.style.borderColor = '#000';
-                        }
-                      }}
-                      onMouseLeave={(e) => {
-                        if (selectedIngredient !== idx) {
-                          e.currentTarget.style.borderColor = '#e8e8e8';
-                        }
-                      }}
-                    >
+                  gap: '20px',
+                  overflowX: 'auto',
+                  scrollBehavior: 'smooth',
+                  width: '100%',
+                  paddingRight: '50px',
+                  paddingBottom: '12px',
+                  WebkitOverflowScrolling: 'touch',
+                }}
+              >
+                {product.keyIngredients.map((ing: any, idx: number) => (
+                  <div
+                    key={idx}
+                    onClick={() => setSelectedIngredient(idx)}
+                    style={{
+                      minWidth: '380px',
+                      border: selectedIngredient === idx ? '2px solid #000' : '1px solid #e8e8e8',
+                      padding: '28px',
+                      cursor: 'pointer',
+                      backgroundColor: '#ffffff',
+                      transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                    }}
+                    onMouseEnter={(e) => {
+                      if (selectedIngredient !== idx) {
+                        e.currentTarget.style.borderColor = '#000';
+                      }
+                    }}
+                    onMouseLeave={(e) => {
+                      if (selectedIngredient !== idx) {
+                        e.currentTarget.style.borderColor = '#e8e8e8';
+                      }
+                    }}
+                  >
+                    <h3 style={{
+                      fontSize: '16px',
+                      fontWeight: '700',
+                      marginBottom: '12px',
+                      letterSpacing: '-0.3px',
+                      margin: '0 0 12px 0',
+                    }}>
                       {ing.name}
-                    </button>
-                  ))}
-                </div>
-
-                {/* Ingredient Details */}
-                <div>
-                  <h3 style={{
-                    fontSize: '16px',
-                    fontWeight: '700',
-                    marginBottom: '12px',
-                    letterSpacing: '-0.3px',
-                  }}>
-                    {product.keyIngredients[selectedIngredient].name}
-                  </h3>
-                  <p style={{
-                    fontSize: '14px',
-                    color: '#424245',
-                    lineHeight: '1.6',
-                    letterSpacing: '-0.2px',
-                    margin: 0,
-                  }}>
-                    {product.keyIngredients[selectedIngredient].description}
-                  </p>
-                </div>
+                    </h3>
+                    <p style={{
+                      fontSize: '14px',
+                      color: '#424245',
+                      lineHeight: '1.6',
+                      letterSpacing: '-0.2px',
+                      margin: 0,
+                    }}>
+                      {ing.description}
+                    </p>
+                  </div>
+                ))}
               </div>
+
+              {/* Right Arrow */}
+              <button
+                onClick={() => {
+                  const container = document.querySelector('[data-carousel]') as HTMLDivElement;
+                  if (container) {
+                    container.scrollBy({ left: 500, behavior: 'smooth' });
+                  }
+                }}
+                style={{
+                  position: 'absolute',
+                  right: '-50px',
+                  zIndex: 10,
+                  background: 'none',
+                  border: 'none',
+                  fontSize: '24px',
+                  cursor: 'pointer',
+                  color: '#000',
+                  opacity: 0.6,
+                  transition: 'opacity 0.2s',
+                  padding: '8px',
+                }}
+                onMouseEnter={(e) => { e.currentTarget.style.opacity = '1'; }}
+                onMouseLeave={(e) => { e.currentTarget.style.opacity = '0.6'; }}
+              >
+                →
+              </button>
             </div>
           </div>
 
