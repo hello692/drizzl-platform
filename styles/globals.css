@@ -648,3 +648,79 @@ svg:hover {
   letter-spacing: 0.1px;
   font-weight: 600;
 }
+
+/* DRIZZL DRIP MENU */
+.nav-menu {
+  position: relative;
+  display: inline-block;
+  margin-left: 24px;
+}
+
+.menu-trigger {
+  background: transparent;
+  border: none;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+/* DROPDOWN PANEL */
+.drip-dropdown {
+  position: absolute;
+  top: 34px;
+  right: 0;
+  width: 260px;
+  background: #c7d239; /* DRIZZL slime */
+  border-radius: 0 0 28px 28px;
+  padding: 24px 26px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  transform-origin: top;
+  transform: scaleY(0);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.25s ease, opacity 0.25s ease;
+  z-index: 100;
+  overflow: visible;
+}
+
+/* SHOW ON HOVER */
+.nav-menu:hover .drip-dropdown {
+  transform: scaleY(1);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* MENU LINKS */
+.drip-dropdown a {
+  color: #050816;
+  font-size: 16px;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+/* DRIPS */
+.drip {
+  position: absolute;
+  bottom: -32px;
+  width: 20px;
+  height: 44px;
+  background: #c7d239;
+  border-radius: 50% 50% 50% 50%;
+  animation: dripMove 2.4s infinite ease-in-out;
+}
+
+.d1 { left: 40px; animation-delay: 0s; }
+.d2 { left: 120px; height: 54px; animation-delay: 0.5s; }
+.d3 { left: 200px; height: 38px; animation-delay: 1s; }
+
+@keyframes dripMove {
+  0%   { transform: translateY(0); opacity: 0; }
+  20%  { opacity: 1; }
+  70%  { transform: translateY(22px); opacity: 1; }
+  100% { transform: translateY(36px); opacity: 0; }
+}
