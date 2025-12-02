@@ -29,7 +29,7 @@ export default function TermsOfService() {
             fontSize: '16px',
             color: '#999',
           }}>
-            Effective Date: February 5, 2025
+            Effective Date: December 2, 2025
           </p>
         </div>
 
