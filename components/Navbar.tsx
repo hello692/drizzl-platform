@@ -145,6 +145,10 @@ export default function Navbar() {
               Support
             </Link>
 
+            <Link href="/shop-all" style={{ fontSize: '16px', color: '#000', opacity: 0.6, transition: 'all 1s cubic-bezier(0.32, 0, 0.67, 0)' }} onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')} onMouseLeave={(e) => (e.currentTarget.style.opacity = '0.6')}>
+              🏪
+            </Link>
+
             <div style={{ position: 'relative' }}>
               <button 
                 onClick={toggleLang}
