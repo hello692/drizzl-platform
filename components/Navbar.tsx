@@ -138,13 +138,13 @@ export default function Navbar() {
               DRIZZL
             </div>
             <div style={{
-              fontSize: '12px',
+              fontSize: '11px',
               fontWeight: '700',
-              letterSpacing: '0.5px',
+              letterSpacing: '1.8px',
               textTransform: 'uppercase',
               whiteSpace: 'nowrap',
-              maxWidth: '52px',
               textAlign: 'center',
+              display: 'block',
             }}>
               WELLNESS
             </div>
