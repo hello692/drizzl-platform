@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router';
 import Link from 'next/link';
+import { useState } from 'react';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 
@@ -30,6 +31,11 @@ const smoothies: { [key: string]: any } = {
       { name: 'Peach', description: 'A peach is a good source of vitamin C, an antioxidant that protects essential molecules and supports the immune system.' },
       { name: 'Raspberry', description: 'A cup of raspberries is high in digestion supporting fiber and antioxidant vitamin C.' },
     ],
+    prepSteps: [
+      'Fill cup to top with your preferred liquid (any liquid works, but we\'d go with an option like water or coconut water).',
+      'Pour into a blender and blend.',
+      'Pour back into your cup and enjoy.',
+    ],
   },
   '2': {
     id: '2',
@@ -47,6 +53,11 @@ const smoothies: { [key: string]: any } = {
     keyIngredients: [
       { name: 'Strawberry', description: 'High in antioxidant vitamin C and provides a good source of fiber.' },
       { name: 'Banana', description: 'Rich in vitamin B6 and potassium.' },
+    ],
+    prepSteps: [
+      'Fill cup to top with your preferred liquid (any liquid works, but we\'d go with an option like water or coconut water).',
+      'Pour into a blender and blend.',
+      'Pour back into your cup and enjoy.',
     ],
   },
   '3': {
@@ -66,7 +77,61 @@ const smoothies: { [key: string]: any } = {
       { name: 'Mango', description: 'Rich in vitamins A and C, supporting vision and immune health.' },
       { name: 'Spinach', description: 'Packed with iron and other essential minerals.' },
     ],
+    prepSteps: [
+      'Fill cup to top with your preferred liquid (any liquid works, but we\'d go with an option like water or coconut water).',
+      'Pour into a blender and blend.',
+      'Pour back into your cup and enjoy.',
+    ],
   },
+};
+
+const AccordionSection = ({ title, content, defaultOpen = false }: { title: string; content: React.ReactNode; defaultOpen?: boolean }) => {
+  const [isOpen, setIsOpen] = useState(defaultOpen);
+
+  return (
+    <div style={{
+      borderBottom: '1px solid #e8e8e8',
+      paddingBottom: '24px',
+      marginBottom: '24px',
+    }}>
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        style={{
+          width: '100%',
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          background: 'none',
+          border: 'none',
+          padding: '0',
+          cursor: 'pointer',
+          fontSize: '16px',
+          fontWeight: '600',
+          letterSpacing: '-0.3px',
+        }}
+      >
+        <span>{title}</span>
+        <span style={{
+          fontSize: '20px',
+          transition: 'transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+          transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)',
+        }}>
+          ↓
+        </span>
+      </button>
+      {isOpen && (
+        <div style={{
+          marginTop: '16px',
+          fontSize: '14px',
+          color: '#424245',
+          lineHeight: '1.7',
+          letterSpacing: '-0.2px',
+        }}>
+          {content}
+        </div>
+      )}
+    </div>
+  );
 };
 
 export default function ProductDetail() {
@@ -230,71 +295,29 @@ export default function ProductDetail() {
             </div>
           </div>
 
-          {/* Description & Details Section */}
+          {/* Collapsible Accordion Section */}
           <div style={{
             borderTop: '1px solid #e8e8e8',
-            paddingTop: '60px',
+            paddingTop: '40px',
             marginBottom: '100px',
           }}>
-            <div style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(2, 1fr)',
-              gap: '60px',
-            }}>
-              {/* Left: Description & Ingredients */}
-              <div>
-                <h2 style={{
-                  fontSize: '20px',
-                  fontWeight: '700',
-                  marginBottom: '16px',
-                  letterSpacing: '-0.3px',
-                }}>
-                  Description
-                </h2>
-                <p style={{
-                  fontSize: '14px',
-                  color: '#424245',
-                  lineHeight: '1.8',
-                  letterSpacing: '-0.2px',
-                  marginBottom: '40px',
-                }}>
-                  {product.description}
-                </p>
-
-                <h3 style={{
-                  fontSize: '13px',
-                  fontWeight: '700',
-                  textTransform: 'uppercase',
-                  letterSpacing: '1px',
-                  marginBottom: '12px',
-                }}>
-                  All Ingredients
-                </h3>
-                <p style={{
-                  fontSize: '14px',
-                  color: '#424245',
-                  lineHeight: '1.7',
-                  letterSpacing: '-0.2px',
-                }}>
-                  {product.ingredients.join(', ')}.
-                </p>
-              </div>
-
-              {/* Right: Nutrition */}
-              <div>
-                <h3 style={{
-                  fontSize: '13px',
-                  fontWeight: '700',
-                  textTransform: 'uppercase',
-                  letterSpacing: '1px',
-                  marginBottom: '20px',
-                }}>
-                  Nutrition Facts
-                </h3>
+            <AccordionSection
+              title="Description"
+              content={<p style={{ margin: 0 }}>{product.description}</p>}
+              defaultOpen={false}
+            />
+            <AccordionSection
+              title="All ingredients"
+              content={<p style={{ margin: 0 }}>{product.ingredients.join(', ')}.</p>}
+              defaultOpen={false}
+            />
+            <AccordionSection
+              title="Nutrition facts"
+              content={
                 <div style={{
                   display: 'grid',
                   gridTemplateColumns: 'repeat(2, 1fr)',
-                  gap: '20px',
+                  gap: '24px',
                 }}>
                   {Object.entries(product.nutrition).map(([key, value]: [string, any]) => (
                     <div key={key}>
@@ -303,11 +326,12 @@ export default function ProductDetail() {
                         color: '#79747e',
                         textTransform: 'capitalize',
                         marginBottom: '4px',
+                        margin: 0,
                       }}>
                         {key}
                       </p>
                       <p style={{
-                        fontSize: '18px',
+                        fontSize: '16px',
                         fontWeight: '700',
                         margin: 0,
                       }}>
@@ -316,8 +340,18 @@ export default function ProductDetail() {
                     </div>
                   ))}
                 </div>
-              </div>
-            </div>
+              }
+              defaultOpen={false}
+            />
+            <AccordionSection
+              title="About Drizzl Wellness"
+              content={
+                <p style={{ margin: 0 }}>
+                  Drizzl Wellness makes pre-portioned food built on organic fruits and vegetables that arrives frozen at your doorstep—so all you have to make is a good decision. No prep, no mess, no stress and ready in minutes.
+                </p>
+              }
+              defaultOpen={true}
+            />
           </div>
 
           {/* Key Ingredients */}
@@ -332,6 +366,7 @@ export default function ProductDetail() {
               fontWeight: '700',
               marginBottom: '40px',
               letterSpacing: '-0.5px',
+              textTransform: 'uppercase',
             }}>
               Key Ingredients
             </h2>
@@ -341,11 +376,16 @@ export default function ProductDetail() {
               gap: '40px',
             }}>
               {product.keyIngredients.map((ing: any, idx: number) => (
-                <div key={idx}>
+                <div key={idx} style={{
+                  background: '#ffffff',
+                  border: '1px solid #e8e8e8',
+                  padding: '24px',
+                  borderRadius: '0px',
+                }}>
                   <h3 style={{
                     fontSize: '16px',
                     fontWeight: '700',
-                    marginBottom: '8px',
+                    marginBottom: '12px',
                     letterSpacing: '-0.3px',
                   }}>
                     {ing.name}
@@ -355,11 +395,93 @@ export default function ProductDetail() {
                     color: '#424245',
                     lineHeight: '1.6',
                     letterSpacing: '-0.2px',
+                    margin: 0,
                   }}>
                     {ing.description}
                   </p>
                 </div>
               ))}
+            </div>
+          </div>
+
+          {/* How to Prep */}
+          <div style={{
+            background: '#ffffff',
+            borderTop: '1px solid #e8e8e8',
+            paddingTop: '60px',
+            marginBottom: '100px',
+          }}>
+            <h2 style={{
+              fontSize: '28px',
+              fontWeight: '700',
+              marginBottom: '40px',
+              letterSpacing: '-0.5px',
+              textTransform: 'uppercase',
+            }}>
+              How to Prep
+            </h2>
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: '1fr 1fr',
+              gap: '60px',
+              alignItems: 'center',
+            }}>
+              {/* Left: Image placeholder */}
+              <div style={{
+                background: '#f0f0f0',
+                borderRadius: '0px',
+                height: '400px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}>
+                <img
+                  src="https://daily-harvest.com/cdn/shop/files/Smoothie_Blending_6.gif?v=1762142309&width=460"
+                  alt="How to prep"
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover',
+                  }}
+                />
+              </div>
+
+              {/* Right: Steps */}
+              <div>
+                {product.prepSteps.map((step: string, idx: number) => (
+                  <div key={idx} style={{
+                    display: 'flex',
+                    gap: '20px',
+                    marginBottom: idx !== product.prepSteps.length - 1 ? '28px' : 0,
+                  }}>
+                    <div style={{
+                      background: '#000',
+                      color: '#ffffff',
+                      width: '36px',
+                      height: '36px',
+                      minWidth: '36px',
+                      borderRadius: '50%',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      fontSize: '16px',
+                      fontWeight: '700',
+                    }}>
+                      {idx + 1}
+                    </div>
+                    <p style={{
+                      fontSize: '14px',
+                      color: '#424245',
+                      lineHeight: '1.7',
+                      letterSpacing: '-0.2px',
+                      margin: 0,
+                      paddingTop: '8px',
+                    }}>
+                      {step}
+                    </p>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
 
