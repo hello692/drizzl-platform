@@ -68,32 +68,44 @@ export default function Navbar() {
           justifyContent: 'space-between',
           alignItems: 'center',
           flexWrap: 'nowrap',
-          gap: '40px',
-          position: 'relative',
+          gap: '32px',
         }}>
-          <div className="navbar-menu" style={{ display: 'flex', gap: '40px', alignItems: 'center' }}>
-            <Link href="/smoothies" className="navbar-link">Smoothies</Link>
-            <Link href="/bowls" className="navbar-link">Bowls</Link>
-            <Link href="/about" className="navbar-link">About</Link>
-            <Link href="/contact" className="navbar-link">Contact</Link>
+          <div style={{ display: 'flex', gap: '32px', alignItems: 'center', flex: 0 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#000', cursor: 'pointer', opacity: 0.7, transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)', whiteSpace: 'nowrap' }} onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')} onMouseLeave={(e) => (e.currentTarget.style.opacity = '0.7')}>
+              <SearchIcon />
+              <span style={{ fontSize: '14px', fontWeight: '500' }}>Search</span>
+            </div>
+            <button style={{ padding: '0', border: 'none', background: 'none', color: '#000', cursor: 'pointer', fontSize: '14px', fontWeight: '500', display: 'flex', alignItems: 'center', gap: '8px', opacity: 0.7, transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)', whiteSpace: 'nowrap' }} onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')} onMouseLeave={(e) => (e.currentTarget.style.opacity = '0.7')}>
+              <LocationIcon />
+              Find in stores
+            </button>
           </div>
 
-          <div style={{ position: 'absolute', left: '50%', transform: 'translateX(-50%)', flex: 'none' }}>
+          <div style={{ flex: 1, display: 'flex', justifyContent: 'center' }}>
             <Link href="/" className="heading-2100 text-glow" style={{ fontSize: '24px', textDecoration: 'none', whiteSpace: 'nowrap', transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)', lineHeight: '1' }} onMouseEnter={(e) => { e.currentTarget.style.textShadow = '0 0 20px rgba(66, 133, 244, 0.6)'; }} onMouseLeave={(e) => { e.currentTarget.style.textShadow = '0 0 10px rgba(66, 133, 244, 0.3)'; }}>
               DRIZZL
             </Link>
           </div>
 
-          <div style={{ display: 'flex', alignItems: 'center', gap: '24px', marginLeft: 'auto' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '24px', flex: 0, position: 'relative' }}>
             <Link href="/auth" style={{ color: '#000', fontSize: '14px', fontWeight: '500', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '8px', opacity: 0.7, transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)', whiteSpace: 'nowrap' }} onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')} onMouseLeave={(e) => (e.currentTarget.style.opacity = '0.7')}>
               <UserIcon />
               Log in
+            </Link>
+
+            <Link href="/retail-partner" style={{ color: '#000', fontSize: '14px', fontWeight: '500', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '8px', opacity: 0.7, transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)', whiteSpace: 'nowrap' }} onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')} onMouseLeave={(e) => (e.currentTarget.style.opacity = '0.7')}>
+              <BriefcaseIcon />
+              Partner Login
             </Link>
 
             <Link href="/cart" style={{ fontSize: '14px', fontWeight: '500', color: '#000', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '8px', opacity: 0.7, transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)', whiteSpace: 'nowrap' }} onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')} onMouseLeave={(e) => (e.currentTarget.style.opacity = '0.7')}>
               <CartIcon />
               <span>Cart (0)</span>
             </Link>
+
+            <button style={{ padding: '0', border: 'none', background: 'none', color: '#000', cursor: 'pointer', fontSize: '14px', fontWeight: '500', display: 'flex', alignItems: 'center', gap: '8px', opacity: 0.7, transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)', whiteSpace: 'nowrap' }} onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')} onMouseLeave={(e) => (e.currentTarget.style.opacity = '0.7')}>
+              <MenuIcon />
+            </button>
           </div>
         </div>
       </nav>
