@@ -244,51 +244,31 @@ export default function Navbar() {
             <svg 
               style={{ 
                 position: 'absolute', 
-                bottom: '-120px', 
+                bottom: '-150px', 
                 left: 0, 
                 right: 0, 
                 width: '100%', 
-                height: '140px',
+                height: '170px',
                 pointerEvents: 'none'
               }} 
-              viewBox="0 0 1000 140" 
+              viewBox="0 0 1000 170" 
               preserveAspectRatio="none" 
               xmlns="http://www.w3.org/2000/svg"
             >
               <defs>
                 <linearGradient id="dripBottom" x1="0%" y1="0%" x2="0%" y2="100%">
-                  <stop offset="0%" stopColor="#f0ed7f" stopOpacity="0.9" />
+                  <stop offset="0%" stopColor="#f0ed7f" stopOpacity="0.95" />
                   <stop offset="100%" stopColor="#f0ed7f" stopOpacity="0" />
                 </linearGradient>
               </defs>
-              {/* Wavy bottom edge */}
-              <path d="M 0,20 Q 50,50 100,30 T 200,35 Q 250,55 300,25 T 400,40 Q 450,60 500,20 T 600,35 Q 650,55 700,25 T 800,40 Q 850,60 900,30 T 1000,35 L 1000,0 L 0,0 Z" fill="url(#dripBottom)" />
+              {/* One continuous organic flowing shape */}
+              <path d="M 0,0 L 0,30 Q 50,50 100,35 Q 150,20 200,45 Q 250,70 300,40 Q 350,10 400,50 Q 450,90 500,35 Q 550,0 600,45 Q 650,85 700,38 Q 750,0 800,48 Q 850,85 900,35 Q 950,15 1000,40 L 1000,30 Q 950,60 900,70 Q 850,95 800,75 Q 750,50 700,85 Q 650,120 600,90 Q 550,60 500,95 Q 450,135 400,95 Q 350,60 300,100 Q 250,140 200,100 Q 150,70 100,115 Q 50,150 0,120 Z" fill="url(#dripBottom)" />
               
-              {/* Large hanging drips from bottom */}
-              <ellipse cx="80" cy="28" rx="16" ry="28" fill="#f0ed7f" opacity="0.95" />
-              <path d="M 80,56 Q 75,80 78,110 Q 80,130 78,140" stroke="#f0ed7f" strokeWidth="12" fill="none" opacity="0.8" strokeLinecap="round" />
-              
-              <ellipse cx="250" cy="32" rx="18" ry="32" fill="#f0ed7f" opacity="0.9" />
-              <path d="M 250,64 Q 244,92 248,125 Q 250,138 248,145" stroke="#f0ed7f" strokeWidth="13" fill="none" opacity="0.75" strokeLinecap="round" />
-              
-              <ellipse cx="450" cy="25" rx="17" ry="30" fill="#f0ed7f" opacity="0.95" />
-              <path d="M 450,55 Q 444,85 450,120 Q 452,135 450,142" stroke="#f0ed7f" strokeWidth="12" fill="none" opacity="0.8" strokeLinecap="round" />
-              
-              <ellipse cx="680" cy="30" rx="16" ry="29" fill="#f0ed7f" opacity="0.9" />
-              <path d="M 680,59 Q 674,87 680,123 Q 682,137 680,145" stroke="#f0ed7f" strokeWidth="12" fill="none" opacity="0.75" strokeLinecap="round" />
-              
-              <ellipse cx="900" cy="28" rx="17" ry="31" fill="#f0ed7f" opacity="0.92" />
-              <path d="M 900,59 Q 894,88 900,125 Q 902,138 900,142" stroke="#f0ed7f" strokeWidth="12" fill="none" opacity="0.78" strokeLinecap="round" />
-              
-              {/* Small drips */}
-              <circle cx="180" cy="35" r="8" fill="#f0ed7f" opacity="0.7" />
-              <path d="M 180,43 Q 177,65 180,95" stroke="#f0ed7f" strokeWidth="7" fill="none" opacity="0.6" strokeLinecap="round" />
-              
-              <circle cx="550" cy="38" r="9" fill="#f0ed7f" opacity="0.75" />
-              <path d="M 550,47 Q 546,72 550,105" stroke="#f0ed7f" strokeWidth="8" fill="none" opacity="0.65" strokeLinecap="round" />
-              
-              <circle cx="800" cy="35" r="8" fill="#f0ed7f" opacity="0.7" />
-              <path d="M 800,43 Q 797,68 800,100" stroke="#f0ed7f" strokeWidth="7" fill="none" opacity="0.6" strokeLinecap="round" />
+              {/* Hanging drip bulbs at key points */}
+              <ellipse cx="130" cy="50" rx="22" ry="45" fill="#f0ed7f" opacity="0.92" />
+              <ellipse cx="360" cy="65" rx="24" ry="48" fill="#f0ed7f" opacity="0.88" />
+              <ellipse cx="640" cy="55" rx="23" ry="46" fill="#f0ed7f" opacity="0.9" />
+              <ellipse cx="880" cy="65" rx="24" ry="47" fill="#f0ed7f" opacity="0.88" />
             </svg>
           </div>
         </>
