@@ -195,12 +195,6 @@ export default function Footer() {
               <a href="#" style={{ fontSize: '16px' }}>📷</a>
               <a href="#" style={{ fontSize: '16px' }}>𝕏</a>
             </div>
-
-            {/* App Store Buttons */}
-            <div style={{ display: 'flex', gap: '8px', marginTop: '20px' }}>
-              <img src="https://via.placeholder.com/120x40?text=Google+Play" alt="Google Play" style={{ height: '32px' }} />
-              <img src="https://via.placeholder.com/120x40?text=App+Store" alt="App Store" style={{ height: '32px' }} />
-            </div>
           </div>
         </div>
 
