@@ -17,6 +17,11 @@
 
 ### B2B Retail Partner Portal
 - `/retail` - Partner login page
+- `/retail/apply` - 4-step wholesale partner application:
+  - Step 1: Business Information with address autocomplete (OpenStreetMap)
+  - Step 2: Business Verification with drag-drop file upload for certificates
+  - Step 3: Decision Maker contact details
+  - Step 4: Order & Logistics preferences with terms agreement
 - `/retail-partner/dashboard` - Full wholesale portal
   - Wholesale product catalog with discounted pricing
   - B2B cart and order placement
@@ -54,7 +59,9 @@ All tables protected with RLS policies for:
 - Partners can access B2B features
 - Admins have full access
 
-Schema file: `/database/supabase-schema.sql`
+Schema files:
+- `/database/supabase-schema.sql` - Complete database schema
+- `/database/retail-partners-migration.sql` - Migration for retail partners table
 
 ## User Roles
 1. **customer** - Standard D2C customer (default)

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import Navbar from '../../components/Navbar';
@@ -30,6 +30,19 @@ interface FormData {
   receivingHours: string;
   hasLoadingDock: string;
   preferredPaymentMethod: string;
+  agreedToTerms: boolean;
+}
+
+interface AddressSuggestion {
+  display_name: string;
+  address: {
+    road?: string;
+    house_number?: string;
+    city?: string;
+    state?: string;
+    postcode?: string;
+    country?: string;
+  };
 }
 
 const initialFormData: FormData = {
@@ -56,6 +69,7 @@ const initialFormData: FormData = {
   receivingHours: '',
   hasLoadingDock: '',
   preferredPaymentMethod: '',
+  agreedToTerms: false,
 };
 
 export default function RetailApply() {
@@ -66,6 +80,19 @@ export default function RetailApply() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState('');
   const [existingApplication, setExistingApplication] = useState<any>(null);
+  
+  const [addressSuggestions, setAddressSuggestions] = useState<AddressSuggestion[]>([]);
+  const [showAddressSuggestions, setShowAddressSuggestions] = useState(false);
+  const [isSearchingAddress, setIsSearchingAddress] = useState(false);
+  const addressInputRef = useRef<HTMLInputElement>(null);
+  const suggestionsRef = useRef<HTMLDivElement>(null);
+  const searchTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  
+  const [uploadedFile, setUploadedFile] = useState<File | null>(null);
+  const [isUploading, setIsUploading] = useState(false);
+  const [uploadProgress, setUploadProgress] = useState(0);
+  const [isDragOver, setIsDragOver] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     if (user) {
@@ -77,6 +104,17 @@ export default function RetailApply() {
       }));
     }
   }, [user]);
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (suggestionsRef.current && !suggestionsRef.current.contains(event.target as Node) &&
+          addressInputRef.current && !addressInputRef.current.contains(event.target as Node)) {
+        setShowAddressSuggestions(false);
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   async function checkExistingApplication() {
     if (!user) return;
@@ -93,9 +131,164 @@ export default function RetailApply() {
     }
   }
 
+  const searchAddress = useCallback(async (query: string) => {
+    if (query.length < 3) {
+      setAddressSuggestions([]);
+      setShowAddressSuggestions(false);
+      return;
+    }
+
+    setIsSearchingAddress(true);
+    try {
+      const response = await fetch(
+        `https://nominatim.openstreetmap.org/search?format=json&addressdetails=1&limit=5&countrycodes=us,ca&q=${encodeURIComponent(query)}`,
+        {
+          headers: {
+            'Accept': 'application/json',
+            'User-Agent': 'DrizzlWellness/1.0'
+          }
+        }
+      );
+      
+      if (response.ok) {
+        const data = await response.json();
+        setAddressSuggestions(data);
+        setShowAddressSuggestions(data.length > 0);
+      }
+    } catch (err) {
+      console.error('Address search error:', err);
+    } finally {
+      setIsSearchingAddress(false);
+    }
+  }, []);
+
+  const handleAddressChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
+    setFormData(prev => ({ ...prev, businessAddress: value }));
+    
+    if (searchTimeoutRef.current) {
+      clearTimeout(searchTimeoutRef.current);
+    }
+    
+    searchTimeoutRef.current = setTimeout(() => {
+      searchAddress(value);
+    }, 300);
+  };
+
+  const selectAddress = (suggestion: AddressSuggestion) => {
+    const addr = suggestion.address;
+    const streetAddress = addr.house_number 
+      ? `${addr.house_number} ${addr.road || ''}`
+      : addr.road || suggestion.display_name.split(',')[0];
+    
+    setFormData(prev => ({
+      ...prev,
+      businessAddress: streetAddress.trim(),
+      city: addr.city || '',
+      state: addr.state || '',
+      zip: addr.postcode || '',
+      country: addr.country === 'United States' || addr.country === 'USA' ? 'USA' : 'CAN',
+    }));
+    
+    setShowAddressSuggestions(false);
+    setAddressSuggestions([]);
+  };
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    const { name, value, type } = e.target;
+    if (type === 'checkbox') {
+      const checked = (e.target as HTMLInputElement).checked;
+      setFormData(prev => ({ ...prev, [name]: checked }));
+    } else {
+      setFormData(prev => ({ ...prev, [name]: value }));
+    }
+  };
+
+  const handleFileDrop = async (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    setIsDragOver(false);
+    
+    const files = e.dataTransfer.files;
+    if (files.length > 0) {
+      await handleFileUpload(files[0]);
+    }
+  };
+
+  const handleFileSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    if (files && files.length > 0) {
+      await handleFileUpload(files[0]);
+    }
+  };
+
+  const [uploadError, setUploadError] = useState<string>('');
+
+  const handleFileUpload = async (file: File) => {
+    const allowedTypes = ['application/pdf', 'image/jpeg', 'image/png', 'image/jpg'];
+    if (!allowedTypes.includes(file.type)) {
+      setError('Please upload a PDF, JPG, or PNG file.');
+      return;
+    }
+
+    if (file.size > 10 * 1024 * 1024) {
+      setError('File size must be under 10MB.');
+      return;
+    }
+
+    setUploadedFile(file);
+    setIsUploading(true);
+    setUploadProgress(0);
+    setUploadError('');
+    setError('');
+
+    try {
+      const fileExt = file.name.split('.').pop();
+      const fileName = `resale-cert-${user?.id}-${Date.now()}.${fileExt}`;
+      
+      const progressInterval = setInterval(() => {
+        setUploadProgress(prev => Math.min(prev + 10, 90));
+      }, 100);
+
+      const { data, error: storageError } = await supabase.storage
+        .from('certificates')
+        .upload(fileName, file, {
+          cacheControl: '3600',
+          upsert: true
+        });
+
+      clearInterval(progressInterval);
+
+      if (storageError) {
+        console.error('Upload error:', storageError);
+        setUploadProgress(100);
+        setUploadError('File uploaded locally. Cloud storage not configured - your file will be reviewed after submission.');
+        setFormData(prev => ({ ...prev, resaleCertificateUrl: `pending:${file.name}` }));
+      } else {
+        const { data: urlData } = supabase.storage
+          .from('certificates')
+          .getPublicUrl(fileName);
+        
+        setFormData(prev => ({ ...prev, resaleCertificateUrl: urlData.publicUrl }));
+        setUploadProgress(100);
+        setUploadError('');
+      }
+    } catch (err) {
+      console.error('Upload error:', err);
+      setUploadProgress(100);
+      setUploadError('Could not upload to cloud storage. Your file name has been recorded.');
+      setFormData(prev => ({ ...prev, resaleCertificateUrl: `pending:${file.name}` }));
+    } finally {
+      setIsUploading(false);
+    }
+  };
+
+  const removeFile = () => {
+    setUploadedFile(null);
+    setUploadProgress(0);
+    setFormData(prev => ({ ...prev, resaleCertificateUrl: '' }));
+    if (fileInputRef.current) {
+      fileInputRef.current.value = '';
+    }
   };
 
   const validateStep = (stepNum: number): boolean => {
@@ -126,6 +319,10 @@ export default function RetailApply() {
     if (stepNum === 4) {
       if (!formData.estimatedMonthlyVolume || !formData.preferredDeliverySchedule || !formData.preferredPaymentMethod) {
         setError('Please complete all order preferences.');
+        return false;
+      }
+      if (!formData.agreedToTerms) {
+        setError('Please agree to the terms and policy to submit your application.');
         return false;
       }
     }
@@ -218,9 +415,12 @@ export default function RetailApply() {
               alignItems: 'center',
               justifyContent: 'center',
               margin: '0 auto 24px',
-              fontSize: '32px',
             }}>
-              {existingApplication.status === 'approved' ? '✓' : existingApplication.status === 'rejected' ? '×' : '○'}
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke={existingApplication.status === 'approved' ? '#1e7e34' : existingApplication.status === 'rejected' ? '#c53929' : '#f57c00'} strokeWidth="2">
+                {existingApplication.status === 'approved' && <path d="M20 6L9 17l-5-5" />}
+                {existingApplication.status === 'rejected' && <><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></>}
+                {existingApplication.status === 'pending' && <circle cx="12" cy="12" r="10" />}
+              </svg>
             </div>
             <h1 style={{ fontSize: '32px', fontWeight: '700', marginBottom: '16px' }}>
               Application {existingApplication.status === 'approved' ? 'Approved' : existingApplication.status === 'rejected' ? 'Not Approved' : 'Under Review'}
@@ -293,7 +493,11 @@ export default function RetailApply() {
                   fontSize: '14px',
                   fontWeight: '600',
                 }}>
-                  {s < step ? '✓' : s}
+                  {s < step ? (
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
+                      <path d="M20 6L9 17l-5-5" />
+                    </svg>
+                  ) : s}
                 </div>
                 {s < 4 && <div style={{ width: '40px', height: '2px', background: s < step ? '#1e7e34' : '#e0e0e0' }} />}
               </div>
@@ -325,9 +529,79 @@ export default function RetailApply() {
                   <label style={labelStyle}>DBA / Store Name</label>
                   <input type="text" name="dbaStoreName" value={formData.dbaStoreName} onChange={handleChange} style={inputStyle} placeholder="If different from legal name" />
                 </div>
-                <div>
+                <div style={{ position: 'relative' }}>
                   <label style={labelStyle}>Business Address *</label>
-                  <input type="text" name="businessAddress" value={formData.businessAddress} onChange={handleChange} style={inputStyle} placeholder="Street address" />
+                  <div style={{ position: 'relative' }}>
+                    <input
+                      ref={addressInputRef}
+                      type="text"
+                      name="businessAddress"
+                      value={formData.businessAddress}
+                      onChange={handleAddressChange}
+                      onFocus={() => formData.businessAddress.length >= 3 && setShowAddressSuggestions(addressSuggestions.length > 0)}
+                      style={{ ...inputStyle, paddingRight: '40px' }}
+                      placeholder="Start typing your address..."
+                      autoComplete="off"
+                    />
+                    {isSearchingAddress && (
+                      <div style={{ position: 'absolute', right: '12px', top: '50%', transform: 'translateY(-50%)' }}>
+                        <svg width="20" height="20" viewBox="0 0 24 24" style={{ animation: 'spin 1s linear infinite' }}>
+                          <circle cx="12" cy="12" r="10" stroke="#ccc" strokeWidth="2" fill="none" strokeDasharray="30 60" />
+                        </svg>
+                      </div>
+                    )}
+                    {!isSearchingAddress && (
+                      <div style={{ position: 'absolute', right: '12px', top: '50%', transform: 'translateY(-50%)', color: '#999' }}>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                          <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                          <circle cx="12" cy="10" r="3" />
+                        </svg>
+                      </div>
+                    )}
+                  </div>
+                  {showAddressSuggestions && addressSuggestions.length > 0 && (
+                    <div
+                      ref={suggestionsRef}
+                      style={{
+                        position: 'absolute',
+                        top: '100%',
+                        left: 0,
+                        right: 0,
+                        background: '#fff',
+                        border: '1px solid #d0d0d0',
+                        borderRadius: '8px',
+                        marginTop: '4px',
+                        boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
+                        zIndex: 100,
+                        maxHeight: '240px',
+                        overflowY: 'auto',
+                      }}
+                    >
+                      {addressSuggestions.map((suggestion, index) => (
+                        <div
+                          key={index}
+                          onClick={() => selectAddress(suggestion)}
+                          style={{
+                            padding: '12px 16px',
+                            cursor: 'pointer',
+                            borderBottom: index < addressSuggestions.length - 1 ? '1px solid #eee' : 'none',
+                            fontSize: '14px',
+                            display: 'flex',
+                            alignItems: 'flex-start',
+                            gap: '10px',
+                          }}
+                          onMouseEnter={(e) => e.currentTarget.style.background = '#f5f5f5'}
+                          onMouseLeave={(e) => e.currentTarget.style.background = '#fff'}
+                        >
+                          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#666" strokeWidth="2" style={{ marginTop: '2px', flexShrink: 0 }}>
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                            <circle cx="12" cy="10" r="3" />
+                          </svg>
+                          <span style={{ color: '#333' }}>{suggestion.display_name}</span>
+                        </div>
+                      ))}
+                    </div>
+                  )}
                 </div>
                 <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr', gap: '12px' }}>
                   <div>
@@ -376,8 +650,75 @@ export default function RetailApply() {
                 </div>
                 <div>
                   <label style={labelStyle}>Resale Certificate (optional)</label>
-                  <input type="text" name="resaleCertificateUrl" value={formData.resaleCertificateUrl} onChange={handleChange} style={inputStyle} placeholder="Paste a link to your document (Google Drive, Dropbox, etc.)" />
-                  <p style={{ fontSize: '12px', color: '#666', marginTop: '6px' }}>Upload your resale certificate to a cloud service and paste the link here</p>
+                  <div
+                    onDragOver={(e) => { e.preventDefault(); setIsDragOver(true); }}
+                    onDragLeave={() => setIsDragOver(false)}
+                    onDrop={handleFileDrop}
+                    onClick={() => !uploadedFile && fileInputRef.current?.click()}
+                    style={{
+                      border: `2px dashed ${isDragOver ? '#000' : '#d0d0d0'}`,
+                      borderRadius: '12px',
+                      padding: uploadedFile ? '20px' : '40px 20px',
+                      textAlign: 'center',
+                      cursor: uploadedFile ? 'default' : 'pointer',
+                      background: isDragOver ? '#f9f9f9' : '#fff',
+                      transition: 'all 0.2s',
+                    }}
+                  >
+                    <input
+                      ref={fileInputRef}
+                      type="file"
+                      accept=".pdf,.jpg,.jpeg,.png"
+                      onChange={handleFileSelect}
+                      style={{ display: 'none' }}
+                    />
+                    {!uploadedFile ? (
+                      <>
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#999" strokeWidth="1.5" style={{ marginBottom: '12px' }}>
+                          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                          <polyline points="17 8 12 3 7 8" />
+                          <line x1="12" y1="3" x2="12" y2="15" />
+                        </svg>
+                        <p style={{ fontSize: '14px', color: '#333', marginBottom: '4px' }}>
+                          <strong>Drag and drop</strong> your certificate here
+                        </p>
+                        <p style={{ fontSize: '13px', color: '#666', marginBottom: '8px' }}>or click to browse</p>
+                        <p style={{ fontSize: '12px', color: '#999' }}>PDF, JPG, or PNG up to 10MB</p>
+                      </>
+                    ) : (
+                      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#1e7e34" strokeWidth="2">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                            <polyline points="14 2 14 8 20 8" />
+                            <line x1="16" y1="13" x2="8" y2="13" />
+                            <line x1="16" y1="17" x2="8" y2="17" />
+                          </svg>
+                          <div style={{ textAlign: 'left' }}>
+                            <p style={{ fontSize: '14px', fontWeight: '600', color: '#333' }}>{uploadedFile.name}</p>
+                            <p style={{ fontSize: '12px', color: uploadError ? '#e65100' : '#666' }}>
+                              {isUploading ? `Uploading... ${uploadProgress}%` : uploadError || 'Uploaded successfully'}
+                            </p>
+                          </div>
+                        </div>
+                        <button
+                          onClick={(e) => { e.stopPropagation(); removeFile(); }}
+                          style={{
+                            background: 'none',
+                            border: 'none',
+                            cursor: 'pointer',
+                            padding: '8px',
+                            color: '#666',
+                          }}
+                        >
+                          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                            <line x1="18" y1="6" x2="6" y2="18" />
+                            <line x1="6" y1="6" x2="18" y2="18" />
+                          </svg>
+                        </button>
+                      </div>
+                    )}
+                  </div>
                 </div>
                 <div>
                   <label style={labelStyle}>Business Type *</label>
@@ -469,6 +810,40 @@ export default function RetailApply() {
                     <option value="net_60">Net-60</option>
                   </select>
                 </div>
+
+                <div style={{ 
+                  marginTop: '20px', 
+                  padding: '20px', 
+                  background: '#f9f9f9', 
+                  borderRadius: '12px',
+                  border: '1px solid #e8e8e8'
+                }}>
+                  <label style={{ 
+                    display: 'flex', 
+                    alignItems: 'flex-start', 
+                    gap: '12px', 
+                    cursor: 'pointer',
+                    fontSize: '14px',
+                    lineHeight: '1.5'
+                  }}>
+                    <input
+                      type="checkbox"
+                      name="agreedToTerms"
+                      checked={formData.agreedToTerms}
+                      onChange={handleChange}
+                      style={{
+                        width: '20px',
+                        height: '20px',
+                        marginTop: '2px',
+                        cursor: 'pointer',
+                        accentColor: '#000',
+                      }}
+                    />
+                    <span>
+                      I hereby agree to the terms and policies of <strong>Drizzl Wellness Plantonica Inc.</strong> I confirm that all information provided in this application is accurate and complete. I understand that my application will be reviewed and I will be notified of the decision.
+                    </span>
+                  </label>
+                </div>
               </div>
             )}
 
@@ -497,6 +872,12 @@ export default function RetailApply() {
           </p>
         </div>
       </div>
+      <style jsx global>{`
+        @keyframes spin {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
+        }
+      `}</style>
       <Footer />
     </>
   );

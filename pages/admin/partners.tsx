@@ -3,33 +3,43 @@ import Link from 'next/link';
 import { useRequireAdmin } from '../../hooks/useRole';
 import { supabase } from '../../lib/supabaseClient';
 
+interface ApplicationData {
+  legalBusinessName?: string;
+  dbaStoreName?: string;
+  businessAddress?: string;
+  city?: string;
+  state?: string;
+  zip?: string;
+  country?: string;
+  businessPhone?: string;
+  businessEmail?: string;
+  website?: string;
+  einTaxId?: string;
+  resaleCertificateUrl?: string;
+  businessType?: string;
+  yearsInBusiness?: string;
+  decisionMakerName?: string;
+  decisionMakerRole?: string;
+  decisionMakerEmail?: string;
+  decisionMakerPhone?: string;
+  estimatedMonthlyVolume?: string;
+  preferredDeliverySchedule?: string;
+  receivingHours?: string;
+  hasLoadingDock?: string;
+  preferredPaymentMethod?: string;
+  agreedToTerms?: boolean;
+  submittedAt?: string;
+}
+
 interface Partner {
   id: string;
   user_id: string;
   status: string;
-  legal_business_name: string;
-  dba_store_name: string;
-  business_address: string;
-  business_email: string;
-  business_phone: string;
-  business_type: string;
-  city: string;
-  state: string;
-  zip: string;
-  country: string;
-  website: string;
-  ein_tax_id: string;
-  resale_certificate_url: string;
-  years_in_business: number;
-  decision_maker_name: string;
-  decision_maker_role: string;
-  decision_maker_email: string;
-  decision_maker_phone: string;
-  estimated_monthly_volume: string;
-  preferred_delivery_schedule: string;
-  receiving_hours: string;
-  has_loading_dock: boolean;
-  preferred_payment_method: string;
+  company_name: string;
+  contact_name: string;
+  email: string;
+  phone: string;
+  application_data: ApplicationData;
   admin_notes: string;
   rejection_reason: string;
   created_at: string;
@@ -79,6 +89,10 @@ const deliveryLabels: Record<string, string> = {
   bi_weekly: 'Bi-Weekly',
   monthly: 'Monthly',
 };
+
+function getAppData(partner: Partner): ApplicationData {
+  return partner.application_data || {};
+}
 
 export default function AdminPartners() {
   const { user, loading, authorized } = useRequireAdmin();
@@ -222,199 +236,211 @@ export default function AdminPartners() {
               ) : filteredPartners.length === 0 ? (
                 <tr><td colSpan={7} style={{ padding: '40px', textAlign: 'center', color: '#666' }}>No partners found</td></tr>
               ) : (
-                filteredPartners.map(partner => (
-                  <tr key={partner.id} style={{ borderBottom: '1px solid #eee' }}>
-                    <td style={{ padding: '16px' }}>
-                      <p style={{ fontWeight: '600', fontSize: '14px', marginBottom: '2px' }}>{partner.legal_business_name}</p>
-                      {partner.dba_store_name && <p style={{ fontSize: '12px', color: '#666' }}>DBA: {partner.dba_store_name}</p>}
-                      <p style={{ fontSize: '12px', color: '#999' }}>{partner.business_email}</p>
-                    </td>
-                    <td style={{ padding: '16px', fontSize: '14px' }}>{businessTypeLabels[partner.business_type] || partner.business_type || '-'}</td>
-                    <td style={{ padding: '16px', fontSize: '14px' }}>{partner.city}, {partner.state}</td>
-                    <td style={{ padding: '16px', fontSize: '14px' }}>{volumeLabels[partner.estimated_monthly_volume] || partner.estimated_monthly_volume || '-'}</td>
-                    <td style={{ padding: '16px' }}>
-                      <span style={{
-                        display: 'inline-block',
-                        padding: '4px 12px',
-                        borderRadius: '20px',
-                        fontSize: '12px',
-                        fontWeight: '500',
-                        background: statusColors[partner.status]?.bg || '#f5f5f5',
-                        color: statusColors[partner.status]?.text || '#666',
-                        textTransform: 'capitalize',
-                      }}>
-                        {partner.status}
-                      </span>
-                    </td>
-                    <td style={{ padding: '16px', fontSize: '13px', color: '#666' }}>{new Date(partner.created_at).toLocaleDateString()}</td>
-                    <td style={{ padding: '16px' }}>
-                      <button
-                        onClick={() => { setSelectedPartner(partner); setShowDetail(true); setAdminNotes(partner.admin_notes || ''); }}
-                        style={{ padding: '6px 14px', background: partner.status === 'pending' ? '#e65100' : '#000', color: '#fff', border: 'none', borderRadius: '6px', fontSize: '12px', cursor: 'pointer' }}
-                      >
-                        {partner.status === 'pending' ? 'Review' : 'View'}
-                      </button>
-                    </td>
-                  </tr>
-                ))
+                filteredPartners.map(partner => {
+                  const appData = getAppData(partner);
+                  return (
+                    <tr key={partner.id} style={{ borderBottom: '1px solid #eee' }}>
+                      <td style={{ padding: '16px' }}>
+                        <p style={{ fontWeight: '600', fontSize: '14px', marginBottom: '2px' }}>{partner.company_name || appData.legalBusinessName || '-'}</p>
+                        {appData.dbaStoreName && <p style={{ fontSize: '12px', color: '#666' }}>DBA: {appData.dbaStoreName}</p>}
+                        <p style={{ fontSize: '12px', color: '#999' }}>{partner.email || appData.businessEmail || '-'}</p>
+                      </td>
+                      <td style={{ padding: '16px', fontSize: '14px' }}>{businessTypeLabels[appData.businessType || ''] || appData.businessType || '-'}</td>
+                      <td style={{ padding: '16px', fontSize: '14px' }}>{appData.city || '-'}{appData.state ? `, ${appData.state}` : ''}</td>
+                      <td style={{ padding: '16px', fontSize: '14px' }}>{volumeLabels[appData.estimatedMonthlyVolume || ''] || appData.estimatedMonthlyVolume || '-'}</td>
+                      <td style={{ padding: '16px' }}>
+                        <span style={{
+                          display: 'inline-block',
+                          padding: '4px 12px',
+                          borderRadius: '20px',
+                          fontSize: '12px',
+                          fontWeight: '500',
+                          background: statusColors[partner.status]?.bg || '#f5f5f5',
+                          color: statusColors[partner.status]?.text || '#666',
+                          textTransform: 'capitalize',
+                        }}>
+                          {partner.status}
+                        </span>
+                      </td>
+                      <td style={{ padding: '16px', fontSize: '13px', color: '#666' }}>{new Date(partner.created_at).toLocaleDateString()}</td>
+                      <td style={{ padding: '16px' }}>
+                        <button
+                          onClick={() => { setSelectedPartner(partner); setShowDetail(true); setAdminNotes(partner.admin_notes || ''); }}
+                          style={{ padding: '6px 14px', background: partner.status === 'pending' ? '#e65100' : '#000', color: '#fff', border: 'none', borderRadius: '6px', fontSize: '12px', cursor: 'pointer' }}
+                        >
+                          {partner.status === 'pending' ? 'Review' : 'View'}
+                        </button>
+                      </td>
+                    </tr>
+                  );
+                })
               )}
             </tbody>
           </table>
         </div>
       </main>
 
-      {showDetail && selectedPartner && (
-        <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0,0,0,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000, padding: '20px' }}>
-          <div style={{ background: '#fff', borderRadius: '16px', width: '100%', maxWidth: '900px', maxHeight: '90vh', overflow: 'auto' }}>
-            <div style={{ padding: '24px', borderBottom: '1px solid #eee', display: 'flex', justifyContent: 'space-between', alignItems: 'center', position: 'sticky', top: 0, background: '#fff', zIndex: 10 }}>
-              <div>
-                <h2 style={{ fontSize: '20px', fontWeight: '700', marginBottom: '4px' }}>{selectedPartner.legal_business_name}</h2>
-                <span style={{
-                  display: 'inline-block',
-                  padding: '4px 12px',
-                  borderRadius: '20px',
-                  fontSize: '12px',
-                  fontWeight: '500',
-                  background: statusColors[selectedPartner.status]?.bg || '#f5f5f5',
-                  color: statusColors[selectedPartner.status]?.text || '#666',
-                  textTransform: 'capitalize',
-                }}>
-                  {selectedPartner.status}
-                </span>
-              </div>
-              <button onClick={() => { setShowDetail(false); setSelectedPartner(null); }} style={{ background: 'none', border: 'none', fontSize: '28px', cursor: 'pointer', color: '#999', lineHeight: 1 }}>×</button>
-            </div>
-
-            <div style={{ padding: '24px' }}>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '32px', marginBottom: '32px' }}>
+      {showDetail && selectedPartner && (() => {
+        const appData = getAppData(selectedPartner);
+        return (
+          <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0,0,0,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000, padding: '20px' }}>
+            <div style={{ background: '#fff', borderRadius: '16px', width: '100%', maxWidth: '900px', maxHeight: '90vh', overflow: 'auto' }}>
+              <div style={{ padding: '24px', borderBottom: '1px solid #eee', display: 'flex', justifyContent: 'space-between', alignItems: 'center', position: 'sticky', top: 0, background: '#fff', zIndex: 10 }}>
                 <div>
-                  <h4 style={{ fontSize: '12px', textTransform: 'uppercase', color: '#999', marginBottom: '16px', letterSpacing: '0.5px', fontWeight: '600' }}>Business Information</h4>
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                    <p style={{ fontSize: '14px' }}><span style={{ color: '#666' }}>Legal Name:</span> <strong>{selectedPartner.legal_business_name}</strong></p>
-                    {selectedPartner.dba_store_name && <p style={{ fontSize: '14px' }}><span style={{ color: '#666' }}>DBA:</span> {selectedPartner.dba_store_name}</p>}
-                    <p style={{ fontSize: '14px' }}><span style={{ color: '#666' }}>Type:</span> {businessTypeLabels[selectedPartner.business_type] || selectedPartner.business_type}</p>
-                    <p style={{ fontSize: '14px' }}><span style={{ color: '#666' }}>Years in Business:</span> {selectedPartner.years_in_business || 'Not specified'}</p>
-                    {selectedPartner.website && <p style={{ fontSize: '14px' }}><span style={{ color: '#666' }}>Website:</span> {selectedPartner.website}</p>}
-                  </div>
+                  <h2 style={{ fontSize: '20px', fontWeight: '700', marginBottom: '4px' }}>{selectedPartner.company_name || appData.legalBusinessName}</h2>
+                  <span style={{
+                    display: 'inline-block',
+                    padding: '4px 12px',
+                    borderRadius: '20px',
+                    fontSize: '12px',
+                    fontWeight: '500',
+                    background: statusColors[selectedPartner.status]?.bg || '#f5f5f5',
+                    color: statusColors[selectedPartner.status]?.text || '#666',
+                    textTransform: 'capitalize',
+                  }}>
+                    {selectedPartner.status}
+                  </span>
                 </div>
-                <div>
-                  <h4 style={{ fontSize: '12px', textTransform: 'uppercase', color: '#999', marginBottom: '16px', letterSpacing: '0.5px', fontWeight: '600' }}>Location</h4>
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                    <p style={{ fontSize: '14px' }}>{selectedPartner.business_address}</p>
-                    <p style={{ fontSize: '14px' }}>{selectedPartner.city}, {selectedPartner.state} {selectedPartner.zip}</p>
-                    <p style={{ fontSize: '14px' }}>{selectedPartner.country}</p>
-                  </div>
-                </div>
+                <button onClick={() => { setShowDetail(false); setSelectedPartner(null); }} style={{ background: 'none', border: 'none', fontSize: '28px', cursor: 'pointer', color: '#999', lineHeight: 1 }}>
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <line x1="18" y1="6" x2="6" y2="18" />
+                    <line x1="6" y1="6" x2="18" y2="18" />
+                  </svg>
+                </button>
               </div>
 
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '32px', marginBottom: '32px' }}>
-                <div>
-                  <h4 style={{ fontSize: '12px', textTransform: 'uppercase', color: '#999', marginBottom: '16px', letterSpacing: '0.5px', fontWeight: '600' }}>Business Verification</h4>
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                    <p style={{ fontSize: '14px' }}><span style={{ color: '#666' }}>EIN/Tax ID:</span> {selectedPartner.ein_tax_id || 'Not provided'}</p>
-                    {selectedPartner.resale_certificate_url && (
-                      <p style={{ fontSize: '14px' }}>
-                        <span style={{ color: '#666' }}>Resale Certificate:</span>{' '}
-                        <a href={selectedPartner.resale_certificate_url} target="_blank" rel="noopener noreferrer" style={{ color: '#1565c0' }}>View Document</a>
-                      </p>
-                    )}
-                  </div>
-                </div>
-                <div>
-                  <h4 style={{ fontSize: '12px', textTransform: 'uppercase', color: '#999', marginBottom: '16px', letterSpacing: '0.5px', fontWeight: '600' }}>Decision Maker</h4>
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                    <p style={{ fontSize: '14px' }}><strong>{selectedPartner.decision_maker_name}</strong></p>
-                    <p style={{ fontSize: '14px' }}><span style={{ color: '#666' }}>Role:</span> {roleLabels[selectedPartner.decision_maker_role] || selectedPartner.decision_maker_role}</p>
-                    <p style={{ fontSize: '14px' }}><span style={{ color: '#666' }}>Email:</span> {selectedPartner.decision_maker_email}</p>
-                    {selectedPartner.decision_maker_phone && <p style={{ fontSize: '14px' }}><span style={{ color: '#666' }}>Phone:</span> {selectedPartner.decision_maker_phone}</p>}
-                  </div>
-                </div>
-              </div>
-
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '32px', marginBottom: '32px' }}>
-                <div>
-                  <h4 style={{ fontSize: '12px', textTransform: 'uppercase', color: '#999', marginBottom: '16px', letterSpacing: '0.5px', fontWeight: '600' }}>Order & Logistics</h4>
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                    <p style={{ fontSize: '14px' }}><span style={{ color: '#666' }}>Est. Monthly Volume:</span> <strong>{volumeLabels[selectedPartner.estimated_monthly_volume] || selectedPartner.estimated_monthly_volume}</strong></p>
-                    <p style={{ fontSize: '14px' }}><span style={{ color: '#666' }}>Delivery Schedule:</span> {deliveryLabels[selectedPartner.preferred_delivery_schedule] || selectedPartner.preferred_delivery_schedule}</p>
-                    {selectedPartner.receiving_hours && <p style={{ fontSize: '14px' }}><span style={{ color: '#666' }}>Receiving Hours:</span> {selectedPartner.receiving_hours}</p>}
-                    <p style={{ fontSize: '14px' }}><span style={{ color: '#666' }}>Loading Dock:</span> {selectedPartner.has_loading_dock ? 'Yes' : 'No'}</p>
-                    <p style={{ fontSize: '14px' }}><span style={{ color: '#666' }}>Payment Method:</span> {paymentLabels[selectedPartner.preferred_payment_method] || selectedPartner.preferred_payment_method}</p>
-                  </div>
-                </div>
-                <div>
-                  <h4 style={{ fontSize: '12px', textTransform: 'uppercase', color: '#999', marginBottom: '16px', letterSpacing: '0.5px', fontWeight: '600' }}>Contact Information</h4>
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                    <p style={{ fontSize: '14px' }}><span style={{ color: '#666' }}>Business Email:</span> {selectedPartner.business_email}</p>
-                    <p style={{ fontSize: '14px' }}><span style={{ color: '#666' }}>Business Phone:</span> {selectedPartner.business_phone}</p>
-                    <p style={{ fontSize: '14px', marginTop: '8px' }}><span style={{ color: '#666' }}>Applied:</span> {new Date(selectedPartner.created_at).toLocaleString()}</p>
-                    {selectedPartner.reviewed_at && <p style={{ fontSize: '14px' }}><span style={{ color: '#666' }}>Reviewed:</span> {new Date(selectedPartner.reviewed_at).toLocaleString()}</p>}
-                  </div>
-                </div>
-              </div>
-
-              <div style={{ marginBottom: '24px' }}>
-                <label style={{ display: 'block', fontSize: '13px', fontWeight: '600', marginBottom: '8px' }}>Admin Notes</label>
-                <textarea
-                  value={adminNotes}
-                  onChange={(e) => setAdminNotes(e.target.value)}
-                  placeholder="Internal notes about this partner..."
-                  style={{ width: '100%', padding: '12px', border: '1px solid #ddd', borderRadius: '8px', fontSize: '14px', minHeight: '80px', resize: 'vertical', boxSizing: 'border-box' }}
-                />
-              </div>
-
-              {selectedPartner.status === 'pending' && (
-                <div style={{ display: 'flex', gap: '12px', paddingTop: '16px', borderTop: '1px solid #eee' }}>
-                  <button
-                    onClick={() => updatePartnerStatus(selectedPartner.id, 'approved')}
-                    disabled={actionLoading}
-                    style={{ flex: 1, padding: '14px', background: '#1e7e34', color: '#fff', border: 'none', borderRadius: '8px', fontSize: '14px', fontWeight: '600', cursor: actionLoading ? 'default' : 'pointer', opacity: actionLoading ? 0.7 : 1 }}
-                  >
-                    {actionLoading ? 'Processing...' : 'Approve Partner'}
-                  </button>
-                  <button
-                    onClick={() => setShowRejectionModal(true)}
-                    disabled={actionLoading}
-                    style={{ flex: 1, padding: '14px', background: '#c53929', color: '#fff', border: 'none', borderRadius: '8px', fontSize: '14px', fontWeight: '600', cursor: actionLoading ? 'default' : 'pointer', opacity: actionLoading ? 0.7 : 1 }}
-                  >
-                    Reject Application
-                  </button>
-                </div>
-              )}
-
-              {selectedPartner.status === 'approved' && (
-                <div style={{ display: 'flex', gap: '12px', paddingTop: '16px', borderTop: '1px solid #eee' }}>
-                  <button
-                    onClick={() => updatePartnerStatus(selectedPartner.id, 'suspended', 'Account suspended by admin')}
-                    disabled={actionLoading}
-                    style={{ padding: '14px 24px', background: '#f5f5f5', color: '#666', border: '1px solid #ddd', borderRadius: '8px', fontSize: '14px', fontWeight: '600', cursor: actionLoading ? 'default' : 'pointer' }}
-                  >
-                    Suspend Account
-                  </button>
-                </div>
-              )}
-
-              {(selectedPartner.status === 'rejected' || selectedPartner.status === 'suspended') && (
-                <div style={{ paddingTop: '16px', borderTop: '1px solid #eee' }}>
-                  {selectedPartner.rejection_reason && (
-                    <div style={{ background: '#fce8e6', padding: '12px 16px', borderRadius: '8px', marginBottom: '16px' }}>
-                      <p style={{ fontSize: '12px', color: '#c53929', fontWeight: '600', marginBottom: '4px' }}>Rejection Reason:</p>
-                      <p style={{ fontSize: '14px', color: '#c53929' }}>{selectedPartner.rejection_reason}</p>
+              <div style={{ padding: '24px' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '32px', marginBottom: '32px' }}>
+                  <div>
+                    <h4 style={{ fontSize: '12px', textTransform: 'uppercase', color: '#999', marginBottom: '16px', letterSpacing: '0.5px', fontWeight: '600' }}>Business Information</h4>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                      <p style={{ fontSize: '14px' }}><span style={{ color: '#666' }}>Legal Name:</span> <strong>{appData.legalBusinessName || '-'}</strong></p>
+                      {appData.dbaStoreName && <p style={{ fontSize: '14px' }}><span style={{ color: '#666' }}>DBA:</span> {appData.dbaStoreName}</p>}
+                      <p style={{ fontSize: '14px' }}><span style={{ color: '#666' }}>Type:</span> {businessTypeLabels[appData.businessType || ''] || appData.businessType || '-'}</p>
+                      <p style={{ fontSize: '14px' }}><span style={{ color: '#666' }}>Years in Business:</span> {appData.yearsInBusiness || 'Not specified'}</p>
+                      {appData.website && <p style={{ fontSize: '14px' }}><span style={{ color: '#666' }}>Website:</span> {appData.website}</p>}
                     </div>
-                  )}
-                  <button
-                    onClick={() => updatePartnerStatus(selectedPartner.id, 'approved', 'Account reactivated by admin')}
-                    disabled={actionLoading}
-                    style={{ padding: '14px 24px', background: '#1e7e34', color: '#fff', border: 'none', borderRadius: '8px', fontSize: '14px', fontWeight: '600', cursor: actionLoading ? 'default' : 'pointer' }}
-                  >
-                    Approve / Reactivate
-                  </button>
+                  </div>
+                  <div>
+                    <h4 style={{ fontSize: '12px', textTransform: 'uppercase', color: '#999', marginBottom: '16px', letterSpacing: '0.5px', fontWeight: '600' }}>Location</h4>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                      <p style={{ fontSize: '14px' }}>{appData.businessAddress || '-'}</p>
+                      <p style={{ fontSize: '14px' }}>{appData.city || '-'}{appData.state ? `, ${appData.state}` : ''} {appData.zip || ''}</p>
+                      <p style={{ fontSize: '14px' }}>{appData.country || '-'}</p>
+                    </div>
+                  </div>
                 </div>
-              )}
+
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '32px', marginBottom: '32px' }}>
+                  <div>
+                    <h4 style={{ fontSize: '12px', textTransform: 'uppercase', color: '#999', marginBottom: '16px', letterSpacing: '0.5px', fontWeight: '600' }}>Business Verification</h4>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                      <p style={{ fontSize: '14px' }}><span style={{ color: '#666' }}>EIN/Tax ID:</span> {appData.einTaxId || 'Not provided'}</p>
+                      {appData.resaleCertificateUrl && (
+                        <p style={{ fontSize: '14px' }}>
+                          <span style={{ color: '#666' }}>Resale Certificate:</span>{' '}
+                          <a href={appData.resaleCertificateUrl} target="_blank" rel="noopener noreferrer" style={{ color: '#1565c0' }}>View Document</a>
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                  <div>
+                    <h4 style={{ fontSize: '12px', textTransform: 'uppercase', color: '#999', marginBottom: '16px', letterSpacing: '0.5px', fontWeight: '600' }}>Decision Maker</h4>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                      <p style={{ fontSize: '14px' }}><strong>{appData.decisionMakerName || '-'}</strong></p>
+                      <p style={{ fontSize: '14px' }}><span style={{ color: '#666' }}>Role:</span> {roleLabels[appData.decisionMakerRole || ''] || appData.decisionMakerRole || '-'}</p>
+                      <p style={{ fontSize: '14px' }}><span style={{ color: '#666' }}>Email:</span> {appData.decisionMakerEmail || '-'}</p>
+                      {appData.decisionMakerPhone && <p style={{ fontSize: '14px' }}><span style={{ color: '#666' }}>Phone:</span> {appData.decisionMakerPhone}</p>}
+                    </div>
+                  </div>
+                </div>
+
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '32px', marginBottom: '32px' }}>
+                  <div>
+                    <h4 style={{ fontSize: '12px', textTransform: 'uppercase', color: '#999', marginBottom: '16px', letterSpacing: '0.5px', fontWeight: '600' }}>Order & Logistics</h4>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                      <p style={{ fontSize: '14px' }}><span style={{ color: '#666' }}>Est. Monthly Volume:</span> <strong>{volumeLabels[appData.estimatedMonthlyVolume || ''] || appData.estimatedMonthlyVolume || '-'}</strong></p>
+                      <p style={{ fontSize: '14px' }}><span style={{ color: '#666' }}>Delivery Schedule:</span> {deliveryLabels[appData.preferredDeliverySchedule || ''] || appData.preferredDeliverySchedule || '-'}</p>
+                      {appData.receivingHours && <p style={{ fontSize: '14px' }}><span style={{ color: '#666' }}>Receiving Hours:</span> {appData.receivingHours}</p>}
+                      <p style={{ fontSize: '14px' }}><span style={{ color: '#666' }}>Loading Dock:</span> {appData.hasLoadingDock === 'yes' ? 'Yes' : appData.hasLoadingDock === 'no' ? 'No' : '-'}</p>
+                      <p style={{ fontSize: '14px' }}><span style={{ color: '#666' }}>Payment Method:</span> {paymentLabels[appData.preferredPaymentMethod || ''] || appData.preferredPaymentMethod || '-'}</p>
+                    </div>
+                  </div>
+                  <div>
+                    <h4 style={{ fontSize: '12px', textTransform: 'uppercase', color: '#999', marginBottom: '16px', letterSpacing: '0.5px', fontWeight: '600' }}>Contact Information</h4>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                      <p style={{ fontSize: '14px' }}><span style={{ color: '#666' }}>Business Email:</span> {appData.businessEmail || selectedPartner.email || '-'}</p>
+                      <p style={{ fontSize: '14px' }}><span style={{ color: '#666' }}>Business Phone:</span> {appData.businessPhone || selectedPartner.phone || '-'}</p>
+                      <p style={{ fontSize: '14px', marginTop: '8px' }}><span style={{ color: '#666' }}>Applied:</span> {new Date(selectedPartner.created_at).toLocaleString()}</p>
+                      {selectedPartner.reviewed_at && <p style={{ fontSize: '14px' }}><span style={{ color: '#666' }}>Reviewed:</span> {new Date(selectedPartner.reviewed_at).toLocaleString()}</p>}
+                      {appData.agreedToTerms && <p style={{ fontSize: '14px', color: '#1e7e34' }}>Agreed to Terms</p>}
+                    </div>
+                  </div>
+                </div>
+
+                <div style={{ marginBottom: '24px' }}>
+                  <label style={{ display: 'block', fontSize: '13px', fontWeight: '600', marginBottom: '8px' }}>Admin Notes</label>
+                  <textarea
+                    value={adminNotes}
+                    onChange={(e) => setAdminNotes(e.target.value)}
+                    placeholder="Internal notes about this partner..."
+                    style={{ width: '100%', padding: '12px', border: '1px solid #ddd', borderRadius: '8px', fontSize: '14px', minHeight: '80px', resize: 'vertical', boxSizing: 'border-box' }}
+                  />
+                </div>
+
+                {selectedPartner.status === 'pending' && (
+                  <div style={{ display: 'flex', gap: '12px', paddingTop: '16px', borderTop: '1px solid #eee' }}>
+                    <button
+                      onClick={() => updatePartnerStatus(selectedPartner.id, 'approved')}
+                      disabled={actionLoading}
+                      style={{ flex: 1, padding: '14px', background: '#1e7e34', color: '#fff', border: 'none', borderRadius: '8px', fontSize: '14px', fontWeight: '600', cursor: actionLoading ? 'default' : 'pointer', opacity: actionLoading ? 0.7 : 1 }}
+                    >
+                      {actionLoading ? 'Processing...' : 'Approve Partner'}
+                    </button>
+                    <button
+                      onClick={() => setShowRejectionModal(true)}
+                      disabled={actionLoading}
+                      style={{ flex: 1, padding: '14px', background: '#c53929', color: '#fff', border: 'none', borderRadius: '8px', fontSize: '14px', fontWeight: '600', cursor: actionLoading ? 'default' : 'pointer', opacity: actionLoading ? 0.7 : 1 }}
+                    >
+                      Reject Application
+                    </button>
+                  </div>
+                )}
+
+                {selectedPartner.status === 'approved' && (
+                  <div style={{ display: 'flex', gap: '12px', paddingTop: '16px', borderTop: '1px solid #eee' }}>
+                    <button
+                      onClick={() => updatePartnerStatus(selectedPartner.id, 'suspended', 'Account suspended by admin')}
+                      disabled={actionLoading}
+                      style={{ padding: '14px 24px', background: '#f5f5f5', color: '#666', border: '1px solid #ddd', borderRadius: '8px', fontSize: '14px', fontWeight: '600', cursor: actionLoading ? 'default' : 'pointer' }}
+                    >
+                      Suspend Account
+                    </button>
+                  </div>
+                )}
+
+                {(selectedPartner.status === 'rejected' || selectedPartner.status === 'suspended') && (
+                  <div style={{ paddingTop: '16px', borderTop: '1px solid #eee' }}>
+                    {selectedPartner.rejection_reason && (
+                      <div style={{ background: '#fce8e6', padding: '12px 16px', borderRadius: '8px', marginBottom: '16px' }}>
+                        <p style={{ fontSize: '12px', color: '#c53929', fontWeight: '600', marginBottom: '4px' }}>Rejection Reason:</p>
+                        <p style={{ fontSize: '14px', color: '#c53929' }}>{selectedPartner.rejection_reason}</p>
+                      </div>
+                    )}
+                    <button
+                      onClick={() => updatePartnerStatus(selectedPartner.id, 'approved', 'Account reactivated by admin')}
+                      disabled={actionLoading}
+                      style={{ padding: '14px 24px', background: '#1e7e34', color: '#fff', border: 'none', borderRadius: '8px', fontSize: '14px', fontWeight: '600', cursor: actionLoading ? 'default' : 'pointer' }}
+                    >
+                      Approve / Reactivate
+                    </button>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
-        </div>
-      )}
+        );
+      })()}
 
       {showRejectionModal && (
         <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0,0,0,0.7)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1001 }}>
@@ -427,21 +453,21 @@ export default function AdminPartners() {
               value={rejectionReason}
               onChange={(e) => setRejectionReason(e.target.value)}
               placeholder="Reason for rejection..."
-              style={{ width: '100%', padding: '12px', border: '1px solid #ddd', borderRadius: '8px', fontSize: '14px', minHeight: '100px', resize: 'vertical', boxSizing: 'border-box', marginBottom: '20px' }}
+              style={{ width: '100%', padding: '12px', border: '1px solid #ddd', borderRadius: '8px', fontSize: '14px', minHeight: '100px', resize: 'vertical', marginBottom: '20px', boxSizing: 'border-box' }}
             />
             <div style={{ display: 'flex', gap: '12px' }}>
               <button
                 onClick={() => { setShowRejectionModal(false); setRejectionReason(''); }}
-                style={{ flex: 1, padding: '12px', background: '#f5f5f5', color: '#000', border: 'none', borderRadius: '8px', fontSize: '14px', cursor: 'pointer' }}
+                style={{ flex: 1, padding: '12px', background: '#f5f5f5', color: '#333', border: 'none', borderRadius: '8px', fontSize: '14px', fontWeight: '600', cursor: 'pointer' }}
               >
                 Cancel
               </button>
               <button
                 onClick={() => selectedPartner && updatePartnerStatus(selectedPartner.id, 'rejected')}
                 disabled={!rejectionReason.trim() || actionLoading}
-                style={{ flex: 1, padding: '12px', background: '#c53929', color: '#fff', border: 'none', borderRadius: '8px', fontSize: '14px', fontWeight: '600', cursor: !rejectionReason.trim() || actionLoading ? 'default' : 'pointer', opacity: !rejectionReason.trim() || actionLoading ? 0.7 : 1 }}
+                style={{ flex: 1, padding: '12px', background: rejectionReason.trim() ? '#c53929' : '#ccc', color: '#fff', border: 'none', borderRadius: '8px', fontSize: '14px', fontWeight: '600', cursor: rejectionReason.trim() && !actionLoading ? 'pointer' : 'default' }}
               >
-                {actionLoading ? 'Rejecting...' : 'Confirm Rejection'}
+                {actionLoading ? 'Processing...' : 'Confirm Rejection'}
               </button>
             </div>
           </div>
