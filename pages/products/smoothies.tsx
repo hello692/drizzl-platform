@@ -1,5 +1,6 @@
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
+import Link from 'next/link';
 
 const products = [
   { id: '1', name: 'Strawberry + Peach', type: 'Smoothie', price: 8.49, reviews: 4619, rating: 4.5, badge: 'BEST SELLER', image: 'https://daily-harvest.com/cdn/shop/files/strawberry-peach-smoothie-daily-harvest-3657974.jpg?v=1760509351&width=500' },
@@ -110,101 +111,123 @@ export default function Smoothies() {
               marginBottom: '60px',
             }}>
               {products.map(product => (
-                <div key={product.id} style={{}}>
-                  {/* Image Container */}
+                <Link key={product.id} href={`/product/${product.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
                   <div style={{
-                    position: 'relative',
-                    marginBottom: '20px',
-                    background: '#ffffff',
-                    aspectRatio: '1',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    overflow: 'hidden',
-                  }}>
-                    {/* Badge */}
-                    {product.badge && (
-                      <div style={{
-                        position: 'absolute',
-                        top: '16px',
-                        left: '16px',
-                        background: '#ffffff',
-                        border: '2px solid #000',
-                        padding: '6px 14px',
-                        fontSize: '11px',
-                        fontWeight: '800',
-                        letterSpacing: '1px',
-                        zIndex: 10,
-                      }}>
-                        {product.badge}
-                      </div>
-                    )}
-
-                    {/* Product Image */}
-                    <img
-                      src={product.image}
-                      alt={product.name}
-                      style={{
-                        width: '100%',
-                        height: '100%',
-                        objectFit: 'cover',
-                      }}
-                    />
-                  </div>
-
-                  {/* Product Info */}
-                  <h3 style={{
-                    fontSize: '16px',
-                    fontWeight: '700',
-                    margin: '0 0 4px 0',
-                    lineHeight: '1.3',
-                  }}>
-                    {product.name}
-                  </h3>
-
-                  <p style={{
-                    fontSize: '13px',
-                    color: '#666',
-                    margin: '0 0 8px 0',
-                  }}>
-                    {product.type}
-                  </p>
-
-                  {/* Rating */}
-                  <div style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '8px',
-                    marginBottom: '16px',
-                  }}>
-                    <span style={{ fontSize: '14px' }}>
-                      {'★'.repeat(Math.floor(product.rating))}{'☆'.repeat(5 - Math.floor(product.rating))}
-                    </span>
-                    <span style={{ fontSize: '13px', color: '#666' }}>
-                      {product.reviews.toLocaleString()} reviews
-                    </span>
-                  </div>
-
-                  {/* Add to Cart Button */}
-                  <button style={{
-                    width: '100%',
-                    padding: '14px 12px',
-                    background: '#000',
-                    color: '#ffffff',
-                    border: 'none',
-                    borderRadius: '0px',
-                    fontSize: '13px',
-                    fontWeight: '700',
-                    letterSpacing: '0.5px',
                     cursor: 'pointer',
-                    transition: 'all 0.2s',
+                    transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
                   }}
-                    onMouseEnter={(e) => { e.currentTarget.style.opacity = '0.8'; }}
-                    onMouseLeave={(e) => { e.currentTarget.style.opacity = '1'; }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.transform = 'translateY(-4px)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.transform = 'translateY(0)';
+                    }}
                   >
-                    ADD TO CART ${product.price.toFixed(2)}
-                  </button>
-                </div>
+                    {/* Image Container */}
+                    <div style={{
+                      position: 'relative',
+                      marginBottom: '20px',
+                      background: '#ffffff',
+                      aspectRatio: '1',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      overflow: 'hidden',
+                    }}>
+                      {/* Badge */}
+                      {product.badge && (
+                        <div style={{
+                          position: 'absolute',
+                          top: '16px',
+                          left: '16px',
+                          background: '#ffffff',
+                          border: '2px solid #000',
+                          padding: '6px 14px',
+                          fontSize: '11px',
+                          fontWeight: '800',
+                          letterSpacing: '1px',
+                          zIndex: 10,
+                        }}>
+                          {product.badge}
+                        </div>
+                      )}
+
+                      {/* Product Image */}
+                      <img
+                        src={product.image}
+                        alt={product.name}
+                        style={{
+                          width: '100%',
+                          height: '100%',
+                          objectFit: 'cover',
+                        }}
+                      />
+                    </div>
+
+                    {/* Product Info */}
+                    <h3 style={{
+                      fontSize: '16px',
+                      fontWeight: '700',
+                      margin: '0 0 4px 0',
+                      lineHeight: '1.3',
+                    }}>
+                      {product.name}
+                    </h3>
+
+                    <p style={{
+                      fontSize: '13px',
+                      color: '#666',
+                      margin: '0 0 8px 0',
+                    }}>
+                      {product.type}
+                    </p>
+
+                    {/* Rating */}
+                    <div style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '8px',
+                      marginBottom: '16px',
+                    }}>
+                      <span style={{ fontSize: '14px' }}>
+                        {'★'.repeat(Math.floor(product.rating))}{'☆'.repeat(5 - Math.floor(product.rating))}
+                      </span>
+                      <span style={{ fontSize: '13px', color: '#666' }}>
+                        {product.reviews.toLocaleString()} reviews
+                      </span>
+                    </div>
+
+                    {/* Price */}
+                    <p style={{
+                      fontSize: '16px',
+                      fontWeight: '700',
+                      margin: '0 0 16px 0',
+                    }}>
+                      ${product.price.toFixed(2)}
+                    </p>
+
+                    {/* Add to Cart Button */}
+                    <button style={{
+                      width: '100%',
+                      padding: '14px 12px',
+                      background: '#000',
+                      color: '#ffffff',
+                      border: 'none',
+                      borderRadius: '0px',
+                      fontSize: '13px',
+                      fontWeight: '700',
+                      letterSpacing: '0.5px',
+                      cursor: 'pointer',
+                      transition: 'all 0.2s',
+                    }}
+                      onMouseEnter={(e) => { e.currentTarget.style.opacity = '0.8'; }}
+                      onMouseLeave={(e) => { e.currentTarget.style.opacity = '1'; }}
+                      onClick={(e) => { e.preventDefault(); }}
+                    >
+                      ADD TO CART ${product.price.toFixed(2)}
+                    </button>
+                  </div>
+                </Link>
               ))}
             </div>
           </div>
