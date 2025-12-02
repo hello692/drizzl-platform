@@ -175,7 +175,7 @@ export default function Home() {
     <>
       <Navbar />
 
-      {/* Hero Section */}
+      {/* Hero Section with Premium Image */}
       <section style={{
         padding: 'clamp(60px, 10vw, 140px) clamp(16px, 4vw, 60px)',
         textAlign: 'center',
@@ -184,33 +184,48 @@ export default function Home() {
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        background: '#ffffff',
+        background: 'linear-gradient(135deg, #ffffff 0%, #fafafa 100%)',
         position: 'relative',
         overflow: 'hidden',
       }}>
-        <AnimatedSection animation="fadeUp">
-          <h1 style={{
-            fontSize: 'clamp(28px, 8vw, 64px)',
-            fontWeight: '700',
-            textAlign: 'center',
-            letterSpacing: '-1px',
-          }}>
-            {t('hero.title')}
-          </h1>
-        </AnimatedSection>
-        <AnimatedSection animation="fadeUp" delay={100}>
-          <p style={{ textAlign: 'center', margin: '0 auto clamp(24px, 6vw, 48px)', fontSize: 'clamp(14px, 4vw, 18px)', color: '#666', maxWidth: '600px', lineHeight: '1.7' }}>
-            {t('hero.subtitle')}
-          </p>
-        </AnimatedSection>
-        <AnimatedSection animation="fadeUp" delay={200}>
-          <Link href="/products" className="btn-premium" style={{
-            fontSize: '14px',
-            padding: '14px 32px',
-          }}>
-            {t('hero.cta')}
-          </Link>
-        </AnimatedSection>
+        {/* Premium background image */}
+        <div style={{
+          position: 'absolute',
+          inset: 0,
+          backgroundImage: 'url("https://images.unsplash.com/photo-1600271886742-f049cd451bba?w=1400&q=80")',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          opacity: 0.08,
+          zIndex: 0,
+        }}></div>
+        
+        <div style={{ position: 'relative', zIndex: 1 }}>
+          <AnimatedSection animation="fadeUp">
+            <h1 style={{
+              fontSize: 'clamp(28px, 8vw, 64px)',
+              fontWeight: '700',
+              textAlign: 'center',
+              letterSpacing: '-1px',
+              animation: 'subtleFloat 6s ease-in-out infinite',
+            }}>
+              {t('hero.title')}
+            </h1>
+          </AnimatedSection>
+          <AnimatedSection animation="fadeUp" delay={100}>
+            <p style={{ textAlign: 'center', margin: '0 auto clamp(24px, 6vw, 48px)', fontSize: 'clamp(14px, 4vw, 18px)', color: '#666', maxWidth: '600px', lineHeight: '1.7', animation: 'delicateFade 1.2s cubic-bezier(0.32, 0, 0.67, 0) 0.3s forwards', opacity: 0 }}>
+              {t('hero.subtitle')}
+            </p>
+          </AnimatedSection>
+          <AnimatedSection animation="fadeUp" delay={200}>
+            <Link href="/products" className="btn-premium" style={{
+              fontSize: '14px',
+              padding: '14px 32px',
+              animation: 'smoothScale 1s cubic-bezier(0.32, 0, 0.67, 0) 0.6s forwards',
+            }}>
+              {t('hero.cta')}
+            </Link>
+          </AnimatedSection>
+        </div>
       </section>
 
       {/* Category Grid */}

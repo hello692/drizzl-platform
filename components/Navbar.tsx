@@ -72,7 +72,8 @@ export default function Navbar() {
       />
       
       <div className={`menu-sidebar-animated ${menuOpen ? 'active' : ''}`}>
-        <div className="menu-header-animated">
+        <div className="menu-header-animated" style={{ padding: '24px 28px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <span style={{ fontSize: '14px', fontWeight: '600', letterSpacing: '0.5px', color: '#000' }}>Menu</span>
           <button 
             className="close-btn-animated"
             onClick={() => setMenuOpen(false)}
@@ -82,33 +83,33 @@ export default function Navbar() {
           </button>
         </div>
         
-        <div className="menu-content-animated">
+        <div className="menu-content-animated" style={{ padding: '32px 28px' }}>
           <div className="menu-section-animated">
-            <div className="section-title-animated">Shop</div>
-            <button className="menu-item-animated" onClick={() => navigateTo('/smoothies')}>Smoothies</button>
-            <button className="menu-item-animated" onClick={() => navigateTo('/bowls')}>Bowls</button>
-            <button className="menu-item-animated" onClick={() => navigateTo('/juices')}>Juices</button>
-            <button className="menu-item-animated" onClick={() => navigateTo('/wellness')}>Wellness</button>
+            <div className="section-title-animated" style={{ fontSize: '10px', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '1.2px', color: '#999', marginBottom: '20px' }}>Shop</div>
+            <button className="menu-item-animated" onClick={() => navigateTo('/smoothies')} style={{ fontSize: '17px', fontWeight: '500', letterSpacing: '-0.3px', padding: '14px 0' }}>Smoothies</button>
+            <button className="menu-item-animated" onClick={() => navigateTo('/bowls')} style={{ fontSize: '17px', fontWeight: '500', letterSpacing: '-0.3px', padding: '14px 0' }}>Bowls</button>
+            <button className="menu-item-animated" onClick={() => navigateTo('/juices')} style={{ fontSize: '17px', fontWeight: '500', letterSpacing: '-0.3px', padding: '14px 0' }}>Juices</button>
+            <button className="menu-item-animated" onClick={() => navigateTo('/wellness')} style={{ fontSize: '17px', fontWeight: '500', letterSpacing: '-0.3px', padding: '14px 0' }}>Wellness</button>
           </div>
           
-          <div className="menu-divider-animated"></div>
+          <div className="menu-divider-animated" style={{ margin: '32px 0', height: '1px', background: 'rgba(0, 0, 0, 0.08)' }}></div>
           
           <div className="menu-section-animated">
-            <div className="section-title-animated">Company</div>
-            <button className="menu-item-animated" onClick={() => navigateTo('/about')}>About</button>
-            <button className="menu-item-animated" onClick={() => navigateTo('/sustainability')}>Sustainability</button>
-            <button className="menu-item-animated" onClick={() => navigateTo('/careers')}>Careers</button>
-            <button className="menu-item-animated" onClick={() => navigateTo('/blog')}>Blog</button>
+            <div className="section-title-animated" style={{ fontSize: '10px', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '1.2px', color: '#999', marginBottom: '20px' }}>Company</div>
+            <button className="menu-item-animated" onClick={() => navigateTo('/about')} style={{ fontSize: '17px', fontWeight: '500', letterSpacing: '-0.3px', padding: '14px 0' }}>About</button>
+            <button className="menu-item-animated" onClick={() => navigateTo('/sustainability')} style={{ fontSize: '17px', fontWeight: '500', letterSpacing: '-0.3px', padding: '14px 0' }}>Sustainability</button>
+            <button className="menu-item-animated" onClick={() => navigateTo('/careers')} style={{ fontSize: '17px', fontWeight: '500', letterSpacing: '-0.3px', padding: '14px 0' }}>Careers</button>
+            <button className="menu-item-animated" onClick={() => navigateTo('/blog')} style={{ fontSize: '17px', fontWeight: '500', letterSpacing: '-0.3px', padding: '14px 0' }}>Blog</button>
           </div>
           
-          <div className="menu-divider-animated"></div>
+          <div className="menu-divider-animated" style={{ margin: '32px 0', height: '1px', background: 'rgba(0, 0, 0, 0.08)' }}></div>
           
           <div className="menu-section-animated">
-            <div className="section-title-animated">Support</div>
-            <button className="menu-item-animated" onClick={() => navigateTo('/contact')}>Contact</button>
-            <button className="menu-item-animated" onClick={() => navigateTo('/faq')}>FAQ</button>
-            <button className="menu-item-animated" onClick={() => navigateTo('/shipping')}>Shipping</button>
-            <button className="menu-item-animated" onClick={() => navigateTo('/returns')}>Returns</button>
+            <div className="section-title-animated" style={{ fontSize: '10px', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '1.2px', color: '#999', marginBottom: '20px' }}>Support</div>
+            <button className="menu-item-animated" onClick={() => navigateTo('/contact')} style={{ fontSize: '17px', fontWeight: '500', letterSpacing: '-0.3px', padding: '14px 0' }}>Contact</button>
+            <button className="menu-item-animated" onClick={() => navigateTo('/faq')} style={{ fontSize: '17px', fontWeight: '500', letterSpacing: '-0.3px', padding: '14px 0' }}>FAQ</button>
+            <button className="menu-item-animated" onClick={() => navigateTo('/shipping')} style={{ fontSize: '17px', fontWeight: '500', letterSpacing: '-0.3px', padding: '14px 0' }}>Shipping</button>
+            <button className="menu-item-animated" onClick={() => navigateTo('/returns')} style={{ fontSize: '17px', fontWeight: '500', letterSpacing: '-0.3px', padding: '14px 0' }}>Returns</button>
           </div>
         </div>
       </div>

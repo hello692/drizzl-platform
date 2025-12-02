@@ -22,6 +22,21 @@
   to { opacity: 1; }
 }
 
+@keyframes subtleFloat {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-2px); }
+}
+
+@keyframes smoothScale {
+  from { transform: scale(0.98); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+@keyframes delicateFade {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -304,16 +319,33 @@ svg:hover {
   border: none;
   width: 100%;
   text-align: left;
-  padding: 16px 0;
+  padding: 14px 0;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 17px;
   font-weight: 500;
   color: var(--color-black);
-  transition: all 0.6s cubic-bezier(0.32, 0, 0.67, 0);
+  transition: all 0.8s cubic-bezier(0.32, 0, 0.67, 0);
+  letter-spacing: -0.3px;
+  position: relative;
+}
+
+.menu-item-animated::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--color-black);
+  transition: width 0.8s cubic-bezier(0.32, 0, 0.67, 0);
 }
 
 .menu-item-animated:hover {
   color: var(--color-gray-50);
+}
+
+.menu-item-animated:hover::after {
+  width: 100%;
 }
 
 .menu-divider-animated {
