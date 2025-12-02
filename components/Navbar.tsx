@@ -265,46 +265,53 @@ export default function Navbar() {
             }}></div>
           </button>
 
-          {/* Full-Screen Menu Overlay with Drizzle Drop */}
+          {/* Full-Screen Menu - Impossible Style */}
           {menuOpen && (
             <>
-              {/* Overlay with Drizzle Drop Background */}
+              {/* Overlay Backdrop */}
               <div
-                className="menu-overlay-2100"
+                style={{
+                  position: 'fixed',
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  zIndex: 997,
+                }}
                 onClick={closeMenu}
-              >
-                {/* Drizzle Drop Shape */}
-                <div className="drizzle-drop-container">
-                  <div className="drizzle-drop">
-                    <div className="drip-lines">
-                      <div className="drip-line"></div>
-                      <div className="drip-line"></div>
-                      <div className="drip-line"></div>
-                      <div className="drip-line"></div>
+              ></div>
+
+              {/* Menu Container */}
+              <div className="menu-dropdown-2100">
+                <div className="menu-overlay-2100" onClick={(e) => e.stopPropagation()}>
+                  <div className="menu-content-wrapper">
+                    {/* Left: Menu Items */}
+                    <div className="menu-grid-2100">
+                      {menuItems.map((item, index) => (
+                        <div
+                          key={item.href}
+                          className="menu-item-2100"
+                          style={{
+                            animation: `menuItemSlideInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) ${
+                              index * 0.1 + 0.2
+                            }s both`,
+                          }}
+                        >
+                          <Link href={item.href} onClick={closeMenu}>
+                            {item.label}
+                          </Link>
+                        </div>
+                      ))}
+                    </div>
+
+                    {/* Right: Visual Elements */}
+                    <div className="menu-right-visuals">
+                      <div className="menu-visual-item">🥤</div>
+                      <div className="menu-visual-item">🍹</div>
+                      <div className="menu-visual-item">🥑</div>
+                      <div className="menu-visual-item">✨</div>
                     </div>
                   </div>
-                </div>
-              </div>
-
-              {/* Full-Screen Dropdown Menu */}
-              <div className="menu-dropdown-2100">
-                <div className="menu-grid-2100">
-                  {menuItems.map((item, index) => (
-                    <div
-                      key={item.href}
-                      className="menu-item-2100"
-                      style={{
-                        animation: `menuItemSlideInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) ${
-                          index * 0.08 + 0.3
-                        }s both`,
-                      }}
-                    >
-                      <Link href={item.href} onClick={closeMenu}>
-                        {item.label}
-                      </Link>
-                      <p className="menu-description">{item.description}</p>
-                    </div>
-                  ))}
                 </div>
               </div>
             </>
