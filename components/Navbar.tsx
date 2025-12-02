@@ -145,8 +145,12 @@ export default function Navbar() {
               Retail Partner
             </Link>
 
-            <Link href="/shop-all" style={{ fontSize: '16px', color: '#000', opacity: 0.6, transition: 'all 1s cubic-bezier(0.32, 0, 0.67, 0)' }} onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')} onMouseLeave={(e) => (e.currentTarget.style.opacity = '0.6')}>
-              🏪
+            <Link href="/shop-all" style={{ fontSize: '16px', color: '#000', opacity: 0.6, transition: 'all 1s cubic-bezier(0.32, 0, 0.67, 0)', display: 'flex', alignItems: 'center', justifyContent: 'center', width: '20px', height: '20px' }} onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')} onMouseLeave={(e) => (e.currentTarget.style.opacity = '0.6')}>
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M2 4h16l-1.5 9H3.5L2 4z" />
+                <circle cx="5" cy="17" r="1" fill="currentColor" />
+                <circle cx="14" cy="17" r="1" fill="currentColor" />
+              </svg>
             </Link>
 
             <div style={{ position: 'relative' }}>
@@ -160,7 +164,6 @@ export default function Navbar() {
                   cursor: 'pointer', 
                   opacity: langOpen ? 1 : 0.6, 
                   transition: 'all 1s cubic-bezier(0.32, 0, 0.67, 0)',
-                  fontSize: '16px',
                   display: 'flex',
                   alignItems: 'center',
                   gap: '6px',
@@ -168,7 +171,12 @@ export default function Navbar() {
                 onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')} 
                 onMouseLeave={(e) => !langOpen && (e.currentTarget.style.opacity = '0.6')}
               >
-                <span>🌐</span>
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round">
+                  <circle cx="8" cy="8" r="6" />
+                  <path d="M2 8h12" />
+                  <path d="M8 2c0 0-2 3-2 6s2 6 2 6" />
+                  <path d="M8 2c0 0 2 3 2 6s-2 6-2 6" />
+                </svg>
                 <span style={{ fontSize: '12px', fontWeight: '600' }}>{getCurrentLangData().code.toUpperCase()}</span>
               </button>
               
@@ -221,16 +229,26 @@ export default function Navbar() {
               )}
             </div>
 
-            <Link href="/cart" style={{ fontSize: '16px', color: '#000', opacity: 0.6, transition: 'all 1s cubic-bezier(0.32, 0, 0.67, 0)' }} onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')} onMouseLeave={(e) => (e.currentTarget.style.opacity = '0.6')}>
-              🛍
+            <Link href="/cart" style={{ fontSize: '16px', color: '#000', opacity: 0.6, transition: 'all 1s cubic-bezier(0.32, 0, 0.67, 0)', display: 'flex', alignItems: 'center', justifyContent: 'center', width: '20px', height: '20px' }} onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')} onMouseLeave={(e) => (e.currentTarget.style.opacity = '0.6')}>
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M5 6h10l-1 8H6L5 6z" />
+                <path d="M8 6V4c0-1 0.5-1.5 1-1.5h2c.5 0 1 .5 1 1.5v2" />
+              </svg>
             </Link>
 
-            <Link href="/auth" style={{ fontSize: '16px', color: '#000', opacity: 0.6, transition: 'all 1s cubic-bezier(0.32, 0, 0.67, 0)' }} onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')} onMouseLeave={(e) => (e.currentTarget.style.opacity = '0.6')}>
-              👤
+            <Link href="/auth" style={{ fontSize: '16px', color: '#000', opacity: 0.6, transition: 'all 1s cubic-bezier(0.32, 0, 0.67, 0)', display: 'flex', alignItems: 'center', justifyContent: 'center', width: '20px', height: '20px' }} onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')} onMouseLeave={(e) => (e.currentTarget.style.opacity = '0.6')}>
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="10" cy="7" r="3" />
+                <path d="M4 17c0-3.3 2.7-6 6-6s6 2.7 6 6" />
+              </svg>
             </Link>
 
-            <button style={{ padding: '0', border: 'none', background: 'none', color: '#000', cursor: 'pointer', opacity: 0.6, transition: 'all 1s cubic-bezier(0.32, 0, 0.67, 0)', fontSize: '16px' }} onClick={toggleMenu} onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')} onMouseLeave={(e) => (e.currentTarget.style.opacity = '0.6')}>
-              ≡
+            <button style={{ padding: '0', border: 'none', background: 'none', color: '#000', cursor: 'pointer', opacity: 0.6, transition: 'all 1s cubic-bezier(0.32, 0, 0.67, 0)', display: 'flex', alignItems: 'center', justifyContent: 'center', width: '20px', height: '20px' }} onClick={toggleMenu} onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')} onMouseLeave={(e) => (e.currentTarget.style.opacity = '0.6')}>
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
+                <line x1="3" y1="5" x2="17" y2="5" />
+                <line x1="3" y1="10" x2="17" y2="10" />
+                <line x1="3" y1="15" x2="17" y2="15" />
+              </svg>
             </button>
           </div>
         </div>
