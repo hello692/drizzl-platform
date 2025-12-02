@@ -1,32 +1,14 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { createClient } from '@supabase/supabase-js';
 
-const supabaseAdmin = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL || '',
-  process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || ''
-);
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
+const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY || '';
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
 
-async function tryCreateTable() {
-  const createTableSQL = `
-    CREATE TABLE IF NOT EXISTS retail_partners (
-      id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-      user_id UUID REFERENCES auth.users(id),
-      status TEXT DEFAULT 'pending',
-      company_name TEXT,
-      contact_email TEXT,
-      application_data JSONB,
-      created_at TIMESTAMPTZ DEFAULT NOW(),
-      updated_at TIMESTAMPTZ DEFAULT NOW()
-    );
-  `;
-  
-  try {
-    await supabaseAdmin.rpc('exec_sql', { sql: createTableSQL });
-    return true;
-  } catch (e) {
-    return false;
-  }
-}
+const supabaseAdmin = createClient(
+  supabaseUrl,
+  supabaseServiceKey || supabaseAnonKey
+);
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== 'POST') {
@@ -36,8 +18,30 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   try {
     const { userId, applicationData } = req.body;
 
-    if (!userId || !applicationData) {
-      return res.status(400).json({ error: 'Missing required fields' });
+    if (!userId) {
+      return res.status(400).json({ error: 'User ID is required. Please log in first.' });
+    }
+    
+    if (!applicationData) {
+      return res.status(400).json({ error: 'Application data is required.' });
+    }
+
+    if (!applicationData.legalBusinessName) {
+      return res.status(400).json({ error: 'Business name is required.' });
+    }
+
+    const { data: existingApp, error: checkError } = await supabaseAdmin
+      .from('retail_partners')
+      .select('id, status')
+      .eq('user_id', userId)
+      .maybeSingle();
+
+    if (existingApp) {
+      return res.status(400).json({ 
+        error: `You already have a ${existingApp.status} application.`,
+        existingId: existingApp.id,
+        status: existingApp.status
+      });
     }
 
     const fullApplicationData = {
@@ -68,111 +72,61 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       submittedAt: new Date().toISOString(),
     };
 
-    const insertAttempts = [
-      {
-        name: 'simple',
-        data: {
-          user_id: userId,
-          status: 'pending',
-          company_name: applicationData.legalBusinessName,
-          contact_email: applicationData.businessEmail,
-          application_data: fullApplicationData,
-        }
-      },
-      {
-        name: 'extended',
-        data: {
-          user_id: userId,
-          status: 'pending',
-          legal_business_name: applicationData.legalBusinessName,
-          business_email: applicationData.businessEmail,
-          application_data: fullApplicationData,
-        }
-      },
-      {
-        name: 'full',
-        data: {
-          user_id: userId,
-          status: 'pending',
-          legal_business_name: applicationData.legalBusinessName,
-          dba_store_name: applicationData.dbaStoreName,
-          business_address: applicationData.businessAddress,
-          city: applicationData.city,
-          state: applicationData.state,
-          zip: applicationData.zip,
-          country: applicationData.country || 'USA',
-          business_phone: applicationData.businessPhone,
-          business_email: applicationData.businessEmail,
-          website: applicationData.website,
-          ein_tax_id: applicationData.einTaxId,
-          resale_certificate_url: applicationData.resaleCertificateUrl,
-          business_type: applicationData.businessType,
-          years_in_business: applicationData.yearsInBusiness ? parseInt(applicationData.yearsInBusiness) : null,
-          decision_maker_name: applicationData.decisionMakerName,
-          decision_maker_role: applicationData.decisionMakerRole,
-          decision_maker_email: applicationData.decisionMakerEmail,
-          decision_maker_phone: applicationData.decisionMakerPhone,
-          estimated_monthly_volume: applicationData.estimatedMonthlyVolume,
-          preferred_delivery_schedule: applicationData.preferredDeliverySchedule,
-          receiving_hours: applicationData.receivingHours,
-          has_loading_dock: applicationData.hasLoadingDock === 'yes',
-          preferred_payment_method: applicationData.preferredPaymentMethod,
-        }
-      },
-      {
-        name: 'minimal',
-        data: {
-          user_id: userId,
-        }
+    const insertData = {
+      user_id: userId,
+      company_name: applicationData.legalBusinessName || 'Unnamed Business',
+      contact_name: applicationData.decisionMakerName || null,
+      email: applicationData.businessEmail || null,
+      phone: applicationData.businessPhone || null,
+      status: 'pending',
+      application_data: fullApplicationData,
+    };
+
+    const { data: partner, error: insertError } = await supabaseAdmin
+      .from('retail_partners')
+      .insert([insertData])
+      .select()
+      .single();
+
+    if (insertError) {
+      console.error('Insert error:', insertError);
+      
+      if (insertError.code === '42P01') {
+        return res.status(500).json({ 
+          error: 'Database table not found. Please run the migration.',
+          suggestion: 'Run the SQL from /database/retail-partners-migration.sql in Supabase SQL Editor.',
+          details: insertError.message
+        });
       }
-    ];
-
-    let successfulInsert = null;
-    let lastError = null;
-
-    for (const attempt of insertAttempts) {
-      try {
-        const { data: partner, error } = await supabaseAdmin
-          .from('retail_partners')
-          .insert([attempt.data])
-          .select()
-          .single();
-
-        if (!error && partner) {
-          console.log(`Insert succeeded with ${attempt.name} schema`);
-          successfulInsert = partner;
-          break;
-        }
-        
-        if (error) {
-          console.log(`${attempt.name} insert failed:`, error.message);
-          lastError = error;
-        }
-      } catch (e) {
-        console.log(`${attempt.name} insert threw:`, e);
-        lastError = e;
+      
+      if (insertError.code === '23505') {
+        return res.status(400).json({ 
+          error: 'You already have an existing application.',
+          details: 'Duplicate application detected.'
+        });
       }
+      
+      return res.status(500).json({ 
+        error: 'Unable to save application. Please try again.',
+        details: insertError.message
+      });
     }
 
-    if (!successfulInsert) {
-      console.error('All insert attempts failed. Last error:', lastError);
-      return res.status(500).json({ 
-        error: 'Unable to save application. The database table may need to be created.',
-        suggestion: 'Please run the migration SQL from /database/retail-partners-migration.sql in your Supabase SQL Editor.',
-        details: lastError?.message || 'Unknown error'
-      });
+    if (!partner) {
+      return res.status(500).json({ error: 'Application saved but no confirmation received.' });
     }
 
     try {
       await supabaseAdmin.from('profiles').update({ role: 'partner' }).eq('id', userId);
     } catch (e) {
-      console.log('Could not update user role, profiles table may not exist');
+      console.log('Could not update user role - profiles table may not exist');
     }
 
     return res.status(200).json({ 
       success: true, 
-      partnerId: successfulInsert.id,
-      status: 'pending'
+      partnerId: partner.id,
+      status: 'pending',
+      message: 'Your application has been submitted successfully!'
     });
 
   } catch (error) {

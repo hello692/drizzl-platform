@@ -56,15 +56,19 @@ export interface OrderItem {
 export interface RetailPartner {
   id: string;
   user_id: string;
-  store_name: string;
-  contact_name: string;
-  contact_email: string;
-  phone: string;
-  address: string;
-  city: string;
-  state: string;
-  zip: string;
-  country: string;
+  company_name?: string;
+  store_name?: string;
+  contact_name?: string;
+  contact_email?: string;
+  email?: string;
+  phone?: string;
+  address?: string;
+  city?: string;
+  state?: string;
+  zip?: string;
+  country?: string;
+  status?: string;
+  application_data?: Record<string, any>;
   created_at: string;
   updated_at: string;
   profile?: Profile;
