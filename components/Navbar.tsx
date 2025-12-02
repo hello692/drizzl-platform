@@ -87,41 +87,19 @@ export default function Navbar() {
           </div>
 
           <div style={{ display: 'flex', alignItems: 'center', gap: '24px', flex: 0, position: 'relative' }}>
-            {/* Dripping Dropdown Menu */}
-            <div className="nav-menu" style={{ position: 'relative' }}>
-              <div className="menu-trigger" style={{
-                fontWeight: '600',
-                cursor: 'pointer',
-                color: '#000',
-                fontSize: '14px',
-              }}>
-                Menu
-              </div>
+            <div className="nav-menu">
+              <button className="menu-trigger">Menu</button>
 
               <div className="drip-dropdown">
-                {menuItems.map((item) => (
-                  <Link key={item.href} href={item.href} style={{
-                    color: '#0d1b1e',
-                    fontSize: '16px',
-                    fontWeight: '500',
-                    textDecoration: 'none',
-                    transition: 'all 0.2s ease',
-                  }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.transform = 'translateX(8px)';
-                      e.currentTarget.style.fontWeight = '700';
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.transform = 'translateX(0)';
-                      e.currentTarget.style.fontWeight = '500';
-                    }}
-                  >
-                    {item.label}
-                  </Link>
-                ))}
-                <div className="drip d1"></div>
-                <div className="drip d2"></div>
-                <div className="drip d3"></div>
+                <a href="/smoothies">Smoothies</a>
+                <a href="/bowls">Bowls</a>
+                <a href="/about">About Us</a>
+                <a href="/contact">Contact</a>
+
+                {/* DRIP SHAPES */}
+                <div className="drip d1" />
+                <div className="drip d2" />
+                <div className="drip d3" />
               </div>
             </div>
 
