@@ -115,6 +115,10 @@ export default function Navbar() {
               <MenuIcon />
             </button>
             
+            {menuOpen && (
+              <div className="menu-overlay-2100" onClick={() => setMenuOpen(false)} style={{ pointerEvents: 'auto' }} />
+            )}
+            
             <div className={`menu-sidebar-2100 ${menuOpen ? 'open' : ''}`}>
               <div className="menu-header-sidebar">
                 <button 
