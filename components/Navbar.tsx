@@ -29,6 +29,13 @@ const CartIcon = () => (
   </svg>
 );
 
+const BriefcaseIcon = () => (
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+    <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+    <path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"></path>
+  </svg>
+);
+
 export default function Navbar() {
   return (
     <nav style={{
@@ -166,6 +173,33 @@ export default function Navbar() {
               <UserIcon />
             </div>
             Log in
+          </Link>
+
+          {/* Retail Partner Login */}
+          <Link href="/retail-partner" style={{
+            color: '#000',
+            fontSize: '14px',
+            fontWeight: '500',
+            textDecoration: 'none',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '8px',
+            opacity: 0.7,
+            transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+            letterSpacing: '-0.3px',
+            whiteSpace: 'nowrap',
+          }} onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')} onMouseLeave={(e) => (e.currentTarget.style.opacity = '0.7')}>
+            <div style={{
+              width: '24px',
+              height: '24px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              color: '#000',
+            }}>
+              <BriefcaseIcon />
+            </div>
+            Partner
           </Link>
 
           {/* Cart */}
