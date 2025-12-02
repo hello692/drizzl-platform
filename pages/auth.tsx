@@ -1,3 +1,5 @@
+'use client';
+
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { supabase } from "../lib/supabaseClient";
@@ -12,16 +14,18 @@ export default function AuthPage() {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setMounted(true);
-  }, []);
+    const checkSession = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (session) {
+        router.push("/");
+      }
+    };
 
-  useEffect(() => {
-    if (!mounted) return;
+    checkSession();
 
-    const { data: authListener } = supabase.auth.onAuthStateChange(
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(
       (event, session) => {
         if (event === "SIGNED_IN" && session) {
           router.push("/");
@@ -29,10 +33,8 @@ export default function AuthPage() {
       }
     );
 
-    return () => {
-      authListener?.subscription.unsubscribe();
-    };
-  }, [mounted, router]);
+    return () => subscription?.unsubscribe();
+  }, [router]);
 
   const resetMessages = () => {
     setMessage(null);
@@ -56,10 +58,11 @@ export default function AuthPage() {
       return;
     }
 
-    // Supabase usually sends a confirmation email
     setMessage(
-      "Signup successful! Check your email to confirm your account before logging in.",
+      "Signup successful! Check your email to confirm your account before logging in."
     );
+    setEmail("");
+    setPassword("");
   };
 
   const handleLogin = async (e: React.FormEvent) => {
@@ -79,7 +82,9 @@ export default function AuthPage() {
       return;
     }
 
-    setMessage("Logged in! (For now this is just a test message.)");
+    setMessage("Logged in successfully!");
+    setEmail("");
+    setPassword("");
   };
 
   const handleMagicLink = async () => {
@@ -91,12 +96,10 @@ export default function AuthPage() {
 
     setLoading(true);
 
-    const redirectUrl = `${window.location.origin}/auth`;
-
-    const { data, error } = await supabase.auth.signInWithOtp({
+    const { error } = await supabase.auth.signInWithOtp({
       email,
       options: {
-        emailRedirectTo: redirectUrl,
+        emailRedirectTo: typeof window !== 'undefined' ? window.location.origin : undefined,
       },
     });
 
@@ -108,6 +111,7 @@ export default function AuthPage() {
     }
 
     setMessage("Magic link sent! Check your email to log in.");
+    setEmail("");
   };
 
   return (
@@ -202,6 +206,7 @@ export default function AuthPage() {
               onChange={(e) => setEmail(e.target.value)}
               required
               placeholder="you@example.com"
+              autoComplete="email"
               style={{
                 padding: "10px 12px",
                 borderRadius: "8px",
@@ -219,6 +224,7 @@ export default function AuthPage() {
               onChange={(e) => setPassword(e.target.value)}
               required={mode === "signup" || mode === "login"}
               placeholder="••••••••"
+              autoComplete="current-password"
               style={{
                 padding: "10px 12px",
                 borderRadius: "8px",
@@ -240,6 +246,7 @@ export default function AuthPage() {
               color: "white",
               fontWeight: 600,
               cursor: loading ? "default" : "pointer",
+              opacity: loading ? 0.6 : 1,
             }}
           >
             {loading
@@ -277,9 +284,10 @@ export default function AuthPage() {
             background: "white",
             cursor: loading ? "default" : "pointer",
             fontSize: "14px",
+            fontWeight: 500,
           }}
         >
-          Send me a magic login link
+          {loading ? "Sending…" : "Send me a magic login link"}
         </button>
 
         {/* Messages */}
