@@ -1,12 +1,5 @@
 import Link from 'next/link';
 
-const SearchIcon = () => (
-  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-    <circle cx="11" cy="11" r="8"></circle>
-    <path d="m21 21-4.35-4.35"></path>
-  </svg>
-);
-
 const LocationIcon = () => (
   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
     <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
@@ -50,37 +43,13 @@ export default function Navbar() {
         flexWrap: 'nowrap',
         gap: '32px',
       }}>
-        {/* Left: Search + Find in stores */}
+        {/* Left: Find in stores */}
         <div style={{
           display: 'flex',
           gap: '32px',
           alignItems: 'center',
           flex: 0,
         }}>
-          {/* Search */}
-          <div style={{ 
-            display: 'flex', 
-            alignItems: 'center', 
-            gap: '8px', 
-            color: '#000',
-            cursor: 'pointer',
-            opacity: 0.7,
-            transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-            whiteSpace: 'nowrap',
-          }} onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')} onMouseLeave={(e) => (e.currentTarget.style.opacity = '0.7')}>
-            <div style={{
-              width: '24px',
-              height: '24px',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              color: '#000',
-            }}>
-              <SearchIcon />
-            </div>
-            <span style={{ fontSize: '14px', fontWeight: '500', letterSpacing: '-0.3px' }}>Search</span>
-          </div>
-
           {/* Find in stores */}
           <button style={{
             padding: '0',

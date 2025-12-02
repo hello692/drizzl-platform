@@ -343,13 +343,23 @@ export default function Home() {
               }}
             >
               {POPULAR_SMOOTHIES.map((product) => (
-                <div
+                <Link
                   key={product.id}
+                  href={`/products/${product.id}`}
                   style={{
                     flexShrink: 0,
                     width: '280px',
                     textAlign: 'center',
                     pointerEvents: isDragging ? 'none' : 'auto',
+                    textDecoration: 'none',
+                    color: 'inherit',
+                    transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.transform = 'translateY(-4px)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.transform = 'translateY(0)';
                   }}
                 >
                   {/* Product Image */}
@@ -357,12 +367,12 @@ export default function Home() {
                     background: '#f8f9fa',
                     borderRadius: '16px',
                     height: '300px',
-                    marginBottom: '24px',
+                    marginBottom: '20px',
                     overflow: 'hidden',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    cursor: 'grab',
+                    cursor: 'pointer',
                     border: '1px solid #e8e8e8',
                   }}>
                     <img
@@ -380,26 +390,44 @@ export default function Home() {
                   
                   {/* Product Name */}
                   <h3 style={{
-                    fontSize: '18px',
+                    fontSize: '16px',
                     fontWeight: '700',
-                    marginBottom: '8px',
-                    fontFamily: "'DM Sans', sans-serif",
-                    letterSpacing: '-0.2px',
+                    marginBottom: '6px',
+                    letterSpacing: '-0.3px',
                   }}>
                     {product.name}
                   </h3>
 
-                  {/* Description */}
+                  {/* Category */}
                   <p style={{
-                    fontSize: '15px',
-                    color: '#888',
-                    marginBottom: '16px',
-                    minHeight: '20px',
-                    letterSpacing: '-0.1px',
+                    fontSize: '13px',
+                    color: '#79747e',
+                    marginBottom: '8px',
+                    letterSpacing: '-0.2px',
                   }}>
-                    {product.description}
+                    Smoothie
                   </p>
-                </div>
+
+                  {/* Stars & Reviews */}
+                  <p style={{
+                    fontSize: '13px',
+                    color: '#424245',
+                    marginBottom: '12px',
+                    letterSpacing: '-0.2px',
+                  }}>
+                    ★★★★★ 185 reviews
+                  </p>
+
+                  {/* Price */}
+                  <p style={{
+                    fontSize: '16px',
+                    fontWeight: '700',
+                    marginBottom: '12px',
+                    letterSpacing: '-0.3px',
+                  }}>
+                    ${product.price.toFixed(2)}
+                  </p>
+                </Link>
               ))}
             </div>
 
