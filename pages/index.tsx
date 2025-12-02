@@ -178,6 +178,10 @@ export default function Home() {
           fontSize: '64px',
           marginBottom: '32px',
           maxWidth: '1000px',
+          animation: 'autoType 2s steps(40, end) 0.3s forwards, gradientTextShift 6s ease infinite 2s',
+          overflow: 'hidden',
+          whiteSpace: 'nowrap',
+          opacity: 0,
         }}>
           Frozen Smoothies & Bowls
         </h1>
@@ -189,6 +193,10 @@ export default function Home() {
           lineHeight: '1.8',
           fontWeight: '400',
           letterSpacing: '-0.3px',
+          animation: 'autoType 1.5s steps(60, end) 2.5s forwards',
+          overflow: 'hidden',
+          whiteSpace: 'nowrap',
+          opacity: 0,
         }}>
           Skip the blender. Embrace the possibilities. Order your first smoothie today.
         </p>
