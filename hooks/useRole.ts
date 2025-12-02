@@ -72,5 +72,98 @@ export function useRequireAdmin() {
 }
 
 export function useRequirePartner() {
-  return useRequireRole(['partner', 'admin']);
+  const { user, role, loading } = useRole();
+  const router = useRouter();
+  const [authorized, setAuthorized] = useState(false);
+  const [partnerStatus, setPartnerStatus] = useState<string | null>(null);
+  const [checkingPartner, setCheckingPartner] = useState(true);
+
+  useEffect(() => {
+    async function checkPartnerStatus() {
+      if (loading) return;
+
+      if (!user) {
+        router.push('/auth');
+        return;
+      }
+
+      if (role === 'admin') {
+        setAuthorized(true);
+        setPartnerStatus('approved');
+        setCheckingPartner(false);
+        return;
+      }
+
+      if (role !== 'partner') {
+        router.push('/retail');
+        return;
+      }
+
+      try {
+        const response = await fetch(`/api/retail/status?userId=${user.id}`);
+        const data = await response.json();
+
+        if (!data.hasApplication) {
+          router.push('/retail/apply');
+          return;
+        }
+
+        setPartnerStatus(data.status);
+
+        if (data.status === 'approved') {
+          setAuthorized(true);
+        } else {
+          router.push('/retail');
+        }
+      } catch (error) {
+        console.error('Error checking partner status:', error);
+        router.push('/retail');
+      } finally {
+        setCheckingPartner(false);
+      }
+    }
+
+    checkPartnerStatus();
+  }, [user, role, loading, router]);
+
+  return { 
+    user, 
+    role, 
+    loading: loading || checkingPartner, 
+    authorized,
+    partnerStatus 
+  };
+}
+
+export function usePartnerStatus() {
+  const { user, loading: authLoading } = useAuth();
+  const [status, setStatus] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchStatus() {
+      if (!user) {
+        setStatus(null);
+        setLoading(false);
+        return;
+      }
+
+      try {
+        const response = await fetch(`/api/retail/status?userId=${user.id}`);
+        const data = await response.json();
+        setStatus(data.hasApplication ? data.status : null);
+      } catch (error) {
+        console.error('Error fetching partner status:', error);
+        setStatus(null);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    if (!authLoading) {
+      fetchStatus();
+    }
+  }, [user, authLoading]);
+
+  return { status, loading: authLoading || loading };
 }
