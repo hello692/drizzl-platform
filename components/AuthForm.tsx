@@ -12,16 +12,11 @@ export default function AuthForm() {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [isClient, setIsClient] = useState(false);
 
+  // Only run auth checks on client
   useEffect(() => {
-    const checkSession = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
-      if (session) {
-        router.push("/");
-      }
-    };
-
-    checkSession();
+    setIsClient(true);
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       (event, session) => {
@@ -142,7 +137,6 @@ export default function AuthForm() {
             : "Create your Drizzl account."}
         </p>
 
-        {/* Mode toggle */}
         <div
           style={{
             display: "flex",
@@ -255,7 +249,6 @@ export default function AuthForm() {
           </button>
         </form>
 
-        {/* Divider */}
         <div
           style={{
             display: "flex",
@@ -269,7 +262,6 @@ export default function AuthForm() {
           <div style={{ flex: 1, height: 1, background: "#eee" }} />
         </div>
 
-        {/* Magic link button */}
         <button
           type="button"
           onClick={handleMagicLink}
@@ -288,7 +280,6 @@ export default function AuthForm() {
           {loading ? "Sending…" : "Send me a magic login link"}
         </button>
 
-        {/* Messages */}
         {message && (
           <div
             style={{
