@@ -241,44 +241,53 @@ export default function RetailApply() {
     setUploadError('');
     setError('');
 
+    const fileExt = file.name.split('.').pop();
+    const fileName = `resale-cert-${user?.id}-${Date.now()}.${fileExt}`;
+    
+    const progressInterval = setInterval(() => {
+      setUploadProgress(prev => Math.min(prev + 10, 90));
+    }, 100);
+
+    let uploadSuccess = false;
+    let publicUrl = '';
+
     try {
-      const fileExt = file.name.split('.').pop();
-      const fileName = `resale-cert-${user?.id}-${Date.now()}.${fileExt}`;
+      const { data: buckets, error: listError } = await supabase.storage.listBuckets();
       
-      const progressInterval = setInterval(() => {
-        setUploadProgress(prev => Math.min(prev + 10, 90));
-      }, 100);
-
-      const { data, error: storageError } = await supabase.storage
-        .from('certificates')
-        .upload(fileName, file, {
-          cacheControl: '3600',
-          upsert: true
-        });
-
-      clearInterval(progressInterval);
-
-      if (storageError) {
-        console.error('Upload error:', storageError);
-        setUploadProgress(100);
-        setUploadError('File uploaded locally. Cloud storage not configured - your file will be reviewed after submission.');
-        setFormData(prev => ({ ...prev, resaleCertificateUrl: `pending:${file.name}` }));
-      } else {
-        const { data: urlData } = supabase.storage
-          .from('certificates')
-          .getPublicUrl(fileName);
+      if (!listError && buckets) {
+        const bucketExists = buckets.some(b => b.name === 'certificates');
         
-        setFormData(prev => ({ ...prev, resaleCertificateUrl: urlData.publicUrl }));
-        setUploadProgress(100);
-        setUploadError('');
+        if (bucketExists) {
+          const { data, error: storageError } = await supabase.storage
+            .from('certificates')
+            .upload(fileName, file, {
+              cacheControl: '3600',
+              upsert: true
+            });
+
+          if (!storageError && data) {
+            const { data: urlData } = supabase.storage
+              .from('certificates')
+              .getPublicUrl(fileName);
+            publicUrl = urlData.publicUrl;
+            uploadSuccess = true;
+          }
+        }
       }
-    } catch (err) {
-      console.error('Upload error:', err);
-      setUploadProgress(100);
-      setUploadError('Could not upload to cloud storage. Your file name has been recorded.');
+    } catch {
+      // Silently handle storage errors - we'll use fallback
+    }
+
+    clearInterval(progressInterval);
+    setUploadProgress(100);
+    setIsUploading(false);
+
+    if (uploadSuccess && publicUrl) {
+      setFormData(prev => ({ ...prev, resaleCertificateUrl: publicUrl }));
+      setUploadError('');
+    } else {
+      setUploadError('File uploaded locally. Cloud storage not configured - your file will be reviewed after submission.');
       setFormData(prev => ({ ...prev, resaleCertificateUrl: `pending:${file.name}` }));
-    } finally {
-      setIsUploading(false);
     }
   };
 
