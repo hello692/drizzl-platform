@@ -182,6 +182,24 @@ export default function Home() {
     }
   }, []);
 
+  // Auto-scroll for Popular Products (3 seconds)
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (carouselRef.current && !isDragging) {
+        carouselRef.current.scrollBy({ left: 312, behavior: 'smooth' });
+      }
+    }, 3000);
+    return () => clearInterval(interval);
+  }, [isDragging]);
+
+  // Auto-scroll for Experts section (3 seconds)
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setExpertPosition(prev => (prev + 1) % EXPERTS.length);
+    }, 3000);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <>
       <Navbar />
@@ -518,97 +536,98 @@ export default function Home() {
       {/* Experts Section */}
       <section style={{
         background: '#f8f9fa',
-        padding: '140px 60px',
+        padding: 'clamp(60px, 10vw, 140px) clamp(16px, 4vw, 60px)',
       }}>
         <div style={{
           maxWidth: '1280px',
           margin: '0 auto',
         }}>
           <h2 style={{
-            fontSize: '48px',
-            fontWeight: '800',
+            fontSize: 'clamp(28px, 6vw, 48px)',
+            fontWeight: '700',
             marginBottom: '16px',
             letterSpacing: '-0.8px',
             textAlign: 'center',
-            textTransform: 'uppercase',
           }}>
             Powered by AI, Formulated by Data
           </h2>
           <p style={{
-            fontSize: '14px',
-            color: '#424245',
+            fontSize: 'clamp(12px, 3vw, 14px)',
+            color: '#86868b',
             textAlign: 'center',
-            marginBottom: '64px',
-            letterSpacing: '0.5px',
-            textTransform: 'uppercase',
+            marginBottom: 'clamp(40px, 8vw, 64px)',
+            letterSpacing: '0.3px',
           }}>
-            Approved by Dermatologists & Experts*
+            Approved by Dermatologists & Experts
           </p>
 
           {/* Carousel Container */}
-          <div style={{ position: 'relative', paddingLeft: '80px', paddingRight: '80px' }}>
+          <div style={{ position: 'relative', paddingLeft: 'clamp(50px, 8vw, 70px)', paddingRight: 'clamp(50px, 8vw, 70px)' }}>
             {/* Left Arrow */}
             <button
-              onClick={() => setExpertPosition(Math.max(0, expertPosition - 1))}
+              onClick={() => setExpertPosition(prev => (prev - 1 + EXPERTS.length) % EXPERTS.length)}
               style={{
                 position: 'absolute',
                 left: '0',
                 top: '50%',
                 transform: 'translateY(-50%)',
-                background: '#000000',
-                border: 'none',
-                width: '44px',
-                height: '44px',
+                background: '#ffffff',
+                border: '1px solid #e0e0e0',
+                width: '48px',
+                height: '48px',
                 borderRadius: '50%',
-                color: 'white',
-                cursor: expertPosition > 0 ? 'pointer' : 'default',
+                color: '#000',
+                cursor: 'pointer',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
                 zIndex: 10,
-                boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
-                opacity: expertPosition > 0 ? 1 : 0.4,
+                boxShadow: '0 2px 12px rgba(0, 0, 0, 0.08)',
               }}
               onMouseEnter={(e) => {
-                if (expertPosition > 0) {
-                  e.currentTarget.style.background = '#424245';
-                  e.currentTarget.style.transform = 'translateY(-50%) scale(1.08)';
-                  e.currentTarget.style.boxShadow = '0 8px 20px rgba(0, 0, 0, 0.25)';
-                }
+                e.currentTarget.style.background = '#000';
+                e.currentTarget.style.color = '#fff';
+                e.currentTarget.style.borderColor = '#000';
+                e.currentTarget.style.transform = 'translateY(-50%) scale(1.05)';
+                e.currentTarget.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.15)';
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.background = '#000000';
+                e.currentTarget.style.background = '#ffffff';
+                e.currentTarget.style.color = '#000';
+                e.currentTarget.style.borderColor = '#e0e0e0';
                 e.currentTarget.style.transform = 'translateY(-50%) scale(1)';
-                e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.15)';
+                e.currentTarget.style.boxShadow = '0 2px 12px rgba(0, 0, 0, 0.08)';
               }}
-              disabled={expertPosition === 0}
             >
               <ModernArrowLeft />
             </button>
 
-            {/* Carousel */}
+            {/* Carousel - Infinite */}
             <div style={{
               display: 'grid',
               gridTemplateColumns: 'repeat(4, 1fr)',
-              gap: '32px',
+              gap: '24px',
             }}>
-              {EXPERTS.slice(expertPosition, expertPosition + 4).map((expert) => (
-                <div key={expert.id} style={{
+              {[...EXPERTS, ...EXPERTS].slice(expertPosition, expertPosition + 4).map((expert, idx) => (
+                <div key={`${expert.id}-${idx}`} style={{
                   background: '#ffffff',
                   borderRadius: '16px',
                   overflow: 'hidden',
-                  boxShadow: '0 4px 16px rgba(0, 0, 0, 0.08)',
+                  border: '1px solid #e8e8e8',
+                  boxShadow: '0 2px 8px rgba(0, 0, 0, 0.04)',
                   transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
                   cursor: 'pointer',
                 }}
                   onMouseEnter={(e) => {
                     e.currentTarget.style.transform = 'translateY(-4px)';
-                    e.currentTarget.style.boxShadow = '0 8px 28px rgba(0, 0, 0, 0.12)';
+                    e.currentTarget.style.boxShadow = '0 8px 24px rgba(0, 0, 0, 0.08)';
+                    e.currentTarget.style.borderColor = '#d0d0d0';
                   }}
                   onMouseLeave={(e) => {
                     e.currentTarget.style.transform = 'translateY(0)';
-                    e.currentTarget.style.boxShadow = '0 4px 16px rgba(0, 0, 0, 0.08)';
+                    e.currentTarget.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.04)';
+                    e.currentTarget.style.borderColor = '#e8e8e8';
                   }}
                 >
                   <div style={{
@@ -663,7 +682,7 @@ export default function Home() {
                   <div style={{ padding: '20px' }}>
                     <p style={{
                       fontSize: '12px',
-                      color: '#79747e',
+                      color: '#86868b',
                       margin: '0 0 12px 0',
                       fontWeight: '600',
                       letterSpacing: '0.3px',
@@ -680,7 +699,7 @@ export default function Home() {
                         width: '40px',
                         height: '40px',
                         background: '#f0f0f0',
-                        borderRadius: '6px',
+                        borderRadius: '8px',
                         overflow: 'hidden',
                       }}>
                         <img
@@ -710,40 +729,40 @@ export default function Home() {
 
             {/* Right Arrow */}
             <button
-              onClick={() => setExpertPosition(Math.min(EXPERTS.length - 4, expertPosition + 1))}
+              onClick={() => setExpertPosition(prev => (prev + 1) % EXPERTS.length)}
               style={{
                 position: 'absolute',
                 right: '0',
                 top: '50%',
                 transform: 'translateY(-50%)',
-                background: '#000000',
-                border: 'none',
-                width: '44px',
-                height: '44px',
+                background: '#ffffff',
+                border: '1px solid #e0e0e0',
+                width: '48px',
+                height: '48px',
                 borderRadius: '50%',
-                color: 'white',
-                cursor: expertPosition < EXPERTS.length - 4 ? 'pointer' : 'default',
+                color: '#000',
+                cursor: 'pointer',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
                 zIndex: 10,
-                boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
-                opacity: expertPosition < EXPERTS.length - 4 ? 1 : 0.4,
+                boxShadow: '0 2px 12px rgba(0, 0, 0, 0.08)',
               }}
               onMouseEnter={(e) => {
-                if (expertPosition < EXPERTS.length - 4) {
-                  e.currentTarget.style.background = '#424245';
-                  e.currentTarget.style.transform = 'translateY(-50%) scale(1.08)';
-                  e.currentTarget.style.boxShadow = '0 8px 20px rgba(0, 0, 0, 0.25)';
-                }
+                e.currentTarget.style.background = '#000';
+                e.currentTarget.style.color = '#fff';
+                e.currentTarget.style.borderColor = '#000';
+                e.currentTarget.style.transform = 'translateY(-50%) scale(1.05)';
+                e.currentTarget.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.15)';
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.background = '#000000';
+                e.currentTarget.style.background = '#ffffff';
+                e.currentTarget.style.color = '#000';
+                e.currentTarget.style.borderColor = '#e0e0e0';
                 e.currentTarget.style.transform = 'translateY(-50%) scale(1)';
-                e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.15)';
+                e.currentTarget.style.boxShadow = '0 2px 12px rgba(0, 0, 0, 0.08)';
               }}
-              disabled={expertPosition >= EXPERTS.length - 4}
             >
               <ModernArrowRight />
             </button>
