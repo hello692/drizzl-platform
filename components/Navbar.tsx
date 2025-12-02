@@ -140,7 +140,7 @@ export default function Navbar() {
             <div style={{
               fontSize: '11px',
               fontWeight: '700',
-              letterSpacing: '1.8px',
+              letterSpacing: '3.2px',
               textTransform: 'uppercase',
               whiteSpace: 'nowrap',
               textAlign: 'center',
