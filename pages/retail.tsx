@@ -8,7 +8,7 @@ import { useAuth } from '../hooks/useAuth';
 
 export default function RetailLogin() {
   const router = useRouter();
-  const { user } = useAuth();
+  const { user, loading: authLoading } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -17,12 +17,14 @@ export default function RetailLogin() {
   const [checkingStatus, setCheckingStatus] = useState(true);
 
   useEffect(() => {
-    if (user) {
-      checkPartnerStatus();
-    } else {
-      setCheckingStatus(false);
+    if (!authLoading) {
+      if (user) {
+        checkPartnerStatus();
+      } else {
+        setCheckingStatus(false);
+      }
     }
-  }, [user]);
+  }, [user, authLoading]);
 
   async function checkPartnerStatus() {
     try {
