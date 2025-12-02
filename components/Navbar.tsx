@@ -305,7 +305,7 @@ export default function Navbar() {
               <ellipse cx="750" cy="58" rx="32" ry="48" fill="url(#dripGradient)" opacity="0.5" />
               <ellipse cx="900" cy="50" rx="26" ry="42" fill="url(#dripGradient)" opacity="0.6" />
             </svg>
-          </div>
+
             {/* Left Content */}
             <div style={{
               position: 'absolute',
@@ -314,6 +314,7 @@ export default function Navbar() {
               display: 'flex',
               flexDirection: 'column',
               gap: '40px',
+              zIndex: 10,
             }}>
               {menuItems.map((item, index) => (
                 <Link
@@ -358,6 +359,7 @@ export default function Navbar() {
               alignItems: 'center',
               height: '400px',
               gap: '60px',
+              zIndex: 10,
             }}>
               <span style={{ animation: 'float 4s ease-in-out infinite' }}>🥤</span>
               <span style={{ animation: 'float 4s ease-in-out infinite', animationDelay: '0.5s' }}>🍹</span>
