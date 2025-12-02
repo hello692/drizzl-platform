@@ -16,18 +16,10 @@ export default function AuthPage() {
 
   useEffect(() => {
     setMounted(true);
-    
-    const handleAuthChange = async () => {
-      const {
-        data: { session },
-      } = await supabase.auth.getSession();
-      if (session) {
-        // User logged in via magic link, redirect them
-        router.push("/");
-      }
-    };
+  }, []);
 
-    handleAuthChange();
+  useEffect(() => {
+    if (!mounted) return;
 
     const { data: authListener } = supabase.auth.onAuthStateChange(
       (event, session) => {
@@ -40,7 +32,7 @@ export default function AuthPage() {
     return () => {
       authListener?.subscription.unsubscribe();
     };
-  }, [router]);
+  }, [mounted, router]);
 
   const resetMessages = () => {
     setMessage(null);
