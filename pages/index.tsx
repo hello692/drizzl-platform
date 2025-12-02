@@ -175,44 +175,65 @@ export default function Home() {
     <>
       <Navbar />
 
-      {/* Hero Section with Premium Image */}
+      {/* Hero Section with Background Video */}
       <section style={{
         padding: 'clamp(60px, 10vw, 140px) clamp(16px, 4vw, 60px)',
         textAlign: 'center',
-        minHeight: 'clamp(400px, 60vh, 680px)',
+        minHeight: 'clamp(400px, 70vh, 720px)',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        background: 'linear-gradient(135deg, #ffffff 0%, #fafafa 100%)',
+        background: '#000',
         position: 'relative',
         overflow: 'hidden',
       }}>
-        {/* Premium background image */}
+        {/* Background Video */}
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          style={{
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            minWidth: '100%',
+            minHeight: '100%',
+            width: 'auto',
+            height: 'auto',
+            objectFit: 'cover',
+            zIndex: 0,
+          }}
+        >
+          <source src="/videos/hero-video.mp4" type="video/mp4" />
+        </video>
+        
+        {/* Dark overlay for better text readability */}
         <div style={{
           position: 'absolute',
           inset: 0,
-          backgroundImage: 'url("https://images.unsplash.com/photo-1600271886742-f049cd451bba?w=1400&q=80")',
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          opacity: 0.08,
-          zIndex: 0,
+          background: 'linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.5) 100%)',
+          zIndex: 1,
         }}></div>
         
-        <div style={{ position: 'relative', zIndex: 1 }}>
+        <div style={{ position: 'relative', zIndex: 2 }}>
           <AnimatedSection animation="fadeUp">
             <h1 style={{
               fontSize: 'clamp(28px, 8vw, 64px)',
               fontWeight: '700',
               textAlign: 'center',
               letterSpacing: '-1px',
+              color: '#fff',
+              textShadow: '0 2px 20px rgba(0,0,0,0.3)',
               animation: 'subtleFloat 6s ease-in-out infinite',
             }}>
               {t('hero.title')}
             </h1>
           </AnimatedSection>
           <AnimatedSection animation="fadeUp" delay={100}>
-            <p style={{ textAlign: 'center', margin: '0 auto clamp(24px, 6vw, 48px)', fontSize: 'clamp(14px, 4vw, 18px)', color: '#666', maxWidth: '600px', lineHeight: '1.7', animation: 'delicateFade 1.2s cubic-bezier(0.32, 0, 0.67, 0) 0.3s forwards', opacity: 0 }}>
+            <p style={{ textAlign: 'center', margin: '0 auto clamp(24px, 6vw, 48px)', fontSize: 'clamp(14px, 4vw, 18px)', color: 'rgba(255,255,255,0.9)', maxWidth: '600px', lineHeight: '1.7', animation: 'delicateFade 1.2s cubic-bezier(0.32, 0, 0.67, 0) 0.3s forwards', opacity: 0 }}>
               {t('hero.subtitle')}
             </p>
           </AnimatedSection>
@@ -220,6 +241,8 @@ export default function Home() {
             <Link href="/products" className="btn-premium" style={{
               fontSize: '14px',
               padding: '14px 32px',
+              background: '#fff',
+              color: '#000',
               animation: 'smoothScale 1s cubic-bezier(0.32, 0, 0.67, 0) 0.6s forwards',
             }}>
               {t('hero.cta')}
