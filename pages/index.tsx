@@ -228,33 +228,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Lifestyle Hero Section - Widescreen */}
-      <section style={{
-        width: '100%',
-        padding: 'clamp(20px, 5vw, 60px) 0',
-        background: '#ffffff',
-        overflow: 'hidden',
-      }}>
-        <div style={{
-          width: '100%',
-          maxWidth: '100vw',
-          aspectRatio: '16 / 9',
-          overflow: 'hidden',
-        }}>
-          <img
-            src="https://images.unsplash.com/photo-1600271886742-f049cd451bba?w=1920&q=85"
-            alt="Drizzl Wellness Lifestyle"
-            style={{
-              width: '100%',
-              height: '100%',
-              objectFit: 'cover',
-              objectPosition: 'center',
-              display: 'block',
-            }}
-          />
-        </div>
-      </section>
-
       {/* Category Grid */}
       <section style={{ padding: 'clamp(40px, 8vw, 120px) clamp(16px, 4vw, 60px)', background: '#ffffff' }}>
         <div style={{ maxWidth: '1360px', margin: '0 auto' }}>
