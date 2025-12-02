@@ -19,10 +19,13 @@ export default function TypedText({
   style = {},
   animated = true,
 }: TypedTextProps) {
-  const [displayedText, setDisplayedText] = useState('');
-  const [isComplete, setIsComplete] = useState(false);
+  const [displayedText, setDisplayedText] = useState(text);
+  const [isComplete, setIsComplete] = useState(true);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
+    
     if (!animated) {
       setDisplayedText(text);
       setIsComplete(true);
@@ -30,19 +33,21 @@ export default function TypedText({
     }
 
     let timeoutId: NodeJS.Timeout;
+    let intervalId: NodeJS.Timeout;
 
     const startAnimation = () => {
+      setDisplayedText('');
+      setIsComplete(false);
       let index = 0;
-      const interval = setInterval(() => {
+      
+      intervalId = setInterval(() => {
         setDisplayedText(text.substring(0, index + 1));
         index++;
         if (index >= text.length) {
-          clearInterval(interval);
+          clearInterval(intervalId);
           setIsComplete(true);
         }
       }, speed * 1000);
-
-      return () => clearInterval(interval);
     };
 
     if (delay > 0) {
@@ -53,6 +58,7 @@ export default function TypedText({
 
     return () => {
       if (timeoutId) clearTimeout(timeoutId);
+      if (intervalId) clearInterval(intervalId);
     };
   }, [text, delay, speed, animated]);
 
@@ -61,12 +67,12 @@ export default function TypedText({
       className={className}
       style={{
         ...style,
-        animation: animated && delay > 0 ? `smoothReveal ${0.6}s ease-out ${delay}s both` : undefined,
+        animation: animated && mounted && delay > 0 ? `smoothReveal ${0.6}s ease-out ${delay}s both` : undefined,
         position: 'relative',
       }}
     >
       {displayedText}
-      {!isComplete && animated && (
+      {mounted && !isComplete && animated && (
         <span
           style={{
             display: 'inline-block',
