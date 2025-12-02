@@ -1,146 +1,129 @@
-# Drizzl Platform - Production D2C Store
+# Drizzl Wellness - Production D2C E-Commerce Platform
 
 ## Project Overview
-**Purpose**: Full-stack Direct-to-Consumer (D2C) e-commerce platform with Next.js, Supabase, and Stripe.
-
-**Status**: Phase 1 - Core Store (Auth, Products, Cart)
-
-**Tech Stack**:
-- Frontend: Next.js 15 + React 19
-- Backend: Next.js API Routes
-- Database: Supabase PostgreSQL with RLS
-- Auth: Supabase Auth (email/password + magic links)
-- Payments: Stripe (Phase 2)
-- AI: Coming Phase 3
-
----
+**Purpose**: Production-ready Direct-to-Consumer smoothie and wellness brand platform
+**Status**: Phase 1 Complete - Full Site Structure Built
+**Stack**: Next.js 15 + React 19, Supabase, Stripe (Phase 2), AI (Phase 3)
 
 ## Database Architecture
+- **users** - Customer profiles with role-based access (admin/customer)
+- **products** - Complete product catalog with category, pricing, inventory
+- **cart_items** - Real-time shopping cart management
+- **orders** - Order records with status tracking
+- **order_items** - Line items with historical pricing
 
-### Tables
-1. **users** - Extended Supabase auth with profiles
-   - Roles: admin, customer
-   - RLS: Users see own profile, admins see all
+All tables have RLS (Row-Level Security) policies for data protection.
 
-2. **products** - Product catalog
-   - Fields: name, description, price, inventory, image_url, category, sku
-   - RLS: Public read for active products, admin-only write
+## Website Structure (Daily Harvest-Inspired)
 
-3. **cart_items** - Shopping cart
-   - user_id → users
-   - product_id → products
-   - RLS: Users manage only their own cart
+### Main Pages
+- `/` - Homepage with hero, category grid, featured products
+- `/shop-all` - Complete product catalog
+- `/checkout` - Two-step checkout (shipping + payment)
+- `/order-confirmation` - Order success page
 
-4. **orders** - Order records
-   - user_id → users
-   - status: pending, processing, shipped, delivered, cancelled
-   - stripe_payment_id, shipping/billing addresses (JSONB)
-   - RLS: Users see own orders only
+### Product Collections
+- `/collections/smoothies` - Regular smoothies
+- `/collections/high-protein` - Protein smoothies
+- `/collections/breakfast-bowls` - Breakfast bowls
+- `/collections/bites` - Snack bites
+- `/collections/protein-shop` - Protein powders
+- `/collections/best-sellers` - Top products
+- `/collections/new-arrivals` - Latest releases
+- `/collections/smoothie-boxes` - Curated boxes
+- `/collections/gift-guide` - Gift collections
 
-5. **order_items** - Order line items
-   - order_id → orders
-   - product_id → products (snapshot of product data at purchase)
-   - price_at_purchase (fixed price at time of order)
-
-### Security
-- Row-Level Security (RLS) enforced on all tables
-- Auth policies: Users can only access their data
-- Admin policies: Admins have full access
-
----
-
-## Auth Strategy
-
-### Roles
-- **admin**: Full platform access, product management, order management
-- **customer**: Browse products, manage own cart/orders
-
-### Auth Methods
-1. **Email/Password**: Traditional login
-2. **Magic Links**: Passwordless login via email
-3. **Session Management**: Supabase handles JWT tokens
-
-### Flow
-```
-Sign Up → Email Verification → Create User Profile (customer role)
-Sign In → JWT Token → Check User Role → Redirect
-Magic Link → Email Click → Auto Login → Redirect
-```
-
----
-
-## Phase 1: D2C Store Implementation
-
-### Pages
-- `/` - Homepage
-- `/auth` - Login/Signup/Magic Link (client-side only)
-- `/products` - Product listing
+### User Account Pages
+- `/auth` - Login/signup/magic link
+- `/account` - Account dashboard
+- `/orders` - Order history
 - `/cart` - Shopping cart
-- `/checkout-success` - Order confirmation
 
-### Components
-- **Navbar** - Navigation with auth status
-- **AuthForm** - Dynamic auth form (client-side)
+### Info & Support Pages
+- `/contact` - Contact form
+- `/faq` - Frequently asked questions
+- `/our-story` - Brand story
+- `/blog` - Blog & recipes
+- `/careers` - Job openings
+- `/refer` - Referral program
+- `/student-discount` - Student program
+- `/privacy` - Privacy policy
+- `/terms` - Terms of service
 
-### Hooks
-- **useAuth()** - Get current user
-- **useRequireAuth()** - Protect routes
-- **useCart()** - Cart management
+### Product Pages
+- `/product/[id]` - Individual product detail page
 
-### API Routes
-- `GET /api/products` - List active products
-- `GET /api/orders` - User's orders
-- `POST /api/orders` - Create order
-- `POST /api/checkout` - Stripe checkout (Phase 2)
+## Design System
+- **Typography**: DM Sans (headings), Inter (body)
+- **Colors**: Black (#000), white (#fff), grays (#f9f9f9, #e8e8e8)
+- **Layout**: 1280px centered max-width, clean minimal aesthetic
+- **Style**: Editorial wellness brand inspired by Daily Harvest
 
----
+## Authentication & Security
+- Email/Password signup
+- Magic link passwordless login
+- Supabase Auth with JWT tokens
+- Role-based access control (admin/customer)
+- User profile creation on signup
 
-## Files Structure
+## Core Features (Phase 1)
+✅ Product browsing & filtering by category
+✅ Shopping cart (add/remove/update quantities)
+✅ User authentication (email, password, magic links)
+✅ Order management structure
+✅ Complete site navigation
+✅ Footer with organized links
+✅ Responsive design
+
+## Upcoming (Phase 2-3)
+- Stripe payment integration
+- Email confirmations
+- Order tracking
+- AI product recommendations
+- Admin dashboard
+- Subscription management
+- Analytics & reporting
+
+## File Structure
 ```
-/lib
+/lib - Core utilities
+  - auth.ts - Authentication functions
   - supabaseClient.ts - Supabase config
-  - auth.ts - Auth utilities
-/hooks
-  - useAuth.ts - Auth hook
-  - useCart.ts - Cart hook
-/components
-  - Navbar.tsx - Navigation
+/hooks - Custom React hooks
+  - useAuth.ts - User authentication
+  - useCart.ts - Shopping cart management
+/components - Reusable components
+  - Navbar.tsx - Main navigation
+  - Footer.tsx - Footer with links
   - AuthForm.tsx - Auth form
-/pages
-  - index.tsx - Homepage
-  - products.tsx - Product listing
-  - cart.tsx - Shopping cart
-  - checkout-success.tsx - Order confirmation
-  - auth.tsx - Auth page
-  - /api/products.ts
-  - /api/orders.ts
-  - /api/checkout.ts
-/database
-  - schema.sql - Database schema
+/pages - Next.js pages (all routes above)
+/styles - Global CSS
+/database - Schema
 ```
-
----
-
-## Next Steps
-1. **Phase 2**: Stripe integration (checkout, webhooks)
-2. **Phase 3**: AI features (product recommendations, search)
-3. **Phase 4**: Admin dashboard (order management, analytics)
-4. **Phase 5**: Mobile app
-
----
 
 ## Environment Variables Required
 ```
-NEXT_PUBLIC_SUPABASE_URL=your-supabase-url
-NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
-STRIPE_SECRET_KEY=your-stripe-secret
-NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=your-stripe-public
+NEXT_PUBLIC_SUPABASE_URL=your-url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your-key
+STRIPE_SECRET_KEY=your-key (Phase 2)
+NEXT_PUBLIC_STRIPE_KEY=your-key (Phase 2)
 ```
 
----
+## Development
+- `npm run dev` - Start dev server (port 5000)
+- TypeScript enabled
+- ESLint configured
+- Hot reload enabled
 
 ## Deployment
-- Production: Replit Deploy
-- Database: Supabase managed PostgreSQL
-- Storage: Supabase Storage for product images
-- Payments: Stripe production mode
+- Replit Deploy (autoscale)
+- Supabase managed database
+- Stripe for payments
+- Email via Supabase
+
+## Team Instructions
+1. Build Phase 2: Stripe integration with checkout flow
+2. Create admin dashboard for product management
+3. Implement email confirmations and order tracking
+4. Add AI features (search, recommendations, personalization)
+5. Set up analytics and reporting
