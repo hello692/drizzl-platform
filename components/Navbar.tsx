@@ -258,7 +258,7 @@ export default function Navbar() {
       {/* Full-Screen Menu */}
       {menuOpen && (
         <>
-          {/* Overlay Background */}
+          {/* Overlay Background with Dripping Effect */}
           <div
             onClick={() => setMenuOpen(false)}
             style={{
@@ -270,9 +270,42 @@ export default function Navbar() {
               background: 'linear-gradient(135deg, #4285f4 0%, #2e5dd9 50%, #1a73e8 100%)',
               zIndex: 200,
               animation: 'menuFadeIn 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
-              clipPath: 'polygon(0 0, 100% 0, 100% 85%, 50% 95%, 0 85%)',
+              overflow: 'hidden',
             }}
           >
+            {/* Dripping Effect SVG */}
+            <svg
+              style={{
+                position: 'absolute',
+                bottom: 0,
+                left: 0,
+                right: 0,
+                width: '100%',
+                height: '200px',
+                preserveAspectRatio: 'none',
+              }}
+              viewBox="0 0 1000 200"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <defs>
+                <linearGradient id="dripGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" style={{ stopColor: '#4285f4', stopOpacity: 0.8 }} />
+                  <stop offset="100%" style={{ stopColor: '#1a73e8', stopOpacity: 0 }} />
+                </linearGradient>
+              </defs>
+              {/* Main wavy top edge */}
+              <path
+                d="M 0,60 Q 125,20 250,50 T 500,40 T 750,55 T 1000,45 L 1000,200 L 0,200 Z"
+                fill="rgba(255,255,255,0.08)"
+              />
+              {/* Drips */}
+              <ellipse cx="150" cy="55" rx="25" ry="40" fill="url(#dripGradient)" opacity="0.6" />
+              <ellipse cx="350" cy="50" rx="30" ry="50" fill="url(#dripGradient)" opacity="0.5" />
+              <ellipse cx="550" cy="42" rx="28" ry="45" fill="url(#dripGradient)" opacity="0.6" />
+              <ellipse cx="750" cy="58" rx="32" ry="48" fill="url(#dripGradient)" opacity="0.5" />
+              <ellipse cx="900" cy="50" rx="26" ry="42" fill="url(#dripGradient)" opacity="0.6" />
+            </svg>
+          </div>
             {/* Left Content */}
             <div style={{
               position: 'absolute',
