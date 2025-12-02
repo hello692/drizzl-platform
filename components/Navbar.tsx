@@ -5,7 +5,7 @@ export default function Navbar() {
     <nav style={{
       background: '#ffffff',
       borderBottom: '1px solid #d0d0d0',
-      padding: '24px 80px',
+      padding: '20px 80px',
       position: 'sticky',
       top: 0,
       zIndex: 1000,
@@ -18,36 +18,39 @@ export default function Navbar() {
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
+        flexWrap: 'nowrap',
       }}>
         {/* Left: Search + Find in stores */}
         <div style={{
           display: 'flex',
-          gap: '64px',
+          gap: '56px',
           alignItems: 'center',
           flex: 0,
+          minWidth: 0,
         }}>
           {/* Search */}
           <div style={{ 
             display: 'flex', 
             alignItems: 'center', 
-            gap: '14px', 
+            gap: '12px', 
             color: '#000',
             cursor: 'pointer',
             opacity: 0.9,
-            transition: 'all 0.2s ease-out'
+            transition: 'all 0.2s ease-out',
+            whiteSpace: 'nowrap',
           }} onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')} onMouseLeave={(e) => (e.currentTarget.style.opacity = '0.9')}>
             <div style={{
-              width: '32px',
-              height: '32px',
+              width: '28px',
+              height: '28px',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              fontSize: '22px',
+              fontSize: '20px',
               fontWeight: '700',
             }}>
-              ⌕
+              🔍
             </div>
-            <span style={{ fontSize: '16px', fontWeight: '700', letterSpacing: '-0.2px' }}>Search</span>
+            <span style={{ fontSize: '15px', fontWeight: '700', letterSpacing: '-0.2px' }}>Search</span>
           </div>
 
           {/* Find in stores */}
@@ -57,22 +60,23 @@ export default function Navbar() {
             background: 'none',
             color: '#000',
             cursor: 'pointer',
-            fontSize: '16px',
+            fontSize: '15px',
             fontWeight: '700',
             display: 'flex',
             alignItems: 'center',
-            gap: '14px',
+            gap: '12px',
             opacity: 0.9,
             transition: 'all 0.2s ease-out',
-            letterSpacing: '-0.2px'
+            letterSpacing: '-0.2px',
+            whiteSpace: 'nowrap',
           }} onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')} onMouseLeave={(e) => (e.currentTarget.style.opacity = '0.9')}>
             <div style={{
-              width: '32px',
-              height: '32px',
+              width: '28px',
+              height: '28px',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              fontSize: '22px',
+              fontSize: '20px',
               fontWeight: '700',
             }}>
               ◎
@@ -82,7 +86,7 @@ export default function Navbar() {
         </div>
 
         {/* Center: Logo */}
-        <div style={{ flex: 1, display: 'flex', justifyContent: 'center' }}>
+        <div style={{ flex: 1, display: 'flex', justifyContent: 'center', minWidth: 0 }}>
           <Link href="/" style={{
             fontSize: '36px',
             fontWeight: '900',
@@ -107,59 +111,62 @@ export default function Navbar() {
         <div style={{
           display: 'flex',
           alignItems: 'center',
-          gap: '64px',
+          gap: '56px',
           flex: 0,
+          minWidth: 0,
         }}>
           {/* Login */}
           <Link href="/auth" style={{
             color: '#000',
-            fontSize: '16px',
+            fontSize: '15px',
             fontWeight: '700',
             textDecoration: 'none',
             display: 'flex',
             alignItems: 'center',
-            gap: '14px',
+            gap: '12px',
             opacity: 0.9,
             transition: 'all 0.2s ease-out',
-            letterSpacing: '-0.2px'
+            letterSpacing: '-0.2px',
+            whiteSpace: 'nowrap',
           }} onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')} onMouseLeave={(e) => (e.currentTarget.style.opacity = '0.9')}>
             <div style={{
-              width: '32px',
-              height: '32px',
+              width: '28px',
+              height: '28px',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              fontSize: '22px',
+              fontSize: '20px',
               fontWeight: '700',
             }}>
-              ◈
+              👤
             </div>
             Log in
           </Link>
 
           {/* Cart */}
           <Link href="/cart" style={{
-            fontSize: '16px',
+            fontSize: '15px',
             fontWeight: '700',
             color: '#000',
             textDecoration: 'none',
             display: 'flex',
             alignItems: 'center',
-            gap: '14px',
+            gap: '12px',
             opacity: 0.9,
             transition: 'all 0.2s ease-out',
-            letterSpacing: '-0.2px'
+            letterSpacing: '-0.2px',
+            whiteSpace: 'nowrap',
           }} onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')} onMouseLeave={(e) => (e.currentTarget.style.opacity = '0.9')}>
             <div style={{
-              width: '32px',
-              height: '32px',
+              width: '28px',
+              height: '28px',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              fontSize: '22px',
+              fontSize: '20px',
               fontWeight: '700',
             }}>
-              ◆
+              🛍️
             </div>
             <span>Your cart (0)</span>
           </Link>
