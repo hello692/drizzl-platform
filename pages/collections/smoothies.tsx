@@ -56,8 +56,8 @@ const products: Product[] = [
     price: 9.49, 
     reviews: 48, 
     badge: 'New',
-    defaultImage: 'https://daily-harvest.com/cdn/shop/files/strawberry-banana-protein-smoothie-daily-harvest-3370693.jpg?v=1760509314&width=2048',
-    hoverImage: 'https://daily-harvest.com/cdn/shop/files/strawberry-banana-protein-smoothie-daily-harvest-5085917.jpg?v=1760509314&width=2048',
+    defaultImage: '/products/strawberry-banana-protein/transparent-glass-1.jpg',
+    hoverImage: '/products/strawberry-banana-protein/transparent-glass-2.jpg',
   },
   { 
     id: '6', 
@@ -114,7 +114,7 @@ function ProductCard({ product }: { product: Product }) {
       >
         <div style={{
           background: 'linear-gradient(135deg, #f9f9fa 0%, #f0f0f0 100%)',
-          height: '280px',
+          aspectRatio: '1 / 1',
           borderRadius: '14px 14px 0 0',
           position: 'relative',
           display: 'flex',
@@ -149,8 +149,9 @@ function ProductCard({ product }: { product: Product }) {
             style={{ 
               width: '100%', 
               height: '100%', 
-              objectFit: 'cover',
+              objectFit: 'contain',
               transition: 'opacity 0.4s ease',
+              padding: '20px',
             }}
           />
         </div>

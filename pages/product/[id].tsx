@@ -57,7 +57,19 @@ const smoothies: { [key: string]: any } = {
     reviews: 48,
     rating: 4.5,
     badge: 'NEW',
-    image: 'https://daily-harvest.com/cdn/shop/files/strawberry-banana-protein-smoothie-daily-harvest-3370693.jpg?v=1760509314&width=2048',
+    image: '/products/strawberry-banana-protein/transparent-glass-1.jpg',
+    images: [
+      '/products/strawberry-banana-protein/transparent-glass-1.jpg',
+      '/products/strawberry-banana-protein/transparent-glass-2.jpg',
+      '/products/strawberry-banana-protein/transparent-glass-3.jpg',
+      '/products/strawberry-banana-protein/product-1.jpg',
+      '/products/strawberry-banana-protein/product-2.jpg',
+      '/products/strawberry-banana-protein/product-3.jpg',
+      '/products/strawberry-banana-protein/lifestyle-1.jpg',
+      '/products/strawberry-banana-protein/lifestyle-2.jpg',
+      '/products/strawberry-banana-protein/detail-1.jpg',
+      '/products/strawberry-banana-protein/detail-2.jpg',
+    ],
     description: 'A delicious blend of strawberries and bananas with plant-based protein to keep you satisfied throughout the day.',
     ingredients: ['organic strawberries', 'organic bananas', 'organic pea protein', 'organic oats', 'organic vanilla extract'],
     nutrition: { calories: '180', fat: '1g', carbs: '28g', fiber: '5g', protein: '18g', sugars: '12g' },
@@ -223,15 +235,17 @@ export default function ProductDetail() {
                 background: '#f8f9fa',
                 borderRadius: '12px',
                 overflow: 'hidden',
+                aspectRatio: '1 / 1',
+                width: '100%',
+                maxWidth: '560px',
               }}>
                 <img
                   src={product.images ? product.images[currentImageIndex] : product.image}
                   alt={product.name}
                   style={{
                     width: '100%',
-                    maxWidth: '500px',
-                    height: 'auto',
-                    borderRadius: '0px',
+                    height: '100%',
+                    objectFit: 'contain',
                     transition: 'opacity 0.3s ease',
                   }}
                 />
