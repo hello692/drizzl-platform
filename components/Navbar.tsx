@@ -5,88 +5,93 @@ export default function Navbar() {
     <nav style={{
       background: '#ffffff',
       borderBottom: '1px solid #e8e8e8',
-      padding: '20px 40px',
+      padding: '16px 40px',
       position: 'sticky',
       top: 0,
       zIndex: 1000,
     }}>
       <div style={{
-        maxWidth: '1280px',
+        maxWidth: '1400px',
         margin: '0 auto',
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
-        gap: '60px',
       }}>
         {/* Left: Search + Find in stores */}
         <div style={{
-          flex: 1,
           display: 'flex',
           gap: '24px',
           alignItems: 'center',
-          minWidth: 0,
+          flex: 0,
         }}>
-          <input
-            type="text"
-            placeholder="Search"
-            style={{
-              flex: 1,
-              padding: '10px 12px',
-              border: '1px solid #e8e8e8',
-              borderRadius: '4px',
-              fontSize: '14px',
-              background: '#ffffff',
-            }}
-          />
+          {/* Search */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#666' }}>
+            <span style={{ fontSize: '16px' }}>🔍</span>
+            <span style={{ fontSize: '13px', color: '#666', cursor: 'pointer' }}>Search</span>
+          </div>
+
+          {/* Find in stores */}
           <button style={{
-            padding: '10px 0',
+            padding: '0',
             border: 'none',
             background: 'none',
             color: '#666',
             cursor: 'pointer',
-            fontSize: '14px',
-            whiteSpace: 'nowrap',
+            fontSize: '13px',
             fontWeight: '400',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '4px',
           }}>
+            <span style={{ fontSize: '14px' }}>📍</span>
             Find in stores
           </button>
         </div>
 
         {/* Center: Logo */}
-        <Link href="/" style={{
-          fontSize: '14px',
-          fontWeight: '600',
-          textDecoration: 'none',
-          color: '#1a1a1a',
-          letterSpacing: '2px',
-          textTransform: 'uppercase',
-          whiteSpace: 'nowrap',
-        }}>
-          DRIZZL WELLNESS
-        </Link>
+        <div style={{ flex: 1, display: 'flex', justifyContent: 'center' }}>
+          <Link href="/" style={{
+            fontSize: '12px',
+            fontWeight: '700',
+            textDecoration: 'none',
+            color: '#000',
+            letterSpacing: '1.5px',
+            textTransform: 'uppercase',
+            whiteSpace: 'nowrap',
+          }}>
+            DRIZZL WELLNESS
+          </Link>
+        </div>
 
         {/* Right: Login + Cart */}
         <div style={{
-          flex: 1,
           display: 'flex',
-          justifyContent: 'flex-end',
           alignItems: 'center',
-          gap: '24px',
+          gap: '32px',
+          flex: 0,
         }}>
           <Link href="/auth" style={{
             color: '#666',
-            fontSize: '14px',
+            fontSize: '13px',
             fontWeight: '400',
             textDecoration: 'none',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '6px',
           }}>
+            <span style={{ fontSize: '16px' }}>👤</span>
             Log in
           </Link>
           <Link href="/cart" style={{
-            fontSize: '14px',
+            fontSize: '13px',
             fontWeight: '400',
             color: '#666',
             textDecoration: 'none',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '6px',
           }}>
+            <span style={{ fontSize: '16px' }}>🛒</span>
             Your cart (0)
           </Link>
         </div>
