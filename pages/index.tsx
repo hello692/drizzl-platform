@@ -1,29 +1,26 @@
-import { useEffect, useState } from "react";
-import { supabase } from "../lib/supabaseClient";
+import { useEffect } from "react";
+import { useRouter } from "next/router";
 
-export default function Home() {
-  const [status, setStatus] = useState("Connecting to Supabase...");
+export default function HomeRedirect() {
+  const router = useRouter();
 
   useEffect(() => {
-    const testConnection = async () => {
-      const { data, error } = await supabase.from("test").select("*").limit(1);
-
-      if (error) {
-        setStatus("❌ Supabase connected BUT no test table found yet.");
-        console.error(error);
-      } else {
-        setStatus("✅ Supabase is LIVE and working!");
-        console.log(data);
-      }
-    };
-
-    testConnection();
-  }, []);
+    // Always send people to /auth from /
+    router.replace("/auth");
+  }, [router]);
 
   return (
-    <div style={{ padding: 40 }}>
-      <h1>Drizzl Supabase Connection Test</h1>
-      <p>{status}</p>
+    <div
+      style={{
+        minHeight: "100vh",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        fontFamily: "system-ui, -apple-system, BlinkMacSystemFont, sans-serif",
+      }}
+    >
+      <p>Loading your Drizzl account…</p>
     </div>
   );
 }
+
