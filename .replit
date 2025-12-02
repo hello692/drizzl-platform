@@ -5,6 +5,7 @@ modules = ["nodejs-22"]
 
 [nix]
 channel = "stable-24_11"
+packages = ["unzip"]
 
 [env]
 NEXT_TELEMETRY_DISABLED = "1"
@@ -22,12 +23,12 @@ localPort = 5000
 externalPort = 80
 
 [[ports]]
-localPort = 34571
-externalPort = 3001
-
-[[ports]]
 localPort = 36745
 externalPort = 3000
+
+[[ports]]
+localPort = 36863
+externalPort = 3001
 
 [[ports]]
 localPort = 42959
