@@ -196,10 +196,11 @@ export default function Navbar() {
               alignItems: 'center',
               justifyContent: 'center',
               color: '#000',
+              fontSize: '18px',
             }}>
-              <BriefcaseIcon />
+              💼
             </div>
-            Partner
+            Partner Login
           </Link>
 
           {/* Cart */}
