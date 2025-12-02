@@ -27,6 +27,59 @@ interface RestockAlert {
   urgency: 'critical' | 'warning' | 'info';
 }
 
+const gradients = {
+  primary: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+  success: 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)',
+  warning: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
+  info: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
+  orange: 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)',
+  cyan: 'linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)',
+};
+
+function GradientIcon({ type, size = 20 }: { type: 'batch' | 'efficiency' | 'active' | 'qa' | 'shift' | 'alert'; size?: number }) {
+  const iconPaths: Record<string, { path: string; gradient: string }> = {
+    batch: {
+      path: 'M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4',
+      gradient: gradients.info,
+    },
+    efficiency: {
+      path: 'M13 10V3L4 14h7v7l9-11h-7z',
+      gradient: gradients.warning,
+    },
+    active: {
+      path: 'M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15',
+      gradient: gradients.success,
+    },
+    qa: {
+      path: 'M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z',
+      gradient: gradients.orange,
+    },
+    shift: {
+      path: 'M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z',
+      gradient: gradients.primary,
+    },
+    alert: {
+      path: 'M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z',
+      gradient: gradients.warning,
+    },
+  };
+
+  const icon = iconPaths[type];
+  const gradientId = `gradient-${type}-${Math.random().toString(36).substr(2, 9)}`;
+
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id={gradientId} x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor={icon.gradient.includes('#667eea') ? '#667eea' : icon.gradient.includes('#43e97b') ? '#43e97b' : icon.gradient.includes('#f093fb') ? '#f093fb' : icon.gradient.includes('#4facfe') ? '#4facfe' : '#fa709a'} />
+          <stop offset="100%" stopColor={icon.gradient.includes('#764ba2') ? '#764ba2' : icon.gradient.includes('#38f9d7') ? '#38f9d7' : icon.gradient.includes('#f5576c') ? '#f5576c' : icon.gradient.includes('#00f2fe') ? '#00f2fe' : '#fee140'} />
+        </linearGradient>
+      </defs>
+      <path d={icon.path} stroke={`url(#${gradientId})`} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
 export default function FactoryDashboard() {
   const { loading, authorized } = useRequireAdmin();
   const [batches, setBatches] = useState<ProductionBatch[]>([]);
@@ -37,6 +90,12 @@ export default function FactoryDashboard() {
   const [productionGoals, setProductionGoals] = useState<ProductionGoal[]>([]);
   const [shifts, setShifts] = useState<ShiftData[]>([]);
   const [loadingData, setLoadingData] = useState(true);
+  const [time, setTime] = useState(new Date());
+
+  useEffect(() => {
+    const timer = setInterval(() => setTime(new Date()), 1000);
+    return () => clearInterval(timer);
+  }, []);
 
   useEffect(() => {
     if (authorized) {
@@ -65,11 +124,11 @@ export default function FactoryDashboard() {
   }
 
   function getBatchStatusBadge(status: ProductionBatch['status']) {
-    const styles: Record<string, React.CSSProperties> = {
-      scheduled: { background: '#dbeafe', color: '#1e40af', padding: '4px 10px', borderRadius: '9999px', fontSize: '12px', fontWeight: '500' },
-      in_progress: { background: '#fef3c7', color: '#92400e', padding: '4px 10px', borderRadius: '9999px', fontSize: '12px', fontWeight: '500' },
-      completed: { background: '#dcfce7', color: '#166534', padding: '4px 10px', borderRadius: '9999px', fontSize: '12px', fontWeight: '500' },
-      qa_hold: { background: '#fee2e2', color: '#991b1b', padding: '4px 10px', borderRadius: '9999px', fontSize: '12px', fontWeight: '500' },
+    const badgeStyles: Record<string, { bg: string; glow: string }> = {
+      scheduled: { bg: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)', glow: 'rgba(79, 172, 254, 0.4)' },
+      in_progress: { bg: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)', glow: 'rgba(240, 147, 251, 0.4)' },
+      completed: { bg: 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)', glow: 'rgba(67, 233, 123, 0.4)' },
+      qa_hold: { bg: 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)', glow: 'rgba(250, 112, 154, 0.4)' },
     };
     const labels: Record<string, string> = {
       scheduled: 'Scheduled',
@@ -77,44 +136,108 @@ export default function FactoryDashboard() {
       completed: 'Completed',
       qa_hold: 'QA Hold',
     };
-    return <span style={styles[status]}>{labels[status]}</span>;
+    const style = badgeStyles[status];
+    return (
+      <span style={{
+        background: style.bg,
+        padding: '4px 12px',
+        borderRadius: '9999px',
+        fontSize: '11px',
+        fontWeight: '600',
+        color: '#fff',
+        textTransform: 'uppercase',
+        letterSpacing: '0.5px',
+        boxShadow: `0 0 20px ${style.glow}`,
+      }}>
+        {labels[status]}
+      </span>
+    );
   }
 
   function getShiftStatusBadge(status: ShiftData['status']) {
-    const styles: Record<string, React.CSSProperties> = {
-      active: { background: '#dcfce7', color: '#166534', padding: '4px 10px', borderRadius: '9999px', fontSize: '12px', fontWeight: '500' },
-      upcoming: { background: '#dbeafe', color: '#1e40af', padding: '4px 10px', borderRadius: '9999px', fontSize: '12px', fontWeight: '500' },
-      completed: { background: '#f3f4f6', color: '#6b7280', padding: '4px 10px', borderRadius: '9999px', fontSize: '12px', fontWeight: '500' },
+    const badgeStyles: Record<string, { bg: string; glow: string }> = {
+      active: { bg: 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)', glow: 'rgba(67, 233, 123, 0.4)' },
+      upcoming: { bg: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)', glow: 'rgba(79, 172, 254, 0.4)' },
+      completed: { bg: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', glow: 'rgba(102, 126, 234, 0.3)' },
     };
     const labels: Record<string, string> = {
       active: 'Active',
       upcoming: 'Upcoming',
       completed: 'Completed',
     };
-    return <span style={styles[status]}>{labels[status]}</span>;
+    const style = badgeStyles[status];
+    return (
+      <span style={{
+        background: style.bg,
+        padding: '4px 12px',
+        borderRadius: '9999px',
+        fontSize: '11px',
+        fontWeight: '600',
+        color: '#fff',
+        textTransform: 'uppercase',
+        letterSpacing: '0.5px',
+        boxShadow: `0 0 15px ${style.glow}`,
+      }}>
+        {labels[status]}
+      </span>
+    );
   }
 
-  function getUrgencyStyle(urgency: RestockAlert['urgency']) {
-    const styles: Record<string, React.CSSProperties> = {
-      critical: { background: '#fef2f2', borderColor: '#fecaca', color: '#991b1b' },
-      warning: { background: '#fffbeb', borderColor: '#fde68a', color: '#92400e' },
-      info: { background: '#eff6ff', borderColor: '#bfdbfe', color: '#1e40af' },
+  function getUrgencyGradient(urgency: RestockAlert['urgency']) {
+    const styles: Record<string, { bg: string; border: string; glow: string }> = {
+      critical: {
+        bg: 'rgba(250, 112, 154, 0.1)',
+        border: 'rgba(250, 112, 154, 0.3)',
+        glow: 'rgba(250, 112, 154, 0.2)',
+      },
+      warning: {
+        bg: 'rgba(240, 147, 251, 0.1)',
+        border: 'rgba(240, 147, 251, 0.3)',
+        glow: 'rgba(240, 147, 251, 0.2)',
+      },
+      info: {
+        bg: 'rgba(79, 172, 254, 0.1)',
+        border: 'rgba(79, 172, 254, 0.3)',
+        glow: 'rgba(79, 172, 254, 0.2)',
+      },
     };
     return styles[urgency];
   }
 
   if (loading) {
     return (
-      <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#fafafa' }}>
-        <p style={{ color: '#666', fontSize: '14px' }}>Loading...</p>
+      <div style={styles.loadingContainer}>
+        <div style={styles.loadingOrb} />
+        <p style={styles.loadingText}>Initializing Factory Systems</p>
+        <style jsx global>{`
+          @keyframes pulse {
+            0%, 100% { opacity: 0.4; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.05); }
+          }
+          @keyframes glow {
+            0%, 100% { box-shadow: 0 0 20px rgba(250, 112, 154, 0.3); }
+            50% { box-shadow: 0 0 40px rgba(254, 225, 64, 0.6); }
+          }
+        `}</style>
       </div>
     );
   }
 
   if (!authorized) {
     return (
-      <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#fafafa' }}>
-        <p style={{ color: '#666', fontSize: '14px' }}>Checking authorization...</p>
+      <div style={styles.loadingContainer}>
+        <div style={styles.loadingOrb} />
+        <p style={styles.loadingText}>Authenticating</p>
+        <style jsx global>{`
+          @keyframes pulse {
+            0%, 100% { opacity: 0.4; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.05); }
+          }
+          @keyframes glow {
+            0%, 100% { box-shadow: 0 0 20px rgba(250, 112, 154, 0.3); }
+            50% { box-shadow: 0 0 40px rgba(254, 225, 64, 0.6); }
+          }
+        `}</style>
       </div>
     );
   }
@@ -122,113 +245,150 @@ export default function FactoryDashboard() {
   const activeBatches = batches.filter(b => b.status === 'in_progress');
 
   return (
-    <div style={{ minHeight: '100vh', background: '#fafafa' }}>
-      <nav style={{ background: '#000', color: '#fff', padding: '16px 32px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <Link href="/admin" style={{ color: '#fff', textDecoration: 'none', fontSize: '18px', fontWeight: '700', letterSpacing: '-0.5px' }}>
-          DRIZZL ADMIN
-        </Link>
-        <div style={{ display: 'flex', gap: '24px', alignItems: 'center' }}>
-          <Link href="/admin/command-center" style={{ color: '#fff', textDecoration: 'none', fontSize: '13px', opacity: 0.8 }}>Command Center</Link>
-          <Link href="/admin/inventory" style={{ color: '#fff', textDecoration: 'none', fontSize: '13px', opacity: 0.8 }}>Inventory</Link>
-          <Link href="/admin/factory" style={{ color: '#fff', textDecoration: 'none', fontSize: '13px', opacity: 1, fontWeight: '600' }}>Factory</Link>
-          <Link href="/admin/products" style={{ color: '#fff', textDecoration: 'none', fontSize: '13px', opacity: 0.8 }}>Products</Link>
-          <Link href="/admin/orders" style={{ color: '#fff', textDecoration: 'none', fontSize: '13px', opacity: 0.8 }}>Orders</Link>
-          <Link href="/admin/partners" style={{ color: '#fff', textDecoration: 'none', fontSize: '13px', opacity: 0.8 }}>Partners</Link>
-          <Link href="/admin/banking" style={{ color: '#fff', textDecoration: 'none', fontSize: '13px', opacity: 0.8 }}>Banking</Link>
-          <Link href="/" style={{ color: '#fff', textDecoration: 'none', fontSize: '13px', opacity: 0.6 }}>Exit</Link>
+    <div style={styles.container}>
+      <div style={styles.meshGradient} />
+      <div style={styles.orbOne} />
+      <div style={styles.orbTwo} />
+      <div style={styles.orbThree} />
+
+      <nav style={styles.nav}>
+        <div style={styles.navLeft}>
+          <Link href="/admin" style={styles.logo}>
+            <span style={styles.logoIcon}>D</span>
+            <span style={styles.logoText}>DRIZZL</span>
+          </Link>
+        </div>
+        <div style={styles.navLinks}>
+          <Link href="/admin/command-center" style={styles.navLink}>Command Center</Link>
+          <Link href="/admin/inventory" style={styles.navLink}>Inventory</Link>
+          <Link href="/admin/factory" style={styles.navLinkActive}>Factory</Link>
+          <Link href="/admin/products" style={styles.navLink}>Products</Link>
+          <Link href="/admin/orders" style={styles.navLink}>Orders</Link>
+          <Link href="/admin/partners" style={styles.navLink}>Partners</Link>
+          <Link href="/admin/banking" style={styles.navLink}>Banking</Link>
+          <Link href="/" style={styles.exitLink}>Exit</Link>
         </div>
       </nav>
 
-      <main style={{ padding: '40px', maxWidth: '1400px', margin: '0 auto' }}>
-        <div style={{ marginBottom: '32px' }}>
-          <h1 style={{ fontSize: '28px', fontWeight: '700', marginBottom: '8px', letterSpacing: '-0.5px', color: '#111' }}>Factory Intelligence</h1>
-          <p style={{ color: '#666', fontSize: '14px' }}>Production monitoring and manufacturing insights</p>
-        </div>
+      <main style={styles.main}>
+        <header style={styles.header}>
+          <div>
+            <p style={styles.greeting}>Production Control</p>
+            <h1 style={styles.title}>Factory Intelligence</h1>
+          </div>
+          <div style={styles.timeDisplay}>
+            <span style={styles.timeText}>{time.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}</span>
+            <span style={styles.dateText}>{time.toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' })}</span>
+          </div>
+        </header>
 
         {loadingData ? (
-          <div style={{ padding: '60px', textAlign: 'center', color: '#666' }}>Loading factory data...</div>
+          <div style={styles.loadingContent}>
+            <div style={styles.loadingPulse} />
+            <p style={styles.loadingContentText}>Loading factory data...</p>
+          </div>
         ) : (
           <>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '20px', marginBottom: '32px' }}>
+            <div style={styles.metricsGrid}>
               <MetricCard
                 title="Today's Batches"
                 value={metrics?.totalBatchesToday || 0}
                 subtitle={`${metrics?.completedBatches || 0} completed`}
-                icon="📦"
+                iconType="batch"
+                gradient={gradients.info}
               />
               <MetricCard
                 title="Production Efficiency"
                 value={`${metrics?.efficiency || 0}%`}
                 subtitle={`${metrics?.actualUnits || 0} / ${metrics?.goalUnits || 0} units`}
-                icon="⚡"
-                valueColor={metrics && metrics.efficiency >= 90 ? '#16a34a' : metrics && metrics.efficiency >= 70 ? '#ca8a04' : '#dc2626'}
+                iconType="efficiency"
+                gradient={metrics && metrics.efficiency >= 90 ? gradients.success : metrics && metrics.efficiency >= 70 ? gradients.warning : gradients.orange}
               />
               <MetricCard
                 title="Active Batches"
                 value={metrics?.inProgressBatches || 0}
                 subtitle="Currently running"
-                icon="🔄"
+                iconType="active"
+                gradient={gradients.success}
               />
               <MetricCard
                 title="QA Hold"
                 value={metrics?.qaHoldBatches || 0}
                 subtitle="Awaiting review"
-                icon="⏸️"
-                valueColor={metrics && metrics.qaHoldBatches > 0 ? '#dc2626' : undefined}
+                iconType="qa"
+                gradient={metrics && metrics.qaHoldBatches > 0 ? gradients.orange : gradients.primary}
               />
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: '24px', marginBottom: '32px' }}>
-              <div style={{ background: '#fff', borderRadius: '12px', padding: '24px', boxShadow: '0 1px 3px rgba(0,0,0,0.08)' }}>
-                <h2 style={{ fontSize: '16px', fontWeight: '600', marginBottom: '20px', letterSpacing: '-0.3px' }}>Production Goals vs Actual</h2>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+            <div style={styles.gridTwoOne}>
+              <GlassCard title="Production Goals vs Actual">
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
                   {productionGoals.map((goal, index) => {
                     const percentage = Math.min((goal.actual / goal.goal) * 100, 100);
-                    const color = percentage >= 100 ? '#22c55e' : percentage >= 80 ? '#eab308' : '#ef4444';
+                    const gradient = percentage >= 100 ? gradients.success : percentage >= 80 ? gradients.warning : gradients.orange;
                     return (
                       <div key={index}>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '6px' }}>
-                          <span style={{ fontSize: '14px', fontWeight: '500', color: '#111' }}>{goal.product}</span>
-                          <span style={{ fontSize: '13px', color: '#666' }}>{goal.actual} / {goal.goal}</span>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '10px' }}>
+                          <span style={{ fontSize: '14px', fontWeight: '500', color: '#fff' }}>{goal.product}</span>
+                          <span style={{ fontSize: '13px', color: 'rgba(255,255,255,0.5)' }}>{goal.actual} / {goal.goal}</span>
                         </div>
-                        <div style={{ height: '8px', background: '#e5e7eb', borderRadius: '4px', overflow: 'hidden' }}>
+                        <div style={styles.progressTrack}>
                           <div
                             style={{
                               width: `${percentage}%`,
                               height: '100%',
-                              background: color,
-                              borderRadius: '4px',
-                              transition: 'width 0.5s ease',
+                              background: gradient,
+                              borderRadius: '6px',
+                              transition: 'width 0.8s cubic-bezier(0.4, 0, 0.2, 1)',
+                              boxShadow: `0 0 20px ${gradient.includes('#43e97b') ? 'rgba(67, 233, 123, 0.4)' : gradient.includes('#f093fb') ? 'rgba(240, 147, 251, 0.4)' : 'rgba(250, 112, 154, 0.4)'}`,
                             }}
                           />
+                        </div>
+                        <div style={{ textAlign: 'right', marginTop: '6px' }}>
+                          <span style={{
+                            fontSize: '12px',
+                            fontWeight: '600',
+                            background: gradient,
+                            WebkitBackgroundClip: 'text',
+                            WebkitTextFillColor: 'transparent',
+                          }}>
+                            {percentage.toFixed(0)}%
+                          </span>
                         </div>
                       </div>
                     );
                   })}
                 </div>
-              </div>
+              </GlassCard>
 
-              <div style={{ background: '#fff', borderRadius: '12px', padding: '24px', boxShadow: '0 1px 3px rgba(0,0,0,0.08)' }}>
-                <h2 style={{ fontSize: '16px', fontWeight: '600', marginBottom: '20px', letterSpacing: '-0.3px' }}>Predictive Restocking</h2>
+              <GlassCard title="Predictive Restocking" icon={<GradientIcon type="alert" size={18} />}>
                 {restockAlerts.length === 0 ? (
-                  <p style={{ color: '#666', fontSize: '14px' }}>All ingredients well stocked</p>
+                  <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: '14px' }}>All ingredients well stocked</p>
                 ) : (
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
                     {restockAlerts.map((alert, index) => {
-                      const urgencyStyle = getUrgencyStyle(alert.urgency);
+                      const urgencyStyle = getUrgencyGradient(alert.urgency);
                       return (
                         <div
                           key={index}
                           style={{
-                            padding: '12px 14px',
-                            borderRadius: '8px',
-                            border: '1px solid',
-                            ...urgencyStyle,
+                            padding: '14px 16px',
+                            borderRadius: '12px',
+                            background: urgencyStyle.bg,
+                            border: `1px solid ${urgencyStyle.border}`,
+                            boxShadow: `0 4px 20px ${urgencyStyle.glow}`,
+                            backdropFilter: 'blur(10px)',
                           }}
                         >
                           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                            <span style={{ fontSize: '14px', fontWeight: '500' }}>{alert.ingredient}</span>
-                            <span style={{ fontSize: '12px', fontWeight: '600' }}>
+                            <span style={{ fontSize: '14px', fontWeight: '500', color: '#fff' }}>{alert.ingredient}</span>
+                            <span style={{
+                              fontSize: '12px',
+                              fontWeight: '600',
+                              background: alert.urgency === 'critical' ? gradients.orange : alert.urgency === 'warning' ? gradients.warning : gradients.info,
+                              WebkitBackgroundClip: 'text',
+                              WebkitTextFillColor: 'transparent',
+                            }}>
                               {alert.daysLeft === 0 ? 'Restock NOW' : `${alert.daysLeft} days left`}
                             </span>
                           </div>
@@ -237,137 +397,172 @@ export default function FactoryDashboard() {
                     })}
                   </div>
                 )}
-              </div>
+              </GlassCard>
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: '24px', marginBottom: '32px' }}>
-              <div style={{ background: '#fff', borderRadius: '12px', padding: '24px', boxShadow: '0 1px 3px rgba(0,0,0,0.08)' }}>
-                <h2 style={{ fontSize: '16px', fontWeight: '600', marginBottom: '20px', letterSpacing: '-0.3px' }}>Active Batches</h2>
+            <div style={styles.gridTwoOne}>
+              <GlassCard title="Active Batches">
                 {activeBatches.length === 0 ? (
-                  <p style={{ color: '#666', fontSize: '14px' }}>No active batches</p>
+                  <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: '14px' }}>No active batches</p>
                 ) : (
-                  <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                  <table style={styles.table}>
                     <thead>
-                      <tr style={{ borderBottom: '1px solid #f3f4f6' }}>
-                        <th style={{ padding: '10px 0', textAlign: 'left', fontSize: '12px', fontWeight: '600', color: '#6b7280', textTransform: 'uppercase' }}>Batch #</th>
-                        <th style={{ padding: '10px 0', textAlign: 'left', fontSize: '12px', fontWeight: '600', color: '#6b7280', textTransform: 'uppercase' }}>Product</th>
-                        <th style={{ padding: '10px 0', textAlign: 'left', fontSize: '12px', fontWeight: '600', color: '#6b7280', textTransform: 'uppercase' }}>Progress</th>
-                        <th style={{ padding: '10px 0', textAlign: 'left', fontSize: '12px', fontWeight: '600', color: '#6b7280', textTransform: 'uppercase' }}>Status</th>
+                      <tr>
+                        <th style={styles.tableHeader}>Batch #</th>
+                        <th style={styles.tableHeader}>Product</th>
+                        <th style={styles.tableHeader}>Progress</th>
+                        <th style={styles.tableHeader}>Status</th>
                       </tr>
                     </thead>
                     <tbody>
                       {activeBatches.map((batch) => {
                         const progress = Math.round((batch.actualQuantity / batch.targetQuantity) * 100);
                         return (
-                          <tr key={batch.id} style={{ borderBottom: '1px solid #f3f4f6' }}>
-                            <td style={{ padding: '12px 0', fontSize: '13px', fontFamily: 'monospace' }}>{batch.batchNumber}</td>
-                            <td style={{ padding: '12px 0', fontSize: '14px', fontWeight: '500' }}>{batch.productName}</td>
-                            <td style={{ padding: '12px 0' }}>
-                              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                                <div style={{ width: '80px', height: '6px', background: '#e5e7eb', borderRadius: '3px', overflow: 'hidden' }}>
-                                  <div style={{ width: `${progress}%`, height: '100%', background: '#3b82f6', borderRadius: '3px' }} />
+                          <tr key={batch.id} style={styles.tableRow}>
+                            <td style={styles.tableCell}>
+                              <span style={styles.monoText}>{batch.batchNumber}</span>
+                            </td>
+                            <td style={styles.tableCellBold}>{batch.productName}</td>
+                            <td style={styles.tableCell}>
+                              <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                                <div style={styles.progressMini}>
+                                  <div style={{
+                                    width: `${progress}%`,
+                                    height: '100%',
+                                    background: gradients.info,
+                                    borderRadius: '4px',
+                                    boxShadow: '0 0 10px rgba(79, 172, 254, 0.5)',
+                                  }} />
                                 </div>
-                                <span style={{ fontSize: '12px', color: '#666' }}>{progress}%</span>
+                                <span style={styles.progressLabel}>{progress}%</span>
                               </div>
                             </td>
-                            <td style={{ padding: '12px 0' }}>{getBatchStatusBadge(batch.status)}</td>
+                            <td style={styles.tableCell}>{getBatchStatusBadge(batch.status)}</td>
                           </tr>
                         );
                       })}
                     </tbody>
                   </table>
                 )}
-              </div>
+              </GlassCard>
 
-              <div style={{ background: '#fff', borderRadius: '12px', padding: '24px', boxShadow: '0 1px 3px rgba(0,0,0,0.08)' }}>
-                <h2 style={{ fontSize: '16px', fontWeight: '600', marginBottom: '20px', letterSpacing: '-0.3px' }}>Shift Tracking</h2>
+              <GlassCard title="Shift Tracking" icon={<GradientIcon type="shift" size={18} />}>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
                   {shifts.map((shift, index) => (
                     <div
                       key={index}
                       style={{
-                        padding: '14px',
-                        borderRadius: '8px',
-                        background: shift.status === 'active' ? '#f0fdf4' : '#f9fafb',
-                        border: shift.status === 'active' ? '1px solid #bbf7d0' : '1px solid #e5e7eb',
+                        padding: '16px',
+                        borderRadius: '12px',
+                        background: shift.status === 'active' ? 'rgba(67, 233, 123, 0.1)' : 'rgba(255,255,255,0.03)',
+                        border: shift.status === 'active' ? '1px solid rgba(67, 233, 123, 0.3)' : '1px solid rgba(255,255,255,0.06)',
+                        backdropFilter: 'blur(10px)',
+                        boxShadow: shift.status === 'active' ? '0 4px 20px rgba(67, 233, 123, 0.15)' : 'none',
                       }}
                     >
-                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
-                        <span style={{ fontSize: '14px', fontWeight: '600', color: '#111' }}>{shift.name}</span>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
+                        <span style={{ fontSize: '14px', fontWeight: '600', color: '#fff' }}>{shift.name}</span>
                         {getShiftStatusBadge(shift.status)}
                       </div>
-                      <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '13px', color: '#666' }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '13px', color: 'rgba(255,255,255,0.5)' }}>
                         <span>{shift.startTime} - {shift.endTime}</span>
                         <span>{shift.workers} workers</span>
                       </div>
                     </div>
                   ))}
                 </div>
-              </div>
+              </GlassCard>
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px' }}>
-              <div style={{ background: '#fff', borderRadius: '12px', padding: '24px', boxShadow: '0 1px 3px rgba(0,0,0,0.08)' }}>
-                <h2 style={{ fontSize: '16px', fontWeight: '600', marginBottom: '20px', letterSpacing: '-0.3px' }}>Ingredient Burn Rate</h2>
-                <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+            <div style={styles.gridHalf}>
+              <GlassCard title="Ingredient Burn Rate">
+                <table style={styles.table}>
                   <thead>
-                    <tr style={{ borderBottom: '1px solid #f3f4f6' }}>
-                      <th style={{ padding: '10px 0', textAlign: 'left', fontSize: '12px', fontWeight: '600', color: '#6b7280', textTransform: 'uppercase' }}>Ingredient</th>
-                      <th style={{ padding: '10px 0', textAlign: 'right', fontSize: '12px', fontWeight: '600', color: '#6b7280', textTransform: 'uppercase' }}>Daily</th>
-                      <th style={{ padding: '10px 0', textAlign: 'right', fontSize: '12px', fontWeight: '600', color: '#6b7280', textTransform: 'uppercase' }}>Weekly</th>
-                      <th style={{ padding: '10px 0', textAlign: 'right', fontSize: '12px', fontWeight: '600', color: '#6b7280', textTransform: 'uppercase' }}>Days Left</th>
+                    <tr>
+                      <th style={styles.tableHeader}>Ingredient</th>
+                      <th style={{ ...styles.tableHeader, textAlign: 'right' }}>Daily</th>
+                      <th style={{ ...styles.tableHeader, textAlign: 'right' }}>Weekly</th>
+                      <th style={{ ...styles.tableHeader, textAlign: 'right' }}>Days Left</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {burnRates.map((rate) => (
-                      <tr key={rate.ingredientId} style={{ borderBottom: '1px solid #f3f4f6' }}>
-                        <td style={{ padding: '12px 0', fontSize: '14px', fontWeight: '500' }}>{rate.ingredientName}</td>
-                        <td style={{ padding: '12px 0', fontSize: '14px', color: '#666', textAlign: 'right' }}>{rate.dailyUsage} kg</td>
-                        <td style={{ padding: '12px 0', fontSize: '14px', color: '#666', textAlign: 'right' }}>{rate.weeklyUsage} kg</td>
-                        <td style={{ padding: '12px 0', textAlign: 'right' }}>
-                          <span
-                            style={{
+                    {burnRates.map((rate) => {
+                      const daysColor = rate.daysUntilRestock <= 3 ? gradients.orange : rate.daysUntilRestock <= 7 ? gradients.warning : gradients.success;
+                      return (
+                        <tr key={rate.ingredientId} style={styles.tableRow}>
+                          <td style={styles.tableCellBold}>{rate.ingredientName}</td>
+                          <td style={{ ...styles.tableCell, textAlign: 'right' }}>{rate.dailyUsage} kg</td>
+                          <td style={{ ...styles.tableCell, textAlign: 'right' }}>{rate.weeklyUsage} kg</td>
+                          <td style={{ ...styles.tableCell, textAlign: 'right' }}>
+                            <span style={{
                               fontSize: '13px',
                               fontWeight: '600',
-                              color: rate.daysUntilRestock <= 3 ? '#dc2626' : rate.daysUntilRestock <= 7 ? '#ca8a04' : '#16a34a',
-                            }}
-                          >
-                            {rate.daysUntilRestock} days
-                          </span>
-                        </td>
-                      </tr>
-                    ))}
+                              background: daysColor,
+                              WebkitBackgroundClip: 'text',
+                              WebkitTextFillColor: 'transparent',
+                            }}>
+                              {rate.daysUntilRestock} days
+                            </span>
+                          </td>
+                        </tr>
+                      );
+                    })}
                   </tbody>
                 </table>
-              </div>
+              </GlassCard>
 
-              <div style={{ background: '#fff', borderRadius: '12px', padding: '24px', boxShadow: '0 1px 3px rgba(0,0,0,0.08)' }}>
-                <h2 style={{ fontSize: '16px', fontWeight: '600', marginBottom: '20px', letterSpacing: '-0.3px' }}>Recent Batch History</h2>
-                <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+              <GlassCard title="Recent Batch History">
+                <table style={styles.table}>
                   <thead>
-                    <tr style={{ borderBottom: '1px solid #f3f4f6' }}>
-                      <th style={{ padding: '10px 0', textAlign: 'left', fontSize: '12px', fontWeight: '600', color: '#6b7280', textTransform: 'uppercase' }}>Batch</th>
-                      <th style={{ padding: '10px 0', textAlign: 'left', fontSize: '12px', fontWeight: '600', color: '#6b7280', textTransform: 'uppercase' }}>Product</th>
-                      <th style={{ padding: '10px 0', textAlign: 'left', fontSize: '12px', fontWeight: '600', color: '#6b7280', textTransform: 'uppercase' }}>Qty</th>
-                      <th style={{ padding: '10px 0', textAlign: 'left', fontSize: '12px', fontWeight: '600', color: '#6b7280', textTransform: 'uppercase' }}>Status</th>
+                    <tr>
+                      <th style={styles.tableHeader}>Batch</th>
+                      <th style={styles.tableHeader}>Product</th>
+                      <th style={styles.tableHeader}>Qty</th>
+                      <th style={styles.tableHeader}>Status</th>
                     </tr>
                   </thead>
                   <tbody>
                     {recentBatches.map((batch) => (
-                      <tr key={batch.id} style={{ borderBottom: '1px solid #f3f4f6' }}>
-                        <td style={{ padding: '12px 0', fontSize: '13px', fontFamily: 'monospace' }}>{batch.batchNumber}</td>
-                        <td style={{ padding: '12px 0', fontSize: '14px', color: '#666' }}>{batch.productName}</td>
-                        <td style={{ padding: '12px 0', fontSize: '14px', color: '#666' }}>{batch.actualQuantity}</td>
-                        <td style={{ padding: '12px 0' }}>{getBatchStatusBadge(batch.status)}</td>
+                      <tr key={batch.id} style={styles.tableRow}>
+                        <td style={styles.tableCell}>
+                          <span style={styles.monoText}>{batch.batchNumber}</span>
+                        </td>
+                        <td style={styles.tableCell}>{batch.productName}</td>
+                        <td style={styles.tableCell}>{batch.actualQuantity}</td>
+                        <td style={styles.tableCell}>{getBatchStatusBadge(batch.status)}</td>
                       </tr>
                     ))}
                   </tbody>
                 </table>
-              </div>
+              </GlassCard>
             </div>
           </>
         )}
       </main>
+
+      <style jsx global>{`
+        @keyframes float {
+          0%, 100% { transform: translateY(0px) rotate(0deg); }
+          50% { transform: translateY(-20px) rotate(5deg); }
+        }
+        @keyframes pulse {
+          0%, 100% { opacity: 0.4; transform: scale(1); }
+          50% { opacity: 0.8; transform: scale(1.05); }
+        }
+        @keyframes shimmer {
+          0% { background-position: -200% 0; }
+          100% { background-position: 200% 0; }
+        }
+        @keyframes glow {
+          0%, 100% { box-shadow: 0 0 20px rgba(250, 112, 154, 0.3); }
+          50% { box-shadow: 0 0 40px rgba(254, 225, 64, 0.6); }
+        }
+        @keyframes gradientShift {
+          0% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
+          100% { background-position: 0% 50%; }
+        }
+      `}</style>
     </div>
   );
 }
@@ -376,28 +571,407 @@ function MetricCard({
   title,
   value,
   subtitle,
-  icon,
-  valueColor,
+  iconType,
+  gradient,
 }: {
   title: string;
   value: string | number;
   subtitle: string;
-  icon: string;
-  valueColor?: string;
+  iconType: 'batch' | 'efficiency' | 'active' | 'qa';
+  gradient: string;
 }) {
+  const [hovered, setHovered] = useState(false);
+
   return (
-    <div style={{
-      background: '#fff',
-      borderRadius: '12px',
-      padding: '24px',
-      boxShadow: '0 1px 3px rgba(0,0,0,0.08)',
-    }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '12px' }}>
-        <span style={{ fontSize: '13px', color: '#666', textTransform: 'uppercase', letterSpacing: '0.5px', fontWeight: '500' }}>{title}</span>
-        <span style={{ fontSize: '24px' }}>{icon}</span>
+    <div
+      style={{
+        ...styles.metricCard,
+        transform: hovered ? 'translateY(-2px)' : 'translateY(0)',
+        boxShadow: hovered ? '0 20px 40px rgba(0,0,0,0.3)' : '0 4px 20px rgba(0,0,0,0.2)',
+      }}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+    >
+      <div style={styles.metricGradientOverlay} />
+      <div style={{ ...styles.metricAccent, background: gradient }} />
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '16px', position: 'relative' }}>
+        <span style={styles.metricLabel}>{title}</span>
+        <div style={{
+          width: '40px',
+          height: '40px',
+          borderRadius: '12px',
+          background: 'rgba(255,255,255,0.05)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          backdropFilter: 'blur(10px)',
+        }}>
+          <GradientIcon type={iconType} size={22} />
+        </div>
       </div>
-      <p style={{ fontSize: '32px', fontWeight: '700', letterSpacing: '-1px', color: valueColor || '#111', marginBottom: '4px' }}>{value}</p>
-      <p style={{ fontSize: '13px', color: '#666' }}>{subtitle}</p>
+      <p style={{
+        ...styles.metricValue,
+        background: gradient,
+        WebkitBackgroundClip: 'text',
+        WebkitTextFillColor: 'transparent',
+      }}>
+        {value}
+      </p>
+      <p style={styles.metricSubtitle}>{subtitle}</p>
     </div>
   );
 }
+
+function GlassCard({ title, children, icon }: { title: string; children: React.ReactNode; icon?: React.ReactNode }) {
+  return (
+    <div style={styles.glassCard}>
+      <div style={styles.glassCardHeader}>
+        <h2 style={styles.glassCardTitle}>{title}</h2>
+        {icon && <div style={styles.glassCardIcon}>{icon}</div>}
+      </div>
+      {children}
+    </div>
+  );
+}
+
+const styles: { [key: string]: React.CSSProperties } = {
+  container: {
+    minHeight: '100vh',
+    background: '#050505',
+    color: '#fff',
+    position: 'relative',
+    overflow: 'hidden',
+  },
+  meshGradient: {
+    position: 'fixed',
+    inset: 0,
+    background: 'radial-gradient(ellipse at 20% 20%, rgba(250, 112, 154, 0.08) 0%, transparent 50%), radial-gradient(ellipse at 80% 80%, rgba(254, 225, 64, 0.06) 0%, transparent 50%), radial-gradient(ellipse at 50% 50%, rgba(67, 233, 123, 0.04) 0%, transparent 50%)',
+    pointerEvents: 'none',
+  },
+  orbOne: {
+    position: 'fixed',
+    width: '600px',
+    height: '600px',
+    borderRadius: '50%',
+    background: 'radial-gradient(circle, rgba(250, 112, 154, 0.12) 0%, transparent 70%)',
+    top: '-200px',
+    right: '-200px',
+    animation: 'float 20s ease-in-out infinite',
+    pointerEvents: 'none',
+  },
+  orbTwo: {
+    position: 'fixed',
+    width: '400px',
+    height: '400px',
+    borderRadius: '50%',
+    background: 'radial-gradient(circle, rgba(254, 225, 64, 0.1) 0%, transparent 70%)',
+    bottom: '-100px',
+    left: '-100px',
+    animation: 'float 15s ease-in-out infinite reverse',
+    pointerEvents: 'none',
+  },
+  orbThree: {
+    position: 'fixed',
+    width: '300px',
+    height: '300px',
+    borderRadius: '50%',
+    background: 'radial-gradient(circle, rgba(67, 233, 123, 0.08) 0%, transparent 70%)',
+    top: '50%',
+    left: '30%',
+    animation: 'float 25s ease-in-out infinite',
+    pointerEvents: 'none',
+  },
+  loadingContainer: {
+    minHeight: '100vh',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    background: '#050505',
+    gap: '24px',
+  },
+  loadingOrb: {
+    width: '60px',
+    height: '60px',
+    borderRadius: '50%',
+    background: 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)',
+    animation: 'pulse 2s ease-in-out infinite, glow 2s ease-in-out infinite',
+  },
+  loadingText: {
+    color: 'rgba(255,255,255,0.6)',
+    fontSize: '14px',
+    letterSpacing: '3px',
+    textTransform: 'uppercase',
+  },
+  loadingContent: {
+    padding: '100px 0',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    gap: '20px',
+  },
+  loadingPulse: {
+    width: '48px',
+    height: '48px',
+    borderRadius: '50%',
+    background: 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)',
+    animation: 'pulse 1.5s ease-in-out infinite',
+  },
+  loadingContentText: {
+    color: 'rgba(255,255,255,0.5)',
+    fontSize: '14px',
+  },
+  nav: {
+    position: 'sticky',
+    top: 0,
+    zIndex: 100,
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: '20px 40px',
+    background: 'rgba(5, 5, 5, 0.8)',
+    backdropFilter: 'blur(20px)',
+    borderBottom: '1px solid rgba(255,255,255,0.06)',
+  },
+  navLeft: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+  logo: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '12px',
+    textDecoration: 'none',
+    color: '#fff',
+  },
+  logoIcon: {
+    width: '36px',
+    height: '36px',
+    borderRadius: '10px',
+    background: 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    fontSize: '18px',
+    fontWeight: '700',
+  },
+  logoText: {
+    fontSize: '16px',
+    fontWeight: '600',
+    letterSpacing: '2px',
+  },
+  navLinks: {
+    display: 'flex',
+    gap: '32px',
+    alignItems: 'center',
+  },
+  navLink: {
+    color: 'rgba(255,255,255,0.6)',
+    textDecoration: 'none',
+    fontSize: '13px',
+    fontWeight: '500',
+    transition: 'color 0.2s',
+  },
+  navLinkActive: {
+    color: '#fff',
+    textDecoration: 'none',
+    fontSize: '13px',
+    fontWeight: '600',
+    background: 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)',
+    WebkitBackgroundClip: 'text',
+    WebkitTextFillColor: 'transparent',
+  },
+  exitLink: {
+    color: 'rgba(255,255,255,0.4)',
+    textDecoration: 'none',
+    fontSize: '13px',
+    fontWeight: '500',
+    padding: '8px 16px',
+    border: '1px solid rgba(255,255,255,0.1)',
+    borderRadius: '8px',
+    transition: 'all 0.2s',
+  },
+  main: {
+    position: 'relative',
+    zIndex: 1,
+    padding: '40px',
+    maxWidth: '1400px',
+    margin: '0 auto',
+  },
+  header: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'flex-end',
+    marginBottom: '48px',
+  },
+  greeting: {
+    fontSize: '14px',
+    color: 'rgba(255,255,255,0.5)',
+    marginBottom: '8px',
+    letterSpacing: '1px',
+    textTransform: 'uppercase',
+  },
+  title: {
+    fontSize: '42px',
+    fontWeight: '700',
+    letterSpacing: '-1px',
+    background: 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)',
+    WebkitBackgroundClip: 'text',
+    WebkitTextFillColor: 'transparent',
+  },
+  timeDisplay: {
+    textAlign: 'right' as const,
+  },
+  timeText: {
+    display: 'block',
+    fontSize: '28px',
+    fontWeight: '300',
+    letterSpacing: '-0.5px',
+    color: 'rgba(255,255,255,0.9)',
+  },
+  dateText: {
+    fontSize: '13px',
+    color: 'rgba(255,255,255,0.4)',
+    letterSpacing: '0.5px',
+  },
+  metricsGrid: {
+    display: 'grid',
+    gridTemplateColumns: 'repeat(4, 1fr)',
+    gap: '20px',
+    marginBottom: '32px',
+  },
+  metricCard: {
+    position: 'relative',
+    background: 'rgba(255,255,255,0.03)',
+    borderRadius: '20px',
+    padding: '24px',
+    border: '1px solid rgba(255,255,255,0.06)',
+    overflow: 'hidden',
+    backdropFilter: 'blur(20px)',
+    transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+    cursor: 'default',
+  },
+  metricGradientOverlay: {
+    position: 'absolute',
+    inset: 0,
+    background: 'radial-gradient(circle at 100% 0%, rgba(255,255,255,0.03) 0%, transparent 50%)',
+    pointerEvents: 'none',
+  },
+  metricAccent: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: '3px',
+    height: '100%',
+  },
+  metricLabel: {
+    fontSize: '12px',
+    color: 'rgba(255,255,255,0.5)',
+    textTransform: 'uppercase',
+    letterSpacing: '1px',
+    fontWeight: '500',
+  },
+  metricValue: {
+    fontSize: '36px',
+    fontWeight: '700',
+    letterSpacing: '-1px',
+    marginBottom: '6px',
+  },
+  metricSubtitle: {
+    fontSize: '13px',
+    color: 'rgba(255,255,255,0.4)',
+  },
+  gridTwoOne: {
+    display: 'grid',
+    gridTemplateColumns: '2fr 1fr',
+    gap: '24px',
+    marginBottom: '32px',
+  },
+  gridHalf: {
+    display: 'grid',
+    gridTemplateColumns: '1fr 1fr',
+    gap: '24px',
+  },
+  glassCard: {
+    background: 'rgba(255,255,255,0.03)',
+    borderRadius: '20px',
+    padding: '28px',
+    border: '1px solid rgba(255,255,255,0.06)',
+    backdropFilter: 'blur(20px)',
+  },
+  glassCardHeader: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: '24px',
+  },
+  glassCardTitle: {
+    fontSize: '16px',
+    fontWeight: '600',
+    letterSpacing: '-0.3px',
+    color: '#fff',
+  },
+  glassCardIcon: {
+    width: '36px',
+    height: '36px',
+    borderRadius: '10px',
+    background: 'rgba(255,255,255,0.05)',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  progressTrack: {
+    height: '10px',
+    background: 'rgba(255,255,255,0.08)',
+    borderRadius: '6px',
+    overflow: 'hidden',
+  },
+  progressMini: {
+    width: '100px',
+    height: '6px',
+    background: 'rgba(255,255,255,0.08)',
+    borderRadius: '4px',
+    overflow: 'hidden',
+  },
+  progressLabel: {
+    fontSize: '12px',
+    color: 'rgba(255,255,255,0.6)',
+    fontWeight: '500',
+  },
+  table: {
+    width: '100%',
+    borderCollapse: 'collapse',
+  },
+  tableHeader: {
+    padding: '12px 0',
+    textAlign: 'left',
+    fontSize: '11px',
+    fontWeight: '600',
+    color: 'rgba(255,255,255,0.4)',
+    textTransform: 'uppercase',
+    letterSpacing: '1px',
+    borderBottom: '1px solid rgba(255,255,255,0.08)',
+  },
+  tableRow: {
+    borderBottom: '1px solid rgba(255,255,255,0.04)',
+  },
+  tableCell: {
+    padding: '16px 0',
+    fontSize: '14px',
+    color: 'rgba(255,255,255,0.6)',
+  },
+  tableCellBold: {
+    padding: '16px 0',
+    fontSize: '14px',
+    fontWeight: '500',
+    color: '#fff',
+  },
+  monoText: {
+    fontFamily: 'ui-monospace, SFMono-Regular, "SF Mono", Menlo, monospace',
+    fontSize: '12px',
+    color: 'rgba(255,255,255,0.6)',
+    background: 'rgba(255,255,255,0.05)',
+    padding: '4px 8px',
+    borderRadius: '6px',
+  },
+};

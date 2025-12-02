@@ -2,12 +2,100 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { useRequireAdmin } from '../../hooks/useRole';
 
+const contentTypeIcons = {
+  hero: (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="heroGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="#667eea" />
+          <stop offset="100%" stopColor="#764ba2" />
+        </linearGradient>
+      </defs>
+      <path d="M4 5a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V5zM4 13a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v6a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-6zM16 12a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-6a1 1 0 0 0-1-1h-3z" stroke="url(#heroGrad)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+    </svg>
+  ),
+  product: (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="productGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="#f093fb" />
+          <stop offset="100%" stopColor="#f5576c" />
+        </linearGradient>
+      </defs>
+      <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" stroke="url(#productGrad)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+      <path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12" stroke="url(#productGrad)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+    </svg>
+  ),
+  email: (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="emailGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="#4facfe" />
+          <stop offset="100%" stopColor="#00f2fe" />
+        </linearGradient>
+      </defs>
+      <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" stroke="url(#emailGrad)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+      <path d="M22 6l-10 7L2 6" stroke="url(#emailGrad)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+    </svg>
+  ),
+  social: (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="socialGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="#43e97b" />
+          <stop offset="100%" stopColor="#38f9d7" />
+        </linearGradient>
+      </defs>
+      <circle cx="18" cy="5" r="3" stroke="url(#socialGrad)" strokeWidth="1.5"/>
+      <circle cx="6" cy="12" r="3" stroke="url(#socialGrad)" strokeWidth="1.5"/>
+      <circle cx="18" cy="19" r="3" stroke="url(#socialGrad)" strokeWidth="1.5"/>
+      <path d="M8.59 13.51l6.83 3.98M15.41 6.51l-6.82 3.98" stroke="url(#socialGrad)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+    </svg>
+  ),
+};
+
+const SparkleIcon = () => (
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="sparkleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stopColor="#667eea" />
+        <stop offset="50%" stopColor="#f093fb" />
+        <stop offset="100%" stopColor="#43e97b" />
+      </linearGradient>
+    </defs>
+    <path d="M12 2L13.09 8.26L19 9L13.09 9.74L12 16L10.91 9.74L5 9L10.91 8.26L12 2Z" stroke="url(#sparkleGrad)" strokeWidth="1.5" fill="url(#sparkleGrad)" fillOpacity="0.2"/>
+    <path d="M19 16L19.54 18.46L22 19L19.54 19.54L19 22L18.46 19.54L16 19L18.46 18.46L19 16Z" stroke="url(#sparkleGrad)" strokeWidth="1" fill="url(#sparkleGrad)" fillOpacity="0.3"/>
+    <path d="M5 2L5.27 3.73L7 4L5.27 4.27L5 6L4.73 4.27L3 4L4.73 3.73L5 2Z" stroke="url(#sparkleGrad)" strokeWidth="1" fill="url(#sparkleGrad)" fillOpacity="0.3"/>
+  </svg>
+);
+
+const CopyIcon = () => (
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M20 9h-9a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2v-9a2 2 0 0 0-2-2z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+  </svg>
+);
+
+const InfoIcon = () => (
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="infoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stopColor="#fbbf24" />
+        <stop offset="100%" stopColor="#f59e0b" />
+      </linearGradient>
+    </defs>
+    <circle cx="12" cy="12" r="10" stroke="url(#infoGrad)" strokeWidth="1.5"/>
+    <path d="M12 16v-4M12 8h.01" stroke="url(#infoGrad)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+  </svg>
+);
+
 export default function AdminAI() {
   const { loading, authorized } = useRequireAdmin();
   const [input, setInput] = useState('');
   const [suggestion, setSuggestion] = useState('');
   const [generating, setGenerating] = useState(false);
   const [contentType, setContentType] = useState<'hero' | 'product' | 'email' | 'social'>('hero');
+  const [copied, setCopied] = useState(false);
 
   async function generateContent() {
     setGenerating(true);
@@ -32,129 +120,692 @@ export default function AdminAI() {
 
   function useContent() {
     navigator.clipboard.writeText(suggestion);
-    alert('Content copied to clipboard!');
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
   }
 
-  if (loading || !authorized) {
-    return <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#f5f5f5' }}><p>Loading...</p></div>;
+  if (loading) {
+    return (
+      <div style={styles.loadingContainer}>
+        <div style={styles.loadingOrb} />
+        <p style={styles.loadingText}>Initializing</p>
+      </div>
+    );
+  }
+
+  if (!authorized) {
+    return (
+      <div style={styles.loadingContainer}>
+        <div style={styles.loadingOrb} />
+        <p style={styles.loadingText}>Authenticating</p>
+      </div>
+    );
   }
 
   return (
-    <div style={{ minHeight: '100vh', background: '#f5f5f5' }}>
-      <nav style={{ background: '#000', color: '#fff', padding: '16px 32px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <Link href="/admin" style={{ color: '#fff', textDecoration: 'none', fontSize: '18px', fontWeight: '700' }}>DRIZZL ADMIN</Link>
-        <div style={{ display: 'flex', gap: '24px', alignItems: 'center' }}>
-          <Link href="/admin/command-center" style={{ color: '#fff', textDecoration: 'none', fontSize: '13px', opacity: 0.8 }}>Command Center</Link>
-          <Link href="/admin/products" style={{ color: '#fff', textDecoration: 'none', fontSize: '13px', opacity: 0.8 }}>Products</Link>
-          <Link href="/admin/product-intel" style={{ color: '#fff', textDecoration: 'none', fontSize: '13px', opacity: 0.8 }}>Product Intel</Link>
-          <Link href="/admin/orders" style={{ color: '#fff', textDecoration: 'none', fontSize: '13px', opacity: 0.8 }}>Orders</Link>
-          <Link href="/admin/partners" style={{ color: '#fff', textDecoration: 'none', fontSize: '13px', opacity: 0.8 }}>Partners</Link>
-          <Link href="/admin/banking" style={{ color: '#fff', textDecoration: 'none', fontSize: '13px', opacity: 0.8 }}>Banking</Link>
-          <Link href="/admin/analytics" style={{ color: '#fff', textDecoration: 'none', fontSize: '13px', opacity: 0.8 }}>Analytics</Link>
-          <Link href="/admin/ai" style={{ color: '#fff', textDecoration: 'none', fontSize: '13px', fontWeight: '600' }}>AI Tools</Link>
-          <Link href="/admin/ai-assistant" style={{ color: '#fff', textDecoration: 'none', fontSize: '13px', opacity: 0.8 }}>AI Assistant</Link>
-          <Link href="/" style={{ color: '#fff', textDecoration: 'none', fontSize: '13px', opacity: 0.6 }}>Exit</Link>
+    <div style={styles.container}>
+      <div style={styles.meshGradient} />
+      <div style={styles.orbOne} />
+      <div style={styles.orbTwo} />
+      <div style={styles.orbThree} />
+      <div style={styles.orbFour} />
+
+      <nav style={styles.nav}>
+        <div style={styles.navLeft}>
+          <Link href="/admin" style={styles.logo}>
+            <span style={styles.logoIcon}>D</span>
+            <span style={styles.logoText}>DRIZZL</span>
+          </Link>
+        </div>
+        <div style={styles.navLinks}>
+          <Link href="/admin/command-center" style={styles.navLink}>Command Center</Link>
+          <Link href="/admin/products" style={styles.navLink}>Products</Link>
+          <Link href="/admin/orders" style={styles.navLink}>Orders</Link>
+          <Link href="/admin/banking" style={styles.navLink}>Banking</Link>
+          <Link href="/admin/ai" style={styles.navLinkActive}>AI Tools</Link>
+          <Link href="/admin/ai-assistant" style={styles.navLink}>AI Assistant</Link>
+          <Link href="/" style={styles.exitLink}>Exit</Link>
         </div>
       </nav>
 
-      <main style={{ padding: '40px', maxWidth: '900px', margin: '0 auto' }}>
-        <div style={{ marginBottom: '40px' }}>
-          <h1 style={{ fontSize: '28px', fontWeight: '700', marginBottom: '4px' }}>AI Content Helper</h1>
-          <p style={{ color: '#666', fontSize: '14px' }}>Generate marketing copy with AI assistance</p>
-        </div>
+      <main style={styles.main}>
+        <header style={styles.header}>
+          <div style={styles.headerIcon}>
+            <SparkleIcon />
+          </div>
+          <div>
+            <p style={styles.greeting}>AI-Powered</p>
+            <h1 style={styles.title}>Content Generator</h1>
+            <p style={styles.subtitle}>Create compelling marketing copy with neural intelligence</p>
+          </div>
+        </header>
 
-        <div style={{ background: '#fff', borderRadius: '12px', padding: '32px', boxShadow: '0 1px 3px rgba(0,0,0,0.08)' }}>
-          <div style={{ marginBottom: '24px' }}>
-            <label style={{ display: 'block', fontSize: '13px', fontWeight: '600', marginBottom: '8px' }}>Content Type</label>
-            <div style={{ display: 'flex', gap: '12px' }}>
-              {(['hero', 'product', 'email', 'social'] as const).map(type => (
-                <button
-                  key={type}
-                  onClick={() => setContentType(type)}
-                  style={{
-                    padding: '8px 16px',
-                    border: '1px solid #ddd',
-                    borderRadius: '6px',
-                    background: contentType === type ? '#000' : '#fff',
-                    color: contentType === type ? '#fff' : '#000',
-                    fontSize: '13px',
-                    cursor: 'pointer',
-                    textTransform: 'capitalize',
-                  }}
-                >
-                  {type}
-                </button>
-              ))}
+        <div style={styles.formCard}>
+          <div style={styles.cardGlow} />
+          
+          <div style={styles.sectionHeader}>
+            <div style={styles.sectionIcon}>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                <defs>
+                  <linearGradient id="typeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stopColor="#667eea" />
+                    <stop offset="100%" stopColor="#764ba2" />
+                  </linearGradient>
+                </defs>
+                <path d="M4 6h16M4 12h16M4 18h10" stroke="url(#typeGrad)" strokeWidth="2" strokeLinecap="round"/>
+              </svg>
             </div>
+            <label style={styles.label}>Content Type</label>
+          </div>
+          
+          <div style={styles.buttonGroup}>
+            {(['hero', 'product', 'email', 'social'] as const).map((type) => (
+              <button
+                key={type}
+                onClick={() => setContentType(type)}
+                style={{
+                  ...styles.typeButton,
+                  ...(contentType === type ? styles.typeButtonActive : {}),
+                }}
+              >
+                <span style={styles.typeIcon}>{contentTypeIcons[type]}</span>
+                <span style={styles.typeLabel}>{type}</span>
+                {contentType === type && <div style={styles.activeIndicator} />}
+              </button>
+            ))}
           </div>
 
-          <div style={{ marginBottom: '24px' }}>
-            <label style={{ display: 'block', fontSize: '13px', fontWeight: '600', marginBottom: '8px' }}>Describe what you need</label>
+          <div style={styles.sectionHeader}>
+            <div style={styles.sectionIcon}>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                <defs>
+                  <linearGradient id="descGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stopColor="#f093fb" />
+                    <stop offset="100%" stopColor="#f5576c" />
+                  </linearGradient>
+                </defs>
+                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" stroke="url(#descGrad)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" stroke="url(#descGrad)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </div>
+            <label style={styles.label}>Describe your vision</label>
+          </div>
+          
+          <div style={styles.textareaWrapper}>
             <textarea
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="e.g., Hero headline for summer smoothie collection promoting fresh ingredients and health benefits..."
-              rows={4}
-              style={{
-                width: '100%',
-                padding: '12px',
-                border: '1px solid #ddd',
-                borderRadius: '8px',
-                fontSize: '14px',
-                resize: 'vertical',
-                fontFamily: 'inherit',
-              }}
+              rows={5}
+              style={styles.textarea}
             />
+            <div style={styles.textareaGlow} />
           </div>
 
           <button
             onClick={generateContent}
             disabled={generating || !input.trim()}
             style={{
-              background: '#000',
-              color: '#fff',
-              border: 'none',
-              padding: '12px 24px',
-              borderRadius: '8px',
-              fontSize: '14px',
-              fontWeight: '600',
-              cursor: generating ? 'default' : 'pointer',
-              opacity: generating || !input.trim() ? 0.6 : 1,
+              ...styles.generateButton,
+              opacity: generating || !input.trim() ? 0.5 : 1,
+              cursor: generating || !input.trim() ? 'not-allowed' : 'pointer',
             }}
           >
-            {generating ? 'Generating...' : 'Generate Content'}
+            <span style={styles.generateButtonInner}>
+              {generating ? (
+                <>
+                  <div style={styles.spinner} />
+                  <span>Generating</span>
+                </>
+              ) : (
+                <>
+                  <SparkleIcon />
+                  <span>Generate Content</span>
+                </>
+              )}
+            </span>
           </button>
 
           {suggestion && (
-            <div style={{ marginTop: '32px', padding: '24px', background: '#f9f9f9', borderRadius: '8px', border: '1px solid #e5e5e5' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
-                <h3 style={{ fontSize: '14px', fontWeight: '600' }}>Generated Content</h3>
-                <button
-                  onClick={useContent}
-                  style={{
-                    background: '#000',
-                    color: '#fff',
-                    border: 'none',
-                    padding: '8px 16px',
-                    borderRadius: '6px',
-                    fontSize: '13px',
-                    cursor: 'pointer',
-                  }}
-                >
-                  Copy to Clipboard
+            <div style={styles.resultCard}>
+              <div style={styles.resultHeader}>
+                <div style={styles.resultHeaderLeft}>
+                  <div style={styles.resultIcon}>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                      <defs>
+                        <linearGradient id="resultGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                          <stop offset="0%" stopColor="#43e97b" />
+                          <stop offset="100%" stopColor="#38f9d7" />
+                        </linearGradient>
+                      </defs>
+                      <path d="M9 12l2 2 4-4" stroke="url(#resultGrad)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                      <circle cx="12" cy="12" r="10" stroke="url(#resultGrad)" strokeWidth="1.5"/>
+                    </svg>
+                  </div>
+                  <h3 style={styles.resultTitle}>Generated Content</h3>
+                </div>
+                <button onClick={useContent} style={styles.copyButton}>
+                  <CopyIcon />
+                  <span>{copied ? 'Copied!' : 'Copy'}</span>
                 </button>
               </div>
-              <p style={{ fontSize: '16px', lineHeight: '1.7', whiteSpace: 'pre-wrap' }}>{suggestion}</p>
+              <div style={styles.resultContent}>
+                <p style={styles.resultText}>{suggestion}</p>
+              </div>
+              <div style={styles.resultGlow} />
             </div>
           )}
 
-          <div style={{ marginTop: '32px', padding: '20px', background: '#fffbeb', borderRadius: '8px', border: '1px solid #fef3cd' }}>
-            <p style={{ fontSize: '13px', color: '#856404', lineHeight: '1.6' }}>
-              <strong>Note:</strong> This is currently using placeholder AI responses. To enable real AI generation, connect your OpenAI API key in the environment variables (OPENAI_API_KEY).
-            </p>
+          <div style={styles.infoCard}>
+            <div style={styles.infoIcon}>
+              <InfoIcon />
+            </div>
+            <div style={styles.infoContent}>
+              <p style={styles.infoTitle}>Neural Configuration Required</p>
+              <p style={styles.infoText}>
+                Connect your OpenAI API key in environment variables (OPENAI_API_KEY) to enable real AI generation capabilities.
+              </p>
+            </div>
           </div>
         </div>
       </main>
+
+      <style jsx global>{`
+        @keyframes float {
+          0%, 100% { transform: translateY(0px) rotate(0deg); }
+          50% { transform: translateY(-30px) rotate(3deg); }
+        }
+        @keyframes floatReverse {
+          0%, 100% { transform: translateY(0px) rotate(0deg); }
+          50% { transform: translateY(20px) rotate(-3deg); }
+        }
+        @keyframes pulse {
+          0%, 100% { opacity: 0.4; transform: scale(1); }
+          50% { opacity: 0.8; transform: scale(1.05); }
+        }
+        @keyframes spin {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
+        }
+        @keyframes gradientShift {
+          0% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
+          100% { background-position: 0% 50%; }
+        }
+        @keyframes glow {
+          0%, 100% { box-shadow: 0 0 20px rgba(102, 126, 234, 0.3); }
+          50% { box-shadow: 0 0 40px rgba(102, 126, 234, 0.6), 0 0 60px rgba(240, 147, 251, 0.3); }
+        }
+        @keyframes borderGlow {
+          0%, 100% { opacity: 0.5; }
+          50% { opacity: 1; }
+        }
+      `}</style>
     </div>
   );
 }
+
+const styles: { [key: string]: React.CSSProperties } = {
+  container: {
+    minHeight: '100vh',
+    background: '#050505',
+    color: '#fff',
+    position: 'relative',
+    overflow: 'hidden',
+  },
+  meshGradient: {
+    position: 'fixed',
+    inset: 0,
+    background: `
+      radial-gradient(ellipse at 10% 20%, rgba(102, 126, 234, 0.12) 0%, transparent 40%),
+      radial-gradient(ellipse at 90% 80%, rgba(240, 147, 251, 0.08) 0%, transparent 40%),
+      radial-gradient(ellipse at 50% 50%, rgba(67, 233, 123, 0.05) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 20%, rgba(79, 172, 254, 0.06) 0%, transparent 35%)
+    `,
+    pointerEvents: 'none',
+  },
+  orbOne: {
+    position: 'fixed',
+    width: '500px',
+    height: '500px',
+    borderRadius: '50%',
+    background: 'radial-gradient(circle, rgba(102, 126, 234, 0.15) 0%, transparent 70%)',
+    top: '-150px',
+    right: '-100px',
+    animation: 'float 20s ease-in-out infinite',
+    pointerEvents: 'none',
+  },
+  orbTwo: {
+    position: 'fixed',
+    width: '400px',
+    height: '400px',
+    borderRadius: '50%',
+    background: 'radial-gradient(circle, rgba(240, 147, 251, 0.12) 0%, transparent 70%)',
+    bottom: '-100px',
+    left: '-80px',
+    animation: 'floatReverse 18s ease-in-out infinite',
+    pointerEvents: 'none',
+  },
+  orbThree: {
+    position: 'fixed',
+    width: '300px',
+    height: '300px',
+    borderRadius: '50%',
+    background: 'radial-gradient(circle, rgba(67, 233, 123, 0.1) 0%, transparent 70%)',
+    top: '40%',
+    left: '20%',
+    animation: 'float 25s ease-in-out infinite',
+    pointerEvents: 'none',
+  },
+  orbFour: {
+    position: 'fixed',
+    width: '250px',
+    height: '250px',
+    borderRadius: '50%',
+    background: 'radial-gradient(circle, rgba(79, 172, 254, 0.1) 0%, transparent 70%)',
+    top: '20%',
+    right: '30%',
+    animation: 'floatReverse 22s ease-in-out infinite',
+    pointerEvents: 'none',
+  },
+  loadingContainer: {
+    minHeight: '100vh',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    background: '#050505',
+    gap: '24px',
+  },
+  loadingOrb: {
+    width: '60px',
+    height: '60px',
+    borderRadius: '50%',
+    background: 'linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%)',
+    animation: 'pulse 2s ease-in-out infinite, glow 2s ease-in-out infinite',
+  },
+  loadingText: {
+    color: 'rgba(255,255,255,0.6)',
+    fontSize: '14px',
+    letterSpacing: '4px',
+    textTransform: 'uppercase',
+    fontWeight: '300',
+  },
+  nav: {
+    position: 'sticky',
+    top: 0,
+    zIndex: 100,
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: '16px 40px',
+    background: 'rgba(5, 5, 5, 0.7)',
+    backdropFilter: 'blur(24px)',
+    borderBottom: '1px solid rgba(255,255,255,0.05)',
+  },
+  navLeft: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+  logo: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '12px',
+    textDecoration: 'none',
+    color: '#fff',
+  },
+  logoIcon: {
+    width: '36px',
+    height: '36px',
+    borderRadius: '10px',
+    background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    fontSize: '16px',
+    fontWeight: '700',
+  },
+  logoText: {
+    fontSize: '15px',
+    fontWeight: '600',
+    letterSpacing: '2px',
+  },
+  navLinks: {
+    display: 'flex',
+    gap: '28px',
+    alignItems: 'center',
+  },
+  navLink: {
+    color: 'rgba(255,255,255,0.5)',
+    textDecoration: 'none',
+    fontSize: '13px',
+    fontWeight: '500',
+    transition: 'color 0.2s',
+  },
+  navLinkActive: {
+    color: '#fff',
+    textDecoration: 'none',
+    fontSize: '13px',
+    fontWeight: '600',
+    background: 'linear-gradient(135deg, #667eea 0%, #f093fb 100%)',
+    WebkitBackgroundClip: 'text',
+    WebkitTextFillColor: 'transparent',
+  },
+  exitLink: {
+    color: 'rgba(255,255,255,0.4)',
+    textDecoration: 'none',
+    fontSize: '13px',
+    fontWeight: '500',
+    padding: '8px 16px',
+    border: '1px solid rgba(255,255,255,0.1)',
+    borderRadius: '8px',
+    transition: 'all 0.2s',
+  },
+  main: {
+    position: 'relative',
+    zIndex: 1,
+    padding: '60px 40px',
+    maxWidth: '900px',
+    margin: '0 auto',
+  },
+  header: {
+    display: 'flex',
+    alignItems: 'flex-start',
+    gap: '20px',
+    marginBottom: '48px',
+  },
+  headerIcon: {
+    width: '56px',
+    height: '56px',
+    borderRadius: '16px',
+    background: 'rgba(255,255,255,0.03)',
+    border: '1px solid rgba(255,255,255,0.08)',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backdropFilter: 'blur(10px)',
+  },
+  greeting: {
+    fontSize: '13px',
+    color: 'rgba(255,255,255,0.4)',
+    marginBottom: '6px',
+    letterSpacing: '2px',
+    textTransform: 'uppercase',
+    fontWeight: '500',
+  },
+  title: {
+    fontSize: '38px',
+    fontWeight: '700',
+    letterSpacing: '-1px',
+    background: 'linear-gradient(135deg, #fff 0%, rgba(255,255,255,0.7) 100%)',
+    WebkitBackgroundClip: 'text',
+    WebkitTextFillColor: 'transparent',
+    marginBottom: '8px',
+  },
+  subtitle: {
+    fontSize: '15px',
+    color: 'rgba(255,255,255,0.5)',
+    fontWeight: '400',
+  },
+  formCard: {
+    position: 'relative',
+    background: 'rgba(255,255,255,0.02)',
+    borderRadius: '24px',
+    padding: '40px',
+    border: '1px solid rgba(255,255,255,0.06)',
+    backdropFilter: 'blur(20px)',
+    overflow: 'hidden',
+  },
+  cardGlow: {
+    position: 'absolute',
+    top: '-50%',
+    left: '-50%',
+    width: '200%',
+    height: '200%',
+    background: 'conic-gradient(from 180deg at 50% 50%, rgba(102, 126, 234, 0.03) 0deg, rgba(240, 147, 251, 0.03) 120deg, rgba(67, 233, 123, 0.03) 240deg, rgba(102, 126, 234, 0.03) 360deg)',
+    animation: 'spin 20s linear infinite',
+    pointerEvents: 'none',
+  },
+  sectionHeader: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '10px',
+    marginBottom: '16px',
+    position: 'relative',
+  },
+  sectionIcon: {
+    width: '28px',
+    height: '28px',
+    borderRadius: '8px',
+    background: 'rgba(255,255,255,0.05)',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  label: {
+    fontSize: '13px',
+    fontWeight: '600',
+    color: 'rgba(255,255,255,0.8)',
+    letterSpacing: '0.5px',
+  },
+  buttonGroup: {
+    display: 'flex',
+    gap: '12px',
+    marginBottom: '36px',
+    position: 'relative',
+    flexWrap: 'wrap',
+  },
+  typeButton: {
+    position: 'relative',
+    display: 'flex',
+    alignItems: 'center',
+    gap: '10px',
+    padding: '14px 20px',
+    background: 'rgba(255,255,255,0.03)',
+    border: '1px solid rgba(255,255,255,0.08)',
+    borderRadius: '12px',
+    color: 'rgba(255,255,255,0.6)',
+    fontSize: '13px',
+    fontWeight: '500',
+    cursor: 'pointer',
+    transition: 'all 0.3s ease',
+    textTransform: 'capitalize',
+    overflow: 'hidden',
+  },
+  typeButtonActive: {
+    background: 'rgba(102, 126, 234, 0.1)',
+    borderColor: 'rgba(102, 126, 234, 0.3)',
+    color: '#fff',
+    boxShadow: '0 0 30px rgba(102, 126, 234, 0.2)',
+  },
+  typeIcon: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  typeLabel: {
+    position: 'relative',
+    zIndex: 1,
+  },
+  activeIndicator: {
+    position: 'absolute',
+    bottom: 0,
+    left: '50%',
+    transform: 'translateX(-50%)',
+    width: '60%',
+    height: '2px',
+    background: 'linear-gradient(90deg, transparent, #667eea, #f093fb, transparent)',
+    borderRadius: '2px',
+  },
+  textareaWrapper: {
+    position: 'relative',
+    marginBottom: '32px',
+  },
+  textarea: {
+    width: '100%',
+    padding: '18px 20px',
+    background: 'rgba(255,255,255,0.03)',
+    border: '1px solid rgba(255,255,255,0.08)',
+    borderRadius: '16px',
+    fontSize: '15px',
+    color: '#fff',
+    resize: 'vertical',
+    fontFamily: 'inherit',
+    lineHeight: '1.6',
+    minHeight: '140px',
+    outline: 'none',
+    transition: 'all 0.3s ease',
+  },
+  textareaGlow: {
+    position: 'absolute',
+    inset: '-1px',
+    borderRadius: '16px',
+    background: 'linear-gradient(135deg, rgba(102, 126, 234, 0.2), rgba(240, 147, 251, 0.2), rgba(67, 233, 123, 0.2))',
+    opacity: 0,
+    transition: 'opacity 0.3s ease',
+    pointerEvents: 'none',
+    zIndex: -1,
+  },
+  generateButton: {
+    position: 'relative',
+    width: '100%',
+    padding: '3px',
+    background: 'linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%)',
+    backgroundSize: '200% 200%',
+    animation: 'gradientShift 4s ease infinite',
+    border: 'none',
+    borderRadius: '14px',
+    cursor: 'pointer',
+    transition: 'all 0.3s ease',
+    marginBottom: '32px',
+  },
+  generateButtonInner: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: '12px',
+    padding: '16px 24px',
+    background: 'rgba(5, 5, 5, 0.9)',
+    borderRadius: '11px',
+    fontSize: '15px',
+    fontWeight: '600',
+    color: '#fff',
+    letterSpacing: '0.5px',
+  },
+  spinner: {
+    width: '18px',
+    height: '18px',
+    border: '2px solid rgba(255,255,255,0.2)',
+    borderTopColor: '#fff',
+    borderRadius: '50%',
+    animation: 'spin 0.8s linear infinite',
+  },
+  resultCard: {
+    position: 'relative',
+    background: 'rgba(67, 233, 123, 0.03)',
+    border: '1px solid rgba(67, 233, 123, 0.15)',
+    borderRadius: '20px',
+    padding: '24px',
+    marginBottom: '28px',
+    overflow: 'hidden',
+  },
+  resultGlow: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    height: '1px',
+    background: 'linear-gradient(90deg, transparent, rgba(67, 233, 123, 0.5), transparent)',
+    animation: 'borderGlow 2s ease-in-out infinite',
+  },
+  resultHeader: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: '20px',
+  },
+  resultHeaderLeft: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '12px',
+  },
+  resultIcon: {
+    width: '32px',
+    height: '32px',
+    borderRadius: '10px',
+    background: 'rgba(67, 233, 123, 0.1)',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  resultTitle: {
+    fontSize: '14px',
+    fontWeight: '600',
+    color: 'rgba(255,255,255,0.9)',
+    letterSpacing: '0.3px',
+  },
+  copyButton: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '8px',
+    padding: '10px 18px',
+    background: 'rgba(255,255,255,0.05)',
+    border: '1px solid rgba(255,255,255,0.1)',
+    borderRadius: '10px',
+    color: 'rgba(255,255,255,0.8)',
+    fontSize: '13px',
+    fontWeight: '500',
+    cursor: 'pointer',
+    transition: 'all 0.2s ease',
+  },
+  resultContent: {
+    position: 'relative',
+    padding: '20px',
+    background: 'rgba(0,0,0,0.3)',
+    borderRadius: '12px',
+    border: '1px solid rgba(255,255,255,0.05)',
+  },
+  resultText: {
+    fontSize: '15px',
+    lineHeight: '1.8',
+    color: 'rgba(255,255,255,0.85)',
+    whiteSpace: 'pre-wrap',
+    margin: 0,
+  },
+  infoCard: {
+    display: 'flex',
+    alignItems: 'flex-start',
+    gap: '16px',
+    padding: '20px 24px',
+    background: 'rgba(251, 191, 36, 0.05)',
+    border: '1px solid rgba(251, 191, 36, 0.15)',
+    borderRadius: '16px',
+    position: 'relative',
+  },
+  infoIcon: {
+    flexShrink: 0,
+    width: '36px',
+    height: '36px',
+    borderRadius: '10px',
+    background: 'rgba(251, 191, 36, 0.1)',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  infoContent: {
+    flex: 1,
+  },
+  infoTitle: {
+    fontSize: '13px',
+    fontWeight: '600',
+    color: 'rgba(251, 191, 36, 0.9)',
+    marginBottom: '6px',
+    letterSpacing: '0.3px',
+  },
+  infoText: {
+    fontSize: '13px',
+    color: 'rgba(255,255,255,0.5)',
+    lineHeight: '1.6',
+    margin: 0,
+  },
+};

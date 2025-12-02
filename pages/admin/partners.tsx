@@ -45,13 +45,6 @@ interface Partner {
   reviewed_at: string;
 }
 
-const statusColors: Record<string, { bg: string; text: string }> = {
-  pending: { bg: '#fff3e0', text: '#e65100' },
-  approved: { bg: '#e6f4ea', text: '#1e7e34' },
-  rejected: { bg: '#fce8e6', text: '#c53929' },
-  suspended: { bg: '#f5f5f5', text: '#666' },
-};
-
 const volumeLabels: Record<string, string> = {
   under_500: 'Under $500',
   '500_2000': '$500 - $2,000',
@@ -92,6 +85,146 @@ const deliveryLabels: Record<string, string> = {
 function getAppData(partner: Partner): ApplicationData {
   return partner.application_data || {};
 }
+
+const StatusIcon = ({ status }: { status: string }) => {
+  const gradients: Record<string, { start: string; end: string }> = {
+    approved: { start: '#10b981', end: '#34d399' },
+    pending: { start: '#f59e0b', end: '#fbbf24' },
+    rejected: { start: '#6b7280', end: '#9ca3af' },
+    suspended: { start: '#6b7280', end: '#9ca3af' },
+  };
+  
+  const gradient = gradients[status] || gradients.suspended;
+  
+  return (
+    <svg width="12" height="12" viewBox="0 0 12 12" style={{ marginRight: '6px' }}>
+      <defs>
+        <linearGradient id={`status-${status}`} x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor={gradient.start} />
+          <stop offset="100%" stopColor={gradient.end} />
+        </linearGradient>
+      </defs>
+      <circle cx="6" cy="6" r="5" fill={`url(#status-${status})`} />
+    </svg>
+  );
+};
+
+const BuildingIcon = () => (
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+    <defs>
+      <linearGradient id="buildingGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stopColor="#f6d365" />
+        <stop offset="100%" stopColor="#fda085" />
+      </linearGradient>
+    </defs>
+    <path d="M3 21h18M5 21V7l8-4v18M13 21V3l6 3v15M9 9v.01M9 13v.01M9 17v.01M17 9v.01M17 13v.01M17 17v.01" stroke="url(#buildingGrad)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+  </svg>
+);
+
+const UsersIcon = () => (
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+    <defs>
+      <linearGradient id="usersGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stopColor="#667eea" />
+        <stop offset="100%" stopColor="#764ba2" />
+      </linearGradient>
+    </defs>
+    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75M9 7a4 4 0 1 0 0 8 4 4 0 0 0 0-8z" stroke="url(#usersGrad)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+  </svg>
+);
+
+const ClockIcon = () => (
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+    <defs>
+      <linearGradient id="clockGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stopColor="#4facfe" />
+        <stop offset="100%" stopColor="#00f2fe" />
+      </linearGradient>
+    </defs>
+    <circle cx="12" cy="12" r="10" stroke="url(#clockGrad)" strokeWidth="2"/>
+    <path d="M12 6v6l4 2" stroke="url(#clockGrad)" strokeWidth="2" strokeLinecap="round"/>
+  </svg>
+);
+
+const MapPinIcon = () => (
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+    <defs>
+      <linearGradient id="mapGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stopColor="#f093fb" />
+        <stop offset="100%" stopColor="#f5576c" />
+      </linearGradient>
+    </defs>
+    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" stroke="url(#mapGrad)" strokeWidth="2"/>
+    <circle cx="12" cy="10" r="3" stroke="url(#mapGrad)" strokeWidth="2"/>
+  </svg>
+);
+
+const DollarIcon = () => (
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+    <defs>
+      <linearGradient id="dollarGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stopColor="#43e97b" />
+        <stop offset="100%" stopColor="#38f9d7" />
+      </linearGradient>
+    </defs>
+    <line x1="12" y1="1" x2="12" y2="23" stroke="url(#dollarGrad)" strokeWidth="2" strokeLinecap="round"/>
+    <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" stroke="url(#dollarGrad)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+  </svg>
+);
+
+const CloseIcon = () => (
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+    <line x1="18" y1="6" x2="6" y2="18" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+    <line x1="6" y1="6" x2="18" y2="18" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+  </svg>
+);
+
+const ArrowIcon = () => (
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <path d="M5 12h14M12 5l7 7-7 7" />
+  </svg>
+);
+
+const StatusBadge = ({ status }: { status: string }) => {
+  const getGradient = () => {
+    switch (status) {
+      case 'approved': return 'linear-gradient(135deg, rgba(16, 185, 129, 0.2) 0%, rgba(52, 211, 153, 0.2) 100%)';
+      case 'pending': return 'linear-gradient(135deg, rgba(245, 158, 11, 0.2) 0%, rgba(251, 191, 36, 0.2) 100%)';
+      case 'rejected': 
+      case 'suspended': 
+      default: return 'linear-gradient(135deg, rgba(107, 114, 128, 0.2) 0%, rgba(156, 163, 175, 0.2) 100%)';
+    }
+  };
+  
+  const getBorder = () => {
+    switch (status) {
+      case 'approved': return 'rgba(16, 185, 129, 0.4)';
+      case 'pending': return 'rgba(245, 158, 11, 0.4)';
+      case 'rejected':
+      case 'suspended':
+      default: return 'rgba(107, 114, 128, 0.4)';
+    }
+  };
+  
+  return (
+    <span style={{
+      display: 'inline-flex',
+      alignItems: 'center',
+      padding: '6px 14px',
+      borderRadius: '20px',
+      fontSize: '12px',
+      fontWeight: '500',
+      background: getGradient(),
+      border: `1px solid ${getBorder()}`,
+      color: 'rgba(255,255,255,0.9)',
+      textTransform: 'capitalize',
+      backdropFilter: 'blur(8px)',
+    }}>
+      <StatusIcon status={status} />
+      {status}
+    </span>
+  );
+};
 
 export default function AdminPartners() {
   const { user, loading, authorized } = useRequireAdmin();
@@ -170,121 +303,173 @@ export default function AdminPartners() {
   const pendingCount = partners.filter(p => p.status === 'pending').length;
 
   if (loading) {
-    return <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#f5f5f5' }}><p>Loading...</p></div>;
+    return (
+      <div style={styles.loadingContainer}>
+        <div style={styles.loadingOrb} />
+        <p style={styles.loadingText}>Initializing</p>
+      </div>
+    );
   }
 
   if (!authorized) {
-    return <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#f5f5f5' }}><p>Checking authorization...</p></div>;
+    return (
+      <div style={styles.loadingContainer}>
+        <div style={styles.loadingOrb} />
+        <p style={styles.loadingText}>Authenticating</p>
+      </div>
+    );
   }
 
   return (
-    <div style={{ minHeight: '100vh', background: '#f5f5f5' }}>
-      <nav style={{ background: '#000', color: '#fff', padding: '16px 32px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <Link href="/admin" style={{ color: '#fff', textDecoration: 'none', fontSize: '18px', fontWeight: '700' }}>DRIZZL ADMIN</Link>
-        <div style={{ display: 'flex', gap: '24px' }}>
-          <Link href="/admin/command-center" style={{ color: '#fff', textDecoration: 'none', fontSize: '13px', opacity: 0.8 }}>Command Center</Link>
-          <Link href="/admin/products" style={{ color: '#fff', textDecoration: 'none', fontSize: '13px', opacity: 0.8 }}>Products</Link>
-          <Link href="/admin/product-intel" style={{ color: '#fff', textDecoration: 'none', fontSize: '13px', opacity: 0.8 }}>Product Intel</Link>
-          <Link href="/admin/orders" style={{ color: '#fff', textDecoration: 'none', fontSize: '13px', opacity: 0.8 }}>Orders</Link>
-          <Link href="/admin/partners" style={{ color: '#fff', textDecoration: 'none', fontSize: '13px', fontWeight: '600' }}>Partners</Link>
-          <Link href="/admin/banking" style={{ color: '#fff', textDecoration: 'none', fontSize: '13px', opacity: 0.8 }}>Banking</Link>
-          <Link href="/admin/analytics" style={{ color: '#fff', textDecoration: 'none', fontSize: '13px', opacity: 0.8 }}>Analytics</Link>
-          <Link href="/admin/ai" style={{ color: '#fff', textDecoration: 'none', fontSize: '13px', opacity: 0.8 }}>AI Tools</Link>
-          <Link href="/admin/ai-assistant" style={{ color: '#fff', textDecoration: 'none', fontSize: '13px', opacity: 0.8 }}>AI Assistant</Link>
-          <Link href="/" style={{ color: '#fff', textDecoration: 'none', fontSize: '13px', opacity: 0.6 }}>Exit</Link>
+    <div style={styles.container}>
+      <div style={styles.meshGradient} />
+      <div style={styles.orbOne} />
+      <div style={styles.orbTwo} />
+      <div style={styles.orbThree} />
+
+      <nav style={styles.nav}>
+        <div style={styles.navLeft}>
+          <Link href="/admin" style={styles.logo}>
+            <span style={styles.logoIcon}>D</span>
+            <span style={styles.logoText}>DRIZZL</span>
+          </Link>
+        </div>
+        <div style={styles.navLinks}>
+          <Link href="/admin/command-center" style={styles.navLink}>Command Center</Link>
+          <Link href="/admin/products" style={styles.navLink}>Products</Link>
+          <Link href="/admin/orders" style={styles.navLink}>Orders</Link>
+          <Link href="/admin/partners" style={styles.navLinkActive}>Partners</Link>
+          <Link href="/admin/banking" style={styles.navLink}>Banking</Link>
+          <Link href="/admin/ai-assistant" style={styles.navLink}>AI Assistant</Link>
+          <Link href="/" style={styles.exitLink}>Exit</Link>
         </div>
       </nav>
 
-      <main style={{ padding: '40px', maxWidth: '1400px', margin: '0 auto' }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '32px' }}>
+      <main style={styles.main}>
+        <header style={styles.header}>
           <div>
-            <h1 style={{ fontSize: '28px', fontWeight: '700', marginBottom: '4px' }}>Wholesale Partners</h1>
-            <p style={{ color: '#666', fontSize: '14px' }}>
+            <div style={styles.headerIcon}>
+              <UsersIcon />
+            </div>
+            <h1 style={styles.title}>Wholesale Partners</h1>
+            <p style={styles.subtitle}>
               {partners.length} total applications
-              {pendingCount > 0 && <span style={{ color: '#e65100', fontWeight: '600' }}> | {pendingCount} pending review</span>}
+              {pendingCount > 0 && (
+                <span style={styles.pendingBadge}>
+                  <StatusIcon status="pending" />
+                  {pendingCount} pending review
+                </span>
+              )}
             </p>
           </div>
-        </div>
+        </header>
 
         {error && (
-          <div style={{ background: '#fff3e0', border: '1px solid #ffcc02', borderRadius: '8px', padding: '16px', marginBottom: '24px' }}>
-            <p style={{ color: '#e65100', fontSize: '14px' }}>{error}</p>
+          <div style={styles.errorCard}>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" style={{ marginRight: '10px' }}>
+              <circle cx="12" cy="12" r="10" stroke="#f59e0b" strokeWidth="2"/>
+              <line x1="12" y1="8" x2="12" y2="12" stroke="#f59e0b" strokeWidth="2" strokeLinecap="round"/>
+              <circle cx="12" cy="16" r="1" fill="#f59e0b"/>
+            </svg>
+            <p style={styles.errorText}>{error}</p>
           </div>
         )}
 
-        <div style={{ display: 'flex', gap: '8px', marginBottom: '24px', flexWrap: 'wrap' }}>
-          {['all', 'pending', 'approved', 'rejected', 'suspended'].map(status => (
-            <button
-              key={status}
-              onClick={() => setFilter(status)}
-              style={{
-                padding: '8px 16px',
-                background: filter === status ? '#000' : '#fff',
-                color: filter === status ? '#fff' : '#666',
-                border: '1px solid #e0e0e0',
-                borderRadius: '20px',
-                fontSize: '13px',
-                cursor: 'pointer',
-                textTransform: 'capitalize',
-              }}
-            >
-              {status} {status !== 'all' && `(${partners.filter(p => p.status === status).length})`}
-            </button>
-          ))}
+        <div style={styles.filterContainer}>
+          {['all', 'pending', 'approved', 'rejected', 'suspended'].map(status => {
+            const count = status === 'all' ? partners.length : partners.filter(p => p.status === status).length;
+            const isActive = filter === status;
+            return (
+              <button
+                key={status}
+                onClick={() => setFilter(status)}
+                style={{
+                  ...styles.filterButton,
+                  background: isActive ? 'linear-gradient(135deg, rgba(102, 126, 234, 0.3) 0%, rgba(118, 75, 162, 0.3) 100%)' : 'rgba(255,255,255,0.03)',
+                  borderColor: isActive ? 'rgba(102, 126, 234, 0.5)' : 'rgba(255,255,255,0.08)',
+                  color: isActive ? '#fff' : 'rgba(255,255,255,0.6)',
+                }}
+              >
+                {status !== 'all' && <StatusIcon status={status} />}
+                <span style={{ textTransform: 'capitalize' }}>{status}</span>
+                <span style={styles.filterCount}>{count}</span>
+              </button>
+            );
+          })}
         </div>
 
-        <div style={{ background: '#fff', borderRadius: '12px', overflow: 'hidden', boxShadow: '0 1px 3px rgba(0,0,0,0.08)' }}>
-          <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+        <div style={styles.tableCard}>
+          <table style={styles.table}>
             <thead>
-              <tr style={{ background: '#f9f9f9', borderBottom: '1px solid #eee' }}>
-                <th style={{ padding: '14px 16px', textAlign: 'left', fontSize: '12px', fontWeight: '600', textTransform: 'uppercase', letterSpacing: '0.5px', color: '#666' }}>Business</th>
-                <th style={{ padding: '14px 16px', textAlign: 'left', fontSize: '12px', fontWeight: '600', textTransform: 'uppercase', letterSpacing: '0.5px', color: '#666' }}>Type</th>
-                <th style={{ padding: '14px 16px', textAlign: 'left', fontSize: '12px', fontWeight: '600', textTransform: 'uppercase', letterSpacing: '0.5px', color: '#666' }}>Location</th>
-                <th style={{ padding: '14px 16px', textAlign: 'left', fontSize: '12px', fontWeight: '600', textTransform: 'uppercase', letterSpacing: '0.5px', color: '#666' }}>Est. Volume</th>
-                <th style={{ padding: '14px 16px', textAlign: 'left', fontSize: '12px', fontWeight: '600', textTransform: 'uppercase', letterSpacing: '0.5px', color: '#666' }}>Status</th>
-                <th style={{ padding: '14px 16px', textAlign: 'left', fontSize: '12px', fontWeight: '600', textTransform: 'uppercase', letterSpacing: '0.5px', color: '#666' }}>Applied</th>
-                <th style={{ padding: '14px 16px', textAlign: 'left', fontSize: '12px', fontWeight: '600', textTransform: 'uppercase', letterSpacing: '0.5px', color: '#666' }}>Actions</th>
+              <tr>
+                <th style={styles.th}><div style={styles.thContent}><BuildingIcon /><span style={{ marginLeft: '8px' }}>Business</span></div></th>
+                <th style={styles.th}>Type</th>
+                <th style={styles.th}><div style={styles.thContent}><MapPinIcon /><span style={{ marginLeft: '6px' }}>Location</span></div></th>
+                <th style={styles.th}><div style={styles.thContent}><DollarIcon /><span style={{ marginLeft: '6px' }}>Est. Volume</span></div></th>
+                <th style={styles.th}>Status</th>
+                <th style={styles.th}><div style={styles.thContent}><ClockIcon /><span style={{ marginLeft: '6px' }}>Applied</span></div></th>
+                <th style={styles.th}>Actions</th>
               </tr>
             </thead>
             <tbody>
               {loadingData ? (
-                <tr><td colSpan={7} style={{ padding: '40px', textAlign: 'center', color: '#666' }}>Loading...</td></tr>
+                <tr>
+                  <td colSpan={7} style={styles.emptyCell}>
+                    <div style={styles.loadingSpinner} />
+                    <span>Loading partners...</span>
+                  </td>
+                </tr>
               ) : filteredPartners.length === 0 ? (
-                <tr><td colSpan={7} style={{ padding: '40px', textAlign: 'center', color: '#666' }}>No partners found</td></tr>
+                <tr>
+                  <td colSpan={7} style={styles.emptyCell}>
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" style={{ marginBottom: '12px', opacity: 0.3 }}>
+                      <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" stroke="white" strokeWidth="1.5"/>
+                      <circle cx="9" cy="7" r="4" stroke="white" strokeWidth="1.5"/>
+                      <line x1="23" y1="21" x2="17" y2="15" stroke="white" strokeWidth="1.5"/>
+                    </svg>
+                    <span>No partners found</span>
+                  </td>
+                </tr>
               ) : (
-                filteredPartners.map(partner => {
+                filteredPartners.map((partner, index) => {
                   const appData = getAppData(partner);
                   return (
-                    <tr key={partner.id} style={{ borderBottom: '1px solid #eee' }}>
-                      <td style={{ padding: '16px' }}>
-                        <p style={{ fontWeight: '600', fontSize: '14px', marginBottom: '2px' }}>{partner.company_name || appData.legalBusinessName || '-'}</p>
-                        {appData.dbaStoreName && <p style={{ fontSize: '12px', color: '#666' }}>DBA: {appData.dbaStoreName}</p>}
-                        <p style={{ fontSize: '12px', color: '#999' }}>{partner.email || appData.businessEmail || '-'}</p>
+                    <tr key={partner.id} style={{
+                      ...styles.tr,
+                      animationDelay: `${index * 0.05}s`,
+                    }}>
+                      <td style={styles.td}>
+                        <p style={styles.businessName}>{partner.company_name || appData.legalBusinessName || '-'}</p>
+                        {appData.dbaStoreName && <p style={styles.dbaName}>DBA: {appData.dbaStoreName}</p>}
+                        <p style={styles.email}>{partner.email || appData.businessEmail || '-'}</p>
                       </td>
-                      <td style={{ padding: '16px', fontSize: '14px' }}>{businessTypeLabels[appData.businessType || ''] || appData.businessType || '-'}</td>
-                      <td style={{ padding: '16px', fontSize: '14px' }}>{appData.city || '-'}{appData.state ? `, ${appData.state}` : ''}</td>
-                      <td style={{ padding: '16px', fontSize: '14px' }}>{volumeLabels[appData.estimatedMonthlyVolume || ''] || appData.estimatedMonthlyVolume || '-'}</td>
-                      <td style={{ padding: '16px' }}>
-                        <span style={{
-                          display: 'inline-block',
-                          padding: '4px 12px',
-                          borderRadius: '20px',
-                          fontSize: '12px',
-                          fontWeight: '500',
-                          background: statusColors[partner.status]?.bg || '#f5f5f5',
-                          color: statusColors[partner.status]?.text || '#666',
-                          textTransform: 'capitalize',
-                        }}>
-                          {partner.status}
-                        </span>
+                      <td style={styles.td}>
+                        <span style={styles.typeLabel}>{businessTypeLabels[appData.businessType || ''] || appData.businessType || '-'}</span>
                       </td>
-                      <td style={{ padding: '16px', fontSize: '13px', color: '#666' }}>{new Date(partner.created_at).toLocaleDateString()}</td>
-                      <td style={{ padding: '16px' }}>
+                      <td style={styles.td}>
+                        <span style={styles.location}>{appData.city || '-'}{appData.state ? `, ${appData.state}` : ''}</span>
+                      </td>
+                      <td style={styles.td}>
+                        <span style={styles.volume}>{volumeLabels[appData.estimatedMonthlyVolume || ''] || appData.estimatedMonthlyVolume || '-'}</span>
+                      </td>
+                      <td style={styles.td}>
+                        <StatusBadge status={partner.status} />
+                      </td>
+                      <td style={styles.td}>
+                        <span style={styles.date}>{new Date(partner.created_at).toLocaleDateString()}</span>
+                      </td>
+                      <td style={styles.td}>
                         <button
                           onClick={() => { setSelectedPartner(partner); setShowDetail(true); setAdminNotes(partner.admin_notes || ''); }}
-                          style={{ padding: '6px 14px', background: partner.status === 'pending' ? '#e65100' : '#000', color: '#fff', border: 'none', borderRadius: '6px', fontSize: '12px', cursor: 'pointer' }}
+                          style={{
+                            ...styles.actionButton,
+                            background: partner.status === 'pending' 
+                              ? 'linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%)' 
+                              : 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                          }}
                         >
                           {partner.status === 'pending' ? 'Review' : 'View'}
+                          <ArrowIcon />
                         </button>
                       </td>
                     </tr>
@@ -299,155 +484,195 @@ export default function AdminPartners() {
       {showDetail && selectedPartner && (() => {
         const appData = getAppData(selectedPartner);
         return (
-          <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0,0,0,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000, padding: '20px' }}>
-            <div style={{ background: '#fff', borderRadius: '16px', width: '100%', maxWidth: '900px', maxHeight: '90vh', overflow: 'auto' }}>
-              <div style={{ padding: '24px', borderBottom: '1px solid #eee', display: 'flex', justifyContent: 'space-between', alignItems: 'center', position: 'sticky', top: 0, background: '#fff', zIndex: 10 }}>
+          <div style={styles.modalOverlay}>
+            <div style={styles.modalContent}>
+              <div style={styles.modalHeader}>
                 <div>
-                  <h2 style={{ fontSize: '20px', fontWeight: '700', marginBottom: '4px' }}>{selectedPartner.company_name || appData.legalBusinessName}</h2>
-                  <span style={{
-                    display: 'inline-block',
-                    padding: '4px 12px',
-                    borderRadius: '20px',
-                    fontSize: '12px',
-                    fontWeight: '500',
-                    background: statusColors[selectedPartner.status]?.bg || '#f5f5f5',
-                    color: statusColors[selectedPartner.status]?.text || '#666',
-                    textTransform: 'capitalize',
-                  }}>
-                    {selectedPartner.status}
-                  </span>
+                  <h2 style={styles.modalTitle}>{selectedPartner.company_name || appData.legalBusinessName}</h2>
+                  <StatusBadge status={selectedPartner.status} />
                 </div>
-                <button onClick={() => { setShowDetail(false); setSelectedPartner(null); }} style={{ background: 'none', border: 'none', fontSize: '28px', cursor: 'pointer', color: '#999', lineHeight: 1 }}>
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <line x1="18" y1="6" x2="6" y2="18" />
-                    <line x1="6" y1="6" x2="18" y2="18" />
-                  </svg>
+                <button onClick={() => { setShowDetail(false); setSelectedPartner(null); }} style={styles.closeButton}>
+                  <CloseIcon />
                 </button>
               </div>
 
-              <div style={{ padding: '24px' }}>
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '32px', marginBottom: '32px' }}>
-                  <div>
-                    <h4 style={{ fontSize: '12px', textTransform: 'uppercase', color: '#999', marginBottom: '16px', letterSpacing: '0.5px', fontWeight: '600' }}>Business Information</h4>
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                      <p style={{ fontSize: '14px' }}><span style={{ color: '#666' }}>Legal Name:</span> <strong>{appData.legalBusinessName || '-'}</strong></p>
-                      {appData.dbaStoreName && <p style={{ fontSize: '14px' }}><span style={{ color: '#666' }}>DBA:</span> {appData.dbaStoreName}</p>}
-                      <p style={{ fontSize: '14px' }}><span style={{ color: '#666' }}>Type:</span> {businessTypeLabels[appData.businessType || ''] || appData.businessType || '-'}</p>
-                      <p style={{ fontSize: '14px' }}><span style={{ color: '#666' }}>Years in Business:</span> {appData.yearsInBusiness || 'Not specified'}</p>
-                      {appData.website && <p style={{ fontSize: '14px' }}><span style={{ color: '#666' }}>Website:</span> {appData.website}</p>}
+              <div style={styles.modalBody}>
+                <div style={styles.infoGrid}>
+                  <div style={styles.infoSection}>
+                    <h4 style={styles.sectionTitle}>
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" style={{ marginRight: '8px' }}>
+                        <defs>
+                          <linearGradient id="infoGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stopColor="#667eea" />
+                            <stop offset="100%" stopColor="#764ba2" />
+                          </linearGradient>
+                        </defs>
+                        <path d="M3 21h18M5 21V7l8-4v18M13 21V3l6 3v15" stroke="url(#infoGrad1)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                      </svg>
+                      Business Information
+                    </h4>
+                    <div style={styles.infoContent}>
+                      <p style={styles.infoRow}><span style={styles.infoLabel}>Legal Name:</span> <strong>{appData.legalBusinessName || '-'}</strong></p>
+                      {appData.dbaStoreName && <p style={styles.infoRow}><span style={styles.infoLabel}>DBA:</span> {appData.dbaStoreName}</p>}
+                      <p style={styles.infoRow}><span style={styles.infoLabel}>Type:</span> {businessTypeLabels[appData.businessType || ''] || appData.businessType || '-'}</p>
+                      <p style={styles.infoRow}><span style={styles.infoLabel}>Years in Business:</span> {appData.yearsInBusiness || 'Not specified'}</p>
+                      {appData.website && <p style={styles.infoRow}><span style={styles.infoLabel}>Website:</span> {appData.website}</p>}
                     </div>
                   </div>
-                  <div>
-                    <h4 style={{ fontSize: '12px', textTransform: 'uppercase', color: '#999', marginBottom: '16px', letterSpacing: '0.5px', fontWeight: '600' }}>Location</h4>
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                      <p style={{ fontSize: '14px' }}>{appData.businessAddress || '-'}</p>
-                      <p style={{ fontSize: '14px' }}>{appData.city || '-'}{appData.state ? `, ${appData.state}` : ''} {appData.zip || ''}</p>
-                      <p style={{ fontSize: '14px' }}>{appData.country || '-'}</p>
+                  <div style={styles.infoSection}>
+                    <h4 style={styles.sectionTitle}>
+                      <MapPinIcon />
+                      <span style={{ marginLeft: '8px' }}>Location</span>
+                    </h4>
+                    <div style={styles.infoContent}>
+                      <p style={styles.infoRow}>{appData.businessAddress || '-'}</p>
+                      <p style={styles.infoRow}>{appData.city || '-'}{appData.state ? `, ${appData.state}` : ''} {appData.zip || ''}</p>
+                      <p style={styles.infoRow}>{appData.country || '-'}</p>
                     </div>
                   </div>
                 </div>
 
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '32px', marginBottom: '32px' }}>
-                  <div>
-                    <h4 style={{ fontSize: '12px', textTransform: 'uppercase', color: '#999', marginBottom: '16px', letterSpacing: '0.5px', fontWeight: '600' }}>Business Verification</h4>
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                      <p style={{ fontSize: '14px' }}><span style={{ color: '#666' }}>EIN/Tax ID:</span> {appData.einTaxId || 'Not provided'}</p>
+                <div style={styles.infoGrid}>
+                  <div style={styles.infoSection}>
+                    <h4 style={styles.sectionTitle}>
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" style={{ marginRight: '8px' }}>
+                        <defs>
+                          <linearGradient id="shieldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stopColor="#10b981" />
+                            <stop offset="100%" stopColor="#34d399" />
+                          </linearGradient>
+                        </defs>
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="url(#shieldGrad)" strokeWidth="2"/>
+                      </svg>
+                      Business Verification
+                    </h4>
+                    <div style={styles.infoContent}>
+                      <p style={styles.infoRow}><span style={styles.infoLabel}>EIN/Tax ID:</span> {appData.einTaxId || 'Not provided'}</p>
                       {appData.resaleCertificateUrl && (
-                        <p style={{ fontSize: '14px' }}>
-                          <span style={{ color: '#666' }}>Resale Certificate:</span>{' '}
-                          <a href={appData.resaleCertificateUrl} target="_blank" rel="noopener noreferrer" style={{ color: '#1565c0' }}>View Document</a>
+                        <p style={styles.infoRow}>
+                          <span style={styles.infoLabel}>Resale Certificate:</span>{' '}
+                          <a href={appData.resaleCertificateUrl} target="_blank" rel="noopener noreferrer" style={styles.linkText}>View Document</a>
                         </p>
                       )}
                     </div>
                   </div>
-                  <div>
-                    <h4 style={{ fontSize: '12px', textTransform: 'uppercase', color: '#999', marginBottom: '16px', letterSpacing: '0.5px', fontWeight: '600' }}>Decision Maker</h4>
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                      <p style={{ fontSize: '14px' }}><strong>{appData.decisionMakerName || '-'}</strong></p>
-                      <p style={{ fontSize: '14px' }}><span style={{ color: '#666' }}>Role:</span> {roleLabels[appData.decisionMakerRole || ''] || appData.decisionMakerRole || '-'}</p>
-                      <p style={{ fontSize: '14px' }}><span style={{ color: '#666' }}>Email:</span> {appData.decisionMakerEmail || '-'}</p>
-                      {appData.decisionMakerPhone && <p style={{ fontSize: '14px' }}><span style={{ color: '#666' }}>Phone:</span> {appData.decisionMakerPhone}</p>}
+                  <div style={styles.infoSection}>
+                    <h4 style={styles.sectionTitle}>
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" style={{ marginRight: '8px' }}>
+                        <defs>
+                          <linearGradient id="userGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stopColor="#f093fb" />
+                            <stop offset="100%" stopColor="#f5576c" />
+                          </linearGradient>
+                        </defs>
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" stroke="url(#userGrad)" strokeWidth="2"/>
+                        <circle cx="12" cy="7" r="4" stroke="url(#userGrad)" strokeWidth="2"/>
+                      </svg>
+                      Decision Maker
+                    </h4>
+                    <div style={styles.infoContent}>
+                      <p style={styles.infoRow}><strong>{appData.decisionMakerName || '-'}</strong></p>
+                      <p style={styles.infoRow}><span style={styles.infoLabel}>Role:</span> {roleLabels[appData.decisionMakerRole || ''] || appData.decisionMakerRole || '-'}</p>
+                      <p style={styles.infoRow}><span style={styles.infoLabel}>Email:</span> {appData.decisionMakerEmail || '-'}</p>
+                      {appData.decisionMakerPhone && <p style={styles.infoRow}><span style={styles.infoLabel}>Phone:</span> {appData.decisionMakerPhone}</p>}
                     </div>
                   </div>
                 </div>
 
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '32px', marginBottom: '32px' }}>
-                  <div>
-                    <h4 style={{ fontSize: '12px', textTransform: 'uppercase', color: '#999', marginBottom: '16px', letterSpacing: '0.5px', fontWeight: '600' }}>Order & Logistics</h4>
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                      <p style={{ fontSize: '14px' }}><span style={{ color: '#666' }}>Est. Monthly Volume:</span> <strong>{volumeLabels[appData.estimatedMonthlyVolume || ''] || appData.estimatedMonthlyVolume || '-'}</strong></p>
-                      <p style={{ fontSize: '14px' }}><span style={{ color: '#666' }}>Delivery Schedule:</span> {deliveryLabels[appData.preferredDeliverySchedule || ''] || appData.preferredDeliverySchedule || '-'}</p>
-                      {appData.receivingHours && <p style={{ fontSize: '14px' }}><span style={{ color: '#666' }}>Receiving Hours:</span> {appData.receivingHours}</p>}
-                      <p style={{ fontSize: '14px' }}><span style={{ color: '#666' }}>Loading Dock:</span> {appData.hasLoadingDock === 'yes' ? 'Yes' : appData.hasLoadingDock === 'no' ? 'No' : '-'}</p>
-                      <p style={{ fontSize: '14px' }}><span style={{ color: '#666' }}>Payment Method:</span> {paymentLabels[appData.preferredPaymentMethod || ''] || appData.preferredPaymentMethod || '-'}</p>
+                <div style={styles.infoGrid}>
+                  <div style={styles.infoSection}>
+                    <h4 style={styles.sectionTitle}>
+                      <DollarIcon />
+                      <span style={{ marginLeft: '8px' }}>Order & Logistics</span>
+                    </h4>
+                    <div style={styles.infoContent}>
+                      <p style={styles.infoRow}><span style={styles.infoLabel}>Est. Monthly Volume:</span> <strong>{volumeLabels[appData.estimatedMonthlyVolume || ''] || appData.estimatedMonthlyVolume || '-'}</strong></p>
+                      <p style={styles.infoRow}><span style={styles.infoLabel}>Delivery Schedule:</span> {deliveryLabels[appData.preferredDeliverySchedule || ''] || appData.preferredDeliverySchedule || '-'}</p>
+                      {appData.receivingHours && <p style={styles.infoRow}><span style={styles.infoLabel}>Receiving Hours:</span> {appData.receivingHours}</p>}
+                      <p style={styles.infoRow}><span style={styles.infoLabel}>Loading Dock:</span> {appData.hasLoadingDock === 'yes' ? 'Yes' : appData.hasLoadingDock === 'no' ? 'No' : '-'}</p>
+                      <p style={styles.infoRow}><span style={styles.infoLabel}>Payment Method:</span> {paymentLabels[appData.preferredPaymentMethod || ''] || appData.preferredPaymentMethod || '-'}</p>
                     </div>
                   </div>
-                  <div>
-                    <h4 style={{ fontSize: '12px', textTransform: 'uppercase', color: '#999', marginBottom: '16px', letterSpacing: '0.5px', fontWeight: '600' }}>Contact Information</h4>
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                      <p style={{ fontSize: '14px' }}><span style={{ color: '#666' }}>Business Email:</span> {appData.businessEmail || selectedPartner.email || '-'}</p>
-                      <p style={{ fontSize: '14px' }}><span style={{ color: '#666' }}>Business Phone:</span> {appData.businessPhone || selectedPartner.phone || '-'}</p>
-                      <p style={{ fontSize: '14px', marginTop: '8px' }}><span style={{ color: '#666' }}>Applied:</span> {new Date(selectedPartner.created_at).toLocaleString()}</p>
-                      {selectedPartner.reviewed_at && <p style={{ fontSize: '14px' }}><span style={{ color: '#666' }}>Reviewed:</span> {new Date(selectedPartner.reviewed_at).toLocaleString()}</p>}
-                      {appData.agreedToTerms && <p style={{ fontSize: '14px', color: '#1e7e34' }}>Agreed to Terms</p>}
+                  <div style={styles.infoSection}>
+                    <h4 style={styles.sectionTitle}>
+                      <ClockIcon />
+                      <span style={{ marginLeft: '8px' }}>Contact Information</span>
+                    </h4>
+                    <div style={styles.infoContent}>
+                      <p style={styles.infoRow}><span style={styles.infoLabel}>Business Email:</span> {appData.businessEmail || selectedPartner.email || '-'}</p>
+                      <p style={styles.infoRow}><span style={styles.infoLabel}>Business Phone:</span> {appData.businessPhone || selectedPartner.phone || '-'}</p>
+                      <p style={styles.infoRow}><span style={styles.infoLabel}>Applied:</span> {new Date(selectedPartner.created_at).toLocaleString()}</p>
+                      {selectedPartner.reviewed_at && <p style={styles.infoRow}><span style={styles.infoLabel}>Reviewed:</span> {new Date(selectedPartner.reviewed_at).toLocaleString()}</p>}
+                      {appData.agreedToTerms && <p style={styles.agreedText}>Agreed to Terms</p>}
                     </div>
                   </div>
                 </div>
 
-                <div style={{ marginBottom: '24px' }}>
-                  <label style={{ display: 'block', fontSize: '13px', fontWeight: '600', marginBottom: '8px' }}>Admin Notes</label>
+                <div style={styles.notesSection}>
+                  <label style={styles.notesLabel}>Admin Notes</label>
                   <textarea
                     value={adminNotes}
                     onChange={(e) => setAdminNotes(e.target.value)}
                     placeholder="Internal notes about this partner..."
-                    style={{ width: '100%', padding: '12px', border: '1px solid #ddd', borderRadius: '8px', fontSize: '14px', minHeight: '80px', resize: 'vertical', boxSizing: 'border-box' }}
+                    style={styles.textarea}
                   />
                 </div>
 
                 {selectedPartner.status === 'pending' && (
-                  <div style={{ display: 'flex', gap: '12px', paddingTop: '16px', borderTop: '1px solid #eee' }}>
+                  <div style={styles.actionRow}>
                     <button
                       onClick={() => updatePartnerStatus(selectedPartner.id, 'approved')}
                       disabled={actionLoading}
-                      style={{ flex: 1, padding: '14px', background: '#1e7e34', color: '#fff', border: 'none', borderRadius: '8px', fontSize: '14px', fontWeight: '600', cursor: actionLoading ? 'default' : 'pointer', opacity: actionLoading ? 0.7 : 1 }}
+                      style={{ ...styles.approveButton, opacity: actionLoading ? 0.7 : 1 }}
                     >
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" style={{ marginRight: '8px' }}>
+                        <path d="M20 6L9 17l-5-5" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                      </svg>
                       {actionLoading ? 'Processing...' : 'Approve Partner'}
                     </button>
                     <button
                       onClick={() => setShowRejectionModal(true)}
                       disabled={actionLoading}
-                      style={{ flex: 1, padding: '14px', background: '#c53929', color: '#fff', border: 'none', borderRadius: '8px', fontSize: '14px', fontWeight: '600', cursor: actionLoading ? 'default' : 'pointer', opacity: actionLoading ? 0.7 : 1 }}
+                      style={{ ...styles.rejectButton, opacity: actionLoading ? 0.7 : 1 }}
                     >
-                      Reject Application
+                      <CloseIcon />
+                      <span style={{ marginLeft: '6px' }}>Reject Application</span>
                     </button>
                   </div>
                 )}
 
                 {selectedPartner.status === 'approved' && (
-                  <div style={{ display: 'flex', gap: '12px', paddingTop: '16px', borderTop: '1px solid #eee' }}>
+                  <div style={styles.actionRow}>
                     <button
                       onClick={() => updatePartnerStatus(selectedPartner.id, 'suspended', 'Account suspended by admin')}
                       disabled={actionLoading}
-                      style={{ padding: '14px 24px', background: '#f5f5f5', color: '#666', border: '1px solid #ddd', borderRadius: '8px', fontSize: '14px', fontWeight: '600', cursor: actionLoading ? 'default' : 'pointer' }}
+                      style={styles.suspendButton}
                     >
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" style={{ marginRight: '8px' }}>
+                        <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2"/>
+                        <line x1="4" y1="4" x2="20" y2="20" stroke="currentColor" strokeWidth="2"/>
+                      </svg>
                       Suspend Account
                     </button>
                   </div>
                 )}
 
                 {(selectedPartner.status === 'rejected' || selectedPartner.status === 'suspended') && (
-                  <div style={{ paddingTop: '16px', borderTop: '1px solid #eee' }}>
+                  <div style={styles.actionRow}>
                     {selectedPartner.rejection_reason && (
-                      <div style={{ background: '#fce8e6', padding: '12px 16px', borderRadius: '8px', marginBottom: '16px' }}>
-                        <p style={{ fontSize: '12px', color: '#c53929', fontWeight: '600', marginBottom: '4px' }}>Rejection Reason:</p>
-                        <p style={{ fontSize: '14px', color: '#c53929' }}>{selectedPartner.rejection_reason}</p>
+                      <div style={styles.rejectionReasonCard}>
+                        <p style={styles.rejectionLabel}>Rejection Reason:</p>
+                        <p style={styles.rejectionText}>{selectedPartner.rejection_reason}</p>
                       </div>
                     )}
                     <button
                       onClick={() => updatePartnerStatus(selectedPartner.id, 'approved', 'Account reactivated by admin')}
                       disabled={actionLoading}
-                      style={{ padding: '14px 24px', background: '#1e7e34', color: '#fff', border: 'none', borderRadius: '8px', fontSize: '14px', fontWeight: '600', cursor: actionLoading ? 'default' : 'pointer', opacity: actionLoading ? 0.7 : 1 }}
+                      style={{ ...styles.reactivateButton, opacity: actionLoading ? 0.7 : 1 }}
                     >
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" style={{ marginRight: '8px' }}>
+                        <path d="M20 6L9 17l-5-5" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                      </svg>
                       {actionLoading ? 'Processing...' : 'Reactivate Partner'}
                     </button>
                   </div>
@@ -459,29 +684,33 @@ export default function AdminPartners() {
       })()}
 
       {showRejectionModal && selectedPartner && (
-        <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0,0,0,0.7)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1100, padding: '20px' }}>
-          <div style={{ background: '#fff', borderRadius: '16px', width: '100%', maxWidth: '500px', padding: '32px' }}>
-            <h3 style={{ fontSize: '20px', fontWeight: '700', marginBottom: '16px' }}>Reject Application</h3>
-            <p style={{ color: '#666', fontSize: '14px', marginBottom: '20px' }}>
+        <div style={styles.rejectionOverlay}>
+          <div style={styles.rejectionModal}>
+            <h3 style={styles.rejectionModalTitle}>Reject Application</h3>
+            <p style={styles.rejectionModalDesc}>
               Please provide a reason for rejecting this application. This will be visible to the applicant.
             </p>
             <textarea
               value={rejectionReason}
               onChange={(e) => setRejectionReason(e.target.value)}
               placeholder="Reason for rejection..."
-              style={{ width: '100%', padding: '12px', border: '1px solid #ddd', borderRadius: '8px', fontSize: '14px', minHeight: '120px', resize: 'vertical', marginBottom: '24px', boxSizing: 'border-box' }}
+              style={styles.rejectionTextarea}
             />
-            <div style={{ display: 'flex', gap: '12px' }}>
+            <div style={styles.rejectionActions}>
               <button
                 onClick={() => updatePartnerStatus(selectedPartner.id, 'rejected')}
                 disabled={actionLoading || !rejectionReason.trim()}
-                style={{ flex: 1, padding: '14px', background: '#c53929', color: '#fff', border: 'none', borderRadius: '8px', fontSize: '14px', fontWeight: '600', cursor: actionLoading || !rejectionReason.trim() ? 'default' : 'pointer', opacity: actionLoading || !rejectionReason.trim() ? 0.7 : 1 }}
+                style={{ 
+                  ...styles.confirmRejectButton, 
+                  opacity: actionLoading || !rejectionReason.trim() ? 0.5 : 1,
+                  cursor: actionLoading || !rejectionReason.trim() ? 'not-allowed' : 'pointer',
+                }}
               >
                 {actionLoading ? 'Processing...' : 'Confirm Rejection'}
               </button>
               <button
                 onClick={() => { setShowRejectionModal(false); setRejectionReason(''); }}
-                style={{ padding: '14px 24px', background: '#f5f5f5', color: '#000', border: 'none', borderRadius: '8px', fontSize: '14px', cursor: 'pointer' }}
+                style={styles.cancelButton}
               >
                 Cancel
               </button>
@@ -489,6 +718,636 @@ export default function AdminPartners() {
           </div>
         </div>
       )}
+
+      <style jsx global>{`
+        @keyframes float {
+          0%, 100% { transform: translateY(0px) rotate(0deg); }
+          50% { transform: translateY(-20px) rotate(5deg); }
+        }
+        @keyframes pulse {
+          0%, 100% { opacity: 0.4; }
+          50% { opacity: 0.8; }
+        }
+        @keyframes glow {
+          0%, 100% { box-shadow: 0 0 20px rgba(102, 126, 234, 0.3); }
+          50% { box-shadow: 0 0 40px rgba(102, 126, 234, 0.6); }
+        }
+        @keyframes spin {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
+        }
+        @keyframes fadeInUp {
+          from { opacity: 0; transform: translateY(10px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+      `}</style>
     </div>
   );
 }
+
+const styles: { [key: string]: React.CSSProperties } = {
+  container: {
+    minHeight: '100vh',
+    background: '#050505',
+    color: '#fff',
+    position: 'relative',
+    overflow: 'hidden',
+  },
+  meshGradient: {
+    position: 'fixed',
+    inset: 0,
+    background: 'radial-gradient(ellipse at 20% 20%, rgba(246, 211, 101, 0.06) 0%, transparent 50%), radial-gradient(ellipse at 80% 80%, rgba(253, 160, 133, 0.05) 0%, transparent 50%), radial-gradient(ellipse at 50% 50%, rgba(102, 126, 234, 0.04) 0%, transparent 50%)',
+    pointerEvents: 'none',
+  },
+  orbOne: {
+    position: 'fixed',
+    width: '500px',
+    height: '500px',
+    borderRadius: '50%',
+    background: 'radial-gradient(circle, rgba(246, 211, 101, 0.12) 0%, transparent 70%)',
+    top: '-150px',
+    right: '-150px',
+    animation: 'float 20s ease-in-out infinite',
+    pointerEvents: 'none',
+  },
+  orbTwo: {
+    position: 'fixed',
+    width: '400px',
+    height: '400px',
+    borderRadius: '50%',
+    background: 'radial-gradient(circle, rgba(253, 160, 133, 0.1) 0%, transparent 70%)',
+    bottom: '-100px',
+    left: '-100px',
+    animation: 'float 15s ease-in-out infinite reverse',
+    pointerEvents: 'none',
+  },
+  orbThree: {
+    position: 'fixed',
+    width: '300px',
+    height: '300px',
+    borderRadius: '50%',
+    background: 'radial-gradient(circle, rgba(102, 126, 234, 0.08) 0%, transparent 70%)',
+    top: '40%',
+    left: '20%',
+    animation: 'float 25s ease-in-out infinite',
+    pointerEvents: 'none',
+  },
+  loadingContainer: {
+    minHeight: '100vh',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    background: '#050505',
+    gap: '24px',
+  },
+  loadingOrb: {
+    width: '60px',
+    height: '60px',
+    borderRadius: '50%',
+    background: 'linear-gradient(135deg, #f6d365 0%, #fda085 100%)',
+    animation: 'pulse 2s ease-in-out infinite, glow 2s ease-in-out infinite',
+  },
+  loadingText: {
+    color: 'rgba(255,255,255,0.6)',
+    fontSize: '14px',
+    letterSpacing: '3px',
+    textTransform: 'uppercase',
+  },
+  nav: {
+    position: 'sticky',
+    top: 0,
+    zIndex: 100,
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: '20px 40px',
+    background: 'rgba(5, 5, 5, 0.8)',
+    backdropFilter: 'blur(20px)',
+    borderBottom: '1px solid rgba(255,255,255,0.06)',
+  },
+  navLeft: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+  logo: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '12px',
+    textDecoration: 'none',
+    color: '#fff',
+  },
+  logoIcon: {
+    width: '36px',
+    height: '36px',
+    borderRadius: '10px',
+    background: 'linear-gradient(135deg, #f6d365 0%, #fda085 100%)',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    fontSize: '18px',
+    fontWeight: '700',
+  },
+  logoText: {
+    fontSize: '16px',
+    fontWeight: '600',
+    letterSpacing: '2px',
+  },
+  navLinks: {
+    display: 'flex',
+    gap: '28px',
+    alignItems: 'center',
+  },
+  navLink: {
+    color: 'rgba(255,255,255,0.5)',
+    textDecoration: 'none',
+    fontSize: '13px',
+    fontWeight: '500',
+    transition: 'color 0.2s',
+  },
+  navLinkActive: {
+    color: '#fff',
+    textDecoration: 'none',
+    fontSize: '13px',
+    fontWeight: '600',
+  },
+  exitLink: {
+    color: 'rgba(255,255,255,0.4)',
+    textDecoration: 'none',
+    fontSize: '13px',
+    fontWeight: '500',
+    padding: '8px 16px',
+    border: '1px solid rgba(255,255,255,0.1)',
+    borderRadius: '8px',
+    transition: 'all 0.2s',
+  },
+  main: {
+    position: 'relative',
+    zIndex: 1,
+    padding: '40px',
+    maxWidth: '1500px',
+    margin: '0 auto',
+  },
+  header: {
+    marginBottom: '40px',
+  },
+  headerIcon: {
+    display: 'inline-flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '48px',
+    height: '48px',
+    borderRadius: '14px',
+    background: 'rgba(255,255,255,0.05)',
+    border: '1px solid rgba(255,255,255,0.08)',
+    marginBottom: '20px',
+  },
+  title: {
+    fontSize: '36px',
+    fontWeight: '700',
+    letterSpacing: '-1px',
+    marginBottom: '12px',
+    background: 'linear-gradient(135deg, #fff 0%, rgba(255,255,255,0.7) 100%)',
+    WebkitBackgroundClip: 'text',
+    WebkitTextFillColor: 'transparent',
+  },
+  subtitle: {
+    fontSize: '15px',
+    color: 'rgba(255,255,255,0.5)',
+    display: 'flex',
+    alignItems: 'center',
+    gap: '12px',
+  },
+  pendingBadge: {
+    display: 'inline-flex',
+    alignItems: 'center',
+    padding: '4px 12px',
+    background: 'rgba(245, 158, 11, 0.15)',
+    border: '1px solid rgba(245, 158, 11, 0.3)',
+    borderRadius: '20px',
+    color: '#fbbf24',
+    fontSize: '13px',
+    fontWeight: '500',
+  },
+  errorCard: {
+    display: 'flex',
+    alignItems: 'center',
+    background: 'rgba(245, 158, 11, 0.1)',
+    border: '1px solid rgba(245, 158, 11, 0.2)',
+    borderRadius: '12px',
+    padding: '16px 20px',
+    marginBottom: '24px',
+    backdropFilter: 'blur(10px)',
+  },
+  errorText: {
+    color: '#fbbf24',
+    fontSize: '14px',
+    margin: 0,
+  },
+  filterContainer: {
+    display: 'flex',
+    gap: '10px',
+    marginBottom: '28px',
+    flexWrap: 'wrap',
+  },
+  filterButton: {
+    display: 'inline-flex',
+    alignItems: 'center',
+    gap: '8px',
+    padding: '10px 18px',
+    border: '1px solid rgba(255,255,255,0.08)',
+    borderRadius: '12px',
+    fontSize: '13px',
+    fontWeight: '500',
+    cursor: 'pointer',
+    transition: 'all 0.2s',
+    backdropFilter: 'blur(10px)',
+  },
+  filterCount: {
+    fontSize: '11px',
+    padding: '2px 8px',
+    background: 'rgba(255,255,255,0.1)',
+    borderRadius: '10px',
+    marginLeft: '4px',
+  },
+  tableCard: {
+    background: 'rgba(255,255,255,0.02)',
+    borderRadius: '20px',
+    border: '1px solid rgba(255,255,255,0.06)',
+    overflow: 'hidden',
+    backdropFilter: 'blur(20px)',
+  },
+  table: {
+    width: '100%',
+    borderCollapse: 'collapse',
+  },
+  th: {
+    padding: '16px 20px',
+    textAlign: 'left' as const,
+    fontSize: '11px',
+    fontWeight: '600',
+    textTransform: 'uppercase' as const,
+    letterSpacing: '1px',
+    color: 'rgba(255,255,255,0.4)',
+    borderBottom: '1px solid rgba(255,255,255,0.06)',
+  },
+  thContent: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+  tr: {
+    borderBottom: '1px solid rgba(255,255,255,0.04)',
+    transition: 'background 0.2s',
+    animation: 'fadeInUp 0.4s ease forwards',
+  },
+  td: {
+    padding: '18px 20px',
+    fontSize: '14px',
+  },
+  businessName: {
+    fontWeight: '600',
+    fontSize: '14px',
+    marginBottom: '4px',
+    color: '#fff',
+  },
+  dbaName: {
+    fontSize: '12px',
+    color: 'rgba(255,255,255,0.4)',
+    marginBottom: '4px',
+  },
+  email: {
+    fontSize: '12px',
+    color: 'rgba(255,255,255,0.3)',
+  },
+  typeLabel: {
+    color: 'rgba(255,255,255,0.7)',
+  },
+  location: {
+    color: 'rgba(255,255,255,0.7)',
+  },
+  volume: {
+    color: 'rgba(255,255,255,0.7)',
+  },
+  date: {
+    color: 'rgba(255,255,255,0.5)',
+    fontSize: '13px',
+  },
+  emptyCell: {
+    padding: '60px 40px',
+    textAlign: 'center',
+    color: 'rgba(255,255,255,0.4)',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    fontSize: '14px',
+  },
+  loadingSpinner: {
+    width: '24px',
+    height: '24px',
+    border: '2px solid rgba(255,255,255,0.1)',
+    borderTopColor: 'rgba(246, 211, 101, 0.8)',
+    borderRadius: '50%',
+    animation: 'spin 1s linear infinite',
+    marginBottom: '12px',
+  },
+  actionButton: {
+    display: 'inline-flex',
+    alignItems: 'center',
+    gap: '6px',
+    padding: '8px 16px',
+    border: 'none',
+    borderRadius: '10px',
+    fontSize: '12px',
+    fontWeight: '600',
+    color: '#fff',
+    cursor: 'pointer',
+    transition: 'all 0.2s',
+  },
+  modalOverlay: {
+    position: 'fixed',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    background: 'rgba(0,0,0,0.8)',
+    backdropFilter: 'blur(8px)',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    zIndex: 1000,
+    padding: '20px',
+  },
+  modalContent: {
+    background: 'linear-gradient(135deg, rgba(20, 20, 25, 0.95) 0%, rgba(10, 10, 15, 0.98) 100%)',
+    borderRadius: '24px',
+    width: '100%',
+    maxWidth: '950px',
+    maxHeight: '90vh',
+    overflow: 'auto',
+    border: '1px solid rgba(255,255,255,0.08)',
+    boxShadow: '0 25px 80px rgba(0,0,0,0.5)',
+  },
+  modalHeader: {
+    padding: '28px 32px',
+    borderBottom: '1px solid rgba(255,255,255,0.06)',
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    position: 'sticky',
+    top: 0,
+    background: 'rgba(15, 15, 20, 0.95)',
+    backdropFilter: 'blur(20px)',
+    zIndex: 10,
+  },
+  modalTitle: {
+    fontSize: '22px',
+    fontWeight: '700',
+    marginBottom: '12px',
+    color: '#fff',
+  },
+  closeButton: {
+    background: 'rgba(255,255,255,0.05)',
+    border: '1px solid rgba(255,255,255,0.1)',
+    borderRadius: '12px',
+    width: '40px',
+    height: '40px',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    cursor: 'pointer',
+    color: 'rgba(255,255,255,0.6)',
+    transition: 'all 0.2s',
+  },
+  modalBody: {
+    padding: '32px',
+  },
+  infoGrid: {
+    display: 'grid',
+    gridTemplateColumns: '1fr 1fr',
+    gap: '24px',
+    marginBottom: '28px',
+  },
+  infoSection: {
+    background: 'rgba(255,255,255,0.02)',
+    borderRadius: '16px',
+    padding: '24px',
+    border: '1px solid rgba(255,255,255,0.05)',
+  },
+  sectionTitle: {
+    display: 'flex',
+    alignItems: 'center',
+    fontSize: '12px',
+    textTransform: 'uppercase',
+    color: 'rgba(255,255,255,0.6)',
+    marginBottom: '18px',
+    letterSpacing: '1px',
+    fontWeight: '600',
+  },
+  infoContent: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '10px',
+  },
+  infoRow: {
+    fontSize: '14px',
+    color: 'rgba(255,255,255,0.8)',
+    margin: 0,
+    lineHeight: '1.6',
+  },
+  infoLabel: {
+    color: 'rgba(255,255,255,0.4)',
+    marginRight: '4px',
+  },
+  linkText: {
+    color: '#4facfe',
+    textDecoration: 'none',
+    transition: 'color 0.2s',
+  },
+  agreedText: {
+    marginTop: '8px',
+    fontSize: '13px',
+    color: '#34d399',
+    fontWeight: '500',
+  },
+  notesSection: {
+    marginBottom: '28px',
+  },
+  notesLabel: {
+    display: 'block',
+    fontSize: '13px',
+    fontWeight: '600',
+    marginBottom: '12px',
+    color: 'rgba(255,255,255,0.8)',
+  },
+  textarea: {
+    width: '100%',
+    padding: '16px',
+    background: 'rgba(255,255,255,0.03)',
+    border: '1px solid rgba(255,255,255,0.08)',
+    borderRadius: '14px',
+    fontSize: '14px',
+    color: '#fff',
+    minHeight: '100px',
+    resize: 'vertical',
+    boxSizing: 'border-box',
+    outline: 'none',
+    transition: 'border-color 0.2s',
+  },
+  actionRow: {
+    display: 'flex',
+    gap: '14px',
+    paddingTop: '24px',
+    borderTop: '1px solid rgba(255,255,255,0.06)',
+    flexWrap: 'wrap',
+  },
+  approveButton: {
+    flex: 1,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: '16px 24px',
+    background: 'linear-gradient(135deg, #10b981 0%, #34d399 100%)',
+    color: '#fff',
+    border: 'none',
+    borderRadius: '14px',
+    fontSize: '14px',
+    fontWeight: '600',
+    cursor: 'pointer',
+    transition: 'all 0.2s',
+  },
+  rejectButton: {
+    flex: 1,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: '16px 24px',
+    background: 'linear-gradient(135deg, rgba(107, 114, 128, 0.3) 0%, rgba(75, 85, 99, 0.3) 100%)',
+    color: '#fff',
+    border: '1px solid rgba(107, 114, 128, 0.4)',
+    borderRadius: '14px',
+    fontSize: '14px',
+    fontWeight: '600',
+    cursor: 'pointer',
+    transition: 'all 0.2s',
+  },
+  suspendButton: {
+    display: 'flex',
+    alignItems: 'center',
+    padding: '14px 24px',
+    background: 'rgba(255,255,255,0.05)',
+    color: 'rgba(255,255,255,0.7)',
+    border: '1px solid rgba(255,255,255,0.1)',
+    borderRadius: '12px',
+    fontSize: '14px',
+    fontWeight: '600',
+    cursor: 'pointer',
+    transition: 'all 0.2s',
+  },
+  rejectionReasonCard: {
+    width: '100%',
+    background: 'rgba(239, 68, 68, 0.1)',
+    border: '1px solid rgba(239, 68, 68, 0.2)',
+    padding: '16px 20px',
+    borderRadius: '12px',
+    marginBottom: '16px',
+  },
+  rejectionLabel: {
+    fontSize: '12px',
+    color: 'rgba(239, 68, 68, 0.8)',
+    fontWeight: '600',
+    marginBottom: '6px',
+  },
+  rejectionText: {
+    fontSize: '14px',
+    color: 'rgba(239, 68, 68, 0.9)',
+    margin: 0,
+  },
+  reactivateButton: {
+    display: 'flex',
+    alignItems: 'center',
+    padding: '16px 28px',
+    background: 'linear-gradient(135deg, #10b981 0%, #34d399 100%)',
+    color: '#fff',
+    border: 'none',
+    borderRadius: '14px',
+    fontSize: '14px',
+    fontWeight: '600',
+    cursor: 'pointer',
+    transition: 'all 0.2s',
+  },
+  rejectionOverlay: {
+    position: 'fixed',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    background: 'rgba(0,0,0,0.85)',
+    backdropFilter: 'blur(10px)',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    zIndex: 1100,
+    padding: '20px',
+  },
+  rejectionModal: {
+    background: 'linear-gradient(135deg, rgba(20, 20, 25, 0.98) 0%, rgba(10, 10, 15, 0.99) 100%)',
+    borderRadius: '20px',
+    width: '100%',
+    maxWidth: '520px',
+    padding: '36px',
+    border: '1px solid rgba(239, 68, 68, 0.2)',
+    boxShadow: '0 0 60px rgba(239, 68, 68, 0.1)',
+  },
+  rejectionModalTitle: {
+    fontSize: '22px',
+    fontWeight: '700',
+    marginBottom: '12px',
+    color: '#fff',
+  },
+  rejectionModalDesc: {
+    color: 'rgba(255,255,255,0.5)',
+    fontSize: '14px',
+    marginBottom: '24px',
+    lineHeight: '1.6',
+  },
+  rejectionTextarea: {
+    width: '100%',
+    padding: '16px',
+    background: 'rgba(255,255,255,0.03)',
+    border: '1px solid rgba(255,255,255,0.08)',
+    borderRadius: '14px',
+    fontSize: '14px',
+    color: '#fff',
+    minHeight: '140px',
+    resize: 'vertical',
+    marginBottom: '28px',
+    boxSizing: 'border-box',
+    outline: 'none',
+  },
+  rejectionActions: {
+    display: 'flex',
+    gap: '14px',
+  },
+  confirmRejectButton: {
+    flex: 1,
+    padding: '16px 24px',
+    background: 'linear-gradient(135deg, rgba(107, 114, 128, 0.4) 0%, rgba(75, 85, 99, 0.4) 100%)',
+    color: '#fff',
+    border: '1px solid rgba(107, 114, 128, 0.5)',
+    borderRadius: '14px',
+    fontSize: '14px',
+    fontWeight: '600',
+    transition: 'all 0.2s',
+  },
+  cancelButton: {
+    padding: '16px 28px',
+    background: 'rgba(255,255,255,0.05)',
+    color: '#fff',
+    border: '1px solid rgba(255,255,255,0.1)',
+    borderRadius: '14px',
+    fontSize: '14px',
+    cursor: 'pointer',
+    transition: 'all 0.2s',
+  },
+};

@@ -108,114 +108,84 @@ export default function AIAssistant() {
 
   if (loading || !authorized) {
     return (
-      <div style={{
-        minHeight: '100vh',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        background: '#fafafa',
-      }}>
-        <p style={{ color: '#666', fontSize: '14px' }}>Loading...</p>
+      <div style={styles.loadingContainer}>
+        <div style={styles.loadingOrb} />
+        <p style={styles.loadingText}>Initializing AI</p>
       </div>
     );
   }
 
   return (
-    <div style={{ minHeight: '100vh', background: '#fafafa', display: 'flex', flexDirection: 'column' }}>
-      <nav style={{
-        background: '#000',
-        color: '#fff',
-        padding: '16px 32px',
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-      }}>
-        <Link href="/admin" style={{ color: '#fff', textDecoration: 'none', fontSize: '18px', fontWeight: '700', letterSpacing: '-0.5px' }}>
-          DRIZZL ADMIN
+    <div style={styles.container}>
+      <div style={styles.meshGradient} />
+      <div style={styles.orbOne} />
+      <div style={styles.orbTwo} />
+      <div style={styles.orbThree} />
+      <div style={styles.orbFour} />
+
+      <nav style={styles.nav}>
+        <Link href="/admin" style={styles.logo}>
+          <span style={styles.logoIcon}>D</span>
+          <span style={styles.logoText}>DRIZZL</span>
         </Link>
-        <div style={{ display: 'flex', gap: '24px', alignItems: 'center' }}>
-          <Link href="/admin/command-center" style={{ color: '#fff', textDecoration: 'none', fontSize: '13px', opacity: 0.8 }}>Command Center</Link>
-          <Link href="/admin/products" style={{ color: '#fff', textDecoration: 'none', fontSize: '13px', opacity: 0.8 }}>Products</Link>
-          <Link href="/admin/product-intel" style={{ color: '#fff', textDecoration: 'none', fontSize: '13px', opacity: 0.8 }}>Product Intel</Link>
-          <Link href="/admin/orders" style={{ color: '#fff', textDecoration: 'none', fontSize: '13px', opacity: 0.8 }}>Orders</Link>
-          <Link href="/admin/partners" style={{ color: '#fff', textDecoration: 'none', fontSize: '13px', opacity: 0.8 }}>Partners</Link>
-          <Link href="/admin/banking" style={{ color: '#fff', textDecoration: 'none', fontSize: '13px', opacity: 0.8 }}>Banking</Link>
-          <Link href="/admin/analytics" style={{ color: '#fff', textDecoration: 'none', fontSize: '13px', opacity: 0.8 }}>Analytics</Link>
-          <Link href="/admin/ai" style={{ color: '#fff', textDecoration: 'none', fontSize: '13px', opacity: 0.8 }}>AI Tools</Link>
-          <Link href="/admin/ai-assistant" style={{ color: '#fff', textDecoration: 'none', fontSize: '13px', fontWeight: '600' }}>AI Assistant</Link>
-          <Link href="/" style={{ color: '#fff', textDecoration: 'none', fontSize: '13px', opacity: 0.6 }}>Exit</Link>
+        <div style={styles.navLinks}>
+          <Link href="/admin/command-center" style={styles.navLink}>Command Center</Link>
+          <Link href="/admin/products" style={styles.navLink}>Products</Link>
+          <Link href="/admin/orders" style={styles.navLink}>Orders</Link>
+          <Link href="/admin/banking" style={styles.navLink}>Banking</Link>
+          <Link href="/admin/ai-assistant" style={styles.navLinkActive}>AI Assistant</Link>
+          <Link href="/" style={styles.exitLink}>Exit</Link>
         </div>
       </nav>
 
-      <main style={{ flex: 1, display: 'flex', flexDirection: 'column', maxWidth: '900px', width: '100%', margin: '0 auto', padding: '0' }}>
-        <div style={{
-          flex: 1,
-          overflowY: 'auto',
-          padding: '32px 24px',
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '16px',
-        }}>
+      <main style={styles.main}>
+        <div style={styles.chatContainer}>
           {messages.length === 0 && (
-            <div style={{
-              flex: 1,
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              justifyContent: 'center',
-              gap: '32px',
-              padding: '40px 20px',
-            }}>
-              <div style={{ textAlign: 'center' }}>
-                <h1 style={{
-                  fontSize: '28px',
-                  fontWeight: '700',
-                  letterSpacing: '-0.5px',
-                  marginBottom: '8px',
-                  color: '#000',
-                }}>
-                  AI Assistant
-                </h1>
-                <p style={{ color: '#666', fontSize: '14px', maxWidth: '400px' }}>
-                  Ask questions about your business metrics, revenue, orders, or financial health.
-                </p>
+            <div style={styles.welcomeContainer}>
+              <div style={styles.welcomeGlow} />
+              <div style={styles.aiIconContainer}>
+                <div style={styles.aiIcon}>
+                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="url(#gradient)" strokeWidth="1.5">
+                    <defs>
+                      <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stopColor="#a855f7" />
+                        <stop offset="100%" stopColor="#ec4899" />
+                      </linearGradient>
+                    </defs>
+                    <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8z" />
+                    <circle cx="12" cy="12" r="3" />
+                    <path d="M12 6v2M12 16v2M6 12h2M16 12h2" />
+                  </svg>
+                </div>
               </div>
+              <h1 style={styles.welcomeTitle}>AI Assistant</h1>
+              <p style={styles.welcomeSubtitle}>
+                Ask questions about your business metrics, revenue, orders, or financial health.
+              </p>
               
-              <div style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(2, 1fr)',
-                gap: '12px',
-                width: '100%',
-                maxWidth: '500px',
-              }}>
+              <div style={styles.promptsGrid}>
                 {examplePrompts.map((prompt, index) => (
                   <button
                     key={index}
                     onClick={() => sendMessage(prompt)}
                     disabled={isLoading}
-                    style={{
-                      padding: '16px 20px',
-                      background: '#fff',
-                      border: '1px solid #e5e5e5',
-                      borderRadius: '12px',
-                      fontSize: '13px',
-                      color: '#333',
-                      cursor: isLoading ? 'default' : 'pointer',
-                      textAlign: 'left',
-                      transition: 'all 0.15s ease',
-                      opacity: isLoading ? 0.6 : 1,
-                    }}
+                    style={styles.promptButton}
                     onMouseEnter={(e) => {
                       if (!isLoading) {
-                        e.currentTarget.style.borderColor = '#000';
-                        e.currentTarget.style.background = '#fafafa';
+                        e.currentTarget.style.background = 'rgba(168, 85, 247, 0.1)';
+                        e.currentTarget.style.borderColor = 'rgba(168, 85, 247, 0.5)';
                       }
                     }}
                     onMouseLeave={(e) => {
-                      e.currentTarget.style.borderColor = '#e5e5e5';
-                      e.currentTarget.style.background = '#fff';
+                      e.currentTarget.style.background = 'rgba(255, 255, 255, 0.03)';
+                      e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.1)';
                     }}
                   >
+                    <span style={styles.promptIcon}>
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+                      </svg>
+                    </span>
                     {prompt}
                   </button>
                 ))}
@@ -223,161 +193,499 @@ export default function AIAssistant() {
             </div>
           )}
 
-          {messages.map((message) => (
-            <div
-              key={message.id}
-              style={{
-                display: 'flex',
-                justifyContent: message.role === 'user' ? 'flex-end' : 'flex-start',
-                animation: 'fadeIn 0.3s ease',
-              }}
-            >
+          <div style={styles.messagesContainer}>
+            {messages.map((message) => (
               <div
+                key={message.id}
                 style={{
-                  maxWidth: '80%',
-                  padding: '14px 18px',
-                  borderRadius: message.role === 'user' ? '18px 18px 4px 18px' : '18px 18px 18px 4px',
-                  background: message.role === 'user' ? '#1a1a1a' : '#fff',
-                  color: message.role === 'user' ? '#fff' : '#1a1a1a',
-                  fontSize: '14px',
-                  lineHeight: '1.6',
-                  boxShadow: message.role === 'user' ? 'none' : '0 1px 3px rgba(0,0,0,0.06)',
-                  border: message.role === 'user' ? 'none' : '1px solid #e5e5e5',
+                  ...styles.messageWrapper,
+                  justifyContent: message.role === 'user' ? 'flex-end' : 'flex-start',
                 }}
               >
-                {formatContent(message.content)}
-              </div>
-            </div>
-          ))}
-
-          {isLoading && (
-            <div style={{ display: 'flex', justifyContent: 'flex-start' }}>
-              <div
-                style={{
-                  padding: '14px 18px',
-                  borderRadius: '18px 18px 18px 4px',
-                  background: '#fff',
-                  border: '1px solid #e5e5e5',
-                  boxShadow: '0 1px 3px rgba(0,0,0,0.06)',
-                }}
-              >
-                <div style={{ display: 'flex', gap: '4px', alignItems: 'center' }}>
-                  <span style={{
-                    width: '8px',
-                    height: '8px',
-                    borderRadius: '50%',
-                    background: '#999',
-                    animation: 'pulse 1.4s infinite ease-in-out',
-                    animationDelay: '0s',
-                  }} />
-                  <span style={{
-                    width: '8px',
-                    height: '8px',
-                    borderRadius: '50%',
-                    background: '#999',
-                    animation: 'pulse 1.4s infinite ease-in-out',
-                    animationDelay: '0.2s',
-                  }} />
-                  <span style={{
-                    width: '8px',
-                    height: '8px',
-                    borderRadius: '50%',
-                    background: '#999',
-                    animation: 'pulse 1.4s infinite ease-in-out',
-                    animationDelay: '0.4s',
-                  }} />
+                {message.role === 'assistant' && (
+                  <div style={styles.assistantAvatar}>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                      <circle cx="12" cy="12" r="10" />
+                      <circle cx="12" cy="12" r="3" />
+                    </svg>
+                  </div>
+                )}
+                <div
+                  style={message.role === 'user' ? styles.userMessage : styles.assistantMessage}
+                >
+                  {formatContent(message.content)}
                 </div>
               </div>
-            </div>
-          )}
+            ))}
 
-          <div ref={messagesEndRef} />
+            {isLoading && (
+              <div style={{ ...styles.messageWrapper, justifyContent: 'flex-start' }}>
+                <div style={styles.assistantAvatar}>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                    <circle cx="12" cy="12" r="10" />
+                    <circle cx="12" cy="12" r="3" />
+                  </svg>
+                </div>
+                <div style={styles.typingIndicator}>
+                  <span style={{ ...styles.typingDot, animationDelay: '0s' }} />
+                  <span style={{ ...styles.typingDot, animationDelay: '0.15s' }} />
+                  <span style={{ ...styles.typingDot, animationDelay: '0.3s' }} />
+                </div>
+              </div>
+            )}
+
+            <div ref={messagesEndRef} />
+          </div>
         </div>
 
-        <div style={{
-          padding: '20px 24px',
-          background: 'rgba(255, 255, 255, 0.8)',
-          backdropFilter: 'blur(12px)',
-          borderTop: '1px solid #e5e5e5',
-        }}>
-          <div style={{
-            display: 'flex',
-            gap: '12px',
-            alignItems: 'center',
-            background: '#fff',
-            border: '1px solid #e5e5e5',
-            borderRadius: '16px',
-            padding: '4px 4px 4px 16px',
-            boxShadow: '0 2px 8px rgba(0,0,0,0.04)',
-          }}>
-            <input
-              ref={inputRef}
-              type="text"
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              onKeyDown={handleKeyDown}
-              placeholder="Ask about revenue, orders, products, or cash flow..."
-              disabled={isLoading}
-              style={{
-                flex: 1,
-                border: 'none',
-                outline: 'none',
-                fontSize: '14px',
-                background: 'transparent',
-                color: '#1a1a1a',
-              }}
-            />
-            <button
-              onClick={() => sendMessage(input)}
-              disabled={!input.trim() || isLoading}
-              style={{
-                width: '40px',
-                height: '40px',
-                borderRadius: '12px',
-                border: 'none',
-                background: input.trim() && !isLoading ? '#000' : '#e5e5e5',
-                color: input.trim() && !isLoading ? '#fff' : '#999',
-                cursor: input.trim() && !isLoading ? 'pointer' : 'default',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                transition: 'all 0.15s ease',
-              }}
-            >
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <line x1="22" y1="2" x2="11" y2="13" />
-                <polygon points="22 2 15 22 11 13 2 9 22 2" />
-              </svg>
-            </button>
+        <div style={styles.inputContainer}>
+          <div style={styles.inputWrapper}>
+            <div style={styles.inputGradientBorder} />
+            <div style={styles.inputInner}>
+              <input
+                ref={inputRef}
+                type="text"
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                onKeyDown={handleKeyDown}
+                placeholder="Ask about revenue, orders, products, or cash flow..."
+                disabled={isLoading}
+                style={styles.input}
+              />
+              <button
+                onClick={() => sendMessage(input)}
+                disabled={!input.trim() || isLoading}
+                style={{
+                  ...styles.sendButton,
+                  opacity: input.trim() && !isLoading ? 1 : 0.4,
+                  cursor: input.trim() && !isLoading ? 'pointer' : 'default',
+                }}
+              >
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <line x1="22" y1="2" x2="11" y2="13" />
+                  <polygon points="22 2 15 22 11 13 2 9 22 2" />
+                </svg>
+              </button>
+            </div>
           </div>
-          <p style={{
-            textAlign: 'center',
-            fontSize: '11px',
-            color: '#999',
-            marginTop: '12px',
-          }}>
+          <p style={styles.disclaimer}>
             AI responses are based on current business data. Results may vary.
           </p>
         </div>
       </main>
 
       <style jsx global>{`
+        @keyframes float {
+          0%, 100% { transform: translateY(0px) rotate(0deg); }
+          50% { transform: translateY(-20px) rotate(5deg); }
+        }
+        @keyframes pulse {
+          0%, 100% { opacity: 0.4; transform: scale(0.8); }
+          50% { opacity: 1; transform: scale(1); }
+        }
+        @keyframes glow {
+          0%, 100% { box-shadow: 0 0 20px rgba(168, 85, 247, 0.3); }
+          50% { box-shadow: 0 0 40px rgba(168, 85, 247, 0.6); }
+        }
         @keyframes fadeIn {
           from { opacity: 0; transform: translateY(8px); }
           to { opacity: 1; transform: translateY(0); }
         }
-        
-        @keyframes pulse {
-          0%, 80%, 100% { 
-            transform: scale(0.6);
-            opacity: 0.4;
+        @keyframes typingPulse {
+          0%, 100% { 
+            background: rgba(168, 85, 247, 0.4);
+            transform: scale(0.8);
           }
-          40% { 
+          50% { 
+            background: rgba(236, 72, 153, 0.9);
             transform: scale(1);
-            opacity: 1;
           }
+        }
+        @keyframes shimmer {
+          0% { background-position: -200% 0; }
+          100% { background-position: 200% 0; }
+        }
+        @keyframes orbFloat1 {
+          0%, 100% { transform: translate(0, 0) scale(1); }
+          25% { transform: translate(30px, -20px) scale(1.05); }
+          50% { transform: translate(-10px, -40px) scale(0.95); }
+          75% { transform: translate(-30px, -10px) scale(1.02); }
+        }
+        @keyframes orbFloat2 {
+          0%, 100% { transform: translate(0, 0) scale(1); }
+          33% { transform: translate(-40px, 20px) scale(1.08); }
+          66% { transform: translate(20px, 30px) scale(0.92); }
         }
       `}</style>
     </div>
   );
 }
+
+const styles: { [key: string]: React.CSSProperties } = {
+  container: {
+    minHeight: '100vh',
+    background: '#050505',
+    color: '#fff',
+    position: 'relative',
+    overflow: 'hidden',
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  meshGradient: {
+    position: 'fixed',
+    inset: 0,
+    background: 'radial-gradient(ellipse at 20% 20%, rgba(168, 85, 247, 0.08) 0%, transparent 50%), radial-gradient(ellipse at 80% 80%, rgba(236, 72, 153, 0.06) 0%, transparent 50%), radial-gradient(ellipse at 50% 50%, rgba(139, 92, 246, 0.04) 0%, transparent 50%)',
+    pointerEvents: 'none',
+  },
+  orbOne: {
+    position: 'fixed',
+    width: '500px',
+    height: '500px',
+    borderRadius: '50%',
+    background: 'radial-gradient(circle, rgba(168, 85, 247, 0.12) 0%, transparent 70%)',
+    top: '-150px',
+    right: '-150px',
+    animation: 'orbFloat1 25s ease-in-out infinite',
+    pointerEvents: 'none',
+  },
+  orbTwo: {
+    position: 'fixed',
+    width: '400px',
+    height: '400px',
+    borderRadius: '50%',
+    background: 'radial-gradient(circle, rgba(236, 72, 153, 0.1) 0%, transparent 70%)',
+    bottom: '-100px',
+    left: '-100px',
+    animation: 'orbFloat2 20s ease-in-out infinite',
+    pointerEvents: 'none',
+  },
+  orbThree: {
+    position: 'fixed',
+    width: '300px',
+    height: '300px',
+    borderRadius: '50%',
+    background: 'radial-gradient(circle, rgba(139, 92, 246, 0.08) 0%, transparent 70%)',
+    top: '40%',
+    left: '20%',
+    animation: 'float 30s ease-in-out infinite',
+    pointerEvents: 'none',
+  },
+  orbFour: {
+    position: 'fixed',
+    width: '250px',
+    height: '250px',
+    borderRadius: '50%',
+    background: 'radial-gradient(circle, rgba(168, 85, 247, 0.06) 0%, transparent 70%)',
+    top: '20%',
+    right: '30%',
+    animation: 'orbFloat1 35s ease-in-out infinite reverse',
+    pointerEvents: 'none',
+  },
+  loadingContainer: {
+    minHeight: '100vh',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    background: '#050505',
+    gap: '24px',
+  },
+  loadingOrb: {
+    width: '60px',
+    height: '60px',
+    borderRadius: '50%',
+    background: 'linear-gradient(135deg, #a855f7 0%, #ec4899 100%)',
+    animation: 'pulse 2s ease-in-out infinite, glow 2s ease-in-out infinite',
+  },
+  loadingText: {
+    color: 'rgba(255,255,255,0.6)',
+    fontSize: '14px',
+    letterSpacing: '3px',
+    textTransform: 'uppercase',
+  },
+  nav: {
+    position: 'sticky',
+    top: 0,
+    zIndex: 100,
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: '20px 40px',
+    background: 'rgba(5, 5, 5, 0.8)',
+    backdropFilter: 'blur(20px)',
+    borderBottom: '1px solid rgba(255,255,255,0.06)',
+  },
+  logo: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '12px',
+    textDecoration: 'none',
+    color: '#fff',
+  },
+  logoIcon: {
+    width: '36px',
+    height: '36px',
+    borderRadius: '10px',
+    background: 'linear-gradient(135deg, #a855f7 0%, #ec4899 100%)',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    fontSize: '18px',
+    fontWeight: '700',
+  },
+  logoText: {
+    fontSize: '16px',
+    fontWeight: '600',
+    letterSpacing: '2px',
+  },
+  navLinks: {
+    display: 'flex',
+    gap: '32px',
+    alignItems: 'center',
+  },
+  navLink: {
+    color: 'rgba(255,255,255,0.6)',
+    textDecoration: 'none',
+    fontSize: '13px',
+    fontWeight: '500',
+    transition: 'color 0.2s',
+  },
+  navLinkActive: {
+    color: '#fff',
+    textDecoration: 'none',
+    fontSize: '13px',
+    fontWeight: '600',
+    background: 'linear-gradient(135deg, #a855f7 0%, #ec4899 100%)',
+    WebkitBackgroundClip: 'text',
+    WebkitTextFillColor: 'transparent',
+  },
+  exitLink: {
+    color: 'rgba(255,255,255,0.4)',
+    textDecoration: 'none',
+    fontSize: '13px',
+    fontWeight: '500',
+    padding: '8px 16px',
+    border: '1px solid rgba(255,255,255,0.1)',
+    borderRadius: '8px',
+  },
+  main: {
+    flex: 1,
+    display: 'flex',
+    flexDirection: 'column',
+    position: 'relative',
+    zIndex: 1,
+    maxWidth: '900px',
+    width: '100%',
+    margin: '0 auto',
+    padding: '0 24px',
+  },
+  chatContainer: {
+    flex: 1,
+    display: 'flex',
+    flexDirection: 'column',
+    paddingTop: '32px',
+  },
+  welcomeContainer: {
+    flex: 1,
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: '24px',
+    padding: '40px 20px',
+    position: 'relative',
+  },
+  welcomeGlow: {
+    position: 'absolute',
+    width: '300px',
+    height: '300px',
+    borderRadius: '50%',
+    background: 'radial-gradient(circle, rgba(168, 85, 247, 0.15) 0%, transparent 70%)',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    pointerEvents: 'none',
+  },
+  aiIconContainer: {
+    position: 'relative',
+    marginBottom: '8px',
+  },
+  aiIcon: {
+    width: '80px',
+    height: '80px',
+    borderRadius: '24px',
+    background: 'rgba(255, 255, 255, 0.03)',
+    backdropFilter: 'blur(20px)',
+    border: '1px solid rgba(255, 255, 255, 0.1)',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    boxShadow: '0 0 40px rgba(168, 85, 247, 0.2)',
+  },
+  welcomeTitle: {
+    fontSize: '32px',
+    fontWeight: '700',
+    letterSpacing: '-0.5px',
+    background: 'linear-gradient(135deg, #fff 0%, rgba(255,255,255,0.8) 100%)',
+    WebkitBackgroundClip: 'text',
+    WebkitTextFillColor: 'transparent',
+    textAlign: 'center',
+  },
+  welcomeSubtitle: {
+    color: 'rgba(255,255,255,0.5)',
+    fontSize: '15px',
+    maxWidth: '400px',
+    textAlign: 'center',
+    lineHeight: '1.6',
+  },
+  promptsGrid: {
+    display: 'grid',
+    gridTemplateColumns: 'repeat(2, 1fr)',
+    gap: '12px',
+    width: '100%',
+    maxWidth: '500px',
+    marginTop: '16px',
+  },
+  promptButton: {
+    padding: '16px 20px',
+    background: 'rgba(255, 255, 255, 0.03)',
+    backdropFilter: 'blur(20px)',
+    border: '1px solid rgba(255, 255, 255, 0.1)',
+    borderRadius: '14px',
+    fontSize: '13px',
+    color: 'rgba(255, 255, 255, 0.8)',
+    cursor: 'pointer',
+    textAlign: 'left',
+    transition: 'all 0.2s ease',
+    display: 'flex',
+    alignItems: 'center',
+    gap: '10px',
+  },
+  promptIcon: {
+    color: 'rgba(168, 85, 247, 0.8)',
+    display: 'flex',
+    alignItems: 'center',
+  },
+  messagesContainer: {
+    flex: 1,
+    overflowY: 'auto',
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '16px',
+    paddingBottom: '24px',
+  },
+  messageWrapper: {
+    display: 'flex',
+    alignItems: 'flex-start',
+    gap: '12px',
+    animation: 'fadeIn 0.3s ease',
+  },
+  assistantAvatar: {
+    width: '32px',
+    height: '32px',
+    borderRadius: '10px',
+    background: 'rgba(255, 255, 255, 0.05)',
+    backdropFilter: 'blur(10px)',
+    border: '1px solid rgba(255, 255, 255, 0.1)',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    color: 'rgba(168, 85, 247, 0.8)',
+    flexShrink: 0,
+  },
+  userMessage: {
+    maxWidth: '75%',
+    padding: '14px 18px',
+    borderRadius: '18px 18px 4px 18px',
+    background: 'linear-gradient(135deg, #a855f7 0%, #ec4899 100%)',
+    color: '#fff',
+    fontSize: '14px',
+    lineHeight: '1.6',
+    boxShadow: '0 4px 20px rgba(168, 85, 247, 0.3)',
+  },
+  assistantMessage: {
+    maxWidth: '75%',
+    padding: '14px 18px',
+    borderRadius: '18px 18px 18px 4px',
+    background: 'rgba(255, 255, 255, 0.05)',
+    backdropFilter: 'blur(20px)',
+    border: '1px solid rgba(255, 255, 255, 0.08)',
+    color: 'rgba(255, 255, 255, 0.9)',
+    fontSize: '14px',
+    lineHeight: '1.6',
+    boxShadow: '0 0 30px rgba(139, 92, 246, 0.1)',
+  },
+  typingIndicator: {
+    padding: '16px 20px',
+    borderRadius: '18px 18px 18px 4px',
+    background: 'rgba(255, 255, 255, 0.05)',
+    backdropFilter: 'blur(20px)',
+    border: '1px solid rgba(255, 255, 255, 0.08)',
+    display: 'flex',
+    gap: '6px',
+    alignItems: 'center',
+  },
+  typingDot: {
+    width: '8px',
+    height: '8px',
+    borderRadius: '50%',
+    background: 'rgba(168, 85, 247, 0.6)',
+    animation: 'typingPulse 1.4s ease-in-out infinite',
+  },
+  inputContainer: {
+    padding: '24px 0',
+    position: 'relative',
+  },
+  inputWrapper: {
+    position: 'relative',
+    borderRadius: '18px',
+    padding: '2px',
+  },
+  inputGradientBorder: {
+    position: 'absolute',
+    inset: 0,
+    borderRadius: '18px',
+    background: 'linear-gradient(135deg, rgba(168, 85, 247, 0.5) 0%, rgba(236, 72, 153, 0.5) 50%, rgba(139, 92, 246, 0.5) 100%)',
+    opacity: 0.5,
+    pointerEvents: 'none',
+  },
+  inputInner: {
+    position: 'relative',
+    display: 'flex',
+    alignItems: 'center',
+    gap: '12px',
+    background: 'rgba(5, 5, 5, 0.9)',
+    backdropFilter: 'blur(20px)',
+    borderRadius: '16px',
+    padding: '6px 6px 6px 20px',
+  },
+  input: {
+    flex: 1,
+    border: 'none',
+    outline: 'none',
+    fontSize: '14px',
+    background: 'transparent',
+    color: '#fff',
+    padding: '12px 0',
+  },
+  sendButton: {
+    width: '44px',
+    height: '44px',
+    borderRadius: '12px',
+    border: 'none',
+    background: 'linear-gradient(135deg, #a855f7 0%, #ec4899 100%)',
+    color: '#fff',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    transition: 'all 0.2s ease',
+    flexShrink: 0,
+  },
+  disclaimer: {
+    textAlign: 'center',
+    fontSize: '11px',
+    color: 'rgba(255, 255, 255, 0.3)',
+    marginTop: '12px',
+    letterSpacing: '0.5px',
+  },
+};

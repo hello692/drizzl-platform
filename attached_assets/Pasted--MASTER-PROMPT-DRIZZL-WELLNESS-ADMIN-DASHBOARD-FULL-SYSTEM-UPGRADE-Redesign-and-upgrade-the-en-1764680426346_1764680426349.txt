@@ -1,0 +1,166 @@
+✅ MASTER PROMPT — DRIZZL WELLNESS ADMIN DASHBOARD (FULL SYSTEM UPGRADE)
+
+Redesign and upgrade the entire Drizzl Wellness Admin Dashboard into a high-end, Apple-level, AI-powered operating system for the company. This is not a static icon dashboard — it must be a fully live, data-driven command center.
+
+✅ 1. GLOBAL DASHBOARD STRUCTURE (PERSISTENT TOP TABS)
+
+The top navigation tabs must be persistent and visible at all times, even when switching pages. Users must be able to instantly switch between any section without losing context.
+
+Required Top Tabs:
+
+Command Center (Live Overview)
+
+Orders
+
+Products
+
+Inventory
+
+Factory
+
+Partners
+
+Banking
+
+Analytics
+
+AI Assistant
+
+Project Management
+
+Social
+
+Videos
+
+Settings
+
+The top bar must never disappear when switching tabs.
+
+✅ 2. LIVE COMMAND CENTER (NO ICON-ONLY DASHBOARD)
+
+Replace the icon-only dashboard with a live executive summary dashboard that updates in real time and shows actual business intelligence.
+
+Live Summary Panels:
+
+Total Revenue (Live)
+
+D2C Orders (Live)
+
+B2B Orders (Live)
+
+Active Retail Partners
+
+Inventory Levels (Low Stock Alerts)
+
+Production Status (Factory)
+
+Pending Payouts
+
+Fulfillment Status
+
+Marketing Performance
+
+Each block must be:
+
+Live updating
+
+Clickable to drill down
+
+Animated with smooth Apple-style motion
+
+✅ 3. APPLE-LEVEL MOTION & UI DYNAMICS
+
+All transitions and data updates must use:
+
+Smooth easing animations
+
+Real-time number morphing
+
+Glassmorphism / soft blur
+
+Motion inspired by Apple, Tesla, Notion, Stripe, Linear
+
+No static page jumps. Everything flows.
+
+✅ 4. AI ASSISTANT TAB (DEEP SYSTEM ACCESS)
+
+Create a dedicated AI Assistant tab that can:
+
+Read data from ALL dashboard modules
+
+Answer questions about:
+
+Orders
+
+Revenue
+
+Inventory
+
+Factory production
+
+Partners
+
+Banking
+
+Analytics
+
+Generate:
+
+Sales insights
+
+Inventory forecasts
+
+Partner performance reports
+
+Profit optimization suggestions
+
+Manufacturing planning
+
+This AI assistant must function like:
+"ChatGPT trained only on Drizzl Wellness data."
+
+✅ 5. PROJECT MANAGEMENT TAB (SLACK + KANBAN HYBRID)
+
+Build a fully integrated internal project management system.
+
+Must Include:
+
+Create tasks
+
+Assign tasks to team members
+
+Due dates
+
+File attachments
+
+Priority levels
+
+Status pipeline:
+
+Backlog
+
+In Progress
+
+Review
+
+Completed
+
+Comment threads (Slack-style)
+
+Team activity feed
+
+Department filters (Marketing, Factory, Finance, Tech, Sales)
+
+This will be used to manage:
+
+Product launches
+
+Marketing
+
+Retail onboarding
+
+Manufacturing
+
+Logistics
+
+Everything from A to Z

@@ -14,14 +14,7 @@ export function useAuth() {
 
     const setupAuth = async () => {
       try {
-        const timeoutPromise = new Promise<null>((_, reject) => 
-          setTimeout(() => reject(new Error('Auth timeout')), 5000)
-        );
-        
-        const currentUser = await Promise.race([
-          getCurrentUser(),
-          timeoutPromise
-        ]);
+        const currentUser = await getCurrentUser();
         
         if (mounted) {
           setUser(currentUser);
@@ -30,6 +23,7 @@ export function useAuth() {
       } catch (err) {
         if (mounted) {
           console.error('Auth setup error:', err);
+          setUser(null);
           setLoading(false);
         }
       }

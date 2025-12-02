@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRequireAdmin } from '../../hooks/useRole';
 import { Video } from '../../lib/videoManagerService';
@@ -211,16 +211,18 @@ export default function VideoManagerDashboard() {
 
   if (loading) {
     return (
-      <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#fafafa' }}>
-        <p style={{ color: '#666', fontSize: '14px' }}>Loading...</p>
+      <div style={styles.loadingContainer}>
+        <div style={styles.loadingOrb} />
+        <p style={styles.loadingText}>Initializing</p>
       </div>
     );
   }
 
   if (!authorized) {
     return (
-      <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#fafafa' }}>
-        <p style={{ color: '#666', fontSize: '14px' }}>Checking authorization...</p>
+      <div style={styles.loadingContainer}>
+        <div style={styles.loadingOrb} />
+        <p style={styles.loadingText}>Authenticating</p>
       </div>
     );
   }
@@ -228,295 +230,100 @@ export default function VideoManagerDashboard() {
   const activeCount = videos.filter(v => v.isActive).length;
 
   return (
-    <div style={{ minHeight: '100vh', background: '#fafafa' }}>
-      <nav style={{ background: '#000', color: '#fff', padding: '16px 32px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <Link href="/admin" style={{ color: '#fff', textDecoration: 'none', fontSize: '18px', fontWeight: '700', letterSpacing: '-0.5px' }}>
-          DRIZZL ADMIN
-        </Link>
-        <div style={{ display: 'flex', gap: '24px', alignItems: 'center', flexWrap: 'wrap' }}>
-          <Link href="/admin/command-center" style={{ color: '#fff', textDecoration: 'none', fontSize: '13px', opacity: 0.8 }}>Command Center</Link>
-          <Link href="/admin/video-manager" style={{ color: '#fff', textDecoration: 'none', fontSize: '13px', opacity: 1, fontWeight: '600' }}>Videos</Link>
-          <Link href="/admin/products" style={{ color: '#fff', textDecoration: 'none', fontSize: '13px', opacity: 0.8 }}>Products</Link>
-          <Link href="/admin/orders" style={{ color: '#fff', textDecoration: 'none', fontSize: '13px', opacity: 0.8 }}>Orders</Link>
-          <Link href="/admin/partners" style={{ color: '#fff', textDecoration: 'none', fontSize: '13px', opacity: 0.8 }}>Partners</Link>
-          <Link href="/admin/analytics" style={{ color: '#fff', textDecoration: 'none', fontSize: '13px', opacity: 0.8 }}>Analytics</Link>
-          <Link href="/" style={{ color: '#fff', textDecoration: 'none', fontSize: '13px', opacity: 0.6 }}>Exit</Link>
+    <div style={styles.container}>
+      <div style={styles.meshGradient} />
+      <div style={styles.orbOne} />
+      <div style={styles.orbTwo} />
+      <div style={styles.orbThree} />
+      <div style={styles.orbFour} />
+
+      <nav style={styles.nav}>
+        <div style={styles.navLeft}>
+          <Link href="/admin" style={styles.logo}>
+            <span style={styles.logoIcon}>D</span>
+            <span style={styles.logoText}>DRIZZL</span>
+          </Link>
+        </div>
+        <div style={styles.navLinks}>
+          <Link href="/admin/command-center" style={styles.navLink}>Command Center</Link>
+          <Link href="/admin/video-manager" style={styles.navLinkActive}>Videos</Link>
+          <Link href="/admin/products" style={styles.navLink}>Products</Link>
+          <Link href="/admin/orders" style={styles.navLink}>Orders</Link>
+          <Link href="/admin/partners" style={styles.navLink}>Partners</Link>
+          <Link href="/admin/analytics" style={styles.navLink}>Analytics</Link>
+          <Link href="/" style={styles.exitLink}>Exit</Link>
         </div>
       </nav>
 
-      <main style={{ padding: '40px', maxWidth: '1400px', margin: '0 auto' }}>
-        <div style={{ marginBottom: '32px', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '16px' }}>
+      <main style={styles.main}>
+        <div style={styles.header}>
           <div>
-            <h1 style={{ fontSize: '28px', fontWeight: '700', marginBottom: '8px', letterSpacing: '-0.5px', color: '#111' }}>Video Manager</h1>
-            <p style={{ color: '#666', fontSize: '14px' }}>Manage landing page videos • {activeCount} active of {videos.length} total</p>
+            <p style={styles.greeting}>Video Library</p>
+            <h1 style={styles.title}>Video Manager</h1>
+            <p style={styles.subtitle}>{activeCount} active of {videos.length} total</p>
           </div>
-          <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
+          <div style={styles.headerActions}>
             {hasChanges && (
               <button
                 onClick={saveOrder}
                 disabled={saving}
-                style={{
-                  padding: '10px 20px',
-                  background: '#10b981',
-                  color: '#fff',
-                  border: 'none',
-                  borderRadius: '8px',
-                  fontSize: '13px',
-                  fontWeight: '500',
-                  cursor: saving ? 'not-allowed' : 'pointer',
-                  opacity: saving ? 0.7 : 1,
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '6px',
-                }}
+                style={styles.saveOrderBtn}
               >
+                <span style={styles.saveOrderGlow} />
                 {saving ? 'Saving...' : 'Save Order'}
               </button>
             )}
-            <button
-              onClick={openAddModal}
-              style={{
-                padding: '10px 20px',
-                background: '#000',
-                color: '#fff',
-                border: 'none',
-                borderRadius: '8px',
-                fontSize: '13px',
-                fontWeight: '500',
-                cursor: 'pointer',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '6px',
-              }}
-            >
-              <span style={{ fontSize: '16px' }}>+</span> Add Video
+            <button onClick={openAddModal} style={styles.addBtn}>
+              <span style={styles.addBtnIcon}>+</span>
+              Add Video
             </button>
           </div>
         </div>
 
         {loadingData ? (
-          <div style={{ padding: '60px', textAlign: 'center', color: '#666' }}>Loading videos...</div>
+          <div style={styles.loadingState}>
+            <div style={styles.loadingOrb} />
+            <p style={styles.loadingText}>Loading videos...</p>
+          </div>
         ) : videos.length === 0 ? (
-          <div style={{ background: '#fff', borderRadius: '12px', padding: '60px', textAlign: 'center', boxShadow: '0 1px 3px rgba(0,0,0,0.08)' }}>
-            <div style={{ fontSize: '48px', marginBottom: '16px' }}>🎬</div>
-            <h3 style={{ fontSize: '18px', fontWeight: '600', marginBottom: '8px' }}>No videos yet</h3>
-            <p style={{ color: '#666', fontSize: '14px', marginBottom: '24px' }}>Add your first video to get started</p>
-            <button
-              onClick={openAddModal}
-              style={{
-                padding: '12px 24px',
-                background: '#000',
-                color: '#fff',
-                border: 'none',
-                borderRadius: '8px',
-                fontSize: '14px',
-                fontWeight: '500',
-                cursor: 'pointer',
-              }}
-            >
+          <div style={styles.emptyState}>
+            <div style={styles.emptyIcon}>
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="url(#emptyGrad)" strokeWidth="1.5">
+                <defs>
+                  <linearGradient id="emptyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stopColor="#ff0844" />
+                    <stop offset="100%" stopColor="#ffb199" />
+                  </linearGradient>
+                </defs>
+                <polygon points="23 7 16 12 23 17 23 7" />
+                <rect x="1" y="5" width="15" height="14" rx="2" ry="2" />
+              </svg>
+            </div>
+            <h3 style={styles.emptyTitle}>No videos yet</h3>
+            <p style={styles.emptyDesc}>Add your first video to get started</p>
+            <button onClick={openAddModal} style={styles.emptyAddBtn}>
               Add Video
             </button>
           </div>
         ) : (
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: '24px' }}>
+          <div style={styles.videosGrid}>
             {videos.map((video, index) => (
-              <div
+              <VideoCard
                 key={video.id}
-                draggable
-                onDragStart={(e) => handleDragStart(e, video.id)}
+                video={video}
+                index={index}
+                totalVideos={videos.length}
+                draggedId={draggedId}
+                onDragStart={handleDragStart}
                 onDragOver={handleDragOver}
-                onDrop={(e) => handleDrop(e, video.id)}
+                onDrop={handleDrop}
                 onDragEnd={handleDragEnd}
-                style={{
-                  background: '#fff',
-                  borderRadius: '12px',
-                  overflow: 'hidden',
-                  boxShadow: draggedId === video.id ? '0 8px 24px rgba(0,0,0,0.15)' : '0 1px 3px rgba(0,0,0,0.08)',
-                  opacity: !video.isActive ? 0.6 : 1,
-                  transition: 'all 0.2s ease',
-                  cursor: 'grab',
-                  transform: draggedId === video.id ? 'scale(1.02)' : 'scale(1)',
-                }}
-              >
-                <div style={{ position: 'relative', aspectRatio: '16/9', background: '#111', overflow: 'hidden' }}>
-                  <img
-                    src={video.thumbnailUrl || 'https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=400&h=225&fit=crop'}
-                    alt={video.caption}
-                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                  />
-                  <div style={{
-                    position: 'absolute',
-                    top: '12px',
-                    left: '12px',
-                    background: '#000',
-                    color: '#fff',
-                    width: '28px',
-                    height: '28px',
-                    borderRadius: '50%',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    fontSize: '12px',
-                    fontWeight: '600',
-                  }}>
-                    {video.position}
-                  </div>
-                  <button
-                    onClick={() => openPreviewModal(video)}
-                    style={{
-                      position: 'absolute',
-                      top: '50%',
-                      left: '50%',
-                      transform: 'translate(-50%, -50%)',
-                      background: 'rgba(255,255,255,0.9)',
-                      border: 'none',
-                      borderRadius: '50%',
-                      width: '48px',
-                      height: '48px',
-                      cursor: 'pointer',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      fontSize: '18px',
-                      boxShadow: '0 2px 8px rgba(0,0,0,0.15)',
-                    }}
-                  >
-                    ▶
-                  </button>
-                  <div style={{
-                    position: 'absolute',
-                    bottom: '12px',
-                    right: '12px',
-                    display: 'flex',
-                    gap: '6px',
-                  }}>
-                    {video.autoplay && (
-                      <span style={{ background: '#3b82f6', color: '#fff', padding: '4px 8px', borderRadius: '4px', fontSize: '10px', fontWeight: '600', textTransform: 'uppercase' }}>
-                        Autoplay
-                      </span>
-                    )}
-                    {video.loop && (
-                      <span style={{ background: '#8b5cf6', color: '#fff', padding: '4px 8px', borderRadius: '4px', fontSize: '10px', fontWeight: '600', textTransform: 'uppercase' }}>
-                        Loop
-                      </span>
-                    )}
-                  </div>
-                </div>
-
-                <div style={{ padding: '16px' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '12px' }}>
-                    <div>
-                      <h3 style={{ fontSize: '15px', fontWeight: '600', marginBottom: '4px', color: '#111' }}>{video.caption}</h3>
-                      <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
-                        <span style={{
-                          background: video.platform === 'desktop' ? '#e0f2fe' : video.platform === 'mobile' ? '#fce7f3' : '#ecfdf5',
-                          color: video.platform === 'desktop' ? '#0369a1' : video.platform === 'mobile' ? '#be185d' : '#047857',
-                          padding: '2px 8px',
-                          borderRadius: '4px',
-                          fontSize: '11px',
-                          fontWeight: '500',
-                        }}>
-                          {video.platform === 'desktop' ? '🖥 Desktop' : video.platform === 'mobile' ? '📱 Mobile' : '📱🖥 Both'}
-                        </span>
-                      </div>
-                    </div>
-                    <button
-                      onClick={() => toggleVideoActive(video)}
-                      style={{
-                        width: '44px',
-                        height: '24px',
-                        borderRadius: '12px',
-                        border: 'none',
-                        background: video.isActive ? '#10b981' : '#d1d5db',
-                        cursor: 'pointer',
-                        position: 'relative',
-                        transition: 'background 0.2s ease',
-                      }}
-                    >
-                      <div style={{
-                        width: '20px',
-                        height: '20px',
-                        borderRadius: '50%',
-                        background: '#fff',
-                        position: 'absolute',
-                        top: '2px',
-                        left: video.isActive ? '22px' : '2px',
-                        transition: 'left 0.2s ease',
-                        boxShadow: '0 1px 3px rgba(0,0,0,0.2)',
-                      }} />
-                    </button>
-                  </div>
-
-                  <div style={{ display: 'flex', gap: '8px', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <div style={{ display: 'flex', gap: '4px' }}>
-                      <button
-                        onClick={() => moveVideo(video.id, 'up')}
-                        disabled={index === 0}
-                        style={{
-                          width: '32px',
-                          height: '32px',
-                          border: '1px solid #e5e7eb',
-                          borderRadius: '6px',
-                          background: '#fff',
-                          cursor: index === 0 ? 'not-allowed' : 'pointer',
-                          opacity: index === 0 ? 0.4 : 1,
-                          fontSize: '14px',
-                        }}
-                      >
-                        ↑
-                      </button>
-                      <button
-                        onClick={() => moveVideo(video.id, 'down')}
-                        disabled={index === videos.length - 1}
-                        style={{
-                          width: '32px',
-                          height: '32px',
-                          border: '1px solid #e5e7eb',
-                          borderRadius: '6px',
-                          background: '#fff',
-                          cursor: index === videos.length - 1 ? 'not-allowed' : 'pointer',
-                          opacity: index === videos.length - 1 ? 0.4 : 1,
-                          fontSize: '14px',
-                        }}
-                      >
-                        ↓
-                      </button>
-                    </div>
-                    <div style={{ display: 'flex', gap: '8px' }}>
-                      <button
-                        onClick={() => openEditModal(video)}
-                        style={{
-                          padding: '6px 12px',
-                          background: '#f3f4f6',
-                          border: 'none',
-                          borderRadius: '6px',
-                          fontSize: '12px',
-                          fontWeight: '500',
-                          cursor: 'pointer',
-                          color: '#374151',
-                        }}
-                      >
-                        Edit
-                      </button>
-                      <button
-                        onClick={() => openDeleteModal(video)}
-                        style={{
-                          padding: '6px 12px',
-                          background: '#fef2f2',
-                          border: 'none',
-                          borderRadius: '6px',
-                          fontSize: '12px',
-                          fontWeight: '500',
-                          cursor: 'pointer',
-                          color: '#dc2626',
-                        }}
-                      >
-                        Delete
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
+                onPreview={openPreviewModal}
+                onEdit={openEditModal}
+                onDelete={openDeleteModal}
+                onToggleActive={toggleVideoActive}
+                onMove={moveVideo}
+              />
             ))}
           </div>
         )}
@@ -525,281 +332,1071 @@ export default function VideoManagerDashboard() {
       {modalMode && (
         <div
           onClick={(e) => { if (e.target === e.currentTarget) closeModal(); }}
-          style={{
-            position: 'fixed',
-            inset: 0,
-            background: 'rgba(0,0,0,0.5)',
-            backdropFilter: 'blur(4px)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            zIndex: 1000,
-            padding: '20px',
-          }}
+          style={styles.modalOverlay}
         >
           {modalMode === 'preview' && selectedVideo && (
-            <div style={{
-              background: '#000',
-              borderRadius: '12px',
-              overflow: 'hidden',
-              maxWidth: '900px',
-              width: '100%',
-              maxHeight: '90vh',
-            }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '16px 20px', borderBottom: '1px solid #333' }}>
-                <h3 style={{ color: '#fff', fontSize: '16px', fontWeight: '600' }}>{selectedVideo.caption}</h3>
-                <button
-                  onClick={closeModal}
-                  style={{ background: 'none', border: 'none', color: '#999', fontSize: '24px', cursor: 'pointer' }}
-                >
-                  ×
-                </button>
-              </div>
-              <div style={{ aspectRatio: '16/9' }}>
-                <video
-                  src={selectedVideo.url}
-                  controls
-                  autoPlay={selectedVideo.autoplay}
-                  loop={selectedVideo.loop}
-                  style={{ width: '100%', height: '100%', objectFit: 'contain' }}
-                />
+            <div style={styles.previewModal}>
+              <div style={styles.previewModalGradientBorder} />
+              <div style={styles.previewModalInner}>
+                <div style={styles.previewHeader}>
+                  <h3 style={styles.previewTitle}>{selectedVideo.caption}</h3>
+                  <button onClick={closeModal} style={styles.closeBtn}>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <line x1="18" y1="6" x2="6" y2="18" />
+                      <line x1="6" y1="6" x2="18" y2="18" />
+                    </svg>
+                  </button>
+                </div>
+                <div style={styles.previewContent}>
+                  <video
+                    src={selectedVideo.url}
+                    controls
+                    autoPlay={selectedVideo.autoplay}
+                    loop={selectedVideo.loop}
+                    style={styles.previewVideo}
+                  />
+                </div>
               </div>
             </div>
           )}
 
           {modalMode === 'delete' && selectedVideo && (
-            <div style={{
-              background: '#fff',
-              borderRadius: '12px',
-              padding: '24px',
-              maxWidth: '400px',
-              width: '100%',
-            }}>
-              <h3 style={{ fontSize: '18px', fontWeight: '600', marginBottom: '12px', color: '#111' }}>Delete Video</h3>
-              <p style={{ color: '#666', fontSize: '14px', marginBottom: '24px' }}>
-                Are you sure you want to delete &quot;{selectedVideo.caption}&quot;? This action cannot be undone.
-              </p>
-              <div style={{ display: 'flex', gap: '12px', justifyContent: 'flex-end' }}>
-                <button
-                  onClick={closeModal}
-                  style={{
-                    padding: '10px 20px',
-                    background: '#f3f4f6',
-                    border: 'none',
-                    borderRadius: '8px',
-                    fontSize: '14px',
-                    fontWeight: '500',
-                    cursor: 'pointer',
-                    color: '#374151',
-                  }}
-                >
-                  Cancel
-                </button>
-                <button
-                  onClick={handleDeleteVideo}
-                  disabled={saving}
-                  style={{
-                    padding: '10px 20px',
-                    background: '#dc2626',
-                    color: '#fff',
-                    border: 'none',
-                    borderRadius: '8px',
-                    fontSize: '14px',
-                    fontWeight: '500',
-                    cursor: saving ? 'not-allowed' : 'pointer',
-                    opacity: saving ? 0.7 : 1,
-                  }}
-                >
-                  {saving ? 'Deleting...' : 'Delete'}
-                </button>
+            <div style={styles.deleteModal}>
+              <div style={styles.modalGradientBorder} />
+              <div style={styles.modalInner}>
+                <div style={styles.deleteIcon}>
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="url(#deleteGrad)" strokeWidth="2">
+                    <defs>
+                      <linearGradient id="deleteGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stopColor="#ff0844" />
+                        <stop offset="100%" stopColor="#ff6b6b" />
+                      </linearGradient>
+                    </defs>
+                    <polyline points="3 6 5 6 21 6" />
+                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+                  </svg>
+                </div>
+                <h3 style={styles.deleteTitle}>Delete Video</h3>
+                <p style={styles.deleteDesc}>
+                  Are you sure you want to delete &quot;{selectedVideo.caption}&quot;? This action cannot be undone.
+                </p>
+                <div style={styles.modalActions}>
+                  <button onClick={closeModal} style={styles.cancelBtn}>
+                    Cancel
+                  </button>
+                  <button
+                    onClick={handleDeleteVideo}
+                    disabled={saving}
+                    style={{
+                      ...styles.deleteBtn,
+                      opacity: saving ? 0.7 : 1,
+                      cursor: saving ? 'not-allowed' : 'pointer',
+                    }}
+                  >
+                    {saving ? 'Deleting...' : 'Delete'}
+                  </button>
+                </div>
               </div>
             </div>
           )}
 
           {(modalMode === 'add' || modalMode === 'edit') && (
-            <div style={{
-              background: '#fff',
-              borderRadius: '12px',
-              padding: '32px',
-              maxWidth: '500px',
-              width: '100%',
-            }}>
-              <h3 style={{ fontSize: '20px', fontWeight: '600', marginBottom: '24px', color: '#111' }}>
-                {modalMode === 'add' ? 'Add New Video' : 'Edit Video'}
-              </h3>
+            <div style={styles.formModal}>
+              <div style={styles.modalGradientBorder} />
+              <div style={styles.modalInner}>
+                <h3 style={styles.formTitle}>
+                  {modalMode === 'add' ? 'Add New Video' : 'Edit Video'}
+                </h3>
 
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-                <div>
-                  <label style={{ display: 'block', fontSize: '13px', fontWeight: '500', marginBottom: '6px', color: '#374151' }}>
-                    Video URL
-                  </label>
-                  <input
-                    type="url"
-                    value={formData.url}
-                    onChange={(e) => setFormData(prev => ({ ...prev, url: e.target.value }))}
-                    placeholder="https://example.com/video.mp4"
-                    style={{
-                      width: '100%',
-                      padding: '12px 14px',
-                      border: '1px solid #e5e7eb',
-                      borderRadius: '8px',
-                      fontSize: '14px',
-                      outline: 'none',
-                      boxSizing: 'border-box',
-                    }}
-                  />
-                </div>
+                <div style={styles.formContent}>
+                  <div style={styles.formGroup}>
+                    <label style={styles.label}>Video URL</label>
+                    <input
+                      type="url"
+                      value={formData.url}
+                      onChange={(e) => setFormData(prev => ({ ...prev, url: e.target.value }))}
+                      placeholder="https://example.com/video.mp4"
+                      style={styles.input}
+                    />
+                  </div>
 
-                <div>
-                  <label style={{ display: 'block', fontSize: '13px', fontWeight: '500', marginBottom: '6px', color: '#374151' }}>
-                    Caption
-                  </label>
-                  <input
-                    type="text"
-                    value={formData.caption}
-                    onChange={(e) => setFormData(prev => ({ ...prev, caption: e.target.value }))}
-                    placeholder="Hero video, product showcase, etc."
-                    style={{
-                      width: '100%',
-                      padding: '12px 14px',
-                      border: '1px solid #e5e7eb',
-                      borderRadius: '8px',
-                      fontSize: '14px',
-                      outline: 'none',
-                      boxSizing: 'border-box',
-                    }}
-                  />
-                </div>
+                  <div style={styles.formGroup}>
+                    <label style={styles.label}>Caption</label>
+                    <input
+                      type="text"
+                      value={formData.caption}
+                      onChange={(e) => setFormData(prev => ({ ...prev, caption: e.target.value }))}
+                      placeholder="Hero video, product showcase, etc."
+                      style={styles.input}
+                    />
+                  </div>
 
-                <div>
-                  <label style={{ display: 'block', fontSize: '13px', fontWeight: '500', marginBottom: '6px', color: '#374151' }}>
-                    Platform Optimization
-                  </label>
-                  <div style={{ display: 'flex', gap: '8px' }}>
-                    {(['desktop', 'mobile', 'both'] as const).map((platform) => (
+                  <div style={styles.formGroup}>
+                    <label style={styles.label}>Platform Optimization</label>
+                    <div style={styles.platformBtns}>
+                      {(['desktop', 'mobile', 'both'] as const).map((platform) => (
+                        <button
+                          key={platform}
+                          type="button"
+                          onClick={() => setFormData(prev => ({ ...prev, platform }))}
+                          style={{
+                            ...styles.platformBtn,
+                            background: formData.platform === platform
+                              ? 'linear-gradient(135deg, rgba(255, 8, 68, 0.2) 0%, rgba(255, 177, 153, 0.2) 100%)'
+                              : 'rgba(255,255,255,0.03)',
+                            borderColor: formData.platform === platform
+                              ? 'rgba(255, 8, 68, 0.5)'
+                              : 'rgba(255,255,255,0.08)',
+                          }}
+                        >
+                          {platform === 'desktop' ? 'Desktop' : platform === 'mobile' ? 'Mobile' : 'Both'}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div style={styles.togglesRow}>
+                    <label style={styles.toggleLabel}>
                       <button
-                        key={platform}
                         type="button"
-                        onClick={() => setFormData(prev => ({ ...prev, platform }))}
+                        onClick={() => setFormData(prev => ({ ...prev, autoplay: !prev.autoplay }))}
                         style={{
-                          flex: 1,
-                          padding: '10px 16px',
-                          border: formData.platform === platform ? '2px solid #000' : '1px solid #e5e7eb',
-                          borderRadius: '8px',
-                          background: formData.platform === platform ? '#f9fafb' : '#fff',
-                          fontSize: '13px',
-                          fontWeight: formData.platform === platform ? '600' : '400',
-                          cursor: 'pointer',
-                          color: '#111',
+                          ...styles.toggleBtn,
+                          background: formData.autoplay
+                            ? 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)'
+                            : 'rgba(255,255,255,0.1)',
                         }}
                       >
-                        {platform === 'desktop' ? '🖥 Desktop' : platform === 'mobile' ? '📱 Mobile' : '📱🖥 Both'}
+                        <div style={{
+                          ...styles.toggleKnob,
+                          left: formData.autoplay ? '22px' : '2px',
+                        }} />
                       </button>
-                    ))}
+                      <span style={styles.toggleText}>Autoplay</span>
+                    </label>
+
+                    <label style={styles.toggleLabel}>
+                      <button
+                        type="button"
+                        onClick={() => setFormData(prev => ({ ...prev, loop: !prev.loop }))}
+                        style={{
+                          ...styles.toggleBtn,
+                          background: formData.loop
+                            ? 'linear-gradient(135deg, #a855f7 0%, #6366f1 100%)'
+                            : 'rgba(255,255,255,0.1)',
+                        }}
+                      >
+                        <div style={{
+                          ...styles.toggleKnob,
+                          left: formData.loop ? '22px' : '2px',
+                        }} />
+                      </button>
+                      <span style={styles.toggleText}>Loop</span>
+                    </label>
                   </div>
                 </div>
 
-                <div style={{ display: 'flex', gap: '24px' }}>
-                  <label style={{ display: 'flex', alignItems: 'center', gap: '10px', cursor: 'pointer' }}>
-                    <button
-                      type="button"
-                      onClick={() => setFormData(prev => ({ ...prev, autoplay: !prev.autoplay }))}
-                      style={{
-                        width: '44px',
-                        height: '24px',
-                        borderRadius: '12px',
-                        border: 'none',
-                        background: formData.autoplay ? '#3b82f6' : '#d1d5db',
-                        cursor: 'pointer',
-                        position: 'relative',
-                        transition: 'background 0.2s ease',
-                      }}
-                    >
-                      <div style={{
-                        width: '20px',
-                        height: '20px',
-                        borderRadius: '50%',
-                        background: '#fff',
-                        position: 'absolute',
-                        top: '2px',
-                        left: formData.autoplay ? '22px' : '2px',
-                        transition: 'left 0.2s ease',
-                        boxShadow: '0 1px 3px rgba(0,0,0,0.2)',
-                      }} />
-                    </button>
-                    <span style={{ fontSize: '14px', color: '#374151' }}>Autoplay</span>
-                  </label>
-
-                  <label style={{ display: 'flex', alignItems: 'center', gap: '10px', cursor: 'pointer' }}>
-                    <button
-                      type="button"
-                      onClick={() => setFormData(prev => ({ ...prev, loop: !prev.loop }))}
-                      style={{
-                        width: '44px',
-                        height: '24px',
-                        borderRadius: '12px',
-                        border: 'none',
-                        background: formData.loop ? '#8b5cf6' : '#d1d5db',
-                        cursor: 'pointer',
-                        position: 'relative',
-                        transition: 'background 0.2s ease',
-                      }}
-                    >
-                      <div style={{
-                        width: '20px',
-                        height: '20px',
-                        borderRadius: '50%',
-                        background: '#fff',
-                        position: 'absolute',
-                        top: '2px',
-                        left: formData.loop ? '22px' : '2px',
-                        transition: 'left 0.2s ease',
-                        boxShadow: '0 1px 3px rgba(0,0,0,0.2)',
-                      }} />
-                    </button>
-                    <span style={{ fontSize: '14px', color: '#374151' }}>Loop</span>
-                  </label>
+                <div style={styles.modalActions}>
+                  <button onClick={closeModal} style={styles.cancelBtn}>
+                    Cancel
+                  </button>
+                  <button
+                    onClick={handleSaveVideo}
+                    disabled={saving || !formData.url || !formData.caption}
+                    style={{
+                      ...styles.saveBtn,
+                      opacity: (saving || !formData.url || !formData.caption) ? 0.5 : 1,
+                      cursor: (saving || !formData.url || !formData.caption) ? 'not-allowed' : 'pointer',
+                    }}
+                  >
+                    {saving ? 'Saving...' : modalMode === 'add' ? 'Add Video' : 'Save Changes'}
+                  </button>
                 </div>
-              </div>
-
-              <div style={{ display: 'flex', gap: '12px', justifyContent: 'flex-end', marginTop: '32px' }}>
-                <button
-                  onClick={closeModal}
-                  style={{
-                    padding: '10px 20px',
-                    background: '#f3f4f6',
-                    border: 'none',
-                    borderRadius: '8px',
-                    fontSize: '14px',
-                    fontWeight: '500',
-                    cursor: 'pointer',
-                    color: '#374151',
-                  }}
-                >
-                  Cancel
-                </button>
-                <button
-                  onClick={handleSaveVideo}
-                  disabled={saving || !formData.url || !formData.caption}
-                  style={{
-                    padding: '10px 24px',
-                    background: '#000',
-                    color: '#fff',
-                    border: 'none',
-                    borderRadius: '8px',
-                    fontSize: '14px',
-                    fontWeight: '500',
-                    cursor: (saving || !formData.url || !formData.caption) ? 'not-allowed' : 'pointer',
-                    opacity: (saving || !formData.url || !formData.caption) ? 0.5 : 1,
-                  }}
-                >
-                  {saving ? 'Saving...' : modalMode === 'add' ? 'Add Video' : 'Save Changes'}
-                </button>
               </div>
             </div>
           )}
         </div>
       )}
+
+      <style jsx global>{`
+        @keyframes float {
+          0%, 100% { transform: translateY(0px) rotate(0deg); }
+          50% { transform: translateY(-20px) rotate(5deg); }
+        }
+        @keyframes pulse {
+          0%, 100% { opacity: 0.4; }
+          50% { opacity: 0.8; }
+        }
+        @keyframes glow {
+          0%, 100% { box-shadow: 0 0 20px rgba(255, 8, 68, 0.3); }
+          50% { box-shadow: 0 0 40px rgba(255, 8, 68, 0.6); }
+        }
+        @keyframes shimmer {
+          0% { background-position: -200% 0; }
+          100% { background-position: 200% 0; }
+        }
+        @keyframes gradientShift {
+          0% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
+          100% { background-position: 0% 50%; }
+        }
+      `}</style>
     </div>
   );
 }
+
+function VideoCard({
+  video,
+  index,
+  totalVideos,
+  draggedId,
+  onDragStart,
+  onDragOver,
+  onDrop,
+  onDragEnd,
+  onPreview,
+  onEdit,
+  onDelete,
+  onToggleActive,
+  onMove,
+}: {
+  video: Video;
+  index: number;
+  totalVideos: number;
+  draggedId: string | null;
+  onDragStart: (e: React.DragEvent, id: string) => void;
+  onDragOver: (e: React.DragEvent) => void;
+  onDrop: (e: React.DragEvent, id: string) => void;
+  onDragEnd: () => void;
+  onPreview: (video: Video) => void;
+  onEdit: (video: Video) => void;
+  onDelete: (video: Video) => void;
+  onToggleActive: (video: Video) => void;
+  onMove: (id: string, dir: 'up' | 'down') => void;
+}) {
+  const [hovered, setHovered] = useState(false);
+
+  return (
+    <div
+      draggable
+      onDragStart={(e) => onDragStart(e, video.id)}
+      onDragOver={onDragOver}
+      onDrop={(e) => onDrop(e, video.id)}
+      onDragEnd={onDragEnd}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      style={{
+        ...styles.videoCard,
+        opacity: !video.isActive ? 0.5 : 1,
+        transform: draggedId === video.id ? 'scale(1.02)' : hovered ? 'translateY(-4px)' : 'scale(1)',
+        boxShadow: draggedId === video.id
+          ? '0 20px 40px rgba(255, 8, 68, 0.2)'
+          : hovered
+            ? '0 16px 32px rgba(0,0,0,0.4)'
+            : '0 4px 20px rgba(0,0,0,0.2)',
+      }}
+    >
+      <div style={styles.cardGradientBorder} />
+      <div style={styles.cardInner}>
+        <div style={styles.thumbnailContainer}>
+          <img
+            src={video.thumbnailUrl || 'https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=400&h=225&fit=crop'}
+            alt={video.caption}
+            style={styles.thumbnail}
+          />
+          <div style={styles.thumbnailOverlay} />
+
+          <div style={styles.positionBadge}>
+            <span style={styles.positionText}>{video.position}</span>
+          </div>
+
+          <button
+            onClick={() => onPreview(video)}
+            style={{
+              ...styles.playBtn,
+              opacity: hovered ? 1 : 0.8,
+              transform: hovered ? 'translate(-50%, -50%) scale(1.1)' : 'translate(-50%, -50%) scale(1)',
+            }}
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <polygon points="5 3 19 12 5 21 5 3" />
+            </svg>
+          </button>
+
+          <div style={styles.badgesContainer}>
+            {video.autoplay && (
+              <span style={styles.autoplayBadge}>Autoplay</span>
+            )}
+            {video.loop && (
+              <span style={styles.loopBadge}>Loop</span>
+            )}
+          </div>
+        </div>
+
+        <div style={styles.cardContent}>
+          <div style={styles.cardHeader}>
+            <div>
+              <h3 style={styles.cardTitle}>{video.caption}</h3>
+              <span style={styles.platformTag}>
+                {video.platform === 'desktop' ? 'Desktop' : video.platform === 'mobile' ? 'Mobile' : 'All Platforms'}
+              </span>
+            </div>
+            <button
+              onClick={() => onToggleActive(video)}
+              style={{
+                ...styles.activeToggle,
+                background: video.isActive
+                  ? 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)'
+                  : 'rgba(255,255,255,0.1)',
+              }}
+            >
+              <div style={{
+                ...styles.activeToggleKnob,
+                left: video.isActive ? '22px' : '2px',
+              }} />
+            </button>
+          </div>
+
+          <div style={styles.cardActions}>
+            <div style={styles.moveButtons}>
+              <button
+                onClick={() => onMove(video.id, 'up')}
+                disabled={index === 0}
+                style={{
+                  ...styles.moveBtn,
+                  opacity: index === 0 ? 0.3 : 1,
+                  cursor: index === 0 ? 'not-allowed' : 'pointer',
+                }}
+              >
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M18 15l-6-6-6 6" />
+                </svg>
+              </button>
+              <button
+                onClick={() => onMove(video.id, 'down')}
+                disabled={index === totalVideos - 1}
+                style={{
+                  ...styles.moveBtn,
+                  opacity: index === totalVideos - 1 ? 0.3 : 1,
+                  cursor: index === totalVideos - 1 ? 'not-allowed' : 'pointer',
+                }}
+              >
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M6 9l6 6 6-6" />
+                </svg>
+              </button>
+            </div>
+            <div style={styles.actionButtons}>
+              <button onClick={() => onEdit(video)} style={styles.editBtn}>
+                Edit
+              </button>
+              <button onClick={() => onDelete(video)} style={styles.delBtn}>
+                Delete
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+const styles: { [key: string]: React.CSSProperties } = {
+  container: {
+    minHeight: '100vh',
+    background: '#050505',
+    color: '#fff',
+    position: 'relative',
+    overflow: 'hidden',
+  },
+  meshGradient: {
+    position: 'fixed',
+    inset: 0,
+    background: 'radial-gradient(ellipse at 20% 20%, rgba(255, 8, 68, 0.08) 0%, transparent 50%), radial-gradient(ellipse at 80% 80%, rgba(255, 177, 153, 0.06) 0%, transparent 50%), radial-gradient(ellipse at 50% 50%, rgba(79, 172, 254, 0.04) 0%, transparent 50%)',
+    pointerEvents: 'none',
+  },
+  orbOne: {
+    position: 'fixed',
+    width: '600px',
+    height: '600px',
+    borderRadius: '50%',
+    background: 'radial-gradient(circle, rgba(255, 8, 68, 0.15) 0%, transparent 70%)',
+    top: '-200px',
+    right: '-200px',
+    animation: 'float 20s ease-in-out infinite',
+    pointerEvents: 'none',
+  },
+  orbTwo: {
+    position: 'fixed',
+    width: '400px',
+    height: '400px',
+    borderRadius: '50%',
+    background: 'radial-gradient(circle, rgba(255, 177, 153, 0.12) 0%, transparent 70%)',
+    bottom: '-100px',
+    left: '-100px',
+    animation: 'float 15s ease-in-out infinite reverse',
+    pointerEvents: 'none',
+  },
+  orbThree: {
+    position: 'fixed',
+    width: '300px',
+    height: '300px',
+    borderRadius: '50%',
+    background: 'radial-gradient(circle, rgba(79, 172, 254, 0.1) 0%, transparent 70%)',
+    top: '50%',
+    left: '30%',
+    animation: 'float 25s ease-in-out infinite',
+    pointerEvents: 'none',
+  },
+  orbFour: {
+    position: 'fixed',
+    width: '250px',
+    height: '250px',
+    borderRadius: '50%',
+    background: 'radial-gradient(circle, rgba(168, 85, 247, 0.08) 0%, transparent 70%)',
+    top: '20%',
+    right: '20%',
+    animation: 'float 18s ease-in-out infinite',
+    pointerEvents: 'none',
+  },
+  loadingContainer: {
+    minHeight: '100vh',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    background: '#050505',
+    gap: '24px',
+  },
+  loadingOrb: {
+    width: '60px',
+    height: '60px',
+    borderRadius: '50%',
+    background: 'linear-gradient(135deg, #ff0844 0%, #ffb199 100%)',
+    animation: 'pulse 2s ease-in-out infinite, glow 2s ease-in-out infinite',
+  },
+  loadingText: {
+    color: 'rgba(255,255,255,0.6)',
+    fontSize: '14px',
+    letterSpacing: '3px',
+    textTransform: 'uppercase',
+  },
+  loadingState: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: '80px 20px',
+    gap: '24px',
+  },
+  nav: {
+    position: 'sticky',
+    top: 0,
+    zIndex: 100,
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: '20px 40px',
+    background: 'rgba(5, 5, 5, 0.8)',
+    backdropFilter: 'blur(20px)',
+    borderBottom: '1px solid rgba(255,255,255,0.06)',
+  },
+  navLeft: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+  logo: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '12px',
+    textDecoration: 'none',
+    color: '#fff',
+  },
+  logoIcon: {
+    width: '36px',
+    height: '36px',
+    borderRadius: '10px',
+    background: 'linear-gradient(135deg, #ff0844 0%, #ffb199 100%)',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    fontSize: '18px',
+    fontWeight: '700',
+  },
+  logoText: {
+    fontSize: '16px',
+    fontWeight: '600',
+    letterSpacing: '2px',
+  },
+  navLinks: {
+    display: 'flex',
+    gap: '32px',
+    alignItems: 'center',
+  },
+  navLink: {
+    color: 'rgba(255,255,255,0.6)',
+    textDecoration: 'none',
+    fontSize: '13px',
+    fontWeight: '500',
+    transition: 'color 0.2s',
+  },
+  navLinkActive: {
+    color: '#fff',
+    textDecoration: 'none',
+    fontSize: '13px',
+    fontWeight: '600',
+  },
+  exitLink: {
+    color: 'rgba(255,255,255,0.4)',
+    textDecoration: 'none',
+    fontSize: '13px',
+    fontWeight: '500',
+    padding: '8px 16px',
+    border: '1px solid rgba(255,255,255,0.1)',
+    borderRadius: '8px',
+  },
+  main: {
+    position: 'relative',
+    zIndex: 1,
+    padding: '40px',
+    maxWidth: '1400px',
+    margin: '0 auto',
+  },
+  header: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'flex-start',
+    marginBottom: '48px',
+    flexWrap: 'wrap',
+    gap: '24px',
+  },
+  greeting: {
+    fontSize: '14px',
+    color: 'rgba(255,255,255,0.5)',
+    marginBottom: '8px',
+    letterSpacing: '1px',
+    textTransform: 'uppercase',
+  },
+  title: {
+    fontSize: '42px',
+    fontWeight: '700',
+    letterSpacing: '-1px',
+    background: 'linear-gradient(135deg, #fff 0%, rgba(255,255,255,0.7) 100%)',
+    WebkitBackgroundClip: 'text',
+    WebkitTextFillColor: 'transparent',
+    marginBottom: '8px',
+  },
+  subtitle: {
+    fontSize: '14px',
+    color: 'rgba(255,255,255,0.4)',
+  },
+  headerActions: {
+    display: 'flex',
+    gap: '12px',
+    alignItems: 'center',
+  },
+  saveOrderBtn: {
+    position: 'relative',
+    padding: '12px 24px',
+    background: 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)',
+    color: '#000',
+    border: 'none',
+    borderRadius: '12px',
+    fontSize: '14px',
+    fontWeight: '600',
+    cursor: 'pointer',
+    overflow: 'hidden',
+  },
+  saveOrderGlow: {
+    position: 'absolute',
+    inset: 0,
+    background: 'linear-gradient(135deg, rgba(67, 233, 123, 0.4) 0%, rgba(56, 249, 215, 0.4) 100%)',
+    filter: 'blur(15px)',
+    zIndex: -1,
+  },
+  addBtn: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '8px',
+    padding: '12px 24px',
+    background: 'linear-gradient(135deg, #ff0844 0%, #ffb199 100%)',
+    color: '#fff',
+    border: 'none',
+    borderRadius: '12px',
+    fontSize: '14px',
+    fontWeight: '600',
+    cursor: 'pointer',
+  },
+  addBtnIcon: {
+    fontSize: '18px',
+    fontWeight: '400',
+  },
+  emptyState: {
+    background: 'rgba(255,255,255,0.03)',
+    backdropFilter: 'blur(20px)',
+    borderRadius: '24px',
+    padding: '80px 40px',
+    textAlign: 'center',
+    border: '1px solid rgba(255,255,255,0.06)',
+  },
+  emptyIcon: {
+    marginBottom: '24px',
+  },
+  emptyTitle: {
+    fontSize: '20px',
+    fontWeight: '600',
+    marginBottom: '8px',
+    color: '#fff',
+  },
+  emptyDesc: {
+    color: 'rgba(255,255,255,0.5)',
+    fontSize: '14px',
+    marginBottom: '32px',
+  },
+  emptyAddBtn: {
+    padding: '14px 32px',
+    background: 'linear-gradient(135deg, #ff0844 0%, #ffb199 100%)',
+    color: '#fff',
+    border: 'none',
+    borderRadius: '12px',
+    fontSize: '14px',
+    fontWeight: '600',
+    cursor: 'pointer',
+  },
+  videosGrid: {
+    display: 'grid',
+    gridTemplateColumns: 'repeat(auto-fill, minmax(340px, 1fr))',
+    gap: '24px',
+  },
+  videoCard: {
+    position: 'relative',
+    borderRadius: '20px',
+    overflow: 'hidden',
+    cursor: 'grab',
+    transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+  },
+  cardGradientBorder: {
+    position: 'absolute',
+    inset: 0,
+    borderRadius: '20px',
+    padding: '1px',
+    background: 'linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.03) 100%)',
+    WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
+    WebkitMaskComposite: 'xor',
+    maskComposite: 'exclude',
+    pointerEvents: 'none',
+  },
+  cardInner: {
+    background: 'rgba(255,255,255,0.03)',
+    backdropFilter: 'blur(20px)',
+    borderRadius: '20px',
+    overflow: 'hidden',
+  },
+  thumbnailContainer: {
+    position: 'relative',
+    aspectRatio: '16/9',
+    overflow: 'hidden',
+  },
+  thumbnail: {
+    width: '100%',
+    height: '100%',
+    objectFit: 'cover',
+  },
+  thumbnailOverlay: {
+    position: 'absolute',
+    inset: 0,
+    background: 'linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.6) 100%)',
+    pointerEvents: 'none',
+  },
+  positionBadge: {
+    position: 'absolute',
+    top: '12px',
+    left: '12px',
+    width: '32px',
+    height: '32px',
+    borderRadius: '10px',
+    background: 'linear-gradient(135deg, #ff0844 0%, #ffb199 100%)',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    boxShadow: '0 4px 12px rgba(255, 8, 68, 0.3)',
+  },
+  positionText: {
+    fontSize: '14px',
+    fontWeight: '700',
+    color: '#fff',
+  },
+  playBtn: {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: '56px',
+    height: '56px',
+    borderRadius: '50%',
+    background: 'rgba(255,255,255,0.15)',
+    backdropFilter: 'blur(10px)',
+    border: '1px solid rgba(255,255,255,0.2)',
+    color: '#fff',
+    cursor: 'pointer',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    transition: 'all 0.3s ease',
+  },
+  badgesContainer: {
+    position: 'absolute',
+    bottom: '12px',
+    right: '12px',
+    display: 'flex',
+    gap: '6px',
+  },
+  autoplayBadge: {
+    padding: '6px 10px',
+    borderRadius: '6px',
+    background: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
+    color: '#fff',
+    fontSize: '10px',
+    fontWeight: '700',
+    textTransform: 'uppercase',
+    letterSpacing: '0.5px',
+  },
+  loopBadge: {
+    padding: '6px 10px',
+    borderRadius: '6px',
+    background: 'linear-gradient(135deg, #a855f7 0%, #6366f1 100%)',
+    color: '#fff',
+    fontSize: '10px',
+    fontWeight: '700',
+    textTransform: 'uppercase',
+    letterSpacing: '0.5px',
+  },
+  cardContent: {
+    padding: '20px',
+  },
+  cardHeader: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'flex-start',
+    marginBottom: '16px',
+  },
+  cardTitle: {
+    fontSize: '16px',
+    fontWeight: '600',
+    marginBottom: '6px',
+    color: '#fff',
+  },
+  platformTag: {
+    fontSize: '11px',
+    color: 'rgba(255,255,255,0.5)',
+    textTransform: 'uppercase',
+    letterSpacing: '0.5px',
+  },
+  activeToggle: {
+    width: '44px',
+    height: '24px',
+    borderRadius: '12px',
+    border: 'none',
+    cursor: 'pointer',
+    position: 'relative',
+    transition: 'background 0.3s ease',
+  },
+  activeToggleKnob: {
+    width: '20px',
+    height: '20px',
+    borderRadius: '50%',
+    background: '#fff',
+    position: 'absolute',
+    top: '2px',
+    transition: 'left 0.3s ease',
+    boxShadow: '0 2px 4px rgba(0,0,0,0.2)',
+  },
+  cardActions: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  moveButtons: {
+    display: 'flex',
+    gap: '4px',
+  },
+  moveBtn: {
+    width: '32px',
+    height: '32px',
+    borderRadius: '8px',
+    border: '1px solid rgba(255,255,255,0.1)',
+    background: 'rgba(255,255,255,0.03)',
+    color: 'rgba(255,255,255,0.7)',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    transition: 'all 0.2s ease',
+  },
+  actionButtons: {
+    display: 'flex',
+    gap: '8px',
+  },
+  editBtn: {
+    padding: '8px 16px',
+    borderRadius: '8px',
+    border: '1px solid rgba(255,255,255,0.1)',
+    background: 'rgba(255,255,255,0.05)',
+    color: 'rgba(255,255,255,0.8)',
+    fontSize: '12px',
+    fontWeight: '500',
+    cursor: 'pointer',
+    transition: 'all 0.2s ease',
+  },
+  delBtn: {
+    padding: '8px 16px',
+    borderRadius: '8px',
+    border: '1px solid rgba(255, 8, 68, 0.2)',
+    background: 'rgba(255, 8, 68, 0.1)',
+    color: '#ff6b6b',
+    fontSize: '12px',
+    fontWeight: '500',
+    cursor: 'pointer',
+    transition: 'all 0.2s ease',
+  },
+  modalOverlay: {
+    position: 'fixed',
+    inset: 0,
+    background: 'rgba(0,0,0,0.8)',
+    backdropFilter: 'blur(8px)',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    zIndex: 1000,
+    padding: '20px',
+  },
+  previewModal: {
+    position: 'relative',
+    maxWidth: '900px',
+    width: '100%',
+    maxHeight: '90vh',
+    borderRadius: '20px',
+    overflow: 'hidden',
+  },
+  previewModalGradientBorder: {
+    position: 'absolute',
+    inset: 0,
+    borderRadius: '20px',
+    padding: '1px',
+    background: 'linear-gradient(135deg, rgba(255, 8, 68, 0.5) 0%, rgba(255, 177, 153, 0.3) 50%, rgba(79, 172, 254, 0.5) 100%)',
+    WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
+    WebkitMaskComposite: 'xor',
+    maskComposite: 'exclude',
+    pointerEvents: 'none',
+  },
+  previewModalInner: {
+    background: 'rgba(10, 10, 10, 0.95)',
+    backdropFilter: 'blur(20px)',
+    borderRadius: '20px',
+    overflow: 'hidden',
+  },
+  previewHeader: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: '20px 24px',
+    borderBottom: '1px solid rgba(255,255,255,0.08)',
+  },
+  previewTitle: {
+    fontSize: '18px',
+    fontWeight: '600',
+    color: '#fff',
+  },
+  closeBtn: {
+    width: '36px',
+    height: '36px',
+    borderRadius: '10px',
+    border: 'none',
+    background: 'rgba(255,255,255,0.05)',
+    color: 'rgba(255,255,255,0.6)',
+    cursor: 'pointer',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    transition: 'all 0.2s ease',
+  },
+  previewContent: {
+    aspectRatio: '16/9',
+  },
+  previewVideo: {
+    width: '100%',
+    height: '100%',
+    objectFit: 'contain',
+    background: '#000',
+  },
+  deleteModal: {
+    position: 'relative',
+    maxWidth: '420px',
+    width: '100%',
+    borderRadius: '20px',
+    overflow: 'hidden',
+  },
+  modalGradientBorder: {
+    position: 'absolute',
+    inset: 0,
+    borderRadius: '20px',
+    padding: '1px',
+    background: 'linear-gradient(135deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0.05) 100%)',
+    WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
+    WebkitMaskComposite: 'xor',
+    maskComposite: 'exclude',
+    pointerEvents: 'none',
+  },
+  modalInner: {
+    background: 'rgba(15, 15, 15, 0.95)',
+    backdropFilter: 'blur(20px)',
+    borderRadius: '20px',
+    padding: '32px',
+  },
+  deleteIcon: {
+    width: '56px',
+    height: '56px',
+    borderRadius: '16px',
+    background: 'rgba(255, 8, 68, 0.1)',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: '20px',
+  },
+  deleteTitle: {
+    fontSize: '20px',
+    fontWeight: '600',
+    marginBottom: '12px',
+    color: '#fff',
+  },
+  deleteDesc: {
+    color: 'rgba(255,255,255,0.6)',
+    fontSize: '14px',
+    lineHeight: '1.6',
+    marginBottom: '28px',
+  },
+  modalActions: {
+    display: 'flex',
+    gap: '12px',
+    justifyContent: 'flex-end',
+  },
+  cancelBtn: {
+    padding: '12px 24px',
+    borderRadius: '10px',
+    border: '1px solid rgba(255,255,255,0.1)',
+    background: 'rgba(255,255,255,0.05)',
+    color: 'rgba(255,255,255,0.8)',
+    fontSize: '14px',
+    fontWeight: '500',
+    cursor: 'pointer',
+  },
+  deleteBtn: {
+    padding: '12px 24px',
+    borderRadius: '10px',
+    border: 'none',
+    background: 'linear-gradient(135deg, #ff0844 0%, #ff6b6b 100%)',
+    color: '#fff',
+    fontSize: '14px',
+    fontWeight: '600',
+    cursor: 'pointer',
+  },
+  formModal: {
+    position: 'relative',
+    maxWidth: '520px',
+    width: '100%',
+    borderRadius: '20px',
+    overflow: 'hidden',
+  },
+  formTitle: {
+    fontSize: '24px',
+    fontWeight: '600',
+    marginBottom: '28px',
+    color: '#fff',
+  },
+  formContent: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '24px',
+    marginBottom: '32px',
+  },
+  formGroup: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '8px',
+  },
+  label: {
+    fontSize: '13px',
+    fontWeight: '500',
+    color: 'rgba(255,255,255,0.7)',
+    letterSpacing: '0.5px',
+  },
+  input: {
+    width: '100%',
+    padding: '14px 16px',
+    borderRadius: '12px',
+    border: '1px solid rgba(255,255,255,0.1)',
+    background: 'rgba(255,255,255,0.03)',
+    color: '#fff',
+    fontSize: '14px',
+    outline: 'none',
+    boxSizing: 'border-box',
+    transition: 'border-color 0.2s ease',
+  },
+  platformBtns: {
+    display: 'flex',
+    gap: '8px',
+  },
+  platformBtn: {
+    flex: 1,
+    padding: '12px 16px',
+    borderRadius: '10px',
+    border: '1px solid rgba(255,255,255,0.08)',
+    fontSize: '13px',
+    fontWeight: '500',
+    cursor: 'pointer',
+    color: '#fff',
+    transition: 'all 0.2s ease',
+  },
+  togglesRow: {
+    display: 'flex',
+    gap: '32px',
+  },
+  toggleLabel: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '12px',
+    cursor: 'pointer',
+  },
+  toggleBtn: {
+    width: '44px',
+    height: '24px',
+    borderRadius: '12px',
+    border: 'none',
+    cursor: 'pointer',
+    position: 'relative',
+    transition: 'background 0.3s ease',
+  },
+  toggleKnob: {
+    width: '20px',
+    height: '20px',
+    borderRadius: '50%',
+    background: '#fff',
+    position: 'absolute',
+    top: '2px',
+    transition: 'left 0.3s ease',
+    boxShadow: '0 2px 4px rgba(0,0,0,0.2)',
+  },
+  toggleText: {
+    fontSize: '14px',
+    color: 'rgba(255,255,255,0.8)',
+  },
+  saveBtn: {
+    padding: '12px 28px',
+    borderRadius: '10px',
+    border: 'none',
+    background: 'linear-gradient(135deg, #ff0844 0%, #ffb199 100%)',
+    color: '#fff',
+    fontSize: '14px',
+    fontWeight: '600',
+    cursor: 'pointer',
+  },
+};
