@@ -1,11 +1,40 @@
 import Link from 'next/link';
 
+const SearchIcon = () => (
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+    <circle cx="11" cy="11" r="8"></circle>
+    <path d="m21 21-4.35-4.35"></path>
+  </svg>
+);
+
+const LocationIcon = () => (
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+    <circle cx="12" cy="10" r="3"></circle>
+  </svg>
+);
+
+const UserIcon = () => (
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+    <circle cx="12" cy="7" r="4"></circle>
+  </svg>
+);
+
+const CartIcon = () => (
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+    <circle cx="9" cy="21" r="1"></circle>
+    <circle cx="20" cy="21" r="1"></circle>
+    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+  </svg>
+);
+
 export default function Navbar() {
   return (
     <nav style={{
       background: '#ffffff',
-      borderBottom: '1px solid #d0d0d0',
-      padding: '20px 80px',
+      borderBottom: '1px solid #e5e5e5',
+      padding: '16px 60px',
       position: 'sticky',
       top: 0,
       zIndex: 1000,
@@ -13,44 +42,43 @@ export default function Navbar() {
       backgroundColor: 'rgba(255, 255, 255, 0.98)',
     }}>
       <div style={{
-        maxWidth: '1600px',
+        maxWidth: '1400px',
         margin: '0 auto',
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
         flexWrap: 'nowrap',
+        gap: '32px',
       }}>
         {/* Left: Search + Find in stores */}
         <div style={{
           display: 'flex',
-          gap: '56px',
+          gap: '32px',
           alignItems: 'center',
           flex: 0,
-          minWidth: 0,
         }}>
           {/* Search */}
           <div style={{ 
             display: 'flex', 
             alignItems: 'center', 
-            gap: '12px', 
+            gap: '8px', 
             color: '#000',
             cursor: 'pointer',
-            opacity: 0.9,
+            opacity: 0.85,
             transition: 'all 0.2s ease-out',
             whiteSpace: 'nowrap',
-          }} onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')} onMouseLeave={(e) => (e.currentTarget.style.opacity = '0.9')}>
+          }} onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')} onMouseLeave={(e) => (e.currentTarget.style.opacity = '0.85')}>
             <div style={{
-              width: '28px',
-              height: '28px',
+              width: '24px',
+              height: '24px',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              fontSize: '20px',
-              fontWeight: '700',
+              color: '#000',
             }}>
-              🔍
+              <SearchIcon />
             </div>
-            <span style={{ fontSize: '15px', fontWeight: '700', letterSpacing: '-0.2px' }}>Search</span>
+            <span style={{ fontSize: '14px', fontWeight: '600', letterSpacing: '-0.3px' }}>Search</span>
           </div>
 
           {/* Find in stores */}
@@ -60,39 +88,38 @@ export default function Navbar() {
             background: 'none',
             color: '#000',
             cursor: 'pointer',
-            fontSize: '15px',
-            fontWeight: '700',
+            fontSize: '14px',
+            fontWeight: '600',
             display: 'flex',
             alignItems: 'center',
-            gap: '12px',
-            opacity: 0.9,
+            gap: '8px',
+            opacity: 0.85,
             transition: 'all 0.2s ease-out',
-            letterSpacing: '-0.2px',
+            letterSpacing: '-0.3px',
             whiteSpace: 'nowrap',
-          }} onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')} onMouseLeave={(e) => (e.currentTarget.style.opacity = '0.9')}>
+          }} onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')} onMouseLeave={(e) => (e.currentTarget.style.opacity = '0.85')}>
             <div style={{
-              width: '28px',
-              height: '28px',
+              width: '24px',
+              height: '24px',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              fontSize: '20px',
-              fontWeight: '700',
+              color: '#000',
             }}>
-              ◎
+              <LocationIcon />
             </div>
             Find in stores
           </button>
         </div>
 
         {/* Center: Logo */}
-        <div style={{ flex: 1, display: 'flex', justifyContent: 'center', minWidth: 0 }}>
+        <div style={{ flex: 1, display: 'flex', justifyContent: 'center' }}>
           <Link href="/" style={{
-            fontSize: '36px',
+            fontSize: '32px',
             fontWeight: '900',
             textDecoration: 'none',
             color: '#000',
-            letterSpacing: '-1px',
+            letterSpacing: '-1.2px',
             textTransform: 'uppercase',
             whiteSpace: 'nowrap',
             transition: 'all 0.2s ease-out',
@@ -103,7 +130,7 @@ export default function Navbar() {
           }} onMouseLeave={(e) => {
             e.currentTarget.style.opacity = '1';
           }}>
-            DRIZZL WELLNESS
+            DRIZZL
           </Link>
         </div>
 
@@ -111,64 +138,61 @@ export default function Navbar() {
         <div style={{
           display: 'flex',
           alignItems: 'center',
-          gap: '56px',
+          gap: '24px',
           flex: 0,
-          minWidth: 0,
         }}>
           {/* Login */}
           <Link href="/auth" style={{
             color: '#000',
-            fontSize: '15px',
-            fontWeight: '700',
+            fontSize: '14px',
+            fontWeight: '600',
             textDecoration: 'none',
             display: 'flex',
             alignItems: 'center',
-            gap: '12px',
-            opacity: 0.9,
+            gap: '8px',
+            opacity: 0.85,
             transition: 'all 0.2s ease-out',
-            letterSpacing: '-0.2px',
+            letterSpacing: '-0.3px',
             whiteSpace: 'nowrap',
-          }} onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')} onMouseLeave={(e) => (e.currentTarget.style.opacity = '0.9')}>
+          }} onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')} onMouseLeave={(e) => (e.currentTarget.style.opacity = '0.85')}>
             <div style={{
-              width: '28px',
-              height: '28px',
+              width: '24px',
+              height: '24px',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              fontSize: '20px',
-              fontWeight: '700',
+              color: '#000',
             }}>
-              👤
+              <UserIcon />
             </div>
             Log in
           </Link>
 
           {/* Cart */}
           <Link href="/cart" style={{
-            fontSize: '15px',
-            fontWeight: '700',
+            fontSize: '14px',
+            fontWeight: '600',
             color: '#000',
             textDecoration: 'none',
             display: 'flex',
             alignItems: 'center',
-            gap: '12px',
-            opacity: 0.9,
+            gap: '8px',
+            opacity: 0.85,
             transition: 'all 0.2s ease-out',
-            letterSpacing: '-0.2px',
+            letterSpacing: '-0.3px',
             whiteSpace: 'nowrap',
-          }} onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')} onMouseLeave={(e) => (e.currentTarget.style.opacity = '0.9')}>
+          }} onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')} onMouseLeave={(e) => (e.currentTarget.style.opacity = '0.85')}>
             <div style={{
-              width: '28px',
-              height: '28px',
+              width: '24px',
+              height: '24px',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              fontSize: '20px',
-              fontWeight: '700',
+              color: '#000',
             }}>
-              🛍️
+              <CartIcon />
             </div>
-            <span>Your cart (0)</span>
+            <span>Cart (0)</span>
           </Link>
         </div>
       </div>
