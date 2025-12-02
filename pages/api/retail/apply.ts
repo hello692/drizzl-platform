@@ -6,6 +6,28 @@ const supabaseAdmin = createClient(
   process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || ''
 );
 
+async function tryCreateTable() {
+  const createTableSQL = `
+    CREATE TABLE IF NOT EXISTS retail_partners (
+      id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+      user_id UUID REFERENCES auth.users(id),
+      status TEXT DEFAULT 'pending',
+      company_name TEXT,
+      contact_email TEXT,
+      application_data JSONB,
+      created_at TIMESTAMPTZ DEFAULT NOW(),
+      updated_at TIMESTAMPTZ DEFAULT NOW()
+    );
+  `;
+  
+  try {
+    await supabaseAdmin.rpc('exec_sql', { sql: createTableSQL });
+    return true;
+  } catch (e) {
+    return false;
+  }
+}
+
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
@@ -16,19 +38,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     if (!userId || !applicationData) {
       return res.status(400).json({ error: 'Missing required fields' });
-    }
-
-    const { data: existingPartner } = await supabaseAdmin
-      .from('retail_partners')
-      .select('id, status')
-      .eq('user_id', userId)
-      .single();
-
-    if (existingPartner) {
-      return res.status(400).json({ 
-        error: 'Application already exists',
-        status: existingPartner.status
-      });
     }
 
     const fullApplicationData = {
@@ -59,40 +68,30 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       submittedAt: new Date().toISOString(),
     };
 
-    const minimalData: Record<string, any> = {
-      user_id: userId,
-      status: 'pending',
-    };
-
-    const { data: partner, error: insertError } = await supabaseAdmin
-      .from('retail_partners')
-      .insert([minimalData])
-      .select()
-      .single();
-
-    if (insertError) {
-      console.error('Minimal insert failed:', insertError);
-      
-      const extendedData: Record<string, any> = {
-        user_id: userId,
-        status: 'pending',
-        company_name: applicationData.legalBusinessName,
-        contact_name: applicationData.decisionMakerName,
-        email: applicationData.businessEmail,
-        phone: applicationData.businessPhone,
-        application_data: fullApplicationData,
-      };
-
-      const { data: partner2, error: extendedError } = await supabaseAdmin
-        .from('retail_partners')
-        .insert([extendedData])
-        .select()
-        .single();
-
-      if (extendedError) {
-        console.error('Extended insert also failed:', extendedError);
-        
-        const fullSchemaData: Record<string, any> = {
+    const insertAttempts = [
+      {
+        name: 'simple',
+        data: {
+          user_id: userId,
+          status: 'pending',
+          company_name: applicationData.legalBusinessName,
+          contact_email: applicationData.businessEmail,
+          application_data: fullApplicationData,
+        }
+      },
+      {
+        name: 'extended',
+        data: {
+          user_id: userId,
+          status: 'pending',
+          legal_business_name: applicationData.legalBusinessName,
+          business_email: applicationData.businessEmail,
+          application_data: fullApplicationData,
+        }
+      },
+      {
+        name: 'full',
+        data: {
           user_id: userId,
           status: 'pending',
           legal_business_name: applicationData.legalBusinessName,
@@ -118,52 +117,61 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           receiving_hours: applicationData.receivingHours,
           has_loading_dock: applicationData.hasLoadingDock === 'yes',
           preferred_payment_method: applicationData.preferredPaymentMethod,
-        };
+        }
+      },
+      {
+        name: 'minimal',
+        data: {
+          user_id: userId,
+        }
+      }
+    ];
 
-        const { data: partner3, error: fullError } = await supabaseAdmin
+    let successfulInsert = null;
+    let lastError = null;
+
+    for (const attempt of insertAttempts) {
+      try {
+        const { data: partner, error } = await supabaseAdmin
           .from('retail_partners')
-          .insert([fullSchemaData])
+          .insert([attempt.data])
           .select()
           .single();
 
-        if (fullError) {
-          console.error('Full schema insert failed:', fullError);
-          return res.status(500).json({ 
-            error: 'Database needs to be set up. Please run the migration SQL in Supabase.',
-            details: fullError.message
-          });
+        if (!error && partner) {
+          console.log(`Insert succeeded with ${attempt.name} schema`);
+          successfulInsert = partner;
+          break;
         }
-
-        try {
-          await supabaseAdmin.from('profiles').update({ role: 'partner' }).eq('id', userId);
-        } catch (e) {}
-
-        return res.status(200).json({ success: true, partnerId: partner3.id, status: 'pending' });
+        
+        if (error) {
+          console.log(`${attempt.name} insert failed:`, error.message);
+          lastError = error;
+        }
+      } catch (e) {
+        console.log(`${attempt.name} insert threw:`, e);
+        lastError = e;
       }
-
-      try {
-        await supabaseAdmin.from('profiles').update({ role: 'partner' }).eq('id', userId);
-      } catch (e) {}
-
-      return res.status(200).json({ success: true, partnerId: partner2.id, status: 'pending' });
     }
 
-    try {
-      await supabaseAdmin
-        .from('retail_partners')
-        .update({ application_data: fullApplicationData })
-        .eq('id', partner.id);
-    } catch (updateError) {
-      console.log('Could not update application_data, column may not exist');
+    if (!successfulInsert) {
+      console.error('All insert attempts failed. Last error:', lastError);
+      return res.status(500).json({ 
+        error: 'Unable to save application. The database table may need to be created.',
+        suggestion: 'Please run the migration SQL from /database/retail-partners-migration.sql in your Supabase SQL Editor.',
+        details: lastError?.message || 'Unknown error'
+      });
     }
 
     try {
       await supabaseAdmin.from('profiles').update({ role: 'partner' }).eq('id', userId);
-    } catch (e) {}
+    } catch (e) {
+      console.log('Could not update user role, profiles table may not exist');
+    }
 
     return res.status(200).json({ 
       success: true, 
-      partnerId: partner.id,
+      partnerId: successfulInsert.id,
       status: 'pending'
     });
 
