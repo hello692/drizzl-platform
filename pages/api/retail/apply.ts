@@ -30,7 +30,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       return res.status(400).json({ error: 'Business name is required.' });
     }
 
-    const { data: existingApp, error: checkError } = await supabaseAdmin
+    const { data: existingApp } = await supabaseAdmin
       .from('retail_partners')
       .select('id, status')
       .eq('user_id', userId)
@@ -72,48 +72,97 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       submittedAt: new Date().toISOString(),
     };
 
-    const insertData = {
-      user_id: userId,
-      company_name: applicationData.legalBusinessName || 'Unnamed Business',
-      contact_name: applicationData.decisionMakerName || null,
-      email: applicationData.businessEmail || null,
-      phone: applicationData.businessPhone || null,
-      status: 'pending',
-      application_data: fullApplicationData,
-    };
+    const insertAttempts = [
+      {
+        name: 'full_with_jsonb',
+        data: {
+          user_id: userId,
+          company_name: applicationData.legalBusinessName || 'Unnamed Business',
+          contact_name: applicationData.decisionMakerName || null,
+          email: applicationData.businessEmail || null,
+          phone: applicationData.businessPhone || null,
+          status: 'pending',
+          application_data: fullApplicationData,
+        }
+      },
+      {
+        name: 'basic_columns',
+        data: {
+          user_id: userId,
+          company_name: applicationData.legalBusinessName || 'Unnamed Business',
+          contact_name: applicationData.decisionMakerName || null,
+          email: applicationData.businessEmail || null,
+          phone: applicationData.businessPhone || null,
+          status: 'pending',
+        }
+      },
+      {
+        name: 'store_name_variant',
+        data: {
+          user_id: userId,
+          store_name: applicationData.legalBusinessName || 'Unnamed Business',
+          contact_name: applicationData.decisionMakerName || null,
+          contact_email: applicationData.businessEmail || null,
+          phone: applicationData.businessPhone || null,
+          status: 'pending',
+        }
+      },
+      {
+        name: 'minimal',
+        data: {
+          user_id: userId,
+          status: 'pending',
+        }
+      }
+    ];
 
-    const { data: partner, error: insertError } = await supabaseAdmin
-      .from('retail_partners')
-      .insert([insertData])
-      .select()
-      .single();
+    let successfulInsert = null;
+    let lastError = null;
 
-    if (insertError) {
-      console.error('Insert error:', insertError);
+    for (const attempt of insertAttempts) {
+      try {
+        const { data: partner, error } = await supabaseAdmin
+          .from('retail_partners')
+          .insert([attempt.data])
+          .select()
+          .single();
+
+        if (!error && partner) {
+          console.log(`Insert succeeded with ${attempt.name} schema`);
+          successfulInsert = partner;
+          break;
+        }
+        
+        if (error) {
+          console.log(`${attempt.name} insert failed:`, error.message);
+          lastError = error;
+        }
+      } catch (e) {
+        console.log(`${attempt.name} insert threw:`, e);
+        lastError = e;
+      }
+    }
+
+    if (!successfulInsert) {
+      console.error('All insert attempts failed. Last error:', lastError);
       
-      if (insertError.code === '42P01') {
+      if (lastError?.code === '42P01') {
         return res.status(500).json({ 
-          error: 'Database table not found. Please run the migration.',
-          suggestion: 'Run the SQL from /database/retail-partners-migration.sql in Supabase SQL Editor.',
-          details: insertError.message
+          error: 'Database table not found. Please contact support.',
+          details: 'The retail_partners table needs to be created.'
         });
       }
       
-      if (insertError.code === '23505') {
+      if (lastError?.code === '23505') {
         return res.status(400).json({ 
           error: 'You already have an existing application.',
-          details: 'Duplicate application detected.'
         });
       }
       
       return res.status(500).json({ 
         error: 'Unable to save application. Please try again.',
-        details: insertError.message
+        details: lastError?.message || 'Unknown database error'
       });
-    }
-
-    if (!partner) {
-      return res.status(500).json({ error: 'Application saved but no confirmation received.' });
     }
 
     try {
@@ -124,7 +173,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     return res.status(200).json({ 
       success: true, 
-      partnerId: partner.id,
+      partnerId: successfulInsert.id,
       status: 'pending',
       message: 'Your application has been submitted successfully!'
     });
