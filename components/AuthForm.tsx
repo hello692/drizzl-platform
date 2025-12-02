@@ -70,16 +70,17 @@ export default function AuthForm() {
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-      background: 'linear-gradient(135deg, #f5f5f5 0%, #ffffff 100%)',
+      background: '#f9fafb',
       padding: '40px 20px',
     }}>
       <div style={{
         width: '100%',
         maxWidth: '480px',
         background: 'white',
-        borderRadius: '16px',
+        borderRadius: '12px',
         padding: '48px 40px',
-        boxShadow: '0 20px 60px rgba(0,0,0,0.06)',
+        boxShadow: '0 4px 12px rgba(0, 0, 0, 0.05)',
+        border: '1px solid #f0f0f0',
       }}>
         {/* Header */}
         <div style={{ textAlign: 'center', marginBottom: '32px' }}>
@@ -88,17 +89,17 @@ export default function AuthForm() {
             fontSize: '28px',
             fontWeight: '700',
             letterSpacing: '-0.5px',
-            color: '#111',
+            color: '#1a1a1a',
           }}>
             Welcome to Drizzl
           </h2>
           <p style={{
             margin: 0,
             fontSize: '15px',
-            color: '#666',
+            color: '#6b7280',
             fontWeight: '500',
           }}>
-            Fresh, healthy smoothies delivered daily
+            Fresh smoothies delivered to your door
           </p>
         </div>
 
@@ -107,9 +108,9 @@ export default function AuthForm() {
           display: 'flex',
           gap: '8px',
           marginBottom: '28px',
-          background: '#f5f5f5',
+          background: '#f3f4f6',
           padding: '6px',
-          borderRadius: '10px',
+          borderRadius: '8px',
         }}>
           {(['login', 'signup', 'magic'] as const).map(m => (
             <button
@@ -119,11 +120,11 @@ export default function AuthForm() {
               style={{
                 flex: 1,
                 border: 'none',
-                borderRadius: '8px',
+                borderRadius: '6px',
                 padding: '10px 0',
                 cursor: 'pointer',
-                background: mode === m ? '#111' : 'transparent',
-                color: mode === m ? 'white' : '#666',
+                background: mode === m ? '#22c55e' : 'transparent',
+                color: mode === m ? 'white' : '#6b7280',
                 fontWeight: 600,
                 fontSize: '14px',
                 transition: 'all 0.2s',
@@ -144,7 +145,7 @@ export default function AuthForm() {
             <label style={{
               fontSize: '13px',
               fontWeight: '600',
-              color: '#333',
+              color: '#1a1a1a',
               textTransform: 'uppercase',
               letterSpacing: '0.5px',
             }}>
@@ -158,15 +159,21 @@ export default function AuthForm() {
               placeholder="you@example.com"
               style={{
                 padding: '12px 14px',
-                borderRadius: '8px',
-                border: '1px solid #ddd',
+                borderRadius: '6px',
+                border: '1px solid #e5e7eb',
                 fontSize: '15px',
-                background: '#fafafa',
+                background: '#f9fafb',
                 transition: 'border 0.2s',
                 outline: 'none',
               }}
-              onFocus={(e) => e.target.style.borderColor = '#111'}
-              onBlur={(e) => e.target.style.borderColor = '#ddd'}
+              onFocus={(e) => {
+                e.target.style.borderColor = '#22c55e';
+                e.target.style.background = '#ffffff';
+              }}
+              onBlur={(e) => {
+                e.target.style.borderColor = '#e5e7eb';
+                e.target.style.background = '#f9fafb';
+              }}
             />
           </div>
 
@@ -175,7 +182,7 @@ export default function AuthForm() {
               <label style={{
                 fontSize: '13px',
                 fontWeight: '600',
-                color: '#333',
+                color: '#1a1a1a',
                 textTransform: 'uppercase',
                 letterSpacing: '0.5px',
               }}>
@@ -189,15 +196,21 @@ export default function AuthForm() {
                 placeholder="••••••••"
                 style={{
                   padding: '12px 14px',
-                  borderRadius: '8px',
-                  border: '1px solid #ddd',
+                  borderRadius: '6px',
+                  border: '1px solid #e5e7eb',
                   fontSize: '15px',
-                  background: '#fafafa',
+                  background: '#f9fafb',
                   transition: 'border 0.2s',
                   outline: 'none',
                 }}
-                onFocus={(e) => e.target.style.borderColor = '#111'}
-                onBlur={(e) => e.target.style.borderColor = '#ddd'}
+                onFocus={(e) => {
+                  e.target.style.borderColor = '#22c55e';
+                  e.target.style.background = '#ffffff';
+                }}
+                onBlur={(e) => {
+                  e.target.style.borderColor = '#e5e7eb';
+                  e.target.style.background = '#f9fafb';
+                }}
               />
             </div>
           )}
@@ -208,16 +221,18 @@ export default function AuthForm() {
             style={{
               marginTop: '8px',
               padding: '13px 14px',
-              borderRadius: '8px',
+              borderRadius: '6px',
               border: 'none',
-              background: '#111',
+              background: '#22c55e',
               color: 'white',
               fontWeight: '700',
               fontSize: '15px',
               cursor: loading ? 'default' : 'pointer',
               opacity: loading ? 0.6 : 1,
-              transition: 'opacity 0.2s',
+              transition: 'all 0.2s',
             }}
+            onMouseEnter={(e) => !loading && (e.currentTarget.style.background = '#15803d')}
+            onMouseLeave={(e) => (e.currentTarget.style.background = '#22c55e')}
           >
             {loading ? 'Please wait…' : mode === 'login' ? 'Log in' : mode === 'signup' ? 'Create account' : 'Send magic link'}
           </button>
@@ -228,11 +243,11 @@ export default function AuthForm() {
           <div style={{
             marginTop: '16px',
             padding: '12px 14px',
-            borderRadius: '8px',
-            background: '#e6ffed',
-            color: '#126b34',
+            borderRadius: '6px',
+            background: '#dcfce7',
+            color: '#166534',
             fontSize: '14px',
-            border: '1px solid #b3ffb3',
+            border: '1px solid #bbf7d0',
           }}>
             ✓ {message}
           </div>
@@ -241,11 +256,11 @@ export default function AuthForm() {
           <div style={{
             marginTop: '16px',
             padding: '12px 14px',
-            borderRadius: '8px',
-            background: '#ffe6e6',
-            color: '#a11a1a',
+            borderRadius: '6px',
+            background: '#fee2e2',
+            color: '#991b1b',
             fontSize: '14px',
-            border: '1px solid #ffb3b3',
+            border: '1px solid #fecaca',
           }}>
             ✕ {error}
           </div>
@@ -255,7 +270,7 @@ export default function AuthForm() {
         <p style={{
           marginTop: '24px',
           fontSize: '12px',
-          color: '#999',
+          color: '#9ca3af',
           textAlign: 'center',
           fontWeight: '500',
         }}>

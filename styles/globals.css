@@ -6,12 +6,17 @@
 
 html,
 body {
-  --color-text-primary: #111111;
-  --color-text-secondary: #666666;
-  --color-text-tertiary: #999999;
+  --color-text-primary: #1a1a1a;
+  --color-text-secondary: #6b7280;
+  --color-text-tertiary: #9ca3af;
   --color-bg-primary: #ffffff;
-  --color-bg-secondary: #f5f5f5;
-  --color-border: #e0e0e0;
+  --color-bg-secondary: #f9fafb;
+  --color-bg-tertiary: #f3f4f6;
+  --color-brand-green: #22c55e;
+  --color-brand-dark-green: #15803d;
+  --color-brand-light-green: #dcfce7;
+  --color-accent-sage: #9ca8a4;
+  --color-border: #e5e7eb;
   
   --spacing-xs: 4px;
   --spacing-sm: 8px;
@@ -36,7 +41,6 @@ body {
 
 /* TYPOGRAPHY SCALE */
 
-/* H1: Hero editorial size - 56px */
 h1 {
   font-size: 56px;
   line-height: 1.1;
@@ -46,7 +50,6 @@ h1 {
   margin-bottom: var(--spacing-md);
 }
 
-/* H2: Section titles - 40px */
 h2 {
   font-size: 40px;
   line-height: 1.2;
@@ -56,7 +59,6 @@ h2 {
   margin-bottom: var(--spacing-lg);
 }
 
-/* H3: Subsection & product titles - 18px */
 h3 {
   font-size: 18px;
   line-height: 1.4;
@@ -65,7 +67,6 @@ h3 {
   margin-bottom: var(--spacing-md);
 }
 
-/* H4: Small headings - 16px */
 h4 {
   font-size: 16px;
   line-height: 1.5;
@@ -74,7 +75,6 @@ h4 {
   margin-bottom: var(--spacing-sm);
 }
 
-/* Body: Standard readable paragraph text - 15px */
 p,
 body {
   font-size: 15px;
@@ -83,7 +83,6 @@ body {
   color: var(--color-text-secondary);
 }
 
-/* Small/UI: Labels, disclaimers, meta - 13px */
 small,
 label,
 .text-sm {
@@ -95,14 +94,12 @@ label,
   letter-spacing: 0.5px;
 }
 
-/* Buttons: Consistent size - 14-15px */
 button {
   font-size: 14px;
   font-weight: 600;
   line-height: 1.5;
 }
 
-/* Links */
 a {
   color: var(--color-text-primary);
   text-decoration: none;
@@ -110,10 +107,9 @@ a {
 }
 
 a:hover {
-  color: var(--color-text-secondary);
+  color: var(--color-brand-green);
 }
 
-/* Logo/Brand - 20px, medium weight, slight tracking */
 .logo,
 [class*='logo'] {
   font-size: 20px;
@@ -122,7 +118,6 @@ a:hover {
   color: var(--color-text-primary);
 }
 
-/* Form inputs */
 input,
 textarea,
 select {
@@ -132,7 +127,6 @@ select {
   color: var(--color-text-primary);
 }
 
-/* Responsive adjustments */
 @media (max-width: 768px) {
   h1 {
     font-size: 40px;
