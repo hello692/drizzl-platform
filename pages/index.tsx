@@ -43,19 +43,19 @@ const POPULAR_SMOOTHIES = [
 ];
 
 const EXPERTS = [
-  { id: '1', name: 'Elizabeth Russano, FNP-C, AFSM', image: 'https://cdn.shopify.com/s/files/1/0281/3212/3079/files/Dermatologist_1_3aba9f8c-7476-4f47-9a8b-6b394a5bea60.png?v=1714514403&width=400', product: 'S24 Rapid Recovery Hair Mask', productImage: 'https://cdn.shopify.com/s/files/1/0281/3212/3079/products/gold.jpg?v=1684269408&width=400' },
-  { id: '2', name: 'Morgan Rackley, LE', image: 'https://cdn.shopify.com/s/files/1/0281/3212/3079/files/Dermatologist_2_5d8d8c18-5eca-4cfe-b4e5-66d5a8b8a5fa.png?v=1714514403&width=400', product: 'S27+ Anti-Aging Hyaluronic Lift Moisturizer', productImage: 'https://cdn.shopify.com/s/files/1/0281/3212/3079/products/Purple.jpg?v=1684269408&width=400' },
-  { id: '3', name: 'Nurse Lila, RM', image: 'https://cdn.shopify.com/s/files/1/0281/3212/3079/files/Dermatologist_3_a3b5f8c1-4f8e-41a9-9c5d-5e7b8f9c0a1b.png?v=1714514403&width=400', product: 'F38+ Anti-Aging Retm + Night Rewind Serum', productImage: 'https://cdn.shopify.com/s/files/1/0281/3212/3079/products/Blue.jpg?v=1684269408&width=400' },
-  { id: '4', name: 'Dr. Gabriella Veals', image: 'https://cdn.shopify.com/s/files/1/0281/3212/3079/files/Dermatologist_4_b6c8d9e2-7a5f-42b8-8d6e-9f0a1b2c3d4e.png?v=1714514403&width=400', product: 'A35 Anti-Aging Glycolic Renewing Serum', productImage: 'https://cdn.shopify.com/s/files/1/0281/3212/3079/products/Green.jpg?v=1684269408&width=400' },
-  { id: '5', name: 'Dr. Sarah Martinez', image: 'https://cdn.shopify.com/s/files/1/0281/3212/3079/files/Dermatologist_5_c7d9eaf3-8b6f-53c9-9e7f-0a1b2c3d4e5f.png?v=1714514403&width=400', product: 'S24 Rapid Recovery Hair Mask', productImage: 'https://cdn.shopify.com/s/files/1/0281/3212/3079/products/gold.jpg?v=1684269408&width=400' },
+  { id: '1', name: 'Elizabeth Russano, FNP-C, AFSM', video: 'https://media.coverr.co/videos/coverr-woman-drinking-smoothie-juice-7481/preview', product: 'Strawberry + Peach', productImage: 'https://daily-harvest.com/cdn/shop/files/strawberry-peach-smoothie-daily-harvest-3657974.jpg?v=1760509351&width=400' },
+  { id: '2', name: 'Morgan Rackley, LE', video: 'https://media.coverr.co/videos/coverr-healthy-lifestyle-eating-smoothie-bowl-7543/preview', product: 'Mixed Berry Protein', productImage: 'https://daily-harvest.com/cdn/shop/files/mixed-berry-protein-smoothie-daily-harvest-3950952.jpg?v=1760509317&width=400' },
+  { id: '3', name: 'Nurse Lila, RM', video: 'https://media.coverr.co/videos/coverr-woman-with-smoothie-glass-8234/preview', product: 'Acai + Cherry', productImage: 'https://daily-harvest.com/cdn/shop/files/acai-cherry-smoothie-daily-harvest-8004331.jpg?v=1760509351&width=400' },
+  { id: '4', name: 'Dr. Gabriella Veals', video: 'https://media.coverr.co/videos/coverr-person-making-smoothie-juice-1200/preview', product: 'Tropical Greens Protein', productImage: 'https://daily-harvest.com/cdn/shop/files/tropical-greens-protein-smoothie-daily-harvest-8021323.jpg?v=1760509314&width=400' },
+  { id: '5', name: 'Dr. Sarah Martinez', video: 'https://media.coverr.co/videos/coverr-fitness-girl-making-protein-smoothie-7821/preview', product: 'Strawberry + Peach', productImage: 'https://daily-harvest.com/cdn/shop/files/strawberry-peach-smoothie-daily-harvest-3657974.jpg?v=1760509351&width=400' },
 ];
 
 const CUSTOMERS = [
-  { id: '1', name: 'Taylor Kay', image: 'https://cdn.shopify.com/s/files/1/0281/3212/3079/files/Customer_1_1a2b3c4d-5e6f-47a8-9b0c-1d2e3f4g5h6i.png?v=1714514403&width=400', product: 'S34 Clarifying Prebiotic Treatment', productImage: 'https://cdn.shopify.com/s/files/1/0281/3212/3079/products/Green_Serum.jpg?v=1684269408&width=400' },
-  { id: '2', name: 'Brittney Adderfly', image: 'https://cdn.shopify.com/s/files/1/0281/3212/3079/files/Customer_2_2b3c4d5e-6f7a-48b9-0c1d-2e3f4g5h6i7j.png?v=1714514403&width=400', product: 'S24 Rapid Recovery Hair Mask', productImage: 'https://cdn.shopify.com/s/files/1/0281/3212/3079/products/gold.jpg?v=1684269408&width=400' },
-  { id: '3', name: 'Lily Sanchez', image: 'https://cdn.shopify.com/s/files/1/0281/3212/3079/files/Customer_3_3c4d5e6f-7a8b-49ca-1d2e-3f4g5h6i7j8k.png?v=1714514403&width=400', product: 'O36+ Anti-Aging Triple-Peptide Moisturizer', productImage: 'https://cdn.shopify.com/s/files/1/0281/3212/3079/products/Pink.jpg?v=1684269408&width=400' },
-  { id: '4', name: 'Sarah Butler', image: 'https://cdn.shopify.com/s/files/1/0281/3212/3079/files/Customer_4_4d5e6f7a-8b9c-50db-2e3f-4g5h6i7j8k9l.png?v=1714514403&width=400', product: 'G25+ Anti-Aging Retm + Night Rewind Serum', productImage: 'https://cdn.shopify.com/s/files/1/0281/3212/3079/products/Blue.jpg?v=1684269408&width=400' },
-  { id: '5', name: 'Jessica Chen', image: 'https://cdn.shopify.com/s/files/1/0281/3212/3079/files/Customer_5_5e6f7a8b-9cad-51ec-3f4g-5h6i7j8k9l0m.png?v=1714514403&width=400', product: 'S24 Rapid Recovery Hair Mask', productImage: 'https://cdn.shopify.com/s/files/1/0281/3212/3079/products/gold.jpg?v=1684269408&width=400' },
+  { id: '1', name: 'Taylor Kay', video: 'https://media.coverr.co/videos/coverr-woman-drinking-smoothie-juice-7481/preview', product: 'Strawberry Banana Protein', productImage: 'https://daily-harvest.com/cdn/shop/files/strawberry-banana-protein-smoothie-daily-harvest-3370693.jpg?v=1760509314&width=400' },
+  { id: '2', name: 'Brittney Adderfly', video: 'https://media.coverr.co/videos/coverr-healthy-lifestyle-eating-smoothie-bowl-7543/preview', product: 'Dark Chocolate Protein', productImage: 'https://daily-harvest.com/cdn/shop/files/dark-chocolate-protein-smoothie-daily-harvest-4692961.jpg?v=1760509316&width=400' },
+  { id: '3', name: 'Lily Sanchez', video: 'https://media.coverr.co/videos/coverr-woman-with-smoothie-glass-8234/preview', product: 'Mixed Berry Protein', productImage: 'https://daily-harvest.com/cdn/shop/files/mixed-berry-protein-smoothie-daily-harvest-3950952.jpg?v=1760509317&width=400' },
+  { id: '4', name: 'Sarah Butler', video: 'https://media.coverr.co/videos/coverr-person-making-smoothie-juice-1200/preview', product: 'Vanilla Bean Protein', productImage: 'https://daily-harvest.com/cdn/shop/files/vanilla-bean-protein-smoothie-daily-harvest-1407106.jpg?v=1760509317&width=400' },
+  { id: '5', name: 'Jessica Chen', video: 'https://media.coverr.co/videos/coverr-fitness-girl-making-protein-smoothie-7821/preview', product: 'Tropical Greens Protein', productImage: 'https://daily-harvest.com/cdn/shop/files/tropical-greens-protein-smoothie-daily-harvest-8021323.jpg?v=1760509314&width=400' },
 ];
 
 export default function Home() {
@@ -67,6 +67,8 @@ export default function Home() {
   const [scrollLeft, setScrollLeft] = useState(0);
   const [expertPosition, setExpertPosition] = useState(0);
   const [customerPosition, setCustomerPosition] = useState(0);
+  const [unMutedExpert, setUnMutedExpert] = useState<string | null>(null);
+  const [unMutedCustomer, setUnMutedCustomer] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -603,15 +605,48 @@ export default function Home() {
                     aspectRatio: '1',
                     overflow: 'hidden',
                   }}>
-                    <img
-                      src={expert.image}
-                      alt={expert.name}
+                    <video
+                      src={expert.video}
                       style={{
                         width: '100%',
                         height: '100%',
                         objectFit: 'cover',
+                        cursor: 'pointer',
+                      }}
+                      loop
+                      autoPlay
+                      muted={unMutedExpert !== expert.id}
+                      onClick={() => {
+                        setUnMutedExpert(unMutedExpert === expert.id ? null : expert.id);
                       }}
                     />
+                    {unMutedExpert === expert.id && (
+                      <div style={{
+                        position: 'absolute',
+                        top: 0,
+                        left: 0,
+                        right: 0,
+                        bottom: 0,
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        background: 'rgba(0, 0, 0, 0.2)',
+                        pointerEvents: 'none',
+                      }}>
+                        <div style={{
+                          width: '48px',
+                          height: '48px',
+                          background: '#ffffff',
+                          borderRadius: '50%',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          fontSize: '20px',
+                        }}>
+                          🔊
+                        </div>
+                      </div>
+                    )}
                   </div>
                   <div style={{ padding: '20px' }}>
                     <p style={{
@@ -796,15 +831,48 @@ export default function Home() {
                     aspectRatio: '1',
                     overflow: 'hidden',
                   }}>
-                    <img
-                      src={customer.image}
-                      alt={customer.name}
+                    <video
+                      src={customer.video}
                       style={{
                         width: '100%',
                         height: '100%',
                         objectFit: 'cover',
+                        cursor: 'pointer',
+                      }}
+                      loop
+                      autoPlay
+                      muted={unMutedCustomer !== customer.id}
+                      onClick={() => {
+                        setUnMutedCustomer(unMutedCustomer === customer.id ? null : customer.id);
                       }}
                     />
+                    {unMutedCustomer === customer.id && (
+                      <div style={{
+                        position: 'absolute',
+                        top: 0,
+                        left: 0,
+                        right: 0,
+                        bottom: 0,
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        background: 'rgba(0, 0, 0, 0.2)',
+                        pointerEvents: 'none',
+                      }}>
+                        <div style={{
+                          width: '48px',
+                          height: '48px',
+                          background: '#ffffff',
+                          borderRadius: '50%',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          fontSize: '20px',
+                        }}>
+                          🔊
+                        </div>
+                      </div>
+                    )}
                   </div>
                   <div style={{ padding: '20px' }}>
                     <p style={{
