@@ -245,7 +245,7 @@ export default function Footer() {
             <Link href="/terms" style={{ fontSize: '11px', color: '#666', textDecoration: 'none' }}>
               Terms of Service
             </Link>
-            <Link href="#" style={{ fontSize: '11px', color: '#666', textDecoration: 'none' }}>
+            <Link href="/supply-chain-transparency" style={{ fontSize: '11px', color: '#666', textDecoration: 'none' }}>
               Supply Chain Transparency
             </Link>
           </div>
