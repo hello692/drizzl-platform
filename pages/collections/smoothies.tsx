@@ -21,7 +21,7 @@ const products: Product[] = [
     reviews: 4619, 
     badge: 'Best Seller',
     defaultImage: '/products/strawberry-peach/transparent-glass-1.jpg',
-    hoverImage: '/products/strawberry-peach/product-1.jpg',
+    hoverImage: '/products/strawberry-peach/transparent-glass-2.jpg',
   },
   { 
     id: '2', 
