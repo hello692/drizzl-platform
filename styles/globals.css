@@ -652,8 +652,8 @@ svg:hover {
 /* DRIZZL DRIP MENU */
 .nav-menu {
   position: relative;
-  display: inline-block;
-  margin-left: 24px;
+  display: inline-flex;
+  align-items: center;
 }
 
 .menu-trigger {

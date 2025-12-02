@@ -39,6 +39,14 @@ const BriefcaseIcon = () => (
   </svg>
 );
 
+const MenuIcon = () => (
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ filter: 'drop-shadow(0 0 8px rgba(66, 133, 244, 0.3))' }}>
+    <line x1="3" y1="6" x2="21" y2="6"></line>
+    <line x1="3" y1="12" x2="21" y2="12"></line>
+    <line x1="3" y1="18" x2="21" y2="18"></line>
+  </svg>
+);
+
 export default function Navbar() {
   const menuItems = [
     { label: 'Smoothies', href: '/products/smoothies' },
@@ -70,6 +78,24 @@ export default function Navbar() {
           gap: '32px',
         }}>
           <div style={{ display: 'flex', gap: '32px', alignItems: 'center', flex: 0 }}>
+            <div className="nav-menu" style={{ display: 'flex', alignItems: 'center', opacity: 0.7, transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)' }} onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')} onMouseLeave={(e) => (e.currentTarget.style.opacity = '0.7')}>
+              <button className="menu-trigger" style={{ padding: '0', display: 'flex', alignItems: 'center' }}>
+                <MenuIcon />
+              </button>
+
+              <div className="drip-dropdown">
+                <a href="/smoothies">Smoothies</a>
+                <a href="/bowls">Bowls</a>
+                <a href="/about">About Us</a>
+                <a href="/contact">Contact</a>
+
+                {/* DRIP SHAPES */}
+                <div className="drip d1" />
+                <div className="drip d2" />
+                <div className="drip d3" />
+              </div>
+            </div>
+
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#000', cursor: 'pointer', opacity: 0.7, transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)', whiteSpace: 'nowrap' }} onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')} onMouseLeave={(e) => (e.currentTarget.style.opacity = '0.7')}>
               <SearchIcon />
               <span style={{ fontSize: '14px', fontWeight: '500' }}>Search</span>
@@ -87,22 +113,6 @@ export default function Navbar() {
           </div>
 
           <div style={{ display: 'flex', alignItems: 'center', gap: '24px', flex: 0, position: 'relative' }}>
-            <div className="nav-menu">
-              <button className="menu-trigger">Menu</button>
-
-              <div className="drip-dropdown">
-                <a href="/smoothies">Smoothies</a>
-                <a href="/bowls">Bowls</a>
-                <a href="/about">About Us</a>
-                <a href="/contact">Contact</a>
-
-                {/* DRIP SHAPES */}
-                <div className="drip d1" />
-                <div className="drip d2" />
-                <div className="drip d3" />
-              </div>
-            </div>
-
             <Link href="/auth" style={{ color: '#000', fontSize: '14px', fontWeight: '500', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '8px', opacity: 0.7, transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)', whiteSpace: 'nowrap' }} onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')} onMouseLeave={(e) => (e.currentTarget.style.opacity = '0.7')}>
               <UserIcon />
               Log in
