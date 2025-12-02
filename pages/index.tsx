@@ -134,10 +134,10 @@ export default function Home() {
 
       {/* Hero Section */}
       <section style={{
-        background: 'linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%)',
-        padding: '120px 60px',
+        background: '#ffffff',
+        padding: '140px 60px',
         textAlign: 'center',
-        minHeight: '640px',
+        minHeight: '680px',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
@@ -146,21 +146,18 @@ export default function Home() {
         <h1 style={{
           fontSize: '64px',
           fontWeight: '800',
-          marginBottom: '24px',
+          marginBottom: '32px',
           letterSpacing: '-1.2px',
           maxWidth: '1000px',
-          background: 'linear-gradient(135deg, #000000 0%, #424245 100%)',
-          backgroundClip: 'text',
-          WebkitBackgroundClip: 'text',
-          WebkitTextFillColor: 'transparent',
+          color: '#000000',
           fontFamily: "-apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif",
         }}>
           Frozen smoothies and bowls for a better you
         </h1>
         <p style={{
-          fontSize: '18px',
+          fontSize: '17px',
           color: '#424245',
-          marginBottom: '56px',
+          marginBottom: '64px',
           maxWidth: '720px',
           lineHeight: '1.8',
           fontWeight: '400',
@@ -197,7 +194,7 @@ export default function Home() {
       {/* Category Grid */}
       <section style={{
         background: '#ffffff',
-        padding: '120px 60px',
+        padding: '140px 60px',
       }}>
         <div style={{
           maxWidth: '1280px',
@@ -205,7 +202,7 @@ export default function Home() {
         }}>
           <h2 style={{
             textAlign: 'center',
-            marginBottom: '80px',
+            marginBottom: '64px',
             fontSize: '48px',
             fontWeight: '700',
             letterSpacing: '-0.8px',
@@ -257,18 +254,18 @@ export default function Home() {
 
       {/* Our Most Popular - Infinite Carousel */}
       <section style={{
-        background: '#f8f9fa',
-        padding: '120px 60px',
+        background: '#ffffff',
+        padding: '140px 60px',
       }}>
         <div style={{
           maxWidth: '1280px',
           margin: '0 auto',
         }}>
-          <div style={{ marginBottom: '80px' }}>
+          <div style={{ marginBottom: '72px' }}>
             <h2 style={{
               fontSize: '48px',
               fontWeight: '700',
-              marginBottom: '16px',
+              marginBottom: '20px',
               letterSpacing: '-0.8px',
             }}>
               Our Most Popular
@@ -276,7 +273,7 @@ export default function Home() {
             <p style={{
               fontSize: '17px',
               color: '#424245',
-              maxWidth: '620px',
+              maxWidth: '720px',
               lineHeight: '1.8',
               letterSpacing: '-0.3px',
             }}>
@@ -448,14 +445,14 @@ export default function Home() {
 
       {/* CTA Section */}
       <section style={{
-        background: 'linear-gradient(135deg, #000000 0%, #1a1a1a 100%)',
-        padding: '140px 60px',
+        background: '#000000',
+        padding: '160px 60px',
         textAlign: 'center',
         borderTop: '1px solid #e8e8e8',
       }}>
         <h2 style={{
           fontSize: '52px',
-          marginBottom: '24px',
+          marginBottom: '28px',
           fontWeight: '700',
           letterSpacing: '-0.8px',
           color: '#ffffff',
@@ -463,11 +460,11 @@ export default function Home() {
           Start Your Wellness Journey Today
         </h2>
         <p style={{
-          fontSize: '18px',
-          color: '#b0b0b0',
-          marginBottom: '48px',
+          fontSize: '17px',
+          color: '#a0a0a0',
+          marginBottom: '56px',
           maxWidth: '720px',
-          margin: '0 auto 48px auto',
+          margin: '0 auto 56px auto',
           lineHeight: '1.8',
           letterSpacing: '-0.3px',
         }}>
