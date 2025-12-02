@@ -142,7 +142,7 @@ export default function Navbar() {
 
           <div style={{ display: 'flex', alignItems: 'center', gap: 'clamp(12px, 2vw, 24px)', flex: 0, flexShrink: 0 }}>
             <Link href="/contact" style={{ fontSize: '13px', fontWeight: '500', color: '#000', padding: '6px 14px', background: '#f5f5f5', borderRadius: '20px', textDecoration: 'none', border: 'none', cursor: 'pointer', transition: 'all 1s cubic-bezier(0.32, 0, 0.67, 0)', display: 'inline-block', whiteSpace: 'nowrap' }} onMouseEnter={(e) => { e.currentTarget.style.background = '#ececec'; }} onMouseLeave={(e) => { e.currentTarget.style.background = '#f5f5f5'; }}>
-              Retail Partner
+              Retail Partner Login
             </Link>
 
             <Link href="/shop-all" style={{ fontSize: '16px', color: '#000', opacity: 0.6, transition: 'all 1s cubic-bezier(0.32, 0, 0.67, 0)', display: 'flex', alignItems: 'center', justifyContent: 'center', width: '20px', height: '20px' }} onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')} onMouseLeave={(e) => (e.currentTarget.style.opacity = '0.6')}>
