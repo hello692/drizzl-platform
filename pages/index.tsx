@@ -164,8 +164,8 @@ export default function Home() {
     <>
       <Navbar />
 
-      {/* Hero Section */}
-      <section className="gradient-animated" style={{
+      {/* Hero Section - Vibrant & Energetic */}
+      <section className="hero-vibrant" style={{
         padding: '140px 60px',
         textAlign: 'center',
         minHeight: '680px',
@@ -173,125 +173,208 @@ export default function Home() {
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
+        background: 'linear-gradient(135deg, #FFF9F5 0%, #FFE8D6 30%, #FFEEF2 60%, #F0FFF4 100%)',
+        position: 'relative',
+        overflow: 'hidden',
       }}>
-        <h1 style={{
-          fontSize: '64px',
-          marginBottom: '32px',
-          maxWidth: '1000px',
-          animation: 'slideUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards',
-          color: '#000',
+        {/* Floating fruit decorations */}
+        <div className="floating-fruit" style={{ position: 'absolute', top: '15%', left: '10%', fontSize: '48px', animation: 'floatBounce 4s ease-in-out infinite' }}>🍓</div>
+        <div className="floating-fruit" style={{ position: 'absolute', top: '25%', right: '12%', fontSize: '42px', animation: 'floatBounce 4.5s ease-in-out infinite 0.5s' }}>🥭</div>
+        <div className="floating-fruit" style={{ position: 'absolute', bottom: '20%', left: '15%', fontSize: '38px', animation: 'floatBounce 5s ease-in-out infinite 1s' }}>🫐</div>
+        <div className="floating-fruit" style={{ position: 'absolute', bottom: '30%', right: '8%', fontSize: '44px', animation: 'floatBounce 4.2s ease-in-out infinite 0.3s' }}>🍊</div>
+        <div className="floating-fruit" style={{ position: 'absolute', top: '50%', left: '5%', fontSize: '36px', animation: 'floatBounce 5.5s ease-in-out infinite 0.8s' }}>🥝</div>
+        <div className="floating-fruit" style={{ position: 'absolute', top: '40%', right: '5%', fontSize: '40px', animation: 'floatBounce 4.8s ease-in-out infinite 1.2s' }}>🍇</div>
+        
+        <h1 className="hero-title-vibrant" style={{
+          fontSize: '68px',
+          marginBottom: '24px',
+          maxWidth: '900px',
+          animation: 'slideUpBounce 1s cubic-bezier(0.34, 1.56, 0.64, 1) forwards',
           fontFamily: "'Space Mono', monospace",
           fontWeight: '700',
-          letterSpacing: '0.5px',
+          letterSpacing: '-1px',
+          background: 'linear-gradient(135deg, #FF8A4B 0%, #FF4F7B 50%, #6B5CE7 100%)',
+          WebkitBackgroundClip: 'text',
+          WebkitTextFillColor: 'transparent',
+          backgroundClip: 'text',
         }}>
-          Frozen Smoothies & Bowls
+          Feel the Flavor
         </h1>
         <p style={{
-          fontSize: '17px',
+          fontSize: '22px',
           color: '#424245',
-          marginBottom: '64px',
-          maxWidth: '720px',
-          lineHeight: '1.8',
-          fontWeight: '400',
+          marginBottom: '48px',
+          maxWidth: '600px',
+          lineHeight: '1.7',
+          fontWeight: '500',
           letterSpacing: '-0.3px',
+          animation: 'slideUpBounce 1s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s forwards',
+          opacity: 0,
         }}>
-          Skip the blender. Embrace the possibilities. Order your first smoothie today.
+          Fresh. Frozen. Fantastic. Smoothies that make you smile.
         </p>
-        <Link href="/products" className="cta-button-2100 tech-shine float-animation" style={{
+        <Link href="/products" className="cta-vibrant" style={{
           display: 'inline-flex',
           alignItems: 'center',
           gap: '12px',
-        }}>
-          Order Now ➜
+          padding: '18px 40px',
+          background: 'linear-gradient(135deg, #FF8A4B 0%, #FF4F7B 100%)',
+          color: '#fff',
+          borderRadius: '50px',
+          fontSize: '18px',
+          fontWeight: '700',
+          textDecoration: 'none',
+          boxShadow: '0 8px 30px rgba(255, 79, 123, 0.4)',
+          transition: 'all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)',
+          animation: 'slideUpBounce 1s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s forwards',
+          opacity: 0,
+        }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.transform = 'translateY(-4px) scale(1.05)';
+            e.currentTarget.style.boxShadow = '0 12px 40px rgba(255, 79, 123, 0.5)';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.transform = 'translateY(0) scale(1)';
+            e.currentTarget.style.boxShadow = '0 8px 30px rgba(255, 79, 123, 0.4)';
+          }}
+        >
+          Let's Blend! 🥤
         </Link>
       </section>
 
-      {/* Category Grid */}
-      <section className="gradient-animated" style={{
-        padding: '160px 80px',
-        background: 'linear-gradient(-45deg, #ffffff, #f8f9fa, #ffffff, #f0f0f0)',
-        backgroundSize: '400% 400%',
+      {/* Category Grid - Vibrant */}
+      <section style={{
+        padding: '120px 80px',
+        background: '#fff',
       }}>
         <div style={{
           maxWidth: '1320px',
           margin: '0 auto',
         }}>
-          <h2 className="heading-2100 text-glow" style={{
-            textAlign: 'center',
-            marginBottom: '80px',
-            fontSize: '52px',
-          }}>
-            Shop by Category
-          </h2>
+          <div style={{ textAlign: 'center', marginBottom: '60px' }}>
+            <span style={{
+              display: 'inline-block',
+              background: 'linear-gradient(135deg, #3FBF7F, #FFD166)',
+              color: '#fff',
+              padding: '8px 20px',
+              borderRadius: '50px',
+              fontSize: '13px',
+              fontWeight: '700',
+              letterSpacing: '1px',
+              textTransform: 'uppercase',
+              marginBottom: '20px',
+            }}>
+              Explore Our Menu
+            </span>
+            <h2 style={{
+              fontSize: '48px',
+              fontWeight: '700',
+              background: 'linear-gradient(135deg, #FF8A4B 0%, #FF4F7B 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text',
+              marginBottom: '16px',
+            }}>
+              What's Your Flavor?
+            </h2>
+            <p style={{
+              fontSize: '18px',
+              color: '#666',
+              maxWidth: '500px',
+              margin: '0 auto',
+            }}>
+              From fruity to protein-packed, we've got something for every mood.
+            </p>
+          </div>
           <div style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
-            gap: '28px',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+            gap: '20px',
           }}>
-            {CATEGORIES.map((category) => (
-              <Link key={category.slug} href={`/products?category=${category.slug}`} className="glass tech-shine" style={{
-                padding: '48px 32px',
-                textAlign: 'center',
-                background: 'rgba(248, 249, 250, 0.8)',
-                border: '1px solid rgba(255, 255, 255, 0.6)',
-                borderRadius: '16px',
-                textDecoration: 'none',
-                color: '#000',
-                transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
-                backdropFilter: 'blur(12px)',
-              }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.borderColor = 'rgba(66, 133, 244, 0.5)';
-                  e.currentTarget.style.boxShadow = '0 20px 40px rgba(66, 133, 244, 0.2), inset 0 0 20px rgba(66, 133, 244, 0.05)';
-                  e.currentTarget.style.transform = 'translateY(-8px) scale(1.02)';
-                  e.currentTarget.style.background = 'rgba(255, 255, 255, 0.95)';
+            {CATEGORIES.map((category, index) => {
+              const colors = [
+                { bg: 'linear-gradient(135deg, #FFE8D6, #FFF9F5)', border: '#FF8A4B', emoji: '🥤' },
+                { bg: 'linear-gradient(135deg, #FFE8EE, #FFF0F5)', border: '#FF4F7B', emoji: '💪' },
+                { bg: 'linear-gradient(135deg, #E8F5E9, #F0FFF4)', border: '#3FBF7F', emoji: '🥣' },
+                { bg: 'linear-gradient(135deg, #FFF3E0, #FFFDE7)', border: '#FFD166', emoji: '🍪' },
+                { bg: 'linear-gradient(135deg, #E8EAF6, #F3E5F5)', border: '#6B5CE7', emoji: '📦' },
+                { bg: 'linear-gradient(135deg, #FFEBEE, #FCE4EC)', border: '#FF4F7B', emoji: '🏋️' },
+                { bg: 'linear-gradient(135deg, #E0F7FA, #E8F5E9)', border: '#3FBF7F', emoji: '🎁' },
+              ];
+              const colorSet = colors[index % colors.length];
+              
+              return (
+                <Link key={category.slug} href={`/products?category=${category.slug}`} style={{
+                  padding: '32px 24px',
+                  textAlign: 'center',
+                  background: colorSet.bg,
+                  border: `2px solid transparent`,
+                  borderRadius: '20px',
+                  textDecoration: 'none',
+                  color: '#000',
+                  transition: 'all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  gap: '12px',
                 }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.6)';
-                  e.currentTarget.style.boxShadow = 'none';
-                  e.currentTarget.style.transform = 'translateY(0) scale(1)';
-                  e.currentTarget.style.background = 'rgba(248, 249, 250, 0.8)';
-                }}
-              >
-                <h3 style={{
-                  fontSize: '18px',
-                  fontWeight: '600',
-                  margin: 0,
-                  letterSpacing: '-0.4px',
-                }}>
-                  {category.name}
-                </h3>
-              </Link>
-            ))}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.borderColor = colorSet.border;
+                    e.currentTarget.style.boxShadow = `0 16px 32px ${colorSet.border}30`;
+                    e.currentTarget.style.transform = 'translateY(-8px) scale(1.03)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.borderColor = 'transparent';
+                    e.currentTarget.style.boxShadow = 'none';
+                    e.currentTarget.style.transform = 'translateY(0) scale(1)';
+                  }}
+                >
+                  <span style={{ fontSize: '36px' }}>{colorSet.emoji}</span>
+                  <h3 style={{
+                    fontSize: '16px',
+                    fontWeight: '700',
+                    margin: 0,
+                    letterSpacing: '-0.3px',
+                  }}>
+                    {category.name}
+                  </h3>
+                </Link>
+              );
+            })}
           </div>
         </div>
       </section>
 
       {/* Our Most Popular - Infinite Carousel */}
-      <section className="gradient-animated" style={{
-        padding: '160px 80px',
-        background: 'linear-gradient(-45deg, #ffffff, #f8f9fa, #ffffff, #f0f0f0)',
-        backgroundSize: '400% 400%',
+      <section style={{
+        padding: '120px 80px',
+        background: 'linear-gradient(180deg, #FFF9F5 0%, #fff 100%)',
       }}>
         <div style={{
           maxWidth: '1320px',
           margin: '0 auto',
         }}>
-          <div style={{ marginBottom: '80px' }}>
-            <h2 className="heading-2100 text-glow" style={{
-              fontSize: '52px',
-              marginBottom: '24px',
-            }}>
-              Our Most Popular
-            </h2>
+          <div style={{ marginBottom: '60px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
+              <span style={{ fontSize: '32px' }}>🔥</span>
+              <h2 style={{
+                fontSize: '44px',
+                fontWeight: '700',
+                background: 'linear-gradient(135deg, #FF4F7B 0%, #FF8A4B 100%)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text',
+              }}>
+                Fan Favorites
+              </h2>
+            </div>
             <p style={{
-              fontSize: '17px',
-              color: '#424245',
-              maxWidth: '720px',
-              lineHeight: '1.8',
-              letterSpacing: '-0.3px',
+              fontSize: '18px',
+              color: '#666',
+              maxWidth: '600px',
+              lineHeight: '1.7',
             }}>
-              Discover our customers' favorite smoothie blends. Each one crafted with whole fruits and superfoods.
+              The blends everyone's obsessed with. Try what thousands are already loving!
             </p>
           </div>
 
