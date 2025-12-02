@@ -2,6 +2,7 @@ import { useEffect, useState, useRef } from 'react';
 import Link from 'next/link';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import { AnimatedSection, AnimatedText, StaggeredGrid } from '../components/ScrollAnimations';
 
 const ModernArrowLeft = () => (
   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
@@ -185,73 +186,40 @@ export default function Home() {
         <div className="floating-fruit" style={{ position: 'absolute', top: '50%', left: '5%', fontSize: '36px', animation: 'floatBounce 5.5s ease-in-out infinite 0.8s' }}>🥝</div>
         <div className="floating-fruit" style={{ position: 'absolute', top: '40%', right: '5%', fontSize: '40px', animation: 'floatBounce 4.8s ease-in-out infinite 1.2s' }}>🍇</div>
         
-        <h1 className="hero-title-vibrant" style={{
-          fontSize: '68px',
-          marginBottom: '24px',
-          maxWidth: '900px',
-          animation: 'slideUpBounce 1s cubic-bezier(0.34, 1.56, 0.64, 1) forwards',
-          fontFamily: "'Space Mono', monospace",
-          fontWeight: '700',
-          letterSpacing: '-1px',
-          background: 'linear-gradient(135deg, #FF8A4B 0%, #FF4F7B 50%, #6B5CE7 100%)',
-          WebkitBackgroundClip: 'text',
-          WebkitTextFillColor: 'transparent',
-          backgroundClip: 'text',
-        }}>
-          Feel the Flavor
-        </h1>
-        <p style={{
-          fontSize: '22px',
-          color: '#424245',
-          marginBottom: '48px',
-          maxWidth: '600px',
-          lineHeight: '1.7',
-          fontWeight: '500',
-          letterSpacing: '-0.3px',
-          animation: 'slideUpBounce 1s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s forwards',
-          opacity: 0,
-        }}>
-          Fresh. Frozen. Fantastic. Smoothies that make you smile.
-        </p>
-        <Link href="/products" className="cta-vibrant" style={{
-          display: 'inline-flex',
-          alignItems: 'center',
-          gap: '12px',
-          padding: '18px 40px',
-          background: 'linear-gradient(135deg, #FF8A4B 0%, #FF4F7B 100%)',
-          color: '#fff',
-          borderRadius: '50px',
-          fontSize: '18px',
-          fontWeight: '700',
-          textDecoration: 'none',
-          boxShadow: '0 8px 30px rgba(255, 79, 123, 0.4)',
-          transition: 'all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)',
-          animation: 'slideUpBounce 1s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s forwards',
-          opacity: 0,
-        }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.transform = 'translateY(-4px) scale(1.05)';
-            e.currentTarget.style.boxShadow = '0 12px 40px rgba(255, 79, 123, 0.5)';
+        <AnimatedSection animation="fadeUp">
+          <h1 className="tiktok-heading tiktok-heading-gradient" style={{
+            fontFamily: "'Space Mono', monospace",
+            textAlign: 'center',
+          }}>
+            Feel the Flavor
+          </h1>
+        </AnimatedSection>
+        <AnimatedSection animation="fadeUp" delay={100}>
+          <p className="tiktok-subheading" style={{ textAlign: 'center', margin: '0 auto 48px' }}>
+            Fresh. Frozen. Fantastic. Smoothies that make you smile.
+          </p>
+        </AnimatedSection>
+        <AnimatedSection animation="fadeUp" delay={200}>
+          <Link href="/products" className="tiktok-button tiktok-button-gradient" style={{
+            fontSize: '18px',
+            padding: '20px 44px',
           }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.transform = 'translateY(0) scale(1)';
-            e.currentTarget.style.boxShadow = '0 8px 30px rgba(255, 79, 123, 0.4)';
-          }}
-        >
-          Let's Blend! 🥤
-        </Link>
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = 'translateY(-4px) scale(1.05)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = 'translateY(0) scale(1)';
+            }}
+          >
+            Let's Blend! 🥤
+          </Link>
+        </AnimatedSection>
       </section>
 
       {/* Category Grid - Vibrant */}
-      <section style={{
-        padding: '120px 80px',
-        background: '#fff',
-      }}>
-        <div style={{
-          maxWidth: '1320px',
-          margin: '0 auto',
-        }}>
-          <div style={{ textAlign: 'center', marginBottom: '60px' }}>
+      <section className="tiktok-section tiktok-section-white">
+        <div className="tiktok-container" style={{ maxWidth: '1320px' }}>
+          <AnimatedSection animation="fadeUp" style={{ textAlign: 'center', marginBottom: '60px' }}>
             <span style={{
               display: 'inline-block',
               background: 'linear-gradient(135deg, #3FBF7F, #FFD166)',
@@ -266,26 +234,13 @@ export default function Home() {
             }}>
               Explore Our Menu
             </span>
-            <h2 style={{
-              fontSize: '48px',
-              fontWeight: '700',
-              background: 'linear-gradient(135deg, #FF8A4B 0%, #FF4F7B 100%)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              backgroundClip: 'text',
-              marginBottom: '16px',
-            }}>
+            <h2 className="tiktok-heading tiktok-heading-gradient">
               What's Your Flavor?
             </h2>
-            <p style={{
-              fontSize: '18px',
-              color: '#666',
-              maxWidth: '500px',
-              margin: '0 auto',
-            }}>
+            <p className="tiktok-subheading" style={{ margin: '0 auto' }}>
               From fruity to protein-packed, we've got something for every mood.
             </p>
-          </div>
+          </AnimatedSection>
           <div style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
@@ -346,37 +301,19 @@ export default function Home() {
       </section>
 
       {/* Our Most Popular - Infinite Carousel */}
-      <section style={{
-        padding: '120px 80px',
-        background: 'linear-gradient(180deg, #FFF9F5 0%, #fff 100%)',
-      }}>
-        <div style={{
-          maxWidth: '1320px',
-          margin: '0 auto',
-        }}>
-          <div style={{ marginBottom: '60px' }}>
+      <section className="tiktok-section tiktok-section-cream">
+        <div className="tiktok-container" style={{ maxWidth: '1320px' }}>
+          <AnimatedSection animation="fadeUp" style={{ marginBottom: '60px' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
               <span style={{ fontSize: '32px' }}>🔥</span>
-              <h2 style={{
-                fontSize: '44px',
-                fontWeight: '700',
-                background: 'linear-gradient(135deg, #FF4F7B 0%, #FF8A4B 100%)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                backgroundClip: 'text',
-              }}>
+              <h2 className="tiktok-heading tiktok-heading-gradient" style={{ marginBottom: 0 }}>
                 Fan Favorites
               </h2>
             </div>
-            <p style={{
-              fontSize: '18px',
-              color: '#666',
-              maxWidth: '600px',
-              lineHeight: '1.7',
-            }}>
+            <p className="tiktok-subheading">
               The blends everyone's obsessed with. Try what thousands are already loving!
             </p>
-          </div>
+          </AnimatedSection>
 
           {/* Carousel Container */}
           <div style={{ position: 'relative', paddingLeft: '80px', paddingRight: '80px' }}>
