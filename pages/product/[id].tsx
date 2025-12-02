@@ -85,6 +85,27 @@ const smoothies: { [key: string]: any } = {
   },
 };
 
+const ModernArrowDown = ({ isOpen }: { isOpen: boolean }) => (
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{
+    transition: 'transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+    transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)',
+  }}>
+    <polyline points="6 9 12 15 18 9"></polyline>
+  </svg>
+);
+
+const ModernArrowRight = () => (
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+    <polyline points="9 18 15 12 9 6"></polyline>
+  </svg>
+);
+
+const ModernArrowLeft = () => (
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+    <polyline points="15 18 9 12 15 6"></polyline>
+  </svg>
+);
+
 const AccordionSection = ({ title, content, defaultOpen = false }: { title: string; content: React.ReactNode; defaultOpen?: boolean }) => {
   const [isOpen, setIsOpen] = useState(defaultOpen);
 
@@ -108,16 +129,13 @@ const AccordionSection = ({ title, content, defaultOpen = false }: { title: stri
           fontSize: '16px',
           fontWeight: '600',
           letterSpacing: '-0.3px',
+          color: '#000',
         }}
       >
         <span>{title}</span>
-        <span style={{
-          fontSize: '20px',
-          transition: 'transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-          transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)',
-        }}>
-          ↓
-        </span>
+        <div style={{ display: 'flex', alignItems: 'center', color: '#000' }}>
+          <ModernArrowDown isOpen={isOpen} />
+        </div>
       </button>
       {isOpen && (
         <div style={{
@@ -450,13 +468,15 @@ export default function ProductDetail() {
                     style={{
                       background: 'none',
                       border: 'none',
-                      fontSize: '18px',
                       cursor: selectedIngredient > 0 ? 'pointer' : 'default',
                       color: '#000',
                       opacity: selectedIngredient > 0 ? 0.6 : 0.2,
                       transition: 'opacity 0.2s',
                       padding: '0',
                       flex: 0,
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
                     }}
                     onMouseEnter={(e) => {
                       if (selectedIngredient > 0) e.currentTarget.style.opacity = '1';
@@ -466,7 +486,7 @@ export default function ProductDetail() {
                     }}
                     disabled={selectedIngredient === 0}
                   >
-                    ←
+                    <ModernArrowLeft />
                   </button>
 
                   {/* Cards Container */}
@@ -522,13 +542,15 @@ export default function ProductDetail() {
                     style={{
                       background: 'none',
                       border: 'none',
-                      fontSize: '18px',
                       cursor: selectedIngredient < product.keyIngredients.length - 2 ? 'pointer' : 'default',
                       color: '#000',
                       opacity: selectedIngredient < product.keyIngredients.length - 2 ? 0.6 : 0.2,
                       transition: 'opacity 0.2s',
                       padding: '0',
                       flex: 0,
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
                     }}
                     onMouseEnter={(e) => {
                       if (selectedIngredient < product.keyIngredients.length - 2) e.currentTarget.style.opacity = '1';
@@ -538,7 +560,7 @@ export default function ProductDetail() {
                     }}
                     disabled={selectedIngredient >= product.keyIngredients.length - 2}
                   >
-                    →
+                    <ModernArrowRight />
                   </button>
                 </div>
               </div>
@@ -667,8 +689,6 @@ export default function ProductDetail() {
                     color: '#ffffff',
                     opacity: relatedScrollPosition > 0 ? 1 : 0.3,
                     transition: 'opacity 0.2s',
-                    fontSize: '18px',
-                    fontWeight: '700',
                   }}
                   onMouseEnter={(e) => {
                     if (relatedScrollPosition > 0) e.currentTarget.style.opacity = '0.8';
@@ -678,7 +698,7 @@ export default function ProductDetail() {
                   }}
                   disabled={relatedScrollPosition === 0}
                 >
-                  ←
+                  <ModernArrowLeft />
                 </button>
 
                 {/* Products Container */}
@@ -781,8 +801,6 @@ export default function ProductDetail() {
                     color: '#ffffff',
                     opacity: relatedScrollPosition < relatedProducts.length - 4 ? 1 : 0.3,
                     transition: 'opacity 0.2s',
-                    fontSize: '18px',
-                    fontWeight: '700',
                   }}
                   onMouseEnter={(e) => {
                     if (relatedScrollPosition < relatedProducts.length - 4) e.currentTarget.style.opacity = '0.8';
@@ -792,7 +810,7 @@ export default function ProductDetail() {
                   }}
                   disabled={relatedScrollPosition >= relatedProducts.length - 4}
                 >
-                  →
+                  <ModernArrowRight />
                 </button>
               </div>
             </div>
