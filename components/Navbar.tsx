@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { useState } from 'react';
 
 const SearchIcon = () => (
   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ filter: 'drop-shadow(0 0 8px rgba(66, 133, 244, 0.3))' }}>
@@ -37,6 +38,17 @@ const BriefcaseIcon = () => (
 );
 
 export default function Navbar() {
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  const menuItems = [
+    { label: 'Smoothies', href: '/products/smoothies' },
+    { label: 'High Protein', href: '/products/high-protein' },
+    { label: 'Bowls', href: '/products/bowls' },
+    { label: 'Bites', href: '/products/bites' },
+    { label: 'Protein Shop', href: '/products/protein' },
+    { label: 'Gift Guide', href: '/products/gift' },
+  ];
+
   return (
     <nav className="glass" style={{
       background: 'rgba(255, 255, 255, 0.85)',
@@ -122,23 +134,19 @@ export default function Navbar() {
 
         {/* Center: Logo */}
         <div style={{ flex: 1, display: 'flex', justifyContent: 'center' }}>
-          <Link href="/" style={{
+          <Link href="/" className="heading-2100 text-glow" style={{
             fontSize: '32px',
-            fontWeight: '800',
             textDecoration: 'none',
-            color: '#000',
-            letterSpacing: '-1px',
-            textTransform: 'uppercase',
             whiteSpace: 'nowrap',
-            transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-            fontFamily: "-apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif",
+            transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
             lineHeight: '1',
+            letterSpacing: '0.2px',
           }} onMouseEnter={(e) => {
-            e.currentTarget.style.opacity = '0.6';
+            e.currentTarget.style.textShadow = '0 0 20px rgba(66, 133, 244, 0.6)';
           }} onMouseLeave={(e) => {
-            e.currentTarget.style.opacity = '1';
+            e.currentTarget.style.textShadow = '0 0 10px rgba(66, 133, 244, 0.3)';
           }}>
-            DRIZZL WELLNESS
+            DRIZZL
           </Link>
         </div>
 
@@ -148,6 +156,7 @@ export default function Navbar() {
           alignItems: 'center',
           gap: '24px',
           flex: 0,
+          position: 'relative',
         }}>
           {/* Login */}
           <Link href="/auth" style={{
@@ -229,6 +238,49 @@ export default function Navbar() {
             </div>
             <span>Cart (0)</span>
           </Link>
+
+          {/* Hamburger Menu */}
+          <button
+            className="hamburger-icon-2100"
+            onClick={() => setMenuOpen(!menuOpen)}
+            style={{
+              background: 'none',
+              border: 'none',
+              padding: '8px',
+              cursor: 'pointer',
+            }}
+          >
+            <div className="hamburger-line" style={{
+              transform: menuOpen ? 'rotate(45deg) translateY(8px)' : 'rotate(0) translateY(0)',
+            }}></div>
+            <div className="hamburger-line" style={{
+              opacity: menuOpen ? 0 : 1,
+            }}></div>
+            <div className="hamburger-line" style={{
+              transform: menuOpen ? 'rotate(-45deg) translateY(-8px)' : 'rotate(0) translateY(0)',
+            }}></div>
+          </button>
+
+          {/* Dropdown Menu */}
+          {menuOpen && (
+            <div className="menu-dropdown-2100" style={{
+              position: 'absolute',
+              top: '100%',
+              right: 0,
+              marginTop: '12px',
+            }}>
+              {menuItems.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className="menu-item-2100"
+                  onClick={() => setMenuOpen(false)}
+                >
+                  {item.label}
+                </Link>
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </nav>
