@@ -229,9 +229,26 @@ Schema files:
 ```
 
 ## Design System
+
+### Admin Portal (Apple AI 2500 Dark Aesthetic)
+- **Background**: Deep black (#050505) with mesh gradient overlays
+- **Floating Orbs**: 4 animated gradient orbs per page (purple, pink, green, cyan)
+- **Cards**: Glassmorphism with backdrop-blur(20px), rgba(255,255,255,0.03) background
+- **Borders**: Subtle glow borders (rgba(255,255,255,0.06))
+- **Accent Colors**: 
+  - Purple: #667eea, #a855f7
+  - Cyan: #22d3ee, #4facfe
+  - Pink: #f093fb, #f472b6
+  - Green: #43e97b, #22c55e
+- **Typography**: Clean thin weights, gradient text for titles
+- **Icons**: Custom gradient SVG icons (no emojis)
+- **Animations**: Float, pulse, glow, shimmer effects
+- **Stats Cards**: Colored accent bars on left side with hover glow
+
+### D2C Storefront
 - **Typography**: DM Sans (headings), Inter (body)
 - **Colors**: Black (#000), white (#fff), grays (#f9f9f9, #e8e8e8)
-- **Style**: Apple 3000 minimal aesthetic, Shopify-inspired admin
+- **Style**: Apple 3000 minimal aesthetic
 - **Cards**: White background, subtle borders, 16-20px radius
 - **Effects**: Glass/blur surfaces, hover transforms, shadow expansion
 - **Layout**: 1280px centered max-width
