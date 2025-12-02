@@ -426,26 +426,6 @@ export default function Home() {
                   }}>
                     Smoothie
                   </p>
-
-                  {/* Stars & Reviews */}
-                  <p style={{
-                    fontSize: '13px',
-                    color: '#424245',
-                    marginBottom: '12px',
-                    letterSpacing: '-0.2px',
-                  }}>
-                    ★★★★★ 185 reviews
-                  </p>
-
-                  {/* Price */}
-                  <p style={{
-                    fontSize: '16px',
-                    fontWeight: '700',
-                    marginBottom: '12px',
-                    letterSpacing: '-0.3px',
-                  }}>
-                    ${product.price.toFixed(2)}
-                  </p>
                 </Link>
               ))}
             </div>
