@@ -135,9 +135,8 @@ export default function Navbar() {
           gap: 'clamp(16px, 4vw, 32px)',
         }}>
           <div style={{ flex: 1, display: 'flex', justifyContent: 'flex-start', minWidth: 0 }}>
-            <Link href="/" style={{ textDecoration: 'none', whiteSpace: 'nowrap', transition: 'all 1s cubic-bezier(0.32, 0, 0.67, 0)', color: '#000', display: 'flex', flexDirection: 'column', gap: '2px', lineHeight: '1', fontFamily: 'monospace' }}>
-              <span style={{ fontSize: 'clamp(14px, 4vw, 18px)', fontWeight: '900', letterSpacing: '-0.5px' }}>DRIZZL</span>
-              <span style={{ fontSize: 'clamp(10px, 3vw, 12px)', fontWeight: '600', letterSpacing: '0.5px', color: '#666' }}>WELLNESS</span>
+            <Link href="/" style={{ fontSize: 'clamp(14px, 4vw, 18px)', textDecoration: 'none', whiteSpace: 'nowrap', transition: 'all 1s cubic-bezier(0.32, 0, 0.67, 0)', fontWeight: '900', letterSpacing: '-0.4px', color: '#000' }}>
+              DRIZZL WELLNESS
             </Link>
           </div>
 
