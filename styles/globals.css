@@ -649,106 +649,38 @@ svg:hover {
   font-weight: 600;
 }
 
-/* DRIZZL DRIP MENU */
-.nav-menu {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-}
-
-.menu-trigger {
-  background: transparent;
-  border: none;
-  font-family: inherit;
-  font-size: 14px;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  cursor: pointer;
-}
-
-/* DROPDOWN PANEL - FULL SCREEN OVERLAY */
-.drip-dropdown {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  width: 100%;
-  height: 100vh;
-  background: #ffffff;
-  padding: 80px 40px 40px;
+/* OPENAI STYLE HORIZONTAL MENU BAR */
+.navbar-menu {
   display: flex;
-  flex-direction: column;
-  gap: 0;
-  justify-content: flex-start;
+  gap: 40px;
   align-items: center;
-  transform: translateX(-100%);
-  opacity: 0;
-  pointer-events: none;
-  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
-  z-index: 99;
-  overflow-y: auto;
 }
 
-/* SHOW ON HOVER */
-.nav-menu:hover .drip-dropdown {
-  transform: translateX(0);
-  opacity: 1;
-  pointer-events: auto;
-}
-
-/* DROPDOWN SECTIONS */
-.dropdown-section {
-  padding: 0;
-  width: 100%;
-  max-width: 600px;
-  text-align: center;
-}
-
-.dropdown-label {
-  color: #999;
+.navbar-link {
+  color: #000;
   font-size: 14px;
   font-weight: 500;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  padding: 32px 0 24px;
-  display: block;
-}
-
-/* MENU LINKS */
-.drip-dropdown a.dropdown-item {
-  color: #000;
-  font-size: 42px;
-  font-weight: 600;
   text-decoration: none;
-  padding: 20px 0;
-  display: block;
-  transition: color 0.2s ease, opacity 0.2s ease;
+  transition: opacity 0.2s ease, color 0.2s ease;
+  opacity: 0.7;
+  position: relative;
 }
 
-.drip-dropdown a.dropdown-item:hover {
-  color: #4285f4;
-  opacity: 0.8;
+.navbar-link::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: #000;
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.drip-dropdown a.dropdown-item span:first-child {
-  font-weight: 600;
+.navbar-link:hover {
+  opacity: 1;
 }
 
-.item-desc {
-  font-size: 14px;
-  color: #999;
-  font-weight: 400;
-  display: none;
-}
-
-/* DIVIDER */
-.dropdown-divider {
-  display: none;
-}
-
-/* DRIPS - HIDDEN */
-.drip {
-  display: none;
+.navbar-link:hover::after {
+  width: 100%;
 }
