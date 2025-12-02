@@ -2,8 +2,15 @@
 
 ## Project Overview
 **Purpose**: Full-stack Direct-to-Consumer + B2B smoothie and wellness brand platform
-**Status**: Phase 2.5 Complete - D2C, B2B Portal, Enterprise Admin Dashboard with 9 Intelligence Modules
+**Status**: Phase 2.6 Complete - D2C, B2B Portal, Enterprise Admin Dashboard with 11 Intelligence Modules + Persistent Global Navigation
 **Stack**: Next.js 15 + React 19, Supabase (Auth + DB), AI Command Assistant
+
+## Recent Changes (Dec 2024)
+- Added persistent global navigation across all admin pages (AdminLayout component)
+- Created Project Management module with Kanban board interface
+- Added Settings page with configuration sections
+- All 17 admin pages now use unified navigation layout
+- Upgraded navigation bar with DRIZZL branding, time display, and Exit button
 
 ## Platform Features
 
@@ -28,7 +35,14 @@
   - Order history tracking
   - Partner-specific pricing display
 
-### Enterprise Admin Dashboard (9 Intelligence Modules)
+### Enterprise Admin Dashboard (11 Intelligence Modules + Persistent Navigation)
+
+**Global Navigation Bar (AdminLayout)**
+- DRIZZL branded logo with gradient icon
+- Persistent tabs visible on all pages: Command Center, Orders, Products, Inventory, Factory, Partners, Banking, Analytics, AI Assistant, Projects, Social, Videos, Settings
+- Live time display with date
+- Exit button to return to storefront
+- Horizontally scrollable for responsive design
 
 #### 1. Command Center (`/admin/command-center`)
 - Real-time business intelligence dashboard
@@ -128,6 +142,31 @@
 - Recent transactions list
 - Demo data when API not configured
 
+#### 10. Project Management (`/admin/projects`)
+- Kanban board with 4 columns: Backlog, In Progress, Review, Completed
+- Drag-and-drop task movement between columns
+- Department filters: Marketing, Factory, Finance, Tech, Sales, Operations
+- Task cards with:
+  - Priority badges (Low, Medium, High, Urgent)
+  - Department color coding
+  - Assignee avatars
+  - Due dates
+  - Description preview
+- Create/Edit task modal with full form
+- Team member assignment
+- Demo tasks for each department
+
+#### 11. Settings (`/admin/settings`)
+- Sidebar navigation with 6 sections:
+  - General: Company name, timezone, currency
+  - Notifications: Order alerts, low stock, partner applications, weekly reports
+  - Team & Roles: Team member list with role badges, invite functionality
+  - Integrations: Connected services (Stripe, Mercury, Shopify, QuickBooks)
+  - Billing: Current plan display and subscription management
+  - Security: Two-factor authentication, session timeout settings
+- Toggle switches for notification preferences
+- Form inputs for configuration values
+
 ### Legacy Admin Pages
 - `/admin` - Overview dashboard with quick actions
 - `/admin/products` - Full product CRUD
@@ -206,8 +245,10 @@ Schema files:
   - useAuth.ts - User authentication hook
   - useRole.ts - Role-based access guards
   - useCart.ts - Shopping cart management
+/components
+  - AdminLayout.tsx - Persistent global admin navigation wrapper
 /pages
-  - /admin/* - Admin dashboard pages (15 pages)
+  - /admin/* - Admin dashboard pages (17 pages)
   - /retail-partner/* - B2B partner portal
   - /retail - Partner login
   - All D2C pages (products, checkout, etc.)
