@@ -4,8 +4,8 @@ export default function Navbar() {
   return (
     <nav style={{
       background: '#ffffff',
-      borderBottom: '1px solid #e0e0e0',
-      padding: '16px 60px',
+      borderBottom: '1px solid #d0d0d0',
+      padding: '24px 80px',
       position: 'sticky',
       top: 0,
       zIndex: 1000,
@@ -13,7 +13,7 @@ export default function Navbar() {
       backgroundColor: 'rgba(255, 255, 255, 0.98)',
     }}>
       <div style={{
-        maxWidth: '1400px',
+        maxWidth: '1600px',
         margin: '0 auto',
         display: 'flex',
         justifyContent: 'space-between',
@@ -22,7 +22,7 @@ export default function Navbar() {
         {/* Left: Search + Find in stores */}
         <div style={{
           display: 'flex',
-          gap: '48px',
+          gap: '64px',
           alignItems: 'center',
           flex: 0,
         }}>
@@ -30,24 +30,24 @@ export default function Navbar() {
           <div style={{ 
             display: 'flex', 
             alignItems: 'center', 
-            gap: '10px', 
+            gap: '14px', 
             color: '#000',
             cursor: 'pointer',
-            opacity: 0.85,
+            opacity: 0.9,
             transition: 'all 0.2s ease-out'
-          }} onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')} onMouseLeave={(e) => (e.currentTarget.style.opacity = '0.85')}>
+          }} onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')} onMouseLeave={(e) => (e.currentTarget.style.opacity = '0.9')}>
             <div style={{
-              width: '24px',
-              height: '24px',
+              width: '32px',
+              height: '32px',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              fontSize: '16px',
-              fontWeight: '600',
+              fontSize: '22px',
+              fontWeight: '700',
             }}>
               ⌕
             </div>
-            <span style={{ fontSize: '14px', fontWeight: '500', letterSpacing: '-0.1px' }}>Search</span>
+            <span style={{ fontSize: '16px', fontWeight: '700', letterSpacing: '-0.2px' }}>Search</span>
           </div>
 
           {/* Find in stores */}
@@ -57,23 +57,23 @@ export default function Navbar() {
             background: 'none',
             color: '#000',
             cursor: 'pointer',
-            fontSize: '14px',
-            fontWeight: '500',
+            fontSize: '16px',
+            fontWeight: '700',
             display: 'flex',
             alignItems: 'center',
-            gap: '10px',
-            opacity: 0.85,
+            gap: '14px',
+            opacity: 0.9,
             transition: 'all 0.2s ease-out',
-            letterSpacing: '-0.1px'
-          }} onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')} onMouseLeave={(e) => (e.currentTarget.style.opacity = '0.85')}>
+            letterSpacing: '-0.2px'
+          }} onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')} onMouseLeave={(e) => (e.currentTarget.style.opacity = '0.9')}>
             <div style={{
-              width: '24px',
-              height: '24px',
+              width: '32px',
+              height: '32px',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              fontSize: '16px',
-              fontWeight: '600',
+              fontSize: '22px',
+              fontWeight: '700',
             }}>
               ◎
             </div>
@@ -84,11 +84,11 @@ export default function Navbar() {
         {/* Center: Logo */}
         <div style={{ flex: 1, display: 'flex', justifyContent: 'center' }}>
           <Link href="/" style={{
-            fontSize: '13px',
-            fontWeight: '800',
+            fontSize: '18px',
+            fontWeight: '900',
             textDecoration: 'none',
             color: '#000',
-            letterSpacing: '-0.3px',
+            letterSpacing: '-0.5px',
             textTransform: 'uppercase',
             whiteSpace: 'nowrap',
             transition: 'all 0.2s ease-out',
@@ -106,30 +106,30 @@ export default function Navbar() {
         <div style={{
           display: 'flex',
           alignItems: 'center',
-          gap: '48px',
+          gap: '64px',
           flex: 0,
         }}>
           {/* Login */}
           <Link href="/auth" style={{
             color: '#000',
-            fontSize: '14px',
-            fontWeight: '500',
+            fontSize: '16px',
+            fontWeight: '700',
             textDecoration: 'none',
             display: 'flex',
             alignItems: 'center',
-            gap: '10px',
-            opacity: 0.85,
+            gap: '14px',
+            opacity: 0.9,
             transition: 'all 0.2s ease-out',
-            letterSpacing: '-0.1px'
-          }} onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')} onMouseLeave={(e) => (e.currentTarget.style.opacity = '0.85')}>
+            letterSpacing: '-0.2px'
+          }} onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')} onMouseLeave={(e) => (e.currentTarget.style.opacity = '0.9')}>
             <div style={{
-              width: '24px',
-              height: '24px',
+              width: '32px',
+              height: '32px',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              fontSize: '16px',
-              fontWeight: '600',
+              fontSize: '22px',
+              fontWeight: '700',
             }}>
               ◈
             </div>
@@ -138,25 +138,25 @@ export default function Navbar() {
 
           {/* Cart */}
           <Link href="/cart" style={{
-            fontSize: '14px',
-            fontWeight: '500',
+            fontSize: '16px',
+            fontWeight: '700',
             color: '#000',
             textDecoration: 'none',
             display: 'flex',
             alignItems: 'center',
-            gap: '10px',
-            opacity: 0.85,
+            gap: '14px',
+            opacity: 0.9,
             transition: 'all 0.2s ease-out',
-            letterSpacing: '-0.1px'
-          }} onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')} onMouseLeave={(e) => (e.currentTarget.style.opacity = '0.85')}>
+            letterSpacing: '-0.2px'
+          }} onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')} onMouseLeave={(e) => (e.currentTarget.style.opacity = '0.9')}>
             <div style={{
-              width: '24px',
-              height: '24px',
+              width: '32px',
+              height: '32px',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              fontSize: '16px',
-              fontWeight: '600',
+              fontSize: '22px',
+              fontWeight: '700',
             }}>
               ◆
             </div>
