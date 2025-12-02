@@ -87,7 +87,7 @@ export default function SupplyChainTransparency() {
               marginBottom: '16px',
               color: '#666',
             }}>
-              We verify our supply chain by partnering with established, reputable suppliers that comply with applicable laws and regulations. All suppliers are required to contractually comply with our Supplier Code of Conduct, which sets standards for labor practices, workplace safety, and ethical conduct.
+              We verify our supply chain by partnering with established, reputable suppliers that comply with applicable laws and regulations. All suppliers are required to contractually comply with our <a href="/supplier-code-of-conduct" style={{ color: '#000', textDecoration: 'underline', cursor: 'pointer' }}>Supplier Code of Conduct</a>, which sets standards for labor practices, workplace safety, and ethical conduct.
             </p>
           </div>
 
