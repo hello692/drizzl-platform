@@ -239,7 +239,7 @@ export default function Navbar() {
             <span>Cart (0)</span>
           </Link>
 
-          {/* Hamburger Menu */}
+          {/* Hamburger Menu - Desktop & Mobile */}
           <button
             className="hamburger-icon-2100"
             onClick={() => setMenuOpen(!menuOpen)}
@@ -248,7 +248,9 @@ export default function Navbar() {
               border: 'none',
               padding: '8px',
               cursor: 'pointer',
+              marginLeft: '8px',
             }}
+            title="Menu"
           >
             <div className="hamburger-line" style={{
               transform: menuOpen ? 'rotate(45deg) translateY(8px)' : 'rotate(0) translateY(0)',
