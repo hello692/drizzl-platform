@@ -70,47 +70,45 @@ export default function AuthForm() {
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-      background: '#f9fafb',
+      background: '#f9f9f9',
       padding: '40px 20px',
     }}>
       <div style={{
         width: '100%',
-        maxWidth: '480px',
+        maxWidth: '420px',
         background: 'white',
-        borderRadius: '12px',
+        borderRadius: '4px',
         padding: '48px 40px',
-        boxShadow: '0 4px 12px rgba(0, 0, 0, 0.05)',
-        border: '1px solid #f0f0f0',
+        border: '1px solid #e8e8e8',
       }}>
-        {/* Header */}
-        <div style={{ textAlign: 'center', marginBottom: '32px' }}>
-          <h2 style={{
-            margin: '0 0 12px 0',
-            fontSize: '28px',
-            fontWeight: '700',
-            letterSpacing: '-0.5px',
-            color: '#1a1a1a',
-          }}>
-            Welcome to Drizzl
-          </h2>
-          <p style={{
-            margin: 0,
-            fontSize: '15px',
-            color: '#6b7280',
-            fontWeight: '500',
-          }}>
-            Fresh smoothies delivered to your door
-          </p>
-        </div>
+        <h2 style={{
+          margin: '0 0 12px 0',
+          fontSize: '28px',
+          fontWeight: '600',
+          letterSpacing: '0.2px',
+          color: '#1a1a1a',
+          textAlign: 'center',
+          fontFamily: "'DM Sans', sans-serif",
+        }}>
+          Welcome
+        </h2>
+        <p style={{
+          margin: '0 0 32px 0',
+          fontSize: '15px',
+          color: '#666',
+          textAlign: 'center',
+        }}>
+          Sign in or create an account
+        </p>
 
         {/* Mode toggle */}
         <div style={{
           display: 'flex',
           gap: '8px',
           marginBottom: '28px',
-          background: '#f3f4f6',
+          background: '#f9f9f9',
           padding: '6px',
-          borderRadius: '8px',
+          borderRadius: '4px',
         }}>
           {(['login', 'signup', 'magic'] as const).map(m => (
             <button
@@ -120,12 +118,12 @@ export default function AuthForm() {
               style={{
                 flex: 1,
                 border: 'none',
-                borderRadius: '6px',
+                borderRadius: '3px',
                 padding: '10px 0',
                 cursor: 'pointer',
-                background: mode === m ? '#22c55e' : 'transparent',
-                color: mode === m ? 'white' : '#6b7280',
-                fontWeight: 600,
+                background: mode === m ? '#1a1a1a' : 'transparent',
+                color: mode === m ? 'white' : '#666',
+                fontWeight: 500,
                 fontSize: '14px',
                 transition: 'all 0.2s',
               }}
@@ -144,12 +142,12 @@ export default function AuthForm() {
           <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
             <label style={{
               fontSize: '13px',
-              fontWeight: '600',
+              fontWeight: '500',
               color: '#1a1a1a',
               textTransform: 'uppercase',
               letterSpacing: '0.5px',
             }}>
-              Email address
+              Email
             </label>
             <input
               type="email"
@@ -159,20 +157,17 @@ export default function AuthForm() {
               placeholder="you@example.com"
               style={{
                 padding: '12px 14px',
-                borderRadius: '6px',
-                border: '1px solid #e5e7eb',
+                borderRadius: '4px',
+                border: '1px solid #e8e8e8',
                 fontSize: '15px',
-                background: '#f9fafb',
-                transition: 'border 0.2s',
+                background: '#ffffff',
                 outline: 'none',
               }}
               onFocus={(e) => {
-                e.target.style.borderColor = '#22c55e';
-                e.target.style.background = '#ffffff';
+                e.target.style.borderColor = '#1a1a1a';
               }}
               onBlur={(e) => {
-                e.target.style.borderColor = '#e5e7eb';
-                e.target.style.background = '#f9fafb';
+                e.target.style.borderColor = '#e8e8e8';
               }}
             />
           </div>
@@ -181,7 +176,7 @@ export default function AuthForm() {
             <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
               <label style={{
                 fontSize: '13px',
-                fontWeight: '600',
+                fontWeight: '500',
                 color: '#1a1a1a',
                 textTransform: 'uppercase',
                 letterSpacing: '0.5px',
@@ -196,20 +191,17 @@ export default function AuthForm() {
                 placeholder="••••••••"
                 style={{
                   padding: '12px 14px',
-                  borderRadius: '6px',
-                  border: '1px solid #e5e7eb',
+                  borderRadius: '4px',
+                  border: '1px solid #e8e8e8',
                   fontSize: '15px',
-                  background: '#f9fafb',
-                  transition: 'border 0.2s',
+                  background: '#ffffff',
                   outline: 'none',
                 }}
                 onFocus={(e) => {
-                  e.target.style.borderColor = '#22c55e';
-                  e.target.style.background = '#ffffff';
+                  e.target.style.borderColor = '#1a1a1a';
                 }}
                 onBlur={(e) => {
-                  e.target.style.borderColor = '#e5e7eb';
-                  e.target.style.background = '#f9fafb';
+                  e.target.style.borderColor = '#e8e8e8';
                 }}
               />
             </div>
@@ -221,20 +213,17 @@ export default function AuthForm() {
             style={{
               marginTop: '8px',
               padding: '13px 14px',
-              borderRadius: '6px',
+              borderRadius: '4px',
               border: 'none',
-              background: '#22c55e',
+              background: '#1a1a1a',
               color: 'white',
-              fontWeight: '700',
+              fontWeight: '600',
               fontSize: '15px',
               cursor: loading ? 'default' : 'pointer',
               opacity: loading ? 0.6 : 1,
-              transition: 'all 0.2s',
             }}
-            onMouseEnter={(e) => !loading && (e.currentTarget.style.background = '#15803d')}
-            onMouseLeave={(e) => (e.currentTarget.style.background = '#22c55e')}
           >
-            {loading ? 'Please wait…' : mode === 'login' ? 'Log in' : mode === 'signup' ? 'Create account' : 'Send magic link'}
+            {loading ? 'Loading...' : mode === 'login' ? 'Log in' : mode === 'signup' ? 'Create account' : 'Send magic link'}
           </button>
         </form>
 
@@ -243,11 +232,11 @@ export default function AuthForm() {
           <div style={{
             marginTop: '16px',
             padding: '12px 14px',
-            borderRadius: '6px',
-            background: '#dcfce7',
-            color: '#166534',
+            borderRadius: '4px',
+            background: '#e8f5e9',
+            color: '#2e7d32',
             fontSize: '14px',
-            border: '1px solid #bbf7d0',
+            border: '1px solid #c8e6c9',
           }}>
             ✓ {message}
           </div>
@@ -256,11 +245,11 @@ export default function AuthForm() {
           <div style={{
             marginTop: '16px',
             padding: '12px 14px',
-            borderRadius: '6px',
-            background: '#fee2e2',
-            color: '#991b1b',
+            borderRadius: '4px',
+            background: '#ffebee',
+            color: '#c62828',
             fontSize: '14px',
-            border: '1px solid #fecaca',
+            border: '1px solid #ffcdd2',
           }}>
             ✕ {error}
           </div>
@@ -270,9 +259,8 @@ export default function AuthForm() {
         <p style={{
           marginTop: '24px',
           fontSize: '12px',
-          color: '#9ca3af',
+          color: '#999',
           textAlign: 'center',
-          fontWeight: '500',
         }}>
           Secure authentication powered by Supabase
         </p>

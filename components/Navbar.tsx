@@ -8,6 +8,7 @@ export default function Navbar() {
   const router = useRouter();
   const { user, loading } = useAuth();
   const [searchQuery, setSearchQuery] = useState('');
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const handleSignOut = async () => {
     try {
@@ -20,144 +21,145 @@ export default function Navbar() {
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Search:', searchQuery);
   };
 
   return (
-    <nav style={{
-      background: 'white',
-      borderBottom: '1px solid #f0f0f0',
-      padding: '20px 40px',
-      position: 'sticky',
-      top: 0,
-      zIndex: 100,
-    }}>
-      <div style={{
-        maxWidth: '1400px',
-        margin: '0 auto',
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        gap: '40px',
+    <>
+      <nav style={{
+        background: '#ffffff',
+        borderBottom: '1px solid #e8e8e8',
+        padding: '20px 40px',
+        position: 'sticky',
+        top: 0,
+        zIndex: 1000,
       }}>
-        {/* Left: Search + Find in Stores */}
         <div style={{
-          flex: 1,
+          maxWidth: '1280px',
+          margin: '0 auto',
           display: 'flex',
-          gap: '20px',
+          justifyContent: 'space-between',
           alignItems: 'center',
+          gap: '60px',
         }}>
-          <form onSubmit={handleSearch} style={{
+          {/* Left: Search + Find in stores */}
+          <div style={{
             flex: 1,
-            position: 'relative',
+            display: 'flex',
+            gap: '24px',
+            alignItems: 'center',
+            minWidth: 0,
           }}>
-            <input
-              type="text"
-              placeholder="Search products..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              style={{
-                width: '100%',
-                padding: '10px 14px',
-                border: '1px solid #e5e7eb',
-                borderRadius: '6px',
-                fontSize: '14px',
-                background: '#f9fafb',
-                outline: 'none',
-              }}
-              onFocus={(e) => {
-                e.target.style.borderColor = '#22c55e';
-                e.target.style.background = '#ffffff';
-              }}
-              onBlur={(e) => {
-                e.target.style.borderColor = '#e5e7eb';
-                e.target.style.background = '#f9fafb';
-              }}
-            />
-          </form>
-          <button style={{
-            padding: '10px 16px',
-            border: 'none',
-            background: 'white',
-            color: '#6b7280',
-            cursor: 'pointer',
+            <form onSubmit={handleSearch} style={{ flex: 1, minWidth: 0 }}>
+              <input
+                type="text"
+                placeholder="Search"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                style={{
+                  width: '100%',
+                  padding: '10px 12px',
+                  border: '1px solid #e8e8e8',
+                  borderRadius: '4px',
+                  fontSize: '14px',
+                  background: '#ffffff',
+                  outline: 'none',
+                }}
+                onFocus={(e) => e.target.style.borderColor = '#999'}
+                onBlur={(e) => e.target.style.borderColor = '#e8e8e8'}
+              />
+            </form>
+            <button style={{
+              padding: '10px 0',
+              border: 'none',
+              background: 'none',
+              color: '#666',
+              cursor: 'pointer',
+              fontSize: '14px',
+              whiteSpace: 'nowrap',
+              fontWeight: '400',
+            }}>
+              Find in stores
+            </button>
+          </div>
+
+          {/* Center: Logo */}
+          <Link href="/" style={{
             fontSize: '14px',
+            fontWeight: '600',
+            textDecoration: 'none',
+            color: '#1a1a1a',
+            letterSpacing: '2px',
+            textTransform: 'uppercase',
             whiteSpace: 'nowrap',
-            fontWeight: '500',
+            fontFamily: "'DM Sans', sans-serif",
           }}>
-            Find in stores
-          </button>
-        </div>
+            Drizzl Wellness
+          </Link>
 
-        {/* Center: Logo */}
-        <Link href="/" style={{
-          fontSize: '20px',
-          fontWeight: '700',
-          textDecoration: 'none',
-          color: '#15803d',
-          letterSpacing: '-0.5px',
-          textTransform: 'capitalize',
-        }} className="logo">
-          Drizzl
-        </Link>
-
-        {/* Right: Login + Cart */}
-        <div style={{
-          flex: 1,
-          display: 'flex',
-          justifyContent: 'flex-end',
-          alignItems: 'center',
-          gap: '20px',
-        }}>
-          {loading ? (
-            <span style={{ color: '#9ca3af', fontSize: '14px' }}>Loading...</span>
-          ) : user ? (
-            <>
+          {/* Right: Login + Cart */}
+          <div style={{
+            flex: 1,
+            display: 'flex',
+            justifyContent: 'flex-end',
+            alignItems: 'center',
+            gap: '24px',
+          }}>
+            {loading ? (
+              <span style={{ color: '#999', fontSize: '14px' }}>...</span>
+            ) : user ? (
               <button
                 onClick={handleSignOut}
                 style={{
-                  padding: '8px 0',
+                  padding: 0,
                   background: 'none',
                   border: 'none',
-                  color: '#6b7280',
+                  color: '#666',
                   cursor: 'pointer',
                   fontSize: '14px',
-                  fontWeight: '500',
-                  textDecoration: 'none',
+                  fontWeight: '400',
                 }}
               >
                 Sign out
               </button>
-            </>
-          ) : (
-            <Link href="/auth" style={{
-              padding: '8px 0',
-              background: 'none',
-              color: '#6b7280',
-              textDecoration: 'none',
+            ) : (
+              <Link href="/auth" style={{
+                color: '#666',
+                fontSize: '14px',
+                fontWeight: '400',
+              }}>
+                Log in
+              </Link>
+            )}
+            <Link href="/cart" style={{
               fontSize: '14px',
-              fontWeight: '500',
+              fontWeight: '400',
+              color: '#666',
             }}>
-              Log in
+              Your cart (0)
             </Link>
-          )}
-          <Link href="/cart" style={{
-            padding: '10px 20px',
-            background: '#22c55e',
-            color: 'white',
-            textDecoration: 'none',
-            borderRadius: '6px',
-            fontSize: '14px',
-            fontWeight: '600',
-            transition: 'background 0.2s',
-          }}
-            onMouseEnter={(e) => e.currentTarget.style.background = '#15803d'}
-            onMouseLeave={(e) => e.currentTarget.style.background = '#22c55e'}
-          >
-            Cart
-          </Link>
+          </div>
         </div>
-      </div>
-    </nav>
+      </nav>
+
+      {/* Mobile Menu */}
+      {mobileMenuOpen && (
+        <div style={{
+          position: 'fixed',
+          top: '60px',
+          left: 0,
+          right: 0,
+          background: 'white',
+          borderBottom: '1px solid #e8e8e8',
+          padding: '20px 40px',
+          display: 'none',
+          flexDirection: 'column',
+          gap: '16px',
+          zIndex: 999,
+        }}>
+          <Link href="/auth">Log in</Link>
+          <Link href="/cart">Your cart</Link>
+        </div>
+      )}
+    </>
   );
 }

@@ -10,6 +10,16 @@ interface Product {
   image_url: string;
 }
 
+const CATEGORIES = [
+  { name: 'Smoothies', slug: 'smoothies' },
+  { name: 'High Protein', slug: 'high-protein' },
+  { name: 'Breakfast Bowls', slug: 'bowls' },
+  { name: 'Bites', slug: 'bites' },
+  { name: 'Smoothie Boxes', slug: 'boxes' },
+  { name: 'Protein Shop', slug: 'protein' },
+  { name: 'Gift Guide', slug: 'gift' },
+];
+
 export default function Home() {
   const [featuredProducts, setFeaturedProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
@@ -20,7 +30,7 @@ export default function Home() {
         const response = await fetch('/api/products?category=smoothie');
         if (response.ok) {
           const data = await response.json();
-          setFeaturedProducts(data.slice(0, 6));
+          setFeaturedProducts(data.slice(0, 3));
         }
       } catch (err) {
         console.error('Error fetching products:', err);
@@ -38,232 +48,255 @@ export default function Home() {
 
       {/* Hero Section */}
       <section style={{
-        background: 'linear-gradient(135deg, #f9fafb 0%, #ffffff 100%)',
-        color: '#1a1a1a',
+        background: '#ffffff',
         padding: '100px 40px',
         textAlign: 'center',
-        minHeight: '700px',
+        minHeight: '600px',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        borderBottom: '1px solid #e5e7eb',
       }}>
         <h1 style={{
-          fontSize: '64px',
-          fontWeight: '700',
-          margin: '0 0 24px 0',
-          letterSpacing: '-1.5px',
-          lineHeight: '1.1',
-          color: '#1a1a1a',
+          fontSize: '52px',
+          fontWeight: '600',
+          marginBottom: '20px',
+          letterSpacing: '0.3px',
+          maxWidth: '900px',
         }}>
-          Nutrient-Packed
-          <br />
-          Smoothies
+          Frozen smoothies and bowls for a better you
         </h1>
         <p style={{
           fontSize: '18px',
-          color: '#6b7280',
-          margin: '0 0 48px 0',
+          color: '#666',
+          marginBottom: '40px',
           maxWidth: '700px',
           lineHeight: '1.7',
-          fontWeight: '500',
+          fontWeight: '400',
         }}>
-          Delicious, organic smoothies crafted with real fruits and superfoods. Delivered fresh to your door, every single day.
+          Skip the blender. Embrace the possibilities. Order your first smoothie today.
         </p>
         <Link href="/products" style={{
           display: 'inline-block',
           padding: '16px 48px',
-          background: '#22c55e',
+          background: '#1a1a1a',
           color: 'white',
           textDecoration: 'none',
-          borderRadius: '6px',
+          borderRadius: '4px',
           fontSize: '16px',
-          fontWeight: '600',
-          transition: 'all 0.3s',
+          fontWeight: '500',
+          transition: 'all 0.2s',
         }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.background = '#15803d';
-            e.currentTarget.style.transform = 'translateY(-2px)';
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.background = '#22c55e';
-            e.currentTarget.style.transform = 'translateY(0)';
-          }}
+          onMouseEnter={(e) => e.currentTarget.style.opacity = '0.8'}
+          onMouseLeave={(e) => e.currentTarget.style.opacity = '1'}
         >
-          Explore Collection
+          Order Now
         </Link>
+      </section>
+
+      {/* Category Grid */}
+      <section style={{
+        background: '#f9f9f9',
+        padding: '80px 40px',
+      }}>
+        <div style={{
+          maxWidth: '1280px',
+          margin: '0 auto',
+        }}>
+          <h2 style={{
+            textAlign: 'center',
+            marginBottom: '60px',
+            fontSize: '32px',
+          }}>
+            Shop by Category
+          </h2>
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+            gap: '20px',
+          }}>
+            {CATEGORIES.map((category) => (
+              <Link key={category.slug} href={`/products?category=${category.slug}`} style={{
+                padding: '40px 20px',
+                textAlign: 'center',
+                background: 'white',
+                border: '1px solid #e8e8e8',
+                borderRadius: '4px',
+                textDecoration: 'none',
+                color: '#1a1a1a',
+                transition: 'all 0.2s',
+              }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.borderColor = '#999';
+                  e.currentTarget.style.boxShadow = '0 4px 12px rgba(0,0,0,0.08)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.borderColor = '#e8e8e8';
+                  e.currentTarget.style.boxShadow = 'none';
+                }}
+              >
+                <h3 style={{
+                  fontSize: '18px',
+                  fontWeight: '600',
+                  margin: 0,
+                  fontFamily: "'DM Sans', sans-serif",
+                }}>
+                  {category.name}
+                </h3>
+              </Link>
+            ))}
+          </div>
+        </div>
       </section>
 
       {/* Featured Products */}
       <section style={{
-        maxWidth: '1400px',
-        margin: '0 auto',
-        padding: '100px 40px',
+        background: '#ffffff',
+        padding: '80px 40px',
       }}>
-        <div style={{ textAlign: 'center', marginBottom: '80px' }}>
+        <div style={{
+          maxWidth: '1280px',
+          margin: '0 auto',
+        }}>
           <h2 style={{
-            fontSize: '48px',
-            fontWeight: '700',
-            margin: '0 0 16px 0',
-            letterSpacing: '-1px',
-            color: '#1a1a1a',
+            textAlign: 'center',
+            marginBottom: '60px',
+            fontSize: '32px',
           }}>
-            Our Blends
+            Our Most Popular
           </h2>
-          <p style={{
-            fontSize: '16px',
-            color: '#6b7280',
-            margin: '0',
-            fontWeight: '500',
-            maxWidth: '600px',
-            margin: '0 auto',
-          }}>
-            Handcrafted with organic ingredients and real superfoods
-          </p>
-        </div>
 
-        {loading ? (
-          <p style={{ textAlign: 'center', color: '#9ca3af' }}>Loading products...</p>
-        ) : featuredProducts.length === 0 ? (
-          <p style={{ textAlign: 'center', color: '#9ca3af' }}>No smoothies available. Check back soon!</p>
-        ) : (
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))',
-            gap: '40px',
-          }}>
-            {featuredProducts.map(product => (
-              <div
-                key={product.id}
-                style={{
+          {loading ? (
+            <p style={{ textAlign: 'center', color: '#999' }}>Loading...</p>
+          ) : featuredProducts.length === 0 ? (
+            <p style={{ textAlign: 'center', color: '#999' }}>No products available</p>
+          ) : (
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+              gap: '40px',
+            }}>
+              {featuredProducts.map(product => (
+                <div key={product.id} style={{
                   background: 'white',
-                  borderRadius: '12px',
+                  borderRadius: '4px',
                   overflow: 'hidden',
-                  border: '1px solid #f0f0f0',
-                  transition: 'all 0.3s',
+                  border: '1px solid #e8e8e8',
+                  transition: 'all 0.2s',
                 }}
-                onMouseEnter={(e) => {
-                  const target = e.currentTarget as HTMLElement;
-                  target.style.transform = 'translateY(-8px)';
-                  target.style.boxShadow = '0 12px 40px rgba(34, 197, 94, 0.08)';
-                }}
-                onMouseLeave={(e) => {
-                  const target = e.currentTarget as HTMLElement;
-                  target.style.transform = 'translateY(0)';
-                  target.style.boxShadow = 'none';
-                }}
-              >
-                {product.image_url && (
-                  <div style={{
-                    width: '100%',
-                    height: '300px',
-                    overflow: 'hidden',
-                    background: '#f3f4f6',
-                  }}>
-                    <img
-                      src={product.image_url}
-                      alt={product.name}
-                      style={{
-                        width: '100%',
-                        height: '100%',
-                        objectFit: 'cover',
-                      }}
-                    />
-                  </div>
-                )}
-                <div style={{ padding: '28px' }}>
-                  <h3 style={{
-                    margin: '0 0 8px 0',
-                    fontSize: '18px',
-                    fontWeight: '700',
-                    color: '#1a1a1a',
-                  }}>
-                    {product.name}
-                  </h3>
-                  <p style={{
-                    margin: '0 0 20px 0',
-                    color: '#6b7280',
-                    fontSize: '14px',
-                    lineHeight: '1.6',
-                    minHeight: '42px',
-                  }}>
-                    {product.description}
-                  </p>
-                  <div style={{
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                  }}>
-                    <span style={{
-                      fontSize: '20px',
-                      fontWeight: '700',
-                      color: '#1a1a1a',
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.boxShadow = '0 8px 24px rgba(0,0,0,0.08)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.boxShadow = 'none';
+                  }}
+                >
+                  {product.image_url && (
+                    <div style={{
+                      width: '100%',
+                      height: '280px',
+                      overflow: 'hidden',
+                      background: '#f9f9f9',
                     }}>
-                      ${product.price}
-                    </span>
-                    <Link href="/products" style={{
-                      padding: '10px 20px',
-                      background: '#22c55e',
-                      color: 'white',
-                      border: 'none',
-                      borderRadius: '6px',
-                      cursor: 'pointer',
-                      fontSize: '14px',
+                      <img
+                        src={product.image_url}
+                        alt={product.name}
+                        style={{
+                          width: '100%',
+                          height: '100%',
+                          objectFit: 'cover',
+                        }}
+                      />
+                    </div>
+                  )}
+                  <div style={{ padding: '24px' }}>
+                    <h3 style={{
+                      fontSize: '18px',
                       fontWeight: '600',
-                      textDecoration: 'none',
-                      transition: 'background 0.2s',
-                    }}
-                      onMouseEnter={(e) => e.currentTarget.style.background = '#15803d'}
-                      onMouseLeave={(e) => e.currentTarget.style.background = '#22c55e'}
-                    >
-                      Add to Cart
-                    </Link>
+                      marginBottom: '8px',
+                      fontFamily: "'DM Sans', sans-serif",
+                    }}>
+                      {product.name}
+                    </h3>
+                    <p style={{
+                      fontSize: '15px',
+                      color: '#666',
+                      marginBottom: '16px',
+                      minHeight: '42px',
+                      lineHeight: '1.6',
+                    }}>
+                      {product.description}
+                    </p>
+                    <div style={{
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      alignItems: 'center',
+                    }}>
+                      <span style={{
+                        fontSize: '16px',
+                        fontWeight: '600',
+                        fontFamily: "'DM Sans', sans-serif",
+                      }}>
+                        ${product.price}
+                      </span>
+                      <Link href="/products" style={{
+                        padding: '10px 20px',
+                        background: '#1a1a1a',
+                        color: 'white',
+                        borderRadius: '4px',
+                        fontSize: '14px',
+                        fontWeight: '500',
+                        textDecoration: 'none',
+                      }}
+                        onMouseEnter={(e) => e.currentTarget.style.opacity = '0.8'}
+                        onMouseLeave={(e) => e.currentTarget.style.opacity = '1'}
+                      >
+                        Add to Cart
+                      </Link>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
-          </div>
-        )}
+              ))}
+            </div>
+          )}
+        </div>
       </section>
 
       {/* CTA Section */}
       <section style={{
-        background: '#f9fafb',
+        background: '#f9f9f9',
         padding: '80px 40px',
         textAlign: 'center',
-        borderTop: '1px solid #e5e7eb',
+        borderTop: '1px solid #e8e8e8',
       }}>
         <h2 style={{
-          fontSize: '40px',
-          fontWeight: '700',
-          margin: '0 0 16px 0',
-          letterSpacing: '-0.5px',
+          fontSize: '32px',
+          marginBottom: '16px',
         }}>
-          Join the Drizzl Community
+          Start Your Wellness Journey Today
         </h2>
         <p style={{
           fontSize: '16px',
-          color: '#6b7280',
-          margin: '0 0 32px 0',
+          color: '#666',
+          marginBottom: '32px',
           maxWidth: '600px',
           margin: '0 auto 32px auto',
         }}>
-          Fresh ingredients. Real results. Every day.
+          Join thousands of people who have made smoothies and bowls their daily habit.
         </p>
         <Link href="/auth" style={{
           display: 'inline-block',
           padding: '14px 40px',
-          background: '#22c55e',
+          background: '#1a1a1a',
           color: 'white',
           textDecoration: 'none',
-          borderRadius: '6px',
-          fontSize: '15px',
-          fontWeight: '700',
-          transition: 'background 0.2s',
+          borderRadius: '4px',
+          fontSize: '16px',
+          fontWeight: '500',
+          transition: 'all 0.2s',
         }}
-          onMouseEnter={(e) => e.currentTarget.style.background = '#15803d'}
-          onMouseLeave={(e) => e.currentTarget.style.background = '#22c55e'}
+          onMouseEnter={(e) => e.currentTarget.style.opacity = '0.8'}
+          onMouseLeave={(e) => e.currentTarget.style.opacity = '1'}
         >
           Create Your Account
         </Link>
