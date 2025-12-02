@@ -84,15 +84,28 @@ export default function Navbar() {
               </button>
 
               <div className="drip-dropdown">
-                <a href="/smoothies">Smoothies</a>
-                <a href="/bowls">Bowls</a>
-                <a href="/about">About Us</a>
-                <a href="/contact">Contact</a>
-
-                {/* DRIP SHAPES */}
-                <div className="drip d1" />
-                <div className="drip d2" />
-                <div className="drip d3" />
+                <div className="dropdown-section">
+                  <div className="dropdown-label">Products</div>
+                  <a href="/smoothies" className="dropdown-item">
+                    <span>Smoothies</span>
+                    <span className="item-desc">Fresh frozen blends</span>
+                  </a>
+                  <a href="/bowls" className="dropdown-item">
+                    <span>Bowls</span>
+                    <span className="item-desc">Nutrient-packed meals</span>
+                  </a>
+                </div>
+                
+                <div className="dropdown-divider"></div>
+                
+                <div className="dropdown-section">
+                  <a href="/about" className="dropdown-item">
+                    <span>About Us</span>
+                  </a>
+                  <a href="/contact" className="dropdown-item">
+                    <span>Contact</span>
+                  </a>
+                </div>
               </div>
             </div>
 

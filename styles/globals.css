@@ -667,15 +667,15 @@ svg:hover {
   cursor: pointer;
 }
 
-/* DROPDOWN PANEL */
+/* DROPDOWN PANEL - OPENAI STYLE */
 .drip-dropdown {
   position: absolute;
   top: 48px;
   right: 0;
-  width: 320px;
+  width: 380px;
   background: #ffffff;
-  border-radius: 8px;
-  padding: 16px 0;
+  border-radius: 12px;
+  padding: 20px 0;
   display: flex;
   flex-direction: column;
   gap: 0;
@@ -683,10 +683,11 @@ svg:hover {
   transform: scaleY(0);
   opacity: 0;
   pointer-events: none;
-  transition: transform 0.2s ease, opacity 0.2s ease;
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.25s ease;
   z-index: 100;
   overflow: visible;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
+  border: 1px solid rgba(0, 0, 0, 0.06);
 }
 
 /* SHOW ON HOVER */
@@ -696,19 +697,54 @@ svg:hover {
   pointer-events: auto;
 }
 
-/* MENU LINKS */
-.drip-dropdown a {
-  color: #000;
-  font-size: 16px;
-  font-weight: 400;
-  text-decoration: none;
-  padding: 12px 24px;
-  display: block;
-  transition: background-color 0.15s ease;
+/* DROPDOWN SECTIONS */
+.dropdown-section {
+  padding: 0;
 }
 
-.drip-dropdown a:hover {
-  background-color: #f5f5f5;
+.dropdown-label {
+  color: #666;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 12px 24px 8px;
+  display: block;
+}
+
+/* MENU LINKS */
+.drip-dropdown a.dropdown-item {
+  color: #000;
+  font-size: 15px;
+  font-weight: 500;
+  text-decoration: none;
+  padding: 12px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.drip-dropdown a.dropdown-item:hover {
+  background-color: #f9f9f9;
+  color: #1a1a1a;
+}
+
+.drip-dropdown a.dropdown-item span:first-child {
+  font-weight: 500;
+}
+
+.item-desc {
+  font-size: 13px;
+  color: #888;
+  font-weight: 400;
+}
+
+/* DIVIDER */
+.dropdown-divider {
+  height: 1px;
+  background: rgba(0, 0, 0, 0.06);
+  margin: 12px 0;
 }
 
 /* DRIPS - HIDDEN */
