@@ -138,6 +138,7 @@ export default function ProductDetail() {
   const router = useRouter();
   const { id } = router.query;
   const product = id ? smoothies[id as string] : null;
+  const [selectedIngredient, setSelectedIngredient] = useState(0);
 
   if (!product) {
     return (
@@ -348,39 +349,100 @@ export default function ProductDetail() {
 
           {/* Key Ingredients */}
           <div style={{
-            background: '#f9f9fa',
-            padding: '60px',
-            borderRadius: '4px',
+            background: '#ffffff',
             marginBottom: '100px',
+            borderTop: '1px solid #e8e8e8',
+            paddingTop: '60px',
           }}>
-            <h2 style={{
-              fontSize: '28px',
-              fontWeight: '700',
-              marginBottom: '40px',
-              letterSpacing: '-0.5px',
-              textTransform: 'uppercase',
-            }}>
-              Key Ingredients
-            </h2>
             <div style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(2, 1fr)',
-              gap: '40px',
+              gridTemplateColumns: '1fr 1fr',
+              gap: '60px',
+              alignItems: 'flex-start',
             }}>
-              {product.keyIngredients.map((ing: any, idx: number) => (
-                <div key={idx} style={{
-                  background: '#ffffff',
-                  border: '1px solid #e8e8e8',
-                  padding: '24px',
-                  borderRadius: '0px',
+              {/* Left: Image */}
+              <div style={{
+                background: '#f0f0f0',
+                borderRadius: '0px',
+                height: '350px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                overflow: 'hidden',
+              }}>
+                <img
+                  src="https://daily-harvest.com/cdn/shop/files/DH_Shopify_KeyIngredient_688x458-Smoothies_A04.jpg?v=1715720942"
+                  alt="Key ingredients"
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover',
+                  }}
+                />
+              </div>
+
+              {/* Right: Content */}
+              <div>
+                <h2 style={{
+                  fontSize: '18px',
+                  fontWeight: '700',
+                  marginBottom: '24px',
+                  letterSpacing: '1px',
+                  textTransform: 'uppercase',
                 }}>
+                  Key Ingredients
+                </h2>
+
+                {/* Tabs */}
+                <div style={{
+                  display: 'flex',
+                  flexWrap: 'wrap',
+                  gap: '16px',
+                  marginBottom: '24px',
+                  paddingBottom: '24px',
+                  borderBottom: '1px solid #e8e8e8',
+                }}>
+                  {product.keyIngredients.map((ing: any, idx: number) => (
+                    <button
+                      key={idx}
+                      onClick={() => setSelectedIngredient(idx)}
+                      style={{
+                        background: selectedIngredient === idx ? '#000' : '#ffffff',
+                        color: selectedIngredient === idx ? '#ffffff' : '#000',
+                        border: selectedIngredient === idx ? 'none' : '1px solid #e8e8e8',
+                        padding: '8px 16px',
+                        fontSize: '12px',
+                        fontWeight: '600',
+                        letterSpacing: '0.5px',
+                        cursor: 'pointer',
+                        borderRadius: '0px',
+                        transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                      }}
+                      onMouseEnter={(e) => {
+                        if (selectedIngredient !== idx) {
+                          e.currentTarget.style.borderColor = '#000';
+                        }
+                      }}
+                      onMouseLeave={(e) => {
+                        if (selectedIngredient !== idx) {
+                          e.currentTarget.style.borderColor = '#e8e8e8';
+                        }
+                      }}
+                    >
+                      {ing.name}
+                    </button>
+                  ))}
+                </div>
+
+                {/* Ingredient Details */}
+                <div>
                   <h3 style={{
                     fontSize: '16px',
                     fontWeight: '700',
                     marginBottom: '12px',
                     letterSpacing: '-0.3px',
                   }}>
-                    {ing.name}
+                    {product.keyIngredients[selectedIngredient].name}
                   </h3>
                   <p style={{
                     fontSize: '14px',
@@ -389,10 +451,10 @@ export default function ProductDetail() {
                     letterSpacing: '-0.2px',
                     margin: 0,
                   }}>
-                    {ing.description}
+                    {product.keyIngredients[selectedIngredient].description}
                   </p>
                 </div>
-              ))}
+              </div>
             </div>
           </div>
 
