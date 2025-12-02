@@ -192,50 +192,29 @@ export default function Home() {
         }}>
           Skip the blender. Embrace the possibilities. Order your first smoothie today.
         </p>
-        <Link href="/products" className="tech-shine float-animation" style={{
-          display: 'inline-block',
-          padding: '14px 40px',
-          background: 'linear-gradient(135deg, #000 0%, #1a1a1a 100%)',
-          color: 'white',
-          textDecoration: 'none',
-          borderRadius: '28px',
-          fontSize: '16px',
-          fontWeight: '600',
-          transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
-          boxShadow: '0 8px 24px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.2)',
-          letterSpacing: '-0.3px',
-          border: '1px solid rgba(255, 255, 255, 0.1)',
-        }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.boxShadow = '0 20px 40px rgba(66, 133, 244, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.3)';
-            e.currentTarget.style.transform = 'translateY(-4px) scale(1.02)';
-            e.currentTarget.style.background = 'linear-gradient(135deg, #1a1a1a 0%, #000 100%)';
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.boxShadow = '0 8px 24px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.2)';
-            e.currentTarget.style.transform = 'translateY(0) scale(1)';
-            e.currentTarget.style.background = 'linear-gradient(135deg, #000 0%, #1a1a1a 100%)';
-          }}
-        >
-          Order Now
+        <Link href="/products" className="cta-button-2100 tech-shine float-animation" style={{
+          display: 'inline-flex',
+          alignItems: 'center',
+          gap: '12px',
+        }}>
+          Order Now ➜
         </Link>
       </section>
 
       {/* Category Grid */}
-      <section style={{
-        background: '#ffffff',
-        padding: '140px 60px',
+      <section className="gradient-animated" style={{
+        padding: '160px 80px',
+        background: 'linear-gradient(-45deg, #ffffff, #f8f9fa, #ffffff, #f0f0f0)',
+        backgroundSize: '400% 400%',
       }}>
         <div style={{
-          maxWidth: '1280px',
+          maxWidth: '1320px',
           margin: '0 auto',
         }}>
-          <h2 style={{
+          <h2 className="heading-2100 text-glow" style={{
             textAlign: 'center',
-            marginBottom: '64px',
-            fontSize: '48px',
-            fontWeight: '700',
-            letterSpacing: '-0.8px',
+            marginBottom: '80px',
+            fontSize: '52px',
           }}>
             Shop by Category
           </h2>
@@ -284,20 +263,19 @@ export default function Home() {
       </section>
 
       {/* Our Most Popular - Infinite Carousel */}
-      <section style={{
-        background: '#ffffff',
-        padding: '140px 60px',
+      <section className="gradient-animated" style={{
+        padding: '160px 80px',
+        background: 'linear-gradient(-45deg, #ffffff, #f8f9fa, #ffffff, #f0f0f0)',
+        backgroundSize: '400% 400%',
       }}>
         <div style={{
-          maxWidth: '1280px',
+          maxWidth: '1320px',
           margin: '0 auto',
         }}>
-          <div style={{ marginBottom: '72px' }}>
-            <h2 style={{
-              fontSize: '48px',
-              fontWeight: '700',
-              marginBottom: '20px',
-              letterSpacing: '-0.8px',
+          <div style={{ marginBottom: '80px' }}>
+            <h2 className="heading-2100 text-glow" style={{
+              fontSize: '52px',
+              marginBottom: '24px',
             }}>
               Our Most Popular
             </h2>

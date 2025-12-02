@@ -17,8 +17,8 @@ export default function Smoothies() {
   return (
     <>
       <Navbar />
-      <div className="gradient-animated" style={{ minHeight: '100vh', padding: '60px 40px', background: 'linear-gradient(-45deg, #ffffff, #f8f9fa, #ffffff, #f0f0f0)', backgroundSize: '400% 400%' }}>
-        <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
+      <div className="gradient-animated" style={{ minHeight: '100vh', padding: '80px 80px', background: 'linear-gradient(-45deg, #ffffff, #f8f9fa, #ffffff, #f0f0f0)', backgroundSize: '400% 400%' }}>
+        <div style={{ maxWidth: '1320px', margin: '0 auto' }}>
           {/* Header Section */}
           <div style={{ marginBottom: '60px' }}>
             <div className="tech-shine" style={{ background: 'linear-gradient(135deg, #f9f9fa 0%, #f0f0f0 100%)', borderRadius: '16px', padding: '40px', marginBottom: '40px', border: '1px solid rgba(255, 255, 255, 0.4)', boxShadow: '0 8px 32px rgba(66, 133, 244, 0.08)' }}>

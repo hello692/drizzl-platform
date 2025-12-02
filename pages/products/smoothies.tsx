@@ -21,7 +21,7 @@ export default function Smoothies() {
         {/* Banner */}
         <div className="glass" style={{
           background: 'rgba(248, 249, 250, 0.8)',
-          padding: '16px 40px',
+          padding: '18px 80px',
           borderBottom: '1px solid rgba(255, 255, 255, 0.5)',
           textAlign: 'center',
           fontSize: '14px',
@@ -35,7 +35,7 @@ export default function Smoothies() {
           </p>
         </div>
 
-        <div style={{ padding: '60px 40px' }}>
+        <div style={{ padding: '80px 80px' }}>
           <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
             {/* Hero */}
             <div className="tech-shine" style={{

@@ -4,12 +4,12 @@ export default function Footer() {
   return (
     <footer className="gradient-animated" style={{
       borderTop: '1px solid rgba(224, 224, 224, 0.4)',
-      padding: '140px 60px 60px 60px',
+      padding: '160px 80px 80px 80px',
       background: 'linear-gradient(-45deg, #ffffff, #f8f9fa, #ffffff, #f0f0f0)',
       backgroundSize: '400% 400%',
     }}>
       <div style={{
-        maxWidth: '1280px',
+        maxWidth: '1320px',
         margin: '0 auto',
       }}>
         {/* Main Footer Content */}
