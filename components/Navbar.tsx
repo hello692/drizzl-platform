@@ -90,8 +90,8 @@ export default function Navbar() {
           </div>
 
           <div style={{ flex: 1, display: 'flex', justifyContent: 'center' }}>
-            <Link href="/" className="heading-2100 text-glow" style={{ fontSize: '24px', textDecoration: 'none', whiteSpace: 'nowrap', transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)', lineHeight: '1' }} onMouseEnter={(e) => { e.currentTarget.style.textShadow = '0 0 20px rgba(66, 133, 244, 0.6)'; }} onMouseLeave={(e) => { e.currentTarget.style.textShadow = '0 0 10px rgba(66, 133, 244, 0.3)'; }}>
-              DRIZZL
+            <Link href="/" className="heading-2100" style={{ fontSize: '18px', textDecoration: 'none', whiteSpace: 'nowrap', transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)', lineHeight: '1.2', fontWeight: '900', letterSpacing: '0.05em' }}>
+              DRIZZL<br />WELLNESS
             </Link>
           </div>
 
@@ -128,30 +128,67 @@ export default function Navbar() {
               
               <div className="menu-content-sidebar">
                 <div className="menu-header-2100">
-                  <span style={{ fontFamily: "'Space Mono', monospace", fontWeight: '700', fontSize: '12px', letterSpacing: '0.15em', textTransform: 'uppercase' }}>Navigation</span>
+                  <span style={{ fontFamily: "'Space Mono', monospace", fontWeight: '700', fontSize: '12px', letterSpacing: '0.15em', textTransform: 'uppercase', color: '#666' }}>Products</span>
                 </div>
-                
-                <div className="menu-divider-2100"></div>
                 
                 <div className="menu-section-2100">
                   <a href="/smoothies" className="menu-item-2100" onClick={() => setMenuOpen(false)}>
                     <span className="item-label">Smoothies</span>
-                    <span className="item-subtitle">Fresh Frozen</span>
+                    <span className="item-subtitle">Fresh Frozen Blends</span>
                   </a>
                   <a href="/bowls" className="menu-item-2100" onClick={() => setMenuOpen(false)}>
                     <span className="item-label">Bowls</span>
                     <span className="item-subtitle">Nutrient Packed</span>
                   </a>
+                  <a href="/juices" className="menu-item-2100" onClick={() => setMenuOpen(false)}>
+                    <span className="item-label">Juices</span>
+                    <span className="item-subtitle">Cold Pressed</span>
+                  </a>
+                  <a href="/wellness" className="menu-item-2100" onClick={() => setMenuOpen(false)}>
+                    <span className="item-label">Wellness</span>
+                    <span className="item-subtitle">Health Boosters</span>
+                  </a>
                 </div>
                 
                 <div className="menu-divider-2100"></div>
                 
+                <div className="menu-header-2100">
+                  <span style={{ fontFamily: "'Space Mono', monospace", fontWeight: '700', fontSize: '12px', letterSpacing: '0.15em', textTransform: 'uppercase', color: '#666' }}>Company</span>
+                </div>
+                
                 <div className="menu-section-2100">
                   <a href="/about" className="menu-item-2100" onClick={() => setMenuOpen(false)}>
-                    <span className="item-label">About</span>
+                    <span className="item-label">About Us</span>
                   </a>
+                  <a href="/sustainability" className="menu-item-2100" onClick={() => setMenuOpen(false)}>
+                    <span className="item-label">Sustainability</span>
+                  </a>
+                  <a href="/careers" className="menu-item-2100" onClick={() => setMenuOpen(false)}>
+                    <span className="item-label">Careers</span>
+                  </a>
+                  <a href="/blog" className="menu-item-2100" onClick={() => setMenuOpen(false)}>
+                    <span className="item-label">Blog</span>
+                  </a>
+                </div>
+                
+                <div className="menu-divider-2100"></div>
+                
+                <div className="menu-header-2100">
+                  <span style={{ fontFamily: "'Space Mono', monospace", fontWeight: '700', fontSize: '12px', letterSpacing: '0.15em', textTransform: 'uppercase', color: '#666' }}>Support</span>
+                </div>
+                
+                <div className="menu-section-2100">
                   <a href="/contact" className="menu-item-2100" onClick={() => setMenuOpen(false)}>
                     <span className="item-label">Contact</span>
+                  </a>
+                  <a href="/faq" className="menu-item-2100" onClick={() => setMenuOpen(false)}>
+                    <span className="item-label">FAQ</span>
+                  </a>
+                  <a href="/shipping" className="menu-item-2100" onClick={() => setMenuOpen(false)}>
+                    <span className="item-label">Shipping</span>
+                  </a>
+                  <a href="/returns" className="menu-item-2100" onClick={() => setMenuOpen(false)}>
+                    <span className="item-label">Returns</span>
                   </a>
                 </div>
               </div>
