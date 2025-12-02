@@ -1,128 +1,126 @@
-# Drizzl Wellness - Production D2C E-Commerce Platform
+# Drizzl Wellness - Production D2C + B2B E-Commerce Platform
 
 ## Project Overview
-**Purpose**: Production-ready Direct-to-Consumer smoothie and wellness brand platform
-**Status**: Phase 1 Complete - Full Site Structure Built
-**Stack**: Next.js 15 + React 19, Supabase, Stripe (Phase 2), AI (Phase 3)
+**Purpose**: Full-stack Direct-to-Consumer + B2B smoothie and wellness brand platform
+**Status**: Phase 2 Complete - D2C, B2B Portal, Admin Dashboard, AI Tools
+**Stack**: Next.js 15 + React 19, Supabase (Auth + DB), AI Content Helper
 
-## Database Architecture
-- **users** - Customer profiles with role-based access (admin/customer)
-- **products** - Complete product catalog with category, pricing, inventory
-- **cart_items** - Real-time shopping cart management
-- **orders** - Order records with status tracking
+## Platform Features
+
+### D2C E-Commerce (Customer-Facing)
+- Product browsing & filtering by category
+- Shopping cart (add/remove/update quantities)
+- Two-step checkout with order saving to database
+- User authentication (email, password, magic links)
+- Order history and account management
+- Multi-language support (12 languages)
+
+### B2B Retail Partner Portal
+- `/retail` - Partner login page
+- `/retail-partner/dashboard` - Full wholesale portal
+  - Wholesale product catalog with discounted pricing
+  - B2B cart and order placement
+  - Order history tracking
+  - Partner-specific pricing display
+
+### Master Admin Dashboard (Shopify-Style)
+- `/admin` - Overview with revenue, orders, D2C/B2B stats
+- `/admin/products` - Full product CRUD (create, edit, delete, images)
+- `/admin/orders` - Order management with status updates
+- `/admin/partners` - Retail partner management (create accounts, view info)
+- `/admin/analytics` - Revenue tracking, top products, event logs
+- `/admin/ai` - AI content generation tool
+
+### AI Content Helper
+- `/api/ai/content` - Content generation API
+- Supports hero, product, email, and social content types
+- Ready for OpenAI integration (placeholder responses for now)
+- Add OPENAI_API_KEY to enable real AI generation
+
+## Database Architecture (Supabase)
+
+### Tables
+- **profiles** - User profiles with roles (customer/partner/admin)
+- **products** - Product catalog with D2C + wholesale pricing
+- **orders** - D2C and B2B orders with status tracking
 - **order_items** - Line items with historical pricing
+- **retail_partners** - B2B partner company information
+- **analytics_events** - Event tracking for analytics
+- **cart_items** - Real-time shopping cart
 
-All tables have RLS (Row-Level Security) policies for data protection.
+### Row Level Security (RLS)
+All tables protected with RLS policies for:
+- Users can only access their own data
+- Partners can access B2B features
+- Admins have full access
 
-## Website Structure (Daily Harvest-Inspired)
+Schema file: `/database/supabase-schema.sql`
 
-### Main Pages
-- `/` - Homepage with hero, category grid, featured products
-- `/shop-all` - Complete product catalog
-- `/checkout` - Two-step checkout (shipping + payment)
-- `/order-confirmation` - Order success page
+## User Roles
+1. **customer** - Standard D2C customer (default)
+2. **partner** - B2B retail partner with wholesale access
+3. **admin** - Full admin dashboard access
 
-### Product Collections
-- `/collections/smoothies` - Regular smoothies
-- `/collections/high-protein` - Protein smoothies
-- `/collections/breakfast-bowls` - Breakfast bowls
-- `/collections/bites` - Snack bites
-- `/collections/protein-shop` - Protein powders
-- `/collections/best-sellers` - Top products
-- `/collections/new-arrivals` - Latest releases
-- `/collections/smoothie-boxes` - Curated boxes
-- `/collections/gift-guide` - Gift collections
-
-### User Account Pages
-- `/auth` - Login/signup/magic link
-- `/account` - Account dashboard
-- `/orders` - Order history
-- `/cart` - Shopping cart
-
-### Info & Support Pages
-- `/contact` - Contact form
-- `/faq` - Frequently asked questions
-- `/our-story` - Brand story
-- `/blog` - Blog & recipes
-- `/careers` - Job openings
-- `/refer` - Referral program
-- `/student-discount` - Student program
-- `/privacy` - Privacy policy
-- `/terms` - Terms of service
-
-### Product Pages
-- `/product/[id]` - Individual product detail page
+## File Structure
+```
+/lib
+  - supabaseClient.ts - Supabase config + TypeScript types
+  - db.ts - Database operations (CRUD for all tables)
+  - analytics.ts - Event tracking + reporting functions
+  - auth.ts - Authentication functions
+/hooks
+  - useAuth.ts - User authentication hook
+  - useRole.ts - Role-based access guards
+  - useCart.ts - Shopping cart management
+/pages
+  - /admin/* - Admin dashboard pages
+  - /retail-partner/* - B2B partner portal
+  - /retail - Partner login
+  - All D2C pages (products, checkout, etc.)
+/pages/api
+  - /ai/content.ts - AI content generation endpoint
+/database
+  - supabase-schema.sql - Complete database schema
+```
 
 ## Design System
 - **Typography**: DM Sans (headings), Inter (body)
 - **Colors**: Black (#000), white (#fff), grays (#f9f9f9, #e8e8e8)
-- **Layout**: 1280px centered max-width, clean minimal aesthetic
-- **Style**: Editorial wellness brand inspired by Daily Harvest
+- **Style**: Apple 3000 minimal aesthetic, Shopify-inspired admin
+- **Layout**: 1280px centered max-width
 
-## Authentication & Security
-- Email/Password signup
-- Magic link passwordless login
-- Supabase Auth with JWT tokens
-- Role-based access control (admin/customer)
-- User profile creation on signup
-
-## Core Features (Phase 1)
-✅ Product browsing & filtering by category
-✅ Shopping cart (add/remove/update quantities)
-✅ User authentication (email, password, magic links)
-✅ Order management structure
-✅ Complete site navigation
-✅ Footer with organized links
-✅ Responsive design
-✅ TikTok-style scroll animations (Intersection Observer)
-✅ Multi-language support (12 languages via next-intl)
-
-## Internationalization (i18n)
-Supported languages: English, Spanish, French, German, Italian, Portuguese, Chinese, Japanese, Korean, Arabic, Hindi, Russian
-
-Translation files: `/messages/{locale}.json`
-- Click the globe icon in navbar to switch languages
-- URLs are prefixed with locale: `/es`, `/fr`, `/de`, etc.
-- Uses next-intl with Next.js built-in i18n routing
-
-## Upcoming (Phase 2-3)
-- Stripe payment integration
-- Email confirmations
-- Order tracking
-- AI product recommendations
-- Admin dashboard
-- Subscription management
-- Analytics & reporting
-
-## File Structure
-```
-/lib - Core utilities
-  - auth.ts - Authentication functions
-  - supabaseClient.ts - Supabase config
-  - getMessages.ts - i18n message loader
-/hooks - Custom React hooks
-  - useAuth.ts - User authentication
-  - useCart.ts - Shopping cart management
-  - useScrollAnimation.ts - Scroll-triggered animations
-/components - Reusable components
-  - Navbar.tsx - Main navigation with language switcher
-  - Footer.tsx - Footer with links
-  - AuthForm.tsx - Auth form
-  - ScrollAnimations.tsx - Animated section components
-  - PageLayout.tsx - Reusable page template
-/pages - Next.js pages (all routes above)
-/messages - Translation files (en.json, es.json, fr.json, etc.)
-/styles - Global CSS with TikTok-style animations
-/database - Schema
-```
-
-## Environment Variables Required
+## Environment Variables
 ```
 NEXT_PUBLIC_SUPABASE_URL=your-url
 NEXT_PUBLIC_SUPABASE_ANON_KEY=your-key
-STRIPE_SECRET_KEY=your-key (Phase 2)
-NEXT_PUBLIC_STRIPE_KEY=your-key (Phase 2)
+OPENAI_API_KEY=your-key (optional - for AI features)
+STRIPE_SECRET_KEY=your-key (Phase 3)
+NEXT_PUBLIC_STRIPE_KEY=your-key (Phase 3)
 ```
+
+## Setup Instructions
+
+### 1. Database Setup
+Run the SQL in `/database/supabase-schema.sql` in your Supabase SQL Editor.
+
+### 2. Create Admin User
+After creating an account, update the role in Supabase:
+```sql
+UPDATE profiles SET role = 'admin' WHERE email = 'your-email@example.com';
+```
+
+### 3. Create Partner User
+Use the admin dashboard `/admin/partners` to create retail partner accounts.
+
+## Access Points
+- **Customer Site**: `/` (homepage)
+- **Retail Partner Login**: `/retail`
+- **Admin Dashboard**: `/admin`
+
+## Internationalization (i18n)
+Supported: English, Spanish, French, German, Italian, Portuguese, Chinese, Japanese, Korean, Arabic, Hindi, Russian
+
+Translation files: `/messages/{locale}.json`
 
 ## Development
 - `npm run dev` - Start dev server (port 5000)
@@ -130,15 +128,11 @@ NEXT_PUBLIC_STRIPE_KEY=your-key (Phase 2)
 - ESLint configured
 - Hot reload enabled
 
-## Deployment
-- Replit Deploy (autoscale)
-- Supabase managed database
-- Stripe for payments
-- Email via Supabase
+## Next Steps (Phase 3)
+1. Stripe payment integration
+2. Email confirmations (order receipts)
+3. Order tracking with notifications
+4. Real OpenAI integration for AI content
+5. Image upload for product management
+6. Subscription/recurring orders
 
-## Team Instructions
-1. Build Phase 2: Stripe integration with checkout flow
-2. Create admin dashboard for product management
-3. Implement email confirmations and order tracking
-4. Add AI features (search, recommendations, personalization)
-5. Set up analytics and reporting
