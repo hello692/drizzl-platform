@@ -84,15 +84,16 @@ export default function Navbar() {
         {/* Center: Logo */}
         <div style={{ flex: 1, display: 'flex', justifyContent: 'center' }}>
           <Link href="/" style={{
-            fontSize: '18px',
+            fontSize: '72px',
             fontWeight: '900',
             textDecoration: 'none',
             color: '#000',
-            letterSpacing: '-0.5px',
+            letterSpacing: '-2px',
             textTransform: 'uppercase',
             whiteSpace: 'nowrap',
             transition: 'all 0.2s ease-out',
             fontFamily: "'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif",
+            lineHeight: '1',
           }} onMouseEnter={(e) => {
             e.currentTarget.style.opacity = '0.7';
           }} onMouseLeave={(e) => {
