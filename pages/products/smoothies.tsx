@@ -150,24 +150,6 @@ export default function Smoothies() {
                         objectFit: 'cover',
                       }}
                     />
-
-                    {/* Magnifying Glass Icon */}
-                    <div style={{
-                      position: 'absolute',
-                      bottom: '16px',
-                      right: '16px',
-                      width: '36px',
-                      height: '36px',
-                      background: '#ffffff',
-                      border: '1px solid #999',
-                      borderRadius: '2px',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      cursor: 'pointer',
-                    }}>
-                      <span style={{ fontSize: '18px' }}>🔍</span>
-                    </div>
                   </div>
 
                   {/* Product Info */}
