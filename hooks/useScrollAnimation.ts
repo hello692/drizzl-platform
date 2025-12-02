@@ -12,10 +12,22 @@ export function useScrollAnimation<T extends HTMLElement>(
   const { threshold = 0.1, rootMargin = '0px 0px -50px 0px', triggerOnce = true } = options;
   const elementRef = useRef<T>(null);
   const [isVisible, setIsVisible] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (!isMounted) return;
+    
     const element = elementRef.current;
     if (!element) return;
+
+    if (typeof window === 'undefined' || !('IntersectionObserver' in window)) {
+      setIsVisible(true);
+      return;
+    }
 
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -34,18 +46,30 @@ export function useScrollAnimation<T extends HTMLElement>(
     observer.observe(element);
 
     return () => observer.disconnect();
-  }, [threshold, rootMargin, triggerOnce]);
+  }, [threshold, rootMargin, triggerOnce, isMounted]);
 
-  return [elementRef, isVisible];
+  return [elementRef, isMounted && isVisible];
 }
 
 export function useMultipleScrollAnimations(count: number, staggerDelay: number = 100) {
   const [visibleItems, setVisibleItems] = useState<boolean[]>(new Array(count).fill(false));
   const containerRef = useRef<HTMLDivElement>(null);
+  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (!isMounted) return;
+    
     const container = containerRef.current;
     if (!container) return;
+
+    if (typeof window === 'undefined' || !('IntersectionObserver' in window)) {
+      setVisibleItems(new Array(count).fill(true));
+      return;
+    }
 
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -68,7 +92,7 @@ export function useMultipleScrollAnimations(count: number, staggerDelay: number 
     observer.observe(container);
 
     return () => observer.disconnect();
-  }, [count, staggerDelay]);
+  }, [count, staggerDelay, isMounted]);
 
-  return { containerRef, visibleItems };
+  return { containerRef, visibleItems: isMounted ? visibleItems : new Array(count).fill(false) };
 }
