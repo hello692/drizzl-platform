@@ -10,23 +10,23 @@
       "cta": "¡A Mezclar!"
     },
     "categories": {
-      "title": "Comprar por Categoría",
+      "title": "Compra por Categoría",
       "smoothies": "Batidos",
       "smoothiesDesc": "Mezclas frescas congeladas",
       "bowls": "Bowls",
       "bowlsDesc": "Llenos de nutrientes",
       "juices": "Jugos",
-      "juicesDesc": "Prensado en frío",
+      "juicesDesc": "Prensados en frío",
       "wellness": "Bienestar",
       "wellnessDesc": "Potenciadores de salud"
     },
     "fanFavorites": {
-      "title": "Favoritos del Público",
-      "subtitle": "Las mezclas que todos aman. ¡Prueba lo que miles ya están disfrutando!"
+      "title": "Favoritos",
+      "subtitle": "Las mezclas que todos aman. ¡Prueba lo que miles ya disfrutan!"
     },
     "cta": {
       "shopAll": "Ver Todos los Productos",
-      "freeShipping": "Envío gratis en pedidos superiores a $50"
+      "freeShipping": "Envío gratis en pedidos mayores a $50"
     }
   },
   "menu": {
@@ -36,7 +36,7 @@
     "bowls": "Bowls",
     "bowlsDesc": "Llenos de Nutrientes",
     "juices": "Jugos",
-    "juicesDesc": "Prensado en Frío",
+    "juicesDesc": "Prensados en Frío",
     "wellness": "Bienestar",
     "wellnessDesc": "Potenciadores de Salud",
     "company": "Empresa",
@@ -47,45 +47,287 @@
     "support": "Soporte",
     "contact": "Contacto",
     "faq": "Preguntas Frecuentes",
-    "shipping": "Envío",
+    "shipping": "Envíos",
     "returns": "Devoluciones"
   },
   "pages": {
     "smoothies": {
-      "badge": "Nuestros Más Vendidos",
+      "badge": "Nuestros Favoritos",
       "title": "Batidos",
-      "subtitle": "Mezclas frescas congeladas llenas de frutas, verduras y superalimentos. Solo agrega líquido y mezcla.",
+      "subtitle": "Mezclas frescas congeladas con frutas, vegetales y superalimentos. Solo agrega líquido y mezcla.",
       "allTitle": "Todos los Batidos",
       "allSubtitle": "Elige tu aventura de sabor"
     },
     "bowls": {
       "badge": "Favoritos del Desayuno",
       "title": "Bowls de Desayuno",
-      "subtitle": "Comienza tu día con una explosión de nutrición. Nuestros bowls están llenos de superalimentos.",
+      "subtitle": "Comienza tu día con nutrición. Nuestros bowls están llenos de superalimentos.",
       "allTitle": "Todos los Bowls",
-      "allSubtitle": "Bowls nutritivos para impulsar tu mañana"
+      "allSubtitle": "Bowls nutritivos para tu mañana"
+    },
+    "juices": {
+      "badge": "Prensados en Frío",
+      "title": "Jugos Frescos",
+      "subtitle": "Puros, crudos y llenos de vitaminas. Nuestros jugos prensados en frío entregan máxima nutrición.",
+      "allTitle": "Todos los Jugos",
+      "allSubtitle": "Vitalidad pura y refrescante"
+    },
+    "wellness": {
+      "badge": "Potenciadores de Salud",
+      "title": "Bienestar",
+      "subtitle": "Fortalece tu sistema inmune con nuestros shots y suplementos de bienestar.",
+      "allTitle": "Todos los Productos de Bienestar",
+      "allSubtitle": "Tus esenciales de salud diaria"
     },
     "about": {
       "badge": "Nuestra Historia",
       "title": "Somos Drizzl",
-      "subtitle": "En una misión para que el bienestar se sienta tan bien como sabe.",
+      "subtitle": "En una misión para hacer que el bienestar se sienta tan bien como sabe.",
       "storyTitle": "Comenzó con una pregunta",
-      "storyP1": "¿Por qué la comida saludable tiene que saber a cartón? Nos negamos a aceptar ese compromiso.",
+      "storyP1": "¿Por qué la comida saludable tiene que saber a cartón? Nos negamos a aceptar eso.",
       "storyP2": "En 2020, nos propusimos demostrar que puedes tenerlo todo: sabores vibrantes, ingredientes limpios y conveniencia real.",
       "storyP3": "Hoy, estamos orgullosos de servir a miles de clientes felices que han descubierto que el bienestar puede ser delicioso.",
       "valuesTitle": "Nuestros Valores",
       "valuesSubtitle": "Los principios que guían todo lo que hacemos",
       "teamTitle": "Conoce al Equipo",
       "teamSubtitle": "Los humanos detrás de Drizzl"
+    },
+    "cart": {
+      "title": "Carrito de Compras",
+      "empty": "Tu carrito está vacío",
+      "continueShopping": "Continuar Comprando",
+      "orderSummary": "Resumen del Pedido",
+      "subtotal": "Subtotal",
+      "total": "Total",
+      "checkout": "Pagar",
+      "processing": "Procesando...",
+      "clearCart": "Vaciar Carrito",
+      "remove": "Eliminar"
+    },
+    "checkout": {
+      "title": "Pago",
+      "step1": "1. Envío",
+      "step2": "2. Pago",
+      "shippingAddress": "Dirección de Envío",
+      "firstName": "Nombre",
+      "lastName": "Apellido",
+      "email": "Correo Electrónico",
+      "streetAddress": "Dirección",
+      "city": "Ciudad",
+      "state": "Estado",
+      "zip": "Código Postal",
+      "continueToPayment": "Continuar al Pago",
+      "paymentMethod": "Método de Pago",
+      "paymentNote": "Integración con Stripe próximamente. Por ahora, este es un flujo de demostración.",
+      "cardNumber": "Número de Tarjeta",
+      "expiry": "MM/AA",
+      "cvc": "CVC",
+      "completePurchase": "Completar Compra",
+      "orderSummary": "Resumen del Pedido",
+      "subtotal": "Subtotal",
+      "shipping": "Envío",
+      "free": "GRATIS",
+      "total": "Total"
+    },
+    "contact": {
+      "title": "Contáctanos",
+      "email": "Correo Electrónico",
+      "emailPlaceholder": "tu@correo.com",
+      "message": "Mensaje",
+      "messagePlaceholder": "Cuéntanos qué piensas...",
+      "send": "Enviar Mensaje",
+      "thankYou": "Gracias por tu mensaje. Te responderemos pronto."
+    },
+    "faq": {
+      "title": "Preguntas Frecuentes",
+      "q1": "¿Cómo uso los batidos?",
+      "a1": "Simplemente mezcla con agua, leche o tu líquido favorito por 30-45 segundos. Agrega hielo para un batido más frío.",
+      "q2": "¿Los batidos son orgánicos?",
+      "a2": "Sí, todos nuestros batidos están hechos con ingredientes orgánicos de proveedores de confianza.",
+      "q3": "¿Cuánto tiempo se mantienen frescos?",
+      "a3": "Nuestros batidos congelados se mantienen frescos en tu congelador hasta 12 meses desde la fecha de envío.",
+      "q4": "¿Ofrecen suscripciones?",
+      "a4": "¡Sí! Suscríbete para obtener 10% de descuento y entregas automáticas."
+    },
+    "auth": {
+      "title": "Bienvenido",
+      "subtitle": "Inicia sesión o crea una cuenta nueva",
+      "emailLabel": "Correo Electrónico",
+      "passwordLabel": "Contraseña",
+      "signIn": "Iniciar Sesión",
+      "signUp": "Registrarse",
+      "orContinueWith": "O continúa con",
+      "magicLink": "Enviar Enlace Mágico",
+      "noAccount": "¿No tienes cuenta?",
+      "hasAccount": "¿Ya tienes cuenta?",
+      "forgotPassword": "¿Olvidaste tu contraseña?"
+    },
+    "account": {
+      "title": "Mi Cuenta",
+      "welcome": "Bienvenido",
+      "orders": "Mis Pedidos",
+      "profile": "Perfil",
+      "settings": "Configuración",
+      "signOut": "Cerrar Sesión",
+      "noOrders": "Aún no has realizado ningún pedido."
+    },
+    "orders": {
+      "title": "Historial de Pedidos",
+      "noOrders": "No se encontraron pedidos",
+      "orderNumber": "Pedido #",
+      "date": "Fecha",
+      "status": "Estado",
+      "total": "Total",
+      "viewDetails": "Ver Detalles"
+    },
+    "careers": {
+      "badge": "Únete a Nuestro Equipo",
+      "title": "Carreras",
+      "subtitle": "Ayúdanos a hacer el bienestar delicioso para todos.",
+      "openPositions": "Posiciones Abiertas",
+      "noPositions": "No hay posiciones abiertas en este momento. ¡Vuelve pronto!",
+      "benefits": "Beneficios",
+      "benefit1": "Salario competitivo",
+      "benefit2": "Seguro médico",
+      "benefit3": "Vacaciones ilimitadas",
+      "benefit4": "Batidos gratis"
+    },
+    "blog": {
+      "badge": "Últimos Artículos",
+      "title": "Blog y Recetas",
+      "subtitle": "Tips, trucos y recetas deliciosas para tu viaje de bienestar.",
+      "readMore": "Leer Más",
+      "noArticles": "No hay artículos disponibles aún. ¡Vuelve pronto!"
+    },
+    "refer": {
+      "badge": "Comparte el Amor",
+      "title": "Refiere a un Amigo",
+      "subtitle": "Da $20, Recibe $20. Comparte Drizzl con amigos y ambos ahorran.",
+      "howItWorks": "Cómo Funciona",
+      "step1": "Comparte tu enlace de referido único",
+      "step2": "Tu amigo recibe $20 de descuento en su primer pedido",
+      "step3": "Tú recibes $20 de crédito cuando compren",
+      "getLink": "Obtener Tu Enlace de Referido"
+    },
+    "studentDiscount": {
+      "badge": "Ahorro Estudiantil",
+      "title": "Descuento para Estudiantes y Educadores",
+      "subtitle": "Obtén 15% de descuento con un correo estudiantil o de educador válido.",
+      "verifyTitle": "Verifica Tu Estado",
+      "emailPlaceholder": "tu@escuela.edu",
+      "verify": "Verificar Ahora"
+    },
+    "privacy": {
+      "title": "Política de Privacidad",
+      "lastUpdated": "Última actualización",
+      "intro": "Tu privacidad es importante para nosotros. Esta política explica cómo recopilamos, usamos y protegemos tu información."
+    },
+    "terms": {
+      "title": "Términos de Servicio",
+      "lastUpdated": "Última actualización",
+      "intro": "Al usar nuestros servicios, aceptas estos términos."
+    },
+    "shipping": {
+      "title": "Información de Envío",
+      "subtitle": "Todo lo que necesitas saber sobre entregas.",
+      "freeShipping": "Envío gratis en pedidos mayores a $50",
+      "deliveryTime": "Tiempo de Entrega",
+      "deliveryTimeDesc": "Los pedidos se entregan típicamente en 3-5 días hábiles.",
+      "tracking": "Seguimiento de Pedido",
+      "trackingDesc": "Recibirás información de seguimiento por correo cuando tu pedido sea enviado."
+    },
+    "returns": {
+      "title": "Devoluciones y Reembolsos",
+      "subtitle": "Nuestra garantía de satisfacción.",
+      "policy": "Queremos que ames tu pedido. Si algo no está bien, lo arreglaremos.",
+      "howTo": "Cómo Devolver",
+      "howToDesc": "Contáctanos dentro de 7 días de la entrega para instrucciones de devolución."
+    },
+    "sustainability": {
+      "badge": "Nuestro Compromiso",
+      "title": "Sostenibilidad",
+      "subtitle": "Construyendo un mejor futuro, un batido a la vez.",
+      "mission": "Nuestra Misión",
+      "missionDesc": "Estamos comprometidos a reducir nuestra huella ambiental mientras entregamos productos deliciosos y nutritivos."
+    },
+    "shopAll": {
+      "title": "Todos los Productos",
+      "subtitle": "Descubre nuestra colección completa de batidos, bowls y productos de bienestar.",
+      "filter": "Filtrar",
+      "sort": "Ordenar",
+      "results": "resultados"
+    },
+    "product": {
+      "addToCart": "Agregar al Carrito",
+      "ingredients": "Ingredientes",
+      "nutrition": "Nutrición",
+      "reviews": "reseñas",
+      "inStock": "Disponible",
+      "outOfStock": "Agotado"
     }
   },
   "common": {
     "reviews": "reseñas",
-    "addToCart": "Añadir al Carrito",
+    "addToCart": "Agregar al Carrito",
     "readyTo": "¿Listo para",
     "blend": "mezclar",
     "fuelUp": "recargar",
     "movement": "movimiento",
-    "difference": "diferencia"
+    "difference": "diferencia",
+    "loading": "Cargando...",
+    "error": "Algo salió mal",
+    "tryAgain": "Intentar de Nuevo",
+    "back": "Atrás",
+    "next": "Siguiente",
+    "submit": "Enviar",
+    "cancel": "Cancelar",
+    "save": "Guardar",
+    "delete": "Eliminar",
+    "edit": "Editar",
+    "view": "Ver",
+    "close": "Cerrar"
+  },
+  "footer": {
+    "shop": "Tienda",
+    "smoothies": "Batidos",
+    "highProtein": "Batidos de proteína",
+    "breakfastBowls": "Bowls de desayuno",
+    "bites": "Bocaditos",
+    "proteinShop": "Tienda de proteínas",
+    "smoothieBoxes": "Cajas de batidos",
+    "giftGuide": "Guía de Regalos",
+    "learn": "Aprende",
+    "contactUs": "Contáctanos",
+    "faqs": "Preguntas Frecuentes",
+    "ourStory": "Nuestra historia",
+    "theoryOfChange": "Nuestra teoría del cambio",
+    "blogRecipes": "Blog y recetas",
+    "careers": "Carreras",
+    "hsaFsa": "HSA/FSA",
+    "share": "Comparte",
+    "referFriend": "Refiere a un amigo",
+    "corporate": "Alianzas corporativas",
+    "affiliates": "Afiliados",
+    "giftCards": "Tarjetas de regalo",
+    "studentDiscount": "Descuento estudiantil",
+    "govDiscount": "Descuento gubernamental",
+    "legal": "Legal",
+    "privacyPolicy": "Política de Privacidad",
+    "termsOfService": "Términos de Servicio",
+    "supplyChain": "Transparencia de Cadena de Suministro",
+    "supplierCode": "Código de Conducta de Proveedores",
+    "newsletter": {
+      "title": "Recibe actualizaciones",
+      "subtitle": "Suscríbete a nuestro boletín para tips de bienestar, recetas y ofertas exclusivas.",
+      "placeholder": "Ingresa tu correo",
+      "subscribe": "Suscribirse"
+    },
+    "copyright": "© 2025 Drizzl Wellness. Todos los derechos reservados.",
+    "social": {
+      "facebook": "Facebook",
+      "instagram": "Instagram",
+      "twitter": "Twitter",
+      "tiktok": "TikTok"
+    }
   }
 }

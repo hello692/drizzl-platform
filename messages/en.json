@@ -65,6 +65,20 @@
       "allTitle": "All Bowls",
       "allSubtitle": "Nutrient-packed bowls to fuel your morning"
     },
+    "juices": {
+      "badge": "Cold Pressed",
+      "title": "Fresh Juices",
+      "subtitle": "Pure, raw, and packed with vitamins. Our cold-pressed juices deliver maximum nutrition.",
+      "allTitle": "All Juices",
+      "allSubtitle": "Pure, refreshing vitality"
+    },
+    "wellness": {
+      "badge": "Health Boosters",
+      "title": "Wellness",
+      "subtitle": "Boost your immune system with our carefully crafted wellness shots and supplements.",
+      "allTitle": "All Wellness Products",
+      "allSubtitle": "Your daily health essentials"
+    },
     "about": {
       "badge": "Our Story",
       "title": "We're Drizzl",
@@ -77,6 +91,179 @@
       "valuesSubtitle": "The principles that guide everything we do",
       "teamTitle": "Meet the Team",
       "teamSubtitle": "The humans behind Drizzl"
+    },
+    "cart": {
+      "title": "Shopping Cart",
+      "empty": "Your cart is empty",
+      "continueShopping": "Continue Shopping",
+      "orderSummary": "Order Summary",
+      "subtotal": "Subtotal",
+      "total": "Total",
+      "checkout": "Checkout",
+      "processing": "Processing...",
+      "clearCart": "Clear Cart",
+      "remove": "Remove"
+    },
+    "checkout": {
+      "title": "Checkout",
+      "step1": "1. Shipping",
+      "step2": "2. Payment",
+      "shippingAddress": "Shipping Address",
+      "firstName": "First Name",
+      "lastName": "Last Name",
+      "email": "Email",
+      "streetAddress": "Street Address",
+      "city": "City",
+      "state": "State",
+      "zip": "ZIP",
+      "continueToPayment": "Continue to Payment",
+      "paymentMethod": "Payment Method",
+      "paymentNote": "Stripe integration coming in Phase 2. For now, this is a demo checkout flow.",
+      "cardNumber": "Card Number",
+      "expiry": "MM/YY",
+      "cvc": "CVC",
+      "completePurchase": "Complete Purchase",
+      "orderSummary": "Order Summary",
+      "subtotal": "Subtotal",
+      "shipping": "Shipping",
+      "free": "FREE",
+      "total": "Total"
+    },
+    "contact": {
+      "title": "Contact Us",
+      "email": "Email",
+      "emailPlaceholder": "your@email.com",
+      "message": "Message",
+      "messagePlaceholder": "Tell us what you think...",
+      "send": "Send Message",
+      "thankYou": "Thank you for your message. We will get back to you soon."
+    },
+    "faq": {
+      "title": "Frequently Asked Questions",
+      "q1": "How do I use the smoothies?",
+      "a1": "Simply blend with water, milk, or your favorite liquid for 30-45 seconds. Add ice for a colder smoothie.",
+      "q2": "Are the smoothies organic?",
+      "a2": "Yes, all our smoothies are made with organic ingredients sourced from trusted suppliers.",
+      "q3": "How long do they stay fresh?",
+      "a3": "Our frozen smoothies stay fresh in your freezer for up to 12 months from the date of shipment.",
+      "q4": "Do you offer subscriptions?",
+      "a4": "Yes! Sign up for a subscription to get 10% off and automatic deliveries."
+    },
+    "auth": {
+      "title": "Welcome Back",
+      "subtitle": "Sign in to your account or create a new one",
+      "emailLabel": "Email",
+      "passwordLabel": "Password",
+      "signIn": "Sign In",
+      "signUp": "Sign Up",
+      "orContinueWith": "Or continue with",
+      "magicLink": "Send Magic Link",
+      "noAccount": "Don't have an account?",
+      "hasAccount": "Already have an account?",
+      "forgotPassword": "Forgot password?"
+    },
+    "account": {
+      "title": "My Account",
+      "welcome": "Welcome back",
+      "orders": "My Orders",
+      "profile": "Profile",
+      "settings": "Settings",
+      "signOut": "Sign Out",
+      "noOrders": "You haven't placed any orders yet."
+    },
+    "orders": {
+      "title": "Order History",
+      "noOrders": "No orders found",
+      "orderNumber": "Order #",
+      "date": "Date",
+      "status": "Status",
+      "total": "Total",
+      "viewDetails": "View Details"
+    },
+    "careers": {
+      "badge": "Join Our Team",
+      "title": "Careers",
+      "subtitle": "Help us make wellness delicious for everyone.",
+      "openPositions": "Open Positions",
+      "noPositions": "No open positions at the moment. Check back soon!",
+      "benefits": "Benefits & Perks",
+      "benefit1": "Competitive salary",
+      "benefit2": "Health insurance",
+      "benefit3": "Unlimited PTO",
+      "benefit4": "Free smoothies"
+    },
+    "blog": {
+      "badge": "Latest Articles",
+      "title": "Blog & Recipes",
+      "subtitle": "Tips, tricks, and tasty recipes to fuel your wellness journey.",
+      "readMore": "Read More",
+      "noArticles": "No articles available yet. Check back soon!"
+    },
+    "refer": {
+      "badge": "Share the Love",
+      "title": "Refer a Friend",
+      "subtitle": "Give $20, Get $20. Share Drizzl with friends and both of you save.",
+      "howItWorks": "How It Works",
+      "step1": "Share your unique referral link",
+      "step2": "Your friend gets $20 off their first order",
+      "step3": "You get $20 credit when they purchase",
+      "getLink": "Get Your Referral Link"
+    },
+    "studentDiscount": {
+      "badge": "Student Savings",
+      "title": "Student & Educator Discount",
+      "subtitle": "Get 15% off with a valid student or educator email.",
+      "verifyTitle": "Verify Your Status",
+      "emailPlaceholder": "your@school.edu",
+      "verify": "Verify Now"
+    },
+    "privacy": {
+      "title": "Privacy Policy",
+      "lastUpdated": "Last updated",
+      "intro": "Your privacy is important to us. This policy explains how we collect, use, and protect your information."
+    },
+    "terms": {
+      "title": "Terms of Service",
+      "lastUpdated": "Last updated",
+      "intro": "By using our services, you agree to these terms."
+    },
+    "shipping": {
+      "title": "Shipping Information",
+      "subtitle": "Everything you need to know about delivery.",
+      "freeShipping": "Free shipping on orders over $50",
+      "deliveryTime": "Delivery Time",
+      "deliveryTimeDesc": "Orders are typically delivered within 3-5 business days.",
+      "tracking": "Order Tracking",
+      "trackingDesc": "You'll receive tracking information via email once your order ships."
+    },
+    "returns": {
+      "title": "Returns & Refunds",
+      "subtitle": "Our satisfaction guarantee.",
+      "policy": "We want you to love your order. If something isn't right, we'll make it right.",
+      "howTo": "How to Return",
+      "howToDesc": "Contact us within 7 days of delivery for return instructions."
+    },
+    "sustainability": {
+      "badge": "Our Commitment",
+      "title": "Sustainability",
+      "subtitle": "Building a better future, one smoothie at a time.",
+      "mission": "Our Mission",
+      "missionDesc": "We're committed to reducing our environmental footprint while delivering delicious, nutritious products."
+    },
+    "shopAll": {
+      "title": "All Products",
+      "subtitle": "Discover our complete collection of smoothies, bowls, and wellness products.",
+      "filter": "Filter",
+      "sort": "Sort",
+      "results": "results"
+    },
+    "product": {
+      "addToCart": "Add to Cart",
+      "ingredients": "Ingredients",
+      "nutrition": "Nutrition",
+      "reviews": "reviews",
+      "inStock": "In Stock",
+      "outOfStock": "Out of Stock"
     }
   },
   "common": {
@@ -86,6 +273,61 @@
     "blend": "blend",
     "fuelUp": "fuel up",
     "movement": "movement",
-    "difference": "difference"
+    "difference": "difference",
+    "loading": "Loading...",
+    "error": "Something went wrong",
+    "tryAgain": "Try Again",
+    "back": "Back",
+    "next": "Next",
+    "submit": "Submit",
+    "cancel": "Cancel",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "view": "View",
+    "close": "Close"
+  },
+  "footer": {
+    "shop": "Shop",
+    "smoothies": "Smoothies",
+    "highProtein": "High protein smoothies",
+    "breakfastBowls": "Breakfast bowls",
+    "bites": "Bites",
+    "proteinShop": "Protein shop",
+    "smoothieBoxes": "Smoothie boxes",
+    "giftGuide": "Gift Guide",
+    "learn": "Learn",
+    "contactUs": "Contact us",
+    "faqs": "FAQs",
+    "ourStory": "Our story",
+    "theoryOfChange": "Our theory of change",
+    "blogRecipes": "Blog & recipes",
+    "careers": "Careers",
+    "hsaFsa": "HSA/FSA",
+    "share": "Share",
+    "referFriend": "Refer a friend",
+    "corporate": "Corporate partnerships",
+    "affiliates": "Affiliates",
+    "giftCards": "Gift cards",
+    "studentDiscount": "Student + educator discount",
+    "govDiscount": "Government discount",
+    "legal": "Legal",
+    "privacyPolicy": "Privacy Policy",
+    "termsOfService": "Terms of Service",
+    "supplyChain": "Supply Chain Transparency",
+    "supplierCode": "Supplier Code of Conduct",
+    "newsletter": {
+      "title": "Get updates",
+      "subtitle": "Subscribe to our newsletter for wellness tips, recipes, and exclusive offers.",
+      "placeholder": "Enter your email",
+      "subscribe": "Subscribe"
+    },
+    "copyright": "© 2025 Drizzl Wellness. All rights reserved.",
+    "social": {
+      "facebook": "Facebook",
+      "instagram": "Instagram",
+      "twitter": "Twitter",
+      "tiktok": "TikTok"
+    }
   }
 }
