@@ -4,7 +4,7 @@ export default function Footer() {
   return (
     <footer style={{
       borderTop: '1px solid rgba(0, 0, 0, 0.06)',
-      padding: '120px 60px 60px 60px',
+      padding: 'clamp(40px, 6vw, 120px) clamp(16px, 4vw, 60px) clamp(30px, 4vw, 60px) clamp(16px, 4vw, 60px)',
       background: '#ffffff',
     }}>
       <div style={{
@@ -14,24 +14,24 @@ export default function Footer() {
         {/* Main Footer Content */}
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(4, 1fr)',
-          gap: '60px',
-          marginBottom: '80px',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(clamp(150px, 35vw, 280px), 1fr))',
+          gap: 'clamp(30px, 6vw, 60px)',
+          marginBottom: 'clamp(40px, 6vw, 80px)',
         }}>
           {/* SHOP */}
           <div>
             <h4 style={{ 
-              fontSize: '12px', 
+              fontSize: 'clamp(11px, 2.5vw, 12px)', 
               fontWeight: '600', 
               textTransform: 'uppercase', 
               letterSpacing: '0.8px',
-              marginBottom: '20px',
+              marginBottom: 'clamp(12px, 3vw, 20px)',
               color: '#000',
             }}>
               Shop
             </h4>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-              <Link href="/products/smoothies" style={{ fontSize: '14px', color: '#666', textDecoration: 'none', transition: 'all 1s cubic-bezier(0.32, 0, 0.67, 0)' }} onMouseEnter={(e) => { e.currentTarget.style.color = '#000'; }} onMouseLeave={(e) => { e.currentTarget.style.color = '#666'; }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 'clamp(10px, 2vw, 12px)' }}>
+              <Link href="/products/smoothies" style={{ fontSize: 'clamp(12px, 3vw, 14px)', color: '#666', textDecoration: 'none', transition: 'all 1s cubic-bezier(0.32, 0, 0.67, 0)' }} onMouseEnter={(e) => { e.currentTarget.style.color = '#000'; }} onMouseLeave={(e) => { e.currentTarget.style.color = '#666'; }}>
                 Smoothies
               </Link>
               <Link href="/products/high-protein" style={{ fontSize: '14px', color: '#666', textDecoration: 'none', transition: 'all 1s cubic-bezier(0.32, 0, 0.67, 0)' }} onMouseEnter={(e) => e.currentTarget.style.color = '#000'} onMouseLeave={(e) => e.currentTarget.style.color = '#666'}>
@@ -125,30 +125,31 @@ export default function Footer() {
         {/* Newsletter */}
         <div style={{
           maxWidth: '600px',
-          margin: '0 auto 60px',
-          paddingBottom: '60px',
+          margin: '0 auto clamp(30px, 6vw, 60px)',
+          paddingBottom: 'clamp(30px, 6vw, 60px)',
           borderBottom: '1px solid rgba(0, 0, 0, 0.06)',
           textAlign: 'center',
         }}>
           <h3 style={{
-            fontSize: '28px',
+            fontSize: 'clamp(20px, 5vw, 28px)',
             fontWeight: '600',
-            marginBottom: '12px',
+            marginBottom: 'clamp(8px, 2vw, 12px)',
             letterSpacing: '-0.4px',
           }}>
             Subscribe
           </h3>
           <p style={{
-            fontSize: '14px',
+            fontSize: 'clamp(12px, 3vw, 14px)',
             color: '#666',
-            marginBottom: '24px',
+            marginBottom: 'clamp(16px, 4vw, 24px)',
             lineHeight: '1.7',
           }}>
             Get wellness updates and exclusive offers
           </p>
           <div style={{
             display: 'flex',
-            gap: '8px',
+            gap: 'clamp(6px, 2vw, 8px)',
+            flexDirection: window && window.innerWidth < 640 ? 'column' : 'row',
           }}>
             <input
               type="email"
@@ -196,30 +197,34 @@ export default function Footer() {
         {/* Copyright */}
         <div style={{
           display: 'flex',
+          flexDirection: window && window.innerWidth < 768 ? 'column' : 'row',
           justifyContent: 'space-between',
           alignItems: 'center',
-          paddingTop: '0',
+          gap: 'clamp(16px, 3vw, 24px)',
           borderTop: '1px solid rgba(0, 0, 0, 0.06)',
-          paddingTop: '20px',
+          paddingTop: 'clamp(12px, 3vw, 20px)',
         }}>
           <p style={{
-            fontSize: '13px',
+            fontSize: 'clamp(11px, 2.5vw, 13px)',
             color: '#999',
             letterSpacing: '-0.2px',
+            textAlign: window && window.innerWidth < 768 ? 'center' : 'left',
           }}>
             © 2025 Drizzl Wellness. All rights reserved.
           </p>
           <div style={{
             display: 'flex',
-            gap: '24px',
+            gap: 'clamp(16px, 4vw, 24px)',
+            flexWrap: 'wrap',
+            justifyContent: window && window.innerWidth < 768 ? 'center' : 'flex-end',
           }}>
-            <Link href="#" style={{ fontSize: '13px', color: '#999', transition: 'all 1s cubic-bezier(0.32, 0, 0.67, 0)' }} onMouseEnter={(e) => e.currentTarget.style.color = '#000'} onMouseLeave={(e) => e.currentTarget.style.color = '#999'}>
+            <Link href="#" style={{ fontSize: 'clamp(11px, 2.5vw, 13px)', color: '#999', transition: 'all 1s cubic-bezier(0.32, 0, 0.67, 0)' }} onMouseEnter={(e) => e.currentTarget.style.color = '#000'} onMouseLeave={(e) => e.currentTarget.style.color = '#999'}>
               Facebook
             </Link>
-            <Link href="#" style={{ fontSize: '13px', color: '#999', transition: 'all 1s cubic-bezier(0.32, 0, 0.67, 0)' }} onMouseEnter={(e) => e.currentTarget.style.color = '#000'} onMouseLeave={(e) => e.currentTarget.style.color = '#999'}>
+            <Link href="#" style={{ fontSize: 'clamp(11px, 2.5vw, 13px)', color: '#999', transition: 'all 1s cubic-bezier(0.32, 0, 0.67, 0)' }} onMouseEnter={(e) => e.currentTarget.style.color = '#000'} onMouseLeave={(e) => e.currentTarget.style.color = '#999'}>
               Instagram
             </Link>
-            <Link href="#" style={{ fontSize: '13px', color: '#999', transition: 'all 1s cubic-bezier(0.32, 0, 0.67, 0)' }} onMouseEnter={(e) => e.currentTarget.style.color = '#000'} onMouseLeave={(e) => e.currentTarget.style.color = '#999'}>
+            <Link href="#" style={{ fontSize: 'clamp(11px, 2.5vw, 13px)', color: '#999', transition: 'all 1s cubic-bezier(0.32, 0, 0.67, 0)' }} onMouseEnter={(e) => e.currentTarget.style.color = '#000'} onMouseLeave={(e) => e.currentTarget.style.color = '#999'}>
               Twitter
             </Link>
           </div>

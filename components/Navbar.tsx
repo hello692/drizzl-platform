@@ -116,7 +116,7 @@ export default function Navbar() {
       <nav className="glass" style={{
         background: 'rgba(255, 255, 255, 0.9)',
         borderBottom: '1px solid rgba(0, 0, 0, 0.06)',
-        padding: '14px 60px',
+        padding: 'clamp(12px, 3vw, 14px) clamp(16px, 4vw, 60px)',
         position: 'sticky',
         top: 0,
         zIndex: 100,
@@ -131,15 +131,15 @@ export default function Navbar() {
           justifyContent: 'space-between',
           alignItems: 'center',
           flexWrap: 'nowrap',
-          gap: '32px',
+          gap: 'clamp(16px, 4vw, 32px)',
         }}>
-          <div style={{ flex: 1, display: 'flex', justifyContent: 'flex-start' }}>
-            <Link href="/" style={{ fontSize: '16px', textDecoration: 'none', whiteSpace: 'nowrap', transition: 'all 1s cubic-bezier(0.32, 0, 0.67, 0)', fontWeight: '600', letterSpacing: '-0.3px', color: '#000' }}>
+          <div style={{ flex: 1, display: 'flex', justifyContent: 'flex-start', minWidth: 0 }}>
+            <Link href="/" style={{ fontSize: 'clamp(14px, 4vw, 16px)', textDecoration: 'none', whiteSpace: 'nowrap', transition: 'all 1s cubic-bezier(0.32, 0, 0.67, 0)', fontWeight: '600', letterSpacing: '-0.3px', color: '#000' }}>
               Drizzl
             </Link>
           </div>
 
-          <div style={{ display: 'flex', alignItems: 'center', gap: '40px', flex: 0 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 'clamp(16px, 3vw, 40px)', flex: 0, flexShrink: 0 }}>
             <div style={{ position: 'relative' }}>
               <button 
                 onClick={toggleLang}
@@ -209,15 +209,15 @@ export default function Navbar() {
               )}
             </div>
 
-            <Link href="/cart" style={{ fontSize: '13px', color: '#000', opacity: 0.6, transition: 'all 1s cubic-bezier(0.32, 0, 0.67, 0)' }} onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')} onMouseLeave={(e) => (e.currentTarget.style.opacity = '0.6')}>
+            <Link href="/cart" style={{ fontSize: 'clamp(12px, 3vw, 13px)', color: '#000', opacity: 0.6, transition: 'all 1s cubic-bezier(0.32, 0, 0.67, 0)', display: 'none' }} className="nav-link-desktop" onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')} onMouseLeave={(e) => (e.currentTarget.style.opacity = '0.6')}>
               Bag
             </Link>
 
-            <Link href="/auth" style={{ fontSize: '13px', color: '#000', opacity: 0.6, transition: 'all 1s cubic-bezier(0.32, 0, 0.67, 0)' }} onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')} onMouseLeave={(e) => (e.currentTarget.style.opacity = '0.6')}>
+            <Link href="/auth" style={{ fontSize: 'clamp(12px, 3vw, 13px)', color: '#000', opacity: 0.6, transition: 'all 1s cubic-bezier(0.32, 0, 0.67, 0)', display: 'none' }} className="nav-link-desktop" onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')} onMouseLeave={(e) => (e.currentTarget.style.opacity = '0.6')}>
               Account
             </Link>
 
-            <button style={{ padding: '0', border: 'none', background: 'none', color: '#000', cursor: 'pointer', opacity: 0.6, transition: 'all 1s cubic-bezier(0.32, 0, 0.67, 0)', fontSize: '13px', fontWeight: '500' }} onClick={toggleMenu} onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')} onMouseLeave={(e) => (e.currentTarget.style.opacity = '0.6')}>
+            <button style={{ padding: '0', border: 'none', background: 'none', color: '#000', cursor: 'pointer', opacity: 0.6, transition: 'all 1s cubic-bezier(0.32, 0, 0.67, 0)', fontSize: 'clamp(12px, 3vw, 13px)', fontWeight: '500' }} onClick={toggleMenu} onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')} onMouseLeave={(e) => (e.currentTarget.style.opacity = '0.6')}>
               Menu
             </button>
           </div>

@@ -322,23 +322,73 @@ svg:hover {
   margin: 24px 0;
 }
 
-/* Responsive */
-@media (max-width: 1024px) {
-  h1 { font-size: 52px; }
-  h2 { font-size: 40px; }
-  h3 { font-size: 24px; }
-  .section { padding: 80px 40px; }
-  .container { padding: 0 40px; }
+/* Responsive - Desktop (1024px+) */
+@media (min-width: 1024px) {
+  html, body { font-size: 16px; }
 }
 
-@media (max-width: 768px) {
-  h1 { font-size: 40px; margin-bottom: 20px; letter-spacing: -0.8px; }
-  h2 { font-size: 32px; margin-bottom: 16px; }
-  h3 { font-size: 20px; margin-bottom: 12px; }
+/* Responsive - Tablet (768px - 1023px) */
+@media (max-width: 1023px) {
+  h1 { font-size: 52px; letter-spacing: -0.9px; }
+  h2 { font-size: 40px; letter-spacing: -0.6px; }
+  h3 { font-size: 24px; letter-spacing: -0.3px; }
   p { font-size: 15px; }
-  .section { padding: 60px 20px; }
-  .container { padding: 0 20px; }
+  
+  .section { padding: 80px 40px; }
+  .container { padding: 0 40px; }
   .btn-premium, .btn-secondary { padding: 12px 24px; font-size: 13px; }
+  
+  input, textarea, select { padding: 10px 14px; font-size: 15px; }
+}
+
+/* Responsive - Mobile (480px - 767px) */
+@media (max-width: 767px) {
+  html, body { font-size: 15px; }
+  
+  h1 { font-size: 36px; margin-bottom: 16px; letter-spacing: -0.6px; line-height: 1.1; }
+  h2 { font-size: 28px; margin-bottom: 12px; letter-spacing: -0.4px; }
+  h3 { font-size: 18px; margin-bottom: 10px; letter-spacing: -0.2px; }
+  h4 { font-size: 16px; margin-bottom: 10px; }
+  p { font-size: 14px; line-height: 1.6; }
+  
+  .section { padding: 40px 16px; }
+  .container { padding: 0 16px; }
+  .btn-premium, .btn-secondary { padding: 11px 20px; font-size: 13px; width: 100%; }
+  
+  input, textarea, select { padding: 10px 12px; font-size: 14px; }
+  
+  img { border-radius: 8px; }
+}
+
+/* Responsive - Small Mobile (< 480px) */
+@media (max-width: 479px) {
+  html, body { font-size: 14px; }
+  
+  h1 { font-size: 28px; margin-bottom: 12px; letter-spacing: -0.4px; }
+  h2 { font-size: 22px; margin-bottom: 10px; letter-spacing: -0.3px; }
+  h3 { font-size: 16px; margin-bottom: 8px; }
+  h4 { font-size: 14px; margin-bottom: 8px; }
+  p { font-size: 13px; line-height: 1.5; }
+  
+  .section { padding: 30px 12px; }
+  .container { padding: 0 12px; }
+  .btn-premium, .btn-secondary { padding: 10px 16px; font-size: 12px; width: 100%; }
+  
+  input, textarea, select { padding: 9px 10px; font-size: 13px; }
+}
+
+/* Menu responsive */
+@media (max-width: 768px) {
+  .menu-sidebar-animated {
+    width: 80vw;
+    max-width: 360px;
+  }
+}
+
+@media (max-width: 480px) {
+  .menu-sidebar-animated {
+    width: 100vw;
+  }
 }
 
 /* Stagger animation */

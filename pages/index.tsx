@@ -177,9 +177,9 @@ export default function Home() {
 
       {/* Hero Section */}
       <section style={{
-        padding: '140px 60px',
+        padding: 'clamp(60px, 10vw, 140px) clamp(16px, 4vw, 60px)',
         textAlign: 'center',
-        minHeight: '680px',
+        minHeight: 'clamp(400px, 60vh, 680px)',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
@@ -190,7 +190,7 @@ export default function Home() {
       }}>
         <AnimatedSection animation="fadeUp">
           <h1 style={{
-            fontSize: '64px',
+            fontSize: 'clamp(28px, 8vw, 64px)',
             fontWeight: '700',
             textAlign: 'center',
             letterSpacing: '-1px',
@@ -199,7 +199,7 @@ export default function Home() {
           </h1>
         </AnimatedSection>
         <AnimatedSection animation="fadeUp" delay={100}>
-          <p style={{ textAlign: 'center', margin: '0 auto 48px', fontSize: '18px', color: '#666', maxWidth: '600px', lineHeight: '1.7' }}>
+          <p style={{ textAlign: 'center', margin: '0 auto clamp(24px, 6vw, 48px)', fontSize: 'clamp(14px, 4vw, 18px)', color: '#666', maxWidth: '600px', lineHeight: '1.7' }}>
             {t('hero.subtitle')}
           </p>
         </AnimatedSection>
@@ -214,20 +214,20 @@ export default function Home() {
       </section>
 
       {/* Category Grid */}
-      <section style={{ padding: '120px 60px', background: '#ffffff' }}>
+      <section style={{ padding: 'clamp(40px, 8vw, 120px) clamp(16px, 4vw, 60px)', background: '#ffffff' }}>
         <div style={{ maxWidth: '1360px', margin: '0 auto' }}>
-          <AnimatedSection animation="fadeUp" style={{ textAlign: 'center', marginBottom: '60px' }}>
-            <h2 style={{ fontSize: '48px', fontWeight: '600', marginBottom: '24px' }}>
+          <AnimatedSection animation="fadeUp" style={{ textAlign: 'center', marginBottom: 'clamp(30px, 6vw, 60px)' }}>
+            <h2 style={{ fontSize: 'clamp(24px, 6vw, 48px)', fontWeight: '600', marginBottom: '12px' }}>
               Shop by Category
             </h2>
-            <p style={{ fontSize: '16px', color: '#666', margin: '0 auto', maxWidth: '600px', lineHeight: '1.7' }}>
+            <p style={{ fontSize: 'clamp(13px, 3.5vw, 16px)', color: '#666', margin: '0 auto', maxWidth: '600px', lineHeight: '1.7' }}>
               Explore our full range of products
             </p>
           </AnimatedSection>
           <div style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
-            gap: '16px',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(clamp(140px, 35vw, 180px), 1fr))',
+            gap: 'clamp(12px, 3vw, 16px)',
           }}>
             {CATEGORIES.map((category) => (
               <Link key={category.slug} href={`/products?category=${category.slug}`} style={{
@@ -268,19 +268,19 @@ export default function Home() {
       </section>
 
       {/* Popular Products */}
-      <section style={{ padding: '120px 60px', background: '#f9f9f9' }}>
+      <section style={{ padding: 'clamp(40px, 8vw, 120px) clamp(16px, 4vw, 60px)', background: '#f9f9f9' }}>
         <div style={{ maxWidth: '1360px', margin: '0 auto' }}>
-          <AnimatedSection animation="fadeUp" style={{ marginBottom: '60px' }}>
-            <h2 style={{ fontSize: '48px', fontWeight: '600', marginBottom: '16px' }}>
+          <AnimatedSection animation="fadeUp" style={{ marginBottom: 'clamp(30px, 6vw, 60px)' }}>
+            <h2 style={{ fontSize: 'clamp(24px, 6vw, 48px)', fontWeight: '600', marginBottom: '12px' }}>
               Popular Products
             </h2>
-            <p style={{ fontSize: '16px', color: '#666', margin: '0', maxWidth: '600px', lineHeight: '1.7' }}>
+            <p style={{ fontSize: 'clamp(13px, 3.5vw, 16px)', color: '#666', margin: '0', maxWidth: '600px', lineHeight: '1.7' }}>
               Customer favorites you'll love
             </p>
           </AnimatedSection>
 
           {/* Carousel Container */}
-          <div style={{ position: 'relative', paddingLeft: '80px', paddingRight: '80px' }}>
+          <div style={{ position: 'relative', paddingLeft: 'clamp(40px, 8vw, 80px)', paddingRight: 'clamp(40px, 8vw, 80px)' }}>
             {/* Left Arrow */}
             <button
               onClick={() => scroll('left')}
