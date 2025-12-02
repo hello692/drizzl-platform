@@ -84,7 +84,8 @@ export default function Navbar() {
           textDecoration: 'none',
           color: '#111',
           letterSpacing: '-0.5px',
-        }}>
+          textTransform: 'capitalize',
+        }} className="logo">
           Drizzl
         </Link>
 

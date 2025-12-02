@@ -44,7 +44,7 @@ export default function Cart() {
     <>
       <Navbar />
       <div style={{ padding: '40px 20px', maxWidth: '1000px', margin: '0 auto' }}>
-        <h1 style={{ marginBottom: '32px' }}>Shopping Cart</h1>
+        <h2 style={{ marginBottom: '32px' }}>Shopping Cart</h2>
 
         {items.length === 0 ? (
           <div style={{ textAlign: 'center', padding: '40px 20px' }}>

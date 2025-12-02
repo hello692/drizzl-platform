@@ -24,9 +24,9 @@ export default function CheckoutSuccess() {
         }}>
           ✓
         </div>
-        <h1 style={{ fontSize: '32px', marginBottom: '16px' }}>
+        <h2 style={{ fontSize: '32px', marginBottom: '16px' }}>
           Order Confirmed!
-        </h1>
+        </h2>
         <p style={{ fontSize: '16px', color: '#666', marginBottom: '32px', maxWidth: '600px' }}>
           Thank you for your purchase. You'll receive an email confirmation shortly with your order details and tracking information.
         </p>

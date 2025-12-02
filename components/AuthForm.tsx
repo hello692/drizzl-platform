@@ -83,7 +83,7 @@ export default function AuthForm() {
       }}>
         {/* Header */}
         <div style={{ textAlign: 'center', marginBottom: '32px' }}>
-          <h1 style={{
+          <h2 style={{
             margin: '0 0 12px 0',
             fontSize: '28px',
             fontWeight: '700',
@@ -91,7 +91,7 @@ export default function AuthForm() {
             color: '#111',
           }}>
             Welcome to Drizzl
-          </h1>
+          </h2>
           <p style={{
             margin: 0,
             fontSize: '15px',

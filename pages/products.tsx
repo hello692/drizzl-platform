@@ -49,7 +49,7 @@ export default function Products() {
     <>
       <Navbar />
       <div style={{ padding: '40px 20px', maxWidth: '1200px', margin: '0 auto' }}>
-        <h1 style={{ marginBottom: '32px' }}>Products</h1>
+        <h2 style={{ marginBottom: '32px' }}>Shop All Products</h2>
 
         {loading && <p>Loading products...</p>}
         {error && <p style={{ color: 'red' }}>Error: {error}</p>}
