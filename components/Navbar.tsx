@@ -64,92 +64,92 @@ export default function Navbar() {
 
   return (
     <>
-      {menuOpen && (
-        <div 
-          style={{
-            position: 'fixed',
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            background: 'rgba(0,0,0,0.3)',
-            zIndex: 9998,
-          }}
-          onClick={() => setMenuOpen(false)} 
-        />
-      )}
+      <div 
+        className={`menu-overlay-animated ${menuOpen ? 'active' : ''}`}
+        onClick={() => setMenuOpen(false)} 
+      />
       
-      {menuOpen && (
-        <div 
-          style={{
-            position: 'fixed',
-            top: 0,
-            right: 0,
-            width: '100%',
-            maxWidth: '480px',
-            height: '100vh',
-            background: '#f5f5f5',
-            zIndex: 9999,
-            boxShadow: '-8px 0 24px rgba(0,0,0,0.08)',
-            overflowY: 'auto',
-            borderLeft: '1px solid #e0e0e0',
-          }}
-        >
-          <div style={{ 
-            display: 'flex', 
-            justifyContent: 'flex-end', 
-            padding: '20px 24px',
-            borderBottom: '1px solid #e0e0e0',
-            background: '#fff',
-            position: 'sticky',
-            top: 0,
-            zIndex: 10
-          }}>
-            <button 
-              onClick={() => setMenuOpen(false)}
-              style={{ background: 'none', border: 'none', fontSize: '24px', cursor: 'pointer', fontWeight: '300', color: '#000' }}
-            >
-              ✕
+      <div className={`menu-sidebar-animated ${menuOpen ? 'active' : ''}`}>
+        <div className="menu-header-animated">
+          <button 
+            className="close-btn-animated"
+            onClick={() => setMenuOpen(false)}
+          >
+            <span className="close-line"></span>
+            <span className="close-line"></span>
+          </button>
+        </div>
+        
+        <div className="menu-content-animated">
+          <div className="menu-section-animated">
+            <div className="section-title-animated">Products</div>
+            <button className="menu-item-animated" onClick={() => navigateTo('/smoothies')} style={{ animationDelay: '0.05s' }}>
+              <span className="item-text">Smoothies</span>
+              <span className="item-sub">Fresh Frozen Blends</span>
+              <span className="item-arrow">→</span>
+            </button>
+            <button className="menu-item-animated" onClick={() => navigateTo('/bowls')} style={{ animationDelay: '0.1s' }}>
+              <span className="item-text">Bowls</span>
+              <span className="item-sub">Nutrient Packed</span>
+              <span className="item-arrow">→</span>
+            </button>
+            <button className="menu-item-animated" onClick={() => navigateTo('/juices')} style={{ animationDelay: '0.15s' }}>
+              <span className="item-text">Juices</span>
+              <span className="item-sub">Cold Pressed</span>
+              <span className="item-arrow">→</span>
+            </button>
+            <button className="menu-item-animated" onClick={() => navigateTo('/wellness')} style={{ animationDelay: '0.2s' }}>
+              <span className="item-text">Wellness</span>
+              <span className="item-sub">Health Boosters</span>
+              <span className="item-arrow">→</span>
             </button>
           </div>
           
-          <div style={{ padding: '24px 0' }}>
-            <div style={{ padding: '12px 24px 8px', fontSize: '11px', fontWeight: '600', color: '#666', letterSpacing: '0.15em', textTransform: 'uppercase', fontFamily: "'Space Mono', monospace" }}>Products</div>
-            <button onClick={() => navigateTo('/smoothies')} style={{ display: 'flex', flexDirection: 'column', gap: '2px', width: '100%', padding: '12px 24px', background: '#f5f5f5', border: 'none', textAlign: 'left', cursor: 'pointer', transition: 'background 0.2s' }} onMouseEnter={(e) => e.currentTarget.style.background = '#e8e8e8'} onMouseLeave={(e) => e.currentTarget.style.background = '#f5f5f5'}>
-              <span style={{ fontSize: '14px', fontWeight: '600', color: '#1a1a1a', fontFamily: "'JetBrains Mono', 'Space Mono', monospace" }}>Smoothies</span>
-              <span style={{ fontSize: '12px', color: '#888', fontFamily: "'JetBrains Mono', monospace" }}>Fresh Frozen Blends</span>
+          <div className="menu-divider-animated"></div>
+          
+          <div className="menu-section-animated">
+            <div className="section-title-animated">Company</div>
+            <button className="menu-item-animated simple" onClick={() => navigateTo('/about')} style={{ animationDelay: '0.25s' }}>
+              <span className="item-text">About Us</span>
+              <span className="item-arrow">→</span>
             </button>
-            <button onClick={() => navigateTo('/bowls')} style={{ display: 'flex', flexDirection: 'column', gap: '2px', width: '100%', padding: '12px 24px', background: '#f5f5f5', border: 'none', textAlign: 'left', cursor: 'pointer', transition: 'background 0.2s' }} onMouseEnter={(e) => e.currentTarget.style.background = '#e8e8e8'} onMouseLeave={(e) => e.currentTarget.style.background = '#f5f5f5'}>
-              <span style={{ fontSize: '14px', fontWeight: '600', color: '#1a1a1a', fontFamily: "'JetBrains Mono', 'Space Mono', monospace" }}>Bowls</span>
-              <span style={{ fontSize: '12px', color: '#888', fontFamily: "'JetBrains Mono', monospace" }}>Nutrient Packed</span>
+            <button className="menu-item-animated simple" onClick={() => navigateTo('/sustainability')} style={{ animationDelay: '0.3s' }}>
+              <span className="item-text">Sustainability</span>
+              <span className="item-arrow">→</span>
             </button>
-            <button onClick={() => navigateTo('/juices')} style={{ display: 'flex', flexDirection: 'column', gap: '2px', width: '100%', padding: '12px 24px', background: '#f5f5f5', border: 'none', textAlign: 'left', cursor: 'pointer', transition: 'background 0.2s' }} onMouseEnter={(e) => e.currentTarget.style.background = '#e8e8e8'} onMouseLeave={(e) => e.currentTarget.style.background = '#f5f5f5'}>
-              <span style={{ fontSize: '14px', fontWeight: '600', color: '#1a1a1a', fontFamily: "'JetBrains Mono', 'Space Mono', monospace" }}>Juices</span>
-              <span style={{ fontSize: '12px', color: '#888', fontFamily: "'JetBrains Mono', monospace" }}>Cold Pressed</span>
+            <button className="menu-item-animated simple" onClick={() => navigateTo('/careers')} style={{ animationDelay: '0.35s' }}>
+              <span className="item-text">Careers</span>
+              <span className="item-arrow">→</span>
             </button>
-            <button onClick={() => navigateTo('/wellness')} style={{ display: 'flex', flexDirection: 'column', gap: '2px', width: '100%', padding: '12px 24px', background: '#f5f5f5', border: 'none', textAlign: 'left', cursor: 'pointer', transition: 'background 0.2s' }} onMouseEnter={(e) => e.currentTarget.style.background = '#e8e8e8'} onMouseLeave={(e) => e.currentTarget.style.background = '#f5f5f5'}>
-              <span style={{ fontSize: '14px', fontWeight: '600', color: '#1a1a1a', fontFamily: "'JetBrains Mono', 'Space Mono', monospace" }}>Wellness</span>
-              <span style={{ fontSize: '12px', color: '#888', fontFamily: "'JetBrains Mono', monospace" }}>Health Boosters</span>
+            <button className="menu-item-animated simple" onClick={() => navigateTo('/blog')} style={{ animationDelay: '0.4s' }}>
+              <span className="item-text">Blog</span>
+              <span className="item-arrow">→</span>
             </button>
-            
-            <div style={{ height: '1px', background: '#e0e0e0', margin: '8px 0' }}></div>
-            
-            <div style={{ padding: '12px 24px 8px', fontSize: '11px', fontWeight: '600', color: '#666', letterSpacing: '0.15em', textTransform: 'uppercase', fontFamily: "'Space Mono', monospace" }}>Company</div>
-            <button onClick={() => navigateTo('/about')} style={{ display: 'block', width: '100%', padding: '12px 24px', background: '#f5f5f5', border: 'none', textAlign: 'left', cursor: 'pointer', fontSize: '14px', fontWeight: '600', color: '#1a1a1a', fontFamily: "'JetBrains Mono', 'Space Mono', monospace", transition: 'background 0.2s' }} onMouseEnter={(e) => e.currentTarget.style.background = '#e8e8e8'} onMouseLeave={(e) => e.currentTarget.style.background = '#f5f5f5'}>About Us</button>
-            <button onClick={() => navigateTo('/sustainability')} style={{ display: 'block', width: '100%', padding: '12px 24px', background: '#f5f5f5', border: 'none', textAlign: 'left', cursor: 'pointer', fontSize: '14px', fontWeight: '600', color: '#1a1a1a', fontFamily: "'JetBrains Mono', 'Space Mono', monospace", transition: 'background 0.2s' }} onMouseEnter={(e) => e.currentTarget.style.background = '#e8e8e8'} onMouseLeave={(e) => e.currentTarget.style.background = '#f5f5f5'}>Sustainability</button>
-            <button onClick={() => navigateTo('/careers')} style={{ display: 'block', width: '100%', padding: '12px 24px', background: '#f5f5f5', border: 'none', textAlign: 'left', cursor: 'pointer', fontSize: '14px', fontWeight: '600', color: '#1a1a1a', fontFamily: "'JetBrains Mono', 'Space Mono', monospace", transition: 'background 0.2s' }} onMouseEnter={(e) => e.currentTarget.style.background = '#e8e8e8'} onMouseLeave={(e) => e.currentTarget.style.background = '#f5f5f5'}>Careers</button>
-            <button onClick={() => navigateTo('/blog')} style={{ display: 'block', width: '100%', padding: '12px 24px', background: '#f5f5f5', border: 'none', textAlign: 'left', cursor: 'pointer', fontSize: '14px', fontWeight: '600', color: '#1a1a1a', fontFamily: "'JetBrains Mono', 'Space Mono', monospace", transition: 'background 0.2s' }} onMouseEnter={(e) => e.currentTarget.style.background = '#e8e8e8'} onMouseLeave={(e) => e.currentTarget.style.background = '#f5f5f5'}>Blog</button>
-            
-            <div style={{ height: '1px', background: '#e0e0e0', margin: '8px 0' }}></div>
-            
-            <div style={{ padding: '12px 24px 8px', fontSize: '11px', fontWeight: '600', color: '#666', letterSpacing: '0.15em', textTransform: 'uppercase', fontFamily: "'Space Mono', monospace" }}>Support</div>
-            <button onClick={() => navigateTo('/contact')} style={{ display: 'block', width: '100%', padding: '12px 24px', background: '#f5f5f5', border: 'none', textAlign: 'left', cursor: 'pointer', fontSize: '14px', fontWeight: '600', color: '#1a1a1a', fontFamily: "'JetBrains Mono', 'Space Mono', monospace", transition: 'background 0.2s' }} onMouseEnter={(e) => e.currentTarget.style.background = '#e8e8e8'} onMouseLeave={(e) => e.currentTarget.style.background = '#f5f5f5'}>Contact</button>
-            <button onClick={() => navigateTo('/faq')} style={{ display: 'block', width: '100%', padding: '12px 24px', background: '#f5f5f5', border: 'none', textAlign: 'left', cursor: 'pointer', fontSize: '14px', fontWeight: '600', color: '#1a1a1a', fontFamily: "'JetBrains Mono', 'Space Mono', monospace", transition: 'background 0.2s' }} onMouseEnter={(e) => e.currentTarget.style.background = '#e8e8e8'} onMouseLeave={(e) => e.currentTarget.style.background = '#f5f5f5'}>FAQ</button>
-            <button onClick={() => navigateTo('/shipping')} style={{ display: 'block', width: '100%', padding: '12px 24px', background: '#f5f5f5', border: 'none', textAlign: 'left', cursor: 'pointer', fontSize: '14px', fontWeight: '600', color: '#1a1a1a', fontFamily: "'JetBrains Mono', 'Space Mono', monospace", transition: 'background 0.2s' }} onMouseEnter={(e) => e.currentTarget.style.background = '#e8e8e8'} onMouseLeave={(e) => e.currentTarget.style.background = '#f5f5f5'}>Shipping</button>
-            <button onClick={() => navigateTo('/returns')} style={{ display: 'block', width: '100%', padding: '12px 24px', background: '#f5f5f5', border: 'none', textAlign: 'left', cursor: 'pointer', fontSize: '14px', fontWeight: '600', color: '#1a1a1a', fontFamily: "'JetBrains Mono', 'Space Mono', monospace", transition: 'background 0.2s' }} onMouseEnter={(e) => e.currentTarget.style.background = '#e8e8e8'} onMouseLeave={(e) => e.currentTarget.style.background = '#f5f5f5'}>Returns</button>
+          </div>
+          
+          <div className="menu-divider-animated"></div>
+          
+          <div className="menu-section-animated">
+            <div className="section-title-animated">Support</div>
+            <button className="menu-item-animated simple" onClick={() => navigateTo('/contact')} style={{ animationDelay: '0.45s' }}>
+              <span className="item-text">Contact</span>
+              <span className="item-arrow">→</span>
+            </button>
+            <button className="menu-item-animated simple" onClick={() => navigateTo('/faq')} style={{ animationDelay: '0.5s' }}>
+              <span className="item-text">FAQ</span>
+              <span className="item-arrow">→</span>
+            </button>
+            <button className="menu-item-animated simple" onClick={() => navigateTo('/shipping')} style={{ animationDelay: '0.55s' }}>
+              <span className="item-text">Shipping</span>
+              <span className="item-arrow">→</span>
+            </button>
+            <button className="menu-item-animated simple" onClick={() => navigateTo('/returns')} style={{ animationDelay: '0.6s' }}>
+              <span className="item-text">Returns</span>
+              <span className="item-arrow">→</span>
+            </button>
           </div>
         </div>
-      )}
+      </div>
       
       <nav className="glass" style={{
         background: 'rgba(255, 255, 255, 0.85)',
