@@ -1,0 +1,180 @@
+Here’s a ready-to-paste Replit prompt for your agent 👇
+(Just replace **Drizzl Wellness** with your brand if needed.)
+
+---
+
+You are a senior full-stack engineer working on the **Drizzl Wellness** website running in this Replit project. Tech stack: Next.js/React + Supabase (Postgres + Auth).
+
+Your job now is to:
+
+1. **Fix the “Unable to save application. Please try again.” error** on the *Wholesale Partner Application – Step 4: Order & Logistics* form.
+
+2. **Implement a full account system with two account types (B2B & Personal), with logins and an Admin Dashboard that can see/analyze all accounts and wholesale applications.**
+
+Do NOT break existing pages or styling. Re-use existing components where possible.
+
+---
+
+### 1. Debug & Fix the Wholesale Application Step 4 Error
+
+1. Find the code for the *Wholesale Partner Application* multi-step form and specifically **Step 4: Order & Logistics** (the one with fields like “Estimated Monthly Order Volume”, “Preferred Delivery Schedule”, “Receiving Hours”, “Loading Dock Available”).
+2. Identify where the form is being saved:
+
+   * The React handler (e.g. `handleSubmitStep4`).
+   * The API route or Supabase call it uses (e.g. `/api/wholesale-application`, `supabase.from('wholesale_applications').upsert(...)`, etc.).
+3. Fix the error so that submitting the form:
+
+   * **Successfully writes/updates** the record in the database.
+   * Associates the application with the **currently logged-in user** (via Supabase `user.id`) or a temp session if not logged in.
+   * Returns a clear success response and hides the red error banner.
+4. Add **robust error logging**:
+
+   * `console.error` on the client and any API errors.
+   * Display a friendly error message when there is a real failure (validation or network).
+5. Make sure Step 1–4 all save to the **same wholesale application record**, not separate rows, using a single `application_id` or `user_id`.
+
+If needed, create or adjust a `wholesale_applications` table in Supabase with at least:
+
+* `id` (uuid, primary key, default uuid_generate_v4())
+* `user_id` (uuid, references `auth.users.id`)
+* `account_type` (text, e.g. 'b2b')
+* `business_name`, `contact_name`, `email`, `phone`
+* `estimated_monthly_order_volume` (text)
+* `preferred_delivery_schedule` (text)
+* `receiving_hours` (text)
+* `loading_dock_available` (boolean/text)
+* `created_at`, `updated_at` (timestamps, default now())
+
+Make sure the insert/update code matches this schema.
+
+---
+
+### 2. Account System: B2B vs Personal (Consumer) Accounts
+
+Implement a proper account system with **two account types**:
+
+* **B2B / Wholesale Account**
+* **Personal / Consumer Account**
+
+#### 2.1. Auth & Profiles
+
+1. Use **Supabase Auth** for sign-up/login.
+2. Create a `profiles` table if it doesn’t exist with at least:
+
+   * `id` (uuid, PK, = `auth.users.id`)
+   * `full_name`
+   * `email`
+   * `account_type` (`'b2b'` or `'personal'`)
+   * `company_name` (nullable, for B2B)
+   * `role` (`'admin' | 'customer' | 'b2b'`)
+   * `created_at`, `updated_at`
+3. Ensure on user sign-up we:
+
+   * Capture `account_type` and (when B2B) `company_name`.
+   * Auto-create the `profiles` row using Supabase Row Level Security compatible patterns.
+
+#### 2.2. Sign-Up / Login UX
+
+1. Create a **“Create Account”** page with a clean UI that:
+
+   * Lets the user choose **“Personal Account”** or **“Wholesale / B2B Account”** (radio buttons or segmented control).
+   * Shows appropriate fields:
+
+     * Personal: name, email, password, phone.
+     * B2B: business name, contact name, email, phone, password, website, etc.
+2. On sign-up:
+
+   * Call Supabase Auth to create the user.
+   * Write to `profiles` with `account_type`, etc.
+3. Create a **Login** page that works for both account types (same form; the profile determines behavior after login).
+4. After login:
+
+   * Personal users go to a **Personal Dashboard** (e.g. `/dashboard`).
+   * B2B users are taken to the **Wholesale / B2B Dashboard** (e.g. `/wholesale/dashboard`) with their application status and ordering info.
+5. Add a top-right **Account Menu** (avatar/email) that allows:
+
+   * View Profile
+   * Logout
+
+---
+
+### 3. Link Wholesale Application to B2B Accounts
+
+1. Require users to be logged in as B2B to access the Wholesale Application (or at least encourage login before starting).
+2. When the B2B user fills out Steps 1–4:
+
+   * Save the record in `wholesale_applications` with `user_id` and `account_type = 'b2b'`.
+3. On the **B2B Dashboard**, show:
+
+   * Current application status (`Pending Review`, `Approved`, `Rejected`).
+   * Key application details (estimated volume, delivery preferences, etc.).
+4. If the application is incomplete, show a **“Continue Application”** button that jumps to the last incomplete step.
+
+---
+
+### 4. Admin Dashboard (For You / Internal Team)
+
+Create a secure **Admin Dashboard** (e.g. `/admin`) that only users with `profiles.role = 'admin'` can access.
+
+#### 4.1. Access Control
+
+1. Implement a server-side / middleware check that:
+
+   * Fetches the current Supabase user.
+   * Loads their profile.
+   * Only allows access if `role === 'admin'`.
+2. If non-admin tries to access `/admin`, redirect them to `/`.
+
+#### 4.2. Admin Views
+
+Build a clean dashboard (it can be simple but structured) with sections:
+
+1. **Overview Cards**
+
+   * Total Users
+   * Total B2B Accounts
+   * Total Wholesale Applications
+   * Applications by Status (Pending/Approved/Rejected)
+2. **Tables**
+
+   * **B2B Accounts Table**:
+
+     * Columns: Company, Contact Name, Email, Phone, Created At, Status, Actions.
+   * **Wholesale Applications Table**:
+
+     * Columns: Company, Est. Monthly Volume, Delivery Schedule, Status, Last Updated, Actions.
+3. **Detail Drawer/Modal**
+
+   * Clicking on a row opens detail view with full application info.
+   * Ability to change status (`Pending → Approved/Rejected`) and save back to DB.
+4. **Basic Analytics**
+
+   * Aggregate counts by:
+
+     * Monthly order volume brackets
+     * Delivery schedule preferences
+     * Account type
+   * At minimum, show these as textual stats; if quick, add simple charts using any chart library already in the project.
+
+---
+
+### 5. Code Quality & Notes
+
+1. Do **not** remove existing D2C pages or disrupt checkout flows.
+2. Keep styling consistent with current site design.
+3. Add helpful comments in new files (auth setup, API routes, dashboard pages).
+4. After changes, **run the app** and verify:
+
+   * You can sign up as a personal user and login.
+   * You can sign up as a B2B user, complete the Wholesale Application, and no longer see “Unable to save application”.
+   * An admin user can log in, open `/admin`, see all accounts and applications, and change statuses.
+
+When you’re done, briefly summarize:
+
+* What was causing the “Unable to save application” error.
+* Which tables you added/modified.
+* New routes/pages created and how to use them.
+
+---
+
+Use the existing project structure and Supabase client; don’t create duplicates. Now start by scanning the repo, fixing the Step 4 error, and then implementing the full account + admin system as described.
