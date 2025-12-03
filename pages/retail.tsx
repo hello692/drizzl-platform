@@ -14,15 +14,12 @@ export default function RetailLogin() {
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [applicationStatus, setApplicationStatus] = useState<any>(null);
-  const [checkingStatus, setCheckingStatus] = useState(true);
+  const [checkingStatus, setCheckingStatus] = useState(false);
 
   useEffect(() => {
-    if (!authLoading) {
-      if (user) {
-        checkPartnerStatus();
-      } else {
-        setCheckingStatus(false);
-      }
+    if (!authLoading && user) {
+      setCheckingStatus(true);
+      checkPartnerStatus();
     }
   }, [user, authLoading]);
 
