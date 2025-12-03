@@ -36,6 +36,9 @@ export default function RetailLogin() {
         if (data.status === 'approved') {
           router.push('/retail-partner/dashboard');
         }
+      } else {
+        // No application yet - redirect to application form
+        router.push('/retail/apply');
       }
     } catch (err) {
       console.error('Error checking partner status:', err);
@@ -68,7 +71,8 @@ export default function RetailLogin() {
             setApplicationStatus(statusData);
           }
         } else {
-          setError('No wholesale application found. Please apply first.');
+          // No application yet - redirect to application form
+          router.push('/retail/apply');
         }
       }
     } catch (err: any) {
