@@ -23,18 +23,45 @@ export async function getCurrentUser(): Promise<AuthUser | null> {
     .single();
 
   if (error) {
-    console.error('Error fetching user profile:', error);
+    // Profile doesn't exist - try to create one
+    if (error.code === 'PGRST116') {
+      const userName = user.user_metadata?.name || user.user_metadata?.full_name || user.email?.split('@')[0] || '';
+      
+      const { data: newProfile, error: insertError } = await supabase
+        .from('profiles')
+        .insert({
+          id: user.id,
+          email: user.email,
+          name: userName,
+          full_name: userName,
+          role: 'customer',
+        })
+        .select()
+        .single();
+
+      if (!insertError && newProfile) {
+        return {
+          id: newProfile.id,
+          email: newProfile.email || user.email || '',
+          name: newProfile.name,
+          role: newProfile.role as UserRole,
+        };
+      }
+    }
+    
+    // Fallback if profile creation fails
     return {
       id: user.id,
       email: user.email || '',
+      name: user.user_metadata?.name || '',
       role: 'customer',
     };
   }
 
   return {
     id: profile.id,
-    email: profile.email,
-    name: profile.name,
+    email: profile.email || user.email || '',
+    name: profile.name || profile.full_name,
     role: profile.role as UserRole,
   };
 }
