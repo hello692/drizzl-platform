@@ -40,13 +40,18 @@ export default function AuthPage() {
             data: {
               name: name,
             },
+            emailRedirectTo: undefined,
           },
         });
 
         if (signUpError) throw signUpError;
 
-        if (data.user) {
-          setMessage('Account created successfully! You can now sign in.');
+        if (data.user && data.session) {
+          // User is auto-confirmed, redirect directly
+          const redirectUrl = typeof redirect === 'string' ? redirect : '/';
+          router.push(redirectUrl);
+        } else if (data.user) {
+          setMessage('Account created! You can now sign in.');
           setMode('signin');
           setPassword('');
         }
