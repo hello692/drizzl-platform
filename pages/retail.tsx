@@ -36,10 +36,8 @@ export default function RetailLogin() {
         if (data.status === 'approved') {
           router.push('/retail-partner/dashboard');
         }
-      } else {
-        // No application yet - redirect to application form
-        router.push('/retail/apply');
       }
+      // If no application, stay on this page - user can choose to apply or login
     } catch (err) {
       console.error('Error checking partner status:', err);
     } finally {
@@ -71,8 +69,8 @@ export default function RetailLogin() {
             setApplicationStatus(statusData);
           }
         } else {
-          // No application yet - redirect to application form
-          router.push('/retail/apply');
+          // No application - show message prompting to apply
+          setError('No wholesale application found. Please click "Apply Now" to submit an application.');
         }
       }
     } catch (err: any) {
