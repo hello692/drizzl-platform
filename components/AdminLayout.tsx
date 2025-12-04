@@ -20,7 +20,7 @@ const navItems = [
   { label: 'AI Assistant', href: '/admin/ai-assistant', icon: 'ai' },
   { label: 'Projects', href: '/admin/projects', icon: 'projects' },
   { label: 'Social', href: '/admin/social', icon: 'social' },
-  { label: 'Videos', href: '/admin/video-manager', icon: 'videos' },
+  { label: 'Content', href: '/admin/video-manager', icon: 'videos' },
   { label: 'Settings', href: '/admin/settings', icon: 'settings' },
 ];
 
