@@ -1,6 +1,6 @@
 import { supabase } from './supabaseClient';
 
-export type UserRole = 'admin' | 'customer' | 'partner';
+export type UserRole = 'admin' | 'super_admin' | 'customer' | 'partner';
 
 export interface AuthUser {
   id: string;
@@ -68,7 +68,7 @@ export async function getCurrentUser(): Promise<AuthUser | null> {
 
 export async function isAdmin(): Promise<boolean> {
   const user = await getCurrentUser();
-  return user?.role === 'admin';
+  return user?.role === 'admin' || user?.role === 'super_admin';
 }
 
 export async function signUp(email: string, password: string, fullName?: string) {

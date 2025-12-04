@@ -33,7 +33,7 @@ export default function AdminAuthPage() {
         return;
       }
 
-      if (profile?.role === 'admin') {
+      if (profile?.role === 'admin' || profile?.role === 'super_admin') {
         router.push('/admin');
       } else {
         setError('Access denied. You do not have admin privileges.');

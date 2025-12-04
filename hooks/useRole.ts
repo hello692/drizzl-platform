@@ -87,7 +87,7 @@ export function useRequireAdmin() {
       return;
     }
 
-    if (role !== 'admin') {
+    if (role !== 'admin' && role !== 'super_admin') {
       router.push('/');
       return;
     }
@@ -114,7 +114,7 @@ export function useRequirePartner() {
         return;
       }
 
-      if (role === 'admin') {
+      if (role === 'admin' || role === 'super_admin') {
         setAuthorized(true);
         setPartnerStatus('approved');
         setCheckingPartner(false);
