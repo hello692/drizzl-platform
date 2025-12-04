@@ -86,6 +86,15 @@ const products: Product[] = [
     defaultImage: 'https://daily-harvest.com/cdn/shop/files/dark-chocolate-protein-smoothie-daily-harvest-4692961.jpg?v=1760509316&width=2048',
     hoverImage: 'https://daily-harvest.com/cdn/shop/files/dark-chocolate-protein-smoothie-daily-harvest-3901097.jpg?v=1760509317&width=2048',
   },
+  { 
+    id: '9', 
+    name: 'Pink Piyata', 
+    price: 8.99, 
+    reviews: 127, 
+    badge: 'New',
+    defaultImage: '/products/pink-piyata/transparent-glass-1.png',
+    hoverImage: '/products/pink-piyata/transparent-glass-2.png',
+  },
 ];
 
 function ProductCard({ product }: { product: Product }) {
