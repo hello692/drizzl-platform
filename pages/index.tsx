@@ -30,10 +30,7 @@ interface Product {
 const CATEGORIES = [
   { name: 'Smoothies', slug: 'smoothies' },
   { name: 'High Protein', slug: 'high-protein' },
-  { name: 'Breakfast Bowls', slug: 'bowls' },
-  { name: 'Bites', slug: 'bites' },
   { name: 'Smoothie Boxes', slug: 'boxes' },
-  { name: 'Protein Shop', slug: 'protein' },
   { name: 'Gift Guide', slug: 'gift' },
 ];
 

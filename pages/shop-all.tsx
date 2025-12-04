@@ -4,11 +4,8 @@ import Footer from '../components/Footer';
 const allProducts = [
   { id: '1', name: 'Strawberry + Peach', price: 8.49, category: 'Smoothie' },
   { id: '2', name: 'Mint + Cacao', price: 8.49, category: 'Smoothie' },
-  { id: '3', name: 'Mixed Berry Protein', price: 9.49, category: 'Protein' },
-  { id: '4', name: 'Dark Chocolate Protein', price: 9.49, category: 'Protein' },
-  { id: '20', name: 'Berry Granola Bowl', price: 8.99, category: 'Bowl' },
-  { id: '30', name: 'Energy Bites', price: 5.99, category: 'Bites' },
-  { id: '40', name: 'Plant Protein Powder', price: 34.99, category: 'Protein' },
+  { id: '3', name: 'Mixed Berry Protein', price: 9.49, category: 'Smoothie' },
+  { id: '4', name: 'Dark Chocolate Protein', price: 9.49, category: 'Smoothie' },
   { id: 'box1', name: 'The Starter Box', price: 59.99, category: 'Box' },
 ];
 
@@ -20,7 +17,7 @@ export default function ShopAll() {
         <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
           <h1 style={{ marginBottom: '16px' }}>Shop All</h1>
           <p style={{ fontSize: '16px', color: '#666', marginBottom: '40px' }}>
-            Browse our complete collection of organic smoothies, bowls, bites, and protein products.
+            Browse our complete collection of organic smoothies and wellness products.
           </p>
 
           <div style={{
