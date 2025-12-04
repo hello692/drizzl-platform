@@ -1,5 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { createClient } from '@supabase/supabase-js';
+import { sendApplicationReceivedNotification } from '../../../lib/notificationService';
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
@@ -87,11 +88,15 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       submittedAt: new Date().toISOString(),
     };
 
+    const contactEmail = applicationData.businessEmail || applicationData.decisionMakerEmail;
+    const contactName = applicationData.decisionMakerName || 'Partner';
+    const companyName = applicationData.legalBusinessName;
+
     const insertData = {
       user_id: userId,
-      company_name: applicationData.legalBusinessName || 'Unnamed Business',
-      contact_name: applicationData.decisionMakerName || null,
-      email: applicationData.businessEmail || null,
+      company_name: companyName || 'Unnamed Business',
+      contact_name: contactName || null,
+      email: contactEmail || null,
       phone: applicationData.businessPhone || null,
       status: 'pending',
       application_data: fullApplicationData,
@@ -135,9 +140,30 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
 
     try {
-      await supabase.from('profiles').update({ role: 'partner' }).eq('id', userId);
+      await supabase.from('profiles').upsert({
+        id: userId,
+        email: contactEmail,
+        full_name: contactName,
+        account_type: 'b2b',
+        b2b_status: 'pending',
+        role: 'customer',
+        updated_at: new Date().toISOString(),
+      }, { onConflict: 'id' });
     } catch (e) {
-      console.log('Could not update user role - profiles table may not exist or missing permissions');
+      console.log('Could not update user profile:', e);
+    }
+
+    if (contactEmail) {
+      try {
+        await sendApplicationReceivedNotification({
+          email: contactEmail,
+          contactName,
+          companyName,
+        });
+        console.log(`[Notification] Application received email sent to ${contactEmail}`);
+      } catch (emailError) {
+        console.error('[Notification] Failed to send confirmation email:', emailError);
+      }
     }
 
     console.log('Application saved successfully:', partner?.id);
