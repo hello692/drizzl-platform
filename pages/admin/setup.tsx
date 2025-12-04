@@ -10,6 +10,28 @@ export default function AdminSetup() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
+  const [resetSent, setResetSent] = useState(false);
+
+  const handleResetPassword = async () => {
+    if (!email) {
+      setError('Please enter your email first');
+      return;
+    }
+    setIsLoading(true);
+    setError('');
+    
+    try {
+      const { error } = await supabase.auth.resetPasswordForEmail(email, {
+        redirectTo: `${window.location.origin}/admin/setup`,
+      });
+      if (error) throw error;
+      setResetSent(true);
+    } catch (err: any) {
+      setError(err.message || 'Failed to send reset email');
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   const handleSetup = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -138,8 +160,39 @@ export default function AdminSetup() {
                 Admin account created!
               </p>
               <p style={{ color: 'rgba(255, 255, 255, 0.5)', fontSize: '14px', marginTop: '8px' }}>
-                Redirecting to login...
+                Redirecting to admin...
               </p>
+            </div>
+          ) : resetSent ? (
+            <div style={{
+              background: 'rgba(6, 182, 212, 0.1)',
+              border: '1px solid rgba(6, 182, 212, 0.3)',
+              borderRadius: '12px',
+              padding: '20px',
+              textAlign: 'center',
+            }}>
+              <div style={{ fontSize: '32px', marginBottom: '12px' }}>📧</div>
+              <p style={{ color: '#06b6d4', margin: 0, fontWeight: '500' }}>
+                Password reset email sent!
+              </p>
+              <p style={{ color: 'rgba(255, 255, 255, 0.5)', fontSize: '14px', marginTop: '8px' }}>
+                Check your inbox at {email} and click the reset link. Then come back here and try again.
+              </p>
+              <button
+                onClick={() => setResetSent(false)}
+                style={{
+                  marginTop: '16px',
+                  padding: '10px 20px',
+                  fontSize: '14px',
+                  color: '#06b6d4',
+                  background: 'transparent',
+                  border: '1px solid rgba(6, 182, 212, 0.3)',
+                  borderRadius: '8px',
+                  cursor: 'pointer',
+                }}
+              >
+                Back to Setup
+              </button>
             </div>
           ) : (
             <form onSubmit={handleSetup}>
@@ -218,13 +271,34 @@ export default function AdminSetup() {
                     boxSizing: 'border-box',
                   }}
                 />
-                <p style={{
-                  fontSize: '12px',
-                  color: 'rgba(255, 255, 255, 0.4)',
+                <div style={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
                   marginTop: '6px',
                 }}>
-                  Minimum 6 characters
-                </p>
+                  <p style={{
+                    fontSize: '12px',
+                    color: 'rgba(255, 255, 255, 0.4)',
+                    margin: 0,
+                  }}>
+                    Minimum 6 characters
+                  </p>
+                  <button
+                    type="button"
+                    onClick={handleResetPassword}
+                    style={{
+                      fontSize: '12px',
+                      color: '#a855f7',
+                      background: 'none',
+                      border: 'none',
+                      cursor: 'pointer',
+                      padding: 0,
+                    }}
+                  >
+                    Forgot password?
+                  </button>
+                </div>
               </div>
 
               <button
