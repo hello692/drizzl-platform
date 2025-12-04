@@ -101,8 +101,8 @@ async function updateProfileStatus(
 }
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  if (!supabaseServiceKey) {
-    console.error('[Partner API] Missing SUPABASE_SERVICE_ROLE_KEY');
+  if (!supabaseKey) {
+    console.error('[Partner API] Missing Supabase key');
     return res.status(500).json({ error: 'Server configuration error' });
   }
 

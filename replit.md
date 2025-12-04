@@ -59,3 +59,20 @@ Drizzl Wellness is a full-stack e-commerce platform for a smoothie and wellness 
 - **POS Integrations**: Connects with Square, Clover, Toast, Lightspeed, Shopify for B2B portal.
 - **Social Media APIs**: (Placeholder, future integration) Instagram, TikTok, Facebook for Social Media Control Center.
 - **Stripe**: (Future integration) For payment processing.
+- **Resend**: (Optional) For email notifications on B2B application status changes.
+
+## Recent Updates (December 2024)
+- Implemented core database tables: `products`, `orders`, `order_items` with proper foreign key constraints
+- Added comprehensive RLS policies for secure data access
+- Fixed auth signup flow to automatically create user profiles with `role: 'customer'`
+- Built customer dashboard with order history and profile information
+- Completed B2B partner application and approval workflow
+- Fixed admin APIs to work with RLS policies (using service role key when available, anon key fallback for development)
+- Created architecture documentation in `docs/ARCHITECTURE-NOTES.md`
+- Seeded sample products for testing (6 smoothie products with images)
+
+## Required Secrets for Production
+- `SUPABASE_SERVICE_ROLE_KEY` - For secure admin operations bypassing RLS
+- `RESEND_API_KEY` - For email notifications
+- `OPENAI_API_KEY` - For AI Command Assistant
+- `MERCURY_API_KEY` - For Banking Intelligence
