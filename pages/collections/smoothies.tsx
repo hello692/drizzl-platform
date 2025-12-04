@@ -131,6 +131,15 @@ const products: Product[] = [
     defaultImage: '/products/mango-jackfruit/transparent-glass-1.png',
     hoverImage: '/products/mango-jackfruit/transparent-glass-2.png',
   },
+  { 
+    id: '14', 
+    name: 'Coffee Mushroom', 
+    price: 9.99, 
+    reviews: 203, 
+    badge: 'New',
+    defaultImage: '/products/coffee-mushroom/transparent-glass-1.png',
+    hoverImage: '/products/coffee-mushroom/transparent-glass-2.png',
+  },
 ];
 
 function ProductCard({ product }: { product: Product }) {
