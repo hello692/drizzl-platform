@@ -77,6 +77,15 @@ Drizzl Wellness is a full-stack e-commerce platform for a smoothie and wellness 
 - Transformed Video Manager into comprehensive Content Manager with three tabs: Expert Reviewers, Customer Testimonials, and Website Videos
 - Created database tables and API endpoints for experts and testimonials management
 - Integrated Content Manager with PostgreSQL database for persistent data storage
+- Fixed partner approval button event propagation issues in admin dashboard
+- Added fallback handling for missing Supabase columns in partner API
+
+### B2B Partner Pipeline 2026 (In Progress)
+- **Database Schema**: Created new tables for partner scoring, agreements, marketing assets, starter bundles, bundle recommendations, and performance analytics
+- **AI Scoring Service**: Rule-based and AI-enhanced scoring for partner applications (0-100 score with Low/Medium/High risk levels)
+- **Scoring API**: `/api/admin/partners/scoring` endpoint for calculating and retrieving partner scores
+- **Partners Page UI**: Added ScoreBadge component and scoring section in expanded partner panel with Calculate Score and AI Score buttons
+- **New retail_partners columns**: latest_score, risk_level, agreement_status, is_onboarded, onboarded_at
 
 ## Required Secrets for Production
 - `SUPABASE_SERVICE_ROLE_KEY` - For secure admin operations bypassing RLS

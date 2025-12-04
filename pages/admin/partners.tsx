@@ -43,6 +43,25 @@ interface Partner {
   rejection_reason: string;
   created_at: string;
   reviewed_at: string;
+  latest_score?: number;
+  risk_level?: string;
+  agreement_status?: string;
+}
+
+interface PartnerScoring {
+  id: string;
+  partner_id: string;
+  score: number;
+  risk_level: string;
+  explanation: string;
+  scoring_factors: {
+    businessTypeScore: number;
+    locationScore: number;
+    volumeScore: number;
+    infrastructureScore: number;
+    verificationScore: number;
+  };
+  created_at: string;
 }
 
 const volumeLabels: Record<string, string> = {
@@ -150,6 +169,42 @@ const StatusBadge = ({ status }: { status: string }) => {
   );
 };
 
+const ScoreBadge = ({ score, riskLevel }: { score?: number; riskLevel?: string }) => {
+  if (!score && score !== 0) return null;
+  
+  const getColors = () => {
+    if (riskLevel === 'Low' || score >= 70) {
+      return { bg: 'linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(52, 211, 153, 0.15))', border: 'rgba(16, 185, 129, 0.3)', text: '#34d399' };
+    }
+    if (riskLevel === 'Medium' || score >= 50) {
+      return { bg: 'linear-gradient(135deg, rgba(245, 158, 11, 0.15), rgba(251, 191, 36, 0.15))', border: 'rgba(245, 158, 11, 0.3)', text: '#fbbf24' };
+    }
+    return { bg: 'linear-gradient(135deg, rgba(239, 68, 68, 0.15), rgba(248, 113, 113, 0.15))', border: 'rgba(239, 68, 68, 0.3)', text: '#f87171' };
+  };
+  
+  const colors = getColors();
+  return (
+    <span style={{
+      display: 'inline-flex',
+      alignItems: 'center',
+      gap: '4px',
+      padding: '4px 10px',
+      borderRadius: '12px',
+      fontSize: '11px',
+      fontWeight: '600',
+      background: colors.bg,
+      border: `1px solid ${colors.border}`,
+      color: colors.text,
+    }}>
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+        <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" />
+      </svg>
+      {score}
+      {riskLevel && <span style={{ opacity: 0.7, marginLeft: '2px' }}>({riskLevel})</span>}
+    </span>
+  );
+};
+
 export default function AdminPartners() {
   const { user, loading, authorized } = useRequireAdmin();
   const [partners, setPartners] = useState<Partner[]>([]);
@@ -161,6 +216,8 @@ export default function AdminPartners() {
   const [rejectionReason, setRejectionReason] = useState('');
   const [adminNotes, setAdminNotes] = useState('');
   const [showRejectionForm, setShowRejectionForm] = useState(false);
+  const [scoringLoading, setScoringLoading] = useState<string | null>(null);
+  const [scoringResults, setScoringResults] = useState<Record<string, PartnerScoring>>({});
 
   useEffect(() => {
     if (authorized) {
@@ -234,6 +291,36 @@ export default function AdminPartners() {
       setAdminNotes(partner.admin_notes || '');
       setShowRejectionForm(false);
       setRejectionReason('');
+    }
+  }
+
+  async function calculateScore(partnerId: string, useAI: boolean = false) {
+    setScoringLoading(partnerId);
+    try {
+      const response = await fetch(`/api/admin/partners/scoring?useAI=${useAI}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ partnerId, forceRecalculate: true }),
+      });
+      
+      const data = await response.json();
+      
+      if (data.scoring) {
+        setScoringResults(prev => ({
+          ...prev,
+          [partnerId]: data.scoring,
+        }));
+        
+        setPartners(prev => prev.map(p => 
+          p.id === partnerId 
+            ? { ...p, latest_score: data.scoring.score, risk_level: data.scoring.risk_level }
+            : p
+        ));
+      }
+    } catch (error) {
+      console.error('[Partners] Error calculating score:', error);
+    } finally {
+      setScoringLoading(null);
     }
   }
 
@@ -338,7 +425,15 @@ export default function AdminPartners() {
                       <span style={styles.metaLabel}>{volumeLabels[appData.estimatedMonthlyVolume || ''] || '-'}</span>
                     </div>
                     <div style={styles.statusCol}>
-                      <StatusBadge status={partner.status} />
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
+                        <StatusBadge status={partner.status} />
+                        {(partner.latest_score || scoringResults[partner.id]) && (
+                          <ScoreBadge 
+                            score={scoringResults[partner.id]?.score ?? partner.latest_score} 
+                            riskLevel={scoringResults[partner.id]?.risk_level ?? partner.risk_level} 
+                          />
+                        )}
+                      </div>
                     </div>
                     <div style={styles.dateCol}>
                       <span style={styles.dateText}>{new Date(partner.created_at).toLocaleDateString()}</span>
@@ -415,6 +510,62 @@ export default function AdminPartners() {
                           <p><span style={styles.label}>Applied:</span> {new Date(partner.created_at).toLocaleString()}</p>
                         </div>
                       </div>
+                    </div>
+
+                    {/* AI Scoring Section */}
+                    <div style={styles.scoringSection} onClick={(e) => e.stopPropagation()}>
+                      <div style={styles.scoringHeader}>
+                        <label style={styles.notesLabel}>AI Fit Score</label>
+                        <div style={{ display: 'flex', gap: '8px' }}>
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              calculateScore(partner.id, false);
+                            }}
+                            disabled={scoringLoading === partner.id}
+                            style={styles.scoreBtn}
+                          >
+                            {scoringLoading === partner.id ? 'Calculating...' : 'Calculate Score'}
+                          </button>
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              calculateScore(partner.id, true);
+                            }}
+                            disabled={scoringLoading === partner.id}
+                            style={styles.scoreAIBtn}
+                          >
+                            AI Score
+                          </button>
+                        </div>
+                      </div>
+                      {scoringResults[partner.id] && (
+                        <div style={styles.scoringResult}>
+                          <div style={styles.scoreDisplay}>
+                            <span style={{
+                              ...styles.scoreNumber,
+                              color: scoringResults[partner.id].risk_level === 'Low' ? '#34d399' 
+                                : scoringResults[partner.id].risk_level === 'Medium' ? '#fbbf24' 
+                                : '#f87171'
+                            }}>
+                              {scoringResults[partner.id].score}
+                            </span>
+                            <span style={styles.scoreOutOf}>/100</span>
+                            <span style={{
+                              ...styles.riskBadge,
+                              background: scoringResults[partner.id].risk_level === 'Low' ? 'rgba(16, 185, 129, 0.15)'
+                                : scoringResults[partner.id].risk_level === 'Medium' ? 'rgba(245, 158, 11, 0.15)'
+                                : 'rgba(239, 68, 68, 0.15)',
+                              color: scoringResults[partner.id].risk_level === 'Low' ? '#34d399'
+                                : scoringResults[partner.id].risk_level === 'Medium' ? '#fbbf24'
+                                : '#f87171',
+                            }}>
+                              {scoringResults[partner.id].risk_level} Risk
+                            </span>
+                          </div>
+                          <p style={styles.scoreExplanation}>{scoringResults[partner.id].explanation}</p>
+                        </div>
+                      )}
                     </div>
 
                     <div style={styles.notesBox} onClick={(e) => e.stopPropagation()}>
@@ -879,6 +1030,71 @@ const styles: { [key: string]: React.CSSProperties } = {
   rejectionText: {
     fontSize: '13px',
     color: 'rgba(239, 68, 68, 0.9)',
+    margin: 0,
+  },
+  scoringSection: {
+    marginTop: '20px',
+    padding: '16px',
+    background: 'linear-gradient(135deg, rgba(102, 126, 234, 0.05), rgba(118, 75, 162, 0.05))',
+    border: '1px solid rgba(102, 126, 234, 0.15)',
+    borderRadius: '12px',
+  },
+  scoringHeader: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: '12px',
+  },
+  scoreBtn: {
+    padding: '8px 16px',
+    background: 'rgba(255,255,255,0.05)',
+    color: 'rgba(255,255,255,0.8)',
+    border: '1px solid rgba(255,255,255,0.1)',
+    borderRadius: '8px',
+    fontSize: '12px',
+    fontWeight: '500',
+    cursor: 'pointer',
+    transition: 'all 0.2s',
+  },
+  scoreAIBtn: {
+    padding: '8px 16px',
+    background: 'linear-gradient(135deg, rgba(102, 126, 234, 0.3), rgba(118, 75, 162, 0.3))',
+    color: '#fff',
+    border: '1px solid rgba(102, 126, 234, 0.4)',
+    borderRadius: '8px',
+    fontSize: '12px',
+    fontWeight: '600',
+    cursor: 'pointer',
+    transition: 'all 0.2s',
+  },
+  scoringResult: {
+    marginTop: '12px',
+  },
+  scoreDisplay: {
+    display: 'flex',
+    alignItems: 'baseline',
+    gap: '8px',
+    marginBottom: '8px',
+  },
+  scoreNumber: {
+    fontSize: '36px',
+    fontWeight: '700',
+  },
+  scoreOutOf: {
+    fontSize: '16px',
+    color: 'rgba(255,255,255,0.4)',
+  },
+  riskBadge: {
+    padding: '4px 12px',
+    borderRadius: '20px',
+    fontSize: '11px',
+    fontWeight: '600',
+    marginLeft: '12px',
+  },
+  scoreExplanation: {
+    fontSize: '13px',
+    color: 'rgba(255,255,255,0.6)',
+    lineHeight: '1.5',
     margin: 0,
   },
 };
