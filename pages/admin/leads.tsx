@@ -823,54 +823,102 @@ export default function LeadsPipeline() {
                   <div style={styles.activityDropdownWrapper}>
                     <button 
                       onClick={() => setShowActivityDropdown(!showActivityDropdown)} 
-                      style={styles.addActivityButton}
+                      style={{
+                        ...styles.addActivityButton,
+                        ...(showActivityDropdown ? styles.addActivityButtonActive : {})
+                      }}
                     >
                       <PlusIcon />
                       <span>Add Activity</span>
                       <ChevronDownIcon />
                     </button>
                     {showActivityDropdown && (
-                      <div style={styles.activityDropdown}>
-                        <div style={styles.activityTypeButtons}>
-                          {ACTIVITY_TYPES.map(type => (
-                            <button
-                              key={type.id}
-                              onClick={() => setActivityForm(prev => ({ ...prev, activity_type: type.id }))}
+                      <>
+                        <div 
+                          style={styles.dropdownBackdrop}
+                          onClick={() => setShowActivityDropdown(false)}
+                        />
+                        <div style={styles.activityDropdown}>
+                          <div style={styles.dropdownHeader}>
+                            <span style={styles.dropdownTitle}>Log Activity</span>
+                            <button 
+                              onClick={() => setShowActivityDropdown(false)}
+                              style={styles.dropdownClose}
+                            >
+                              <CloseIcon />
+                            </button>
+                          </div>
+                          <div style={styles.activityTypeGrid}>
+                            {ACTIVITY_TYPES.map(type => (
+                              <button
+                                key={type.id}
+                                onClick={() => setActivityForm(prev => ({ ...prev, activity_type: type.id }))}
+                                style={{
+                                  ...styles.activityTypeCard,
+                                  ...(activityForm.activity_type === type.id ? styles.activityTypeCardActive : {})
+                                }}
+                              >
+                                <div style={{
+                                  ...styles.activityIconWrapper,
+                                  ...(activityForm.activity_type === type.id ? styles.activityIconWrapperActive : {})
+                                }}>
+                                  {type.id === 'call' && <PhoneIcon />}
+                                  {type.id === 'email' && <MailIcon />}
+                                  {type.id === 'meeting' && <CalendarIcon />}
+                                  {type.id === 'note' && <NoteIcon />}
+                                </div>
+                                <span style={styles.activityTypeLabel}>{type.label}</span>
+                                {activityForm.activity_type === type.id && (
+                                  <div style={styles.activityCheckmark}>
+                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
+                                      <polyline points="20 6 9 17 4 12" />
+                                    </svg>
+                                  </div>
+                                )}
+                              </button>
+                            ))}
+                          </div>
+                          <div style={styles.activityFormSection}>
+                            <input
+                              type="text"
+                              placeholder="Subject (e.g., Discovery Call, Follow-up Email)"
+                              value={activityForm.subject}
+                              onChange={(e) => setActivityForm(prev => ({ ...prev, subject: e.target.value }))}
+                              style={styles.activityInput}
+                            />
+                            <textarea
+                              placeholder="Add notes or details..."
+                              value={activityForm.description}
+                              onChange={(e) => setActivityForm(prev => ({ ...prev, description: e.target.value }))}
+                              style={styles.activityTextarea}
+                              rows={3}
+                            />
+                          </div>
+                          <div style={styles.dropdownActions}>
+                            <button 
+                              onClick={() => {
+                                setShowActivityDropdown(false);
+                                setActivityForm({ activity_type: '', subject: '', description: '' });
+                              }}
+                              style={styles.dropdownCancelBtn}
+                            >
+                              Cancel
+                            </button>
+                            <button 
+                              onClick={handleAddActivity} 
+                              disabled={!activityForm.activity_type || !activityForm.subject}
                               style={{
-                                ...styles.activityTypeButton,
-                                background: activityForm.activity_type === type.id 
-                                  ? 'rgba(99, 102, 241, 0.2)' 
-                                  : 'rgba(255,255,255,0.05)',
-                                borderColor: activityForm.activity_type === type.id 
-                                  ? '#6366f1' 
-                                  : 'rgba(255,255,255,0.1)'
+                                ...styles.saveActivityButton,
+                                opacity: (!activityForm.activity_type || !activityForm.subject) ? 0.5 : 1,
+                                cursor: (!activityForm.activity_type || !activityForm.subject) ? 'not-allowed' : 'pointer'
                               }}
                             >
-                              {type.id === 'call' && <PhoneIcon />}
-                              {type.id === 'email' && <MailIcon />}
-                              {type.id === 'meeting' && <CalendarIcon />}
-                              {type.id === 'note' && <NoteIcon />}
-                              {type.label}
+                              <PlusIcon />
+                              <span>Add Activity</span>
                             </button>
-                          ))}
+                          </div>
                         </div>
-                        <input
-                          type="text"
-                          placeholder="Subject"
-                          value={activityForm.subject}
-                          onChange={(e) => setActivityForm(prev => ({ ...prev, subject: e.target.value }))}
-                          style={styles.activityInput}
-                        />
-                        <textarea
-                          placeholder="Description (optional)"
-                          value={activityForm.description}
-                          onChange={(e) => setActivityForm(prev => ({ ...prev, description: e.target.value }))}
-                          style={styles.activityTextarea}
-                        />
-                        <button onClick={handleAddActivity} style={styles.saveActivityButton}>
-                          Save Activity
-                        </button>
-                      </div>
+                      </>
                     )}
                   </div>
                 </div>
@@ -1467,80 +1515,192 @@ const styles: { [key: string]: React.CSSProperties } = {
     display: 'flex',
     alignItems: 'center',
     gap: '6px',
-    background: 'rgba(255,255,255,0.05)',
-    border: '1px solid rgba(255,255,255,0.1)',
-    borderRadius: '8px',
-    padding: '8px 12px',
-    fontSize: '12px',
-    color: 'rgba(255,255,255,0.7)',
+    background: 'rgba(99, 102, 241, 0.1)',
+    border: '1px solid rgba(99, 102, 241, 0.3)',
+    borderRadius: '10px',
+    padding: '10px 16px',
+    fontSize: '13px',
+    fontWeight: '500',
+    color: '#a5b4fc',
     cursor: 'pointer',
-    transition: 'all 0.2s',
+    transition: 'all 0.25s cubic-bezier(0.4, 0, 0.2, 1)',
+  },
+  addActivityButtonActive: {
+    background: 'rgba(99, 102, 241, 0.2)',
+    borderColor: '#6366f1',
+    boxShadow: '0 0 20px rgba(99, 102, 241, 0.3)',
+  },
+  dropdownBackdrop: {
+    position: 'fixed',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    zIndex: 99,
   },
   activityDropdown: {
     position: 'absolute',
     top: '100%',
     right: 0,
-    marginTop: '8px',
-    width: '300px',
-    background: 'rgba(30,30,30,0.98)',
-    border: '1px solid rgba(255,255,255,0.1)',
-    borderRadius: '12px',
-    padding: '16px',
+    marginTop: '12px',
+    width: '360px',
+    background: 'linear-gradient(180deg, rgba(25,25,30,0.98) 0%, rgba(20,20,25,0.99) 100%)',
+    border: '1px solid rgba(255,255,255,0.12)',
+    borderRadius: '16px',
+    padding: '0',
     zIndex: 100,
+    boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.6), 0 0 40px rgba(99, 102, 241, 0.1)',
+    overflow: 'hidden',
   },
-  activityTypeButtons: {
-    display: 'grid',
-    gridTemplateColumns: '1fr 1fr',
-    gap: '8px',
-    marginBottom: '12px',
+  dropdownHeader: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: '16px 20px',
+    borderBottom: '1px solid rgba(255,255,255,0.08)',
+    background: 'rgba(255,255,255,0.02)',
   },
-  activityTypeButton: {
+  dropdownTitle: {
+    fontSize: '14px',
+    fontWeight: '600',
+    color: '#fff',
+  },
+  dropdownClose: {
+    background: 'rgba(255,255,255,0.05)',
+    border: 'none',
+    borderRadius: '8px',
+    padding: '6px',
+    color: 'rgba(255,255,255,0.5)',
+    cursor: 'pointer',
+    transition: 'all 0.2s',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    gap: '6px',
-    padding: '10px',
-    borderRadius: '8px',
-    border: '1px solid',
-    fontSize: '12px',
+  },
+  activityTypeGrid: {
+    display: 'grid',
+    gridTemplateColumns: 'repeat(4, 1fr)',
+    gap: '10px',
+    padding: '20px',
+    borderBottom: '1px solid rgba(255,255,255,0.06)',
+  },
+  activityTypeCard: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: '8px',
+    padding: '14px 8px',
+    borderRadius: '12px',
+    border: '1px solid rgba(255,255,255,0.08)',
+    background: 'rgba(255,255,255,0.02)',
+    cursor: 'pointer',
+    transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
+    position: 'relative',
+  },
+  activityTypeCardActive: {
+    background: 'rgba(99, 102, 241, 0.15)',
+    borderColor: 'rgba(99, 102, 241, 0.5)',
+    boxShadow: '0 0 20px rgba(99, 102, 241, 0.2)',
+  },
+  activityIconWrapper: {
+    width: '36px',
+    height: '36px',
+    borderRadius: '10px',
+    background: 'rgba(255,255,255,0.05)',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    transition: 'all 0.2s',
+  },
+  activityIconWrapperActive: {
+    background: 'rgba(99, 102, 241, 0.2)',
+  },
+  activityTypeLabel: {
+    fontSize: '11px',
+    fontWeight: '500',
+    color: 'rgba(255,255,255,0.7)',
+  },
+  activityCheckmark: {
+    position: 'absolute',
+    top: '6px',
+    right: '6px',
+    width: '18px',
+    height: '18px',
+    borderRadius: '50%',
+    background: 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    color: '#fff',
+  },
+  activityFormSection: {
+    padding: '16px 20px',
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '12px',
+  },
+  activityInput: {
+    width: '100%',
+    background: 'rgba(255,255,255,0.04)',
+    border: '1px solid rgba(255,255,255,0.1)',
+    borderRadius: '10px',
+    padding: '12px 14px',
+    fontSize: '14px',
+    color: '#fff',
+    outline: 'none',
+    transition: 'border-color 0.2s, box-shadow 0.2s',
+    boxSizing: 'border-box',
+  },
+  activityTextarea: {
+    width: '100%',
+    background: 'rgba(255,255,255,0.04)',
+    border: '1px solid rgba(255,255,255,0.1)',
+    borderRadius: '10px',
+    padding: '12px 14px',
+    fontSize: '14px',
+    color: '#fff',
+    outline: 'none',
+    resize: 'none',
+    minHeight: '80px',
+    boxSizing: 'border-box',
+    transition: 'border-color 0.2s, box-shadow 0.2s',
+  },
+  dropdownActions: {
+    display: 'flex',
+    gap: '12px',
+    padding: '16px 20px',
+    background: 'rgba(0,0,0,0.2)',
+    borderTop: '1px solid rgba(255,255,255,0.06)',
+  },
+  dropdownCancelBtn: {
+    flex: 1,
+    padding: '12px',
+    background: 'rgba(255,255,255,0.05)',
+    border: '1px solid rgba(255,255,255,0.1)',
+    borderRadius: '10px',
+    fontSize: '13px',
+    fontWeight: '500',
     color: 'rgba(255,255,255,0.7)',
     cursor: 'pointer',
     transition: 'all 0.2s',
   },
-  activityInput: {
-    width: '100%',
-    background: 'rgba(255,255,255,0.05)',
-    border: '1px solid rgba(255,255,255,0.1)',
-    borderRadius: '8px',
-    padding: '10px 12px',
-    fontSize: '13px',
-    color: '#fff',
-    marginBottom: '8px',
-    outline: 'none',
-  },
-  activityTextarea: {
-    width: '100%',
-    background: 'rgba(255,255,255,0.05)',
-    border: '1px solid rgba(255,255,255,0.1)',
-    borderRadius: '8px',
-    padding: '10px 12px',
-    fontSize: '13px',
-    color: '#fff',
-    marginBottom: '12px',
-    outline: 'none',
-    resize: 'vertical',
-    minHeight: '60px',
-  },
   saveActivityButton: {
-    width: '100%',
+    flex: 1,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: '8px',
     background: 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)',
     border: 'none',
-    borderRadius: '8px',
-    padding: '10px',
+    borderRadius: '10px',
+    padding: '12px',
     fontSize: '13px',
-    fontWeight: '500',
+    fontWeight: '600',
     color: '#fff',
     cursor: 'pointer',
+    transition: 'all 0.2s',
+    boxShadow: '0 4px 15px rgba(99, 102, 241, 0.3)',
   },
   timeline: {
     display: 'flex',
