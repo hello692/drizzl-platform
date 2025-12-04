@@ -37,6 +37,11 @@
   100% { opacity: 1; }
 }
 
+@keyframes marqueeScroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-33.333%); }
+}
+
 * {
   margin: 0;
   padding: 0;

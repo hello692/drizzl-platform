@@ -286,6 +286,45 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Scrolling Marquee Banner */}
+      <div style={{
+        background: '#ffffff',
+        borderTop: '1px solid #f0f0f0',
+        borderBottom: '1px solid #f0f0f0',
+        overflow: 'hidden',
+        padding: '16px 0',
+      }}>
+        <div 
+          className="marquee-track"
+          style={{
+            display: 'flex',
+            animation: 'marqueeScroll 25s linear infinite',
+            width: 'max-content',
+          }}
+        >
+          {[...Array(3)].map((_, repeatIndex) => (
+            <div key={repeatIndex} style={{ display: 'flex', alignItems: 'center' }}>
+              {['GLUTEN FREE', 'BUILT ON ORGANIC', 'DAIRY FREE', 'GLUTEN FREE', 'BUILT ON ORGANIC', 'DAIRY FREE'].map((text, idx) => (
+                <span 
+                  key={`${repeatIndex}-${idx}`}
+                  style={{
+                    fontSize: '12px',
+                    fontWeight: '500',
+                    color: '#999',
+                    letterSpacing: '1.5px',
+                    textTransform: 'uppercase',
+                    padding: '0 40px',
+                    whiteSpace: 'nowrap',
+                  }}
+                >
+                  {text}
+                </span>
+              ))}
+            </div>
+          ))}
+        </div>
+      </div>
+
       {/* Category Grid */}
       <section style={{ padding: 'clamp(32px, 6vw, 80px) clamp(16px, 4vw, 60px)', background: '#ffffff' }}>
         <div style={{ maxWidth: '1360px', margin: '0 auto' }}>
