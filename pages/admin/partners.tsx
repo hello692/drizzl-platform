@@ -1,6 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useRequireAdmin } from '../../hooks/useRole';
 import AdminLayout from '../../components/AdminLayout';
+import PartnerSearchBar from '../../components/PartnerSearchBar';
+import PartnerProfileModal from '../../components/PartnerProfileModal';
 
 interface ApplicationData {
   legalBusinessName?: string;
@@ -46,6 +48,16 @@ interface Partner {
   latest_score?: number;
   risk_level?: string;
   agreement_status?: string;
+  partner_code?: string;
+  qr_code_data?: string;
+  account_manager?: {
+    id: string;
+    name: string;
+    email: string;
+  };
+  contract_status?: string;
+  total_orders?: number;
+  total_revenue_cents?: number;
 }
 
 interface PartnerScoring {
@@ -61,6 +73,22 @@ interface PartnerScoring {
     infrastructureScore: number;
     verificationScore: number;
   };
+  created_at: string;
+}
+
+interface Agreement {
+  id: string;
+  partner_id: string;
+  agreement_type: string;
+  envelope_id?: string;
+  envelope_status?: string;
+  signer_email: string;
+  signer_name: string;
+  sent_at?: string;
+  viewed_at?: string;
+  signed_at?: string;
+  declined_at?: string;
+  decline_reason?: string;
   created_at: string;
 }
 
@@ -205,6 +233,143 @@ const ScoreBadge = ({ score, riskLevel }: { score?: number; riskLevel?: string }
   );
 };
 
+const PartnerCodeBadge = ({ code, onQRClick }: { code?: string; onQRClick?: () => void }) => {
+  if (!code) return null;
+  
+  return (
+    <div style={styles.partnerCodeBadge}>
+      <span style={styles.partnerCodeText}>{code}</span>
+      <button 
+        onClick={(e) => {
+          e.stopPropagation();
+          onQRClick?.();
+        }}
+        style={styles.qrIconButton}
+        title="Show QR Code"
+      >
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <rect x="3" y="3" width="7" height="7" rx="1" />
+          <rect x="14" y="3" width="7" height="7" rx="1" />
+          <rect x="3" y="14" width="7" height="7" rx="1" />
+          <rect x="14" y="14" width="3" height="3" />
+          <path d="M21 14v3h-3M21 21h-3M18 21v-3" />
+        </svg>
+      </button>
+    </div>
+  );
+};
+
+const ContractStatusBadge = ({ status }: { status?: string }) => {
+  if (!status) return null;
+  
+  const getColors = () => {
+    switch (status) {
+      case 'signed':
+      case 'active':
+        return { bg: 'rgba(16, 185, 129, 0.15)', border: 'rgba(16, 185, 129, 0.3)', text: '#34d399', icon: '✓' };
+      case 'sent':
+      case 'pending':
+        return { bg: 'rgba(245, 158, 11, 0.15)', border: 'rgba(245, 158, 11, 0.3)', text: '#fbbf24', icon: '◷' };
+      case 'expired':
+      case 'declined':
+        return { bg: 'rgba(239, 68, 68, 0.15)', border: 'rgba(239, 68, 68, 0.3)', text: '#f87171', icon: '✕' };
+      default:
+        return { bg: 'rgba(107, 114, 128, 0.15)', border: 'rgba(107, 114, 128, 0.3)', text: '#9ca3af', icon: '—' };
+    }
+  };
+  
+  const colors = getColors();
+  return (
+    <span style={{
+      display: 'inline-flex',
+      alignItems: 'center',
+      gap: '4px',
+      padding: '3px 8px',
+      borderRadius: '8px',
+      fontSize: '10px',
+      fontWeight: '600',
+      background: colors.bg,
+      border: `1px solid ${colors.border}`,
+      color: colors.text,
+      textTransform: 'uppercase',
+      letterSpacing: '0.3px',
+    }}>
+      <span>{colors.icon}</span>
+      Contract: {status}
+    </span>
+  );
+};
+
+const QRModal = ({ qrData, partnerCode, onClose }: { qrData?: string; partnerCode?: string; onClose: () => void }) => {
+  return (
+    <div style={styles.qrModalOverlay} onClick={onClose}>
+      <div style={styles.qrModalContent} onClick={(e) => e.stopPropagation()}>
+        <button style={styles.qrModalClose} onClick={onClose}>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <line x1="18" y1="6" x2="6" y2="18" />
+            <line x1="6" y1="6" x2="18" y2="18" />
+          </svg>
+        </button>
+        <div style={styles.qrModalHeader}>
+          <h3 style={styles.qrModalTitle}>Partner QR Code</h3>
+          <p style={styles.qrModalCode}>{partnerCode}</p>
+        </div>
+        <div style={styles.qrCodeDisplay}>
+          <svg width="120" height="120" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.9)" strokeWidth="1">
+            <rect x="3" y="3" width="7" height="7" rx="1" />
+            <rect x="14" y="3" width="7" height="7" rx="1" />
+            <rect x="3" y="14" width="7" height="7" rx="1" />
+            <rect x="14" y="14" width="4" height="4" />
+            <path d="M18 14h3v3M21 21h-3v-3M18 18h3v3" />
+            <rect x="5" y="5" width="3" height="3" fill="currentColor" />
+            <rect x="16" y="5" width="3" height="3" fill="currentColor" />
+            <rect x="5" y="16" width="3" height="3" fill="currentColor" />
+          </svg>
+        </div>
+        <p style={styles.qrModalSubtext}>Scan to access partner portal</p>
+      </div>
+    </div>
+  );
+};
+
+const AgreementStatusBadge = ({ status }: { status?: string }) => {
+  const getColors = () => {
+    switch (status) {
+      case 'completed':
+      case 'signed':
+        return { bg: 'rgba(16, 185, 129, 0.15)', border: 'rgba(16, 185, 129, 0.3)', text: '#34d399' };
+      case 'sent':
+      case 'delivered':
+        return { bg: 'rgba(59, 130, 246, 0.15)', border: 'rgba(59, 130, 246, 0.3)', text: '#60a5fa' };
+      case 'viewed':
+        return { bg: 'rgba(168, 85, 247, 0.15)', border: 'rgba(168, 85, 247, 0.3)', text: '#a78bfa' };
+      case 'declined':
+      case 'voided':
+        return { bg: 'rgba(239, 68, 68, 0.15)', border: 'rgba(239, 68, 68, 0.3)', text: '#f87171' };
+      default:
+        return { bg: 'rgba(107, 114, 128, 0.15)', border: 'rgba(107, 114, 128, 0.3)', text: '#9ca3af' };
+    }
+  };
+  
+  const colors = getColors();
+  return (
+    <span style={{
+      display: 'inline-flex',
+      alignItems: 'center',
+      padding: '4px 10px',
+      borderRadius: '12px',
+      fontSize: '11px',
+      fontWeight: '600',
+      background: colors.bg,
+      border: `1px solid ${colors.border}`,
+      color: colors.text,
+      textTransform: 'capitalize',
+    }}>
+      {status || 'None'}
+    </span>
+  );
+};
+
 export default function AdminPartners() {
   const { user, loading, authorized } = useRequireAdmin();
   const [partners, setPartners] = useState<Partner[]>([]);
@@ -218,6 +383,14 @@ export default function AdminPartners() {
   const [showRejectionForm, setShowRejectionForm] = useState(false);
   const [scoringLoading, setScoringLoading] = useState<string | null>(null);
   const [scoringResults, setScoringResults] = useState<Record<string, PartnerScoring>>({});
+  
+  const [selectedPartnerId, setSelectedPartnerId] = useState<string | null>(null);
+  const [showProfileModal, setShowProfileModal] = useState(false);
+  const [showQRModal, setShowQRModal] = useState<{ qrData?: string; code?: string } | null>(null);
+  
+  const [agreements, setAgreements] = useState<Record<string, Agreement[]>>({});
+  const [agreementLoading, setAgreementLoading] = useState<string | null>(null);
+  const [sendingAgreement, setSendingAgreement] = useState<string | null>(null);
 
   useEffect(() => {
     if (authorized) {
@@ -242,6 +415,81 @@ export default function AdminPartners() {
       setPartners([]);
     } finally {
       setLoadingData(false);
+    }
+  }
+
+  async function loadAgreements(partnerId: string) {
+    if (agreements[partnerId]) return;
+    
+    setAgreementLoading(partnerId);
+    try {
+      const response = await fetch(`/api/admin/docusign/agreements?partnerId=${partnerId}`);
+      const data = await response.json();
+      setAgreements(prev => ({
+        ...prev,
+        [partnerId]: data.agreements || [],
+      }));
+    } catch (err) {
+      console.error('Error loading agreements:', err);
+    } finally {
+      setAgreementLoading(null);
+    }
+  }
+
+  async function sendAgreement(partner: Partner) {
+    setSendingAgreement(partner.id);
+    try {
+      const appData = getAppData(partner);
+      const response = await fetch('/api/admin/docusign/send', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          partnerId: partner.id,
+          agreementType: 'retail_partner',
+          signerEmail: appData.decisionMakerEmail || partner.email,
+          signerName: appData.decisionMakerName || partner.contact_name || partner.company_name,
+        }),
+      });
+
+      const result = await response.json();
+      if (result.success) {
+        setAgreements(prev => ({
+          ...prev,
+          [partner.id]: [],
+        }));
+        await loadAgreements(partner.id);
+      } else {
+        alert('Error: ' + (result.error || 'Failed to send agreement'));
+      }
+    } catch (err) {
+      console.error('Error sending agreement:', err);
+      alert('Failed to send agreement');
+    } finally {
+      setSendingAgreement(null);
+    }
+  }
+
+  async function performAgreementAction(envelopeId: string, action: string, partnerId: string, reason?: string) {
+    setAgreementLoading(partnerId);
+    try {
+      const response = await fetch(`/api/admin/docusign/agreements?envelopeId=${envelopeId}&action=${action}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ reason }),
+      });
+
+      const result = await response.json();
+      if (result.success) {
+        setAgreements(prev => ({ ...prev, [partnerId]: [] }));
+        await loadAgreements(partnerId);
+      } else {
+        alert('Error: ' + (result.error || 'Action failed'));
+      }
+    } catch (err) {
+      console.error('Error performing action:', err);
+      alert('Action failed');
+    } finally {
+      setAgreementLoading(null);
     }
   }
 
@@ -291,6 +539,7 @@ export default function AdminPartners() {
       setAdminNotes(partner.admin_notes || '');
       setShowRejectionForm(false);
       setRejectionReason('');
+      loadAgreements(partner.id);
     }
   }
 
@@ -324,6 +573,22 @@ export default function AdminPartners() {
     }
   }
 
+  const handlePartnerSelect = useCallback((partnerId: string) => {
+    setSelectedPartnerId(partnerId);
+    setShowProfileModal(true);
+  }, []);
+
+  const handleQRClick = useCallback((qrData?: string, code?: string) => {
+    setShowQRModal({ qrData, code });
+  }, []);
+
+  const formatCurrency = (cents: number) => {
+    return new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
+    }).format(cents / 100);
+  };
+
   const filteredPartners = filter === 'all' 
     ? partners 
     : partners.filter(p => p.status === filter);
@@ -343,6 +608,13 @@ export default function AdminPartners() {
 
   return (
     <AdminLayout title="Partners" subtitle="Retail Partner Management">
+      <div style={styles.searchSection}>
+        <PartnerSearchBar 
+          onSelect={handlePartnerSelect}
+          placeholder="Search by partner code, name, email, or phone..."
+        />
+      </div>
+
       <div style={styles.statsBar}>
         <div style={styles.statItem}>
           <span style={styles.statValue}>{partners.length}</span>
@@ -399,6 +671,8 @@ export default function AdminPartners() {
           filteredPartners.map((partner) => {
             const appData = getAppData(partner);
             const isExpanded = expandedId === partner.id;
+            const partnerAgreements = agreements[partner.id] || [];
+            const latestAgreement = partnerAgreements[0];
             
             return (
               <div key={partner.id} style={styles.partnerCard}>
@@ -412,17 +686,43 @@ export default function AdminPartners() {
                 >
                   <div style={styles.partnerInfo}>
                     <div style={styles.businessCol}>
-                      <p style={styles.businessName}>{partner.company_name || appData.legalBusinessName || '-'}</p>
+                      <div style={styles.businessHeader}>
+                        <p style={styles.businessName}>{partner.company_name || appData.legalBusinessName || '-'}</p>
+                        <PartnerCodeBadge 
+                          code={partner.partner_code} 
+                          onQRClick={() => handleQRClick(partner.qr_code_data, partner.partner_code)}
+                        />
+                      </div>
                       <p style={styles.email}>{partner.email || appData.businessEmail || '-'}</p>
+                      {partner.account_manager && (
+                        <p style={styles.accountManager}>
+                          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ marginRight: '4px' }}>
+                            <circle cx="12" cy="8" r="4" />
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                          </svg>
+                          {partner.account_manager.name}
+                        </p>
+                      )}
                     </div>
                     <div style={styles.metaCol}>
                       <span style={styles.metaLabel}>{businessTypeLabels[appData.businessType || ''] || '-'}</span>
+                      <ContractStatusBadge status={partner.contract_status || partner.agreement_status} />
                     </div>
                     <div style={styles.metaCol}>
                       <span style={styles.metaLabel}>{appData.city || '-'}{appData.state ? `, ${appData.state}` : ''}</span>
                     </div>
                     <div style={styles.metaCol}>
                       <span style={styles.metaLabel}>{volumeLabels[appData.estimatedMonthlyVolume || ''] || '-'}</span>
+                      {(partner.total_orders !== undefined || partner.total_revenue_cents !== undefined) && (
+                        <div style={styles.quickStats}>
+                          {partner.total_orders !== undefined && (
+                            <span style={styles.quickStat}>{partner.total_orders} orders</span>
+                          )}
+                          {partner.total_revenue_cents !== undefined && partner.total_revenue_cents > 0 && (
+                            <span style={styles.quickStat}>{formatCurrency(partner.total_revenue_cents)}</span>
+                          )}
+                        </div>
+                      )}
                     </div>
                     <div style={styles.statusCol}>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
@@ -512,7 +812,125 @@ export default function AdminPartners() {
                       </div>
                     </div>
 
-                    {/* AI Scoring Section */}
+                    <div style={styles.agreementSection} onClick={(e) => e.stopPropagation()}>
+                      <div style={styles.agreementHeader}>
+                        <h4 style={styles.sectionTitle}>DocuSign Agreements</h4>
+                        <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+                          {latestAgreement && (
+                            <AgreementStatusBadge status={latestAgreement.envelope_status} />
+                          )}
+                        </div>
+                      </div>
+                      
+                      {agreementLoading === partner.id ? (
+                        <div style={styles.agreementLoading}>
+                          <div style={styles.loadingSpinner} />
+                          <span>Loading agreements...</span>
+                        </div>
+                      ) : partnerAgreements.length === 0 ? (
+                        <div style={styles.noAgreements}>
+                          <p>No agreements sent yet</p>
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              sendAgreement(partner);
+                            }}
+                            disabled={sendingAgreement === partner.id}
+                            style={styles.sendAgreementBtn}
+                          >
+                            {sendingAgreement === partner.id ? 'Sending...' : 'Send Agreement'}
+                          </button>
+                        </div>
+                      ) : (
+                        <div style={styles.agreementList}>
+                          {partnerAgreements.map((agreement) => (
+                            <div key={agreement.id} style={styles.agreementItem}>
+                              <div style={styles.agreementInfo}>
+                                <div style={styles.agreementMain}>
+                                  <span style={styles.agreementType}>{agreement.agreement_type}</span>
+                                  <AgreementStatusBadge status={agreement.envelope_status} />
+                                </div>
+                                <div style={styles.agreementMeta}>
+                                  <span>To: {agreement.signer_email}</span>
+                                  {agreement.sent_at && <span>Sent: {new Date(agreement.sent_at).toLocaleDateString()}</span>}
+                                  {agreement.signed_at && <span style={{ color: '#34d399' }}>Signed: {new Date(agreement.signed_at).toLocaleDateString()}</span>}
+                                  {agreement.declined_at && <span style={{ color: '#f87171' }}>Declined: {new Date(agreement.declined_at).toLocaleDateString()}</span>}
+                                </div>
+                                {agreement.decline_reason && (
+                                  <p style={styles.declineReason}>Reason: {agreement.decline_reason}</p>
+                                )}
+                              </div>
+                              {agreement.envelope_status === 'sent' || agreement.envelope_status === 'delivered' ? (
+                                <div style={styles.agreementActions}>
+                                  <button
+                                    onClick={(e) => {
+                                      e.stopPropagation();
+                                      if (agreement.envelope_id) {
+                                        performAgreementAction(agreement.envelope_id, 'resend', partner.id);
+                                      }
+                                    }}
+                                    style={styles.agreementActionBtn}
+                                    disabled={agreementLoading === partner.id}
+                                  >
+                                    Resend
+                                  </button>
+                                  <button
+                                    onClick={(e) => {
+                                      e.stopPropagation();
+                                      if (agreement.envelope_id) {
+                                        performAgreementAction(agreement.envelope_id, 'void', partner.id, 'Voided by admin');
+                                      }
+                                    }}
+                                    style={styles.agreementVoidBtn}
+                                    disabled={agreementLoading === partner.id}
+                                  >
+                                    Void
+                                  </button>
+                                  <div style={styles.demoActions}>
+                                    <span style={styles.demoLabel}>Demo:</span>
+                                    <button
+                                      onClick={(e) => {
+                                        e.stopPropagation();
+                                        if (agreement.envelope_id) {
+                                          performAgreementAction(agreement.envelope_id, 'simulate-sign', partner.id);
+                                        }
+                                      }}
+                                      style={styles.simulateSignBtn}
+                                      disabled={agreementLoading === partner.id}
+                                    >
+                                      Simulate Sign
+                                    </button>
+                                    <button
+                                      onClick={(e) => {
+                                        e.stopPropagation();
+                                        if (agreement.envelope_id) {
+                                          performAgreementAction(agreement.envelope_id, 'simulate-decline', partner.id, 'Declined in demo mode');
+                                        }
+                                      }}
+                                      style={styles.simulateDeclineBtn}
+                                      disabled={agreementLoading === partner.id}
+                                    >
+                                      Simulate Decline
+                                    </button>
+                                  </div>
+                                </div>
+                              ) : null}
+                            </div>
+                          ))}
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              sendAgreement(partner);
+                            }}
+                            disabled={sendingAgreement === partner.id}
+                            style={styles.sendNewAgreementBtn}
+                          >
+                            {sendingAgreement === partner.id ? 'Sending...' : '+ Send New Agreement'}
+                          </button>
+                        </div>
+                      )}
+                    </div>
+
                     <div style={styles.scoringSection} onClick={(e) => e.stopPropagation()}>
                       <div style={styles.scoringHeader}>
                         <label style={styles.notesLabel}>AI Fit Score</label>
@@ -687,6 +1105,26 @@ export default function AdminPartners() {
         )}
       </div>
 
+      {showProfileModal && selectedPartnerId && (
+        <PartnerProfileModal
+          partnerId={selectedPartnerId}
+          isOpen={showProfileModal}
+          onClose={() => {
+            setShowProfileModal(false);
+            setSelectedPartnerId(null);
+          }}
+          onUpdate={loadPartners}
+        />
+      )}
+
+      {showQRModal && (
+        <QRModal
+          qrData={showQRModal.qrData}
+          partnerCode={showQRModal.code}
+          onClose={() => setShowQRModal(null)}
+        />
+      )}
+
       <style jsx global>{`
         @keyframes pulse {
           0%, 100% { opacity: 0.4; }
@@ -722,6 +1160,9 @@ const styles: { [key: string]: React.CSSProperties } = {
     fontSize: '13px',
     letterSpacing: '2px',
     textTransform: 'uppercase',
+  },
+  searchSection: {
+    marginBottom: '24px',
   },
   statsBar: {
     display: 'flex',
@@ -835,12 +1276,18 @@ const styles: { [key: string]: React.CSSProperties } = {
   businessCol: {
     minWidth: 0,
   },
+  businessHeader: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '8px',
+    marginBottom: '4px',
+    flexWrap: 'wrap',
+  },
   businessName: {
     fontWeight: '600',
     fontSize: '14px',
     color: '#fff',
     margin: 0,
-    marginBottom: '4px',
     whiteSpace: 'nowrap',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
@@ -853,8 +1300,18 @@ const styles: { [key: string]: React.CSSProperties } = {
     overflow: 'hidden',
     textOverflow: 'ellipsis',
   },
+  accountManager: {
+    fontSize: '11px',
+    color: 'rgba(102, 126, 234, 0.9)',
+    margin: '4px 0 0 0',
+    display: 'flex',
+    alignItems: 'center',
+  },
   metaCol: {
     minWidth: 0,
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '4px',
   },
   metaLabel: {
     fontSize: '13px',
@@ -863,6 +1320,18 @@ const styles: { [key: string]: React.CSSProperties } = {
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     display: 'block',
+  },
+  quickStats: {
+    display: 'flex',
+    gap: '8px',
+    flexWrap: 'wrap',
+  },
+  quickStat: {
+    fontSize: '10px',
+    color: 'rgba(255,255,255,0.5)',
+    background: 'rgba(255,255,255,0.05)',
+    padding: '2px 6px',
+    borderRadius: '4px',
   },
   statusCol: {
     display: 'flex',
@@ -924,6 +1393,248 @@ const styles: { [key: string]: React.CSSProperties } = {
   link: {
     color: '#4facfe',
     textDecoration: 'none',
+  },
+  partnerCodeBadge: {
+    display: 'inline-flex',
+    alignItems: 'center',
+    gap: '6px',
+    padding: '2px 8px',
+    background: 'linear-gradient(135deg, rgba(102, 126, 234, 0.2), rgba(168, 85, 247, 0.2))',
+    border: '1px solid rgba(102, 126, 234, 0.3)',
+    borderRadius: '6px',
+    flexShrink: 0,
+  },
+  partnerCodeText: {
+    fontSize: '11px',
+    fontWeight: '600',
+    color: '#a78bfa',
+    fontFamily: 'monospace',
+    letterSpacing: '0.3px',
+  },
+  qrIconButton: {
+    background: 'none',
+    border: 'none',
+    padding: '2px',
+    cursor: 'pointer',
+    color: 'rgba(167, 139, 250, 0.7)',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    transition: 'color 0.2s',
+  },
+  qrModalOverlay: {
+    position: 'fixed',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    background: 'rgba(0, 0, 0, 0.8)',
+    backdropFilter: 'blur(8px)',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    zIndex: 2000,
+  },
+  qrModalContent: {
+    background: 'rgba(30, 30, 45, 0.95)',
+    border: '1px solid rgba(255, 255, 255, 0.1)',
+    borderRadius: '24px',
+    padding: '32px',
+    width: '90%',
+    maxWidth: '320px',
+    position: 'relative',
+    boxShadow: '0 32px 100px rgba(0, 0, 0, 0.8)',
+  },
+  qrModalClose: {
+    position: 'absolute',
+    top: '16px',
+    right: '16px',
+    background: 'none',
+    border: 'none',
+    padding: '8px',
+    cursor: 'pointer',
+    color: 'rgba(255, 255, 255, 0.5)',
+    borderRadius: '8px',
+  },
+  qrModalHeader: {
+    textAlign: 'center',
+    marginBottom: '24px',
+  },
+  qrModalTitle: {
+    fontSize: '18px',
+    fontWeight: '600',
+    color: '#fff',
+    margin: '0 0 8px 0',
+  },
+  qrModalCode: {
+    fontSize: '14px',
+    fontWeight: '600',
+    color: '#a78bfa',
+    fontFamily: 'monospace',
+    margin: 0,
+  },
+  qrCodeDisplay: {
+    display: 'flex',
+    justifyContent: 'center',
+    padding: '24px',
+    background: 'rgba(255, 255, 255, 0.05)',
+    borderRadius: '16px',
+    marginBottom: '16px',
+  },
+  qrModalSubtext: {
+    fontSize: '12px',
+    color: 'rgba(255, 255, 255, 0.4)',
+    textAlign: 'center',
+    margin: 0,
+  },
+  agreementSection: {
+    marginTop: '20px',
+    padding: '20px',
+    background: 'linear-gradient(135deg, rgba(59, 130, 246, 0.05), rgba(168, 85, 247, 0.05))',
+    border: '1px solid rgba(59, 130, 246, 0.15)',
+    borderRadius: '12px',
+  },
+  agreementHeader: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: '16px',
+  },
+  agreementLoading: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '12px',
+    color: 'rgba(255,255,255,0.5)',
+    fontSize: '13px',
+  },
+  noAgreements: {
+    textAlign: 'center',
+    padding: '24px',
+    color: 'rgba(255,255,255,0.5)',
+    fontSize: '13px',
+  },
+  sendAgreementBtn: {
+    marginTop: '12px',
+    padding: '10px 20px',
+    background: 'linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%)',
+    color: '#fff',
+    border: 'none',
+    borderRadius: '8px',
+    fontSize: '13px',
+    fontWeight: '600',
+    cursor: 'pointer',
+  },
+  agreementList: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '12px',
+  },
+  agreementItem: {
+    padding: '16px',
+    background: 'rgba(255,255,255,0.03)',
+    borderRadius: '10px',
+    border: '1px solid rgba(255,255,255,0.06)',
+  },
+  agreementInfo: {
+    marginBottom: '12px',
+  },
+  agreementMain: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '10px',
+    marginBottom: '8px',
+  },
+  agreementType: {
+    fontSize: '13px',
+    fontWeight: '600',
+    color: '#fff',
+    textTransform: 'capitalize',
+  },
+  agreementMeta: {
+    display: 'flex',
+    gap: '16px',
+    fontSize: '12px',
+    color: 'rgba(255,255,255,0.5)',
+    flexWrap: 'wrap',
+  },
+  declineReason: {
+    fontSize: '12px',
+    color: '#f87171',
+    marginTop: '8px',
+    fontStyle: 'italic',
+  },
+  agreementActions: {
+    display: 'flex',
+    gap: '8px',
+    alignItems: 'center',
+    flexWrap: 'wrap',
+    paddingTop: '12px',
+    borderTop: '1px solid rgba(255,255,255,0.06)',
+  },
+  agreementActionBtn: {
+    padding: '6px 14px',
+    background: 'rgba(59, 130, 246, 0.2)',
+    color: '#60a5fa',
+    border: '1px solid rgba(59, 130, 246, 0.3)',
+    borderRadius: '6px',
+    fontSize: '12px',
+    fontWeight: '500',
+    cursor: 'pointer',
+  },
+  agreementVoidBtn: {
+    padding: '6px 14px',
+    background: 'rgba(239, 68, 68, 0.15)',
+    color: '#f87171',
+    border: '1px solid rgba(239, 68, 68, 0.3)',
+    borderRadius: '6px',
+    fontSize: '12px',
+    fontWeight: '500',
+    cursor: 'pointer',
+  },
+  demoActions: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '8px',
+    marginLeft: 'auto',
+    paddingLeft: '16px',
+    borderLeft: '1px solid rgba(255,255,255,0.08)',
+  },
+  demoLabel: {
+    fontSize: '10px',
+    color: 'rgba(255,255,255,0.4)',
+    textTransform: 'uppercase',
+    letterSpacing: '0.5px',
+  },
+  simulateSignBtn: {
+    padding: '5px 10px',
+    background: 'rgba(16, 185, 129, 0.15)',
+    color: '#34d399',
+    border: '1px solid rgba(16, 185, 129, 0.3)',
+    borderRadius: '5px',
+    fontSize: '11px',
+    fontWeight: '500',
+    cursor: 'pointer',
+  },
+  simulateDeclineBtn: {
+    padding: '5px 10px',
+    background: 'rgba(245, 158, 11, 0.15)',
+    color: '#fbbf24',
+    border: '1px solid rgba(245, 158, 11, 0.3)',
+    borderRadius: '5px',
+    fontSize: '11px',
+    fontWeight: '500',
+    cursor: 'pointer',
+  },
+  sendNewAgreementBtn: {
+    padding: '10px',
+    background: 'rgba(255,255,255,0.03)',
+    color: 'rgba(255,255,255,0.6)',
+    border: '1px dashed rgba(255,255,255,0.15)',
+    borderRadius: '8px',
+    fontSize: '12px',
+    fontWeight: '500',
+    cursor: 'pointer',
+    transition: 'all 0.2s',
   },
   notesBox: {
     marginTop: '20px',

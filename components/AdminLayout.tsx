@@ -21,6 +21,7 @@ const navItems = [
   { label: 'Projects', href: '/admin/projects', icon: 'projects' },
   { label: 'Social', href: '/admin/social', icon: 'social' },
   { label: 'Content', href: '/admin/video-manager', icon: 'videos' },
+  { label: 'Security', href: '/admin/security', icon: 'security' },
   { label: 'Settings', href: '/admin/settings', icon: 'settings' },
 ];
 
@@ -103,6 +104,12 @@ function NavIcon({ type, active }: { type: string; active: boolean }) {
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="1.5">
         <rect x="2" y="4" width="20" height="16" rx="2" />
         <path d="M10 9l5 3-5 3V9z" fill={active ? 'rgba(102,126,234,0.5)' : 'none'} />
+      </svg>
+    ),
+    security: (
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="1.5">
+        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+        <path d="M9 12l2 2 4-4" strokeLinecap="round" strokeLinejoin="round" />
       </svg>
     ),
     settings: (
