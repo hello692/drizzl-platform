@@ -268,6 +268,7 @@ export default function Navbar() {
         zIndex: 100,
         backdropFilter: 'blur(20px)',
         WebkitBackdropFilter: 'blur(20px)',
+        overflow: 'visible',
       }}>
         <div style={{
           maxWidth: '1440px',
@@ -277,8 +278,9 @@ export default function Navbar() {
           alignItems: 'center',
           flexWrap: 'nowrap',
           gap: 'clamp(16px, 4vw, 32px)',
+          overflow: 'visible',
         }}>
-          <div style={{ flex: 1, display: 'flex', justifyContent: 'flex-start', minWidth: 0 }}>
+          <div style={{ display: 'flex', justifyContent: 'flex-start', minWidth: 0, flexShrink: 1 }}>
             <Link href="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center' }}>
               <img 
                 src="/logo.gif" 
@@ -378,25 +380,22 @@ export default function Navbar() {
               )}
             </div>
 
-            <Link href="/cart" style={{ fontSize: '16px', color: '#fff', opacity: 0.7, transition: 'all 0.3s ease', display: 'flex', alignItems: 'center', justifyContent: 'center', width: '24px', height: '24px' }} onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')} onMouseLeave={(e) => (e.currentTarget.style.opacity = '0.7')}>
-              <svg width="24" height="24" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M5 6h10l-1 8H6L5 6z" />
-                <path d="M8 6V4c0-1 0.5-1.5 1-1.5h2c.5 0 1 .5 1 1.5v2" />
+            <Link href="/cart" style={{ opacity: 1, transition: 'all 0.3s ease', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '4px' }} onMouseEnter={(e) => (e.currentTarget.style.opacity = '0.7')} onMouseLeave={(e) => (e.currentTarget.style.opacity = '1')}>
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M6 6H4.5L3 18H21L19.5 6H18M6 6H18M6 6V5C6 3.89543 6.89543 3 8 3H16C17.1046 3 18 3.89543 18 5V6M9 10V14M15 10V14" stroke="#ffffff" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
             </Link>
 
-            <Link href="/auth" style={{ fontSize: '16px', color: '#fff', opacity: 0.7, transition: 'all 0.3s ease', display: 'flex', alignItems: 'center', justifyContent: 'center', width: '20px', height: '20px' }} onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')} onMouseLeave={(e) => (e.currentTarget.style.opacity = '0.7')}>
-              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                <circle cx="10" cy="7" r="3" />
-                <path d="M4 17c0-3.3 2.7-6 6-6s6 2.7 6 6" />
+            <Link href="/auth" style={{ opacity: 1, transition: 'all 0.3s ease', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '4px' }} onMouseEnter={(e) => (e.currentTarget.style.opacity = '0.7')} onMouseLeave={(e) => (e.currentTarget.style.opacity = '1')}>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="12" cy="8" r="4" stroke="#ffffff" strokeWidth="1.5"/>
+                <path d="M5 20C5 17.2386 8.13401 15 12 15C15.866 15 19 17.2386 19 20" stroke="#ffffff" strokeWidth="1.5" strokeLinecap="round"/>
               </svg>
             </Link>
 
-            <button style={{ padding: '0', border: 'none', background: 'none', color: '#fff', cursor: 'pointer', opacity: 0.7, transition: 'all 0.3s ease', display: 'flex', alignItems: 'center', justifyContent: 'center', width: '20px', height: '20px' }} onClick={toggleMenu} onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')} onMouseLeave={(e) => (e.currentTarget.style.opacity = '0.7')}>
-              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
-                <line x1="3" y1="5" x2="17" y2="5" />
-                <line x1="3" y1="10" x2="17" y2="10" />
-                <line x1="3" y1="15" x2="17" y2="15" />
+            <button style={{ padding: '4px', border: 'none', background: 'none', cursor: 'pointer', opacity: 1, transition: 'all 0.3s ease', display: 'flex', alignItems: 'center', justifyContent: 'center' }} onClick={toggleMenu} onMouseEnter={(e) => (e.currentTarget.style.opacity = '0.7')} onMouseLeave={(e) => (e.currentTarget.style.opacity = '1')}>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M4 6H20M4 12H20M4 18H20" stroke="#ffffff" strokeWidth="1.5" strokeLinecap="round"/>
               </svg>
             </button>
           </div>
