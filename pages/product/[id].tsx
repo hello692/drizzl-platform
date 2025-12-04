@@ -13,7 +13,7 @@ const smoothies: { [key: string]: any } = {
     reviews: 4619,
     rating: 4.5,
     badge: 'BEST SELLER',
-    image: '/products/strawberry-peach/transparent-glass-new.jpg',
+    image: '/products/strawberry-peach/transparent-glass-1.png',
     hoverImage: '/products/strawberry-peach/transparent-glass-2.png',
     images: [
       '/products/strawberry-peach/transparent-glass-new.jpg',
