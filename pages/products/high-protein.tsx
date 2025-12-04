@@ -3,11 +3,11 @@ import Footer from '../../components/Footer';
 
 const products = [
   { id: 'hp1', name: 'High Protein Smoothies Bundle', price: 0, reviews: 0, badge: '', type: 'bundle' },
-  { id: 'hp2', name: 'Strawberry Banana Protein', price: 9.49, reviews: 48, badge: 'New' },
-  { id: 'hp3', name: 'Mixed Berry Protein', price: 9.49, reviews: 185, badge: 'Best Seller' },
-  { id: 'hp4', name: 'Dark Chocolate Protein', price: 9.49, reviews: 199, badge: 'Best Seller' },
-  { id: 'hp5', name: 'Vanilla Bean Protein', price: 9.49, reviews: 207, badge: 'Best Seller' },
-  { id: 'hp6', name: 'Tropical Greens Protein', price: 9.49, reviews: 43, badge: 'New' },
+  { id: '14', name: 'Coffee Mushroom', price: 9.99, reviews: 203, badge: 'New' },
+  { id: '12', name: 'Nutty Monkey', price: 8.99, reviews: 389, badge: 'Best Seller' },
+  { id: '16', name: 'Almond', price: 8.99, reviews: 312, badge: 'New' },
+  { id: '15', name: 'Chocolate Berry', price: 8.99, reviews: 278, badge: 'New' },
+  { id: '17', name: 'Acai', price: 9.49, reviews: 487, badge: 'Best Seller' },
 ];
 
 export default function HighProtein() {

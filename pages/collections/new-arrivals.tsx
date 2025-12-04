@@ -3,9 +3,12 @@ import Footer from '../../components/Footer';
 import Link from 'next/link';
 
 const newArrivals = [
-  { id: '10', name: 'Pumpkin Spice Latte', price: 8.99, category: 'Smoothie', isNew: true },
-  { id: '11', name: 'Tropical Greens Protein', price: 9.49, category: 'Protein Smoothie', isNew: true },
-  { id: '12', name: 'Strawberry Banana Protein', price: 9.49, category: 'Protein Smoothie', isNew: true },
+  { id: '9', name: 'Pink Piyata', price: 8.99, category: 'Smoothie', isNew: true },
+  { id: '10', name: 'Matcha', price: 9.49, category: 'Smoothie', isNew: true },
+  { id: '11', name: 'Mocha', price: 9.49, category: 'Smoothie', isNew: true },
+  { id: '13', name: 'Mango Jackfruit', price: 8.99, category: 'Smoothie', isNew: true },
+  { id: '14', name: 'Coffee Mushroom', price: 9.99, category: 'Smoothie', isNew: true },
+  { id: '16', name: 'Almond', price: 8.99, category: 'Smoothie', isNew: true },
 ];
 
 export default function NewArrivals() {

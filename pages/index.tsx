@@ -35,28 +35,28 @@ const CATEGORIES = [
 ];
 
 const POPULAR_SMOOTHIES = [
-  { id: '1', name: 'Strawberry + Peach', price: 8.49, image: 'https://daily-harvest.com/cdn/shop/files/strawberry-peach-smoothie-daily-harvest-3657974.jpg?v=1760509351&width=500', description: 'Creamy strawberry bliss' },
-  { id: '2', name: 'Acai + Cherry', price: 8.49, image: 'https://daily-harvest.com/cdn/shop/files/acai-cherry-smoothie-daily-harvest-8004331.jpg?v=1760509351&width=500', description: 'Antioxidant powerhouse' },
-  { id: '3', name: 'Mixed Berry Protein', price: 9.49, image: 'https://daily-harvest.com/cdn/shop/files/mixed-berry-protein-smoothie-daily-harvest-3950952.jpg?v=1760509317&width=500', description: 'Protein-packed berries' },
-  { id: '4', name: 'Dark Chocolate Protein', price: 9.49, image: 'https://daily-harvest.com/cdn/shop/files/dark-chocolate-protein-smoothie-daily-harvest-4692961.jpg?v=1760509316&width=500', description: 'Indulgent chocolate' },
-  { id: '5', name: 'Vanilla Bean Protein', price: 9.49, image: 'https://daily-harvest.com/cdn/shop/files/vanilla-bean-protein-smoothie-daily-harvest-1407106.jpg?v=1760509317&width=500', description: 'Smooth vanilla goodness' },
-  { id: '6', name: 'Tropical Greens Protein', price: 9.49, image: 'https://daily-harvest.com/cdn/shop/files/tropical-greens-protein-smoothie-daily-harvest-8021323.jpg?v=1760509314&width=500', description: 'Tropical & green' },
+  { id: '1', name: 'Strawberry + Peach', price: 8.49, image: '/products/strawberry-peach/main-product.png', description: 'Creamy strawberry bliss' },
+  { id: '9', name: 'Pink Piyata', price: 8.99, image: '/products/pink-piyata/transparent-glass-1.png', description: 'Tropical dragon fruit' },
+  { id: '10', name: 'Matcha', price: 9.49, image: '/products/matcha/transparent-glass-1.png', description: 'Zen in a cup' },
+  { id: '14', name: 'Coffee Mushroom', price: 9.99, image: '/products/coffee-mushroom/transparent-glass-1.png', description: 'Adaptogenic energy' },
+  { id: '17', name: 'Acai', price: 9.49, image: '/products/acai/transparent-glass-1.png', description: 'Amazonian superfruit' },
+  { id: '12', name: 'Nutty Monkey', price: 8.99, image: '/products/nutty-monkey/transparent-glass-1.png', description: 'Creamy peanut butter' },
 ];
 
 const EXPERTS = [
-  { id: '1', name: 'Elizabeth Russano, FNP-C, AFSM', video: 'https://media.coverr.co/videos/coverr-woman-drinking-smoothie-juice-7481/preview', product: 'Strawberry + Peach', productImage: 'https://daily-harvest.com/cdn/shop/files/strawberry-peach-smoothie-daily-harvest-3657974.jpg?v=1760509351&width=400' },
-  { id: '2', name: 'Morgan Rackley, LE', video: 'https://media.coverr.co/videos/coverr-healthy-lifestyle-eating-smoothie-bowl-7543/preview', product: 'Mixed Berry Protein', productImage: 'https://daily-harvest.com/cdn/shop/files/mixed-berry-protein-smoothie-daily-harvest-3950952.jpg?v=1760509317&width=400' },
-  { id: '3', name: 'Nurse Lila, RM', video: 'https://media.coverr.co/videos/coverr-woman-with-smoothie-glass-8234/preview', product: 'Acai + Cherry', productImage: 'https://daily-harvest.com/cdn/shop/files/acai-cherry-smoothie-daily-harvest-8004331.jpg?v=1760509351&width=400' },
-  { id: '4', name: 'Dr. Gabriella Veals', video: 'https://media.coverr.co/videos/coverr-person-making-smoothie-juice-1200/preview', product: 'Tropical Greens Protein', productImage: 'https://daily-harvest.com/cdn/shop/files/tropical-greens-protein-smoothie-daily-harvest-8021323.jpg?v=1760509314&width=400' },
-  { id: '5', name: 'Dr. Sarah Martinez', video: 'https://media.coverr.co/videos/coverr-fitness-girl-making-protein-smoothie-7821/preview', product: 'Strawberry + Peach', productImage: 'https://daily-harvest.com/cdn/shop/files/strawberry-peach-smoothie-daily-harvest-3657974.jpg?v=1760509351&width=400' },
+  { id: '1', name: 'Elizabeth Russano, FNP-C, AFSM', video: 'https://media.coverr.co/videos/coverr-woman-drinking-smoothie-juice-7481/preview', product: 'Strawberry + Peach', productImage: '/products/strawberry-peach/main-product.png' },
+  { id: '2', name: 'Morgan Rackley, LE', video: 'https://media.coverr.co/videos/coverr-healthy-lifestyle-eating-smoothie-bowl-7543/preview', product: 'Matcha', productImage: '/products/matcha/transparent-glass-1.png' },
+  { id: '3', name: 'Nurse Lila, RM', video: 'https://media.coverr.co/videos/coverr-woman-with-smoothie-glass-8234/preview', product: 'Acai', productImage: '/products/acai/transparent-glass-1.png' },
+  { id: '4', name: 'Dr. Gabriella Veals', video: 'https://media.coverr.co/videos/coverr-person-making-smoothie-juice-1200/preview', product: 'Pink Piyata', productImage: '/products/pink-piyata/transparent-glass-1.png' },
+  { id: '5', name: 'Dr. Sarah Martinez', video: 'https://media.coverr.co/videos/coverr-fitness-girl-making-protein-smoothie-7821/preview', product: 'Coffee Mushroom', productImage: '/products/coffee-mushroom/transparent-glass-1.png' },
 ];
 
 const CUSTOMERS = [
-  { id: '1', name: 'Taylor Kay', video: 'https://media.coverr.co/videos/coverr-woman-drinking-smoothie-juice-7481/preview', product: 'Strawberry Banana Protein', productImage: 'https://daily-harvest.com/cdn/shop/files/strawberry-banana-protein-smoothie-daily-harvest-3370693.jpg?v=1760509314&width=400' },
-  { id: '2', name: 'Brittney Adderfly', video: 'https://media.coverr.co/videos/coverr-healthy-lifestyle-eating-smoothie-bowl-7543/preview', product: 'Dark Chocolate Protein', productImage: 'https://daily-harvest.com/cdn/shop/files/dark-chocolate-protein-smoothie-daily-harvest-4692961.jpg?v=1760509316&width=400' },
-  { id: '3', name: 'Lily Sanchez', video: 'https://media.coverr.co/videos/coverr-woman-with-smoothie-glass-8234/preview', product: 'Mixed Berry Protein', productImage: 'https://daily-harvest.com/cdn/shop/files/mixed-berry-protein-smoothie-daily-harvest-3950952.jpg?v=1760509317&width=400' },
-  { id: '4', name: 'Sarah Butler', video: 'https://media.coverr.co/videos/coverr-person-making-smoothie-juice-1200/preview', product: 'Vanilla Bean Protein', productImage: 'https://daily-harvest.com/cdn/shop/files/vanilla-bean-protein-smoothie-daily-harvest-1407106.jpg?v=1760509317&width=400' },
-  { id: '5', name: 'Jessica Chen', video: 'https://media.coverr.co/videos/coverr-fitness-girl-making-protein-smoothie-7821/preview', product: 'Tropical Greens Protein', productImage: 'https://daily-harvest.com/cdn/shop/files/tropical-greens-protein-smoothie-daily-harvest-8021323.jpg?v=1760509314&width=400' },
+  { id: '1', name: 'Taylor Kay', video: 'https://media.coverr.co/videos/coverr-woman-drinking-smoothie-juice-7481/preview', product: 'Chocolate Berry', productImage: '/products/chocolate-berry/transparent-glass-1.png' },
+  { id: '2', name: 'Brittney Adderfly', video: 'https://media.coverr.co/videos/coverr-healthy-lifestyle-eating-smoothie-bowl-7543/preview', product: 'Mocha', productImage: '/products/mocha/transparent-glass-1.png' },
+  { id: '3', name: 'Lily Sanchez', video: 'https://media.coverr.co/videos/coverr-woman-with-smoothie-glass-8234/preview', product: 'Almond', productImage: '/products/almond/transparent-glass-1.png' },
+  { id: '4', name: 'Sarah Butler', video: 'https://media.coverr.co/videos/coverr-person-making-smoothie-juice-1200/preview', product: 'Mango Jackfruit', productImage: '/products/mango-jackfruit/transparent-glass-1.png' },
+  { id: '5', name: 'Jessica Chen', video: 'https://media.coverr.co/videos/coverr-fitness-girl-making-protein-smoothie-7821/preview', product: 'Nutty Monkey', productImage: '/products/nutty-monkey/transparent-glass-1.png' },
 ];
 
 export default function Home() {

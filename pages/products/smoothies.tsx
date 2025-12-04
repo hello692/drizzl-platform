@@ -3,14 +3,14 @@ import Footer from '../../components/Footer';
 import Link from 'next/link';
 
 const products = [
-  { id: '1', name: 'Strawberry + Peach', type: 'Smoothie', price: 8.49, reviews: 4619, rating: 4.5, badge: 'BEST SELLER', image: 'https://daily-harvest.com/cdn/shop/files/strawberry-peach-smoothie-daily-harvest-3657974.jpg?v=1760509351&width=500' },
-  { id: '2', name: 'Strawberry Banana Protein', type: 'Smoothie', price: 9.49, reviews: 48, rating: 4.5, badge: 'NEW', image: 'https://daily-harvest.com/cdn/shop/files/strawberry-banana-protein-smoothie-daily-harvest-3370693.jpg?v=1760509314&width=500' },
-  { id: '3', name: 'Tropical Greens Protein', type: 'Smoothie', price: 9.49, reviews: 43, rating: 4.5, badge: 'NEW', image: 'https://daily-harvest.com/cdn/shop/files/tropical-greens-protein-smoothie-daily-harvest-8021323.jpg?v=1760509314&width=500' },
-  { id: '4', name: 'Mixed Berry Protein', type: 'Smoothie', price: 9.49, reviews: 185, rating: 5, badge: 'BEST SELLER', image: 'https://daily-harvest.com/cdn/shop/files/mixed-berry-protein-smoothie-daily-harvest-3950952.jpg?v=1760509317&width=500' },
-  { id: '5', name: 'Acai + Cherry', type: 'Smoothie', price: 8.49, reviews: 2686, rating: 5, badge: 'BEST SELLER', image: 'https://daily-harvest.com/cdn/shop/files/acai-cherry-smoothie-daily-harvest-8004331.jpg?v=1760509351&width=500' },
-  { id: '6', name: 'Vanilla Bean Protein', type: 'Smoothie', price: 9.49, reviews: 207, rating: 5, badge: 'BEST SELLER', image: 'https://daily-harvest.com/cdn/shop/files/vanilla-bean-protein-smoothie-daily-harvest-1407106.jpg?v=1760509317&width=500' },
-  { id: '7', name: 'Dark Chocolate Protein', type: 'Smoothie', price: 9.49, reviews: 199, rating: 5, badge: 'BEST SELLER', image: 'https://daily-harvest.com/cdn/shop/files/dark-chocolate-protein-smoothie-daily-harvest-4692961.jpg?v=1760509316&width=500' },
-  { id: '8', name: 'Blueberry + Cacao', type: 'Smoothie', price: 8.49, reviews: 1850, rating: 4.5, image: 'https://daily-harvest.com/cdn/shop/files/blueberry-cacao-smoothie-daily-harvest-9149347.jpg?v=1760509349&width=500' },
+  { id: '1', name: 'Strawberry + Peach', type: 'Smoothie', price: 8.49, reviews: 4619, rating: 4.5, badge: 'BEST SELLER', image: '/products/strawberry-peach/main-product.png' },
+  { id: '9', name: 'Pink Piyata', type: 'Smoothie', price: 8.99, reviews: 127, rating: 4.8, badge: 'NEW', image: '/products/pink-piyata/transparent-glass-1.png' },
+  { id: '10', name: 'Matcha', type: 'Smoothie', price: 9.49, reviews: 312, rating: 4.7, badge: 'NEW', image: '/products/matcha/transparent-glass-1.png' },
+  { id: '11', name: 'Mocha', type: 'Smoothie', price: 9.49, reviews: 245, rating: 4.8, badge: 'NEW', image: '/products/mocha/transparent-glass-1.png' },
+  { id: '12', name: 'Nutty Monkey', type: 'Smoothie', price: 8.99, reviews: 389, rating: 4.9, badge: 'BEST SELLER', image: '/products/nutty-monkey/transparent-glass-1.png' },
+  { id: '14', name: 'Coffee Mushroom', type: 'Smoothie', price: 9.99, reviews: 203, rating: 4.8, badge: 'NEW', image: '/products/coffee-mushroom/transparent-glass-1.png' },
+  { id: '15', name: 'Chocolate Berry', type: 'Smoothie', price: 8.99, reviews: 278, rating: 4.8, badge: 'NEW', image: '/products/chocolate-berry/transparent-glass-1.png' },
+  { id: '17', name: 'Acai', type: 'Smoothie', price: 9.49, reviews: 487, rating: 4.9, badge: 'BEST SELLER', image: '/products/acai/transparent-glass-1.png' },
 ];
 
 export default function Smoothies() {

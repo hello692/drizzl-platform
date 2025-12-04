@@ -5,14 +5,14 @@ import { useTranslations } from 'next-intl';
 import { getMessages } from '../lib/getMessages';
 
 const SMOOTHIES = [
-  { id: '1', name: 'Strawberry + Peach', price: 8.49, image: 'https://daily-harvest.com/cdn/shop/files/strawberry-peach-smoothie-daily-harvest-3657974.jpg?v=1760509351&width=500', category: 'Fruity', reviews: 185 },
-  { id: '2', name: 'Acai + Cherry', price: 8.49, image: 'https://daily-harvest.com/cdn/shop/files/acai-cherry-smoothie-daily-harvest-8004331.jpg?v=1760509351&width=500', category: 'Antioxidant', reviews: 142 },
-  { id: '3', name: 'Mixed Berry Protein', price: 9.49, image: 'https://daily-harvest.com/cdn/shop/files/mixed-berry-protein-smoothie-daily-harvest-3950952.jpg?v=1760509317&width=500', category: 'Protein', reviews: 203 },
-  { id: '4', name: 'Dark Chocolate Protein', price: 9.49, image: 'https://daily-harvest.com/cdn/shop/files/dark-chocolate-protein-smoothie-daily-harvest-4692961.jpg?v=1760509316&width=500', category: 'Protein', reviews: 167 },
-  { id: '5', name: 'Vanilla Bean Protein', price: 9.49, image: 'https://daily-harvest.com/cdn/shop/files/vanilla-bean-protein-smoothie-daily-harvest-1407106.jpg?v=1760509317&width=500', category: 'Protein', reviews: 134 },
-  { id: '6', name: 'Tropical Greens Protein', price: 9.49, image: 'https://daily-harvest.com/cdn/shop/files/tropical-greens-protein-smoothie-daily-harvest-8021323.jpg?v=1760509314&width=500', category: 'Green', reviews: 156 },
-  { id: '7', name: 'Mango + Greens', price: 8.49, image: 'https://daily-harvest.com/cdn/shop/files/mango-greens-smoothie-daily-harvest-1932842.jpg?v=1760509351&width=500', category: 'Green', reviews: 178 },
-  { id: '8', name: 'Strawberry Banana Protein', price: 9.49, image: 'https://daily-harvest.com/cdn/shop/files/strawberry-banana-protein-smoothie-daily-harvest-3370693.jpg?v=1760509314&width=500', category: 'Protein', reviews: 221 },
+  { id: '1', name: 'Strawberry + Peach', price: 8.49, image: '/products/strawberry-peach/main-product.png', category: 'Fruity', reviews: 4619 },
+  { id: '9', name: 'Pink Piyata', price: 8.99, image: '/products/pink-piyata/transparent-glass-1.png', category: 'Tropical', reviews: 127 },
+  { id: '10', name: 'Matcha', price: 9.49, image: '/products/matcha/transparent-glass-1.png', category: 'Energy', reviews: 312 },
+  { id: '11', name: 'Mocha', price: 9.49, image: '/products/mocha/transparent-glass-1.png', category: 'Energy', reviews: 245 },
+  { id: '12', name: 'Nutty Monkey', price: 8.99, image: '/products/nutty-monkey/transparent-glass-1.png', category: 'Nutty', reviews: 389 },
+  { id: '13', name: 'Mango Jackfruit', price: 8.99, image: '/products/mango-jackfruit/transparent-glass-1.png', category: 'Tropical', reviews: 156 },
+  { id: '14', name: 'Coffee Mushroom', price: 9.99, image: '/products/coffee-mushroom/transparent-glass-1.png', category: 'Energy', reviews: 203 },
+  { id: '17', name: 'Acai', price: 9.49, image: '/products/acai/transparent-glass-1.png', category: 'Antioxidant', reviews: 487 },
 ];
 
 export default function Smoothies() {

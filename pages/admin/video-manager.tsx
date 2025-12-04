@@ -38,7 +38,7 @@ const INITIAL_EXPERTS: Expert[] = [
     photoUrl: 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=400&h=400&fit=crop',
     name: 'Dr. Gabrielle Wade',
     credentials: 'MD, Dermatologist',
-    product: 'Tropical Dreams Protein',
+    product: 'Matcha',
     position: 1,
     isActive: true,
     createdAt: new Date().toISOString(),
@@ -60,7 +60,7 @@ const INITIAL_EXPERTS: Expert[] = [
     photoUrl: 'https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=400&h=400&fit=crop',
     name: 'Elizabeth Rousseau',
     credentials: 'FNP-C, APRN',
-    product: 'Strawberry + Peach',
+    product: 'Pink Piyata',
     position: 3,
     isActive: true,
     createdAt: new Date().toISOString(),
@@ -71,7 +71,7 @@ const INITIAL_EXPERTS: Expert[] = [
     photoUrl: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&h=400&fit=crop',
     name: 'Morgan Buckley',
     credentials: 'LII',
-    product: 'Mixed Berry Protein',
+    product: 'Coffee Mushroom',
     position: 4,
     isActive: true,
     createdAt: new Date().toISOString(),
@@ -85,7 +85,7 @@ const INITIAL_TESTIMONIALS: Testimonial[] = [
     photoUrl: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=400&fit=crop',
     name: 'Sarah Butler',
     videoUrl: '',
-    product: 'Vanilla Bean Protein',
+    product: 'Almond',
     position: 1,
     isActive: true,
     createdAt: new Date().toISOString(),
@@ -96,7 +96,7 @@ const INITIAL_TESTIMONIALS: Testimonial[] = [
     photoUrl: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop',
     name: 'Jessica Chen',
     videoUrl: 'https://media.coverr.co/videos/coverr-woman-drinking-smoothie-juice-7481/preview',
-    product: 'Tropical Dreams Protein',
+    product: 'Acai',
     position: 2,
     isActive: true,
     createdAt: new Date().toISOString(),
@@ -107,7 +107,7 @@ const INITIAL_TESTIMONIALS: Testimonial[] = [
     photoUrl: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?w=400&h=400&fit=crop',
     name: 'Taylor Kay',
     videoUrl: 'https://media.coverr.co/videos/coverr-healthy-lifestyle-eating-smoothie-bowl-7543/preview',
-    product: 'Strawberry Banana Protein',
+    product: 'Chocolate Berry',
     position: 3,
     isActive: true,
     createdAt: new Date().toISOString(),
@@ -118,7 +118,7 @@ const INITIAL_TESTIMONIALS: Testimonial[] = [
     photoUrl: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&h=400&fit=crop',
     name: 'Brittany Salderly',
     videoUrl: '',
-    product: 'Dark Chocolate Protein',
+    product: 'Mocha',
     position: 4,
     isActive: true,
     createdAt: new Date().toISOString(),
@@ -1105,7 +1105,7 @@ export default function ContentManagerDashboard() {
                           type="text"
                           value={testimonialFormData.product}
                           onChange={(e) => setTestimonialFormData(prev => ({ ...prev, product: e.target.value }))}
-                          placeholder="Vanilla Bean Protein"
+                          placeholder="Pink Piyata"
                           style={styles.input}
                         />
                       </div>

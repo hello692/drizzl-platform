@@ -3,9 +3,9 @@ import Footer from '../components/Footer';
 
 const allProducts = [
   { id: '1', name: 'Strawberry + Peach', price: 8.49, category: 'Smoothie' },
-  { id: '2', name: 'Mint + Cacao', price: 8.49, category: 'Smoothie' },
-  { id: '3', name: 'Mixed Berry Protein', price: 9.49, category: 'Smoothie' },
-  { id: '4', name: 'Dark Chocolate Protein', price: 9.49, category: 'Smoothie' },
+  { id: '9', name: 'Pink Piyata', price: 8.99, category: 'Smoothie' },
+  { id: '10', name: 'Matcha', price: 9.49, category: 'Smoothie' },
+  { id: '14', name: 'Coffee Mushroom', price: 9.99, category: 'Smoothie' },
   { id: 'box1', name: 'The Starter Box', price: 59.99, category: 'Box' },
 ];
 

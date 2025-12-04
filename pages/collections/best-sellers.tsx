@@ -4,11 +4,11 @@ import Link from 'next/link';
 
 const bestSellers = [
   { id: '1', name: 'Strawberry + Peach', price: 8.49, category: 'Smoothie', reviews: 4619 },
-  { id: '2', name: 'Mint + Cacao', price: 8.49, category: 'Smoothie', reviews: 4559 },
-  { id: '3', name: 'Mixed Berry Protein', price: 9.49, category: 'Protein Smoothie', reviews: 185 },
-  { id: '4', name: 'Dark Chocolate Protein', price: 9.49, category: 'Protein Smoothie', reviews: 199 },
-  { id: '5', name: 'Tropical Greens', price: 8.49, category: 'Smoothie', reviews: 2100 },
-  { id: '6', name: 'Blueberry + Cacao', price: 8.49, category: 'Smoothie', reviews: 1850 },
+  { id: '17', name: 'Acai', price: 9.49, category: 'Smoothie', reviews: 487 },
+  { id: '12', name: 'Nutty Monkey', price: 8.99, category: 'Smoothie', reviews: 389 },
+  { id: '10', name: 'Matcha', price: 9.49, category: 'Smoothie', reviews: 312 },
+  { id: '15', name: 'Chocolate Berry', price: 8.99, category: 'Smoothie', reviews: 278 },
+  { id: '11', name: 'Mocha', price: 9.49, category: 'Smoothie', reviews: 245 },
 ];
 
 export default function BestSellers() {
