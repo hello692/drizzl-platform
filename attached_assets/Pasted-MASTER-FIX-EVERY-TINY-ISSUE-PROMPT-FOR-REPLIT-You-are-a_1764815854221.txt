@@ -1,0 +1,287 @@
+MASTER “FIX EVERY TINY ISSUE” PROMPT FOR REPLIT
+
+You are an ultra-senior full-stack engineer brought in as a stability and QA lead for the Drizzl platform in this Replit project (Next.js/React + Supabase).
+
+Your mission right now is:
+
+Fix every bug, inconsistency, and broken flow you can find so the platform is fully usable end-to-end with NO dead ends.
+
+Assume nothing. Treat any runtime error, console warning, or broken navigation as a bug that must be fixed.
+
+0. CRITICAL: Fix Admin Setup Error First
+
+On /admin/setup, when trying to create the initial admin, the UI shows:
+
+“Account created but profile failed”
+
+You must:
+
+Find the code that handles admin setup (likely an API route like /api/admin/reset-admin and/or /admin/setup page).
+
+Identify why the profile creation fails:
+
+Wrong table name?
+
+RLS misconfigured?
+
+Duplicate row / unique constraint?
+
+Missing id mapping to auth.users.id?
+
+Fix it so that:
+
+The admin Supabase auth user is created (or reused if exists),
+
+A profiles row is correctly inserted/updated with:
+
+id = auth.users.id
+
+email = hello@drizzlwellness.com (or given email)
+
+role = 'admin'
+
+account_type = 'admin' or 'customer' as you prefer, but admin role is required
+
+The setup flow does not leave half-created state.
+
+Make the /admin/setup page idempotent:
+
+If admin already exists, redirect to /admin with a message like “Admin already set up”.
+
+No more “Account created but profile failed”.
+
+Log detailed errors in the server console while you’re debugging, but don’t show raw SQL errors to the user in production.
+
+1. Single Source of Truth – Confirm Schema & RLS
+
+Based on docs/ARCHITECTURE-NOTES.md, verify that the Supabase schema matches the code:
+
+profiles
+
+wholesale_applications
+
+products
+
+orders
+
+order_items
+
+any other core tables referenced
+
+Fix any mismatches:
+
+Wrong column names?
+
+Types don’t align with inserts?
+
+Missing defaults or not null constraints causing failures?
+
+RLS policies preventing inserts/updates?
+
+Rule: every insert/update/select in the code must work without throwing a Supabase error when called with valid data.
+
+2. Auth & Roles – Make All Flows Work
+
+You must ensure the three main roles behave correctly:
+
+Customer
+
+Retail / B2B Partner
+
+Admin
+
+2.1 /auth – Unified Login/Signup
+
+/auth must allow:
+
+Customer sign up + sign in
+
+Retail Partner sign up + sign in
+
+On signup:
+
+Create Supabase auth user
+
+Insert or update profiles:
+
+Customer: account_type = 'customer', role = 'customer', b2b_status = 'none'
+
+Retail: account_type = 'b2b', b2b_status = 'pending', role = 'b2b' (or customer until approved – just be consistent)
+
+Redirects:
+
+Customer → /dashboard
+
+Retail new signup → /retail/apply
+
+Retail login:
+
+b2b_status = 'pending' → /retail/apply or waiting screen
+
+b2b_status = 'approved' → B2B dashboard route (use whichever exists)
+
+2.2 Admin Login
+
+/admin/setup for first-time only (fixed in section 0).
+
+/admin/auth for normal admin login:
+
+Only login, no sign up.
+
+After login, check profiles.role:
+
+If admin → /admin.
+
+Else → “Access denied”.
+
+2.3 Protection
+
+Make sure:
+
+/admin/** routes are admin-only.
+
+/dashboard is logged-in only (customer or b2b).
+
+/retail/apply requires login and account_type = 'b2b'.
+
+3. Entry Points – Navbar / Buttons
+
+On the public site:
+
+Make sure there is a visible Login / Portal entry that:
+
+Links to /auth for customers & partners.
+
+Has a small “Admin login” link to /admin/auth.
+
+No user should have to guess URLs.
+
+Ensure Logout exists and works everywhere (admin, b2b, customer).
+
+4. B2B Partner Flow – End to End
+
+Verify and fix this sequence:
+
+User visits /auth, signs up as Retail Partner.
+
+They are redirected to /retail/apply.
+
+They complete all 4 steps and data is saved into wholesale_applications linked to their user_id.
+
+/admin/partners shows the application in “Pending”.
+
+Admin can approve/reject:
+
+Updates wholesale_applications.status
+
+Updates profiles.b2b_status
+
+Approved partner can log in and access B2B dashboard / wholesale functionality.
+
+Fix any break in this chain:
+
+Missing links
+
+Failing DB writes
+
+Wrong filters (e.g., admin seeing no partners because of a query bug).
+
+5. Customer Ecommerce Flow
+
+For the main store:
+
+Products on homepage must load from the products table (not hard-coded arrays).
+
+Customers can:
+
+Add product(s) to cart.
+
+Proceed to checkout.
+
+Place an order.
+
+When an order is placed:
+
+Insert into orders + order_items.
+
+Mark order_type = 'd2c'.
+
+/dashboard must show the customer their orders and status.
+
+/admin/orders must show all orders (with filters for D2C/B2B if implemented).
+
+If payment integration (Stripe etc.) is stubbed, ensure the fake “Payment success” still writes the order correctly and doesn’t error.
+
+6. Admin Command Center – No Dead Modules
+
+On /admin (Command Center with 11 modules), ensure:
+
+Every card / nav item points to a real route:
+
+If the feature exists → show real data.
+
+If not yet built → show a clean “Coming soon” message, not a broken page.
+
+Minimum behavior:
+
+Orders module: table of orders from orders.
+
+Products: table with the 6 sample smoothies + CRUD if already built.
+
+Partners: B2B applications view.
+
+Others (Inventory, Banking, etc.): either working pages or explicit “Coming soon”.
+
+7. General Bug Sweep & Polish
+
+Go through:
+
+Browser console (client)
+
+Server logs (Next.js / API routes)
+
+Fix:
+
+Any runtime errors
+
+Any obvious warnings that indicate broken logic (undefined props, missing keys, failed fetches).
+
+Ensure:
+
+All forms have basic validation and show useful error messages (not just “Something went wrong”).
+
+No navigation leads to 404 or blank screens unless clearly intentional.
+
+Add defensive coding where needed (null checks, guards when user is undefined, etc.).
+
+8. Final Checklist Output
+
+When you’re done, output a clear Final Status Summary in your response that includes:
+
+Admin Setup
+
+Confirm /admin/setup works or is disabled after first use.
+
+Confirm you can log in as admin via /admin/auth and reach /admin.
+
+Auth
+
+Confirm /auth supports:
+
+Customer signup + login → /dashboard
+
+Retail signup + login → /retail/apply / B2B dashboard
+
+B2B
+
+Confirm full flow from signup → apply → admin approve → partner login.
+
+Ecommerce
+
+Confirm customer can place an order and see it in dashboard & admin.
+
+Known Limitations
+
+List anything still intentionally stubbed (e.g., AI modules, real banking APIs) so we know what is NOT fully live.
+
+Do not add new features. Your only goal is to make the existing platform stable, connected, and demo-ready.

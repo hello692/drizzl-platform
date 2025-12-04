@@ -16,7 +16,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
   if (!supabaseUrl || !serviceRoleKey) {
-    return res.status(500).json({ error: 'Server configuration error' });
+    return res.status(500).json({ error: 'Server configuration error - missing Supabase credentials' });
   }
 
   const supabaseAdmin = createClient(supabaseUrl, serviceRoleKey, {
@@ -38,6 +38,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const existingUser = usersData?.users?.find((u: any) => u.email === email);
     
     if (existingUser) {
+      // Delete existing profile first
+      await supabaseAdmin.from('profiles').delete().eq('id', existingUser.id);
+      
       // Delete existing user
       const { error: deleteError } = await supabaseAdmin.auth.admin.deleteUser(existingUser.id);
       
@@ -45,9 +48,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         console.error('Delete user error:', deleteError);
         return res.status(500).json({ error: 'Failed to remove existing account' });
       }
-
-      // Also delete the profile if it exists
-      await supabaseAdmin.from('profiles').delete().eq('id', existingUser.id);
     }
 
     // Create new user with admin privileges
@@ -59,30 +59,41 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     if (createError) {
       console.error('Create user error:', createError);
-      return res.status(500).json({ error: 'Failed to create new account' });
+      return res.status(500).json({ error: 'Failed to create new account: ' + createError.message });
     }
 
     if (!newUser.user) {
       return res.status(500).json({ error: 'User creation failed' });
     }
 
-    // Create admin profile
-    const { error: profileError } = await supabaseAdmin
-      .from('profiles')
-      .upsert({
-        id: newUser.user.id,
-        email: email,
-        full_name: 'Admin',
-        role: 'admin',
-        account_type: 'admin',
-        b2b_status: 'none',
-        created_at: new Date().toISOString(),
-        updated_at: new Date().toISOString(),
-      }, { onConflict: 'id' });
+    // Create admin profile with only essential fields
+    const profileData = {
+      id: newUser.user.id,
+      email: email,
+      full_name: 'Admin',
+      role: 'admin'
+    };
 
-    if (profileError) {
-      console.error('Profile error:', profileError);
-      return res.status(500).json({ error: 'Account created but profile failed' });
+    // First try insert
+    const { error: insertError } = await supabaseAdmin
+      .from('profiles')
+      .insert(profileData);
+
+    if (insertError) {
+      console.error('Insert error:', insertError);
+      
+      // If insert fails, try upsert
+      const { error: upsertError } = await supabaseAdmin
+        .from('profiles')
+        .upsert(profileData, { onConflict: 'id' });
+      
+      if (upsertError) {
+        console.error('Upsert error:', upsertError);
+        return res.status(500).json({ 
+          error: 'Account created but profile failed. Please contact support.',
+          details: upsertError.message 
+        });
+      }
     }
 
     return res.status(200).json({ 
