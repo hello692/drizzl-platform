@@ -427,13 +427,16 @@ export default function ProductDetail() {
                 )}
               </div>
 
-              {/* Thumbnail Strip */}
+              {/* Thumbnail Strip - Scrollable Single Row */}
               {product.images && product.images.length > 1 && (
                 <div style={{
                   display: 'flex',
                   gap: '12px',
-                  justifyContent: 'center',
-                  flexWrap: 'wrap',
+                  overflowX: 'auto',
+                  overflowY: 'hidden',
+                  paddingBottom: '8px',
+                  scrollbarWidth: 'thin',
+                  scrollbarColor: '#ccc transparent',
                 }}>
                   {product.images.map((img: string, idx: number) => (
                     <button
@@ -441,6 +444,7 @@ export default function ProductDetail() {
                       onClick={() => setCurrentImageIndex(idx)}
                       style={{
                         width: '64px',
+                        minWidth: '64px',
                         height: '64px',
                         borderRadius: '8px',
                         overflow: 'hidden',
@@ -449,6 +453,7 @@ export default function ProductDetail() {
                         cursor: 'pointer',
                         transition: 'all 0.2s ease',
                         opacity: idx === currentImageIndex ? 1 : 0.7,
+                        flexShrink: 0,
                       }}
                       onMouseEnter={(e) => {
                         if (idx !== currentImageIndex) {
