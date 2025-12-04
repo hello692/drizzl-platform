@@ -149,6 +149,15 @@ const products: Product[] = [
     defaultImage: '/products/chocolate-berry/transparent-glass-1.png',
     hoverImage: '/products/chocolate-berry/transparent-glass-2.png',
   },
+  { 
+    id: '16', 
+    name: 'Almond', 
+    price: 8.99, 
+    reviews: 312, 
+    badge: 'New',
+    defaultImage: '/products/almond/transparent-glass-1.png',
+    hoverImage: '/products/almond/transparent-glass-2.png',
+  },
 ];
 
 function ProductCard({ product }: { product: Product }) {
