@@ -20,9 +20,37 @@ const LANGUAGES = [
   { code: 'ru', name: 'Русский' },
 ];
 
+const MENU_ITEMS = [
+  { 
+    title: 'BEST SELLERS', 
+    items: ['Strawberry + Peach', 'Matcha', 'Acai', 'Coffee Mushroom'] 
+  },
+  { 
+    title: 'NEW ARRIVALS', 
+    items: ['Pink Piyata', 'Mango Jackfruit', 'Chocolate Berry'] 
+  },
+  { 
+    title: 'COLLECTIONS', 
+    items: ['Smoothies', 'High Protein', 'Low Sugar', 'Immunity Boost'] 
+  },
+  { 
+    title: 'DIETARY NEEDS', 
+    items: ['Gluten Free', 'Dairy Free', 'Vegan', 'Keto Friendly'] 
+  },
+  { 
+    title: 'SMOOTHIE BOXES', 
+    items: ['Starter Box', 'Family Box', 'Weekly Box', 'Monthly Box'] 
+  },
+  { 
+    title: 'GIFTS', 
+    items: ['Gift Cards', 'Gift Sets', 'Subscriptions'] 
+  },
+];
+
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [langOpen, setLangOpen] = useState(false);
+  const [expandedMenu, setExpandedMenu] = useState<string | null>(null);
   const router = useRouter();
   const currentLang = router.locale || 'en';
   
@@ -42,6 +70,9 @@ export default function Navbar() {
 
   const toggleMenu = () => setMenuOpen(!menuOpen);
   const toggleLang = () => setLangOpen(!langOpen);
+  const toggleExpandedMenu = (title: string) => {
+    setExpandedMenu(expandedMenu === title ? null : title);
+  };
   
   const selectLanguage = (code: string) => {
     if (code === currentLang) {
@@ -71,46 +102,160 @@ export default function Navbar() {
         style={{ zIndex: 998 }}
       />
       
-      <div className={`menu-sidebar-animated ${menuOpen ? 'active' : ''}`}>
-        <div className="menu-header-animated" style={{ padding: '24px 28px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <span style={{ fontSize: '14px', fontWeight: '600', letterSpacing: '0.5px', color: '#000' }}>Menu</span>
+      <div className={`menu-sidebar-animated ${menuOpen ? 'active' : ''}`} style={{ 
+        display: 'flex', 
+        flexDirection: 'column', 
+        height: '100%',
+        background: '#fff'
+      }}>
+        <div style={{ 
+          padding: '32px 24px 24px 24px', 
+          display: 'flex', 
+          justifyContent: 'space-between', 
+          alignItems: 'flex-start' 
+        }}>
+          <span style={{ 
+            fontSize: '32px', 
+            fontWeight: '300', 
+            letterSpacing: '-0.5px', 
+            color: '#000',
+            fontFamily: 'system-ui, -apple-system, sans-serif'
+          }}>Menu</span>
           <button 
-            className="close-btn-animated"
             onClick={() => setMenuOpen(false)}
+            style={{
+              padding: '8px',
+              border: 'none',
+              background: 'none',
+              cursor: 'pointer',
+              marginTop: '4px'
+            }}
           >
-            <span className="close-line"></span>
-            <span className="close-line"></span>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000" strokeWidth="1.5" strokeLinecap="round">
+              <line x1="6" y1="6" x2="18" y2="18" />
+              <line x1="18" y1="6" x2="6" y2="18" />
+            </svg>
           </button>
         </div>
         
-        <div className="menu-content-animated" style={{ padding: '32px 28px' }}>
-          <div className="menu-section-animated">
-            <div className="section-title-animated" style={{ fontSize: '10px', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '1.2px', color: '#999', marginBottom: '20px' }}>Shop</div>
-            <button className="menu-item-animated" onClick={() => navigateTo('/smoothies')} style={{ fontSize: '17px', fontWeight: '500', letterSpacing: '-0.3px', padding: '14px 0' }}>Smoothies</button>
-            <button className="menu-item-animated" onClick={() => navigateTo('/bowls')} style={{ fontSize: '17px', fontWeight: '500', letterSpacing: '-0.3px', padding: '14px 0' }}>Bowls</button>
-            <button className="menu-item-animated" onClick={() => navigateTo('/juices')} style={{ fontSize: '17px', fontWeight: '500', letterSpacing: '-0.3px', padding: '14px 0' }}>Juices</button>
-            <button className="menu-item-animated" onClick={() => navigateTo('/wellness')} style={{ fontSize: '17px', fontWeight: '500', letterSpacing: '-0.3px', padding: '14px 0' }}>Wellness</button>
-          </div>
+        <div style={{ 
+          flex: 1, 
+          overflowY: 'auto',
+          padding: '16px 24px'
+        }}>
+          {MENU_ITEMS.map((menuItem) => (
+            <div key={menuItem.title} style={{ borderBottom: 'none' }}>
+              <button
+                onClick={() => toggleExpandedMenu(menuItem.title)}
+                style={{
+                  width: '100%',
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  padding: '20px 0',
+                  border: 'none',
+                  background: 'none',
+                  cursor: 'pointer',
+                  textAlign: 'left'
+                }}
+              >
+                <span style={{ 
+                  fontSize: '14px', 
+                  fontWeight: '700', 
+                  letterSpacing: '0.5px', 
+                  color: '#000' 
+                }}>
+                  {menuItem.title}
+                </span>
+                <svg 
+                  width="16" 
+                  height="16" 
+                  viewBox="0 0 24 24" 
+                  fill="none" 
+                  stroke="#000" 
+                  strokeWidth="2" 
+                  strokeLinecap="round"
+                  style={{
+                    transform: expandedMenu === menuItem.title ? 'rotate(180deg)' : 'rotate(0deg)',
+                    transition: 'transform 0.2s ease'
+                  }}
+                >
+                  <polyline points="6 9 12 15 18 9" />
+                </svg>
+              </button>
+              
+              {expandedMenu === menuItem.title && (
+                <div style={{ 
+                  paddingBottom: '16px',
+                  paddingLeft: '8px'
+                }}>
+                  {menuItem.items.map((item) => (
+                    <button
+                      key={item}
+                      onClick={() => navigateTo(`/collections/${item.toLowerCase().replace(/\s+/g, '-')}`)}
+                      style={{
+                        display: 'block',
+                        width: '100%',
+                        padding: '12px 0',
+                        border: 'none',
+                        background: 'none',
+                        cursor: 'pointer',
+                        textAlign: 'left',
+                        fontSize: '14px',
+                        color: '#666',
+                        fontWeight: '400'
+                      }}
+                    >
+                      {item}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+          ))}
           
-          <div className="menu-divider-animated" style={{ margin: '32px 0', height: '1px', background: 'rgba(0, 0, 0, 0.08)' }}></div>
-          
-          <div className="menu-section-animated">
-            <div className="section-title-animated" style={{ fontSize: '10px', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '1.2px', color: '#999', marginBottom: '20px' }}>Company</div>
-            <button className="menu-item-animated" onClick={() => navigateTo('/about')} style={{ fontSize: '17px', fontWeight: '500', letterSpacing: '-0.3px', padding: '14px 0' }}>About</button>
-            <button className="menu-item-animated" onClick={() => navigateTo('/sustainability')} style={{ fontSize: '17px', fontWeight: '500', letterSpacing: '-0.3px', padding: '14px 0' }}>Sustainability</button>
-            <button className="menu-item-animated" onClick={() => navigateTo('/careers')} style={{ fontSize: '17px', fontWeight: '500', letterSpacing: '-0.3px', padding: '14px 0' }}>Careers</button>
-            <button className="menu-item-animated" onClick={() => navigateTo('/blog')} style={{ fontSize: '17px', fontWeight: '500', letterSpacing: '-0.3px', padding: '14px 0' }}>Blog</button>
-          </div>
-          
-          <div className="menu-divider-animated" style={{ margin: '32px 0', height: '1px', background: 'rgba(0, 0, 0, 0.08)' }}></div>
-          
-          <div className="menu-section-animated">
-            <div className="section-title-animated" style={{ fontSize: '10px', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '1.2px', color: '#999', marginBottom: '20px' }}>Support</div>
-            <button className="menu-item-animated" onClick={() => navigateTo('/contact')} style={{ fontSize: '17px', fontWeight: '500', letterSpacing: '-0.3px', padding: '14px 0' }}>Contact</button>
-            <button className="menu-item-animated" onClick={() => navigateTo('/faq')} style={{ fontSize: '17px', fontWeight: '500', letterSpacing: '-0.3px', padding: '14px 0' }}>FAQ</button>
-            <button className="menu-item-animated" onClick={() => navigateTo('/shipping')} style={{ fontSize: '17px', fontWeight: '500', letterSpacing: '-0.3px', padding: '14px 0' }}>Shipping</button>
-            <button className="menu-item-animated" onClick={() => navigateTo('/returns')} style={{ fontSize: '17px', fontWeight: '500', letterSpacing: '-0.3px', padding: '14px 0' }}>Returns</button>
-          </div>
+          <button
+            onClick={() => navigateTo('/offers')}
+            style={{
+              display: 'block',
+              width: '100%',
+              padding: '24px 0',
+              border: 'none',
+              background: 'none',
+              cursor: 'pointer',
+              textAlign: 'left',
+              fontSize: '13px',
+              color: '#000',
+              fontWeight: '400',
+              letterSpacing: '0.3px'
+            }}
+          >
+            GET $25 OFF
+          </button>
+        </div>
+        
+        <div style={{ 
+          borderTop: '1px solid #e8e8e8',
+          padding: '24px',
+          marginTop: 'auto'
+        }}>
+          <button
+            onClick={() => navigateTo('/auth')}
+            style={{
+              display: 'block',
+              width: '100%',
+              padding: '0',
+              border: 'none',
+              background: 'none',
+              cursor: 'pointer',
+              textAlign: 'left',
+              fontSize: '14px',
+              color: '#000',
+              fontWeight: '400'
+            }}
+          >
+            Log in
+          </button>
         </div>
       </div>
       
