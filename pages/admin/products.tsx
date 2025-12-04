@@ -88,7 +88,26 @@ export default function AdminProducts() {
   async function loadProducts() {
     try {
       const response = await fetch('/api/admin/products');
-      const data = await response.json();
+      const contentType = response.headers.get('content-type');
+      
+      if (!contentType || !contentType.includes('application/json')) {
+        console.error('Invalid response type:', contentType);
+        setError('Server returned invalid response. Please try again.');
+        setProducts([]);
+        return;
+      }
+      
+      const text = await response.text();
+      let data;
+      try {
+        data = JSON.parse(text);
+      } catch (parseError) {
+        console.error('JSON parse error:', parseError, 'Response:', text.substring(0, 200));
+        setError('Unable to parse server response. Please refresh the page.');
+        setProducts([]);
+        return;
+      }
+      
       setProducts(data.products || []);
       if (data.message) {
         setError(data.message);
@@ -97,7 +116,7 @@ export default function AdminProducts() {
       }
     } catch (err) {
       console.error('Error loading products:', err);
-      setError('Unable to load products');
+      setError('Unable to load products. Please check your connection.');
       setProducts([]);
     } finally {
       setLoadingProducts(false);
