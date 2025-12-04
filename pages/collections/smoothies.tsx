@@ -104,6 +104,15 @@ const products: Product[] = [
     defaultImage: '/products/matcha/transparent-glass-1.png',
     hoverImage: '/products/matcha/transparent-glass-2.png',
   },
+  { 
+    id: '11', 
+    name: 'Mocha', 
+    price: 9.49, 
+    reviews: 245, 
+    badge: 'New',
+    defaultImage: '/products/mocha/transparent-glass-1.png',
+    hoverImage: '/products/mocha/transparent-glass-2.png',
+  },
 ];
 
 function ProductCard({ product }: { product: Product }) {
