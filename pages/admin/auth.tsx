@@ -74,11 +74,16 @@ export default function AdminAuthPage() {
           return;
         }
 
+        console.log('DEBUG - Profile data:', JSON.stringify(profile));
+        console.log('DEBUG - Profile role:', profile?.role);
+        console.log('DEBUG - Role type:', typeof profile?.role);
+
         if (profile?.role === 'admin' || profile?.role === 'super_admin') {
           router.push('/admin');
         } else {
+          console.log('DEBUG - Access denied, role was:', profile?.role);
           await supabase.auth.signOut();
-          setError('Access denied. You do not have admin privileges.');
+          setError(`Access denied. Role is: ${profile?.role}`);
         }
       }
     } catch (err: any) {
