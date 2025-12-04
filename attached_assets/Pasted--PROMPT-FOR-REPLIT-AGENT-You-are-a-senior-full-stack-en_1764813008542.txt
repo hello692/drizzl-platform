@@ -1,0 +1,177 @@
+🔧 PROMPT FOR REPLIT AGENT
+
+You are a senior full-stack engineer fixing the AUTH & ENTRY FLOWS for the Drizzl platform in this Replit project.
+Tech stack: Next.js/React + Supabase.
+
+The current Platform Status says:
+
+“Sign up as a regular customer at /auth”
+
+“B2B Application – Users can apply at /retail/apply (requires sign-in first)”
+
+“Customer Dashboard – Registered customers can view their order history and profile at /dashboard”
+
+“Admin Dashboard – Command Center is working at /admin”
+
+In reality:
+
+/auth currently only shows a Retail Partner portal copy and does NOT allow a normal customer to sign up.
+
+There is no obvious login button/icon on the homepage for:
+
+Regular customers
+
+Retail / B2B partners
+
+Admins
+
+I need you to fix ONLY these problems now, without breaking the rest of the system.
+
+1. Fix /auth So It Supports Both CUSTOMER & RETAIL/B2B
+
+Find the code that renders the /auth route (pages or app router).
+
+Convert /auth into a unified auth page with a clear toggle:
+
+Tabs, buttons, or radio:
+
+Customer
+
+Retail Partner
+
+Admin will log in via a separate route (see Section 3).
+
+Behavior:
+
+Customer mode:
+
+Show a simple Email + Password (and optionally Name) form.
+
+Allow Sign Up and Sign In (a toggle or tabs like “Sign In / Create Account”).
+
+On successful sign-up:
+
+Create/update profiles row with:
+
+account_type = 'customer'
+
+role = 'customer' (unless already admin).
+
+Redirect to /dashboard.
+
+On successful login:
+
+Redirect to /dashboard.
+
+Retail Partner mode:
+
+Show sign up / sign in for B2B.
+
+On B2B sign up:
+
+Set account_type = 'b2b'
+
+b2b_status = 'pending' if not already set.
+
+After sign-up, redirect to /retail/apply to complete the 4-step application (this is already working).
+
+On B2B login:
+
+If b2b_status = 'approved' → redirect to B2B dashboard route (whatever is implemented, e.g. /b2b/dashboard or /dashboard with B2B view).
+
+If b2b_status = 'pending' → redirect to /retail/apply or a “Waiting for approval” page.
+
+Make sure /auth actually works end-to-end:
+
+No console errors.
+
+Supabase auth is called correctly.
+
+Profiles are written in the profiles table (as already defined in docs/ARCHITECTURE-NOTES.md).
+
+Update any hard-coded text on /auth so it clearly says:
+
+“Customer Login / Sign Up”
+
+“Retail Partner Login / Sign Up”
+and not only “Retail Partner Portal”.
+
+Important: Do not remove the existing B2B flow at /retail/apply. Just make sure /auth actually lets a normal customer create an account like your own Platform Status claims.
+
+2. Add Visible Login Entry Points on the Public Site
+
+Locate the public site layout / navbar used on the home page (where the product catalog shows).
+
+Add a Login button in the top navigation with a small dropdown or simple split links:
+
+Example (you can adjust styling to match current design):
+
+“Login” button that opens a small menu with:
+
+“Customer / Retail Login” → links to /auth
+
+“Admin Login” → links to /admin/auth (see next section)
+
+If a dropdown is too much, you can instead:
+
+Add a single “Login” button linking to /auth.
+
+On /auth, show a small link for admin under the form (“Admin? Click here”) that sends to /admin/auth.
+
+Make sure the button is clearly visible (not hidden in mobile only, etc.).
+
+3. Create a Simple Admin Login Route
+
+Create an Admin Login page at /admin/auth (or the most natural route in this project).
+
+This page should:
+
+Use Supabase auth Sign In only (NO sign up).
+
+After successful login, check the user’s profile:
+
+If role = 'admin' → redirect to /admin (Command Center).
+
+Otherwise → show “Access denied” (you are not an admin).
+
+Ensure there is NO way to sign up as admin from the UI. Admin assignment should remain manual via Supabase console as documented in ARCHITECTURE-NOTES.md.
+
+Add a small text link somewhere on /auth saying “Admin login” that links to /admin/auth, so admins are not lost.
+
+4. Keep Everything Else Working
+
+While making these changes:
+
+Do NOT break:
+
+/retail/apply B2B application flow
+
+/dashboard customer dashboard
+
+/admin Command Center
+
+Keep all existing styles / theming; just wire flows and text properly.
+
+If you must stub anything, show a clear message instead of a blank or broken page.
+
+When you’re done, print a short summary in the console / response:
+
+Which files you changed for:
+
+/auth
+
+Navbar / homepage login buttons
+
+/admin/auth
+
+Exact test steps to verify:
+
+Sign up as a customer at /auth and reach /dashboard.
+
+Sign up as a Retail Partner at /auth, get redirected to /retail/apply, and complete the flow.
+
+Log in as admin at /admin/auth and reach /admin.
+
+Do not add new big features. Only fix auth flows & entry points so the platform works as described in the Platform Status notes.
+
+Start by locating the /auth implementation and the main layout / navbar, then apply all the changes above.
