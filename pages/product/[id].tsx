@@ -14,7 +14,7 @@ const smoothies: { [key: string]: any } = {
     rating: 4.5,
     badge: 'BEST SELLER',
     image: '/products/strawberry-peach/main-product.png',
-    hoverImage: '/products/strawberry-peach/transparent-glass-1.png',
+    hoverImage: '/products/strawberry-peach/product-1.jpg',
     images: [
       '/products/strawberry-peach/main-product.png',
       '/products/strawberry-peach/transparent-glass-1.png',
@@ -58,7 +58,7 @@ const smoothies: { [key: string]: any } = {
     rating: 4.8,
     badge: 'NEW',
     image: '/products/pink-piyata/transparent-glass-1.png',
-    hoverImage: '/products/pink-piyata/transparent-glass-2.png',
+    hoverImage: '/products/pink-piyata/product-1.jpg',
     images: [
       '/products/pink-piyata/transparent-glass-1.png',
       '/products/pink-piyata/transparent-glass-2.png',
@@ -102,7 +102,7 @@ const smoothies: { [key: string]: any } = {
     rating: 4.7,
     badge: 'NEW',
     image: '/products/matcha/transparent-glass-1.png',
-    hoverImage: '/products/matcha/transparent-glass-2.png',
+    hoverImage: '/products/matcha/product-1.jpg',
     images: [
       '/products/matcha/transparent-glass-1.png',
       '/products/matcha/transparent-glass-2.png',
@@ -147,7 +147,7 @@ const smoothies: { [key: string]: any } = {
     rating: 4.8,
     badge: 'NEW',
     image: '/products/mocha/transparent-glass-1.png',
-    hoverImage: '/products/mocha/transparent-glass-2.png',
+    hoverImage: '/products/mocha/product-1.jpg',
     images: [
       '/products/mocha/transparent-glass-1.png',
       '/products/mocha/transparent-glass-2.png',
@@ -192,7 +192,7 @@ const smoothies: { [key: string]: any } = {
     rating: 4.9,
     badge: 'BEST SELLER',
     image: '/products/nutty-monkey/transparent-glass-1.png',
-    hoverImage: '/products/nutty-monkey/transparent-glass-2.png',
+    hoverImage: '/products/nutty-monkey/product-1.jpg',
     images: [
       '/products/nutty-monkey/transparent-glass-1.png',
       '/products/nutty-monkey/transparent-glass-2.png',
@@ -237,7 +237,7 @@ const smoothies: { [key: string]: any } = {
     rating: 4.7,
     badge: 'NEW',
     image: '/products/mango-jackfruit/transparent-glass-1.png',
-    hoverImage: '/products/mango-jackfruit/transparent-glass-2.png',
+    hoverImage: '/products/mango-jackfruit/product-1.jpg',
     images: [
       '/products/mango-jackfruit/transparent-glass-1.png',
       '/products/mango-jackfruit/transparent-glass-2.png',
@@ -282,7 +282,7 @@ const smoothies: { [key: string]: any } = {
     rating: 4.8,
     badge: 'NEW',
     image: '/products/coffee-mushroom/transparent-glass-1.png',
-    hoverImage: '/products/coffee-mushroom/transparent-glass-2.png',
+    hoverImage: '/products/coffee-mushroom/product-1.jpg',
     images: [
       '/products/coffee-mushroom/transparent-glass-1.png',
       '/products/coffee-mushroom/transparent-glass-2.png',
@@ -327,7 +327,7 @@ const smoothies: { [key: string]: any } = {
     rating: 4.8,
     badge: 'NEW',
     image: '/products/chocolate-berry/transparent-glass-1.png',
-    hoverImage: '/products/chocolate-berry/transparent-glass-2.png',
+    hoverImage: '/products/chocolate-berry/product-1.jpg',
     images: [
       '/products/chocolate-berry/transparent-glass-1.png',
       '/products/chocolate-berry/transparent-glass-2.png',
@@ -372,7 +372,7 @@ const smoothies: { [key: string]: any } = {
     rating: 4.9,
     badge: 'NEW',
     image: '/products/almond/transparent-glass-1.png',
-    hoverImage: '/products/almond/transparent-glass-2.png',
+    hoverImage: '/products/almond/product-1.jpg',
     images: [
       '/products/almond/transparent-glass-1.png',
       '/products/almond/transparent-glass-2.png',
@@ -417,7 +417,7 @@ const smoothies: { [key: string]: any } = {
     rating: 4.9,
     badge: 'BEST SELLER',
     image: '/products/acai/transparent-glass-1.png',
-    hoverImage: '/products/acai/transparent-glass-2.png',
+    hoverImage: '/products/acai/product-1.jpg',
     images: [
       '/products/acai/transparent-glass-1.png',
       '/products/acai/transparent-glass-2.png',
