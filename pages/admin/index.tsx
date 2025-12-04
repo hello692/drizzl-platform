@@ -267,6 +267,37 @@ export default function AdminDashboard() {
             </p>
           </div>
         </div>
+
+        <div style={styles.inlineAIChatBox}>
+          <div style={styles.inlineAIChatHeader}>
+            <span style={styles.inlineAIChatLabel}>Chat with DRIZZL AI</span>
+          </div>
+          {aiResponse && (
+            <div style={styles.inlineAIResponseBubble}>
+              <div style={styles.aiAvatar}>AI</div>
+              <p style={styles.aiResponseText}>{aiResponse}</p>
+            </div>
+          )}
+          <div style={styles.inlineAIInputRow}>
+            <input
+              type="text"
+              value={aiMessage}
+              onChange={(e) => setAiMessage(e.target.value)}
+              onKeyPress={(e) => e.key === 'Enter' && handleAISubmit()}
+              placeholder="Ask about revenue, orders, inventory..."
+              style={styles.inlineAIInput}
+            />
+            <button onClick={handleAISubmit} disabled={aiLoading} style={styles.inlineAISendBtn}>
+              {aiLoading ? (
+                <div style={styles.aiLoadingDot} />
+              ) : (
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" />
+                </svg>
+              )}
+            </button>
+          </div>
+        </div>
       </section>
 
       <section style={styles.summarySection}>
@@ -622,6 +653,59 @@ const styles: { [key: string]: React.CSSProperties } = {
     fontSize: '14px',
     color: 'rgba(255,255,255,0.5)',
     lineHeight: 1.6,
+  },
+  inlineAIChatBox: {
+    marginTop: '20px',
+    background: 'rgba(168, 85, 247, 0.06)',
+    border: '1px solid rgba(168, 85, 247, 0.2)',
+    borderRadius: '16px',
+    overflow: 'hidden',
+  },
+  inlineAIChatHeader: {
+    padding: '14px 20px',
+    borderBottom: '1px solid rgba(168, 85, 247, 0.1)',
+  },
+  inlineAIChatLabel: {
+    fontSize: '13px',
+    fontWeight: '600',
+    color: '#c084fc',
+  },
+  inlineAIResponseBubble: {
+    display: 'flex',
+    gap: '12px',
+    padding: '16px 20px',
+    background: 'rgba(168, 85, 247, 0.08)',
+    borderBottom: '1px solid rgba(168, 85, 247, 0.1)',
+  },
+  inlineAIInputRow: {
+    display: 'flex',
+    gap: '12px',
+    padding: '16px 20px',
+  },
+  inlineAIInput: {
+    flex: 1,
+    background: 'rgba(255,255,255,0.05)',
+    border: '1px solid rgba(255,255,255,0.1)',
+    borderRadius: '12px',
+    padding: '14px 18px',
+    fontSize: '14px',
+    color: '#fff',
+    outline: 'none',
+  },
+  inlineAISendBtn: {
+    width: '52px',
+    height: '52px',
+    borderRadius: '12px',
+    background: 'linear-gradient(135deg, #a855f7 0%, #ec4899 100%)',
+    border: 'none',
+    color: '#fff',
+    cursor: 'pointer',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexShrink: 0,
+    transition: 'transform 0.2s, box-shadow 0.2s',
+    boxShadow: '0 4px 15px rgba(168, 85, 247, 0.3)',
   },
   summarySection: {
     marginBottom: '40px',
