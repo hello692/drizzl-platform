@@ -16,7 +16,13 @@ Drizzl Wellness is a full-stack e-commerce platform for a smoothie and wellness 
 
 ### UI/UX Decisions
 - **Admin Portal Aesthetic**: "Apple AI 2500 Dark" theme featuring deep black backgrounds, mesh gradient overlays, animated floating orbs, glassmorphism cards with subtle glow borders, and gradient text. Accent colors include purple, cyan, pink, and green. Custom gradient SVG icons and subtle animations (float, pulse, glow, shimmer) are used.
-- **D2C Storefront Aesthetic**: "Apple 3000 Minimal" theme with a clean, modern design. Uses DM Sans for headings and Inter for body text. Features a black, white, and gray color palette, white background cards with subtle borders, glass/blur surfaces, and hover effects. Layout is centered with a 1280px max-width.
+- **D2C Storefront Aesthetic**: Premium dark theme with pure black (#000000) backgrounds and white text. Features:
+  - **Color Palette**: Black backgrounds, white primary text (#ffffff), muted secondary text (rgba(255,255,255,0.6))
+  - **Cards/Surfaces**: Dark backgrounds (#111111 or rgba(255,255,255,0.05)) with subtle white borders (rgba(255,255,255,0.1))
+  - **Buttons**: Apple-style fully rounded pill shape (borderRadius: 980px), white background with black text for CTAs, transparent with white borders for secondary actions
+  - **Typography**: DM Sans for headings, Inter for body text
+  - **Transitions**: Smooth 0.3s ease for all hover effects
+  - **Layout**: Centered with 1280px max-width, responsive across desktop, iPad, and mobile
 
 ### Technical Implementations
 - **Core Stack**: Next.js 15, React 19, Supabase (Auth + Database).
