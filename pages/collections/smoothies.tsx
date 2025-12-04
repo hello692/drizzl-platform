@@ -224,11 +224,11 @@ export default function Smoothies() {
         <div style={{ maxWidth: '1320px', margin: '0 auto' }}>
           {/* Header Section */}
           <div style={{ marginBottom: '60px' }}>
-            <div className="tech-shine" style={{ background: 'linear-gradient(135deg, #f9f9fa 0%, #f0f0f0 100%)', borderRadius: '16px', overflow: 'hidden', marginBottom: '40px', border: '1px solid rgba(255, 255, 255, 0.4)', boxShadow: '0 8px 32px rgba(66, 133, 244, 0.08)' }}>
+            <div className="tech-shine" style={{ background: 'linear-gradient(135deg, #f9f9fa 0%, #f0f0f0 100%)', borderRadius: '16px', overflow: 'hidden', marginBottom: '40px', border: '1px solid rgba(255, 255, 255, 0.4)', boxShadow: '0 8px 32px rgba(66, 133, 244, 0.08)', width: '1200px', height: '800px', maxWidth: '100%', margin: '0 auto 40px auto' }}>
               <img
                 src="/images/smoothies-hero.jpg"
                 alt="Smoothies"
-                style={{ width: '100%', height: 'auto', display: 'block' }}
+                style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
               />
             </div>
             <h1 className="heading-2100 text-glow" style={{ marginBottom: '16px', fontSize: '48px' }}>Smoothies</h1>
