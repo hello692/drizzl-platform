@@ -38,9 +38,11 @@ const modules = [
 
 function getTimeGreeting(): string {
   const hour = new Date().getHours();
+  if (hour < 6) return 'Working late';
   if (hour < 12) return 'Good morning';
   if (hour < 17) return 'Good afternoon';
-  return 'Good evening';
+  if (hour < 21) return 'Good evening';
+  return 'Burning the midnight oil';
 }
 
 function getFormattedDate(): string {
@@ -52,6 +54,64 @@ function getFormattedDate(): string {
     year: 'numeric' 
   };
   return now.toLocaleDateString('en-US', options);
+}
+
+function getFormattedTime(): string {
+  const now = new Date();
+  return now.toLocaleTimeString('en-US', { 
+    hour: 'numeric', 
+    minute: '2-digit',
+    hour12: true 
+  });
+}
+
+function getMotivationalMessage(): string {
+  const hour = new Date().getHours();
+  const day = new Date().getDay();
+  
+  if (day === 1) return "Monday energy! Let's crush this week.";
+  if (day === 5) return "It's Friday! Finish strong.";
+  if (day === 0 || day === 6) return "Weekend hustle mode activated.";
+  
+  if (hour < 10) return "Fresh start. Big opportunities ahead.";
+  if (hour < 14) return "Peak performance hours. Make them count.";
+  if (hour < 17) return "Afternoon push. Keep the momentum going.";
+  if (hour < 20) return "Evening grind. Champions are made here.";
+  return "Late night dedication. That's the founder spirit.";
+}
+
+function getDailyFocus(stats: DashboardStats | null): { icon: string; text: string; priority: string }[] {
+  const focuses: { icon: string; text: string; priority: string }[] = [];
+  const hour = new Date().getHours();
+  const day = new Date().getDay();
+  
+  if (!stats || stats.totalOrders === 0) {
+    focuses.push({ icon: '🚀', text: 'Launch your first marketing campaign to drive traffic', priority: 'high' });
+    focuses.push({ icon: '📦', text: 'Add products to your catalog before going live', priority: 'high' });
+    focuses.push({ icon: '🤝', text: 'Reach out to 3 potential retail partners today', priority: 'medium' });
+  } else {
+    if (stats.ordersLast7Days > 0) {
+      focuses.push({ icon: '📈', text: `${stats.ordersLast7Days} orders this week - keep the momentum!`, priority: 'info' });
+    }
+    if (stats.b2bOrders > 0) {
+      focuses.push({ icon: '🏪', text: `B2B is hot! ${stats.b2bOrders} wholesale orders in pipeline`, priority: 'info' });
+    }
+    if (day === 1) {
+      focuses.push({ icon: '📊', text: 'Review last week\'s performance metrics', priority: 'medium' });
+    }
+    if (hour < 12) {
+      focuses.push({ icon: '📧', text: 'Check and respond to partner inquiries', priority: 'medium' });
+    }
+    if (stats.totalRevenue > 0) {
+      focuses.push({ icon: '💰', text: `$${((stats.totalRevenue || 0) / 100).toLocaleString()} revenue tracked - nice work!`, priority: 'info' });
+    }
+  }
+  
+  if (hour >= 14 && hour <= 17) {
+    focuses.push({ icon: '☕', text: 'Perfect time to plan tomorrow\'s priorities', priority: 'low' });
+  }
+  
+  return focuses.slice(0, 3);
 }
 
 function generateAISuggestions(stats: DashboardStats | null): AISuggestion[] {
@@ -158,11 +218,21 @@ export default function AdminDashboard() {
   const [aiMessage, setAiMessage] = useState('');
   const [aiResponse, setAiResponse] = useState('');
   const [aiLoading, setAiLoading] = useState(false);
+  const [currentTime, setCurrentTime] = useState(getFormattedTime());
   
-  const greeting = `${getTimeGreeting()}... ${getFormattedDate()}`;
-  const { displayedText, isComplete } = useTypewriter(greeting, 40);
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentTime(getFormattedTime());
+    }, 1000);
+    return () => clearInterval(timer);
+  }, []);
+  
+  const greeting = `${getTimeGreeting()}, let's build something great`;
+  const { displayedText, isComplete } = useTypewriter(greeting, 35);
   
   const suggestions = generateAISuggestions(stats);
+  const dailyFocus = getDailyFocus(stats);
+  const motivationalMessage = getMotivationalMessage();
 
   useEffect(() => {
     async function loadStats() {
@@ -257,14 +327,31 @@ export default function AdminDashboard() {
             </svg>
           </div>
           <div style={styles.aiGreetingContent}>
-            <p style={styles.aiLabel}>DRIZZL AI</p>
+            <div style={styles.greetingHeader}>
+              <p style={styles.aiLabel}>DRIZZL AI</p>
+              <div style={styles.liveTimeContainer}>
+                <div style={styles.liveDot} />
+                <span style={styles.liveTime}>{currentTime}</span>
+              </div>
+            </div>
             <h1 style={styles.aiGreetingText}>
               {displayedText}
               {!isComplete && <span style={styles.cursor}>|</span>}
             </h1>
-            <p style={styles.aiSubtext}>
-              Your intelligent business companion is ready to help you make data-driven decisions.
-            </p>
+            <p style={styles.dateText}>{getFormattedDate()}</p>
+            <p style={styles.motivationalText}>{motivationalMessage}</p>
+            
+            <div style={styles.dailyFocusContainer}>
+              <p style={styles.dailyFocusLabel}>TODAY'S FOCUS</p>
+              <div style={styles.dailyFocusList}>
+                {dailyFocus.map((focus, idx) => (
+                  <div key={idx} style={styles.dailyFocusItem}>
+                    <span style={styles.focusIcon}>{focus.icon}</span>
+                    <span style={styles.focusText}>{focus.text}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
 
@@ -613,6 +700,83 @@ const styles: { [key: string]: React.CSSProperties } = {
     fontSize: '14px',
     color: 'rgba(255,255,255,0.5)',
     lineHeight: 1.6,
+  },
+  greetingHeader: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginBottom: '8px',
+  },
+  liveTimeContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '8px',
+    background: 'rgba(168, 85, 247, 0.15)',
+    padding: '6px 14px',
+    borderRadius: '20px',
+    border: '1px solid rgba(168, 85, 247, 0.25)',
+  },
+  liveDot: {
+    width: '8px',
+    height: '8px',
+    borderRadius: '50%',
+    background: '#22c55e',
+    animation: 'pulse 2s ease-in-out infinite',
+    boxShadow: '0 0 8px rgba(34, 197, 94, 0.6)',
+  },
+  liveTime: {
+    fontSize: '13px',
+    fontWeight: '600',
+    color: '#fff',
+    letterSpacing: '0.5px',
+    fontVariantNumeric: 'tabular-nums',
+  },
+  dateText: {
+    fontSize: '13px',
+    color: 'rgba(255,255,255,0.4)',
+    marginBottom: '8px',
+    letterSpacing: '0.3px',
+  },
+  motivationalText: {
+    fontSize: '15px',
+    color: '#c084fc',
+    marginBottom: '20px',
+    fontWeight: '500',
+    fontStyle: 'italic',
+  },
+  dailyFocusContainer: {
+    background: 'rgba(255,255,255,0.03)',
+    borderRadius: '12px',
+    padding: '16px',
+    border: '1px solid rgba(255,255,255,0.06)',
+  },
+  dailyFocusLabel: {
+    fontSize: '10px',
+    fontWeight: '700',
+    color: 'rgba(255,255,255,0.35)',
+    letterSpacing: '1.5px',
+    marginBottom: '12px',
+    textTransform: 'uppercase',
+  },
+  dailyFocusList: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '10px',
+  },
+  dailyFocusItem: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '10px',
+    padding: '8px 0',
+    borderBottom: '1px solid rgba(255,255,255,0.04)',
+  },
+  focusIcon: {
+    fontSize: '16px',
+  },
+  focusText: {
+    fontSize: '13px',
+    color: 'rgba(255,255,255,0.7)',
+    lineHeight: 1.4,
   },
   inlineAIChatBox: {
     marginTop: '20px',
