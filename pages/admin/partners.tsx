@@ -189,7 +189,7 @@ export default function AdminPartners() {
   }
 
   async function updatePartnerStatus(partnerId: string, newStatus: string, notes?: string) {
-    if (!user) return;
+    console.log('[Partners] updatePartnerStatus called:', { partnerId, newStatus, user: user?.id });
     
     setActionLoading(true);
     try {
@@ -198,11 +198,14 @@ export default function AdminPartners() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           status: newStatus,
-          adminId: user.id || 'dev-admin',
+          adminId: user?.id || 'dev-admin',
           adminNotes: notes || adminNotes,
           rejectionReason: newStatus === 'rejected' ? rejectionReason : undefined,
         }),
       });
+
+      const result = await response.json();
+      console.log('[Partners] API response:', result);
 
       if (response.ok) {
         await loadPartners();
@@ -210,9 +213,13 @@ export default function AdminPartners() {
         setRejectionReason('');
         setAdminNotes('');
         setShowRejectionForm(false);
+      } else {
+        console.error('[Partners] API error:', result);
+        alert('Error: ' + (result.error || 'Failed to update partner'));
       }
     } catch (err) {
-      console.error('Error updating partner:', err);
+      console.error('[Partners] Error updating partner:', err);
+      alert('Failed to update partner. Check console for details.');
     } finally {
       setActionLoading(false);
     }
@@ -347,7 +354,7 @@ export default function AdminPartners() {
                 </div>
 
                 {isExpanded && (
-                  <div style={styles.expandedPanel}>
+                  <div style={styles.expandedPanel} onClick={(e) => e.stopPropagation()}>
                     <div style={styles.detailGrid}>
                       <div style={styles.detailSection}>
                         <h4 style={styles.sectionTitle}>Business Information</h4>
@@ -410,27 +417,34 @@ export default function AdminPartners() {
                       </div>
                     </div>
 
-                    <div style={styles.notesBox}>
+                    <div style={styles.notesBox} onClick={(e) => e.stopPropagation()}>
                       <label style={styles.notesLabel}>Admin Notes</label>
                       <textarea
                         value={adminNotes}
                         onChange={(e) => setAdminNotes(e.target.value)}
+                        onClick={(e) => e.stopPropagation()}
                         placeholder="Internal notes about this partner..."
                         style={styles.textarea}
                       />
                     </div>
 
                     {partner.status === 'pending' && !showRejectionForm && (
-                      <div style={styles.actionButtons}>
+                      <div style={styles.actionButtons} onClick={(e) => e.stopPropagation()}>
                         <button
-                          onClick={() => updatePartnerStatus(partner.id, 'approved')}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            updatePartnerStatus(partner.id, 'approved');
+                          }}
                           disabled={actionLoading}
                           style={styles.approveBtn}
                         >
                           {actionLoading ? 'Processing...' : 'Approve Partner'}
                         </button>
                         <button
-                          onClick={() => setShowRejectionForm(true)}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setShowRejectionForm(true);
+                          }}
                           disabled={actionLoading}
                           style={styles.rejectBtn}
                         >
@@ -440,17 +454,21 @@ export default function AdminPartners() {
                     )}
 
                     {partner.status === 'pending' && showRejectionForm && (
-                      <div style={styles.rejectionBox}>
+                      <div style={styles.rejectionBox} onClick={(e) => e.stopPropagation()}>
                         <label style={styles.notesLabel}>Rejection Reason</label>
                         <textarea
                           value={rejectionReason}
                           onChange={(e) => setRejectionReason(e.target.value)}
                           placeholder="Provide a reason for rejection..."
                           style={styles.textarea}
+                          onClick={(e) => e.stopPropagation()}
                         />
                         <div style={styles.actionButtons}>
                           <button
-                            onClick={() => updatePartnerStatus(partner.id, 'rejected')}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              updatePartnerStatus(partner.id, 'rejected');
+                            }}
                             disabled={actionLoading || !rejectionReason.trim()}
                             style={{
                               ...styles.confirmRejectBtn,
@@ -460,7 +478,11 @@ export default function AdminPartners() {
                             {actionLoading ? 'Processing...' : 'Confirm Rejection'}
                           </button>
                           <button
-                            onClick={() => { setShowRejectionForm(false); setRejectionReason(''); }}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setShowRejectionForm(false);
+                              setRejectionReason('');
+                            }}
                             style={styles.cancelBtn}
                           >
                             Cancel
@@ -470,9 +492,12 @@ export default function AdminPartners() {
                     )}
 
                     {partner.status === 'approved' && (
-                      <div style={styles.actionButtons}>
+                      <div style={styles.actionButtons} onClick={(e) => e.stopPropagation()}>
                         <button
-                          onClick={() => updatePartnerStatus(partner.id, 'suspended', 'Account suspended by admin')}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            updatePartnerStatus(partner.id, 'suspended', 'Account suspended by admin');
+                          }}
                           disabled={actionLoading}
                           style={styles.suspendBtn}
                         >
@@ -482,7 +507,7 @@ export default function AdminPartners() {
                     )}
 
                     {(partner.status === 'rejected' || partner.status === 'suspended') && (
-                      <div>
+                      <div onClick={(e) => e.stopPropagation()}>
                         {partner.rejection_reason && (
                           <div style={styles.rejectionReasonCard}>
                             <p style={styles.rejectionLabel}>Rejection Reason:</p>
@@ -491,7 +516,10 @@ export default function AdminPartners() {
                         )}
                         <div style={styles.actionButtons}>
                           <button
-                            onClick={() => updatePartnerStatus(partner.id, 'approved', 'Account reactivated by admin')}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              updatePartnerStatus(partner.id, 'approved', 'Account reactivated by admin');
+                            }}
                             disabled={actionLoading}
                             style={styles.approveBtn}
                           >

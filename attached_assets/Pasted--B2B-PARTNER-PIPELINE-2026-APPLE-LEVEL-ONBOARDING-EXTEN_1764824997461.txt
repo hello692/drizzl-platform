@@ -1,0 +1,188 @@
+🚀 B2B PARTNER PIPELINE – 2026 APPLE-LEVEL ONBOARDING (EXTEND EXISTING PORTAL)
+
+You are a senior McKinsey-level product architect and full-stack engineer.
+
+We already have a working B2B Partner Portal and Retail Partner Management screen (as shown in the Partners UI screenshot).
+Your job is to extend and upgrade this existing system – do NOT delete, replace, or break any current B2B features. Only add new flows, components, and logic on top.
+
+Tech stack: Next.js + TypeScript + Supabase (Postgres + RLS) + DocuSign API + webhooks + Replit hosting.
+
+1. Use the Existing B2B Portal as the Base
+
+Keep:
+
+Current Partners list, filters (All / Pending / Approved / Rejected / Suspended)
+
+Existing application cards (Business Information, Location, Decision Maker, Contact, Verification, etc.)
+
+Existing Approve / Reject actions and any working flows.
+
+You may:
+
+Add new buttons, sections, modals, and panels.
+
+Add new tables/columns in the database.
+
+Add new routes and APIs.
+
+You must not:
+
+Break current navigation, routing, or layouts.
+
+Remove existing data or change meaning of existing fields.
+
+2. Upgrade Pipeline from Application → Agreement → Activation
+
+Design a full B2B partner pipeline on top of the existing portal:
+
+a) Application Intake (Frontend & DB)
+
+If a public “Become a Retail Partner” form already exists, reuse it.
+
+If not, create one and connect it into the current B2B portal.
+
+Ensure the application data feeds into the same Partners view we already have.
+
+b) AI-Assisted Risk & Fit Scoring
+
+Add an AI scoring service that:
+
+Uses the existing application fields (business type, location, est. volume, etc.).
+
+Returns: score (0–100), risk_level (Low/Medium/High), and a short explanation.
+
+Display this non-invasively in the existing partner card (e.g., a new “Fit Score” row in the Verification block).
+
+c) “Approve & Send Agreement” (New Action)
+
+Extend the existing Approve flow:
+
+Add a new primary action button:
+
+“Approve & Send Agreement (DocuSign)”.
+
+On click:
+
+Auto-generate the partner agreement payload using the existing application data model.
+
+Create and send a DocuSign envelope using a predefined template.
+
+Store envelope_id and agreement_status in a new linked table or new columns (without touching critical existing fields).
+
+Show status chips in the same row/card: “Sent / Viewed / Signed / Declined”.
+
+d) DocuSign Webhooks (Non-breaking)
+
+Implement webhooks that:
+
+Update agreement_status in Supabase when the envelope is viewed/signed/declined.
+
+Never interfere with any pre-existing webhooks or jobs.
+
+On Signed:
+
+Update existing partner record:
+
+Status = Approved
+
+is_active = true (new field if needed)
+
+Store the signed PDF in secure storage and link it in:
+
+Partner card in admin portal
+
+Partner’s own portal account
+
+3. Respect Existing Partner Portal UX
+
+In the B2B partner-facing portal:
+
+Reuse the existing layout, navigation, and styling.
+
+Add new sections as tabs or cards, for example:
+
+Marketing Kit
+
+Orders
+
+Onboarding Checklist
+
+Performance Analytics
+
+Make sure:
+
+Existing pages (orders, account, etc.) still work.
+
+New pages plug into the same auth/session logic.
+
+4. Onboarding & Marketing Flow (Layered on Top)
+
+After DocuSign status = Signed:
+
+Trigger a new automated onboarding sequence (without touching current transactional emails):
+
+Welcome email + portal link.
+
+Access to a new “Launch Kit” tab/section:
+
+Menus, recipe cards, social assets, and videos.
+
+Add a simple, non-destructive First Order Wizard:
+
+Lives inside the existing Orders area or as a modal.
+
+Suggests starter bundles based on their existing application data.
+
+Uses the existing ordering/payment logic where possible.
+
+5. AI-Tracked Performance & Retention (Additive Only)
+
+Add a new Performance / Analytics section in the portal and admin:
+
+Pull from existing orders table(s).
+
+Show revenue, volume, next predicted order, churn risk.
+
+This should read from current order data and not change any existing order processing logic.
+
+6. Security, RLS & Backwards Compatibility
+
+All new tables and columns must:
+
+Integrate with existing Supabase RLS rules or extend them safely.
+
+Preserve all existing permissions and behavior.
+
+Provide a short migration path:
+
+SQL migrations to add columns/tables.
+
+No destructive schema changes.
+
+Ensure:
+
+Old partners (created before this pipeline) still work.
+
+They can be retro-connected to the new DocuSign and analytics features without breaking anything.
+
+7. Implementation Deliverables
+
+Deliver code and configuration that:
+
+Reuses the existing B2B partner portal and Partner admin screen.
+
+Adds:
+
+DocuSign integration & webhooks.
+
+Agreement status tracking.
+
+Auto-activation on signature.
+
+Onboarding / marketing kit.
+
+First-order wizard.
+
+AI scoring and AI performance insights.
+
+Keeps all current flows intact and fully functional.
