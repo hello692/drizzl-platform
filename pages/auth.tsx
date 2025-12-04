@@ -46,14 +46,34 @@ export default function AuthPage() {
 
         if (signUpError) throw signUpError;
 
-        if (data.user && data.session) {
-          // User is auto-confirmed, redirect directly
-          const redirectUrl = typeof redirect === 'string' ? redirect : '/';
-          router.push(redirectUrl);
-        } else if (data.user) {
-          setMessage('Account created! You can now sign in.');
-          setMode('signin');
-          setPassword('');
+        if (data.user) {
+          // Create profile for the new user
+          const { error: profileError } = await supabase
+            .from('profiles')
+            .upsert({
+              id: data.user.id,
+              email: email,
+              full_name: name,
+              role: 'customer',
+              account_type: 'customer',
+              b2b_status: 'none',
+              created_at: new Date().toISOString(),
+              updated_at: new Date().toISOString(),
+            }, { onConflict: 'id' });
+
+          if (profileError) {
+            console.error('Profile creation error:', profileError);
+          }
+
+          if (data.session) {
+            // User is auto-confirmed, redirect directly
+            const redirectUrl = typeof redirect === 'string' ? redirect : '/';
+            router.push(redirectUrl);
+          } else {
+            setMessage('Account created! You can now sign in.');
+            setMode('signin');
+            setPassword('');
+          }
         }
       } else {
         const { error: signInError } = await supabase.auth.signInWithPassword({
