@@ -113,6 +113,15 @@ const products: Product[] = [
     defaultImage: '/products/mocha/transparent-glass-1.png',
     hoverImage: '/products/mocha/transparent-glass-2.png',
   },
+  { 
+    id: '12', 
+    name: 'Nutty Monkey', 
+    price: 8.99, 
+    reviews: 389, 
+    badge: 'Best Seller',
+    defaultImage: '/products/nutty-monkey/transparent-glass-1.png',
+    hoverImage: '/products/nutty-monkey/transparent-glass-2.png',
+  },
 ];
 
 function ProductCard({ product }: { product: Product }) {
