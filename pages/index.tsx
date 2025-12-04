@@ -48,19 +48,21 @@ const POPULAR_SMOOTHIES = [
 ];
 
 const EXPERTS = [
-  { id: '1', name: 'Elizabeth Russano, FNP-C, AFSM', video: 'https://media.coverr.co/videos/coverr-woman-drinking-smoothie-juice-7481/preview', product: 'Strawberry + Peach', productImage: '/products/strawberry-peach/main-product.png' },
-  { id: '2', name: 'Morgan Rackley, LE', video: 'https://media.coverr.co/videos/coverr-healthy-lifestyle-eating-smoothie-bowl-7543/preview', product: 'Matcha', productImage: '/products/matcha/transparent-glass-1.png' },
-  { id: '3', name: 'Nurse Lila, RM', video: 'https://media.coverr.co/videos/coverr-woman-with-smoothie-glass-8234/preview', product: 'Acai', productImage: '/products/acai/transparent-glass-1.png' },
-  { id: '4', name: 'Dr. Gabriella Veals', video: 'https://media.coverr.co/videos/coverr-person-making-smoothie-juice-1200/preview', product: 'Pink Piyata', productImage: '/products/pink-piyata/transparent-glass-1.png' },
-  { id: '5', name: 'Dr. Sarah Martinez', video: 'https://media.coverr.co/videos/coverr-fitness-girl-making-protein-smoothie-7821/preview', product: 'Coffee Mushroom', productImage: '/products/coffee-mushroom/transparent-glass-1.png' },
+  { id: '1', name: 'Elizabeth Russano', video: 'https://media.coverr.co/videos/coverr-woman-drinking-smoothie-juice-7481/preview', quote: 'I do is make a' },
+  { id: '2', name: 'Morgan Rackley', video: 'https://media.coverr.co/videos/coverr-healthy-lifestyle-eating-smoothie-bowl-7543/preview', quote: 'Oh, yeah... poof!' },
+  { id: '3', name: 'Nurse Lila', video: 'https://media.coverr.co/videos/coverr-woman-with-smoothie-glass-8234/preview', quote: 'my energy level' },
+  { id: '4', name: 'Dr. Gabriella', video: 'https://media.coverr.co/videos/coverr-person-making-smoothie-juice-1200/preview', quote: 'I just really love this' },
+  { id: '5', name: 'Dr. Sarah', video: 'https://media.coverr.co/videos/coverr-fitness-girl-making-protein-smoothie-7821/preview', quote: 'I do is make a' },
+  { id: '6', name: 'Dr. Michael', video: 'https://media.coverr.co/videos/coverr-woman-drinking-smoothie-juice-7481/preview', quote: 'perfect for morning' },
 ];
 
 const CUSTOMERS = [
-  { id: '1', name: 'Taylor Kay', video: 'https://media.coverr.co/videos/coverr-woman-drinking-smoothie-juice-7481/preview', product: 'Chocolate Berry', productImage: '/products/chocolate-berry/transparent-glass-1.png' },
-  { id: '2', name: 'Brittney Adderfly', video: 'https://media.coverr.co/videos/coverr-healthy-lifestyle-eating-smoothie-bowl-7543/preview', product: 'Mocha', productImage: '/products/mocha/transparent-glass-1.png' },
-  { id: '3', name: 'Lily Sanchez', video: 'https://media.coverr.co/videos/coverr-woman-with-smoothie-glass-8234/preview', product: 'Almond', productImage: '/products/almond/transparent-glass-1.png' },
-  { id: '4', name: 'Sarah Butler', video: 'https://media.coverr.co/videos/coverr-person-making-smoothie-juice-1200/preview', product: 'Mango Jackfruit', productImage: '/products/mango-jackfruit/transparent-glass-1.png' },
-  { id: '5', name: 'Jessica Chen', video: 'https://media.coverr.co/videos/coverr-fitness-girl-making-protein-smoothie-7821/preview', product: 'Nutty Monkey', productImage: '/products/nutty-monkey/transparent-glass-1.png' },
+  { id: '1', name: 'Taylor Kay', video: 'https://media.coverr.co/videos/coverr-woman-drinking-smoothie-juice-7481/preview', quote: 'I do is make a' },
+  { id: '2', name: 'Brittney A.', video: 'https://media.coverr.co/videos/coverr-healthy-lifestyle-eating-smoothie-bowl-7543/preview', quote: 'Oh, yeah... poof!' },
+  { id: '3', name: 'Lily S.', video: 'https://media.coverr.co/videos/coverr-woman-with-smoothie-glass-8234/preview', quote: 'my energy level' },
+  { id: '4', name: 'Sarah Butler', video: 'https://media.coverr.co/videos/coverr-person-making-smoothie-juice-1200/preview', quote: 'I just really love this' },
+  { id: '5', name: 'Jessica Chen', video: 'https://media.coverr.co/videos/coverr-fitness-girl-making-protein-smoothie-7821/preview', quote: 'I do is make a' },
+  { id: '6', name: 'Emma Wilson', video: 'https://media.coverr.co/videos/coverr-woman-drinking-smoothie-juice-7481/preview', quote: 'best smoothies ever' },
 ];
 
 export default function Home() {
@@ -607,7 +609,7 @@ export default function Home() {
         padding: 'clamp(32px, 6vw, 80px) clamp(16px, 4vw, 60px)',
       }}>
         <div style={{
-          maxWidth: '1280px',
+          maxWidth: '1400px',
           margin: '0 auto',
         }}>
           <h2 style={{
@@ -626,170 +628,88 @@ export default function Home() {
             marginBottom: 'clamp(24px, 5vw, 40px)',
             letterSpacing: '0.3px',
           }}>
-            Approved by Dermatologists & Experts
+            functional mushrooms, and rituals that support a healthier mind.
           </p>
 
-          {/* Carousel Container */}
-          <div style={{ position: 'relative', paddingLeft: 'clamp(50px, 8vw, 70px)', paddingRight: 'clamp(50px, 8vw, 70px)' }}>
-            {/* Left Arrow */}
-            <button
-              onClick={() => setExpertPosition(prev => (prev - 1 + EXPERTS.length) % EXPERTS.length)}
-              style={{
-                position: 'absolute',
-                left: '0',
-                top: '50%',
-                transform: 'translateY(-50%)',
-                background: '#ffffff',
-                border: '1px solid #e0e0e0',
-                width: '48px',
-                height: '48px',
-                borderRadius: '50%',
-                color: '#000',
-                cursor: 'pointer',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-                zIndex: 10,
-                boxShadow: '0 2px 12px rgba(0, 0, 0, 0.08)',
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.background = '#000';
-                e.currentTarget.style.color = '#fff';
-                e.currentTarget.style.borderColor = '#000';
-                e.currentTarget.style.transform = 'translateY(-50%) scale(1.05)';
-                e.currentTarget.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.15)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.background = '#ffffff';
-                e.currentTarget.style.color = '#000';
-                e.currentTarget.style.borderColor = '#e0e0e0';
-                e.currentTarget.style.transform = 'translateY(-50%) scale(1)';
-                e.currentTarget.style.boxShadow = '0 2px 12px rgba(0, 0, 0, 0.08)';
-              }}
-            >
-              <ModernArrowLeft />
-            </button>
-
-            {/* Carousel - Infinite */}
+          {/* Video Cards Container */}
+          <div style={{ position: 'relative', paddingRight: '60px' }}>
             <div style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(4, 1fr)',
-              gap: '24px',
+              display: 'flex',
+              gap: '16px',
+              overflowX: 'auto',
+              scrollbarWidth: 'none',
+              paddingBottom: '8px',
             }}>
-              {[...EXPERTS, ...EXPERTS].slice(expertPosition, expertPosition + 4).map((expert, idx) => (
-                <div key={`${expert.id}-${idx}`} style={{
-                  background: '#ffffff',
-                  borderRadius: '16px',
-                  overflow: 'hidden',
-                  border: '1px solid #e8e8e8',
-                  boxShadow: '0 2px 8px rgba(0, 0, 0, 0.04)',
-                  transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-                  cursor: 'pointer',
-                }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.transform = 'translateY(-4px)';
-                    e.currentTarget.style.boxShadow = '0 8px 24px rgba(0, 0, 0, 0.08)';
-                    e.currentTarget.style.borderColor = '#d0d0d0';
+              {[...EXPERTS, ...EXPERTS].slice(expertPosition, expertPosition + 6).map((expert, idx) => (
+                <div 
+                  key={`${expert.id}-${idx}`} 
+                  style={{
+                    flexShrink: 0,
+                    width: '180px',
+                    aspectRatio: '9/16',
+                    borderRadius: '16px',
+                    overflow: 'hidden',
+                    position: 'relative',
+                    cursor: 'pointer',
                   }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.transform = 'translateY(0)';
-                    e.currentTarget.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.04)';
-                    e.currentTarget.style.borderColor = '#e8e8e8';
+                  onClick={() => {
+                    setUnMutedExpert(unMutedExpert === expert.id ? null : expert.id);
                   }}
                 >
+                  <video
+                    src={expert.video}
+                    style={{
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'cover',
+                    }}
+                    loop
+                    autoPlay
+                    muted={unMutedExpert !== expert.id}
+                    playsInline
+                  />
                   <div style={{
-                    position: 'relative',
-                    background: '#f8f9fa',
-                    aspectRatio: '1',
-                    overflow: 'hidden',
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    background: 'linear-gradient(to bottom, transparent 50%, rgba(0,0,0,0.6) 100%)',
+                    pointerEvents: 'none',
+                  }} />
+                  <div style={{
+                    position: 'absolute',
+                    top: '50%',
+                    left: '50%',
+                    transform: 'translate(-50%, -50%)',
+                    width: '48px',
+                    height: '48px',
+                    borderRadius: '50%',
+                    border: '2px solid rgba(255,255,255,0.8)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    background: 'rgba(0,0,0,0.2)',
                   }}>
-                    <video
-                      src={expert.video}
-                      style={{
-                        width: '100%',
-                        height: '100%',
-                        objectFit: 'cover',
-                        cursor: 'pointer',
-                      }}
-                      loop
-                      autoPlay
-                      muted={unMutedExpert !== expert.id}
-                      onClick={() => {
-                        setUnMutedExpert(unMutedExpert === expert.id ? null : expert.id);
-                      }}
-                    />
-                    {unMutedExpert === expert.id && (
-                      <div style={{
-                        position: 'absolute',
-                        top: 0,
-                        left: 0,
-                        right: 0,
-                        bottom: 0,
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        background: 'rgba(0, 0, 0, 0.2)',
-                        pointerEvents: 'none',
-                      }}>
-                        <div style={{
-                          width: '48px',
-                          height: '48px',
-                          background: '#ffffff',
-                          borderRadius: '50%',
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          fontSize: '20px',
-                        }}>
-                          🔊
-                        </div>
-                      </div>
-                    )}
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
+                      <polygon points="5 3 19 12 5 21 5 3" />
+                    </svg>
                   </div>
-                  <div style={{ padding: '20px' }}>
+                  <div style={{
+                    position: 'absolute',
+                    bottom: '16px',
+                    left: '12px',
+                    right: '12px',
+                  }}>
                     <p style={{
-                      fontSize: '12px',
-                      color: '#86868b',
-                      margin: '0 0 12px 0',
-                      fontWeight: '600',
-                      letterSpacing: '0.3px',
+                      fontSize: '13px',
+                      color: '#fff',
+                      margin: 0,
+                      fontWeight: '400',
+                      textShadow: '0 1px 3px rgba(0,0,0,0.5)',
                     }}>
-                      {expert.name}
+                      {expert.quote}
                     </p>
-                    <div style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '12px',
-                      marginTop: '12px',
-                    }}>
-                      <div style={{
-                        width: '40px',
-                        height: '40px',
-                        background: '#f0f0f0',
-                        borderRadius: '8px',
-                        overflow: 'hidden',
-                      }}>
-                        <img
-                          src={expert.productImage}
-                          alt={expert.product}
-                          style={{
-                            width: '100%',
-                            height: '100%',
-                            objectFit: 'cover',
-                          }}
-                        />
-                      </div>
-                      <p style={{
-                        fontSize: '11px',
-                        color: '#424245',
-                        margin: 0,
-                        lineHeight: '1.4',
-                        letterSpacing: '-0.2px',
-                      }}>
-                        {expert.product}
-                      </p>
-                    </div>
                   </div>
                 </div>
               ))}
@@ -805,31 +725,25 @@ export default function Home() {
                 transform: 'translateY(-50%)',
                 background: '#ffffff',
                 border: '1px solid #e0e0e0',
-                width: '48px',
-                height: '48px',
+                width: '44px',
+                height: '44px',
                 borderRadius: '50%',
                 color: '#000',
                 cursor: 'pointer',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                transition: 'all 0.3s ease',
                 zIndex: 10,
-                boxShadow: '0 2px 12px rgba(0, 0, 0, 0.08)',
+                boxShadow: '0 2px 12px rgba(0, 0, 0, 0.1)',
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.background = '#000';
                 e.currentTarget.style.color = '#fff';
-                e.currentTarget.style.borderColor = '#000';
-                e.currentTarget.style.transform = 'translateY(-50%) scale(1.05)';
-                e.currentTarget.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.15)';
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.background = '#ffffff';
+                e.currentTarget.style.background = '#fff';
                 e.currentTarget.style.color = '#000';
-                e.currentTarget.style.borderColor = '#e0e0e0';
-                e.currentTarget.style.transform = 'translateY(-50%) scale(1)';
-                e.currentTarget.style.boxShadow = '0 2px 12px rgba(0, 0, 0, 0.08)';
               }}
             >
               <ModernArrowRight />
@@ -844,7 +758,7 @@ export default function Home() {
         padding: 'clamp(32px, 6vw, 80px) clamp(16px, 4vw, 60px)',
       }}>
         <div style={{
-          maxWidth: '1280px',
+          maxWidth: '1400px',
           margin: '0 auto',
         }}>
           <h2 style={{
@@ -857,167 +771,85 @@ export default function Home() {
             Loved by the Spoiled*
           </h2>
 
-          {/* Carousel Container */}
-          <div style={{ position: 'relative', paddingLeft: 'clamp(50px, 8vw, 70px)', paddingRight: 'clamp(50px, 8vw, 70px)' }}>
-            {/* Left Arrow */}
-            <button
-              onClick={() => setCustomerPosition(prev => (prev - 1 + CUSTOMERS.length) % CUSTOMERS.length)}
-              style={{
-                position: 'absolute',
-                left: '0',
-                top: '50%',
-                transform: 'translateY(-50%)',
-                background: '#ffffff',
-                border: '1px solid #e0e0e0',
-                width: '48px',
-                height: '48px',
-                borderRadius: '50%',
-                color: '#000',
-                cursor: 'pointer',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-                zIndex: 10,
-                boxShadow: '0 2px 12px rgba(0, 0, 0, 0.08)',
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.background = '#000';
-                e.currentTarget.style.color = '#fff';
-                e.currentTarget.style.borderColor = '#000';
-                e.currentTarget.style.transform = 'translateY(-50%) scale(1.05)';
-                e.currentTarget.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.15)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.background = '#ffffff';
-                e.currentTarget.style.color = '#000';
-                e.currentTarget.style.borderColor = '#e0e0e0';
-                e.currentTarget.style.transform = 'translateY(-50%) scale(1)';
-                e.currentTarget.style.boxShadow = '0 2px 12px rgba(0, 0, 0, 0.08)';
-              }}
-            >
-              <ModernArrowLeft />
-            </button>
-
-            {/* Carousel - Infinite */}
+          {/* Video Cards Container */}
+          <div style={{ position: 'relative', paddingRight: '60px' }}>
             <div style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(4, 1fr)',
-              gap: '24px',
+              display: 'flex',
+              gap: '16px',
+              overflowX: 'auto',
+              scrollbarWidth: 'none',
+              paddingBottom: '8px',
             }}>
-              {[...CUSTOMERS, ...CUSTOMERS].slice(customerPosition, customerPosition + 4).map((customer, idx) => (
-                <div key={`${customer.id}-${idx}`} style={{
-                  background: '#ffffff',
-                  borderRadius: '16px',
-                  overflow: 'hidden',
-                  border: '1px solid #e8e8e8',
-                  boxShadow: '0 2px 8px rgba(0, 0, 0, 0.04)',
-                  transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-                  cursor: 'pointer',
-                }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.transform = 'translateY(-4px)';
-                    e.currentTarget.style.boxShadow = '0 8px 24px rgba(0, 0, 0, 0.08)';
-                    e.currentTarget.style.borderColor = '#d0d0d0';
+              {[...CUSTOMERS, ...CUSTOMERS].slice(customerPosition, customerPosition + 6).map((customer, idx) => (
+                <div 
+                  key={`${customer.id}-${idx}`} 
+                  style={{
+                    flexShrink: 0,
+                    width: '180px',
+                    aspectRatio: '9/16',
+                    borderRadius: '16px',
+                    overflow: 'hidden',
+                    position: 'relative',
+                    cursor: 'pointer',
                   }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.transform = 'translateY(0)';
-                    e.currentTarget.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.04)';
-                    e.currentTarget.style.borderColor = '#e8e8e8';
+                  onClick={() => {
+                    setUnMutedCustomer(unMutedCustomer === customer.id ? null : customer.id);
                   }}
                 >
+                  <video
+                    src={customer.video}
+                    style={{
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'cover',
+                    }}
+                    loop
+                    autoPlay
+                    muted={unMutedCustomer !== customer.id}
+                    playsInline
+                  />
                   <div style={{
-                    position: 'relative',
-                    background: '#f8f9fa',
-                    aspectRatio: '1',
-                    overflow: 'hidden',
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    background: 'linear-gradient(to bottom, transparent 50%, rgba(0,0,0,0.6) 100%)',
+                    pointerEvents: 'none',
+                  }} />
+                  <div style={{
+                    position: 'absolute',
+                    top: '50%',
+                    left: '50%',
+                    transform: 'translate(-50%, -50%)',
+                    width: '48px',
+                    height: '48px',
+                    borderRadius: '50%',
+                    border: '2px solid rgba(255,255,255,0.8)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    background: 'rgba(0,0,0,0.2)',
                   }}>
-                    <video
-                      src={customer.video}
-                      style={{
-                        width: '100%',
-                        height: '100%',
-                        objectFit: 'cover',
-                        cursor: 'pointer',
-                      }}
-                      loop
-                      autoPlay
-                      muted={unMutedCustomer !== customer.id}
-                      onClick={() => {
-                        setUnMutedCustomer(unMutedCustomer === customer.id ? null : customer.id);
-                      }}
-                    />
-                    {unMutedCustomer === customer.id && (
-                      <div style={{
-                        position: 'absolute',
-                        top: 0,
-                        left: 0,
-                        right: 0,
-                        bottom: 0,
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        background: 'rgba(0, 0, 0, 0.2)',
-                        pointerEvents: 'none',
-                      }}>
-                        <div style={{
-                          width: '48px',
-                          height: '48px',
-                          background: '#ffffff',
-                          borderRadius: '50%',
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          fontSize: '20px',
-                        }}>
-                          🔊
-                        </div>
-                      </div>
-                    )}
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
+                      <polygon points="5 3 19 12 5 21 5 3" />
+                    </svg>
                   </div>
-                  <div style={{ padding: '20px' }}>
+                  <div style={{
+                    position: 'absolute',
+                    bottom: '16px',
+                    left: '12px',
+                    right: '12px',
+                  }}>
                     <p style={{
-                      fontSize: '12px',
-                      color: '#86868b',
-                      margin: '0 0 12px 0',
-                      fontWeight: '600',
-                      letterSpacing: '0.3px',
+                      fontSize: '13px',
+                      color: '#fff',
+                      margin: 0,
+                      fontWeight: '400',
+                      textShadow: '0 1px 3px rgba(0,0,0,0.5)',
                     }}>
-                      {customer.name}
+                      {customer.quote}
                     </p>
-                    <div style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '12px',
-                      marginTop: '12px',
-                    }}>
-                      <div style={{
-                        width: '40px',
-                        height: '40px',
-                        background: '#f0f0f0',
-                        borderRadius: '8px',
-                        overflow: 'hidden',
-                      }}>
-                        <img
-                          src={customer.productImage}
-                          alt={customer.product}
-                          style={{
-                            width: '100%',
-                            height: '100%',
-                            objectFit: 'cover',
-                          }}
-                        />
-                      </div>
-                      <p style={{
-                        fontSize: '11px',
-                        color: '#424245',
-                        margin: 0,
-                        lineHeight: '1.4',
-                        letterSpacing: '-0.2px',
-                      }}>
-                        {customer.product}
-                      </p>
-                    </div>
                   </div>
                 </div>
               ))}
@@ -1033,31 +865,25 @@ export default function Home() {
                 transform: 'translateY(-50%)',
                 background: '#ffffff',
                 border: '1px solid #e0e0e0',
-                width: '48px',
-                height: '48px',
+                width: '44px',
+                height: '44px',
                 borderRadius: '50%',
                 color: '#000',
                 cursor: 'pointer',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                transition: 'all 0.3s ease',
                 zIndex: 10,
-                boxShadow: '0 2px 12px rgba(0, 0, 0, 0.08)',
+                boxShadow: '0 2px 12px rgba(0, 0, 0, 0.1)',
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.background = '#000';
                 e.currentTarget.style.color = '#fff';
-                e.currentTarget.style.borderColor = '#000';
-                e.currentTarget.style.transform = 'translateY(-50%) scale(1.05)';
-                e.currentTarget.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.15)';
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.background = '#ffffff';
+                e.currentTarget.style.background = '#fff';
                 e.currentTarget.style.color = '#000';
-                e.currentTarget.style.borderColor = '#e0e0e0';
-                e.currentTarget.style.transform = 'translateY(-50%) scale(1)';
-                e.currentTarget.style.boxShadow = '0 2px 12px rgba(0, 0, 0, 0.08)';
               }}
             >
               <ModernArrowRight />
