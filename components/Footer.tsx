@@ -4,7 +4,7 @@ export default function Footer() {
   return (
     <footer style={{
       borderTop: '1px solid rgba(0, 0, 0, 0.06)',
-      padding: 'clamp(40px, 6vw, 120px) clamp(16px, 4vw, 60px) clamp(30px, 4vw, 60px) clamp(16px, 4vw, 60px)',
+      padding: 'clamp(24px, 4vw, 48px) clamp(16px, 4vw, 60px) clamp(20px, 3vw, 32px) clamp(16px, 4vw, 60px)',
       background: '#ffffff',
     }}>
       <div style={{
@@ -15,8 +15,8 @@ export default function Footer() {
         <div style={{
           display: 'grid',
           gridTemplateColumns: 'repeat(auto-fit, minmax(clamp(150px, 35vw, 280px), 1fr))',
-          gap: 'clamp(30px, 6vw, 60px)',
-          marginBottom: 'clamp(40px, 6vw, 80px)',
+          gap: 'clamp(20px, 4vw, 40px)',
+          marginBottom: 'clamp(24px, 4vw, 40px)',
         }}>
           {/* PRODUCTS */}
           <div>
@@ -25,12 +25,12 @@ export default function Footer() {
               fontWeight: '600', 
               textTransform: 'uppercase', 
               letterSpacing: '0.8px',
-              marginBottom: 'clamp(12px, 3vw, 20px)',
+              marginBottom: 'clamp(8px, 2vw, 12px)',
               color: '#000',
             }}>
               Products
             </h4>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 'clamp(10px, 2vw, 12px)' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 'clamp(6px, 1.5vw, 8px)' }}>
               <Link href="/collections/smoothies" style={{ fontSize: 'clamp(12px, 3vw, 14px)', color: '#666', textDecoration: 'none', transition: 'all 1s cubic-bezier(0.32, 0, 0.67, 0)' }} onMouseEnter={(e) => { e.currentTarget.style.color = '#000'; }} onMouseLeave={(e) => { e.currentTarget.style.color = '#666'; }}>
                 Smoothies
               </Link>
@@ -50,12 +50,12 @@ export default function Footer() {
               fontWeight: '600', 
               textTransform: 'uppercase', 
               letterSpacing: '0.8px',
-              marginBottom: 'clamp(12px, 3vw, 20px)',
+              marginBottom: 'clamp(8px, 2vw, 12px)',
               color: '#000',
             }}>
               Collections
             </h4>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 'clamp(10px, 2vw, 12px)' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 'clamp(6px, 1.5vw, 8px)' }}>
               <Link href="/collections/new-arrivals" style={{ fontSize: 'clamp(12px, 3vw, 14px)', color: '#666', textDecoration: 'none', transition: 'all 1s cubic-bezier(0.32, 0, 0.67, 0)' }} onMouseEnter={(e) => e.currentTarget.style.color = '#000'} onMouseLeave={(e) => e.currentTarget.style.color = '#666'}>
                 New Arrivals
               </Link>
@@ -78,12 +78,12 @@ export default function Footer() {
               fontWeight: '600', 
               textTransform: 'uppercase', 
               letterSpacing: '0.8px',
-              marginBottom: 'clamp(12px, 3vw, 20px)',
+              marginBottom: 'clamp(8px, 2vw, 12px)',
               color: '#000',
             }}>
               Learn
             </h4>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 'clamp(10px, 2vw, 12px)' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 'clamp(6px, 1.5vw, 8px)' }}>
               <Link href="/our-story" style={{ fontSize: 'clamp(12px, 3vw, 14px)', color: '#666', textDecoration: 'none', transition: 'all 1s cubic-bezier(0.32, 0, 0.67, 0)' }} onMouseEnter={(e) => e.currentTarget.style.color = '#000'} onMouseLeave={(e) => e.currentTarget.style.color = '#666'}>
                 Our Story
               </Link>
@@ -106,12 +106,12 @@ export default function Footer() {
               fontWeight: '600', 
               textTransform: 'uppercase', 
               letterSpacing: '0.8px',
-              marginBottom: 'clamp(12px, 3vw, 20px)',
+              marginBottom: 'clamp(8px, 2vw, 12px)',
               color: '#000',
             }}>
               Company
             </h4>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 'clamp(10px, 2vw, 12px)' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 'clamp(6px, 1.5vw, 8px)' }}>
               <Link href="/careers" style={{ fontSize: 'clamp(12px, 3vw, 14px)', color: '#666', textDecoration: 'none', transition: 'all 1s cubic-bezier(0.32, 0, 0.67, 0)' }} onMouseEnter={(e) => e.currentTarget.style.color = '#000'} onMouseLeave={(e) => e.currentTarget.style.color = '#666'}>
                 Careers
               </Link>
@@ -131,12 +131,12 @@ export default function Footer() {
               fontWeight: '600', 
               textTransform: 'uppercase', 
               letterSpacing: '0.8px',
-              marginBottom: 'clamp(12px, 3vw, 20px)',
+              marginBottom: 'clamp(8px, 2vw, 12px)',
               color: '#000',
             }}>
               Legal
             </h4>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 'clamp(10px, 2vw, 12px)' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 'clamp(6px, 1.5vw, 8px)' }}>
               <Link href="/privacy" style={{ fontSize: 'clamp(12px, 3vw, 14px)', color: '#666', textDecoration: 'none', transition: 'all 1s cubic-bezier(0.32, 0, 0.67, 0)' }} onMouseEnter={(e) => e.currentTarget.style.color = '#000'} onMouseLeave={(e) => e.currentTarget.style.color = '#666'}>
                 Privacy Policy
               </Link>
@@ -150,15 +150,15 @@ export default function Footer() {
         {/* Newsletter */}
         <div style={{
           maxWidth: '600px',
-          margin: '0 auto clamp(30px, 6vw, 60px)',
-          paddingBottom: 'clamp(30px, 6vw, 60px)',
+          margin: '0 auto clamp(20px, 4vw, 32px)',
+          paddingBottom: 'clamp(20px, 4vw, 32px)',
           borderBottom: '1px solid rgba(0, 0, 0, 0.06)',
           textAlign: 'center',
         }}>
           <h3 style={{
-            fontSize: 'clamp(20px, 5vw, 28px)',
+            fontSize: 'clamp(18px, 4vw, 24px)',
             fontWeight: '600',
-            marginBottom: 'clamp(8px, 2vw, 12px)',
+            marginBottom: 'clamp(4px, 1vw, 8px)',
             letterSpacing: '-0.4px',
           }}>
             Subscribe
@@ -166,8 +166,8 @@ export default function Footer() {
           <p style={{
             fontSize: 'clamp(12px, 3vw, 14px)',
             color: '#666',
-            marginBottom: 'clamp(16px, 4vw, 24px)',
-            lineHeight: '1.7',
+            marginBottom: 'clamp(12px, 3vw, 16px)',
+            lineHeight: '1.6',
           }}>
             Get wellness updates and exclusive offers
           </p>
@@ -225,9 +225,9 @@ export default function Footer() {
           flexDirection: 'row',
           justifyContent: 'space-between',
           alignItems: 'center',
-          gap: 'clamp(16px, 3vw, 24px)',
+          gap: 'clamp(12px, 2vw, 16px)',
           borderTop: '1px solid rgba(0, 0, 0, 0.06)',
-          paddingTop: 'clamp(12px, 3vw, 20px)',
+          paddingTop: 'clamp(10px, 2vw, 16px)',
         }}>
           <p style={{
             fontSize: 'clamp(11px, 2.5vw, 13px)',

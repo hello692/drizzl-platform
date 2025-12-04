@@ -62,7 +62,7 @@ h1 {
   line-height: 1.1;
   letter-spacing: -1.2px;
   color: var(--color-black);
-  margin-bottom: 24px;
+  margin-bottom: 16px;
 }
 
 h2 {
@@ -71,7 +71,7 @@ h2 {
   line-height: 1.15;
   letter-spacing: -0.8px;
   color: var(--color-black);
-  margin-bottom: 24px;
+  margin-bottom: 12px;
 }
 
 h3 {
@@ -80,7 +80,7 @@ h3 {
   line-height: 1.2;
   letter-spacing: -0.4px;
   color: var(--color-black);
-  margin-bottom: 16px;
+  margin-bottom: 10px;
 }
 
 h4 {
@@ -88,7 +88,7 @@ h4 {
   font-weight: 600;
   letter-spacing: -0.2px;
   color: var(--color-black);
-  margin-bottom: 12px;
+  margin-bottom: 8px;
 }
 
 p {

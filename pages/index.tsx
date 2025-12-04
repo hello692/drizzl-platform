@@ -211,9 +211,9 @@ export default function Home() {
 
       {/* Hero Section with Background Video */}
       <section style={{
-        padding: 'clamp(60px, 10vw, 140px) clamp(16px, 4vw, 60px)',
+        padding: 'clamp(40px, 8vw, 100px) clamp(16px, 4vw, 60px)',
         textAlign: 'center',
-        minHeight: 'clamp(600px, 85vh, 920px)',
+        minHeight: 'clamp(500px, 75vh, 800px)',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
@@ -283,13 +283,13 @@ export default function Home() {
       </section>
 
       {/* Category Grid */}
-      <section style={{ padding: 'clamp(40px, 8vw, 120px) clamp(16px, 4vw, 60px)', background: '#ffffff' }}>
+      <section style={{ padding: 'clamp(32px, 6vw, 80px) clamp(16px, 4vw, 60px)', background: '#ffffff' }}>
         <div style={{ maxWidth: '1360px', margin: '0 auto' }}>
-          <AnimatedSection animation="fadeUp" style={{ textAlign: 'center', marginBottom: 'clamp(30px, 6vw, 60px)' }}>
-            <h2 style={{ fontSize: 'clamp(24px, 6vw, 48px)', fontWeight: '600', marginBottom: '12px' }}>
+          <AnimatedSection animation="fadeUp" style={{ textAlign: 'center', marginBottom: 'clamp(20px, 4vw, 40px)' }}>
+            <h2 style={{ fontSize: 'clamp(24px, 6vw, 48px)', fontWeight: '600', marginBottom: '8px' }}>
               Shop by Category
             </h2>
-            <p style={{ fontSize: 'clamp(13px, 3.5vw, 16px)', color: '#666', margin: '0 auto', maxWidth: '600px', lineHeight: '1.7' }}>
+            <p style={{ fontSize: 'clamp(13px, 3.5vw, 16px)', color: '#666', margin: '0 auto', maxWidth: '600px', lineHeight: '1.6' }}>
               Explore our full range of products
             </p>
           </AnimatedSection>
@@ -337,13 +337,13 @@ export default function Home() {
       </section>
 
       {/* Popular Products */}
-      <section style={{ padding: 'clamp(40px, 8vw, 120px) clamp(16px, 4vw, 60px)', background: '#f9f9f9' }}>
+      <section style={{ padding: 'clamp(32px, 6vw, 80px) clamp(16px, 4vw, 60px)', background: '#f9f9f9' }}>
         <div style={{ maxWidth: '1360px', margin: '0 auto' }}>
-          <AnimatedSection animation="fadeUp" style={{ marginBottom: 'clamp(30px, 6vw, 60px)' }}>
-            <h2 style={{ fontSize: 'clamp(24px, 6vw, 48px)', fontWeight: '600', marginBottom: '12px' }}>
+          <AnimatedSection animation="fadeUp" style={{ marginBottom: 'clamp(20px, 4vw, 40px)' }}>
+            <h2 style={{ fontSize: 'clamp(24px, 6vw, 48px)', fontWeight: '600', marginBottom: '8px' }}>
               Popular Products
             </h2>
-            <p style={{ fontSize: 'clamp(13px, 3.5vw, 16px)', color: '#666', margin: '0', maxWidth: '600px', lineHeight: '1.7' }}>
+            <p style={{ fontSize: 'clamp(13px, 3.5vw, 16px)', color: '#666', margin: '0', maxWidth: '600px', lineHeight: '1.6' }}>
               Customer favorites you'll love
             </p>
           </AnimatedSection>
@@ -541,7 +541,7 @@ export default function Home() {
       {/* Experts Section */}
       <section style={{
         background: '#f8f9fa',
-        padding: 'clamp(60px, 10vw, 140px) clamp(16px, 4vw, 60px)',
+        padding: 'clamp(32px, 6vw, 80px) clamp(16px, 4vw, 60px)',
       }}>
         <div style={{
           maxWidth: '1280px',
@@ -550,7 +550,7 @@ export default function Home() {
           <h2 style={{
             fontSize: 'clamp(28px, 6vw, 48px)',
             fontWeight: '700',
-            marginBottom: '16px',
+            marginBottom: '8px',
             letterSpacing: '-0.8px',
             textAlign: 'center',
           }}>
@@ -560,7 +560,7 @@ export default function Home() {
             fontSize: 'clamp(12px, 3vw, 14px)',
             color: '#86868b',
             textAlign: 'center',
-            marginBottom: 'clamp(40px, 8vw, 64px)',
+            marginBottom: 'clamp(24px, 5vw, 40px)',
             letterSpacing: '0.3px',
           }}>
             Approved by Dermatologists & Experts
@@ -778,7 +778,7 @@ export default function Home() {
       {/* Customers Section */}
       <section style={{
         background: '#ffffff',
-        padding: 'clamp(60px, 10vw, 140px) clamp(16px, 4vw, 60px)',
+        padding: 'clamp(32px, 6vw, 80px) clamp(16px, 4vw, 60px)',
       }}>
         <div style={{
           maxWidth: '1280px',
@@ -787,7 +787,7 @@ export default function Home() {
           <h2 style={{
             fontSize: 'clamp(28px, 6vw, 48px)',
             fontWeight: '700',
-            marginBottom: 'clamp(40px, 8vw, 64px)',
+            marginBottom: 'clamp(24px, 5vw, 40px)',
             letterSpacing: '-0.8px',
             textAlign: 'center',
           }}>

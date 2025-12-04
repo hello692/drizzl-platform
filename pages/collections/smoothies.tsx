@@ -313,9 +313,9 @@ export default function Smoothies() {
   return (
     <>
       <Navbar />
-      <div className="smoothies-page" style={{ minHeight: '100vh', padding: '80px 60px', background: '#ffffff' }}>
+      <div className="smoothies-page" style={{ minHeight: '100vh', padding: '48px 60px', background: '#ffffff' }}>
         <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
-          <div style={{ marginBottom: '60px' }}>
+          <div style={{ marginBottom: '32px' }}>
             <div style={{ 
               background: '#f5f5f5', 
               borderRadius: '8px', 
@@ -356,7 +356,7 @@ export default function Smoothies() {
           <div className="smoothies-grid" style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(4, 1fr)',
-            gap: '40px 30px',
+            gap: '28px 24px',
           }}>
             {products.map(product => (
               <ProductCard key={product.id} product={product} />
@@ -369,20 +369,20 @@ export default function Smoothies() {
       <style jsx global>{`
         @media (max-width: 1200px) {
           .smoothies-page {
-            padding: 60px 40px !important;
+            padding: 40px 32px !important;
           }
           .smoothies-grid {
             grid-template-columns: repeat(3, 1fr) !important;
-            gap: 32px 24px !important;
+            gap: 24px 20px !important;
           }
         }
         @media (max-width: 900px) {
           .smoothies-page {
-            padding: 40px 24px !important;
+            padding: 32px 20px !important;
           }
           .smoothies-grid {
             grid-template-columns: repeat(2, 1fr) !important;
-            gap: 28px 20px !important;
+            gap: 20px 16px !important;
           }
           .smoothies-hero {
             height: auto !important;
@@ -391,11 +391,11 @@ export default function Smoothies() {
         }
         @media (max-width: 600px) {
           .smoothies-page {
-            padding: 30px 16px !important;
+            padding: 24px 16px !important;
           }
           .smoothies-grid {
             grid-template-columns: repeat(2, 1fr) !important;
-            gap: 20px 12px !important;
+            gap: 16px 12px !important;
           }
           .smoothies-hero {
             aspect-ratio: 4 / 3 !important;
@@ -403,11 +403,11 @@ export default function Smoothies() {
         }
         @media (max-width: 480px) {
           .smoothies-page {
-            padding: 24px 12px !important;
+            padding: 20px 12px !important;
           }
           .smoothies-grid {
             grid-template-columns: 1fr !important;
-            gap: 24px !important;
+            gap: 20px !important;
           }
         }
       `}</style>

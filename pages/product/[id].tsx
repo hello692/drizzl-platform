@@ -1349,23 +1349,23 @@ export default function ProductDetail() {
         @media (max-width: 1024px) {
           .product-grid {
             grid-template-columns: 1fr !important;
-            gap: 40px !important;
+            gap: 32px !important;
           }
         }
         @media (max-width: 768px) {
           .product-page {
-            padding: 20px 16px !important;
+            padding: 16px 16px !important;
           }
           .product-grid {
-            gap: 32px !important;
+            gap: 24px !important;
           }
         }
         @media (max-width: 480px) {
           .product-page {
-            padding: 16px 12px !important;
+            padding: 12px 12px !important;
           }
           .product-grid {
-            gap: 24px !important;
+            gap: 20px !important;
           }
         }
       `}</style>
