@@ -140,6 +140,15 @@ const products: Product[] = [
     defaultImage: '/products/coffee-mushroom/transparent-glass-1.png',
     hoverImage: '/products/coffee-mushroom/transparent-glass-2.png',
   },
+  { 
+    id: '15', 
+    name: 'Chocolate Berry', 
+    price: 8.99, 
+    reviews: 278, 
+    badge: 'New',
+    defaultImage: '/products/chocolate-berry/transparent-glass-1.png',
+    hoverImage: '/products/chocolate-berry/transparent-glass-2.png',
+  },
 ];
 
 function ProductCard({ product }: { product: Product }) {
