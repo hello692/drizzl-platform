@@ -481,7 +481,7 @@ const AccordionSection = ({ title, content, defaultOpen = false }: { title: stri
 
   return (
     <div style={{
-      borderBottom: '1px solid #e8e8e8',
+      borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
       paddingBottom: '24px',
       marginBottom: '24px',
     }}>
@@ -499,11 +499,11 @@ const AccordionSection = ({ title, content, defaultOpen = false }: { title: stri
           fontSize: '16px',
           fontWeight: '600',
           letterSpacing: '-0.3px',
-          color: '#000',
+          color: '#ffffff',
         }}
       >
         <span>{title}</span>
-        <div style={{ display: 'flex', alignItems: 'center', color: '#000' }}>
+        <div style={{ display: 'flex', alignItems: 'center', color: '#ffffff' }}>
           <ModernArrowDown isOpen={isOpen} />
         </div>
       </button>
@@ -511,7 +511,7 @@ const AccordionSection = ({ title, content, defaultOpen = false }: { title: stri
         <div style={{
           marginTop: '16px',
           fontSize: '14px',
-          color: '#424245',
+          color: 'rgba(255, 255, 255, 0.7)',
           lineHeight: '1.7',
           letterSpacing: '-0.2px',
         }}>
@@ -535,7 +535,7 @@ export default function ProductDetail() {
     return (
       <>
         <Navbar />
-        <div style={{ minHeight: '60vh', padding: '60px 40px', textAlign: 'center' }}>
+        <div style={{ minHeight: '60vh', padding: '60px 40px', textAlign: 'center', background: '#000000', color: '#ffffff' }}>
           <h1>Product not found</h1>
         </div>
         <Footer />
@@ -548,21 +548,36 @@ export default function ProductDetail() {
   return (
     <>
       <Navbar />
-      <div className="product-page" style={{ padding: 'clamp(24px, 6vw, 60px)', background: '#ffffff' }}>
+      <div className="product-page" style={{ padding: 'clamp(24px, 6vw, 60px)', background: '#000000' }}>
         <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
+          {/* Breadcrumbs */}
+          <nav style={{ marginBottom: '24px' }}>
+            <Link href="/" style={{ color: 'rgba(255, 255, 255, 0.6)', textDecoration: 'none', fontSize: '14px', transition: 'color 0.2s' }}
+              onMouseEnter={(e) => e.currentTarget.style.color = '#ffffff'}
+              onMouseLeave={(e) => e.currentTarget.style.color = 'rgba(255, 255, 255, 0.6)'}
+            >Home</Link>
+            <span style={{ color: 'rgba(255, 255, 255, 0.4)', margin: '0 12px' }}>/</span>
+            <Link href="/products" style={{ color: 'rgba(255, 255, 255, 0.6)', textDecoration: 'none', fontSize: '14px', transition: 'color 0.2s' }}
+              onMouseEnter={(e) => e.currentTarget.style.color = '#ffffff'}
+              onMouseLeave={(e) => e.currentTarget.style.color = 'rgba(255, 255, 255, 0.6)'}
+            >Products</Link>
+            <span style={{ color: 'rgba(255, 255, 255, 0.4)', margin: '0 12px' }}>/</span>
+            <span style={{ color: '#ffffff', fontSize: '14px' }}>{product.name}</span>
+          </nav>
+
           {/* Product Header with Badge */}
           <div style={{ marginBottom: 'clamp(24px, 5vw, 40px)', display: 'flex', alignItems: 'center', gap: '20px' }}>
             {product.badge && (
               <div className="tech-shine" style={{
-                background: 'linear-gradient(135deg, #000 0%, #1a1a1a 100%)',
-                border: '1px solid rgba(255, 255, 255, 0.2)',
-                color: '#fff',
+                background: 'linear-gradient(135deg, #ffffff 0%, #f0f0f0 100%)',
+                border: '1px solid rgba(255, 255, 255, 0.3)',
+                color: '#000000',
                 padding: '8px 16px',
                 fontSize: '12px',
                 fontWeight: '800',
                 letterSpacing: '1px',
                 borderRadius: '20px',
-                boxShadow: '0 4px 12px rgba(66, 133, 244, 0.2)',
+                boxShadow: '0 4px 12px rgba(255, 255, 255, 0.1)',
               }}>
                 {product.badge}
               </div>
@@ -580,7 +595,7 @@ export default function ProductDetail() {
                   display: 'flex', 
                   alignItems: 'center', 
                   justifyContent: 'center',
-                  background: '#f8f9fa',
+                  background: '#1a1a1a',
                   borderRadius: '12px',
                   overflow: 'hidden',
                   aspectRatio: '1 / 1',
@@ -617,8 +632,8 @@ export default function ProductDetail() {
                         left: '16px',
                         top: '50%',
                         transform: 'translateY(-50%)',
-                        background: '#ffffff',
-                        border: '1px solid #e0e0e0',
+                        background: 'rgba(255, 255, 255, 0.9)',
+                        border: '1px solid rgba(255, 255, 255, 0.3)',
                         width: '48px',
                         height: '48px',
                         borderRadius: '50%',
@@ -629,17 +644,15 @@ export default function ProductDetail() {
                         justifyContent: 'center',
                         transition: 'all 0.2s ease',
                         zIndex: 10,
-                        boxShadow: '0 2px 12px rgba(0, 0, 0, 0.1)',
+                        boxShadow: '0 2px 12px rgba(0, 0, 0, 0.3)',
                       }}
                       onMouseEnter={(e) => {
-                        e.currentTarget.style.background = '#000';
-                        e.currentTarget.style.color = '#fff';
-                        e.currentTarget.style.borderColor = '#000';
+                        e.currentTarget.style.background = '#ffffff';
+                        e.currentTarget.style.transform = 'translateY(-50%) scale(1.05)';
                       }}
                       onMouseLeave={(e) => {
-                        e.currentTarget.style.background = '#ffffff';
-                        e.currentTarget.style.color = '#000';
-                        e.currentTarget.style.borderColor = '#e0e0e0';
+                        e.currentTarget.style.background = 'rgba(255, 255, 255, 0.9)';
+                        e.currentTarget.style.transform = 'translateY(-50%)';
                       }}
                     >
                       <ModernArrowLeft />
@@ -652,8 +665,8 @@ export default function ProductDetail() {
                         right: '16px',
                         top: '50%',
                         transform: 'translateY(-50%)',
-                        background: '#ffffff',
-                        border: '1px solid #e0e0e0',
+                        background: 'rgba(255, 255, 255, 0.9)',
+                        border: '1px solid rgba(255, 255, 255, 0.3)',
                         width: '48px',
                         height: '48px',
                         borderRadius: '50%',
@@ -664,17 +677,15 @@ export default function ProductDetail() {
                         justifyContent: 'center',
                         transition: 'all 0.2s ease',
                         zIndex: 10,
-                        boxShadow: '0 2px 12px rgba(0, 0, 0, 0.1)',
+                        boxShadow: '0 2px 12px rgba(0, 0, 0, 0.3)',
                       }}
                       onMouseEnter={(e) => {
-                        e.currentTarget.style.background = '#000';
-                        e.currentTarget.style.color = '#fff';
-                        e.currentTarget.style.borderColor = '#000';
+                        e.currentTarget.style.background = '#ffffff';
+                        e.currentTarget.style.transform = 'translateY(-50%) scale(1.05)';
                       }}
                       onMouseLeave={(e) => {
-                        e.currentTarget.style.background = '#ffffff';
-                        e.currentTarget.style.color = '#000';
-                        e.currentTarget.style.borderColor = '#e0e0e0';
+                        e.currentTarget.style.background = 'rgba(255, 255, 255, 0.9)';
+                        e.currentTarget.style.transform = 'translateY(-50%)';
                       }}
                     >
                       <ModernArrowRight />
@@ -692,7 +703,7 @@ export default function ProductDetail() {
                   overflowY: 'hidden',
                   paddingBottom: '8px',
                   scrollbarWidth: 'thin',
-                  scrollbarColor: '#ccc transparent',
+                  scrollbarColor: 'rgba(255, 255, 255, 0.3) transparent',
                 }}>
                   {product.images.map((img: string, idx: number) => (
                     <button
@@ -704,23 +715,24 @@ export default function ProductDetail() {
                         height: '64px',
                         borderRadius: '8px',
                         overflow: 'hidden',
-                        border: idx === currentImageIndex ? '2px solid #000' : '2px solid #e0e0e0',
+                        border: idx === currentImageIndex ? '2px solid #ffffff' : '2px solid rgba(255, 255, 255, 0.2)',
                         padding: 0,
                         cursor: 'pointer',
                         transition: 'all 0.2s ease',
                         opacity: idx === currentImageIndex ? 1 : 0.7,
                         flexShrink: 0,
+                        background: '#1a1a1a',
                       }}
                       onMouseEnter={(e) => {
                         if (idx !== currentImageIndex) {
                           e.currentTarget.style.opacity = '1';
-                          e.currentTarget.style.borderColor = '#999';
+                          e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.5)';
                         }
                       }}
                       onMouseLeave={(e) => {
                         if (idx !== currentImageIndex) {
                           e.currentTarget.style.opacity = '0.7';
-                          e.currentTarget.style.borderColor = '#e0e0e0';
+                          e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.2)';
                         }
                       }}
                     >
@@ -748,7 +760,7 @@ export default function ProductDetail() {
                 textTransform: 'uppercase',
                 letterSpacing: '1px',
                 margin: '0 0 16px 0',
-                color: '#000',
+                color: 'rgba(255, 255, 255, 0.6)',
               }}>
                 Smoothie
               </p>
@@ -757,6 +769,8 @@ export default function ProductDetail() {
               <h1 className="heading-2100 text-glow product-title" style={{
                 fontSize: 'clamp(32px, 6vw, 56px)',
                 margin: '0 0 16px 0',
+                color: '#ffffff',
+                fontWeight: '700',
               }}>
                 {product.name}
               </h1>
@@ -764,12 +778,12 @@ export default function ProductDetail() {
               {/* Tagline */}
               <p style={{
                 fontSize: '14px',
-                color: '#000',
+                color: 'rgba(255, 255, 255, 0.6)',
                 margin: '0 0 28px 0',
                 fontWeight: '500',
                 letterSpacing: '-0.2px',
               }}>
-                <span style={{ fontWeight: '700' }}>Inspired by:</span> {product.tagline.replace('Inspired by a scoop of ', '')}
+                <span style={{ fontWeight: '700', color: '#ffffff' }}>Inspired by:</span> {product.tagline.replace('Inspired by a scoop of ', '')}
               </p>
 
               {/* Rating */}
@@ -780,27 +794,27 @@ export default function ProductDetail() {
                 marginBottom: '28px',
                 fontSize: '14px',
               }}>
-                <span style={{ fontSize: '20px' }}>{'★'.repeat(Math.floor(product.rating))}{'☆'.repeat(5 - Math.floor(product.rating))}</span>
-                <span style={{ color: '#424245', fontWeight: '500' }}>{product.reviews.toLocaleString()} reviews</span>
+                <span style={{ fontSize: '20px', color: '#ffffff' }}>{'★'.repeat(Math.floor(product.rating))}{'☆'.repeat(5 - Math.floor(product.rating))}</span>
+                <span style={{ color: 'rgba(255, 255, 255, 0.6)', fontWeight: '500' }}>{product.reviews.toLocaleString()} reviews</span>
               </div>
 
-              {/* Add to Cart Button */}
+              {/* Add to Cart Button - Premium Dark Theme */}
               <button style={{
                 width: '100%',
                 padding: '18px 24px',
-                background: '#0071E3',
-                color: '#ffffff',
+                background: '#ffffff',
+                color: '#000000',
                 border: 'none',
                 borderRadius: '980px',
                 fontSize: '15px',
-                fontWeight: '500',
+                fontWeight: '600',
                 letterSpacing: '0',
                 cursor: 'pointer',
                 marginBottom: '32px',
                 transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
               }}
-                onMouseEnter={(e) => { e.currentTarget.style.background = '#0077ED'; e.currentTarget.style.transform = 'scale(1.02)'; }}
-                onMouseLeave={(e) => { e.currentTarget.style.background = '#0071E3'; e.currentTarget.style.transform = 'scale(1)'; }}
+                onMouseEnter={(e) => { e.currentTarget.style.opacity = '0.9'; e.currentTarget.style.transform = 'scale(1.02)'; }}
+                onMouseLeave={(e) => { e.currentTarget.style.opacity = '1'; e.currentTarget.style.transform = 'scale(1)'; }}
               >
                 Add to Cart - ${product.price.toFixed(2)}
               </button>
@@ -819,9 +833,9 @@ export default function ProductDetail() {
                     gap: '8px',
                     fontSize: '13px',
                     fontWeight: '500',
-                    color: '#000',
+                    color: '#ffffff',
                   }}>
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" style={{ color: '#ffffff' }}>
                       <circle cx="12" cy="12" r="10"></circle>
                       <path d="M7 12l2.5 2.5 4-5"></path>
                     </svg>
@@ -834,18 +848,18 @@ export default function ProductDetail() {
 
           {/* Collapsible Accordion Section */}
           <div style={{
-            borderTop: '1px solid #e8e8e8',
+            borderTop: '1px solid rgba(255, 255, 255, 0.1)',
             paddingTop: '40px',
             marginBottom: '100px',
           }}>
             <AccordionSection
               title="Description"
-              content={<p style={{ margin: 0 }}>{product.description}</p>}
+              content={<p style={{ margin: 0, color: 'rgba(255, 255, 255, 0.7)' }}>{product.description}</p>}
               defaultOpen={false}
             />
             <AccordionSection
               title="All ingredients"
-              content={<p style={{ margin: 0 }}>{product.ingredients.join(', ')}.</p>}
+              content={<p style={{ margin: 0, color: 'rgba(255, 255, 255, 0.7)' }}>{product.ingredients.join(', ')}.</p>}
               defaultOpen={false}
             />
             <AccordionSection
@@ -860,7 +874,7 @@ export default function ProductDetail() {
                     <div key={key}>
                       <p style={{
                         fontSize: '12px',
-                        color: '#79747e',
+                        color: 'rgba(255, 255, 255, 0.6)',
                         textTransform: 'capitalize',
                         marginBottom: '4px',
                         margin: 0,
@@ -871,6 +885,7 @@ export default function ProductDetail() {
                         fontSize: '16px',
                         fontWeight: '700',
                         margin: 0,
+                        color: '#ffffff',
                       }}>
                         {value}
                       </p>
@@ -883,7 +898,7 @@ export default function ProductDetail() {
             <AccordionSection
               title="About Drizzl Wellness"
               content={
-                <p style={{ margin: 0 }}>
+                <p style={{ margin: 0, color: 'rgba(255, 255, 255, 0.7)' }}>
                   Drizzl Wellness makes pre-portioned food built on organic fruits and vegetables that arrives frozen at your doorstep—so all you have to make is a good decision. No prep, no mess, no stress and ready in minutes.
                 </p>
               }
@@ -893,9 +908,9 @@ export default function ProductDetail() {
 
           {/* Key Ingredients */}
           <div style={{
-            background: '#ffffff',
+            background: '#000000',
             marginBottom: '100px',
-            borderTop: '1px solid #e8e8e8',
+            borderTop: '1px solid rgba(255, 255, 255, 0.1)',
             paddingTop: '60px',
           }}>
             <div style={{
@@ -906,7 +921,7 @@ export default function ProductDetail() {
             }}>
               {/* Left: Image */}
               <div style={{
-                background: '#f0f0f0',
+                background: '#1a1a1a',
                 borderRadius: '0px',
                 height: '350px',
                 display: 'flex',
@@ -933,6 +948,7 @@ export default function ProductDetail() {
                   marginBottom: '16px',
                   letterSpacing: '1px',
                   textTransform: 'uppercase',
+                  color: '#ffffff',
                 }}>
                   Key Ingredients
                 </h2>
@@ -943,7 +959,7 @@ export default function ProductDetail() {
                   gap: '12px',
                   marginBottom: '32px',
                   paddingBottom: '20px',
-                  borderBottom: '1px solid #e8e8e8',
+                  borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
                   flexWrap: 'wrap',
                 }}>
                   {product.keyIngredients.map((ing: any, idx: number) => (
@@ -951,9 +967,9 @@ export default function ProductDetail() {
                       key={idx}
                       onClick={() => setSelectedIngredient(idx)}
                       style={{
-                        background: selectedIngredient === idx ? '#000' : '#ffffff',
-                        color: selectedIngredient === idx ? '#ffffff' : '#000',
-                        border: selectedIngredient === idx ? 'none' : '1px solid #e8e8e8',
+                        background: selectedIngredient === idx ? '#ffffff' : 'transparent',
+                        color: selectedIngredient === idx ? '#000000' : '#ffffff',
+                        border: selectedIngredient === idx ? 'none' : '1px solid rgba(255, 255, 255, 0.2)',
                         padding: '6px 14px',
                         fontSize: '12px',
                         fontWeight: '600',
@@ -964,12 +980,12 @@ export default function ProductDetail() {
                       }}
                       onMouseEnter={(e) => {
                         if (selectedIngredient !== idx) {
-                          e.currentTarget.style.borderColor = '#000';
+                          e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.5)';
                         }
                       }}
                       onMouseLeave={(e) => {
                         if (selectedIngredient !== idx) {
-                          e.currentTarget.style.borderColor = '#e8e8e8';
+                          e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.2)';
                         }
                       }}
                     >
@@ -994,7 +1010,7 @@ export default function ProductDetail() {
                       background: 'none',
                       border: 'none',
                       cursor: selectedIngredient > 0 ? 'pointer' : 'default',
-                      color: '#000',
+                      color: '#ffffff',
                       opacity: selectedIngredient > 0 ? 0.6 : 0.2,
                       transition: 'opacity 0.2s',
                       padding: '0',
@@ -1025,16 +1041,16 @@ export default function ProductDetail() {
                       <div
                         key={idx}
                         style={{
-                          border: '1px solid #e8e8e8',
+                          border: '1px solid rgba(255, 255, 255, 0.1)',
                           padding: '20px',
-                          backgroundColor: '#ffffff',
+                          backgroundColor: '#111111',
                           transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
                         }}
                         onMouseEnter={(e) => {
-                          e.currentTarget.style.borderColor = '#000';
+                          e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.3)';
                         }}
                         onMouseLeave={(e) => {
-                          e.currentTarget.style.borderColor = '#e8e8e8';
+                          e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.1)';
                         }}
                       >
                         <h3 style={{
@@ -1043,12 +1059,13 @@ export default function ProductDetail() {
                           marginBottom: '10px',
                           letterSpacing: '-0.2px',
                           margin: '0 0 10px 0',
+                          color: '#ffffff',
                         }}>
                           {ing.name}
                         </h3>
                         <p style={{
                           fontSize: '13px',
-                          color: '#424245',
+                          color: 'rgba(255, 255, 255, 0.7)',
                           lineHeight: '1.5',
                           letterSpacing: '-0.2px',
                           margin: 0,
@@ -1068,7 +1085,7 @@ export default function ProductDetail() {
                       background: 'none',
                       border: 'none',
                       cursor: selectedIngredient < product.keyIngredients.length - 2 ? 'pointer' : 'default',
-                      color: '#000',
+                      color: '#ffffff',
                       opacity: selectedIngredient < product.keyIngredients.length - 2 ? 0.6 : 0.2,
                       transition: 'opacity 0.2s',
                       padding: '0',
@@ -1094,8 +1111,8 @@ export default function ProductDetail() {
 
           {/* How to Prep */}
           <div style={{
-            background: '#ffffff',
-            borderTop: '1px solid #e8e8e8',
+            background: '#000000',
+            borderTop: '1px solid rgba(255, 255, 255, 0.1)',
             paddingTop: '60px',
             marginBottom: '100px',
           }}>
@@ -1105,6 +1122,7 @@ export default function ProductDetail() {
               marginBottom: '40px',
               letterSpacing: '-0.5px',
               textTransform: 'uppercase',
+              color: '#ffffff',
             }}>
               How to Prep
             </h2>
@@ -1116,7 +1134,7 @@ export default function ProductDetail() {
             }}>
               {/* Left: Image placeholder */}
               <div style={{
-                background: '#f0f0f0',
+                background: '#1a1a1a',
                 borderRadius: '0px',
                 height: '400px',
                 display: 'flex',
@@ -1143,8 +1161,8 @@ export default function ProductDetail() {
                     marginBottom: idx !== product.prepSteps.length - 1 ? '28px' : 0,
                   }}>
                     <div style={{
-                      background: '#000',
-                      color: '#ffffff',
+                      background: '#ffffff',
+                      color: '#000000',
                       width: '36px',
                       height: '36px',
                       minWidth: '36px',
@@ -1159,7 +1177,7 @@ export default function ProductDetail() {
                     </div>
                     <p style={{
                       fontSize: '14px',
-                      color: '#424245',
+                      color: 'rgba(255, 255, 255, 0.7)',
                       lineHeight: '1.7',
                       letterSpacing: '-0.2px',
                       margin: 0,
@@ -1176,7 +1194,7 @@ export default function ProductDetail() {
           {/* Related Products */}
           {relatedProducts.length > 0 && (
             <div style={{
-              borderTop: '1px solid #e8e8e8',
+              borderTop: '1px solid rgba(255, 255, 255, 0.1)',
               paddingTop: '60px',
             }}>
               <h2 style={{
@@ -1184,6 +1202,7 @@ export default function ProductDetail() {
                 fontWeight: '700',
                 marginBottom: '40px',
                 letterSpacing: '-0.5px',
+                color: '#ffffff',
               }}>
                 You Might Also Like
               </h2>
@@ -1202,7 +1221,7 @@ export default function ProductDetail() {
                     position: 'absolute',
                     left: '-40px',
                     zIndex: 10,
-                    background: '#000',
+                    background: '#ffffff',
                     border: 'none',
                     width: '36px',
                     height: '36px',
@@ -1211,7 +1230,7 @@ export default function ProductDetail() {
                     alignItems: 'center',
                     justifyContent: 'center',
                     cursor: relatedScrollPosition > 0 ? 'pointer' : 'default',
-                    color: '#ffffff',
+                    color: '#000000',
                     opacity: relatedScrollPosition > 0 ? 1 : 0.3,
                     transition: 'opacity 0.2s',
                   }}
@@ -1252,10 +1271,10 @@ export default function ProductDetail() {
                         }}
                       >
                         <div style={{
-                          background: '#ffffff',
+                          background: '#1a1a1a',
                           borderRadius: '0px',
                           overflow: 'hidden',
-                          border: '1px solid #e8e8e8',
+                          border: '1px solid rgba(255, 255, 255, 0.1)',
                           marginBottom: '16px',
                           aspectRatio: '1',
                         }}>
@@ -1274,12 +1293,13 @@ export default function ProductDetail() {
                           fontWeight: '700',
                           marginBottom: '8px',
                           letterSpacing: '-0.3px',
+                          color: '#ffffff',
                         }}>
                           {relProduct.name}
                         </h3>
                         <p style={{
                           fontSize: '12px',
-                          color: '#79747e',
+                          color: 'rgba(255, 255, 255, 0.6)',
                           marginBottom: '8px',
                           letterSpacing: '-0.2px',
                         }}>
@@ -1287,7 +1307,7 @@ export default function ProductDetail() {
                         </p>
                         <p style={{
                           fontSize: '12px',
-                          color: '#79747e',
+                          color: 'rgba(255, 255, 255, 0.6)',
                           marginBottom: '8px',
                           letterSpacing: '-0.2px',
                         }}>
@@ -1297,6 +1317,7 @@ export default function ProductDetail() {
                           fontSize: '14px',
                           fontWeight: '700',
                           letterSpacing: '-0.3px',
+                          color: '#ffffff',
                         }}>
                           ${relProduct.price.toFixed(2)}
                         </p>
@@ -1314,7 +1335,7 @@ export default function ProductDetail() {
                     position: 'absolute',
                     right: '-40px',
                     zIndex: 10,
-                    background: '#000',
+                    background: '#ffffff',
                     border: 'none',
                     width: '36px',
                     height: '36px',
@@ -1323,7 +1344,7 @@ export default function ProductDetail() {
                     alignItems: 'center',
                     justifyContent: 'center',
                     cursor: relatedScrollPosition < relatedProducts.length - 4 ? 'pointer' : 'default',
-                    color: '#ffffff',
+                    color: '#000000',
                     opacity: relatedScrollPosition < relatedProducts.length - 4 ? 1 : 0.3,
                     transition: 'opacity 0.2s',
                   }}

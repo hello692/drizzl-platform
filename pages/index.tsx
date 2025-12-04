@@ -290,9 +290,9 @@ export default function Home() {
 
       {/* Scrolling Marquee Banner */}
       <div style={{
-        background: '#ffffff',
-        borderTop: '1px solid #f0f0f0',
-        borderBottom: '1px solid #f0f0f0',
+        background: '#000000',
+        borderTop: '1px solid rgba(255,255,255,0.08)',
+        borderBottom: '1px solid rgba(255,255,255,0.08)',
         overflow: 'hidden',
         padding: '16px 0',
       }}>
@@ -312,7 +312,7 @@ export default function Home() {
                   style={{
                     fontSize: '12px',
                     fontWeight: '500',
-                    color: '#999',
+                    color: 'rgba(255,255,255,0.6)',
                     letterSpacing: '1.5px',
                     textTransform: 'uppercase',
                     padding: '0 40px',
@@ -328,13 +328,13 @@ export default function Home() {
       </div>
 
       {/* Category Grid */}
-      <section style={{ padding: 'clamp(32px, 6vw, 80px) clamp(16px, 4vw, 60px)', background: '#ffffff' }}>
+      <section style={{ padding: 'clamp(32px, 6vw, 80px) clamp(16px, 4vw, 60px)', background: '#000000' }}>
         <div style={{ maxWidth: '1360px', margin: '0 auto' }}>
           <AnimatedSection animation="fadeUp" style={{ textAlign: 'center', marginBottom: 'clamp(20px, 4vw, 40px)' }}>
-            <h2 style={{ fontSize: 'clamp(24px, 6vw, 48px)', fontWeight: '600', marginBottom: '8px' }}>
+            <h2 style={{ fontSize: 'clamp(24px, 6vw, 48px)', fontWeight: '600', marginBottom: '8px', color: '#ffffff' }}>
               Shop by Category
             </h2>
-            <p style={{ fontSize: 'clamp(13px, 3.5vw, 16px)', color: '#666', margin: '0 auto', maxWidth: '600px', lineHeight: '1.6' }}>
+            <p style={{ fontSize: 'clamp(13px, 3.5vw, 16px)', color: 'rgba(255,255,255,0.6)', margin: '0 auto', maxWidth: '600px', lineHeight: '1.6' }}>
               Explore our full range of products
             </p>
           </AnimatedSection>
@@ -347,23 +347,25 @@ export default function Home() {
               <Link key={category.slug} href={`/products?category=${category.slug}`} style={{
                 padding: '28px 20px',
                 textAlign: 'center',
-                background: '#f5f5f5',
-                border: '1px solid #e0e0e0',
+                background: 'rgba(255,255,255,0.05)',
+                border: '1px solid rgba(255,255,255,0.1)',
                 borderRadius: '12px',
                 textDecoration: 'none',
-                color: '#000',
-                transition: 'all 1s cubic-bezier(0.32, 0, 0.67, 0)',
+                color: '#ffffff',
+                transition: 'all 0.3s ease',
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
                 justifyContent: 'center',
               }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.background = '#ececec';
+                  e.currentTarget.style.background = 'rgba(255,255,255,0.1)';
+                  e.currentTarget.style.borderColor = 'rgba(255,255,255,0.2)';
                   e.currentTarget.style.transform = 'translateY(-2px)';
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.background = '#f5f5f5';
+                  e.currentTarget.style.background = 'rgba(255,255,255,0.05)';
+                  e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)';
                   e.currentTarget.style.transform = 'translateY(0)';
                 }}
               >
@@ -372,6 +374,7 @@ export default function Home() {
                   fontWeight: '600',
                   margin: 0,
                   letterSpacing: '-0.2px',
+                  color: '#ffffff',
                 }}>
                   {category.name}
                 </h3>
@@ -382,13 +385,13 @@ export default function Home() {
       </section>
 
       {/* Popular Products */}
-      <section style={{ padding: 'clamp(32px, 6vw, 80px) clamp(16px, 4vw, 60px)', background: '#f9f9f9' }}>
+      <section style={{ padding: 'clamp(32px, 6vw, 80px) clamp(16px, 4vw, 60px)', background: '#000000', borderTop: '1px solid rgba(255,255,255,0.08)' }}>
         <div style={{ maxWidth: '1360px', margin: '0 auto' }}>
           <AnimatedSection animation="fadeUp" style={{ marginBottom: 'clamp(20px, 4vw, 40px)' }}>
-            <h2 style={{ fontSize: 'clamp(24px, 6vw, 48px)', fontWeight: '600', marginBottom: '8px' }}>
+            <h2 style={{ fontSize: 'clamp(24px, 6vw, 48px)', fontWeight: '600', marginBottom: '8px', color: '#ffffff' }}>
               Popular Products
             </h2>
-            <p style={{ fontSize: 'clamp(13px, 3.5vw, 16px)', color: '#666', margin: '0', maxWidth: '600px', lineHeight: '1.6' }}>
+            <p style={{ fontSize: 'clamp(13px, 3.5vw, 16px)', color: 'rgba(255,255,255,0.6)', margin: '0', maxWidth: '600px', lineHeight: '1.6' }}>
               Customer favorites you'll love
             </p>
           </AnimatedSection>
@@ -403,34 +406,31 @@ export default function Home() {
                 left: '0',
                 top: '50%',
                 transform: 'translateY(-50%)',
-                background: '#ffffff',
-                border: '1px solid #e0e0e0',
+                background: 'transparent',
+                border: '1px solid rgba(255,255,255,0.3)',
                 width: '48px',
                 height: '48px',
                 borderRadius: '50%',
-                color: '#000',
+                color: '#fff',
                 fontSize: '18px',
                 cursor: 'pointer',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                transition: 'all 0.3s ease',
                 zIndex: 10,
-                boxShadow: '0 2px 12px rgba(0, 0, 0, 0.08)',
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.background = '#000';
-                e.currentTarget.style.color = '#fff';
-                e.currentTarget.style.borderColor = '#000';
+                e.currentTarget.style.background = '#fff';
+                e.currentTarget.style.color = '#000';
+                e.currentTarget.style.borderColor = '#fff';
                 e.currentTarget.style.transform = 'translateY(-50%) scale(1.05)';
-                e.currentTarget.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.15)';
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.background = '#ffffff';
-                e.currentTarget.style.color = '#000';
-                e.currentTarget.style.borderColor = '#e0e0e0';
+                e.currentTarget.style.background = 'transparent';
+                e.currentTarget.style.color = '#fff';
+                e.currentTarget.style.borderColor = 'rgba(255,255,255,0.3)';
                 e.currentTarget.style.transform = 'translateY(-50%) scale(1)';
-                e.currentTarget.style.boxShadow = '0 2px 12px rgba(0, 0, 0, 0.08)';
               }}
             >
               <ModernArrowLeft />
@@ -469,8 +469,8 @@ export default function Home() {
                     textAlign: 'center',
                     pointerEvents: isDragging ? 'none' : 'auto',
                     textDecoration: 'none',
-                    color: 'inherit',
-                    transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                    color: '#ffffff',
+                    transition: 'all 0.3s ease',
                   }}
                   onMouseEnter={(e) => {
                     e.currentTarget.style.transform = 'translateY(-4px)';
@@ -481,7 +481,7 @@ export default function Home() {
                 >
                   {/* Product Image */}
                   <div style={{
-                    background: '#f5f5f5',
+                    background: '#111111',
                     borderRadius: '16px',
                     height: '300px',
                     marginBottom: '16px',
@@ -490,18 +490,17 @@ export default function Home() {
                     alignItems: 'center',
                     justifyContent: 'center',
                     cursor: 'pointer',
-                    border: '1px solid #e8e8e8',
-                    transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-                    boxShadow: '0 2px 8px rgba(0, 0, 0, 0.04)',
+                    border: '1px solid rgba(255,255,255,0.1)',
+                    transition: 'all 0.3s ease',
                     position: 'relative',
                   }}
                     onMouseEnter={(e) => {
-                      e.currentTarget.style.borderColor = '#d0d0d0';
-                      e.currentTarget.style.boxShadow = '0 8px 24px rgba(0, 0, 0, 0.08)';
+                      e.currentTarget.style.borderColor = 'rgba(255,255,255,0.2)';
+                      e.currentTarget.style.background = 'rgba(255,255,255,0.08)';
                     }}
                     onMouseLeave={(e) => {
-                      e.currentTarget.style.borderColor = '#e8e8e8';
-                      e.currentTarget.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.04)';
+                      e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)';
+                      e.currentTarget.style.background = '#111111';
                     }}
                   >
                     {/* Badge */}
@@ -510,8 +509,8 @@ export default function Home() {
                         position: 'absolute',
                         top: '12px',
                         left: '12px',
-                        background: product.badge === 'New' ? '#22c55e' : '#000',
-                        color: '#fff',
+                        background: product.badge === 'New' ? '#22c55e' : '#fff',
+                        color: product.badge === 'New' ? '#fff' : '#000',
                         fontSize: '10px',
                         fontWeight: '600',
                         padding: '6px 10px',
@@ -542,6 +541,7 @@ export default function Home() {
                     fontWeight: '600',
                     marginBottom: '6px',
                     letterSpacing: '-0.3px',
+                    color: '#ffffff',
                   }}>
                     {product.name}
                   </h3>
@@ -549,7 +549,7 @@ export default function Home() {
                   {/* Category */}
                   <p style={{
                     fontSize: '13px',
-                    color: '#86868b',
+                    color: 'rgba(255,255,255,0.6)',
                     marginBottom: '8px',
                     letterSpacing: '-0.2px',
                   }}>
@@ -567,34 +567,31 @@ export default function Home() {
                 right: '0',
                 top: '50%',
                 transform: 'translateY(-50%)',
-                background: '#ffffff',
-                border: '1px solid #e0e0e0',
+                background: 'transparent',
+                border: '1px solid rgba(255,255,255,0.3)',
                 width: '48px',
                 height: '48px',
                 borderRadius: '50%',
-                color: '#000',
+                color: '#fff',
                 fontSize: '18px',
                 cursor: 'pointer',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                transition: 'all 0.3s ease',
                 zIndex: 10,
-                boxShadow: '0 2px 12px rgba(0, 0, 0, 0.08)',
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.background = '#000';
-                e.currentTarget.style.color = '#fff';
-                e.currentTarget.style.borderColor = '#000';
+                e.currentTarget.style.background = '#fff';
+                e.currentTarget.style.color = '#000';
+                e.currentTarget.style.borderColor = '#fff';
                 e.currentTarget.style.transform = 'translateY(-50%) scale(1.05)';
-                e.currentTarget.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.15)';
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.background = '#ffffff';
-                e.currentTarget.style.color = '#000';
-                e.currentTarget.style.borderColor = '#e0e0e0';
+                e.currentTarget.style.background = 'transparent';
+                e.currentTarget.style.color = '#fff';
+                e.currentTarget.style.borderColor = 'rgba(255,255,255,0.3)';
                 e.currentTarget.style.transform = 'translateY(-50%) scale(1)';
-                e.currentTarget.style.boxShadow = '0 2px 12px rgba(0, 0, 0, 0.08)';
               }}
             >
               <ModernArrowRight />
@@ -975,15 +972,24 @@ export default function Home() {
             <Link href="/collections/smoothies" style={{
               display: 'inline-block',
               padding: '14px 32px',
-              background: '#0071E3',
-              color: '#fff',
+              background: '#ffffff',
+              color: '#000000',
               textDecoration: 'none',
               borderRadius: '980px',
               fontSize: '15px',
               fontWeight: '500',
               letterSpacing: '0',
-              transition: 'all 0.2s ease',
-            }}>
+              transition: 'all 0.3s ease',
+            }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = 'rgba(255,255,255,0.85)';
+                e.currentTarget.style.transform = 'scale(1.02)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = '#ffffff';
+                e.currentTarget.style.transform = 'scale(1)';
+              }}
+            >
               Try It & Save 50%
             </Link>
           </div>
@@ -993,12 +999,12 @@ export default function Home() {
       {/* CTA Section */}
       <section style={{
         background: '#000000',
-        padding: '160px 60px',
+        padding: 'clamp(80px, 12vw, 160px) clamp(16px, 4vw, 60px)',
         textAlign: 'center',
-        borderTop: '1px solid #e8e8e8',
+        borderTop: '1px solid rgba(255,255,255,0.08)',
       }}>
         <h2 style={{
-          fontSize: '52px',
+          fontSize: 'clamp(28px, 6vw, 52px)',
           marginBottom: '28px',
           fontWeight: '700',
           letterSpacing: '-0.8px',
@@ -1007,8 +1013,8 @@ export default function Home() {
           Start Your Wellness Journey Today
         </h2>
         <p style={{
-          fontSize: '17px',
-          color: '#a0a0a0',
+          fontSize: 'clamp(14px, 3vw, 17px)',
+          color: 'rgba(255,255,255,0.6)',
           marginBottom: '56px',
           maxWidth: '720px',
           margin: '0 auto 56px auto',
@@ -1020,21 +1026,21 @@ export default function Home() {
         <Link href="/auth" style={{
           display: 'inline-block',
           padding: '14px 32px',
-          background: '#0071E3',
-          color: '#fff',
+          background: '#ffffff',
+          color: '#000000',
           textDecoration: 'none',
           borderRadius: '980px',
           fontSize: '15px',
           fontWeight: '500',
-          transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+          transition: 'all 0.3s ease',
           letterSpacing: '0',
         }}
           onMouseEnter={(e) => {
-            e.currentTarget.style.background = '#0077ED';
+            e.currentTarget.style.background = 'rgba(255,255,255,0.85)';
             e.currentTarget.style.transform = 'scale(1.02)';
           }}
           onMouseLeave={(e) => {
-            e.currentTarget.style.background = '#0071E3';
+            e.currentTarget.style.background = '#ffffff';
             e.currentTarget.style.transform = 'scale(1)';
           }}
         >

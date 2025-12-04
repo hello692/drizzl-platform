@@ -39,30 +39,48 @@ export default function Cart() {
     }
   };
 
-  if (authLoading) return <div>Loading...</div>;
+  if (authLoading) return (
+    <div style={{ 
+      background: '#000000', 
+      minHeight: '100vh', 
+      display: 'flex', 
+      alignItems: 'center', 
+      justifyContent: 'center',
+      color: '#ffffff'
+    }}>
+      Loading...
+    </div>
+  );
 
   return (
     <>
       <Navbar />
-      <div style={{ padding: '40px 20px', maxWidth: '1000px', margin: '0 auto' }}>
-        <h2 style={{ marginBottom: '32px' }}>Shopping Cart</h2>
+      <div style={{ 
+        padding: '40px 20px', 
+        maxWidth: '1000px', 
+        margin: '0 auto',
+        background: '#000000',
+        minHeight: '100vh',
+      }}>
+        <h2 style={{ marginBottom: '32px', color: '#ffffff' }}>Shopping Cart</h2>
 
         {items.length === 0 ? (
           <div style={{ textAlign: 'center', padding: '40px 20px' }}>
-            <p style={{ color: '#999', marginBottom: '20px' }}>
+            <p style={{ color: 'rgba(255,255,255,0.6)', marginBottom: '20px' }}>
               Your cart is empty
             </p>
             <Link href="/products" style={{
               padding: '12px 32px',
-              background: '#0071E3',
-              color: 'white',
+              background: '#ffffff',
+              color: '#000000',
               textDecoration: 'none',
               borderRadius: '980px',
               fontSize: '15px',
               fontWeight: '500',
               transition: 'all 0.3s ease',
+              display: 'inline-block',
             }}>
-              Continue Shopping
+              Shop Now
             </Link>
           </div>
         ) : (
@@ -74,8 +92,11 @@ export default function Cart() {
                   style={{
                     display: 'flex',
                     gap: '16px',
-                    padding: '16px 0',
-                    borderBottom: '1px solid #eee',
+                    padding: '16px',
+                    marginBottom: '12px',
+                    background: 'rgba(255,255,255,0.05)',
+                    borderRadius: '12px',
+                    border: '1px solid rgba(255,255,255,0.1)',
                   }}
                 >
                   {item.product?.image_url && (
@@ -86,38 +107,45 @@ export default function Cart() {
                         width: '80px',
                         height: '80px',
                         objectFit: 'cover',
-                        borderRadius: '4px',
-                        background: '#f5f5f5',
+                        borderRadius: '8px',
+                        border: '1px solid rgba(255,255,255,0.1)',
+                        background: 'rgba(255,255,255,0.05)',
                       }}
                     />
                   )}
                   <div style={{ flex: 1 }}>
-                    <h3 style={{ margin: '0 0 8px 0' }}>
+                    <h3 style={{ margin: '0 0 8px 0', color: '#ffffff' }}>
                       {item.product?.name}
                     </h3>
-                    <p style={{ margin: '0 0 8px 0', color: '#666' }}>
+                    <p style={{ margin: '0 0 8px 0', color: '#ffffff' }}>
                       ${item.product?.price}
                     </p>
                     <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
                       <button
                         onClick={() => updateQuantity(item.id, item.quantity - 1)}
                         style={{
-                          padding: '4px 8px',
-                          border: '1px solid #ddd',
-                          background: 'white',
+                          padding: '4px 12px',
+                          border: '1px solid rgba(255,255,255,0.2)',
+                          background: 'rgba(255,255,255,0.05)',
+                          color: '#ffffff',
                           cursor: 'pointer',
+                          borderRadius: '6px',
+                          fontSize: '14px',
                         }}
                       >
                         -
                       </button>
-                      <span>{item.quantity}</span>
+                      <span style={{ color: '#ffffff', minWidth: '24px', textAlign: 'center' }}>{item.quantity}</span>
                       <button
                         onClick={() => updateQuantity(item.id, item.quantity + 1)}
                         style={{
-                          padding: '4px 8px',
-                          border: '1px solid #ddd',
-                          background: 'white',
+                          padding: '4px 12px',
+                          border: '1px solid rgba(255,255,255,0.2)',
+                          background: 'rgba(255,255,255,0.05)',
+                          color: '#ffffff',
                           cursor: 'pointer',
+                          borderRadius: '6px',
+                          fontSize: '14px',
                         }}
                       >
                         +
@@ -125,12 +153,15 @@ export default function Cart() {
                       <button
                         onClick={() => removeItem(item.id)}
                         style={{
-                          padding: '4px 8px',
-                          border: '1px solid #ddd',
-                          background: '#ffe6e6',
-                          color: '#a11a1a',
+                          padding: '4px 12px',
+                          border: '1px solid rgba(255,100,100,0.3)',
+                          background: 'rgba(255,100,100,0.1)',
+                          color: '#ff6b6b',
                           cursor: 'pointer',
                           marginLeft: 'auto',
+                          borderRadius: '6px',
+                          fontSize: '14px',
+                          transition: 'all 0.2s ease',
                         }}
                       >
                         Remove
@@ -142,18 +173,20 @@ export default function Cart() {
             </div>
 
             <div style={{
-              background: '#f5f5f5',
-              padding: '20px',
-              borderRadius: '8px',
+              background: 'rgba(255,255,255,0.05)',
+              padding: '24px',
+              borderRadius: '12px',
               height: 'fit-content',
+              border: '1px solid rgba(255,255,255,0.1)',
             }}>
-              <h3 style={{ margin: '0 0 16px 0' }}>Order Summary</h3>
+              <h3 style={{ margin: '0 0 16px 0', color: '#ffffff' }}>Order Summary</h3>
               <div style={{
                 display: 'flex',
                 justifyContent: 'space-between',
                 marginBottom: '16px',
                 paddingBottom: '16px',
-                borderBottom: '1px solid #ddd',
+                borderBottom: '1px solid rgba(255,255,255,0.1)',
+                color: '#ffffff',
               }}>
                 <span>Subtotal</span>
                 <span>${total.toFixed(2)}</span>
@@ -164,6 +197,7 @@ export default function Cart() {
                 marginBottom: '16px',
                 fontSize: '18px',
                 fontWeight: 'bold',
+                color: '#ffffff',
               }}>
                 <span>Total</span>
                 <span>${total.toFixed(2)}</span>
@@ -174,8 +208,8 @@ export default function Cart() {
                 style={{
                   width: '100%',
                   padding: '14px',
-                  background: '#0071E3',
-                  color: 'white',
+                  background: '#ffffff',
+                  color: '#000000',
                   border: 'none',
                   borderRadius: '980px',
                   cursor: isCheckingOut ? 'default' : 'pointer',
@@ -193,8 +227,8 @@ export default function Cart() {
                   width: '100%',
                   padding: '14px',
                   background: 'transparent',
-                  color: '#0071E3',
-                  border: '1px solid #0071E3',
+                  color: '#ffffff',
+                  border: '1px solid rgba(255,255,255,0.2)',
                   borderRadius: '980px',
                   cursor: 'pointer',
                   marginTop: '8px',
@@ -210,6 +244,12 @@ export default function Cart() {
         )}
       </div>
       <Footer />
+
+      <style jsx>{`
+        button:hover {
+          opacity: 0.85;
+        }
+      `}</style>
     </>
   );
 }

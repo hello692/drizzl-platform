@@ -178,7 +178,7 @@ export default function AuthPage() {
         alignItems: 'center',
         justifyContent: 'center',
         padding: 'clamp(20px, 4vw, 40px)',
-        background: '#ffffff',
+        background: '#000000',
       }}>
         <div style={{
           maxWidth: '480px',
@@ -193,12 +193,13 @@ export default function AuthPage() {
               fontWeight: '700',
               letterSpacing: '-0.5px',
               marginBottom: '8px',
+              color: '#ffffff',
             }}>
               Welcome to Drizzl
             </h1>
             <p style={{
               fontSize: '14px',
-              color: '#666',
+              color: 'rgba(255,255,255,0.6)',
               lineHeight: '1.6',
               margin: 0,
             }}>
@@ -210,10 +211,11 @@ export default function AuthPage() {
 
           <div style={{
             display: 'flex',
-            background: '#f5f5f5',
+            background: 'rgba(255,255,255,0.05)',
             borderRadius: '12px',
             padding: '4px',
             marginBottom: '28px',
+            border: '1px solid rgba(255,255,255,0.1)',
           }}>
             <button
               onClick={() => { setUserType('customer'); setError(''); setMessage(''); }}
@@ -225,9 +227,8 @@ export default function AuthPage() {
                 fontSize: '14px',
                 fontWeight: '600',
                 cursor: 'pointer',
-                background: userType === 'customer' ? '#fff' : 'transparent',
-                color: userType === 'customer' ? '#000' : '#666',
-                boxShadow: userType === 'customer' ? '0 1px 3px rgba(0,0,0,0.1)' : 'none',
+                background: userType === 'customer' ? 'rgba(255,255,255,0.1)' : 'transparent',
+                color: userType === 'customer' ? '#ffffff' : 'rgba(255,255,255,0.6)',
                 transition: 'all 0.2s ease',
               }}
             >
@@ -243,9 +244,8 @@ export default function AuthPage() {
                 fontSize: '14px',
                 fontWeight: '600',
                 cursor: 'pointer',
-                background: userType === 'retail' ? '#fff' : 'transparent',
-                color: userType === 'retail' ? '#000' : '#666',
-                boxShadow: userType === 'retail' ? '0 1px 3px rgba(0,0,0,0.1)' : 'none',
+                background: userType === 'retail' ? 'rgba(255,255,255,0.1)' : 'transparent',
+                color: userType === 'retail' ? '#ffffff' : 'rgba(255,255,255,0.6)',
                 transition: 'all 0.2s ease',
               }}
             >
@@ -254,15 +254,15 @@ export default function AuthPage() {
           </div>
 
           <div style={{
-            background: userType === 'retail' ? '#f0f9ff' : '#f9f9f9',
+            background: 'rgba(255,255,255,0.05)',
             borderRadius: '12px',
             padding: '16px',
             marginBottom: '24px',
-            border: userType === 'retail' ? '1px solid #bae6fd' : '1px solid #e5e5e5',
+            border: '1px solid rgba(255,255,255,0.1)',
           }}>
             <p style={{
               fontSize: '13px',
-              color: userType === 'retail' ? '#0369a1' : '#666',
+              color: 'rgba(255,255,255,0.6)',
               margin: 0,
               lineHeight: '1.5',
             }}>
@@ -275,11 +275,12 @@ export default function AuthPage() {
           {error && (
             <div style={{
               padding: '12px 16px',
-              background: '#fce8e6',
+              background: 'rgba(220, 38, 38, 0.15)',
               borderRadius: '8px',
               marginBottom: '20px',
               fontSize: '14px',
-              color: '#c53929',
+              color: '#ff6b6b',
+              border: '1px solid rgba(220, 38, 38, 0.3)',
             }}>
               {error}
             </div>
@@ -288,11 +289,12 @@ export default function AuthPage() {
           {message && (
             <div style={{
               padding: '12px 16px',
-              background: '#e6f4ea',
+              background: 'rgba(34, 197, 94, 0.15)',
               borderRadius: '8px',
               marginBottom: '20px',
               fontSize: '14px',
-              color: '#1e7e34',
+              color: '#4ade80',
+              border: '1px solid rgba(34, 197, 94, 0.3)',
             }}>
               {message}
             </div>
@@ -302,7 +304,7 @@ export default function AuthPage() {
             display: 'flex',
             gap: '0',
             marginBottom: '24px',
-            borderBottom: '1px solid #e8e8e8',
+            borderBottom: '1px solid rgba(255,255,255,0.1)',
           }}>
             <button
               onClick={() => { setMode('signin'); setError(''); setMessage(''); }}
@@ -314,8 +316,8 @@ export default function AuthPage() {
                 fontSize: '14px',
                 fontWeight: '600',
                 cursor: 'pointer',
-                color: mode === 'signin' ? '#000' : '#666',
-                borderBottom: mode === 'signin' ? '2px solid #000' : '2px solid transparent',
+                color: mode === 'signin' ? '#ffffff' : 'rgba(255,255,255,0.6)',
+                borderBottom: mode === 'signin' ? '2px solid #ffffff' : '2px solid transparent',
                 marginBottom: '-1px',
                 transition: 'all 0.2s ease',
               }}
@@ -332,8 +334,8 @@ export default function AuthPage() {
                 fontSize: '14px',
                 fontWeight: '600',
                 cursor: 'pointer',
-                color: mode === 'signup' ? '#000' : '#666',
-                borderBottom: mode === 'signup' ? '2px solid #000' : '2px solid transparent',
+                color: mode === 'signup' ? '#ffffff' : 'rgba(255,255,255,0.6)',
+                borderBottom: mode === 'signup' ? '2px solid #ffffff' : '2px solid transparent',
                 marginBottom: '-1px',
                 transition: 'all 0.2s ease',
               }}
@@ -356,7 +358,7 @@ export default function AuthPage() {
                 <label style={{
                   fontSize: '13px',
                   fontWeight: '600',
-                  color: '#000',
+                  color: '#ffffff',
                 }}>
                   Full Name
                 </label>
@@ -368,13 +370,14 @@ export default function AuthPage() {
                   required
                   style={{
                     padding: '14px 16px',
-                    border: '1px solid #d0d0d0',
+                    border: '1px solid rgba(255,255,255,0.2)',
                     borderRadius: '8px',
                     fontSize: '14px',
                     fontFamily: 'inherit',
-                    backgroundColor: '#fff',
+                    backgroundColor: 'rgba(255,255,255,0.05)',
                     boxSizing: 'border-box',
                     width: '100%',
+                    color: '#ffffff',
                   }}
                 />
               </div>
@@ -388,7 +391,7 @@ export default function AuthPage() {
               <label style={{
                 fontSize: '13px',
                 fontWeight: '600',
-                color: '#000',
+                color: '#ffffff',
               }}>
                 Email Address
               </label>
@@ -400,13 +403,14 @@ export default function AuthPage() {
                 required
                 style={{
                   padding: '14px 16px',
-                  border: '1px solid #d0d0d0',
+                  border: '1px solid rgba(255,255,255,0.2)',
                   borderRadius: '8px',
                   fontSize: '14px',
                   fontFamily: 'inherit',
-                  backgroundColor: '#fff',
+                  backgroundColor: 'rgba(255,255,255,0.05)',
                   boxSizing: 'border-box',
                   width: '100%',
+                  color: '#ffffff',
                 }}
               />
             </div>
@@ -419,7 +423,7 @@ export default function AuthPage() {
               <label style={{
                 fontSize: '13px',
                 fontWeight: '600',
-                color: '#000',
+                color: '#ffffff',
               }}>
                 Password
               </label>
@@ -432,17 +436,18 @@ export default function AuthPage() {
                 minLength={6}
                 style={{
                   padding: '14px 16px',
-                  border: '1px solid #d0d0d0',
+                  border: '1px solid rgba(255,255,255,0.2)',
                   borderRadius: '8px',
                   fontSize: '14px',
                   fontFamily: 'inherit',
-                  backgroundColor: '#fff',
+                  backgroundColor: 'rgba(255,255,255,0.05)',
                   boxSizing: 'border-box',
                   width: '100%',
+                  color: '#ffffff',
                 }}
               />
               {mode === 'signup' && (
-                <p style={{ fontSize: '12px', color: '#666', margin: '4px 0 0 0' }}>
+                <p style={{ fontSize: '12px', color: 'rgba(255,255,255,0.6)', margin: '4px 0 0 0' }}>
                   Password must be at least 6 characters
                 </p>
               )}
@@ -453,8 +458,8 @@ export default function AuthPage() {
               disabled={isLoading}
               style={{
                 padding: '14px 32px',
-                background: '#0071E3',
-                color: '#fff',
+                background: '#ffffff',
+                color: '#000000',
                 border: 'none',
                 borderRadius: '980px',
                 fontSize: '15px',
@@ -477,14 +482,14 @@ export default function AuthPage() {
           <div style={{
             marginTop: '32px',
             paddingTop: '24px',
-            borderTop: '1px solid #e8e8e8',
+            borderTop: '1px solid rgba(255,255,255,0.1)',
             textAlign: 'center',
           }}>
             <Link 
               href="/admin/auth" 
               style={{ 
                 fontSize: '13px', 
-                color: '#999', 
+                color: 'rgba(255,255,255,0.4)', 
                 textDecoration: 'none',
                 display: 'inline-flex',
                 alignItems: 'center',
@@ -501,6 +506,16 @@ export default function AuthPage() {
           </div>
         </div>
       </main>
+
+      <style jsx>{`
+        input::placeholder {
+          color: rgba(255,255,255,0.4);
+        }
+        input:focus {
+          outline: none;
+          border-color: rgba(255,255,255,0.4);
+        }
+      `}</style>
 
       <Footer />
     </>

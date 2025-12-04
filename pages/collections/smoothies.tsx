@@ -189,23 +189,23 @@ function StarRating({ rating }: { rating: number }) {
   return (
     <span style={{ display: 'inline-flex', alignItems: 'center', gap: '1px' }}>
       {[...Array(fullStars)].map((_, i) => (
-        <svg key={`full-${i}`} width="14" height="14" viewBox="0 0 24 24" fill="#000" xmlns="http://www.w3.org/2000/svg">
+        <svg key={`full-${i}`} width="14" height="14" viewBox="0 0 24 24" fill="#ffffff" xmlns="http://www.w3.org/2000/svg">
           <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/>
         </svg>
       ))}
       {hasHalfStar && (
         <svg width="14" height="14" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
           <defs>
-            <linearGradient id="halfGradient">
-              <stop offset="50%" stopColor="#000"/>
-              <stop offset="50%" stopColor="#ccc"/>
+            <linearGradient id="halfGradientDark">
+              <stop offset="50%" stopColor="#ffffff"/>
+              <stop offset="50%" stopColor="rgba(255,255,255,0.3)"/>
             </linearGradient>
           </defs>
-          <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" fill="url(#halfGradient)"/>
+          <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" fill="url(#halfGradientDark)"/>
         </svg>
       )}
       {[...Array(emptyStars)].map((_, i) => (
-        <svg key={`empty-${i}`} width="14" height="14" viewBox="0 0 24 24" fill="#ccc" xmlns="http://www.w3.org/2000/svg">
+        <svg key={`empty-${i}`} width="14" height="14" viewBox="0 0 24 24" fill="rgba(255,255,255,0.3)" xmlns="http://www.w3.org/2000/svg">
           <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/>
         </svg>
       ))}
@@ -220,9 +220,9 @@ function FilterChip({ label, selected, onClick }: { label: string; selected: boo
       style={{
         padding: '10px 16px',
         borderRadius: '24px',
-        border: selected ? '2px solid #000' : '1px solid #e0e0e0',
-        background: selected ? '#000' : '#fff',
-        color: selected ? '#fff' : '#000',
+        border: selected ? '2px solid #ffffff' : '1px solid rgba(255,255,255,0.2)',
+        background: selected ? '#ffffff' : 'transparent',
+        color: selected ? '#000000' : '#ffffff',
         fontSize: '13px',
         fontWeight: '500',
         cursor: 'pointer',
@@ -273,7 +273,7 @@ function FilterPanel({
           left: 0,
           right: 0,
           bottom: 0,
-          background: 'rgba(0, 0, 0, 0.5)',
+          background: 'rgba(0, 0, 0, 0.7)',
           opacity: isOpen ? 1 : 0,
           visibility: isOpen ? 'visible' : 'hidden',
           transition: 'all 0.3s ease',
@@ -289,7 +289,7 @@ function FilterPanel({
           width: '380px',
           maxWidth: '90vw',
           height: '100vh',
-          background: '#fff',
+          background: '#111111',
           zIndex: 1000,
           transition: 'left 0.3s ease',
           display: 'flex',
@@ -301,15 +301,15 @@ function FilterPanel({
           alignItems: 'center',
           justifyContent: 'space-between',
           padding: '20px 24px',
-          borderBottom: '1px solid #e8e8e8',
+          borderBottom: '1px solid rgba(255,255,255,0.1)',
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="2">
               <line x1="4" y1="6" x2="20" y2="6" />
               <line x1="4" y1="12" x2="14" y2="12" />
               <line x1="4" y1="18" x2="10" y2="18" />
             </svg>
-            <span style={{ fontSize: '16px', fontWeight: '600', letterSpacing: '-0.3px' }}>FILTER</span>
+            <span style={{ fontSize: '16px', fontWeight: '600', letterSpacing: '-0.3px', color: '#ffffff' }}>FILTER</span>
           </div>
           <button
             onClick={onClose}
@@ -320,7 +320,7 @@ function FilterPanel({
               padding: '4px',
             }}
           >
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="2">
               <line x1="18" y1="6" x2="6" y2="18" />
               <line x1="6" y1="6" x2="18" y2="18" />
             </svg>
@@ -329,7 +329,7 @@ function FilterPanel({
 
         <div style={{ flex: 1, overflowY: 'auto', padding: '24px' }}>
           <div style={{ marginBottom: '32px' }}>
-            <h3 style={{ fontSize: '18px', fontWeight: '600', marginBottom: '16px' }}>Likes</h3>
+            <h3 style={{ fontSize: '18px', fontWeight: '600', marginBottom: '16px', color: '#ffffff' }}>Likes</h3>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
               {(showMoreLikes ? LIKES_OPTIONS : LIKES_OPTIONS.slice(0, 8)).map(option => (
                 <FilterChip
@@ -346,7 +346,7 @@ function FilterPanel({
                 style={{
                   background: 'none',
                   border: 'none',
-                  color: '#000',
+                  color: 'rgba(255,255,255,0.6)',
                   fontSize: '13px',
                   fontWeight: '500',
                   textDecoration: 'underline',
@@ -361,7 +361,7 @@ function FilterPanel({
           </div>
 
           <div style={{ marginBottom: '32px' }}>
-            <h3 style={{ fontSize: '18px', fontWeight: '600', marginBottom: '16px' }}>Dislikes</h3>
+            <h3 style={{ fontSize: '18px', fontWeight: '600', marginBottom: '16px', color: '#ffffff' }}>Dislikes</h3>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
               {(showMoreDislikes ? DISLIKES_OPTIONS : DISLIKES_OPTIONS.slice(0, 6)).map(option => (
                 <FilterChip
@@ -378,7 +378,7 @@ function FilterPanel({
                 style={{
                   background: 'none',
                   border: 'none',
-                  color: '#000',
+                  color: 'rgba(255,255,255,0.6)',
                   fontSize: '13px',
                   fontWeight: '500',
                   textDecoration: 'underline',
@@ -393,7 +393,7 @@ function FilterPanel({
           </div>
 
           <div style={{ marginBottom: '32px' }}>
-            <h3 style={{ fontSize: '18px', fontWeight: '600', marginBottom: '16px' }}>Dietary Needs</h3>
+            <h3 style={{ fontSize: '18px', fontWeight: '600', marginBottom: '16px', color: '#ffffff' }}>Dietary Needs</h3>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
               {(showMoreDietary ? DIETARY_OPTIONS : DIETARY_OPTIONS.slice(0, 6)).map(option => (
                 <FilterChip
@@ -410,7 +410,7 @@ function FilterPanel({
                 style={{
                   background: 'none',
                   border: 'none',
-                  color: '#000',
+                  color: 'rgba(255,255,255,0.6)',
                   fontSize: '13px',
                   fontWeight: '500',
                   textDecoration: 'underline',
@@ -427,11 +427,11 @@ function FilterPanel({
 
         <div style={{
           padding: '20px 24px',
-          borderTop: '1px solid #e8e8e8',
+          borderTop: '1px solid rgba(255,255,255,0.08)',
         }}>
           <p style={{
             fontSize: '13px',
-            color: '#666',
+            color: 'rgba(255,255,255,0.6)',
             textAlign: 'center',
             marginBottom: '16px',
           }}>
@@ -444,8 +444,8 @@ function FilterPanel({
                 flex: 1,
                 padding: '14px 20px',
                 background: 'transparent',
-                color: '#0071E3',
-                border: '1px solid #0071E3',
+                color: 'rgba(255,255,255,0.8)',
+                border: '1px solid rgba(255,255,255,0.3)',
                 borderRadius: '980px',
                 fontSize: '14px',
                 fontWeight: '500',
@@ -460,8 +460,8 @@ function FilterPanel({
               style={{
                 flex: 1,
                 padding: '14px 20px',
-                background: '#0071E3',
-                color: '#fff',
+                background: '#ffffff',
+                color: '#000000',
                 border: 'none',
                 borderRadius: '980px',
                 fontSize: '14px',
@@ -491,16 +491,17 @@ function SortDropdown({ value, onChange }: { value: string; onChange: (value: st
           alignItems: 'center',
           gap: '8px',
           padding: '12px 20px',
-          background: '#fff',
-          border: '1px solid #e0e0e0',
+          background: '#111111',
+          border: '1px solid rgba(255,255,255,0.1)',
           borderRadius: '0',
           fontSize: '13px',
           fontWeight: '500',
           cursor: 'pointer',
           minWidth: '120px',
+          color: '#ffffff',
         }}
       >
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="2">
           <path d="M7 15l5 5 5-5" />
           <path d="M7 9l5-5 5 5" />
         </svg>
@@ -525,9 +526,9 @@ function SortDropdown({ value, onChange }: { value: string; onChange: (value: st
               top: '100%',
               right: 0,
               marginTop: '4px',
-              background: '#fff',
-              border: '1px solid #e0e0e0',
-              boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)',
+              background: '#111111',
+              border: '1px solid rgba(255,255,255,0.1)',
+              boxShadow: '0 4px 20px rgba(0, 0, 0, 0.4)',
               zIndex: 99,
               minWidth: '200px',
             }}
@@ -548,12 +549,12 @@ function SortDropdown({ value, onChange }: { value: string; onChange: (value: st
                   background: 'none',
                   border: 'none',
                   fontSize: '13px',
-                  color: '#000',
+                  color: '#ffffff',
                   cursor: 'pointer',
                   textAlign: 'left',
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.background = '#f5f5f5';
+                  e.currentTarget.style.background = 'rgba(255,255,255,0.05)';
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.background = 'none';
@@ -561,7 +562,7 @@ function SortDropdown({ value, onChange }: { value: string; onChange: (value: st
               >
                 <span>{option.label}</span>
                 {value === option.id && (
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="2">
                     <polyline points="20 6 9 17 4 12" />
                   </svg>
                 )}
@@ -592,14 +593,21 @@ function ProductCard({ product }: { product: Product }) {
       style={{
         display: 'flex',
         flexDirection: 'column',
+        background: '#111111',
+        borderRadius: '12px',
+        border: '1px solid rgba(255,255,255,0.1)',
+        padding: '12px',
+        transition: 'all 0.3s ease',
+        boxShadow: isHovered ? '0 0 20px rgba(255,255,255,0.05)' : 'none',
+        transform: isHovered ? 'scale(1.02)' : 'scale(1)',
       }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
       <Link href={`/product/${product.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
         <div style={{
-          background: '#f5f5f5',
-          borderRadius: '12px',
+          background: 'rgba(255,255,255,0.05)',
+          borderRadius: '8px',
           aspectRatio: '1',
           marginBottom: '12px',
           position: 'relative',
@@ -611,8 +619,8 @@ function ProductCard({ product }: { product: Product }) {
               position: 'absolute',
               top: '12px',
               left: '12px',
-              background: product.badge === 'New' ? '#22c55e' : '#000',
-              color: '#fff',
+              background: product.badge === 'New' ? '#22c55e' : '#ffffff',
+              color: product.badge === 'New' ? '#ffffff' : '#000000',
               fontSize: '10px',
               fontWeight: '600',
               padding: '6px 10px',
@@ -633,8 +641,8 @@ function ProductCard({ product }: { product: Product }) {
               width: '36px',
               height: '36px',
               borderRadius: '50%',
-              background: '#ffffff',
-              border: '1px solid #e0e0e0',
+              background: '#111111',
+              border: '1px solid rgba(255,255,255,0.2)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
@@ -645,7 +653,7 @@ function ProductCard({ product }: { product: Product }) {
               zIndex: 5,
             }}
           >
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#000" strokeWidth="2">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="2">
               <circle cx="11" cy="11" r="8" />
               <path d="M21 21l-4.35-4.35" />
             </svg>
@@ -667,7 +675,7 @@ function ProductCard({ product }: { product: Product }) {
             fontSize: '15px', 
             fontWeight: '600', 
             marginBottom: '6px',
-            color: '#000000',
+            color: '#ffffff',
             letterSpacing: '-0.3px',
           }}>
             {product.name}
@@ -681,7 +689,7 @@ function ProductCard({ product }: { product: Product }) {
             <StarRating rating={product.rating} />
             <span style={{
               fontSize: '12px',
-              color: '#666666',
+              color: 'rgba(255,255,255,0.6)',
             }}>
               {product.reviews.toLocaleString()} reviews
             </span>
@@ -694,8 +702,8 @@ function ProductCard({ product }: { product: Product }) {
         style={{
           width: '100%',
           padding: '14px 20px',
-          background: '#0071E3',
-          color: '#ffffff',
+          background: '#ffffff',
+          color: '#000000',
           border: 'none',
           borderRadius: '980px',
           fontSize: '14px',
@@ -705,11 +713,11 @@ function ProductCard({ product }: { product: Product }) {
           transition: 'all 0.3s ease',
         }}
         onMouseEnter={(e) => {
-          e.currentTarget.style.background = '#0077ED';
+          e.currentTarget.style.background = 'rgba(255,255,255,0.9)';
           e.currentTarget.style.transform = 'scale(1.02)';
         }}
         onMouseLeave={(e) => {
-          e.currentTarget.style.background = '#0071E3';
+          e.currentTarget.style.background = '#ffffff';
           e.currentTarget.style.transform = 'scale(1)';
         }}
       >
@@ -826,11 +834,11 @@ export default function Smoothies() {
         onClearAll={handleClearAll}
         onApply={handleApply}
       />
-      <div className="smoothies-page" style={{ minHeight: '100vh', padding: '48px 60px', background: '#ffffff' }}>
+      <div className="smoothies-page" style={{ minHeight: '100vh', padding: '48px 60px', background: '#000000' }}>
         <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
           <div style={{ marginBottom: '32px' }}>
             <div className="smoothies-hero" style={{ 
-              background: '#f5f5f5', 
+              background: '#111111', 
               borderRadius: '8px', 
               overflow: 'hidden', 
               marginBottom: '40px', 
@@ -838,7 +846,8 @@ export default function Smoothies() {
               maxWidth: '1200px',
               height: 'auto',
               aspectRatio: '1200 / 800',
-              margin: '0 auto 40px auto' 
+              margin: '0 auto 40px auto',
+              border: '1px solid rgba(255,255,255,0.1)',
             }}>
               <img
                 src="/images/smoothies-hero.jpg"
@@ -850,15 +859,15 @@ export default function Smoothies() {
               marginBottom: '16px', 
               fontSize: '42px',
               fontWeight: '600',
-              color: '#000000',
+              color: '#ffffff',
               letterSpacing: '-0.5px',
             }}>
               Smoothies
             </h1>
-            <p style={{ fontSize: '16px', color: '#666', maxWidth: '600px', lineHeight: '1.6' }}>
+            <p style={{ fontSize: '16px', color: 'rgba(255,255,255,0.6)', maxWidth: '600px', lineHeight: '1.6' }}>
               It's never been easier—or healthier—to build a delicious daily routine.
             </p>
-            <ul style={{ fontSize: '14px', color: '#666', marginTop: '24px', marginLeft: '20px', lineHeight: '1.8' }}>
+            <ul style={{ fontSize: '14px', color: 'rgba(255,255,255,0.6)', marginTop: '24px', marginLeft: '20px', lineHeight: '1.8' }}>
               <li style={{ marginBottom: '6px' }}>Gluten-free + dairy-free</li>
               <li style={{ marginBottom: '6px' }}>A plentiful array of fruits + vegetables in each</li>
               <li style={{ marginBottom: '6px' }}>Comes frozen, pre-portioned + ready to blend</li>
@@ -871,6 +880,8 @@ export default function Smoothies() {
             justifyContent: 'space-between',
             alignItems: 'center',
             marginBottom: '32px',
+            borderBottom: '1px solid rgba(255,255,255,0.08)',
+            paddingBottom: '24px',
           }}>
             <button
               onClick={() => {
@@ -884,15 +895,16 @@ export default function Smoothies() {
                 alignItems: 'center',
                 gap: '8px',
                 padding: '12px 20px',
-                background: '#fff',
-                border: '1px solid #e0e0e0',
+                background: '#111111',
+                border: '1px solid rgba(255,255,255,0.1)',
                 borderRadius: '0',
                 fontSize: '13px',
                 fontWeight: '500',
                 cursor: 'pointer',
+                color: '#ffffff',
               }}
             >
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="2">
                 <line x1="4" y1="6" x2="20" y2="6" />
                 <line x1="4" y1="12" x2="14" y2="12" />
                 <line x1="4" y1="18" x2="10" y2="18" />
@@ -900,8 +912,8 @@ export default function Smoothies() {
               FILTER
               {activeFilterCount > 0 && (
                 <span style={{
-                  background: '#000',
-                  color: '#fff',
+                  background: '#ffffff',
+                  color: '#000000',
                   fontSize: '11px',
                   fontWeight: '600',
                   padding: '2px 6px',
@@ -929,9 +941,9 @@ export default function Smoothies() {
             <div style={{
               textAlign: 'center',
               padding: '60px 20px',
-              color: '#666',
+              color: 'rgba(255,255,255,0.6)',
             }}>
-              <p style={{ fontSize: '18px', marginBottom: '12px' }}>No products match your filters</p>
+              <p style={{ fontSize: '18px', marginBottom: '12px', color: '#ffffff' }}>No products match your filters</p>
               <p style={{ fontSize: '14px' }}>Try adjusting your filter selections</p>
             </div>
           )}
