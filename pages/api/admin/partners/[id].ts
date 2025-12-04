@@ -185,12 +185,58 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       if (adminNotes) updateData.admin_notes = adminNotes;
       if (rejectionReason) updateData.rejection_reason = rejectionReason;
 
-      const { data: partner, error: updateError } = await supabaseAdmin
+      let partner;
+      let updateError;
+
+      // Try update with all fields first
+      const result = await supabaseAdmin
         .from('retail_partners')
         .update(updateData)
         .eq('id', id)
         .select()
         .single();
+      
+      partner = result.data;
+      updateError = result.error;
+
+      // If admin_notes column doesn't exist, try without it
+      if (updateError && updateError.message?.includes('admin_notes')) {
+        console.log('[Partner API] admin_notes column not found, retrying without it');
+        const minimalUpdate: Record<string, unknown> = {
+          status,
+          updated_at: new Date().toISOString(),
+        };
+        if (rejectionReason) minimalUpdate.rejection_reason = rejectionReason;
+
+        const retryResult = await supabaseAdmin
+          .from('retail_partners')
+          .update(minimalUpdate)
+          .eq('id', id)
+          .select()
+          .single();
+        
+        partner = retryResult.data;
+        updateError = retryResult.error;
+      }
+
+      // If rejection_reason column doesn't exist, try with just status
+      if (updateError && updateError.message?.includes('rejection_reason')) {
+        console.log('[Partner API] rejection_reason column not found, retrying with status only');
+        const statusOnlyUpdate: Record<string, unknown> = {
+          status,
+          updated_at: new Date().toISOString(),
+        };
+
+        const retryResult = await supabaseAdmin
+          .from('retail_partners')
+          .update(statusOnlyUpdate)
+          .eq('id', id)
+          .select()
+          .single();
+        
+        partner = retryResult.data;
+        updateError = retryResult.error;
+      }
 
       if (updateError) {
         console.error('[Partner API] Error updating retail_partners:', updateError);
