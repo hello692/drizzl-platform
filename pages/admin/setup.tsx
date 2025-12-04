@@ -17,18 +17,36 @@ export default function AdminSetup() {
     setError('');
 
     try {
-      const { data, error: signUpError } = await supabase.auth.signUp({
+      // First try to sign up
+      const { data: signUpData, error: signUpError } = await supabase.auth.signUp({
         email,
         password,
       });
 
-      if (signUpError) throw signUpError;
+      let userId: string | null = null;
 
-      if (data.user) {
+      if (signUpError) {
+        // If user already exists, try to sign in instead
+        if (signUpError.message.includes('already registered') || signUpError.message.includes('already exists')) {
+          const { data: signInData, error: signInError } = await supabase.auth.signInWithPassword({
+            email,
+            password,
+          });
+
+          if (signInError) throw signInError;
+          userId = signInData.user?.id || null;
+        } else {
+          throw signUpError;
+        }
+      } else {
+        userId = signUpData.user?.id || null;
+      }
+
+      if (userId) {
         const { error: profileError } = await supabase
           .from('profiles')
           .upsert({
-            id: data.user.id,
+            id: userId,
             email: email,
             full_name: 'Admin',
             role: 'admin',
@@ -45,7 +63,7 @@ export default function AdminSetup() {
 
         setSuccess(true);
         setTimeout(() => {
-          router.push('/admin/auth');
+          router.push('/admin');
         }, 2000);
       }
     } catch (err: any) {
