@@ -158,6 +158,15 @@ const products: Product[] = [
     defaultImage: '/products/almond/transparent-glass-1.png',
     hoverImage: '/products/almond/transparent-glass-2.png',
   },
+  { 
+    id: '17', 
+    name: 'Acai', 
+    price: 9.49, 
+    reviews: 487, 
+    badge: 'Best Seller',
+    defaultImage: '/products/acai/transparent-glass-1.png',
+    hoverImage: '/products/acai/transparent-glass-2.png',
+  },
 ];
 
 function ProductCard({ product }: { product: Product }) {
