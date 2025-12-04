@@ -106,7 +106,7 @@ export default function AdminSetup() {
               WebkitTextFillColor: 'transparent',
               marginBottom: '16px',
             }}>
-              DRIZZL COMMAND CENTER
+              DRIZZL WELLNESS COMMAND CENTER
             </div>
             <h1 style={{
               fontSize: '28px',
@@ -202,7 +202,7 @@ export default function AdminSetup() {
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder="admin@drizzl.com"
+                  placeholder="hello@drizzlwellness.com"
                   required
                   style={{
                     width: '100%',

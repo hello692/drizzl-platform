@@ -245,7 +245,7 @@ export default function AdminAuthPage() {
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="admin@drizzl.com"
+                placeholder="hello@drizzlwellness.com"
                 required
                 style={{
                   padding: '14px 16px',

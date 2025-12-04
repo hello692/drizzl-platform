@@ -156,7 +156,7 @@ export default function AdminLayout({ children, title, subtitle }: AdminLayoutPr
         <div style={styles.navBrand}>
           <Link href="/admin" style={styles.logo}>
             <span style={styles.logoIcon}>D</span>
-            <span style={styles.logoText}>DRIZZL</span>
+            <span style={styles.logoText}>DRIZZL WELLNESS</span>
           </Link>
         </div>
         

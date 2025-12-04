@@ -215,9 +215,9 @@ function NotificationSettings() {
 
 function TeamSettings() {
   const teamMembers = [
-    { name: 'Admin User', email: 'admin@drizzl.com', role: 'Super Admin' },
-    { name: 'Sarah Mitchell', email: 'sarah@drizzl.com', role: 'Marketing' },
-    { name: 'Mike Roberts', email: 'mike@drizzl.com', role: 'Factory Manager' },
+    { name: 'Admin User', email: 'admin@drizzlwellness.com', role: 'Super Admin' },
+    { name: 'Sarah Mitchell', email: 'sarah@drizzlwellness.com', role: 'Marketing' },
+    { name: 'Mike Roberts', email: 'mike@drizzlwellness.com', role: 'Factory Manager' },
   ];
   return (
     <div style={styles.section}>
