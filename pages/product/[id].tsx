@@ -548,10 +548,10 @@ export default function ProductDetail() {
   return (
     <>
       <Navbar />
-      <div style={{ padding: '60px', background: '#ffffff' }}>
+      <div className="product-page" style={{ padding: 'clamp(24px, 6vw, 60px)', background: '#ffffff' }}>
         <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
           {/* Product Header with Badge */}
-          <div style={{ marginBottom: '40px', display: 'flex', alignItems: 'center', gap: '20px' }}>
+          <div style={{ marginBottom: 'clamp(24px, 5vw, 40px)', display: 'flex', alignItems: 'center', gap: '20px' }}>
             {product.badge && (
               <div className="tech-shine" style={{
                 background: 'linear-gradient(135deg, #000 0%, #1a1a1a 100%)',
@@ -570,7 +570,7 @@ export default function ProductDetail() {
           </div>
 
           {/* Main Product Section */}
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '80px', marginBottom: '100px' }}>
+          <div className="product-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 'clamp(32px, 8vw, 80px)', marginBottom: 'clamp(60px, 10vw, 100px)' }}>
             {/* Left: Product Image Carousel */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
               {/* Main Image */}
@@ -754,8 +754,8 @@ export default function ProductDetail() {
               </p>
 
               {/* Product Name */}
-              <h1 className="heading-2100 text-glow" style={{
-                fontSize: '56px',
+              <h1 className="heading-2100 text-glow product-title" style={{
+                fontSize: 'clamp(32px, 6vw, 56px)',
                 margin: '0 0 16px 0',
               }}>
                 {product.name}
@@ -1344,6 +1344,31 @@ export default function ProductDetail() {
         </div>
       </div>
       <Footer />
+
+      <style jsx global>{`
+        @media (max-width: 1024px) {
+          .product-grid {
+            grid-template-columns: 1fr !important;
+            gap: 40px !important;
+          }
+        }
+        @media (max-width: 768px) {
+          .product-page {
+            padding: 20px 16px !important;
+          }
+          .product-grid {
+            gap: 32px !important;
+          }
+        }
+        @media (max-width: 480px) {
+          .product-page {
+            padding: 16px 12px !important;
+          }
+          .product-grid {
+            gap: 24px !important;
+          }
+        }
+      `}</style>
     </>
   );
 }

@@ -313,7 +313,7 @@ export default function Smoothies() {
   return (
     <>
       <Navbar />
-      <div style={{ minHeight: '100vh', padding: '80px 60px', background: '#ffffff' }}>
+      <div className="smoothies-page" style={{ minHeight: '100vh', padding: '80px 60px', background: '#ffffff' }}>
         <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
           <div style={{ marginBottom: '60px' }}>
             <div style={{ 
@@ -353,7 +353,7 @@ export default function Smoothies() {
             </ul>
           </div>
 
-          <div style={{
+          <div className="smoothies-grid" style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(4, 1fr)',
             gap: '40px 30px',
@@ -368,18 +368,46 @@ export default function Smoothies() {
 
       <style jsx global>{`
         @media (max-width: 1200px) {
+          .smoothies-page {
+            padding: 60px 40px !important;
+          }
           .smoothies-grid {
             grid-template-columns: repeat(3, 1fr) !important;
+            gap: 32px 24px !important;
           }
         }
         @media (max-width: 900px) {
+          .smoothies-page {
+            padding: 40px 24px !important;
+          }
           .smoothies-grid {
             grid-template-columns: repeat(2, 1fr) !important;
+            gap: 28px 20px !important;
+          }
+          .smoothies-hero {
+            height: auto !important;
+            aspect-ratio: 16 / 10 !important;
           }
         }
         @media (max-width: 600px) {
+          .smoothies-page {
+            padding: 30px 16px !important;
+          }
+          .smoothies-grid {
+            grid-template-columns: repeat(2, 1fr) !important;
+            gap: 20px 12px !important;
+          }
+          .smoothies-hero {
+            aspect-ratio: 4 / 3 !important;
+          }
+        }
+        @media (max-width: 480px) {
+          .smoothies-page {
+            padding: 24px 12px !important;
+          }
           .smoothies-grid {
             grid-template-columns: 1fr !important;
+            gap: 24px !important;
           }
         }
       `}</style>
