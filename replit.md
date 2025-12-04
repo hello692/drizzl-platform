@@ -115,8 +115,45 @@ Drizzl Wellness is a full-stack e-commerce platform for a smoothie and wellness 
 - **Risk Management**: Risk flag system with add/remove capabilities and severity levels
 - **Account Management**: Account manager assignment and tracking
 
+### Phase 2: Orders 2.0, Banking Intelligence, Lead Pipeline (Complete)
+- **Orders 2.0 System**:
+  - Carrier detection (USPS, UPS, FedEx, DHL, Amazon, OnTrac) from tracking numbers
+  - Order tracking with shipment events timeline
+  - Proof of delivery recording (signature, photos, GPS)
+  - Service Layer: `lib/orderTrackingService.ts`
+  - API: `/api/admin/orders/tracking` with auth middleware
+  - New Tables: `shipment_events`, `delivery_proofs`, `carriers`
+
+- **Banking Intelligence**:
+  - Mercury API integration with demo mode fallback
+  - Financial overview: balances, income, expenses, burn rate, runway
+  - Transaction categorization and historical snapshots
+  - Service Layer: `lib/bankingService.ts`
+  - API: `/api/admin/banking` with enhanced data structure
+
+- **Lead Pipeline / CRM**:
+  - Full Kanban board with 7 pipeline stages (New, Contacted, Qualified, Proposal, Negotiation, Closed Won, Closed Lost)
+  - Lead cards with score badges, tags, and contact info
+  - Activity timeline and meeting scheduling
+  - Convert to Partner functionality
+  - Demo mode with 19 realistic sample leads
+  - Service Layer: `lib/leadService.ts`
+  - API: `/api/admin/leads` with auth middleware
+  - UI: `/admin/leads` page with drag-drop Kanban board
+  - New Tables: `leads`, `lead_activities`, `lead_meetings`, `lead_documents`
+
+- **Google Calendar Integration**:
+  - Replit connector integration for OAuth
+  - Create/update/delete calendar events
+  - Auto-generate Google Meet links
+  - Service Layer: `lib/googleCalendarService.ts`
+  - API: `/api/admin/calendar`
+
+- **Database Migration**: `006_phase2_orders_banking_leads.sql` with all new tables and RLS policies
+
 ## Required Secrets for Production
 - `SUPABASE_SERVICE_ROLE_KEY` - For secure admin operations bypassing RLS
 - `RESEND_API_KEY` - For email notifications
 - `OPENAI_API_KEY` - For AI Command Assistant
 - `MERCURY_API_KEY` - For Banking Intelligence
+- `GOOGLE_CALENDAR` - Managed via Replit connector integration

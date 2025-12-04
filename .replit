@@ -1,7 +1,7 @@
 run = "npm run dev"
 entrypoint = "index.js"
 hidden = [".config", "package-lock.json", ".next", ".swc"]
-modules = ["nodejs-22", "postgresql-16"]
+modules = ["nodejs-22", "postgresql-16", "python-3.11"]
 
 [nix]
 channel = "stable-24_11"
@@ -31,6 +31,10 @@ localPort = 36745
 externalPort = 3000
 
 [[ports]]
+localPort = 37297
+externalPort = 3003
+
+[[ports]]
 localPort = 42203
 externalPort = 3001
 
@@ -40,6 +44,7 @@ externalPort = 3002
 
 [agent]
 expertMode = true
+integrations = ["google-calendar:1.0.0"]
 
 [workflows]
 runButton = "Project"

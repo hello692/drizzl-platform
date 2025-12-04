@@ -1,4 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
+import { verifyAdminRequest } from '../../../../lib/adminAuth';
 import { 
   getOrderTracking, 
   updateOrderTracking, 
@@ -12,6 +13,11 @@ import {
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   res.setHeader('Content-Type', 'application/json');
+  
+  const { authorized, error } = await verifyAdminRequest(req);
+  if (!authorized) {
+    return res.status(401).json({ error: error || 'Unauthorized' });
+  }
   
   const { orderId, action } = req.query;
 
