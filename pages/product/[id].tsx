@@ -13,8 +13,10 @@ const smoothies: { [key: string]: any } = {
     reviews: 4619,
     rating: 4.5,
     badge: 'BEST SELLER',
-    image: '/products/strawberry-peach/transparent-glass-1.jpg',
+    image: '/products/strawberry-peach/main-product.png',
+    hoverImage: '/products/strawberry-peach/transparent-glass-1.jpg',
     images: [
+      '/products/strawberry-peach/main-product.png',
       '/products/strawberry-peach/transparent-glass-1.jpg',
       '/products/strawberry-peach/transparent-glass-2.jpg',
       '/products/strawberry-peach/transparent-glass-3.jpg',
@@ -23,8 +25,6 @@ const smoothies: { [key: string]: any } = {
       '/products/strawberry-peach/product-3.jpg',
       '/products/strawberry-peach/lifestyle-1.jpg',
       '/products/strawberry-peach/lifestyle-2.jpg',
-      '/products/strawberry-peach/detail-1.jpg',
-      '/products/strawberry-peach/detail-2.jpg',
     ],
     description: 'If you asked a peach what it wanted to be when it grew up, it would tell you: THIS SMOOTHIE. Sweet strawberries, bright raspberries, and a hint of tartness from goji berries round out that irresistibly juicy peach flavor. Bananas, oats, and flax seeds make the whole thing creamy and satisfying.',
     ingredients: ['organic strawberries', 'organic bananas', 'organic peaches', 'organic raspberries', 'organic gluten-free whole grain oats', 'organic flax seeds', 'organic goji berries'],
@@ -58,6 +58,7 @@ const smoothies: { [key: string]: any } = {
     rating: 4.5,
     badge: 'NEW',
     image: '/products/strawberry-banana-protein/transparent-glass-1.jpg',
+    hoverImage: '/products/strawberry-banana-protein/transparent-glass-2.jpg',
     images: [
       '/products/strawberry-banana-protein/transparent-glass-1.jpg',
       '/products/strawberry-banana-protein/transparent-glass-2.jpg',
@@ -183,6 +184,7 @@ export default function ProductDetail() {
   const [selectedIngredient, setSelectedIngredient] = useState(0);
   const [relatedScrollPosition, setRelatedScrollPosition] = useState(0);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [isMainImageHovered, setIsMainImageHovered] = useState(false);
 
   if (!product) {
     return (
@@ -227,26 +229,36 @@ export default function ProductDetail() {
             {/* Left: Product Image Carousel */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
               {/* Main Image */}
-              <div style={{ 
-                position: 'relative',
-                display: 'flex', 
-                alignItems: 'center', 
-                justifyContent: 'center',
-                background: '#f8f9fa',
-                borderRadius: '12px',
-                overflow: 'hidden',
-                aspectRatio: '1 / 1',
-                width: '100%',
-                maxWidth: '560px',
-              }}>
+              <div 
+                style={{ 
+                  position: 'relative',
+                  display: 'flex', 
+                  alignItems: 'center', 
+                  justifyContent: 'center',
+                  background: '#f8f9fa',
+                  borderRadius: '12px',
+                  overflow: 'hidden',
+                  aspectRatio: '1 / 1',
+                  width: '100%',
+                  maxWidth: '560px',
+                  cursor: product.hoverImage ? 'pointer' : 'default',
+                }}
+                onMouseEnter={() => product.hoverImage && setIsMainImageHovered(true)}
+                onMouseLeave={() => product.hoverImage && setIsMainImageHovered(false)}
+              >
                 <img
-                  src={product.images ? product.images[currentImageIndex] : product.image}
+                  src={
+                    isMainImageHovered && product.hoverImage && currentImageIndex === 0
+                      ? product.hoverImage
+                      : (product.images ? product.images[currentImageIndex] : product.image)
+                  }
                   alt={product.name}
                   style={{
                     width: '100%',
                     height: '100%',
                     objectFit: 'contain',
-                    transition: 'opacity 0.3s ease',
+                    transition: 'all 0.4s ease',
+                    transform: isMainImageHovered && currentImageIndex === 0 ? 'scale(1.02)' : 'scale(1)',
                   }}
                 />
                 
