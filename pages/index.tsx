@@ -603,116 +603,140 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Experts Section */}
+      {/* Experts Section - MUDWTR Style */}
       <section style={{
-        background: '#f8f9fa',
-        padding: 'clamp(32px, 6vw, 80px) clamp(16px, 4vw, 60px)',
+        background: '#000',
+        padding: 'clamp(48px, 8vw, 80px) 0',
       }}>
         <div style={{
-          maxWidth: '1400px',
+          maxWidth: '100%',
           margin: '0 auto',
+          paddingLeft: 'clamp(16px, 4vw, 40px)',
+          paddingRight: 'clamp(16px, 4vw, 40px)',
         }}>
-          <h2 style={{
-            fontSize: 'clamp(28px, 6vw, 48px)',
-            fontWeight: '700',
-            marginBottom: '8px',
-            letterSpacing: '-0.8px',
+          <p style={{
+            fontSize: '11px',
+            fontWeight: '600',
+            color: '#888',
             textAlign: 'center',
+            marginBottom: '12px',
+            letterSpacing: '1.5px',
+            textTransform: 'uppercase',
           }}>
-            Powered by AI, Formulated by Data
+            OVER 50K FIVE STAR REVIEWS
+          </p>
+          <h2 style={{
+            fontSize: 'clamp(32px, 7vw, 52px)',
+            fontWeight: '700',
+            marginBottom: '16px',
+            letterSpacing: '-1px',
+            textAlign: 'center',
+            color: '#fff',
+          }}>
+            Join <span style={{ fontWeight: '400' }}>The Movement</span>
           </h2>
           <p style={{
-            fontSize: 'clamp(12px, 3vw, 14px)',
-            color: '#86868b',
+            fontSize: 'clamp(13px, 3vw, 15px)',
+            color: '#888',
             textAlign: 'center',
-            marginBottom: 'clamp(24px, 5vw, 40px)',
-            letterSpacing: '0.3px',
+            marginBottom: 'clamp(32px, 6vw, 48px)',
+            letterSpacing: '0.2px',
+            maxWidth: '600px',
+            margin: '0 auto clamp(32px, 6vw, 48px) auto',
+            lineHeight: '1.6',
           }}>
-            functional mushrooms, and rituals that support a healthier mind.
+            Or cult. Kidding. Kind of. Trusted by 2 million+—a movement powered by functional mushrooms, and rituals that support a healthier mind.
           </p>
 
           {/* Video Cards Container */}
-          <div style={{ position: 'relative', paddingRight: '60px' }}>
+          <div style={{ position: 'relative' }}>
             <div style={{
               display: 'flex',
-              gap: '16px',
+              gap: '12px',
+              alignItems: 'flex-end',
+              justifyContent: 'center',
               overflowX: 'auto',
               scrollbarWidth: 'none',
               paddingBottom: '8px',
             }}>
-              {[...EXPERTS, ...EXPERTS].slice(expertPosition, expertPosition + 6).map((expert, idx) => (
-                <div 
-                  key={`${expert.id}-${idx}`} 
-                  style={{
-                    flexShrink: 0,
-                    width: '180px',
-                    aspectRatio: '9/16',
-                    borderRadius: '16px',
-                    overflow: 'hidden',
-                    position: 'relative',
-                    cursor: 'pointer',
-                  }}
-                  onClick={() => {
-                    setUnMutedExpert(unMutedExpert === expert.id ? null : expert.id);
-                  }}
-                >
-                  <video
-                    src={expert.video}
+              {[...EXPERTS, ...EXPERTS].slice(expertPosition, expertPosition + 7).map((expert, idx) => {
+                const isFirst = idx === 0;
+                const cardWidth = isFirst ? 'clamp(200px, 18vw, 240px)' : 'clamp(140px, 13vw, 165px)';
+                const cardHeight = isFirst ? 'clamp(340px, 32vw, 420px)' : 'clamp(260px, 24vw, 320px)';
+                
+                return (
+                  <div 
+                    key={`${expert.id}-${idx}`} 
                     style={{
-                      width: '100%',
-                      height: '100%',
-                      objectFit: 'cover',
+                      flexShrink: 0,
+                      width: cardWidth,
+                      height: cardHeight,
+                      borderRadius: '12px',
+                      overflow: 'hidden',
+                      position: 'relative',
+                      cursor: 'pointer',
                     }}
-                    loop
-                    autoPlay
-                    muted={unMutedExpert !== expert.id}
-                    playsInline
-                  />
-                  <div style={{
-                    position: 'absolute',
-                    top: 0,
-                    left: 0,
-                    right: 0,
-                    bottom: 0,
-                    background: 'linear-gradient(to bottom, transparent 50%, rgba(0,0,0,0.6) 100%)',
-                    pointerEvents: 'none',
-                  }} />
-                  <div style={{
-                    position: 'absolute',
-                    top: '50%',
-                    left: '50%',
-                    transform: 'translate(-50%, -50%)',
-                    width: '48px',
-                    height: '48px',
-                    borderRadius: '50%',
-                    border: '2px solid rgba(255,255,255,0.8)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    background: 'rgba(0,0,0,0.2)',
-                  }}>
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
-                      <polygon points="5 3 19 12 5 21 5 3" />
-                    </svg>
-                  </div>
-                  <div style={{
-                    position: 'absolute',
-                    bottom: '16px',
-                    left: '12px',
-                    right: '12px',
-                  }}>
-                    <p style={{
-                      fontSize: '13px',
-                      color: '#fff',
-                      margin: 0,
-                      fontWeight: '400',
-                      textShadow: '0 1px 3px rgba(0,0,0,0.5)',
+                    onClick={() => {
+                      setUnMutedExpert(unMutedExpert === expert.id ? null : expert.id);
+                    }}
+                  >
+                    <video
+                      src={expert.video}
+                      style={{
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'cover',
+                      }}
+                      loop
+                      autoPlay
+                      muted={unMutedExpert !== expert.id}
+                      playsInline
+                    />
+                    <div style={{
+                      position: 'absolute',
+                      top: 0,
+                      left: 0,
+                      right: 0,
+                      bottom: 0,
+                      background: 'linear-gradient(to bottom, transparent 60%, rgba(0,0,0,0.7) 100%)',
+                      pointerEvents: 'none',
+                    }} />
+                    <div style={{
+                      position: 'absolute',
+                      top: isFirst ? '20px' : '14px',
+                      left: isFirst ? '20px' : '14px',
+                      width: isFirst ? '44px' : '36px',
+                      height: isFirst ? '44px' : '36px',
+                      borderRadius: '50%',
+                      border: '2px solid rgba(255,255,255,0.7)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      background: 'rgba(0,0,0,0.3)',
                     }}>
-                      {expert.quote}
-                    </p>
+                      <svg width={isFirst ? '16' : '12'} height={isFirst ? '16' : '12'} viewBox="0 0 24 24" fill="white">
+                        <polygon points="6 4 20 12 6 20 6 4" />
+                      </svg>
+                    </div>
+                    <div style={{
+                      position: 'absolute',
+                      bottom: isFirst ? '20px' : '14px',
+                      left: isFirst ? '16px' : '12px',
+                      right: isFirst ? '16px' : '12px',
+                    }}>
+                      <p style={{
+                        fontSize: isFirst ? '14px' : '12px',
+                        color: '#fff',
+                        margin: 0,
+                        fontWeight: '400',
+                        lineHeight: '1.3',
+                      }}>
+                        {expert.quote}
+                      </p>
+                    </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
 
             {/* Right Arrow */}
@@ -720,139 +744,142 @@ export default function Home() {
               onClick={() => setExpertPosition(prev => (prev + 1) % EXPERTS.length)}
               style={{
                 position: 'absolute',
-                right: '0',
+                right: '20px',
                 top: '50%',
                 transform: 'translateY(-50%)',
-                background: '#ffffff',
-                border: '1px solid #e0e0e0',
-                width: '44px',
-                height: '44px',
+                background: 'rgba(255,255,255,0.9)',
+                border: 'none',
+                width: '40px',
+                height: '40px',
                 borderRadius: '50%',
                 color: '#000',
                 cursor: 'pointer',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                transition: 'all 0.3s ease',
+                transition: 'all 0.2s ease',
                 zIndex: 10,
-                boxShadow: '0 2px 12px rgba(0, 0, 0, 0.1)',
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.background = '#000';
-                e.currentTarget.style.color = '#fff';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.background = '#fff';
-                e.currentTarget.style.color = '#000';
               }}
             >
-              <ModernArrowRight />
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <polyline points="9 18 15 12 9 6" />
+              </svg>
             </button>
           </div>
         </div>
       </section>
 
-      {/* Customers Section */}
+      {/* Customers Section - MUDWTR Style */}
       <section style={{
-        background: '#ffffff',
-        padding: 'clamp(32px, 6vw, 80px) clamp(16px, 4vw, 60px)',
+        background: '#000',
+        padding: 'clamp(48px, 8vw, 80px) 0',
       }}>
         <div style={{
-          maxWidth: '1400px',
+          maxWidth: '100%',
           margin: '0 auto',
+          paddingLeft: 'clamp(16px, 4vw, 40px)',
+          paddingRight: 'clamp(16px, 4vw, 40px)',
         }}>
           <h2 style={{
-            fontSize: 'clamp(28px, 6vw, 48px)',
+            fontSize: 'clamp(32px, 7vw, 52px)',
             fontWeight: '700',
-            marginBottom: 'clamp(24px, 5vw, 40px)',
-            letterSpacing: '-0.8px',
+            marginBottom: 'clamp(32px, 6vw, 48px)',
+            letterSpacing: '-1px',
             textAlign: 'center',
+            color: '#fff',
           }}>
             Loved by the Spoiled*
           </h2>
 
           {/* Video Cards Container */}
-          <div style={{ position: 'relative', paddingRight: '60px' }}>
+          <div style={{ position: 'relative' }}>
             <div style={{
               display: 'flex',
-              gap: '16px',
+              gap: '12px',
+              alignItems: 'flex-end',
+              justifyContent: 'center',
               overflowX: 'auto',
               scrollbarWidth: 'none',
               paddingBottom: '8px',
             }}>
-              {[...CUSTOMERS, ...CUSTOMERS].slice(customerPosition, customerPosition + 6).map((customer, idx) => (
-                <div 
-                  key={`${customer.id}-${idx}`} 
-                  style={{
-                    flexShrink: 0,
-                    width: '180px',
-                    aspectRatio: '9/16',
-                    borderRadius: '16px',
-                    overflow: 'hidden',
-                    position: 'relative',
-                    cursor: 'pointer',
-                  }}
-                  onClick={() => {
-                    setUnMutedCustomer(unMutedCustomer === customer.id ? null : customer.id);
-                  }}
-                >
-                  <video
-                    src={customer.video}
+              {[...CUSTOMERS, ...CUSTOMERS].slice(customerPosition, customerPosition + 7).map((customer, idx) => {
+                const isFirst = idx === 0;
+                const cardWidth = isFirst ? 'clamp(200px, 18vw, 240px)' : 'clamp(140px, 13vw, 165px)';
+                const cardHeight = isFirst ? 'clamp(340px, 32vw, 420px)' : 'clamp(260px, 24vw, 320px)';
+                
+                return (
+                  <div 
+                    key={`${customer.id}-${idx}`} 
                     style={{
-                      width: '100%',
-                      height: '100%',
-                      objectFit: 'cover',
+                      flexShrink: 0,
+                      width: cardWidth,
+                      height: cardHeight,
+                      borderRadius: '12px',
+                      overflow: 'hidden',
+                      position: 'relative',
+                      cursor: 'pointer',
                     }}
-                    loop
-                    autoPlay
-                    muted={unMutedCustomer !== customer.id}
-                    playsInline
-                  />
-                  <div style={{
-                    position: 'absolute',
-                    top: 0,
-                    left: 0,
-                    right: 0,
-                    bottom: 0,
-                    background: 'linear-gradient(to bottom, transparent 50%, rgba(0,0,0,0.6) 100%)',
-                    pointerEvents: 'none',
-                  }} />
-                  <div style={{
-                    position: 'absolute',
-                    top: '50%',
-                    left: '50%',
-                    transform: 'translate(-50%, -50%)',
-                    width: '48px',
-                    height: '48px',
-                    borderRadius: '50%',
-                    border: '2px solid rgba(255,255,255,0.8)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    background: 'rgba(0,0,0,0.2)',
-                  }}>
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
-                      <polygon points="5 3 19 12 5 21 5 3" />
-                    </svg>
-                  </div>
-                  <div style={{
-                    position: 'absolute',
-                    bottom: '16px',
-                    left: '12px',
-                    right: '12px',
-                  }}>
-                    <p style={{
-                      fontSize: '13px',
-                      color: '#fff',
-                      margin: 0,
-                      fontWeight: '400',
-                      textShadow: '0 1px 3px rgba(0,0,0,0.5)',
+                    onClick={() => {
+                      setUnMutedCustomer(unMutedCustomer === customer.id ? null : customer.id);
+                    }}
+                  >
+                    <video
+                      src={customer.video}
+                      style={{
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'cover',
+                      }}
+                      loop
+                      autoPlay
+                      muted={unMutedCustomer !== customer.id}
+                      playsInline
+                    />
+                    <div style={{
+                      position: 'absolute',
+                      top: 0,
+                      left: 0,
+                      right: 0,
+                      bottom: 0,
+                      background: 'linear-gradient(to bottom, transparent 60%, rgba(0,0,0,0.7) 100%)',
+                      pointerEvents: 'none',
+                    }} />
+                    <div style={{
+                      position: 'absolute',
+                      top: isFirst ? '20px' : '14px',
+                      left: isFirst ? '20px' : '14px',
+                      width: isFirst ? '44px' : '36px',
+                      height: isFirst ? '44px' : '36px',
+                      borderRadius: '50%',
+                      border: '2px solid rgba(255,255,255,0.7)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      background: 'rgba(0,0,0,0.3)',
                     }}>
-                      {customer.quote}
-                    </p>
+                      <svg width={isFirst ? '16' : '12'} height={isFirst ? '16' : '12'} viewBox="0 0 24 24" fill="white">
+                        <polygon points="6 4 20 12 6 20 6 4" />
+                      </svg>
+                    </div>
+                    <div style={{
+                      position: 'absolute',
+                      bottom: isFirst ? '20px' : '14px',
+                      left: isFirst ? '16px' : '12px',
+                      right: isFirst ? '16px' : '12px',
+                    }}>
+                      <p style={{
+                        fontSize: isFirst ? '14px' : '12px',
+                        color: '#fff',
+                        margin: 0,
+                        fontWeight: '400',
+                        lineHeight: '1.3',
+                      }}>
+                        {customer.quote}
+                      </p>
+                    </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
 
             {/* Right Arrow */}
@@ -860,34 +887,45 @@ export default function Home() {
               onClick={() => setCustomerPosition(prev => (prev + 1) % CUSTOMERS.length)}
               style={{
                 position: 'absolute',
-                right: '0',
+                right: '20px',
                 top: '50%',
                 transform: 'translateY(-50%)',
-                background: '#ffffff',
-                border: '1px solid #e0e0e0',
-                width: '44px',
-                height: '44px',
+                background: 'rgba(255,255,255,0.9)',
+                border: 'none',
+                width: '40px',
+                height: '40px',
                 borderRadius: '50%',
                 color: '#000',
                 cursor: 'pointer',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                transition: 'all 0.3s ease',
+                transition: 'all 0.2s ease',
                 zIndex: 10,
-                boxShadow: '0 2px 12px rgba(0, 0, 0, 0.1)',
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.background = '#000';
-                e.currentTarget.style.color = '#fff';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.background = '#fff';
-                e.currentTarget.style.color = '#000';
               }}
             >
-              <ModernArrowRight />
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <polyline points="9 18 15 12 9 6" />
+              </svg>
             </button>
+          </div>
+
+          {/* CTA Button */}
+          <div style={{ textAlign: 'center', marginTop: '48px' }}>
+            <Link href="/collections/smoothies" style={{
+              display: 'inline-block',
+              padding: '16px 48px',
+              background: '#D4FF00',
+              color: '#000',
+              textDecoration: 'none',
+              borderRadius: '32px',
+              fontSize: '14px',
+              fontWeight: '600',
+              letterSpacing: '0.3px',
+              transition: 'all 0.2s ease',
+            }}>
+              Try It & Save 50%
+            </Link>
           </div>
         </div>
       </section>
