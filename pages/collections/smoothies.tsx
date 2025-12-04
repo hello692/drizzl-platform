@@ -113,14 +113,13 @@ function ProductCard({ product }: { product: Product }) {
         onMouseLeave={() => setIsHovered(false)}
       >
         <div style={{
-          background: 'linear-gradient(135deg, #f9f9fa 0%, #f0f0f0 100%)',
+          background: '#ffffff',
           aspectRatio: '1 / 1',
           borderRadius: '14px 14px 0 0',
           position: 'relative',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          boxShadow: 'inset 0 0 15px rgba(66, 133, 244, 0.05)',
           overflow: 'hidden',
         }}>
           {product.badge && (
