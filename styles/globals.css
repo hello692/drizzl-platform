@@ -150,44 +150,39 @@ svg:hover {
   opacity: 0.6;
 }
 
-/* Premium Button */
+/* Premium Button - Apple Style Rounded */
 .btn-premium {
-  padding: 14px 32px;
-  background: var(--color-black);
-  color: var(--color-white);
-  border: 1px solid var(--color-black);
-  border-radius: 8px;
-  font-size: 14px;
-  font-weight: 600;
+  padding: 12px 24px;
+  background: #0071E3;
+  color: #fff;
+  border: none;
+  border-radius: 980px;
+  font-size: 15px;
+  font-weight: 500;
   cursor: pointer;
-  transition: all 1s cubic-bezier(0.32, 0, 0.67, 0);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .btn-premium:hover {
-  background: var(--color-gray-60);
-  border-color: var(--color-gray-60);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-  transform: translateY(-1px);
+  background: #0077ED;
+  transform: scale(1.02);
 }
 
 .btn-secondary {
-  padding: 14px 32px;
-  background: var(--color-white);
-  color: var(--color-black);
-  border: 1px solid var(--color-gray-30);
-  border-radius: 8px;
-  font-size: 14px;
-  font-weight: 600;
+  padding: 12px 24px;
+  background: transparent;
+  color: #0071E3;
+  border: 1px solid #0071E3;
+  border-radius: 980px;
+  font-size: 15px;
+  font-weight: 500;
   cursor: pointer;
-  transition: all 1s cubic-bezier(0.32, 0, 0.67, 0);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .btn-secondary:hover {
-  background: var(--color-gray-10);
-  border-color: var(--color-gray-40);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  background: #0071E3;
+  color: #fff;
 }
 
 /* Sections */

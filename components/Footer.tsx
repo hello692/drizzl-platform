@@ -181,37 +181,34 @@ export default function Footer() {
               placeholder="Email"
               style={{
                 flex: 1,
-                padding: '12px 16px',
+                padding: '12px 20px',
                 border: '1px solid rgba(0, 0, 0, 0.12)',
-                borderRadius: '8px',
+                borderRadius: '980px',
                 fontSize: '14px',
                 backgroundColor: '#fff',
-                transition: 'all 1s cubic-bezier(0.32, 0, 0.67, 0)',
+                transition: 'all 0.3s ease',
               }}
               onFocus={(e) => { e.currentTarget.style.borderColor = 'rgba(0, 0, 0, 0.3)'; }}
               onBlur={(e) => { e.currentTarget.style.borderColor = 'rgba(0, 0, 0, 0.12)'; }}
             />
             <button style={{
               padding: '12px 24px',
-              background: '#000',
+              background: '#0071E3',
               color: '#fff',
-              border: '1px solid #000',
-              borderRadius: '8px',
-              fontSize: '14px',
-              fontWeight: '600',
+              border: 'none',
+              borderRadius: '980px',
+              fontSize: '15px',
+              fontWeight: '500',
               cursor: 'pointer',
-              transition: 'all 1s cubic-bezier(0.32, 0, 0.67, 0)',
-              boxShadow: '0 2px 8px rgba(0, 0, 0, 0.08)',
+              transition: 'all 0.3s ease',
             }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.background = '#333';
-                e.currentTarget.style.borderColor = '#333';
-                e.currentTarget.style.boxShadow = '0 4px 16px rgba(0, 0, 0, 0.12)';
+                e.currentTarget.style.background = '#0077ED';
+                e.currentTarget.style.transform = 'scale(1.02)';
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.background = '#000';
-                e.currentTarget.style.borderColor = '#000';
-                e.currentTarget.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.08)';
+                e.currentTarget.style.background = '#0071E3';
+                e.currentTarget.style.transform = 'scale(1)';
               }}
             >
               Subscribe

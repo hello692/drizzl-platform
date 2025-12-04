@@ -974,14 +974,14 @@ export default function Home() {
           <div style={{ textAlign: 'center', marginTop: '48px' }}>
             <Link href="/collections/smoothies" style={{
               display: 'inline-block',
-              padding: '16px 48px',
-              background: '#D4FF00',
-              color: '#000',
+              padding: '14px 32px',
+              background: '#0071E3',
+              color: '#fff',
               textDecoration: 'none',
-              borderRadius: '32px',
-              fontSize: '14px',
-              fontWeight: '600',
-              letterSpacing: '0.3px',
+              borderRadius: '980px',
+              fontSize: '15px',
+              fontWeight: '500',
+              letterSpacing: '0',
               transition: 'all 0.2s ease',
             }}>
               Try It & Save 50%
@@ -1019,26 +1019,23 @@ export default function Home() {
         </p>
         <Link href="/auth" style={{
           display: 'inline-block',
-          padding: '14px 40px',
-          background: '#ffffff',
-          color: '#000',
+          padding: '14px 32px',
+          background: '#0071E3',
+          color: '#fff',
           textDecoration: 'none',
-          borderRadius: '28px',
-          fontSize: '16px',
-          fontWeight: '600',
+          borderRadius: '980px',
+          fontSize: '15px',
+          fontWeight: '500',
           transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-          letterSpacing: '-0.3px',
-          boxShadow: '0 8px 24px rgba(255, 255, 255, 0.2)',
+          letterSpacing: '0',
         }}
           onMouseEnter={(e) => {
-            e.currentTarget.style.background = '#f0f0f0';
-            e.currentTarget.style.transform = 'translateY(-2px)';
-            e.currentTarget.style.boxShadow = '0 12px 32px rgba(255, 255, 255, 0.3)';
+            e.currentTarget.style.background = '#0077ED';
+            e.currentTarget.style.transform = 'scale(1.02)';
           }}
           onMouseLeave={(e) => {
-            e.currentTarget.style.background = '#ffffff';
-            e.currentTarget.style.transform = 'translateY(0)';
-            e.currentTarget.style.boxShadow = '0 8px 24px rgba(255, 255, 255, 0.2)';
+            e.currentTarget.style.background = '#0071E3';
+            e.currentTarget.style.transform = 'scale(1)';
           }}
         >
           Create Your Account

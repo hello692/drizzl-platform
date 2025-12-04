@@ -787,23 +787,22 @@ export default function ProductDetail() {
               {/* Add to Cart Button */}
               <button style={{
                 width: '100%',
-                padding: '20px 24px',
-                background: '#000',
+                padding: '18px 24px',
+                background: '#0071E3',
                 color: '#ffffff',
                 border: 'none',
-                borderRadius: '0px',
-                fontSize: '13px',
-                fontWeight: '700',
-                letterSpacing: '0.8px',
+                borderRadius: '980px',
+                fontSize: '15px',
+                fontWeight: '500',
+                letterSpacing: '0',
                 cursor: 'pointer',
                 marginBottom: '32px',
                 transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-                textTransform: 'uppercase',
               }}
-                onMouseEnter={(e) => { e.currentTarget.style.opacity = '0.8'; }}
-                onMouseLeave={(e) => { e.currentTarget.style.opacity = '1'; }}
+                onMouseEnter={(e) => { e.currentTarget.style.background = '#0077ED'; e.currentTarget.style.transform = 'scale(1.02)'; }}
+                onMouseLeave={(e) => { e.currentTarget.style.background = '#0071E3'; e.currentTarget.style.transform = 'scale(1)'; }}
               >
-                ADD TO CART ${product.price.toFixed(2)}
+                Add to Cart - ${product.price.toFixed(2)}
               </button>
 
               {/* Attributes - Single Row */}

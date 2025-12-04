@@ -443,14 +443,14 @@ function FilterPanel({
               style={{
                 flex: 1,
                 padding: '14px 20px',
-                background: '#fff',
-                border: '1px solid #000',
-                borderRadius: '0',
-                fontSize: '13px',
-                fontWeight: '600',
-                letterSpacing: '0.5px',
-                textTransform: 'uppercase',
+                background: 'transparent',
+                color: '#0071E3',
+                border: '1px solid #0071E3',
+                borderRadius: '980px',
+                fontSize: '14px',
+                fontWeight: '500',
                 cursor: 'pointer',
+                transition: 'all 0.3s ease',
               }}
             >
               Clear All
@@ -460,15 +460,14 @@ function FilterPanel({
               style={{
                 flex: 1,
                 padding: '14px 20px',
-                background: '#000',
+                background: '#0071E3',
                 color: '#fff',
                 border: 'none',
-                borderRadius: '0',
-                fontSize: '13px',
-                fontWeight: '600',
-                letterSpacing: '0.5px',
-                textTransform: 'uppercase',
+                borderRadius: '980px',
+                fontSize: '14px',
+                fontWeight: '500',
                 cursor: 'pointer',
+                transition: 'all 0.3s ease',
               }}
             >
               Apply
@@ -695,25 +694,26 @@ function ProductCard({ product }: { product: Product }) {
         style={{
           width: '100%',
           padding: '14px 20px',
-          background: '#000000',
+          background: '#0071E3',
           color: '#ffffff',
           border: 'none',
-          borderRadius: '0',
-          fontSize: '13px',
-          fontWeight: '600',
-          letterSpacing: '0.5px',
-          textTransform: 'uppercase',
+          borderRadius: '980px',
+          fontSize: '14px',
+          fontWeight: '500',
+          letterSpacing: '0',
           cursor: 'pointer',
-          transition: 'all 0.2s ease',
+          transition: 'all 0.3s ease',
         }}
         onMouseEnter={(e) => {
-          e.currentTarget.style.background = '#333333';
+          e.currentTarget.style.background = '#0077ED';
+          e.currentTarget.style.transform = 'scale(1.02)';
         }}
         onMouseLeave={(e) => {
-          e.currentTarget.style.background = '#000000';
+          e.currentTarget.style.background = '#0071E3';
+          e.currentTarget.style.transform = 'scale(1)';
         }}
       >
-        Add to Cart  ${product.price.toFixed(2)}
+        Add to Cart - ${product.price.toFixed(2)}
       </button>
     </div>
   );

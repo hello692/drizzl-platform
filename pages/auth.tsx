@@ -453,16 +453,16 @@ export default function AuthPage() {
               disabled={isLoading}
               style={{
                 padding: '14px 32px',
-                background: userType === 'retail' ? '#0369a1' : '#000',
+                background: '#0071E3',
                 color: '#fff',
                 border: 'none',
-                borderRadius: '8px',
-                fontSize: '14px',
-                fontWeight: '600',
+                borderRadius: '980px',
+                fontSize: '15px',
+                fontWeight: '500',
                 cursor: isLoading ? 'default' : 'pointer',
                 marginTop: '8px',
                 opacity: isLoading ? 0.7 : 1,
-                transition: 'all 0.2s ease',
+                transition: 'all 0.3s ease',
               }}
             >
               {isLoading 

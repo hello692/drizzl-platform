@@ -54,10 +54,13 @@ export default function Cart() {
             </p>
             <Link href="/products" style={{
               padding: '12px 32px',
-              background: '#111',
+              background: '#0071E3',
               color: 'white',
               textDecoration: 'none',
-              borderRadius: '8px',
+              borderRadius: '980px',
+              fontSize: '15px',
+              fontWeight: '500',
+              transition: 'all 0.3s ease',
             }}>
               Continue Shopping
             </Link>
@@ -170,14 +173,16 @@ export default function Cart() {
                 disabled={isCheckingOut}
                 style={{
                   width: '100%',
-                  padding: '12px',
-                  background: '#111',
+                  padding: '14px',
+                  background: '#0071E3',
                   color: 'white',
                   border: 'none',
-                  borderRadius: '6px',
+                  borderRadius: '980px',
                   cursor: isCheckingOut ? 'default' : 'pointer',
-                  fontWeight: 'bold',
+                  fontWeight: '500',
+                  fontSize: '15px',
                   opacity: isCheckingOut ? 0.6 : 1,
+                  transition: 'all 0.3s ease',
                 }}
               >
                 {isCheckingOut ? 'Processing...' : 'Checkout'}
@@ -186,13 +191,16 @@ export default function Cart() {
                 onClick={() => clear()}
                 style={{
                   width: '100%',
-                  padding: '12px',
-                  background: 'white',
-                  color: '#111',
-                  border: '1px solid #ddd',
-                  borderRadius: '6px',
+                  padding: '14px',
+                  background: 'transparent',
+                  color: '#0071E3',
+                  border: '1px solid #0071E3',
+                  borderRadius: '980px',
                   cursor: 'pointer',
                   marginTop: '8px',
+                  fontWeight: '500',
+                  fontSize: '15px',
+                  transition: 'all 0.3s ease',
                 }}
               >
                 Clear Cart
