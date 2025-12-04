@@ -1,7 +1,7 @@
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 
 interface Product {
   id: string;
@@ -12,6 +12,8 @@ interface Product {
   badge: string;
   defaultImage: string;
   hoverImage: string;
+  ingredients: string[];
+  dietaryTags: string[];
 }
 
 const products: Product[] = [
@@ -24,6 +26,8 @@ const products: Product[] = [
     badge: 'Best Seller',
     defaultImage: '/products/strawberry-peach/transparent-glass-1.png',
     hoverImage: '/products/strawberry-peach/transparent-glass-2.png',
+    ingredients: ['berries', 'banana'],
+    dietaryTags: ['diabetes-friendly', 'heart-healthy', 'no-sugar-added'],
   },
   { 
     id: '9', 
@@ -34,6 +38,8 @@ const products: Product[] = [
     badge: 'New',
     defaultImage: '/products/pink-piyata/transparent-glass-1.png',
     hoverImage: '/products/pink-piyata/transparent-glass-2.png',
+    ingredients: ['berries', 'coconut', 'banana'],
+    dietaryTags: ['paleo', 'plant-based'],
   },
   { 
     id: '10', 
@@ -44,6 +50,8 @@ const products: Product[] = [
     badge: 'Best Seller',
     defaultImage: '/products/matcha/transparent-glass-1.png',
     hoverImage: '/products/matcha/transparent-glass-2.png',
+    ingredients: ['greens', 'banana', 'coconut'],
+    dietaryTags: ['glp-1', 'heart-healthy', 'mediterranean'],
   },
   { 
     id: '11', 
@@ -54,6 +62,8 @@ const products: Product[] = [
     badge: 'Best Seller',
     defaultImage: '/products/mocha/transparent-glass-1.png',
     hoverImage: '/products/mocha/transparent-glass-2.png',
+    ingredients: ['cacao', 'caffeine', 'banana'],
+    dietaryTags: ['heart-healthy'],
   },
   { 
     id: '12', 
@@ -64,6 +74,8 @@ const products: Product[] = [
     badge: 'Best Seller',
     defaultImage: '/products/nutty-monkey/transparent-glass-1.png',
     hoverImage: '/products/nutty-monkey/transparent-glass-2.png',
+    ingredients: ['nuts', 'banana', 'cacao'],
+    dietaryTags: ['paleo', 'plant-based'],
   },
   { 
     id: '13', 
@@ -74,6 +86,8 @@ const products: Product[] = [
     badge: 'Best Seller',
     defaultImage: '/products/mango-jackfruit/transparent-glass-1.png',
     hoverImage: '/products/mango-jackfruit/transparent-glass-2.png',
+    ingredients: ['coconut', 'banana'],
+    dietaryTags: ['diabetes-friendly', 'no-sugar-added', 'low-fat'],
   },
   { 
     id: '14', 
@@ -84,6 +98,8 @@ const products: Product[] = [
     badge: 'Best Seller',
     defaultImage: '/products/coffee-mushroom/transparent-glass-1.png',
     hoverImage: '/products/coffee-mushroom/transparent-glass-2.png',
+    ingredients: ['caffeine', 'cacao', 'coconut'],
+    dietaryTags: ['glp-1', 'paleo'],
   },
   { 
     id: '15', 
@@ -94,6 +110,8 @@ const products: Product[] = [
     badge: 'Best Seller',
     defaultImage: '/products/chocolate-berry/transparent-glass-1.png',
     hoverImage: '/products/chocolate-berry/transparent-glass-2.png',
+    ingredients: ['cacao', 'berries', 'banana'],
+    dietaryTags: ['heart-healthy', 'plant-based'],
   },
   { 
     id: '16', 
@@ -104,6 +122,8 @@ const products: Product[] = [
     badge: 'Best Seller',
     defaultImage: '/products/almond/transparent-glass-1.png',
     hoverImage: '/products/almond/transparent-glass-2.png',
+    ingredients: ['nuts', 'coconut'],
+    dietaryTags: ['paleo', 'mediterranean', 'low-fat'],
   },
   { 
     id: '17', 
@@ -114,7 +134,51 @@ const products: Product[] = [
     badge: 'Best Seller',
     defaultImage: '/products/acai/transparent-glass-1.png',
     hoverImage: '/products/acai/transparent-glass-2.png',
+    ingredients: ['berries', 'banana', 'greens'],
+    dietaryTags: ['diabetes-friendly', 'heart-healthy', 'plant-based'],
   },
+];
+
+const LIKES_OPTIONS = [
+  { id: 'avocado', label: 'Avocado' },
+  { id: 'banana', label: 'Banana' },
+  { id: 'berries', label: 'Berries' },
+  { id: 'cacao', label: 'Cacao' },
+  { id: 'caffeine', label: 'Caffeine' },
+  { id: 'coconut', label: 'Coconut' },
+  { id: 'greens', label: 'Greens' },
+  { id: 'nuts', label: 'Nuts' },
+];
+
+const DISLIKES_OPTIONS = [
+  { id: 'no-avocado', label: 'No avocado', excludes: 'avocado' },
+  { id: 'no-banana', label: 'No banana', excludes: 'banana' },
+  { id: 'no-berries', label: 'No berries', excludes: 'berries' },
+  { id: 'no-cacao', label: 'No cacao', excludes: 'cacao' },
+  { id: 'no-caffeine', label: 'No caffeine', excludes: 'caffeine' },
+  { id: 'no-cilantro', label: 'No cilantro', excludes: 'cilantro' },
+  { id: 'no-coconut', label: 'No coconut', excludes: 'coconut' },
+  { id: 'no-garlic', label: 'No garlic', excludes: 'garlic' },
+];
+
+const DIETARY_OPTIONS = [
+  { id: 'diabetes-friendly', label: 'Diabetes friendly' },
+  { id: 'glp-1', label: 'GLP-1' },
+  { id: 'heart-healthy', label: 'Heart healthy' },
+  { id: 'mediterranean', label: 'Mediterranean diet' },
+  { id: 'no-sugar-added', label: 'No sugar added' },
+  { id: 'paleo', label: 'Paleo' },
+  { id: 'plant-based', label: 'Plant-based Whole30' },
+  { id: 'low-fat', label: '≤10g Fat' },
+];
+
+const SORT_OPTIONS = [
+  { id: 'featured', label: 'featured' },
+  { id: 'best-selling', label: 'best selling' },
+  { id: 'alpha-asc', label: 'alphabetically, a-z' },
+  { id: 'alpha-desc', label: 'alphabetically, z-a' },
+  { id: 'price-asc', label: 'price, low to high' },
+  { id: 'price-desc', label: 'price, high to low' },
 ];
 
 function StarRating({ rating }: { rating: number }) {
@@ -149,6 +213,368 @@ function StarRating({ rating }: { rating: number }) {
   );
 }
 
+function FilterChip({ label, selected, onClick }: { label: string; selected: boolean; onClick: () => void }) {
+  return (
+    <button
+      onClick={onClick}
+      style={{
+        padding: '10px 16px',
+        borderRadius: '24px',
+        border: selected ? '2px solid #000' : '1px solid #e0e0e0',
+        background: selected ? '#000' : '#fff',
+        color: selected ? '#fff' : '#000',
+        fontSize: '13px',
+        fontWeight: '500',
+        cursor: 'pointer',
+        transition: 'all 0.2s ease',
+        whiteSpace: 'nowrap',
+      }}
+    >
+      {label}
+    </button>
+  );
+}
+
+function FilterPanel({ 
+  isOpen, 
+  onClose, 
+  likes, 
+  dislikes, 
+  dietary, 
+  onLikesChange, 
+  onDislikesChange, 
+  onDietaryChange,
+  onClearAll,
+  onApply 
+}: {
+  isOpen: boolean;
+  onClose: () => void;
+  likes: string[];
+  dislikes: string[];
+  dietary: string[];
+  onLikesChange: (id: string) => void;
+  onDislikesChange: (id: string) => void;
+  onDietaryChange: (id: string) => void;
+  onClearAll: () => void;
+  onApply: () => void;
+}) {
+  const [showMoreLikes, setShowMoreLikes] = useState(false);
+  const [showMoreDislikes, setShowMoreDislikes] = useState(false);
+  const [showMoreDietary, setShowMoreDietary] = useState(false);
+
+  const totalSelected = likes.length + dislikes.length + dietary.length;
+
+  return (
+    <>
+      <div
+        style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          background: 'rgba(0, 0, 0, 0.5)',
+          opacity: isOpen ? 1 : 0,
+          visibility: isOpen ? 'visible' : 'hidden',
+          transition: 'all 0.3s ease',
+          zIndex: 999,
+        }}
+        onClick={onClose}
+      />
+      <div
+        style={{
+          position: 'fixed',
+          top: 0,
+          left: isOpen ? 0 : '-400px',
+          width: '380px',
+          maxWidth: '90vw',
+          height: '100vh',
+          background: '#fff',
+          zIndex: 1000,
+          transition: 'left 0.3s ease',
+          display: 'flex',
+          flexDirection: 'column',
+        }}
+      >
+        <div style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          padding: '20px 24px',
+          borderBottom: '1px solid #e8e8e8',
+        }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <line x1="4" y1="6" x2="20" y2="6" />
+              <line x1="4" y1="12" x2="14" y2="12" />
+              <line x1="4" y1="18" x2="10" y2="18" />
+            </svg>
+            <span style={{ fontSize: '16px', fontWeight: '600', letterSpacing: '-0.3px' }}>FILTER</span>
+          </div>
+          <button
+            onClick={onClose}
+            style={{
+              background: 'none',
+              border: 'none',
+              cursor: 'pointer',
+              padding: '4px',
+            }}
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+          </button>
+        </div>
+
+        <div style={{ flex: 1, overflowY: 'auto', padding: '24px' }}>
+          <div style={{ marginBottom: '32px' }}>
+            <h3 style={{ fontSize: '18px', fontWeight: '600', marginBottom: '16px' }}>Likes</h3>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
+              {(showMoreLikes ? LIKES_OPTIONS : LIKES_OPTIONS.slice(0, 8)).map(option => (
+                <FilterChip
+                  key={option.id}
+                  label={option.label}
+                  selected={likes.includes(option.id)}
+                  onClick={() => onLikesChange(option.id)}
+                />
+              ))}
+            </div>
+            {LIKES_OPTIONS.length > 8 && (
+              <button
+                onClick={() => setShowMoreLikes(!showMoreLikes)}
+                style={{
+                  background: 'none',
+                  border: 'none',
+                  color: '#000',
+                  fontSize: '13px',
+                  fontWeight: '500',
+                  textDecoration: 'underline',
+                  cursor: 'pointer',
+                  marginTop: '12px',
+                  padding: 0,
+                }}
+              >
+                {showMoreLikes ? 'show less' : 'show more'}
+              </button>
+            )}
+          </div>
+
+          <div style={{ marginBottom: '32px' }}>
+            <h3 style={{ fontSize: '18px', fontWeight: '600', marginBottom: '16px' }}>Dislikes</h3>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
+              {(showMoreDislikes ? DISLIKES_OPTIONS : DISLIKES_OPTIONS.slice(0, 6)).map(option => (
+                <FilterChip
+                  key={option.id}
+                  label={option.label}
+                  selected={dislikes.includes(option.id)}
+                  onClick={() => onDislikesChange(option.id)}
+                />
+              ))}
+            </div>
+            {DISLIKES_OPTIONS.length > 6 && (
+              <button
+                onClick={() => setShowMoreDislikes(!showMoreDislikes)}
+                style={{
+                  background: 'none',
+                  border: 'none',
+                  color: '#000',
+                  fontSize: '13px',
+                  fontWeight: '500',
+                  textDecoration: 'underline',
+                  cursor: 'pointer',
+                  marginTop: '12px',
+                  padding: 0,
+                }}
+              >
+                {showMoreDislikes ? 'show less' : 'show more'}
+              </button>
+            )}
+          </div>
+
+          <div style={{ marginBottom: '32px' }}>
+            <h3 style={{ fontSize: '18px', fontWeight: '600', marginBottom: '16px' }}>Dietary Needs</h3>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
+              {(showMoreDietary ? DIETARY_OPTIONS : DIETARY_OPTIONS.slice(0, 6)).map(option => (
+                <FilterChip
+                  key={option.id}
+                  label={option.label}
+                  selected={dietary.includes(option.id)}
+                  onClick={() => onDietaryChange(option.id)}
+                />
+              ))}
+            </div>
+            {DIETARY_OPTIONS.length > 6 && (
+              <button
+                onClick={() => setShowMoreDietary(!showMoreDietary)}
+                style={{
+                  background: 'none',
+                  border: 'none',
+                  color: '#000',
+                  fontSize: '13px',
+                  fontWeight: '500',
+                  textDecoration: 'underline',
+                  cursor: 'pointer',
+                  marginTop: '12px',
+                  padding: 0,
+                }}
+              >
+                {showMoreDietary ? 'show less' : 'show more'}
+              </button>
+            )}
+          </div>
+        </div>
+
+        <div style={{
+          padding: '20px 24px',
+          borderTop: '1px solid #e8e8e8',
+        }}>
+          <p style={{
+            fontSize: '13px',
+            color: '#666',
+            textAlign: 'center',
+            marginBottom: '16px',
+          }}>
+            {totalSelected === 0 ? 'No filters selected' : `${totalSelected} filter${totalSelected > 1 ? 's' : ''} selected`}
+          </p>
+          <div style={{ display: 'flex', gap: '12px' }}>
+            <button
+              onClick={onClearAll}
+              style={{
+                flex: 1,
+                padding: '14px 20px',
+                background: '#fff',
+                border: '1px solid #000',
+                borderRadius: '0',
+                fontSize: '13px',
+                fontWeight: '600',
+                letterSpacing: '0.5px',
+                textTransform: 'uppercase',
+                cursor: 'pointer',
+              }}
+            >
+              Clear All
+            </button>
+            <button
+              onClick={onApply}
+              style={{
+                flex: 1,
+                padding: '14px 20px',
+                background: '#000',
+                color: '#fff',
+                border: 'none',
+                borderRadius: '0',
+                fontSize: '13px',
+                fontWeight: '600',
+                letterSpacing: '0.5px',
+                textTransform: 'uppercase',
+                cursor: 'pointer',
+              }}
+            >
+              Apply
+            </button>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+}
+
+function SortDropdown({ value, onChange }: { value: string; onChange: (value: string) => void }) {
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    <div style={{ position: 'relative' }}>
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: '8px',
+          padding: '12px 20px',
+          background: '#fff',
+          border: '1px solid #e0e0e0',
+          borderRadius: '0',
+          fontSize: '13px',
+          fontWeight: '500',
+          cursor: 'pointer',
+          minWidth: '120px',
+        }}
+      >
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <path d="M7 15l5 5 5-5" />
+          <path d="M7 9l5-5 5 5" />
+        </svg>
+        SORT
+      </button>
+      {isOpen && (
+        <>
+          <div
+            style={{
+              position: 'fixed',
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              zIndex: 98,
+            }}
+            onClick={() => setIsOpen(false)}
+          />
+          <div
+            style={{
+              position: 'absolute',
+              top: '100%',
+              right: 0,
+              marginTop: '4px',
+              background: '#fff',
+              border: '1px solid #e0e0e0',
+              boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)',
+              zIndex: 99,
+              minWidth: '200px',
+            }}
+          >
+            {SORT_OPTIONS.map(option => (
+              <button
+                key={option.id}
+                onClick={() => {
+                  onChange(option.id);
+                  setIsOpen(false);
+                }}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  width: '100%',
+                  padding: '12px 16px',
+                  background: 'none',
+                  border: 'none',
+                  fontSize: '13px',
+                  color: '#000',
+                  cursor: 'pointer',
+                  textAlign: 'left',
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = '#f5f5f5';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = 'none';
+                }}
+              >
+                <span>{option.label}</span>
+                {value === option.id && (
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg>
+                )}
+              </button>
+            ))}
+          </div>
+        </>
+      )}
+    </div>
+  );
+}
+
 function ProductCard({ product }: { product: Product }) {
   const [isHovered, setIsHovered] = useState(false);
 
@@ -173,54 +599,40 @@ function ProductCard({ product }: { product: Product }) {
     >
       <Link href={`/product/${product.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
         <div style={{
+          background: '#f5f5f5',
+          borderRadius: '12px',
+          aspectRatio: '1',
+          marginBottom: '12px',
           position: 'relative',
-          background: '#ffffff',
-          aspectRatio: '1 / 1.1',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          cursor: 'pointer',
-          marginBottom: '16px',
+          overflow: 'hidden',
+          transition: 'all 0.3s ease',
         }}>
           {product.badge && (
             <span style={{
               position: 'absolute',
-              top: '16px',
-              left: '16px',
-              background: '#000000',
-              color: '#ffffff',
-              padding: '6px 14px',
-              borderRadius: '20px',
-              fontSize: '11px',
+              top: '12px',
+              left: '12px',
+              background: product.badge === 'New' ? '#22c55e' : '#000',
+              color: '#fff',
+              fontSize: '10px',
               fontWeight: '600',
+              padding: '6px 10px',
+              borderRadius: '4px',
               textTransform: 'uppercase',
               letterSpacing: '0.5px',
-              zIndex: 10,
+              zIndex: 5,
             }}>
               {product.badge}
             </span>
           )}
-          
-          <img
-            src={isHovered ? product.hoverImage : product.defaultImage}
-            alt={product.name}
-            style={{ 
-              width: '100%', 
-              height: '100%', 
-              objectFit: 'contain',
-              transition: 'opacity 0.3s ease',
-              transform: 'scale(1.1)',
-            }}
-          />
-
           <button
             onClick={handleQuickView}
             style={{
               position: 'absolute',
-              bottom: '16px',
-              right: '16px',
-              width: '40px',
-              height: '40px',
+              bottom: '12px',
+              right: '12px',
+              width: '36px',
+              height: '36px',
               borderRadius: '50%',
               background: '#ffffff',
               border: '1px solid #e0e0e0',
@@ -229,49 +641,47 @@ function ProductCard({ product }: { product: Product }) {
               justifyContent: 'center',
               cursor: 'pointer',
               transition: 'all 0.2s ease',
-              boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.background = '#f5f5f5';
-              e.currentTarget.style.transform = 'scale(1.05)';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.background = '#ffffff';
-              e.currentTarget.style.transform = 'scale(1)';
+              opacity: isHovered ? 1 : 0,
+              transform: isHovered ? 'translateY(0)' : 'translateY(8px)',
+              zIndex: 5,
             }}
           >
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <circle cx="11" cy="11" r="8"/>
-              <path d="M21 21l-4.35-4.35"/>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#000" strokeWidth="2">
+              <circle cx="11" cy="11" r="8" />
+              <path d="M21 21l-4.35-4.35" />
             </svg>
           </button>
+          <img
+            src={isHovered ? product.hoverImage : product.defaultImage}
+            alt={product.name}
+            style={{
+              width: '100%',
+              height: '100%',
+              objectFit: 'contain',
+              padding: '20px',
+              transition: 'all 0.4s ease',
+            }}
+          />
         </div>
-
-        <div style={{ marginBottom: '12px' }}>
+        <div style={{ padding: '0 4px', marginBottom: '12px' }}>
           <h3 style={{ 
-            fontSize: '16px', 
+            fontSize: '15px', 
             fontWeight: '600', 
-            marginBottom: '4px',
+            marginBottom: '6px',
             color: '#000000',
-            lineHeight: '1.3',
+            letterSpacing: '-0.3px',
           }}>
             {product.name}
           </h3>
-          <p style={{ 
-            fontSize: '14px', 
-            color: '#666666', 
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '8px',
             marginBottom: '8px',
           }}>
-            Smoothie
-          </p>
-          <div style={{ 
-            display: 'flex', 
-            alignItems: 'center', 
-            gap: '8px',
-          }}>
             <StarRating rating={product.rating} />
-            <span style={{ 
-              fontSize: '13px', 
+            <span style={{
+              fontSize: '12px',
               color: '#666666',
             }}>
               {product.reviews.toLocaleString()} reviews
@@ -310,13 +720,116 @@ function ProductCard({ product }: { product: Product }) {
 }
 
 export default function Smoothies() {
+  const [filterOpen, setFilterOpen] = useState(false);
+  const [likes, setLikes] = useState<string[]>([]);
+  const [dislikes, setDislikes] = useState<string[]>([]);
+  const [dietary, setDietary] = useState<string[]>([]);
+  const [appliedLikes, setAppliedLikes] = useState<string[]>([]);
+  const [appliedDislikes, setAppliedDislikes] = useState<string[]>([]);
+  const [appliedDietary, setAppliedDietary] = useState<string[]>([]);
+  const [sortBy, setSortBy] = useState('featured');
+
+  const toggleFilter = (list: string[], setList: (v: string[]) => void, id: string) => {
+    if (list.includes(id)) {
+      setList(list.filter(item => item !== id));
+    } else {
+      setList([...list, id]);
+    }
+  };
+
+  const handleClearAll = () => {
+    setLikes([]);
+    setDislikes([]);
+    setDietary([]);
+  };
+
+  const handleApply = () => {
+    setAppliedLikes([...likes]);
+    setAppliedDislikes([...dislikes]);
+    setAppliedDietary([...dietary]);
+    setFilterOpen(false);
+  };
+
+  const filteredAndSortedProducts = useMemo(() => {
+    let result = [...products];
+
+    if (appliedLikes.length > 0) {
+      result = result.filter(product =>
+        appliedLikes.some(like => product.ingredients.includes(like))
+      );
+    }
+
+    if (appliedDislikes.length > 0) {
+      const excludedIngredients = appliedDislikes.map(d => {
+        const option = DISLIKES_OPTIONS.find(o => o.id === d);
+        return option?.excludes || '';
+      }).filter(Boolean);
+      result = result.filter(product =>
+        !excludedIngredients.some(excluded => product.ingredients.includes(excluded))
+      );
+    }
+
+    if (appliedDietary.length > 0) {
+      result = result.filter(product =>
+        appliedDietary.some(tag => product.dietaryTags.includes(tag))
+      );
+    }
+
+    switch (sortBy) {
+      case 'best-selling':
+        result.sort((a, b) => b.reviews - a.reviews);
+        break;
+      case 'alpha-asc':
+        result.sort((a, b) => a.name.localeCompare(b.name));
+        break;
+      case 'alpha-desc':
+        result.sort((a, b) => b.name.localeCompare(a.name));
+        break;
+      case 'price-asc':
+        result.sort((a, b) => a.price - b.price);
+        break;
+      case 'price-desc':
+        result.sort((a, b) => b.price - a.price);
+        break;
+      default:
+        break;
+    }
+
+    return result;
+  }, [appliedLikes, appliedDislikes, appliedDietary, sortBy]);
+
+  useEffect(() => {
+    if (filterOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [filterOpen]);
+
+  const activeFilterCount = appliedLikes.length + appliedDislikes.length + appliedDietary.length;
+
   return (
     <>
       <Navbar />
+      <FilterPanel
+        isOpen={filterOpen}
+        onClose={() => setFilterOpen(false)}
+        likes={likes}
+        dislikes={dislikes}
+        dietary={dietary}
+        onLikesChange={(id) => toggleFilter(likes, setLikes, id)}
+        onDislikesChange={(id) => toggleFilter(dislikes, setDislikes, id)}
+        onDietaryChange={(id) => toggleFilter(dietary, setDietary, id)}
+        onClearAll={handleClearAll}
+        onApply={handleApply}
+      />
       <div className="smoothies-page" style={{ minHeight: '100vh', padding: '48px 60px', background: '#ffffff' }}>
         <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
           <div style={{ marginBottom: '32px' }}>
-            <div style={{ 
+            <div className="smoothies-hero" style={{ 
               background: '#f5f5f5', 
               borderRadius: '8px', 
               overflow: 'hidden', 
@@ -353,15 +866,75 @@ export default function Smoothies() {
             </ul>
           </div>
 
+          <div style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            marginBottom: '32px',
+          }}>
+            <button
+              onClick={() => {
+                setLikes([...appliedLikes]);
+                setDislikes([...appliedDislikes]);
+                setDietary([...appliedDietary]);
+                setFilterOpen(true);
+              }}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px',
+                padding: '12px 20px',
+                background: '#fff',
+                border: '1px solid #e0e0e0',
+                borderRadius: '0',
+                fontSize: '13px',
+                fontWeight: '500',
+                cursor: 'pointer',
+              }}
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <line x1="4" y1="6" x2="20" y2="6" />
+                <line x1="4" y1="12" x2="14" y2="12" />
+                <line x1="4" y1="18" x2="10" y2="18" />
+              </svg>
+              FILTER
+              {activeFilterCount > 0 && (
+                <span style={{
+                  background: '#000',
+                  color: '#fff',
+                  fontSize: '11px',
+                  fontWeight: '600',
+                  padding: '2px 6px',
+                  borderRadius: '10px',
+                  marginLeft: '4px',
+                }}>
+                  {activeFilterCount}
+                </span>
+              )}
+            </button>
+            <SortDropdown value={sortBy} onChange={setSortBy} />
+          </div>
+
           <div className="smoothies-grid" style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(4, 1fr)',
             gap: '28px 24px',
           }}>
-            {products.map(product => (
+            {filteredAndSortedProducts.map(product => (
               <ProductCard key={product.id} product={product} />
             ))}
           </div>
+
+          {filteredAndSortedProducts.length === 0 && (
+            <div style={{
+              textAlign: 'center',
+              padding: '60px 20px',
+              color: '#666',
+            }}>
+              <p style={{ fontSize: '18px', marginBottom: '12px' }}>No products match your filters</p>
+              <p style={{ fontSize: '14px' }}>Try adjusting your filter selections</p>
+            </div>
+          )}
         </div>
       </div>
       <Footer />
