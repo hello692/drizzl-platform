@@ -5,7 +5,7 @@ const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
 
 export const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
-export type UserRole = 'customer' | 'partner' | 'admin';
+export type UserRole = 'customer' | 'partner' | 'admin' | 'super_admin';
 export type OrderType = 'd2c' | 'b2b';
 export type OrderStatus = 'pending' | 'paid' | 'shipped' | 'delivered' | 'cancelled';
 

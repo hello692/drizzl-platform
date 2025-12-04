@@ -74,7 +74,7 @@ export default function AdminAuthPage() {
           return;
         }
 
-        if (profile?.role === 'admin') {
+        if (profile?.role === 'admin' || profile?.role === 'super_admin') {
           router.push('/admin');
         } else {
           await supabase.auth.signOut();
