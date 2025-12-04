@@ -95,6 +95,15 @@ const products: Product[] = [
     defaultImage: '/products/pink-piyata/transparent-glass-1.png',
     hoverImage: '/products/pink-piyata/transparent-glass-2.png',
   },
+  { 
+    id: '10', 
+    name: 'Matcha', 
+    price: 9.49, 
+    reviews: 312, 
+    badge: 'New',
+    defaultImage: '/products/matcha/transparent-glass-1.png',
+    hoverImage: '/products/matcha/transparent-glass-2.png',
+  },
 ];
 
 function ProductCard({ product }: { product: Product }) {
