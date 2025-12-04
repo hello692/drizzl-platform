@@ -220,7 +220,7 @@ export default function Smoothies() {
   return (
     <>
       <Navbar />
-      <div className="gradient-animated" style={{ minHeight: '100vh', padding: '80px 80px', background: 'linear-gradient(-45deg, #ffffff, #f8f9fa, #ffffff, #f0f0f0)', backgroundSize: '400% 400%' }}>
+      <div style={{ minHeight: '100vh', padding: '80px 80px', background: '#ffffff' }}>
         <div style={{ maxWidth: '1320px', margin: '0 auto' }}>
           {/* Header Section */}
           <div style={{ marginBottom: '60px' }}>

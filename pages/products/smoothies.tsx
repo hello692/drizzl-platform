@@ -17,7 +17,7 @@ export default function Smoothies() {
   return (
     <>
       <Navbar />
-      <div className="gradient-animated" style={{ minHeight: '100vh', background: 'linear-gradient(-45deg, #ffffff, #f8f9fa, #ffffff, #f0f0f0)', backgroundSize: '400% 400%' }}>
+      <div style={{ minHeight: '100vh', background: '#ffffff' }}>
         {/* Banner */}
         <div className="glass" style={{
           background: 'rgba(248, 249, 250, 0.8)',

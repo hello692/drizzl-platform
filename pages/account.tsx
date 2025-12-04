@@ -121,7 +121,7 @@ export default function Account() {
   return (
     <>
       <Navbar />
-      <div style={{ minHeight: '70vh', padding: '60px 20px', background: '#fafafa' }}>
+      <div style={{ minHeight: '70vh', padding: '60px 20px', background: '#ffffff' }}>
         <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
           <div style={{ marginBottom: '40px' }}>
             <h1 style={{ fontSize: '32px', fontWeight: '700', marginBottom: '8px' }}>My Account</h1>

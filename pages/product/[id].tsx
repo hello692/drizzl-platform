@@ -548,7 +548,7 @@ export default function ProductDetail() {
   return (
     <>
       <Navbar />
-      <div className="gradient-animated" style={{ padding: '60px', background: 'linear-gradient(-45deg, #ffffff, #f8f9fa, #ffffff, #f0f0f0)', backgroundSize: '400% 400%' }}>
+      <div style={{ padding: '60px', background: '#ffffff' }}>
         <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
           {/* Product Header with Badge */}
           <div style={{ marginBottom: '40px', display: 'flex', alignItems: 'center', gap: '20px' }}>
