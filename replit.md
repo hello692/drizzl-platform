@@ -39,7 +39,10 @@ Drizzl Wellness is a full-stack e-commerce platform for a smoothie and wellness 
     4.  **Inventory Management**: Tracking for ingredients, packaging, and finished goods; low stock/expiration alerts, lot/supplier tracking, storage location management.
     5.  **Factory Intelligence**: Production monitoring (batches, efficiency, goals), predictive restocking, ingredient burn rate, shift tracking.
     6.  **Order Intelligence**: D2C analytics (revenue, AOV, refund rate, customer satisfaction, shipping performance) and B2B analytics (revenue, accounts, top customers, PO tracking).
-    7.  **Video Manager**: CMS for landing page videos with drag-and-drop reordering, autoplay/loop toggles, platform targeting, and status management.
+    7.  **Content Manager**: CMS for managing landing page content with three sections:
+        - **Expert Reviewers**: Manage expert profiles with photo, name, credentials, and product associations for the "Powered by AI, Formulated by Data" section.
+        - **Customer Testimonials**: Manage testimonial cards with customer photo, name, video URL, and product for the "Loved by the Spoiled" section.
+        - **Website Videos**: CMS for landing page videos with drag-and-drop reordering, autoplay/loop toggles, platform targeting, and status management.
     8.  **Social Media Control Center**: Integrates connected accounts (Instagram, TikTok, Facebook) with follower/engagement metrics, post performance, and analytics trends.
     9.  **Banking Intelligence**: Integration for cash balance, income/expenses, net profit/loss, burn rate, and cash runway projections.
     10. **Project Management**: Kanban board with drag-and-drop tasks, department filters, priority badges, assignee avatars, and due dates.
@@ -49,6 +52,7 @@ Drizzl Wellness is a full-stack e-commerce platform for a smoothie and wellness 
 - **Database**: Supabase is used for both authentication and database management.
 - **Core Tables**: `profiles`, `products`, `orders`, `order_items`, `retail_partners`, `analytics_events`, `cart_items`.
 - **Admin Extension Tables**: `role_permissions`, `user_role_assignments`, `product_costs`, `product_ingredients`, `inventory_items`, `manufacturing_batches`, `media_assets`, `social_accounts`, `social_posts`, `ai_insights`, `command_center_snapshots`.
+- **Content Manager Tables**: `experts` (id, name, credentials, photo_url, product, position, is_active, created_at, updated_at), `testimonials` (id, name, photo_url, video_url, product, position, is_active, created_at, updated_at).
 - **Row Level Security (RLS)**: Implemented across all tables to ensure data access control based on user roles (customer, partner, admin).
 
 ## External Dependencies
@@ -70,6 +74,9 @@ Drizzl Wellness is a full-stack e-commerce platform for a smoothie and wellness 
 - Fixed admin APIs to work with RLS policies (using service role key when available, anon key fallback for development)
 - Created architecture documentation in `docs/ARCHITECTURE-NOTES.md`
 - Seeded sample products for testing (6 smoothie products with images)
+- Transformed Video Manager into comprehensive Content Manager with three tabs: Expert Reviewers, Customer Testimonials, and Website Videos
+- Created database tables and API endpoints for experts and testimonials management
+- Integrated Content Manager with PostgreSQL database for persistent data storage
 
 ## Required Secrets for Production
 - `SUPABASE_SERVICE_ROLE_KEY` - For secure admin operations bypassing RLS
