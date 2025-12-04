@@ -1,14 +1,17 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { setup2FA, verify2FASetup, verify2FACode, disable2FA, get2FAStatus, logAuditEvent } from '../../../../lib/securityService';
+import { verifyAdminRequest } from '../../../../lib/adminAuth';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   res.setHeader('Content-Type', 'application/json');
   
-  const { userId, email } = req.query;
-
-  if (!userId || typeof userId !== 'string') {
-    return res.status(400).json({ error: 'User ID required' });
+  const { authorized, user, error: authError } = await verifyAdminRequest(req);
+  if (!authorized || !user) {
+    return res.status(401).json({ error: authError || 'Unauthorized' });
   }
+  
+  const userId = user.id;
+  const { email } = req.query;
 
   if (req.method === 'GET') {
     try {

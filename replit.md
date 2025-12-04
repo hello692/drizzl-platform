@@ -80,12 +80,40 @@ Drizzl Wellness is a full-stack e-commerce platform for a smoothie and wellness 
 - Fixed partner approval button event propagation issues in admin dashboard
 - Added fallback handling for missing Supabase columns in partner API
 
-### B2B Partner Pipeline 2026 (In Progress)
+### B2B Partner Pipeline 2026 (Complete)
 - **Database Schema**: Created new tables for partner scoring, agreements, marketing assets, starter bundles, bundle recommendations, and performance analytics
 - **AI Scoring Service**: Rule-based and AI-enhanced scoring for partner applications (0-100 score with Low/Medium/High risk levels)
 - **Scoring API**: `/api/admin/partners/scoring` endpoint for calculating and retrieving partner scores
 - **Partners Page UI**: Added ScoreBadge component and scoring section in expanded partner panel with Calculate Score and AI Score buttons
 - **New retail_partners columns**: latest_score, risk_level, agreement_status, is_onboarded, onboarded_at
+
+### Security Hardening (Complete)
+- **Database Tables**: `user_sessions`, `user_2fa`, `audit_logs`, `login_attempts`
+- **2FA System**: TOTP-based two-factor authentication with QR code setup, backup codes, and verification
+- **Session Management**: Device tracking, IP address logging, active session listing, remote session termination
+- **Audit Logging**: Comprehensive security event logging with risk levels (low/medium/high/critical)
+- **Brute Force Protection**: Rate limiting on login attempts with automatic blocking
+- **Security Settings Page**: Admin UI at `/admin/security` with 2FA setup, session management, and audit log viewing
+
+### DocuSign Integration (Complete)
+- **Service Layer**: `lib/docusignService.ts` with envelope creation, webhook handling, and status tracking
+- **API Endpoints**: 
+  - `POST /api/admin/docusign/send` - Send agreements to partners
+  - `POST /api/admin/docusign/webhook` - Handle DocuSign status updates
+  - `GET/POST /api/admin/docusign/agreements` - Manage agreement status
+- **Demo Mode**: Simulate signature and decline for testing without DocuSign account
+- **Auto-Onboarding**: Automatically marks partners as onboarded when agreements are signed
+- **Partners Page Integration**: Agreement section with send, resend, void, and tracking capabilities
+
+### Partner Intelligence System (Complete)
+- **Unique Partner IDs**: Auto-generated codes (DW-XXXXXX format) with database trigger
+- **QR Code System**: Base64-encoded partner identification for logistics and deliveries
+- **Global Search**: Multi-field search across partner code, company name, email, and phone
+- **Partner Profile Modal**: Comprehensive view with tabs for Overview, Orders, Invoices, Deliveries, Agreements, Documents, and Notes
+- **Components**: `PartnerSearchBar`, `PartnerProfileModal`, `PartnerCodeBadge`, `QRModal`
+- **Extended Tables**: `partner_documents`, `partner_tickets`, `partner_invoices`, `partner_deliveries`
+- **Risk Management**: Risk flag system with add/remove capabilities and severity levels
+- **Account Management**: Account manager assignment and tracking
 
 ## Required Secrets for Production
 - `SUPABASE_SERVICE_ROLE_KEY` - For secure admin operations bypassing RLS
