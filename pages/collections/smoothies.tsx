@@ -205,10 +205,11 @@ function ProductCard({ product }: { product: Product }) {
             src={isHovered ? product.hoverImage : product.defaultImage}
             alt={product.name}
             style={{ 
-              width: '85%', 
-              height: '85%', 
+              width: '100%', 
+              height: '100%', 
               objectFit: 'contain',
               transition: 'opacity 0.3s ease',
+              transform: 'scale(1.1)',
             }}
           />
 
