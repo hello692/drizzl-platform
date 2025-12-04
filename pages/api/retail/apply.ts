@@ -41,6 +41,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
 
     const userId = userData.user.id;
+    console.log('[Apply API] Checking for existing application for user:', userId);
 
     const { data: existingApp, error: checkError } = await supabase
       .from('retail_partners')
@@ -48,17 +49,22 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       .eq('user_id', userId)
       .maybeSingle();
 
+    console.log('[Apply API] Existing app check result:', { existingApp, checkError });
+
     if (checkError && checkError.code !== 'PGRST116') {
       console.error('Error checking existing application:', checkError);
     }
 
     if (existingApp) {
+      console.log('[Apply API] Found existing application, rejecting submission');
       return res.status(400).json({ 
         error: `You already have a ${existingApp.status} application.`,
         existingId: existingApp.id,
         status: existingApp.status
       });
     }
+    
+    console.log('[Apply API] No existing application, proceeding with submission');
 
     const fullApplicationData = {
       legalBusinessName: applicationData.legalBusinessName,
