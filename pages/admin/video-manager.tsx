@@ -172,46 +172,51 @@ export default function ContentManagerDashboard() {
     }
   }, [authorized]);
 
-  useEffect(() => {
-    if (experts.length > 0 && typeof window !== 'undefined') {
-      localStorage.setItem('drizzl_experts', JSON.stringify(experts));
-    }
-  }, [experts]);
-
-  useEffect(() => {
-    if (testimonials.length > 0 && typeof window !== 'undefined') {
-      localStorage.setItem('drizzl_testimonials', JSON.stringify(testimonials));
-    }
-  }, [testimonials]);
-
   async function loadAllData() {
     try {
-      const response = await fetch('/api/admin/video-manager');
-      const data = await response.json();
-      if (data.success) {
-        setVideos(data.data || []);
+      const [videosRes, expertsRes, testimonialsRes] = await Promise.all([
+        fetch('/api/admin/video-manager'),
+        fetch('/api/admin/experts'),
+        fetch('/api/admin/testimonials'),
+      ]);
+
+      const videosData = await videosRes.json();
+      const expertsData = await expertsRes.json();
+      const testimonialsData = await testimonialsRes.json();
+
+      if (videosData.success) {
+        setVideos(videosData.data || []);
       }
 
-      if (typeof window !== 'undefined') {
-        const savedExperts = localStorage.getItem('drizzl_experts');
-        const savedTestimonials = localStorage.getItem('drizzl_testimonials');
+      if (expertsData.success && expertsData.data) {
+        setExperts(expertsData.data.map((e: any) => ({
+          id: e.id,
+          photoUrl: e.photo_url || '',
+          name: e.name,
+          credentials: e.credentials || '',
+          product: e.product || '',
+          position: e.position,
+          isActive: e.is_active,
+          createdAt: e.created_at,
+          updatedAt: e.updated_at,
+        })));
+      }
 
-        if (savedExperts) {
-          setExperts(JSON.parse(savedExperts));
-        } else {
-          setExperts(INITIAL_EXPERTS);
-        }
-
-        if (savedTestimonials) {
-          setTestimonials(JSON.parse(savedTestimonials));
-        } else {
-          setTestimonials(INITIAL_TESTIMONIALS);
-        }
+      if (testimonialsData.success && testimonialsData.data) {
+        setTestimonials(testimonialsData.data.map((t: any) => ({
+          id: t.id,
+          photoUrl: t.photo_url || '',
+          name: t.name,
+          videoUrl: t.video_url || '',
+          product: t.product || '',
+          position: t.position,
+          isActive: t.is_active,
+          createdAt: t.created_at,
+          updatedAt: t.updated_at,
+        })));
       }
     } catch (error) {
       console.error('Error loading data:', error);
-      setExperts(INITIAL_EXPERTS);
-      setTestimonials(INITIAL_TESTIMONIALS);
     } finally {
       setLoadingData(false);
     }
@@ -328,43 +333,71 @@ export default function ContentManagerDashboard() {
         }
       } else if (activeTab === 'experts') {
         if (modalMode === 'add') {
-          const newExpert: Expert = {
-            id: generateId(),
-            ...expertFormData,
-            position: experts.length + 1,
-            isActive: true,
-            createdAt: new Date().toISOString(),
-            updatedAt: new Date().toISOString(),
-          };
-          setExperts([...experts, newExpert]);
-          closeModal();
+          const response = await fetch('/api/admin/experts', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              name: expertFormData.name,
+              credentials: expertFormData.credentials,
+              photo_url: expertFormData.photoUrl,
+              product: expertFormData.product,
+            }),
+          });
+          const data = await response.json();
+          if (data.success) {
+            await loadAllData();
+            closeModal();
+          }
         } else if (modalMode === 'edit' && selectedExpert) {
-          setExperts(experts.map(e =>
-            e.id === selectedExpert.id
-              ? { ...e, ...expertFormData, updatedAt: new Date().toISOString() }
-              : e
-          ));
-          closeModal();
+          const response = await fetch(`/api/admin/experts/${selectedExpert.id}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              name: expertFormData.name,
+              credentials: expertFormData.credentials,
+              photo_url: expertFormData.photoUrl,
+              product: expertFormData.product,
+            }),
+          });
+          const data = await response.json();
+          if (data.success) {
+            await loadAllData();
+            closeModal();
+          }
         }
       } else {
         if (modalMode === 'add') {
-          const newTestimonial: Testimonial = {
-            id: generateId(),
-            ...testimonialFormData,
-            position: testimonials.length + 1,
-            isActive: true,
-            createdAt: new Date().toISOString(),
-            updatedAt: new Date().toISOString(),
-          };
-          setTestimonials([...testimonials, newTestimonial]);
-          closeModal();
+          const response = await fetch('/api/admin/testimonials', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              name: testimonialFormData.name,
+              photo_url: testimonialFormData.photoUrl,
+              video_url: testimonialFormData.videoUrl,
+              product: testimonialFormData.product,
+            }),
+          });
+          const data = await response.json();
+          if (data.success) {
+            await loadAllData();
+            closeModal();
+          }
         } else if (modalMode === 'edit' && selectedTestimonial) {
-          setTestimonials(testimonials.map(t =>
-            t.id === selectedTestimonial.id
-              ? { ...t, ...testimonialFormData, updatedAt: new Date().toISOString() }
-              : t
-          ));
-          closeModal();
+          const response = await fetch(`/api/admin/testimonials/${selectedTestimonial.id}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              name: testimonialFormData.name,
+              photo_url: testimonialFormData.photoUrl,
+              video_url: testimonialFormData.videoUrl,
+              product: testimonialFormData.product,
+            }),
+          });
+          const data = await response.json();
+          if (data.success) {
+            await loadAllData();
+            closeModal();
+          }
         }
       }
     } catch (error) {
@@ -387,11 +420,19 @@ export default function ContentManagerDashboard() {
           closeModal();
         }
       } else if (activeTab === 'experts' && selectedExpert) {
-        setExperts(experts.filter(e => e.id !== selectedExpert.id).map((e, i) => ({ ...e, position: i + 1 })));
-        closeModal();
+        const response = await fetch(`/api/admin/experts/${selectedExpert.id}`, { method: 'DELETE' });
+        const data = await response.json();
+        if (data.success) {
+          await loadAllData();
+          closeModal();
+        }
       } else if (activeTab === 'testimonials' && selectedTestimonial) {
-        setTestimonials(testimonials.filter(t => t.id !== selectedTestimonial.id).map((t, i) => ({ ...t, position: i + 1 })));
-        closeModal();
+        const response = await fetch(`/api/admin/testimonials/${selectedTestimonial.id}`, { method: 'DELETE' });
+        const data = await response.json();
+        if (data.success) {
+          await loadAllData();
+          closeModal();
+        }
       }
     } catch (error) {
       console.error('Error deleting:', error);
@@ -418,10 +459,34 @@ export default function ContentManagerDashboard() {
       }
     } else if (activeTab === 'experts') {
       const expert = item as Expert;
-      setExperts(prev => prev.map(e => e.id === expert.id ? { ...e, isActive: !e.isActive } : e));
+      try {
+        const response = await fetch(`/api/admin/experts/${expert.id}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ is_active: !expert.isActive }),
+        });
+        const data = await response.json();
+        if (data.success) {
+          setExperts(prev => prev.map(e => e.id === expert.id ? { ...e, isActive: !e.isActive } : e));
+        }
+      } catch (error) {
+        console.error('Error toggling expert:', error);
+      }
     } else {
       const testimonial = item as Testimonial;
-      setTestimonials(prev => prev.map(t => t.id === testimonial.id ? { ...t, isActive: !t.isActive } : t));
+      try {
+        const response = await fetch(`/api/admin/testimonials/${testimonial.id}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ is_active: !testimonial.isActive }),
+        });
+        const data = await response.json();
+        if (data.success) {
+          setTestimonials(prev => prev.map(t => t.id === testimonial.id ? { ...t, isActive: !t.isActive } : t));
+        }
+      } catch (error) {
+        console.error('Error toggling testimonial:', error);
+      }
     }
   };
 
@@ -523,8 +588,28 @@ export default function ContentManagerDashboard() {
         if (data.success) {
           setHasChanges(false);
         }
-      } else {
-        setHasChanges(false);
+      } else if (activeTab === 'experts') {
+        const order = experts.map(e => e.id);
+        const response = await fetch('/api/admin/experts', {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ order }),
+        });
+        const data = await response.json();
+        if (data.success) {
+          setHasChanges(false);
+        }
+      } else if (activeTab === 'testimonials') {
+        const order = testimonials.map(t => t.id);
+        const response = await fetch('/api/admin/testimonials', {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ order }),
+        });
+        const data = await response.json();
+        if (data.success) {
+          setHasChanges(false);
+        }
       }
     } catch (error) {
       console.error('Error saving order:', error);
