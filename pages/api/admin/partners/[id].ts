@@ -179,14 +179,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
       const updateData: Record<string, unknown> = {
         status,
-        reviewed_at: new Date().toISOString(),
-        reviewed_by: adminId,
         updated_at: new Date().toISOString(),
       };
 
       if (adminNotes) updateData.admin_notes = adminNotes;
       if (rejectionReason) updateData.rejection_reason = rejectionReason;
-      if (status === 'approved') updateData.approved_at = new Date().toISOString();
 
       const { data: partner, error: updateError } = await supabaseAdmin
         .from('retail_partners')
