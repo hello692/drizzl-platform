@@ -180,7 +180,8 @@ export default function AdminLayout({ children, title, subtitle }: AdminLayoutPr
                 height: '32px', 
                 width: 'auto',
                 objectFit: 'contain',
-                filter: 'invert(1) brightness(2)'
+                filter: 'brightness(0) invert(1)',
+                mixBlendMode: 'screen'
               }} 
             />
           </Link>
