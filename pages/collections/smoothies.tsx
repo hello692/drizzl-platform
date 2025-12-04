@@ -8,6 +8,7 @@ interface Product {
   name: string;
   price: number;
   reviews: number;
+  rating: number;
   badge: string;
   defaultImage: string;
   hoverImage: string;
@@ -18,7 +19,8 @@ const products: Product[] = [
     id: '1', 
     name: 'Strawberry + Peach', 
     price: 8.49, 
-    reviews: 4619, 
+    reviews: 4619,
+    rating: 4.5,
     badge: 'Best Seller',
     defaultImage: '/products/strawberry-peach/transparent-glass-1.png',
     hoverImage: '/products/strawberry-peach/transparent-glass-2.png',
@@ -27,7 +29,8 @@ const products: Product[] = [
     id: '9', 
     name: 'Pink Piyata', 
     price: 8.99, 
-    reviews: 127, 
+    reviews: 127,
+    rating: 4,
     badge: 'New',
     defaultImage: '/products/pink-piyata/transparent-glass-1.png',
     hoverImage: '/products/pink-piyata/transparent-glass-2.png',
@@ -36,8 +39,9 @@ const products: Product[] = [
     id: '10', 
     name: 'Matcha', 
     price: 9.49, 
-    reviews: 312, 
-    badge: 'New',
+    reviews: 312,
+    rating: 4.5,
+    badge: 'Best Seller',
     defaultImage: '/products/matcha/transparent-glass-1.png',
     hoverImage: '/products/matcha/transparent-glass-2.png',
   },
@@ -45,8 +49,9 @@ const products: Product[] = [
     id: '11', 
     name: 'Mocha', 
     price: 9.49, 
-    reviews: 245, 
-    badge: 'New',
+    reviews: 245,
+    rating: 4,
+    badge: 'Best Seller',
     defaultImage: '/products/mocha/transparent-glass-1.png',
     hoverImage: '/products/mocha/transparent-glass-2.png',
   },
@@ -54,7 +59,8 @@ const products: Product[] = [
     id: '12', 
     name: 'Nutty Monkey', 
     price: 8.99, 
-    reviews: 389, 
+    reviews: 389,
+    rating: 4.5,
     badge: 'Best Seller',
     defaultImage: '/products/nutty-monkey/transparent-glass-1.png',
     hoverImage: '/products/nutty-monkey/transparent-glass-2.png',
@@ -63,8 +69,9 @@ const products: Product[] = [
     id: '13', 
     name: 'Mango Jackfruit', 
     price: 8.99, 
-    reviews: 156, 
-    badge: 'New',
+    reviews: 156,
+    rating: 4,
+    badge: 'Best Seller',
     defaultImage: '/products/mango-jackfruit/transparent-glass-1.png',
     hoverImage: '/products/mango-jackfruit/transparent-glass-2.png',
   },
@@ -72,8 +79,9 @@ const products: Product[] = [
     id: '14', 
     name: 'Coffee Mushroom', 
     price: 9.99, 
-    reviews: 203, 
-    badge: 'New',
+    reviews: 203,
+    rating: 4.5,
+    badge: 'Best Seller',
     defaultImage: '/products/coffee-mushroom/transparent-glass-1.png',
     hoverImage: '/products/coffee-mushroom/transparent-glass-2.png',
   },
@@ -81,8 +89,9 @@ const products: Product[] = [
     id: '15', 
     name: 'Chocolate Berry', 
     price: 8.99, 
-    reviews: 278, 
-    badge: 'New',
+    reviews: 278,
+    rating: 4.5,
+    badge: 'Best Seller',
     defaultImage: '/products/chocolate-berry/transparent-glass-1.png',
     hoverImage: '/products/chocolate-berry/transparent-glass-2.png',
   },
@@ -90,8 +99,9 @@ const products: Product[] = [
     id: '16', 
     name: 'Almond', 
     price: 8.99, 
-    reviews: 312, 
-    badge: 'New',
+    reviews: 312,
+    rating: 4,
+    badge: 'Best Seller',
     defaultImage: '/products/almond/transparent-glass-1.png',
     hoverImage: '/products/almond/transparent-glass-2.png',
   },
@@ -99,61 +109,92 @@ const products: Product[] = [
     id: '17', 
     name: 'Acai', 
     price: 9.49, 
-    reviews: 487, 
+    reviews: 487,
+    rating: 4.5,
     badge: 'Best Seller',
     defaultImage: '/products/acai/transparent-glass-1.png',
     hoverImage: '/products/acai/transparent-glass-2.png',
   },
 ];
 
+function StarRating({ rating }: { rating: number }) {
+  const fullStars = Math.floor(rating);
+  const hasHalfStar = rating % 1 !== 0;
+  const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
+  
+  return (
+    <span style={{ display: 'inline-flex', alignItems: 'center', gap: '1px' }}>
+      {[...Array(fullStars)].map((_, i) => (
+        <svg key={`full-${i}`} width="14" height="14" viewBox="0 0 24 24" fill="#000" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/>
+        </svg>
+      ))}
+      {hasHalfStar && (
+        <svg width="14" height="14" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="halfGradient">
+              <stop offset="50%" stopColor="#000"/>
+              <stop offset="50%" stopColor="#ccc"/>
+            </linearGradient>
+          </defs>
+          <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" fill="url(#halfGradient)"/>
+        </svg>
+      )}
+      {[...Array(emptyStars)].map((_, i) => (
+        <svg key={`empty-${i}`} width="14" height="14" viewBox="0 0 24 24" fill="#ccc" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/>
+        </svg>
+      ))}
+    </span>
+  );
+}
+
 function ProductCard({ product }: { product: Product }) {
   const [isHovered, setIsHovered] = useState(false);
 
+  const handleAddToCart = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+  };
+
+  const handleQuickView = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+  };
+
   return (
-    <Link href={`/product/${product.id}`}>
-      <div 
-        className="glass tech-shine" 
-        style={{
-          cursor: 'pointer',
-          border: '1px solid rgba(255, 255, 255, 0.5)',
-          borderRadius: '14px',
-          overflow: 'hidden',
-          transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
-          background: 'rgba(255, 255, 255, 0.8)',
-          backdropFilter: 'blur(12px)',
-          boxShadow: isHovered 
-            ? '0 20px 40px rgba(66, 133, 244, 0.2), inset 0 0 20px rgba(66, 133, 244, 0.05)'
-            : '0 8px 24px rgba(66, 133, 244, 0.08)',
-          transform: isHovered ? 'translateY(-8px) scale(1.02)' : 'translateY(0) scale(1)',
-          borderColor: isHovered ? 'rgba(66, 133, 244, 0.4)' : 'rgba(255, 255, 255, 0.5)',
-        }}
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
-      >
+    <div 
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+      }}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      <Link href={`/product/${product.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
         <div style={{
-          background: '#ffffff',
-          aspectRatio: '1 / 1',
-          borderRadius: '14px 14px 0 0',
           position: 'relative',
+          background: '#ffffff',
+          aspectRatio: '1 / 1.1',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          overflow: 'hidden',
+          cursor: 'pointer',
+          marginBottom: '16px',
         }}>
           {product.badge && (
-            <span className="tech-shine" style={{
+            <span style={{
               position: 'absolute',
-              top: '12px',
-              right: '12px',
-              background: product.badge === 'Best Seller' ? 'linear-gradient(135deg, #000 0%, #1a1a1a 100%)' : 'linear-gradient(135deg, #373f47 0%, #4a5361 100%)',
-              color: 'white',
-              padding: '6px 12px',
-              borderRadius: '8px',
+              top: '16px',
+              left: '16px',
+              background: '#000000',
+              color: '#ffffff',
+              padding: '6px 14px',
+              borderRadius: '20px',
               fontSize: '11px',
-              fontWeight: '700',
+              fontWeight: '600',
               textTransform: 'uppercase',
-              border: '1px solid rgba(255, 255, 255, 0.2)',
-              boxShadow: '0 4px 12px rgba(66, 133, 244, 0.2)',
+              letterSpacing: '0.5px',
               zIndex: 10,
             }}>
               {product.badge}
@@ -164,55 +205,106 @@ function ProductCard({ product }: { product: Product }) {
             src={isHovered ? product.hoverImage : product.defaultImage}
             alt={product.name}
             style={{ 
-              width: '100%', 
-              height: '100%', 
+              width: '85%', 
+              height: '85%', 
               objectFit: 'contain',
-              transition: 'opacity 0.4s ease',
-              padding: '20px',
+              transition: 'opacity 0.3s ease',
             }}
           />
+
+          <button
+            onClick={handleQuickView}
+            style={{
+              position: 'absolute',
+              bottom: '16px',
+              right: '16px',
+              width: '40px',
+              height: '40px',
+              borderRadius: '50%',
+              background: '#ffffff',
+              border: '1px solid #e0e0e0',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              cursor: 'pointer',
+              transition: 'all 0.2s ease',
+              boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = '#f5f5f5';
+              e.currentTarget.style.transform = 'scale(1.05)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = '#ffffff';
+              e.currentTarget.style.transform = 'scale(1)';
+            }}
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <circle cx="11" cy="11" r="8"/>
+              <path d="M21 21l-4.35-4.35"/>
+            </svg>
+          </button>
         </div>
-        <div style={{ padding: '20px' }}>
-          <h3 style={{ fontSize: '16px', fontWeight: '600', marginBottom: '8px' }}>
+
+        <div style={{ marginBottom: '12px' }}>
+          <h3 style={{ 
+            fontSize: '16px', 
+            fontWeight: '600', 
+            marginBottom: '4px',
+            color: '#000000',
+            lineHeight: '1.3',
+          }}>
             {product.name}
           </h3>
-          <p style={{ fontSize: '13px', color: '#999', marginBottom: '12px' }}>
-            ⭐ {product.reviews.toLocaleString()} reviews
+          <p style={{ 
+            fontSize: '14px', 
+            color: '#666666', 
+            marginBottom: '8px',
+          }}>
+            Smoothie
           </p>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <span style={{ fontWeight: '600', fontSize: '16px' }}>${product.price.toFixed(2)}</span>
-            <button
-              onClick={(e) => {
-                e.preventDefault();
-              }}
-              className="tech-shine"
-              style={{
-                padding: '8px 16px',
-                background: 'linear-gradient(135deg, #000 0%, #1a1a1a 100%)',
-                color: 'white',
-                border: '1px solid rgba(255, 255, 255, 0.1)',
-                borderRadius: '8px',
-                fontSize: '14px',
-                fontWeight: '500',
-                cursor: 'pointer',
-                transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-                boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.1)',
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.boxShadow = '0 12px 24px rgba(66, 133, 244, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.2)';
-                e.currentTarget.style.transform = 'translateY(-2px)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.1)';
-                e.currentTarget.style.transform = 'translateY(0)';
-              }}
-            >
-              Add
-            </button>
+          <div style={{ 
+            display: 'flex', 
+            alignItems: 'center', 
+            gap: '8px',
+          }}>
+            <StarRating rating={product.rating} />
+            <span style={{ 
+              fontSize: '13px', 
+              color: '#666666',
+            }}>
+              {product.reviews.toLocaleString()} reviews
+            </span>
           </div>
         </div>
-      </div>
-    </Link>
+      </Link>
+
+      <button
+        onClick={handleAddToCart}
+        style={{
+          width: '100%',
+          padding: '14px 20px',
+          background: '#000000',
+          color: '#ffffff',
+          border: 'none',
+          borderRadius: '0',
+          fontSize: '13px',
+          fontWeight: '600',
+          letterSpacing: '0.5px',
+          textTransform: 'uppercase',
+          cursor: 'pointer',
+          transition: 'all 0.2s ease',
+        }}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.background = '#333333';
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.background = '#000000';
+        }}
+      >
+        Add to Cart  ${product.price.toFixed(2)}
+      </button>
+    </div>
   );
 }
 
@@ -220,34 +312,50 @@ export default function Smoothies() {
   return (
     <>
       <Navbar />
-      <div style={{ minHeight: '100vh', padding: '80px 80px', background: '#ffffff' }}>
-        <div style={{ maxWidth: '1320px', margin: '0 auto' }}>
-          {/* Header Section */}
+      <div style={{ minHeight: '100vh', padding: '80px 60px', background: '#ffffff' }}>
+        <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
           <div style={{ marginBottom: '60px' }}>
-            <div className="tech-shine" style={{ background: 'linear-gradient(135deg, #f9f9fa 0%, #f0f0f0 100%)', borderRadius: '16px', overflow: 'hidden', marginBottom: '40px', border: '1px solid rgba(255, 255, 255, 0.4)', boxShadow: '0 8px 32px rgba(66, 133, 244, 0.08)', width: '1200px', height: '800px', maxWidth: '100%', margin: '0 auto 40px auto' }}>
+            <div style={{ 
+              background: '#f5f5f5', 
+              borderRadius: '8px', 
+              overflow: 'hidden', 
+              marginBottom: '40px', 
+              width: '100%',
+              maxWidth: '1200px',
+              height: 'auto',
+              aspectRatio: '1200 / 800',
+              margin: '0 auto 40px auto' 
+            }}>
               <img
                 src="/images/smoothies-hero.jpg"
                 alt="Smoothies"
                 style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
               />
             </div>
-            <h1 className="heading-2100 text-glow" style={{ marginBottom: '16px', fontSize: '48px' }}>Smoothies</h1>
+            <h1 style={{ 
+              marginBottom: '16px', 
+              fontSize: '42px',
+              fontWeight: '600',
+              color: '#000000',
+              letterSpacing: '-0.5px',
+            }}>
+              Smoothies
+            </h1>
             <p style={{ fontSize: '16px', color: '#666', maxWidth: '600px', lineHeight: '1.6' }}>
               It's never been easier—or healthier—to build a delicious daily routine.
             </p>
-            <ul style={{ fontSize: '14px', color: '#666', marginTop: '24px', marginLeft: '20px' }}>
-              <li style={{ marginBottom: '8px' }}>Gluten-free + dairy-free</li>
-              <li style={{ marginBottom: '8px' }}>A plentiful array of fruits + vegetables in each</li>
-              <li style={{ marginBottom: '8px' }}>Comes frozen, pre-portioned + ready to blend</li>
+            <ul style={{ fontSize: '14px', color: '#666', marginTop: '24px', marginLeft: '20px', lineHeight: '1.8' }}>
+              <li style={{ marginBottom: '6px' }}>Gluten-free + dairy-free</li>
+              <li style={{ marginBottom: '6px' }}>A plentiful array of fruits + vegetables in each</li>
+              <li style={{ marginBottom: '6px' }}>Comes frozen, pre-portioned + ready to blend</li>
               <li>As easy as it gets</li>
             </ul>
           </div>
 
-          {/* Products Grid */}
           <div style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
-            gap: '32px',
+            gridTemplateColumns: 'repeat(4, 1fr)',
+            gap: '40px 30px',
           }}>
             {products.map(product => (
               <ProductCard key={product.id} product={product} />
@@ -256,6 +364,24 @@ export default function Smoothies() {
         </div>
       </div>
       <Footer />
+
+      <style jsx global>{`
+        @media (max-width: 1200px) {
+          .smoothies-grid {
+            grid-template-columns: repeat(3, 1fr) !important;
+          }
+        }
+        @media (max-width: 900px) {
+          .smoothies-grid {
+            grid-template-columns: repeat(2, 1fr) !important;
+          }
+        }
+        @media (max-width: 600px) {
+          .smoothies-grid {
+            grid-template-columns: 1fr !important;
+          }
+        }
+      `}</style>
     </>
   );
 }
