@@ -20,7 +20,7 @@ IMAGES_TO_PROCESS = [
 ]
 
 def remove_background(input_path: str) -> None:
-    """Remove background from an image and save as PNG with transparency."""
+    """Remove background from an image and save as PNG with white background."""
     path = Path(input_path)
     
     if not path.exists():
@@ -34,10 +34,17 @@ def remove_background(input_path: str) -> None:
     
     output_data = remove(input_data)
     
+    foreground = Image.open(io.BytesIO(output_data)).convert("RGBA")
+    
+    white_background = Image.new("RGBA", foreground.size, (255, 255, 255, 255))
+    
+    composite = Image.alpha_composite(white_background, foreground)
+    
+    final_image = composite.convert("RGB")
+    
     output_path = path.with_suffix('.png')
     
-    with open(output_path, 'wb') as f:
-        f.write(output_data)
+    final_image.save(output_path, "PNG")
     
     print(f"Saved: {output_path}")
     
