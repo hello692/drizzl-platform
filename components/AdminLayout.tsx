@@ -162,8 +162,16 @@ export default function AdminLayout({ children, title, subtitle }: AdminLayoutPr
       <nav style={styles.topNav}>
         <div style={styles.navBrand}>
           <Link href="/admin" style={styles.logo}>
-            <span style={styles.logoIcon}>D</span>
-            <span style={styles.logoText}>DRIZZL WELLNESS</span>
+            <img 
+              src="/logo.gif" 
+              alt="Drizzl Wellness" 
+              style={{ 
+                height: '32px', 
+                width: 'auto',
+                objectFit: 'contain',
+                filter: 'invert(1) brightness(2)'
+              }} 
+            />
           </Link>
         </div>
         

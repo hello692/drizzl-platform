@@ -135,8 +135,16 @@ export default function Navbar() {
           gap: 'clamp(16px, 4vw, 32px)',
         }}>
           <div style={{ flex: 1, display: 'flex', justifyContent: 'flex-start', minWidth: 0 }}>
-            <Link href="/" style={{ fontSize: 'clamp(14px, 4vw, 18px)', textDecoration: 'none', whiteSpace: 'nowrap', transition: 'all 1s cubic-bezier(0.32, 0, 0.67, 0)', fontWeight: '900', letterSpacing: '-0.4px', color: '#000' }}>
-              DRIZZL WELLNESS
+            <Link href="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center' }}>
+              <img 
+                src="/logo.gif" 
+                alt="Drizzl Wellness" 
+                style={{ 
+                  height: 'clamp(28px, 6vw, 40px)', 
+                  width: 'auto',
+                  objectFit: 'contain'
+                }} 
+              />
             </Link>
           </div>
 
