@@ -21,7 +21,7 @@ const products: Product[] = [
     reviews: 4619, 
     badge: 'Best Seller',
     defaultImage: '/products/strawberry-peach/main-product.png',
-    hoverImage: '/products/strawberry-peach/transparent-glass-1.jpg',
+    hoverImage: '/products/strawberry-peach/transparent-glass-1.png',
   },
   { 
     id: '2', 
@@ -56,8 +56,8 @@ const products: Product[] = [
     price: 9.49, 
     reviews: 48, 
     badge: 'New',
-    defaultImage: '/products/strawberry-banana-protein/transparent-glass-1.jpg',
-    hoverImage: '/products/strawberry-banana-protein/transparent-glass-2.jpg',
+    defaultImage: '/products/strawberry-banana-protein/transparent-glass-1.png',
+    hoverImage: '/products/strawberry-banana-protein/transparent-glass-2.png',
   },
   { 
     id: '6', 

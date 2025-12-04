@@ -5,7 +5,7 @@ modules = ["nodejs-22", "postgresql-16", "python-3.11"]
 
 [nix]
 channel = "stable-24_11"
-packages = ["unzip"]
+packages = ["freetype", "lcms2", "libimagequant", "libjpeg", "libtiff", "libwebp", "libxcrypt", "oneDNN", "openjpeg", "re2", "tcl", "tk", "unzip", "zlib"]
 
 [env]
 NEXT_TELEMETRY_DISABLED = "1"
@@ -27,7 +27,7 @@ localPort = 36745
 externalPort = 3000
 
 [[ports]]
-localPort = 37047
+localPort = 38147
 externalPort = 4200
 
 [[ports]]
