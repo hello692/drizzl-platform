@@ -35,12 +35,16 @@ const CATEGORIES = [
 ];
 
 const POPULAR_SMOOTHIES = [
-  { id: '1', name: 'Strawberry + Peach', price: 8.49, image: '/products/strawberry-peach/main-product.png', description: 'Creamy strawberry bliss' },
-  { id: '9', name: 'Pink Piyata', price: 8.99, image: '/products/pink-piyata/transparent-glass-1.png', description: 'Tropical dragon fruit' },
-  { id: '10', name: 'Matcha', price: 9.49, image: '/products/matcha/transparent-glass-1.png', description: 'Zen in a cup' },
-  { id: '14', name: 'Coffee Mushroom', price: 9.99, image: '/products/coffee-mushroom/transparent-glass-1.png', description: 'Adaptogenic energy' },
-  { id: '17', name: 'Acai', price: 9.49, image: '/products/acai/transparent-glass-1.png', description: 'Amazonian superfruit' },
-  { id: '12', name: 'Nutty Monkey', price: 8.99, image: '/products/nutty-monkey/transparent-glass-1.png', description: 'Creamy peanut butter' },
+  { id: '1', name: 'Strawberry + Peach', price: 8.49, image: '/products/strawberry-peach/transparent-glass-1.png', badge: 'Best Seller' },
+  { id: '9', name: 'Pink Piyata', price: 8.99, image: '/products/pink-piyata/transparent-glass-1.png', badge: 'New' },
+  { id: '10', name: 'Matcha', price: 9.49, image: '/products/matcha/transparent-glass-1.png', badge: 'Best Seller' },
+  { id: '11', name: 'Mocha', price: 9.49, image: '/products/mocha/transparent-glass-1.png', badge: 'Best Seller' },
+  { id: '12', name: 'Nutty Monkey', price: 8.99, image: '/products/nutty-monkey/transparent-glass-1.png', badge: 'Best Seller' },
+  { id: '13', name: 'Mango Jackfruit', price: 8.99, image: '/products/mango-jackfruit/transparent-glass-1.png', badge: 'Best Seller' },
+  { id: '14', name: 'Coffee Mushroom', price: 9.99, image: '/products/coffee-mushroom/transparent-glass-1.png', badge: 'Best Seller' },
+  { id: '15', name: 'Chocolate Berry', price: 8.99, image: '/products/chocolate-berry/transparent-glass-1.png', badge: 'Best Seller' },
+  { id: '16', name: 'Almond', price: 8.99, image: '/products/almond/transparent-glass-1.png', badge: 'Best Seller' },
+  { id: '17', name: 'Acai', price: 9.49, image: '/products/acai/transparent-glass-1.png', badge: 'Best Seller' },
 ];
 
 const EXPERTS = [
@@ -436,10 +440,10 @@ export default function Home() {
                 >
                   {/* Product Image */}
                   <div style={{
-                    background: '#ffffff',
+                    background: '#f5f5f5',
                     borderRadius: '16px',
                     height: '300px',
-                    marginBottom: '20px',
+                    marginBottom: '16px',
                     overflow: 'hidden',
                     display: 'flex',
                     alignItems: 'center',
@@ -448,6 +452,7 @@ export default function Home() {
                     border: '1px solid #e8e8e8',
                     transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
                     boxShadow: '0 2px 8px rgba(0, 0, 0, 0.04)',
+                    position: 'relative',
                   }}
                     onMouseEnter={(e) => {
                       e.currentTarget.style.borderColor = '#d0d0d0';
@@ -458,13 +463,32 @@ export default function Home() {
                       e.currentTarget.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.04)';
                     }}
                   >
+                    {/* Badge */}
+                    {product.badge && (
+                      <span style={{
+                        position: 'absolute',
+                        top: '12px',
+                        left: '12px',
+                        background: product.badge === 'New' ? '#22c55e' : '#000',
+                        color: '#fff',
+                        fontSize: '10px',
+                        fontWeight: '600',
+                        padding: '6px 10px',
+                        borderRadius: '4px',
+                        textTransform: 'uppercase',
+                        letterSpacing: '0.5px',
+                        zIndex: 5,
+                      }}>
+                        {product.badge}
+                      </span>
+                    )}
                     <img
                       src={product.image}
                       alt={product.name}
                       style={{
-                        width: '100%',
-                        height: '100%',
-                        objectFit: 'cover',
+                        width: '85%',
+                        height: '85%',
+                        objectFit: 'contain',
                         userSelect: 'none',
                       }}
                       draggable={false}
