@@ -1,34 +1,43 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { Pool } from 'pg';
+import { createClient } from '@supabase/supabase-js';
 
-const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
-});
+const supabaseAdmin = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL || '',
+  process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || ''
+);
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const { id } = req.query;
 
+  if (!id || typeof id !== 'string') {
+    return res.status(400).json({ success: false, error: 'Missing expert ID' });
+  }
+
   if (req.method === 'PUT') {
     try {
       const { name, credentials, photo_url, product, is_active, position } = req.body;
-      
-      const updates: string[] = [];
-      const values: any[] = [];
-      let paramCount = 1;
-      
-      if (name !== undefined) { updates.push(`name = $${paramCount++}`); values.push(name); }
-      if (credentials !== undefined) { updates.push(`credentials = $${paramCount++}`); values.push(credentials); }
-      if (photo_url !== undefined) { updates.push(`photo_url = $${paramCount++}`); values.push(photo_url); }
-      if (product !== undefined) { updates.push(`product = $${paramCount++}`); values.push(product); }
-      if (is_active !== undefined) { updates.push(`is_active = $${paramCount++}`); values.push(is_active); }
-      if (position !== undefined) { updates.push(`position = $${paramCount++}`); values.push(position); }
-      
-      updates.push(`updated_at = NOW()`);
-      values.push(id);
-      
-      const query = `UPDATE experts SET ${updates.join(', ')} WHERE id = $${paramCount}`;
-      await pool.query(query, values);
-      
+
+      const updateData: Record<string, any> = {
+        updated_at: new Date().toISOString(),
+      };
+
+      if (name !== undefined) updateData.name = name;
+      if (credentials !== undefined) updateData.credentials = credentials;
+      if (photo_url !== undefined) updateData.photo_url = photo_url;
+      if (product !== undefined) updateData.product = product;
+      if (is_active !== undefined) updateData.is_active = is_active;
+      if (position !== undefined) updateData.position = position;
+
+      const { error } = await supabaseAdmin
+        .from('experts')
+        .update(updateData)
+        .eq('id', id);
+
+      if (error) {
+        console.error('Error updating expert:', error);
+        return res.status(500).json({ success: false, error: error.message });
+      }
+
       return res.status(200).json({ success: true });
     } catch (error: any) {
       console.error('Error updating expert:', error);
@@ -38,7 +47,16 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   if (req.method === 'DELETE') {
     try {
-      await pool.query('DELETE FROM experts WHERE id = $1', [id]);
+      const { error } = await supabaseAdmin
+        .from('experts')
+        .delete()
+        .eq('id', id);
+
+      if (error) {
+        console.error('Error deleting expert:', error);
+        return res.status(500).json({ success: false, error: error.message });
+      }
+
       return res.status(200).json({ success: true });
     } catch (error: any) {
       console.error('Error deleting expert:', error);
