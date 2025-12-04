@@ -260,15 +260,14 @@ export default function Navbar() {
       </div>
       
       <nav className="glass" style={{
-        background: 'rgba(255, 255, 255, 0.9)',
-        borderBottom: '1px solid rgba(0, 0, 0, 0.06)',
+        background: 'rgba(0, 0, 0, 0.85)',
+        borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
         padding: 'clamp(12px, 3vw, 14px) clamp(16px, 4vw, 60px)',
         position: 'sticky',
         top: 0,
         zIndex: 100,
-        backdropFilter: 'blur(12px)',
-        WebkitBackdropFilter: 'blur(12px)',
-        boxShadow: '0 2px 8px rgba(0, 0, 0, 0.04)',
+        backdropFilter: 'blur(20px)',
+        WebkitBackdropFilter: 'blur(20px)',
       }}>
         <div style={{
           maxWidth: '1440px',
@@ -294,7 +293,7 @@ export default function Navbar() {
           </div>
 
           <div style={{ display: 'flex', alignItems: 'center', gap: 'clamp(12px, 2vw, 24px)', flex: 0, flexShrink: 0 }}>
-            <Link href="/auth?type=retail" prefetch={true} style={{ fontSize: '13px', fontWeight: '500', color: '#0071E3', padding: '8px 16px', background: 'transparent', borderRadius: '980px', textDecoration: 'none', border: '1px solid #0071E3', cursor: 'pointer', transition: 'all 0.3s ease', display: 'inline-flex', alignItems: 'center', gap: '8px', whiteSpace: 'nowrap' }} onMouseEnter={(e) => { e.currentTarget.style.background = '#0071E3'; e.currentTarget.style.color = '#fff'; }} onMouseLeave={(e) => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = '#0071E3'; }}>
+            <Link href="/auth?type=retail" prefetch={true} style={{ fontSize: '13px', fontWeight: '500', color: '#fff', padding: '8px 16px', background: 'transparent', borderRadius: '980px', textDecoration: 'none', border: '1px solid rgba(255, 255, 255, 0.3)', cursor: 'pointer', transition: 'all 0.3s ease', display: 'inline-flex', alignItems: 'center', gap: '8px', whiteSpace: 'nowrap' }} onMouseEnter={(e) => { e.currentTarget.style.background = '#fff'; e.currentTarget.style.color = '#000'; e.currentTarget.style.borderColor = '#fff'; }} onMouseLeave={(e) => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = '#fff'; e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.3)'; }}>
               Wholesale
               <svg width="14" height="14" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M2 4h16l-1.5 9H3.5L2 4z" />
@@ -310,10 +309,10 @@ export default function Navbar() {
                   padding: '0', 
                   border: 'none', 
                   background: 'none', 
-                  color: '#000', 
+                  color: '#fff', 
                   cursor: 'pointer', 
                   opacity: langOpen ? 1 : 0.6, 
-                  transition: 'all 1s cubic-bezier(0.32, 0, 0.67, 0)',
+                  transition: 'all 0.3s ease',
                   display: 'flex',
                   alignItems: 'center',
                   gap: '6px',
@@ -379,21 +378,21 @@ export default function Navbar() {
               )}
             </div>
 
-            <Link href="/cart" style={{ fontSize: '16px', color: '#000', opacity: 0.6, transition: 'all 1s cubic-bezier(0.32, 0, 0.67, 0)', display: 'flex', alignItems: 'center', justifyContent: 'center', width: '24px', height: '24px' }} onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')} onMouseLeave={(e) => (e.currentTarget.style.opacity = '0.6')}>
+            <Link href="/cart" style={{ fontSize: '16px', color: '#fff', opacity: 0.7, transition: 'all 0.3s ease', display: 'flex', alignItems: 'center', justifyContent: 'center', width: '24px', height: '24px' }} onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')} onMouseLeave={(e) => (e.currentTarget.style.opacity = '0.7')}>
               <svg width="24" height="24" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M5 6h10l-1 8H6L5 6z" />
                 <path d="M8 6V4c0-1 0.5-1.5 1-1.5h2c.5 0 1 .5 1 1.5v2" />
               </svg>
             </Link>
 
-            <Link href="/auth" style={{ fontSize: '16px', color: '#000', opacity: 0.6, transition: 'all 1s cubic-bezier(0.32, 0, 0.67, 0)', display: 'flex', alignItems: 'center', justifyContent: 'center', width: '20px', height: '20px' }} onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')} onMouseLeave={(e) => (e.currentTarget.style.opacity = '0.6')}>
+            <Link href="/auth" style={{ fontSize: '16px', color: '#fff', opacity: 0.7, transition: 'all 0.3s ease', display: 'flex', alignItems: 'center', justifyContent: 'center', width: '20px', height: '20px' }} onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')} onMouseLeave={(e) => (e.currentTarget.style.opacity = '0.7')}>
               <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                 <circle cx="10" cy="7" r="3" />
                 <path d="M4 17c0-3.3 2.7-6 6-6s6 2.7 6 6" />
               </svg>
             </Link>
 
-            <button style={{ padding: '0', border: 'none', background: 'none', color: '#000', cursor: 'pointer', opacity: 0.6, transition: 'all 1s cubic-bezier(0.32, 0, 0.67, 0)', display: 'flex', alignItems: 'center', justifyContent: 'center', width: '20px', height: '20px' }} onClick={toggleMenu} onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')} onMouseLeave={(e) => (e.currentTarget.style.opacity = '0.6')}>
+            <button style={{ padding: '0', border: 'none', background: 'none', color: '#fff', cursor: 'pointer', opacity: 0.7, transition: 'all 0.3s ease', display: 'flex', alignItems: 'center', justifyContent: 'center', width: '20px', height: '20px' }} onClick={toggleMenu} onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')} onMouseLeave={(e) => (e.currentTarget.style.opacity = '0.7')}>
               <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
                 <line x1="3" y1="5" x2="17" y2="5" />
                 <line x1="3" y1="10" x2="17" y2="10" />
