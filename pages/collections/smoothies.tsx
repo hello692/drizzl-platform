@@ -122,6 +122,15 @@ const products: Product[] = [
     defaultImage: '/products/nutty-monkey/transparent-glass-1.png',
     hoverImage: '/products/nutty-monkey/transparent-glass-2.png',
   },
+  { 
+    id: '13', 
+    name: 'Mango Jackfruit', 
+    price: 8.99, 
+    reviews: 156, 
+    badge: 'New',
+    defaultImage: '/products/mango-jackfruit/transparent-glass-1.png',
+    hoverImage: '/products/mango-jackfruit/transparent-glass-2.png',
+  },
 ];
 
 function ProductCard({ product }: { product: Product }) {
