@@ -649,20 +649,46 @@ export default function Home() {
           </p>
 
           {/* Video Cards Container */}
-          <div style={{ position: 'relative' }}>
+          <div style={{ position: 'relative', padding: '0 50px' }}>
+            {/* Left Arrow */}
+            <button
+              onClick={() => setExpertPosition(prev => (prev - 1 + EXPERTS.length) % EXPERTS.length)}
+              style={{
+                position: 'absolute',
+                left: '0',
+                top: '50%',
+                transform: 'translateY(-50%)',
+                background: 'transparent',
+                border: '2px solid rgba(255,255,255,0.5)',
+                width: '36px',
+                height: '36px',
+                borderRadius: '50%',
+                color: '#fff',
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                transition: 'all 0.2s ease',
+                zIndex: 10,
+              }}
+            >
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <polyline points="15 18 9 12 15 6" />
+              </svg>
+            </button>
+
             <div style={{
               display: 'flex',
-              gap: '12px',
+              gap: '10px',
               alignItems: 'flex-end',
               justifyContent: 'center',
               overflowX: 'auto',
               scrollbarWidth: 'none',
-              paddingBottom: '8px',
             }}>
               {[...EXPERTS, ...EXPERTS].slice(expertPosition, expertPosition + 7).map((expert, idx) => {
                 const isFirst = idx === 0;
-                const cardWidth = isFirst ? 'clamp(200px, 18vw, 240px)' : 'clamp(140px, 13vw, 165px)';
-                const cardHeight = isFirst ? 'clamp(340px, 32vw, 420px)' : 'clamp(260px, 24vw, 320px)';
+                const cardWidth = isFirst ? '220px' : '150px';
+                const cardHeight = isFirst ? '380px' : '280px';
                 
                 return (
                   <div 
@@ -671,7 +697,7 @@ export default function Home() {
                       flexShrink: 0,
                       width: cardWidth,
                       height: cardHeight,
-                      borderRadius: '12px',
+                      borderRadius: '16px',
                       overflow: 'hidden',
                       position: 'relative',
                       cursor: 'pointer',
@@ -698,37 +724,41 @@ export default function Home() {
                       left: 0,
                       right: 0,
                       bottom: 0,
-                      background: 'linear-gradient(to bottom, transparent 60%, rgba(0,0,0,0.7) 100%)',
+                      background: 'linear-gradient(to bottom, transparent 50%, rgba(0,0,0,0.6) 100%)',
                       pointerEvents: 'none',
                     }} />
+                    {/* Centered Play Button */}
                     <div style={{
                       position: 'absolute',
-                      top: isFirst ? '20px' : '14px',
-                      left: isFirst ? '20px' : '14px',
-                      width: isFirst ? '44px' : '36px',
-                      height: isFirst ? '44px' : '36px',
+                      top: '50%',
+                      left: '50%',
+                      transform: 'translate(-50%, -50%)',
+                      width: isFirst ? '52px' : '40px',
+                      height: isFirst ? '52px' : '40px',
                       borderRadius: '50%',
-                      border: '2px solid rgba(255,255,255,0.7)',
+                      border: '2px solid rgba(255,255,255,0.8)',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
-                      background: 'rgba(0,0,0,0.3)',
+                      background: 'rgba(0,0,0,0.2)',
+                      backdropFilter: 'blur(4px)',
                     }}>
-                      <svg width={isFirst ? '16' : '12'} height={isFirst ? '16' : '12'} viewBox="0 0 24 24" fill="white">
-                        <polygon points="6 4 20 12 6 20 6 4" />
+                      <svg width={isFirst ? '18' : '14'} height={isFirst ? '18' : '14'} viewBox="0 0 24 24" fill="white">
+                        <polygon points="8 5 19 12 8 19 8 5" />
                       </svg>
                     </div>
+                    {/* Quote at bottom */}
                     <div style={{
                       position: 'absolute',
-                      bottom: isFirst ? '20px' : '14px',
-                      left: isFirst ? '16px' : '12px',
-                      right: isFirst ? '16px' : '12px',
+                      bottom: '16px',
+                      left: '14px',
+                      right: '14px',
                     }}>
                       <p style={{
-                        fontSize: isFirst ? '14px' : '12px',
-                        color: '#fff',
+                        fontSize: isFirst ? '13px' : '11px',
+                        color: '#D4FF00',
                         margin: 0,
-                        fontWeight: '400',
+                        fontWeight: '500',
                         lineHeight: '1.3',
                       }}>
                         {expert.quote}
@@ -744,15 +774,15 @@ export default function Home() {
               onClick={() => setExpertPosition(prev => (prev + 1) % EXPERTS.length)}
               style={{
                 position: 'absolute',
-                right: '20px',
+                right: '0',
                 top: '50%',
                 transform: 'translateY(-50%)',
-                background: 'rgba(255,255,255,0.9)',
-                border: 'none',
-                width: '40px',
-                height: '40px',
+                background: 'transparent',
+                border: '2px solid rgba(255,255,255,0.5)',
+                width: '36px',
+                height: '36px',
                 borderRadius: '50%',
-                color: '#000',
+                color: '#fff',
                 cursor: 'pointer',
                 display: 'flex',
                 alignItems: 'center',
@@ -761,7 +791,7 @@ export default function Home() {
                 zIndex: 10,
               }}
             >
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <polyline points="9 18 15 12 9 6" />
               </svg>
             </button>
@@ -792,20 +822,46 @@ export default function Home() {
           </h2>
 
           {/* Video Cards Container */}
-          <div style={{ position: 'relative' }}>
+          <div style={{ position: 'relative', padding: '0 50px' }}>
+            {/* Left Arrow */}
+            <button
+              onClick={() => setCustomerPosition(prev => (prev - 1 + CUSTOMERS.length) % CUSTOMERS.length)}
+              style={{
+                position: 'absolute',
+                left: '0',
+                top: '50%',
+                transform: 'translateY(-50%)',
+                background: 'transparent',
+                border: '2px solid rgba(255,255,255,0.5)',
+                width: '36px',
+                height: '36px',
+                borderRadius: '50%',
+                color: '#fff',
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                transition: 'all 0.2s ease',
+                zIndex: 10,
+              }}
+            >
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <polyline points="15 18 9 12 15 6" />
+              </svg>
+            </button>
+
             <div style={{
               display: 'flex',
-              gap: '12px',
+              gap: '10px',
               alignItems: 'flex-end',
               justifyContent: 'center',
               overflowX: 'auto',
               scrollbarWidth: 'none',
-              paddingBottom: '8px',
             }}>
               {[...CUSTOMERS, ...CUSTOMERS].slice(customerPosition, customerPosition + 7).map((customer, idx) => {
                 const isFirst = idx === 0;
-                const cardWidth = isFirst ? 'clamp(200px, 18vw, 240px)' : 'clamp(140px, 13vw, 165px)';
-                const cardHeight = isFirst ? 'clamp(340px, 32vw, 420px)' : 'clamp(260px, 24vw, 320px)';
+                const cardWidth = isFirst ? '220px' : '150px';
+                const cardHeight = isFirst ? '380px' : '280px';
                 
                 return (
                   <div 
@@ -814,7 +870,7 @@ export default function Home() {
                       flexShrink: 0,
                       width: cardWidth,
                       height: cardHeight,
-                      borderRadius: '12px',
+                      borderRadius: '16px',
                       overflow: 'hidden',
                       position: 'relative',
                       cursor: 'pointer',
@@ -841,37 +897,41 @@ export default function Home() {
                       left: 0,
                       right: 0,
                       bottom: 0,
-                      background: 'linear-gradient(to bottom, transparent 60%, rgba(0,0,0,0.7) 100%)',
+                      background: 'linear-gradient(to bottom, transparent 50%, rgba(0,0,0,0.6) 100%)',
                       pointerEvents: 'none',
                     }} />
+                    {/* Centered Play Button */}
                     <div style={{
                       position: 'absolute',
-                      top: isFirst ? '20px' : '14px',
-                      left: isFirst ? '20px' : '14px',
-                      width: isFirst ? '44px' : '36px',
-                      height: isFirst ? '44px' : '36px',
+                      top: '50%',
+                      left: '50%',
+                      transform: 'translate(-50%, -50%)',
+                      width: isFirst ? '52px' : '40px',
+                      height: isFirst ? '52px' : '40px',
                       borderRadius: '50%',
-                      border: '2px solid rgba(255,255,255,0.7)',
+                      border: '2px solid rgba(255,255,255,0.8)',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
-                      background: 'rgba(0,0,0,0.3)',
+                      background: 'rgba(0,0,0,0.2)',
+                      backdropFilter: 'blur(4px)',
                     }}>
-                      <svg width={isFirst ? '16' : '12'} height={isFirst ? '16' : '12'} viewBox="0 0 24 24" fill="white">
-                        <polygon points="6 4 20 12 6 20 6 4" />
+                      <svg width={isFirst ? '18' : '14'} height={isFirst ? '18' : '14'} viewBox="0 0 24 24" fill="white">
+                        <polygon points="8 5 19 12 8 19 8 5" />
                       </svg>
                     </div>
+                    {/* Quote at bottom */}
                     <div style={{
                       position: 'absolute',
-                      bottom: isFirst ? '20px' : '14px',
-                      left: isFirst ? '16px' : '12px',
-                      right: isFirst ? '16px' : '12px',
+                      bottom: '16px',
+                      left: '14px',
+                      right: '14px',
                     }}>
                       <p style={{
-                        fontSize: isFirst ? '14px' : '12px',
-                        color: '#fff',
+                        fontSize: isFirst ? '13px' : '11px',
+                        color: '#D4FF00',
                         margin: 0,
-                        fontWeight: '400',
+                        fontWeight: '500',
                         lineHeight: '1.3',
                       }}>
                         {customer.quote}
@@ -887,15 +947,15 @@ export default function Home() {
               onClick={() => setCustomerPosition(prev => (prev + 1) % CUSTOMERS.length)}
               style={{
                 position: 'absolute',
-                right: '20px',
+                right: '0',
                 top: '50%',
                 transform: 'translateY(-50%)',
-                background: 'rgba(255,255,255,0.9)',
-                border: 'none',
-                width: '40px',
-                height: '40px',
+                background: 'transparent',
+                border: '2px solid rgba(255,255,255,0.5)',
+                width: '36px',
+                height: '36px',
                 borderRadius: '50%',
-                color: '#000',
+                color: '#fff',
                 cursor: 'pointer',
                 display: 'flex',
                 alignItems: 'center',
@@ -904,7 +964,7 @@ export default function Home() {
                 zIndex: 10,
               }}
             >
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <polyline points="9 18 15 12 9 6" />
               </svg>
             </button>
