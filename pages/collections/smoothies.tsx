@@ -20,7 +20,7 @@ const products: Product[] = [
     price: 8.49, 
     reviews: 4619, 
     badge: 'Best Seller',
-    defaultImage: '/products/strawberry-peach/main-product.png',
+    defaultImage: '/products/strawberry-peach/transparent-glass-new.jpg',
     hoverImage: '/products/strawberry-peach/product-1.jpg',
   },
   { 
