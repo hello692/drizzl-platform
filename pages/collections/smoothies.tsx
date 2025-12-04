@@ -21,7 +21,7 @@ const products: Product[] = [
     reviews: 4619, 
     badge: 'Best Seller',
     defaultImage: '/products/strawberry-peach/transparent-glass-new.jpg',
-    hoverImage: '/products/strawberry-peach/product-1.jpg',
+    hoverImage: '/products/strawberry-peach/transparent-glass-2.png',
   },
   { 
     id: '9', 
@@ -30,7 +30,7 @@ const products: Product[] = [
     reviews: 127, 
     badge: 'New',
     defaultImage: '/products/pink-piyata/transparent-glass-1.png',
-    hoverImage: '/products/pink-piyata/product-1.jpg',
+    hoverImage: '/products/pink-piyata/transparent-glass-2.png',
   },
   { 
     id: '10', 
@@ -39,7 +39,7 @@ const products: Product[] = [
     reviews: 312, 
     badge: 'New',
     defaultImage: '/products/matcha/transparent-glass-1.png',
-    hoverImage: '/products/matcha/product-1.jpg',
+    hoverImage: '/products/matcha/transparent-glass-2.png',
   },
   { 
     id: '11', 
@@ -48,7 +48,7 @@ const products: Product[] = [
     reviews: 245, 
     badge: 'New',
     defaultImage: '/products/mocha/transparent-glass-1.png',
-    hoverImage: '/products/mocha/product-1.jpg',
+    hoverImage: '/products/mocha/transparent-glass-2.png',
   },
   { 
     id: '12', 
@@ -57,7 +57,7 @@ const products: Product[] = [
     reviews: 389, 
     badge: 'Best Seller',
     defaultImage: '/products/nutty-monkey/transparent-glass-1.png',
-    hoverImage: '/products/nutty-monkey/product-1.jpg',
+    hoverImage: '/products/nutty-monkey/transparent-glass-2.png',
   },
   { 
     id: '13', 
@@ -66,7 +66,7 @@ const products: Product[] = [
     reviews: 156, 
     badge: 'New',
     defaultImage: '/products/mango-jackfruit/transparent-glass-1.png',
-    hoverImage: '/products/mango-jackfruit/product-1.jpg',
+    hoverImage: '/products/mango-jackfruit/transparent-glass-2.png',
   },
   { 
     id: '14', 
@@ -75,7 +75,7 @@ const products: Product[] = [
     reviews: 203, 
     badge: 'New',
     defaultImage: '/products/coffee-mushroom/transparent-glass-1.png',
-    hoverImage: '/products/coffee-mushroom/product-1.jpg',
+    hoverImage: '/products/coffee-mushroom/transparent-glass-2.png',
   },
   { 
     id: '15', 
@@ -84,7 +84,7 @@ const products: Product[] = [
     reviews: 278, 
     badge: 'New',
     defaultImage: '/products/chocolate-berry/transparent-glass-1.png',
-    hoverImage: '/products/chocolate-berry/product-1.jpg',
+    hoverImage: '/products/chocolate-berry/transparent-glass-2.png',
   },
   { 
     id: '16', 
@@ -93,7 +93,7 @@ const products: Product[] = [
     reviews: 312, 
     badge: 'New',
     defaultImage: '/products/almond/transparent-glass-1.png',
-    hoverImage: '/products/almond/product-1.jpg',
+    hoverImage: '/products/almond/transparent-glass-2.png',
   },
   { 
     id: '17', 
@@ -102,7 +102,7 @@ const products: Product[] = [
     reviews: 487, 
     badge: 'Best Seller',
     defaultImage: '/products/acai/transparent-glass-1.png',
-    hoverImage: '/products/acai/product-1.jpg',
+    hoverImage: '/products/acai/transparent-glass-2.png',
   },
 ];
 
