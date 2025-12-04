@@ -358,12 +358,20 @@ export default function RetailApply() {
     setError('');
     
     try {
+      const { data: sessionData } = await supabase.auth.getSession();
+      const accessToken = sessionData?.session?.access_token;
+
+      if (!accessToken) {
+        setError('Your session has expired. Please log in again.');
+        return;
+      }
+
       const response = await fetch('/api/retail/apply', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          userId: user.id,
           applicationData: formData,
+          accessToken,
         }),
       });
       
