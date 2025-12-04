@@ -39,55 +39,33 @@ export default function AdminSetup() {
     setError('');
 
     try {
-      // First try to sign up
-      const { data: signUpData, error: signUpError } = await supabase.auth.signUp({
+      // Use the admin API to reset/create the admin account
+      const response = await fetch('/api/admin/reset-admin', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.error || 'Failed to create admin account');
+      }
+
+      // Now sign in with the new credentials
+      const { error: signInError } = await supabase.auth.signInWithPassword({
         email,
         password,
       });
 
-      let userId: string | null = null;
-
-      if (signUpError) {
-        // If user already exists, try to sign in instead
-        if (signUpError.message.includes('already registered') || signUpError.message.includes('already exists')) {
-          const { data: signInData, error: signInError } = await supabase.auth.signInWithPassword({
-            email,
-            password,
-          });
-
-          if (signInError) throw signInError;
-          userId = signInData.user?.id || null;
-        } else {
-          throw signUpError;
-        }
-      } else {
-        userId = signUpData.user?.id || null;
+      if (signInError) {
+        throw new Error('Account created but sign-in failed. Try logging in at /admin/auth');
       }
 
-      if (userId) {
-        const { error: profileError } = await supabase
-          .from('profiles')
-          .upsert({
-            id: userId,
-            email: email,
-            full_name: 'Admin',
-            role: 'admin',
-            account_type: 'admin',
-            b2b_status: 'none',
-            created_at: new Date().toISOString(),
-            updated_at: new Date().toISOString(),
-          }, { onConflict: 'id' });
-
-        if (profileError) {
-          console.error('Profile error:', profileError);
-          throw new Error('Failed to create admin profile');
-        }
-
-        setSuccess(true);
-        setTimeout(() => {
-          router.push('/admin');
-        }, 2000);
-      }
+      setSuccess(true);
+      setTimeout(() => {
+        router.push('/admin');
+      }, 2000);
     } catch (err: any) {
       setError(err.message || 'Setup failed. Please try again.');
     } finally {
