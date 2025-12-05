@@ -2604,11 +2604,11 @@ svg {
 }
 
 .carousel-arrow-left {
-  left: 0;
+  left: clamp(16px, 4vw, 40px);
 }
 
 .carousel-arrow-right {
-  right: 0;
+  right: clamp(16px, 4vw, 40px);
 }
 
 .carousel-track {
@@ -2998,14 +2998,22 @@ svg {
     height: 36px;
   }
   
+  .carousel-arrow-left {
+    left: clamp(12px, 3vw, 28px);
+  }
+  
+  .carousel-arrow-right {
+    right: clamp(12px, 3vw, 28px);
+  }
+  
   .carousel-wrapper {
-    padding-left: clamp(40px, 8vw, 60px);
-    padding-right: clamp(40px, 8vw, 60px);
+    padding-left: clamp(48px, 10vw, 70px);
+    padding-right: clamp(48px, 10vw, 70px);
   }
   
   .video-carousel-wrapper {
-    padding-left: clamp(40px, 8vw, 60px);
-    padding-right: clamp(40px, 8vw, 60px);
+    padding-left: clamp(48px, 10vw, 70px);
+    padding-right: clamp(48px, 10vw, 70px);
   }
   
   .cta-btn {
@@ -3040,14 +3048,22 @@ svg {
     height: 32px;
   }
   
+  .carousel-arrow-left {
+    left: clamp(10px, 2.5vw, 20px);
+  }
+  
+  .carousel-arrow-right {
+    right: clamp(10px, 2.5vw, 20px);
+  }
+  
   .carousel-wrapper {
-    padding-left: clamp(36px, 10vw, 48px);
-    padding-right: clamp(36px, 10vw, 48px);
+    padding-left: clamp(44px, 12vw, 56px);
+    padding-right: clamp(44px, 12vw, 56px);
   }
   
   .video-carousel-wrapper {
-    padding-left: clamp(36px, 10vw, 48px);
-    padding-right: clamp(36px, 10vw, 48px);
+    padding-left: clamp(44px, 12vw, 56px);
+    padding-right: clamp(44px, 12vw, 56px);
   }
   
   .product-card-carousel {
@@ -3091,14 +3107,22 @@ svg {
     height: 28px;
   }
   
+  .carousel-arrow-left {
+    left: clamp(8px, 2vw, 16px);
+  }
+  
+  .carousel-arrow-right {
+    right: clamp(8px, 2vw, 16px);
+  }
+  
   .carousel-wrapper {
-    padding-left: clamp(32px, 12vw, 40px);
-    padding-right: clamp(32px, 12vw, 40px);
+    padding-left: clamp(40px, 14vw, 50px);
+    padding-right: clamp(40px, 14vw, 50px);
   }
   
   .video-carousel-wrapper {
-    padding-left: clamp(32px, 12vw, 40px);
-    padding-right: clamp(32px, 12vw, 40px);
+    padding-left: clamp(40px, 14vw, 50px);
+    padding-right: clamp(40px, 14vw, 50px);
   }
   
   .product-card-carousel {
@@ -3160,14 +3184,22 @@ svg {
     height: 24px;
   }
   
+  .carousel-arrow-left {
+    left: 6px;
+  }
+  
+  .carousel-arrow-right {
+    right: 6px;
+  }
+  
   .carousel-wrapper {
-    padding-left: 28px;
-    padding-right: 28px;
+    padding-left: 36px;
+    padding-right: 36px;
   }
   
   .video-carousel-wrapper {
-    padding-left: 28px;
-    padding-right: 28px;
+    padding-left: 36px;
+    padding-right: 36px;
   }
   
   .carousel-track {
