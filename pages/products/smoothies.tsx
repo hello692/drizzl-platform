@@ -35,8 +35,8 @@ export default function Smoothies() {
           </p>
         </div>
 
-        <div style={{ padding: '80px 80px' }}>
-          <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
+        <div style={{ padding: '80px 0' }}>
+          <div style={{ maxWidth: '1400px', margin: '0 auto', paddingLeft: 'clamp(24px, 5vw, 80px)', paddingRight: 'clamp(24px, 5vw, 80px)' }}>
             {/* Hero */}
             <div className="tech-shine" style={{
               background: 'linear-gradient(135deg, #f0f0f0 0%, #f8f9fa 100%)',

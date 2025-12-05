@@ -69,7 +69,7 @@ export default function Checkout() {
     return (
       <>
         <Navbar />
-        <div style={{ minHeight: '60vh', padding: '60px 40px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <div style={{ minHeight: '60vh', padding: '60px 0', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
           <p>Loading...</p>
         </div>
         <Footer />
@@ -81,7 +81,7 @@ export default function Checkout() {
     return (
       <>
         <Navbar />
-        <div style={{ minHeight: '60vh', padding: '60px 40px', textAlign: 'center' }}>
+        <div style={{ minHeight: '60vh', padding: '60px 0', textAlign: 'center', paddingLeft: 'clamp(24px, 5vw, 80px)', paddingRight: 'clamp(24px, 5vw, 80px)' }}>
           <div style={{ maxWidth: '500px', margin: '0 auto' }}>
             <h1 style={{ marginBottom: '16px' }}>Your cart is empty</h1>
             <p style={{ color: '#666', marginBottom: '24px' }}>Add some products to your cart before checking out.</p>
@@ -101,8 +101,8 @@ export default function Checkout() {
   return (
     <>
       <Navbar />
-      <div style={{ minHeight: '60vh', padding: '60px 40px' }}>
-        <div style={{ maxWidth: '900px', margin: '0 auto' }}>
+      <div style={{ minHeight: '60vh', padding: '60px 0' }}>
+        <div style={{ maxWidth: '1400px', margin: '0 auto', paddingLeft: 'clamp(24px, 5vw, 80px)', paddingRight: 'clamp(24px, 5vw, 80px)' }}>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 300px', gap: '40px' }}>
             <div>
               <h1 style={{ marginBottom: '32px' }}>Checkout</h1>

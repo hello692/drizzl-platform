@@ -58,8 +58,8 @@ export default function Products() {
   return (
     <>
       <Navbar />
-      <div style={{ minHeight: '60vh', padding: '60px 40px' }}>
-        <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
+      <div style={{ minHeight: '60vh', padding: '60px 0' }}>
+        <div style={{ maxWidth: '1400px', margin: '0 auto', paddingLeft: 'clamp(24px, 5vw, 80px)', paddingRight: 'clamp(24px, 5vw, 80px)' }}>
           <h1 style={{ marginBottom: '40px' }}>
             {categoryName.charAt(0).toUpperCase() + categoryName.slice(1)}
           </h1>

@@ -834,8 +834,8 @@ export default function Smoothies() {
         onClearAll={handleClearAll}
         onApply={handleApply}
       />
-      <div className="smoothies-page" style={{ minHeight: '100vh', padding: '48px 60px', background: '#000000' }}>
-        <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
+      <div className="smoothies-page" style={{ minHeight: '100vh', padding: '48px 0', background: '#000000' }}>
+        <div style={{ maxWidth: '1400px', margin: '0 auto', paddingLeft: 'clamp(24px, 5vw, 80px)', paddingRight: 'clamp(24px, 5vw, 80px)' }}>
           <div style={{ marginBottom: '32px' }}>
             <div className="smoothies-hero" style={{ 
               background: '#111111', 
