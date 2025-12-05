@@ -2573,7 +2573,9 @@ svg {
   letter-spacing: -0.016em;
 }
 
-.carousel-wrapper {
+/* Both carousels use identical padding for perfect edge alignment */
+.carousel-wrapper,
+.video-carousel-wrapper {
   position: relative;
   padding-left: clamp(48px, 6vw, 100px);
   padding-right: clamp(48px, 6vw, 100px);
@@ -2770,25 +2772,24 @@ svg {
   padding-right: clamp(16px, 4vw, 80px);
 }
 
-/* Full-bleed carousel wrapper - matches product carousel spacing */
+/* Video carousel wrapper width */
 .video-carousel-wrapper {
-  position: relative;
   width: 100%;
-  padding-left: clamp(48px, 6vw, 100px);
-  padding-right: clamp(48px, 6vw, 100px);
 }
 
-/* Carousel track - full width with centered content on ultrawide */
+/* Carousel track - aligned with product carousel */
 .video-carousel-track {
   display: flex;
   gap: var(--card-gap);
   align-items: stretch;
-  justify-content: center;
+  justify-content: flex-start;
   overflow-x: auto;
   scrollbar-width: none;
   padding: 8px 0;
   -webkit-overflow-scrolling: touch;
   scroll-snap-type: x mandatory;
+  cursor: grab;
+  user-select: none;
 }
 
 .video-carousel-track::-webkit-scrollbar {
