@@ -228,6 +228,7 @@ function FilterChip({ label, selected, onClick }: { label: string; selected: boo
         cursor: 'pointer',
         transition: 'all 0.2s ease',
         whiteSpace: 'nowrap',
+        minHeight: '44px',
       }}
     >
       {label}
@@ -282,12 +283,12 @@ function FilterPanel({
         onClick={onClose}
       />
       <div
+        className="filter-panel"
         style={{
           position: 'fixed',
           top: 0,
-          left: isOpen ? 0 : '-400px',
-          width: '380px',
-          maxWidth: '90vw',
+          left: isOpen ? 0 : '-100%',
+          width: 'min(380px, 100vw)',
           height: '100vh',
           background: '#111111',
           zIndex: 1000,
@@ -317,7 +318,12 @@ function FilterPanel({
               background: 'none',
               border: 'none',
               cursor: 'pointer',
-              padding: '4px',
+              padding: '8px',
+              minWidth: '44px',
+              minHeight: '44px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
             }}
           >
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="2">
@@ -327,7 +333,7 @@ function FilterPanel({
           </button>
         </div>
 
-        <div style={{ flex: 1, overflowY: 'auto', padding: '24px' }}>
+        <div style={{ flex: 1, overflowY: 'auto', padding: '24px', WebkitOverflowScrolling: 'touch' }}>
           <div style={{ marginBottom: '32px' }}>
             <h3 style={{ fontSize: '18px', fontWeight: '600', marginBottom: '16px', color: '#ffffff' }}>Likes</h3>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
@@ -352,7 +358,8 @@ function FilterPanel({
                   textDecoration: 'underline',
                   cursor: 'pointer',
                   marginTop: '12px',
-                  padding: 0,
+                  padding: '8px 0',
+                  minHeight: '44px',
                 }}
               >
                 {showMoreLikes ? 'show less' : 'show more'}
@@ -384,7 +391,8 @@ function FilterPanel({
                   textDecoration: 'underline',
                   cursor: 'pointer',
                   marginTop: '12px',
-                  padding: 0,
+                  padding: '8px 0',
+                  minHeight: '44px',
                 }}
               >
                 {showMoreDislikes ? 'show less' : 'show more'}
@@ -416,7 +424,8 @@ function FilterPanel({
                   textDecoration: 'underline',
                   cursor: 'pointer',
                   marginTop: '12px',
-                  padding: 0,
+                  padding: '8px 0',
+                  minHeight: '44px',
                 }}
               >
                 {showMoreDietary ? 'show less' : 'show more'}
@@ -428,6 +437,7 @@ function FilterPanel({
         <div style={{
           padding: '20px 24px',
           borderTop: '1px solid rgba(255,255,255,0.08)',
+          paddingBottom: 'max(20px, env(safe-area-inset-bottom))',
         }}>
           <p style={{
             fontSize: '13px',
@@ -451,6 +461,7 @@ function FilterPanel({
                 fontWeight: '500',
                 cursor: 'pointer',
                 transition: 'all 0.3s ease',
+                minHeight: '48px',
               }}
             >
               Clear All
@@ -468,6 +479,7 @@ function FilterPanel({
                 fontWeight: '500',
                 cursor: 'pointer',
                 transition: 'all 0.3s ease',
+                minHeight: '48px',
               }}
             >
               Apply
@@ -486,6 +498,7 @@ function SortDropdown({ value, onChange }: { value: string; onChange: (value: st
     <div style={{ position: 'relative' }}>
       <button
         onClick={() => setIsOpen(!isOpen)}
+        className="sort-button"
         style={{
           display: 'flex',
           alignItems: 'center',
@@ -499,6 +512,7 @@ function SortDropdown({ value, onChange }: { value: string; onChange: (value: st
           cursor: 'pointer',
           minWidth: '120px',
           color: '#ffffff',
+          minHeight: '48px',
         }}
       >
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="2">
@@ -521,6 +535,7 @@ function SortDropdown({ value, onChange }: { value: string; onChange: (value: st
             onClick={() => setIsOpen(false)}
           />
           <div
+            className="sort-dropdown"
             style={{
               position: 'absolute',
               top: '100%',
@@ -545,13 +560,14 @@ function SortDropdown({ value, onChange }: { value: string; onChange: (value: st
                   alignItems: 'center',
                   justifyContent: 'space-between',
                   width: '100%',
-                  padding: '12px 16px',
+                  padding: '14px 16px',
                   background: 'none',
                   border: 'none',
                   fontSize: '13px',
                   color: '#ffffff',
                   cursor: 'pointer',
                   textAlign: 'left',
+                  minHeight: '48px',
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.background = 'rgba(255,255,255,0.05)';
@@ -590,13 +606,14 @@ function ProductCard({ product }: { product: Product }) {
 
   return (
     <div 
+      className="product-card"
       style={{
         display: 'flex',
         flexDirection: 'column',
         background: '#111111',
         borderRadius: '12px',
         border: '1px solid rgba(255,255,255,0.1)',
-        padding: '12px',
+        padding: 'clamp(8px, 2vw, 12px)',
         transition: 'all 0.3s ease',
         boxShadow: isHovered ? '0 0 20px rgba(255,255,255,0.05)' : 'none',
         transform: isHovered ? 'scale(1.02)' : 'scale(1)',
@@ -605,25 +622,25 @@ function ProductCard({ product }: { product: Product }) {
       onMouseLeave={() => setIsHovered(false)}
     >
       <Link href={`/product/${product.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
-        <div style={{
+        <div className="product-image-container" style={{
           background: 'rgba(255,255,255,0.05)',
           borderRadius: '8px',
           aspectRatio: '1',
-          marginBottom: '12px',
+          marginBottom: 'clamp(8px, 2vw, 12px)',
           position: 'relative',
           overflow: 'hidden',
           transition: 'all 0.3s ease',
         }}>
           {product.badge && (
-            <span style={{
+            <span className="product-badge" style={{
               position: 'absolute',
-              top: '12px',
-              left: '12px',
+              top: 'clamp(8px, 2vw, 12px)',
+              left: 'clamp(8px, 2vw, 12px)',
               background: product.badge === 'New' ? '#22c55e' : '#ffffff',
               color: product.badge === 'New' ? '#ffffff' : '#000000',
-              fontSize: '10px',
+              fontSize: 'clamp(9px, 1.2vw, 10px)',
               fontWeight: '600',
-              padding: '6px 10px',
+              padding: 'clamp(4px, 1vw, 6px) clamp(6px, 1.5vw, 10px)',
               borderRadius: '4px',
               textTransform: 'uppercase',
               letterSpacing: '0.5px',
@@ -634,10 +651,11 @@ function ProductCard({ product }: { product: Product }) {
           )}
           <button
             onClick={handleQuickView}
+            className="quick-view-btn"
             style={{
               position: 'absolute',
-              bottom: '12px',
-              right: '12px',
+              bottom: 'clamp(8px, 2vw, 12px)',
+              right: 'clamp(8px, 2vw, 12px)',
               width: '36px',
               height: '36px',
               borderRadius: '50%',
@@ -651,6 +669,8 @@ function ProductCard({ product }: { product: Product }) {
               opacity: isHovered ? 1 : 0,
               transform: isHovered ? 'translateY(0)' : 'translateY(8px)',
               zIndex: 5,
+              minWidth: '44px',
+              minHeight: '44px',
             }}
           >
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="2">
@@ -665,14 +685,14 @@ function ProductCard({ product }: { product: Product }) {
               width: '100%',
               height: '100%',
               objectFit: 'contain',
-              padding: '20px',
+              padding: 'clamp(12px, 3vw, 20px)',
               transition: 'all 0.4s ease',
             }}
           />
         </div>
-        <div style={{ padding: '0 4px', marginBottom: '12px' }}>
-          <h3 style={{ 
-            fontSize: '15px', 
+        <div style={{ padding: '0 4px', marginBottom: 'clamp(8px, 2vw, 12px)' }}>
+          <h3 className="product-name" style={{ 
+            fontSize: 'clamp(13px, 2vw, 15px)', 
             fontWeight: '600', 
             marginBottom: '6px',
             color: '#ffffff',
@@ -680,15 +700,16 @@ function ProductCard({ product }: { product: Product }) {
           }}>
             {product.name}
           </h3>
-          <div style={{
+          <div className="product-rating" style={{
             display: 'flex',
             alignItems: 'center',
             gap: '8px',
             marginBottom: '8px',
+            flexWrap: 'wrap',
           }}>
             <StarRating rating={product.rating} />
             <span style={{
-              fontSize: '12px',
+              fontSize: 'clamp(10px, 1.5vw, 12px)',
               color: 'rgba(255,255,255,0.6)',
             }}>
               {product.reviews.toLocaleString()} reviews
@@ -699,18 +720,20 @@ function ProductCard({ product }: { product: Product }) {
 
       <button
         onClick={handleAddToCart}
+        className="add-to-cart-btn"
         style={{
           width: '100%',
-          padding: '14px 20px',
+          padding: 'clamp(12px, 2vw, 14px) clamp(12px, 2vw, 20px)',
           background: '#ffffff',
           color: '#000000',
           border: 'none',
           borderRadius: '980px',
-          fontSize: '14px',
+          fontSize: 'clamp(12px, 1.5vw, 14px)',
           fontWeight: '500',
           letterSpacing: '0',
           cursor: 'pointer',
           transition: 'all 0.3s ease',
+          minHeight: '48px',
         }}
         onMouseEnter={(e) => {
           e.currentTarget.style.background = 'rgba(255,255,255,0.9)';
@@ -834,55 +857,31 @@ export default function Smoothies() {
         onClearAll={handleClearAll}
         onApply={handleApply}
       />
-      <div className="smoothies-page" style={{ minHeight: '100vh', padding: '48px 0', background: '#000000' }}>
-        <div style={{ maxWidth: '1400px', margin: '0 auto', paddingLeft: 'clamp(24px, 5vw, 80px)', paddingRight: 'clamp(24px, 5vw, 80px)' }}>
-          <div style={{ marginBottom: '32px' }}>
-            <div className="smoothies-hero" style={{ 
-              background: '#111111', 
-              borderRadius: '8px', 
-              overflow: 'hidden', 
-              marginBottom: '40px', 
-              width: '100%',
-              maxWidth: '1200px',
-              height: 'auto',
-              aspectRatio: '1200 / 800',
-              margin: '0 auto 40px auto',
-              border: '1px solid rgba(255,255,255,0.1)',
-            }}>
+      <div className="smoothies-page" style={{ minHeight: '100vh', background: '#000000' }}>
+        <div className="page-container">
+          <div className="hero-wrapper">
+            <div className="smoothies-hero">
               <img
                 src="/images/smoothies-hero.jpg"
                 alt="Smoothies"
                 style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
               />
             </div>
-            <h1 style={{ 
-              marginBottom: '16px', 
-              fontSize: '42px',
-              fontWeight: '600',
-              color: '#ffffff',
-              letterSpacing: '-0.5px',
-            }}>
+            <h1 className="page-title">
               Smoothies
             </h1>
-            <p style={{ fontSize: '16px', color: 'rgba(255,255,255,0.6)', maxWidth: '600px', lineHeight: '1.6' }}>
+            <p className="page-description">
               It's never been easier—or healthier—to build a delicious daily routine.
             </p>
-            <ul style={{ fontSize: '14px', color: 'rgba(255,255,255,0.6)', marginTop: '24px', marginLeft: '20px', lineHeight: '1.8' }}>
-              <li style={{ marginBottom: '6px' }}>Gluten-free + dairy-free</li>
-              <li style={{ marginBottom: '6px' }}>A plentiful array of fruits + vegetables in each</li>
-              <li style={{ marginBottom: '6px' }}>Comes frozen, pre-portioned + ready to blend</li>
+            <ul className="features-list">
+              <li>Gluten-free + dairy-free</li>
+              <li>A plentiful array of fruits + vegetables in each</li>
+              <li>Comes frozen, pre-portioned + ready to blend</li>
               <li>As easy as it gets</li>
             </ul>
           </div>
 
-          <div style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            marginBottom: '32px',
-            borderBottom: '1px solid rgba(255,255,255,0.08)',
-            paddingBottom: '24px',
-          }}>
+          <div className="filter-bar">
             <button
               onClick={() => {
                 setLikes([...appliedLikes]);
@@ -890,19 +889,7 @@ export default function Smoothies() {
                 setDietary([...appliedDietary]);
                 setFilterOpen(true);
               }}
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '8px',
-                padding: '12px 20px',
-                background: '#111111',
-                border: '1px solid rgba(255,255,255,0.1)',
-                borderRadius: '0',
-                fontSize: '13px',
-                fontWeight: '500',
-                cursor: 'pointer',
-                color: '#ffffff',
-              }}
+              className="filter-button"
             >
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="2">
                 <line x1="4" y1="6" x2="20" y2="6" />
@@ -911,15 +898,7 @@ export default function Smoothies() {
               </svg>
               FILTER
               {activeFilterCount > 0 && (
-                <span style={{
-                  background: '#ffffff',
-                  color: '#000000',
-                  fontSize: '11px',
-                  fontWeight: '600',
-                  padding: '2px 6px',
-                  borderRadius: '10px',
-                  marginLeft: '4px',
-                }}>
+                <span className="filter-count">
                   {activeFilterCount}
                 </span>
               )}
@@ -927,24 +906,16 @@ export default function Smoothies() {
             <SortDropdown value={sortBy} onChange={setSortBy} />
           </div>
 
-          <div className="smoothies-grid" style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(4, 1fr)',
-            gap: '28px 24px',
-          }}>
+          <div className="smoothies-grid">
             {filteredAndSortedProducts.map(product => (
               <ProductCard key={product.id} product={product} />
             ))}
           </div>
 
           {filteredAndSortedProducts.length === 0 && (
-            <div style={{
-              textAlign: 'center',
-              padding: '60px 20px',
-              color: 'rgba(255,255,255,0.6)',
-            }}>
-              <p style={{ fontSize: '18px', marginBottom: '12px', color: '#ffffff' }}>No products match your filters</p>
-              <p style={{ fontSize: '14px' }}>Try adjusting your filter selections</p>
+            <div className="no-products">
+              <p className="no-products-title">No products match your filters</p>
+              <p className="no-products-subtitle">Try adjusting your filter selections</p>
             </div>
           )}
         </div>
@@ -952,47 +923,189 @@ export default function Smoothies() {
       <Footer />
 
       <style jsx global>{`
-        @media (max-width: 1200px) {
-          .smoothies-page {
-            padding: 40px 32px !important;
-          }
-          .smoothies-grid {
-            grid-template-columns: repeat(3, 1fr) !important;
-            gap: 24px 20px !important;
-          }
+        .smoothies-page {
+          padding: clamp(32px, 6vw, 48px) 0;
         }
-        @media (max-width: 900px) {
-          .smoothies-page {
-            padding: 32px 20px !important;
-          }
+
+        .page-container {
+          max-width: 1400px;
+          margin: 0 auto;
+          padding-left: clamp(12px, 4vw, 80px);
+          padding-right: clamp(12px, 4vw, 80px);
+        }
+
+        .hero-wrapper {
+          margin-bottom: clamp(24px, 4vw, 32px);
+        }
+
+        .smoothies-hero {
+          background: #111111;
+          border-radius: clamp(8px, 1.5vw, 12px);
+          overflow: hidden;
+          margin-bottom: clamp(24px, 4vw, 40px);
+          width: 100%;
+          max-width: 1200px;
+          aspect-ratio: 1200 / 800;
+          margin-left: auto;
+          margin-right: auto;
+          border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .page-title {
+          margin-bottom: clamp(12px, 2vw, 16px);
+          font-size: clamp(28px, 6vw, 42px);
+          font-weight: 600;
+          color: #ffffff;
+          letter-spacing: -0.5px;
+        }
+
+        .page-description {
+          font-size: clamp(14px, 2vw, 16px);
+          color: rgba(255,255,255,0.6);
+          max-width: 600px;
+          line-height: 1.6;
+          margin: 0;
+        }
+
+        .features-list {
+          font-size: clamp(12px, 1.8vw, 14px);
+          color: rgba(255,255,255,0.6);
+          margin-top: clamp(16px, 3vw, 24px);
+          margin-left: 20px;
+          line-height: 1.8;
+          padding: 0;
+        }
+
+        .features-list li {
+          margin-bottom: 6px;
+        }
+
+        .filter-bar {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: clamp(24px, 4vw, 32px);
+          border-bottom: 1px solid rgba(255,255,255,0.08);
+          padding-bottom: clamp(16px, 3vw, 24px);
+          flex-wrap: wrap;
+          gap: 12px;
+        }
+
+        .filter-button {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          padding: 12px 20px;
+          background: #111111;
+          border: 1px solid rgba(255,255,255,0.1);
+          border-radius: 0;
+          font-size: 13px;
+          font-weight: 500;
+          cursor: pointer;
+          color: #ffffff;
+          min-height: 48px;
+        }
+
+        .filter-count {
+          background: #ffffff;
+          color: #000000;
+          font-size: 11px;
+          font-weight: 600;
+          padding: 2px 6px;
+          border-radius: 10px;
+          margin-left: 4px;
+        }
+
+        .smoothies-grid {
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+          gap: clamp(16px, 3vw, 28px) clamp(12px, 2vw, 24px);
+        }
+
+        .no-products {
+          text-align: center;
+          padding: clamp(40px, 8vw, 60px) 20px;
+          color: rgba(255,255,255,0.6);
+        }
+
+        .no-products-title {
+          font-size: clamp(16px, 2.5vw, 18px);
+          margin-bottom: 12px;
+          color: #ffffff;
+        }
+
+        .no-products-subtitle {
+          font-size: clamp(12px, 2vw, 14px);
+        }
+
+        @media (max-width: 1024px) {
           .smoothies-grid {
-            grid-template-columns: repeat(2, 1fr) !important;
-            gap: 20px 16px !important;
+            grid-template-columns: repeat(3, 1fr);
           }
+
           .smoothies-hero {
-            height: auto !important;
-            aspect-ratio: 16 / 10 !important;
+            aspect-ratio: 16 / 10;
           }
         }
-        @media (max-width: 600px) {
-          .smoothies-page {
-            padding: 24px 16px !important;
-          }
+
+        @media (max-width: 768px) {
           .smoothies-grid {
-            grid-template-columns: repeat(2, 1fr) !important;
-            gap: 16px 12px !important;
+            grid-template-columns: repeat(2, 1fr);
           }
+
+          .filter-bar {
+            flex-direction: column;
+            align-items: stretch;
+          }
+
+          .filter-button,
+          .sort-button {
+            width: 100%;
+            justify-content: center;
+          }
+
+          .sort-dropdown {
+            left: 0;
+            right: 0;
+            width: 100%;
+          }
+
           .smoothies-hero {
-            aspect-ratio: 4 / 3 !important;
+            aspect-ratio: 4 / 3;
           }
         }
+
         @media (max-width: 480px) {
-          .smoothies-page {
-            padding: 20px 12px !important;
-          }
           .smoothies-grid {
-            grid-template-columns: 1fr !important;
-            gap: 20px !important;
+            grid-template-columns: 1fr;
+            gap: 20px;
+          }
+
+          .smoothies-hero {
+            aspect-ratio: 1 / 1;
+            border-radius: 8px;
+          }
+
+          .features-list {
+            margin-left: 16px;
+          }
+        }
+
+        @media (max-width: 320px) {
+          .page-container {
+            padding-left: 8px;
+            padding-right: 8px;
+          }
+
+          .filter-button,
+          .sort-button {
+            padding: 12px 12px;
+            font-size: 12px;
+          }
+
+          .add-to-cart-btn {
+            font-size: 11px !important;
+            padding: 12px 8px !important;
           }
         }
       `}</style>

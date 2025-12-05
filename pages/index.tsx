@@ -216,20 +216,7 @@ export default function Home() {
       <Navbar />
 
       {/* Hero Section with Background Video */}
-      <section style={{
-        padding: '0 clamp(16px, 4vw, 60px)',
-        paddingTop: 'clamp(120px, 20vh, 200px)',
-        paddingBottom: 'clamp(60px, 10vh, 100px)',
-        textAlign: 'center',
-        minHeight: 'clamp(600px, 85vh, 900px)',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'flex-end',
-        background: '#000',
-        position: 'relative',
-        overflow: 'hidden',
-      }}>
+      <section className="hero-section">
         {/* Background Video */}
         <video
           autoPlay
@@ -257,71 +244,26 @@ export default function Home() {
           zIndex: 1,
         }}></div>
         
-        <div style={{ position: 'relative', zIndex: 2, maxWidth: '720px', margin: '0 auto', padding: '0 24px' }}>
+        <div className="hero-content">
           <AnimatedSection animation="fadeUp">
-            <h1 style={{
-              fontSize: 'clamp(48px, 12vw, 96px)',
-              fontWeight: '700',
-              textAlign: 'center',
-              letterSpacing: '-0.025em',
-              color: '#f5f5f7',
-              marginBottom: 'clamp(20px, 4vw, 32px)',
-              lineHeight: '1.04',
-            }}>
+            <h1 className="hero-title">
               Feel the Flavor
             </h1>
           </AnimatedSection>
           <AnimatedSection animation="fadeUp" delay={100}>
-            <p style={{ 
-              textAlign: 'center', 
-              margin: '0 auto', 
-              fontSize: 'clamp(19px, 4vw, 28px)', 
-              color: 'rgba(245,245,247,0.8)', 
-              maxWidth: '520px', 
-              lineHeight: '1.4',
-              fontWeight: '400',
-              letterSpacing: '-0.016em',
-              marginBottom: 'clamp(40px, 8vw, 56px)',
-            }}>
+            <p className="hero-subtitle">
               Fresh. Frozen. Fantastic. Smoothies that make you smile.
             </p>
           </AnimatedSection>
           <AnimatedSection animation="fadeUp" delay={200}>
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '20px' }}>
-              <Link href="/products" style={{
-                fontSize: '17px',
-                fontWeight: '500',
-                padding: '18px 44px',
-                background: '#ffffff',
-                color: '#1d1d1f',
-                borderRadius: '980px',
-                textDecoration: 'none',
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '8px',
-                transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-                letterSpacing: '-0.022em',
-              }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.transform = 'scale(1.04)';
-                  e.currentTarget.style.background = 'rgba(255,255,255,0.92)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.transform = 'scale(1)';
-                  e.currentTarget.style.background = '#ffffff';
-                }}
-              >
+            <div className="hero-cta-container">
+              <Link href="/products" className="hero-btn">
                 Shop Now
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M5 12h14M12 5l7 7-7 7"/>
                 </svg>
               </Link>
-              <span style={{
-                fontSize: '14px',
-                color: 'rgba(245,245,247,0.5)',
-                letterSpacing: '-0.016em',
-                fontWeight: '400',
-              }}>
+              <span className="hero-shipping-text">
                 Free shipping on orders over $50
               </span>
             </div>
@@ -492,66 +434,20 @@ export default function Home() {
       </div>
 
       {/* Category Grid */}
-      <section style={{ padding: 'clamp(64px, 10vw, 100px) 0', background: '#000000' }}>
-        <div style={{ maxWidth: '1400px', margin: '0 auto', paddingLeft: 'clamp(24px, 5vw, 80px)', paddingRight: 'clamp(24px, 5vw, 80px)' }}>
-          <AnimatedSection animation="fadeUp" style={{ textAlign: 'center', marginBottom: 'clamp(32px, 6vw, 56px)' }}>
-            <h2 style={{ 
-              fontSize: 'clamp(32px, 6vw, 48px)', 
-              fontWeight: '600', 
-              marginBottom: '16px', 
-              color: '#f5f5f7',
-              letterSpacing: '-0.018em',
-              lineHeight: '1.08',
-            }}>
+      <section className="category-section">
+        <div className="category-container">
+          <AnimatedSection animation="fadeUp" className="category-header">
+            <h2 className="category-title">
               Shop by Category
             </h2>
-            <p style={{ 
-              fontSize: 'clamp(17px, 3vw, 21px)', 
-              color: '#86868b', 
-              margin: '0 auto', 
-              maxWidth: '480px', 
-              lineHeight: '1.5',
-              letterSpacing: '-0.016em',
-            }}>
+            <p className="category-subtitle">
               Explore our complete collection of wellness products.
             </p>
           </AnimatedSection>
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(clamp(140px, 35vw, 180px), 1fr))',
-            gap: 'clamp(12px, 3vw, 16px)',
-          }}>
+          <div className="category-grid">
             {CATEGORIES.map((category) => (
-              <Link key={category.slug} href={`/products?category=${category.slug}`} style={{
-                padding: '28px 20px',
-                textAlign: 'center',
-                background: '#ffffff',
-                border: 'none',
-                borderRadius: '980px',
-                textDecoration: 'none',
-                color: '#000000',
-                transition: 'all 0.3s ease',
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.background = 'rgba(255,255,255,0.85)';
-                  e.currentTarget.style.transform = 'translateY(-2px)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.background = '#ffffff';
-                  e.currentTarget.style.transform = 'translateY(0)';
-                }}
-              >
-                <h3 style={{
-                  fontSize: '17px',
-                  fontWeight: '500',
-                  margin: 0,
-                  letterSpacing: '-0.022em',
-                  color: '#1d1d1f',
-                }}>
+              <Link key={category.slug} href={`/products?category=${category.slug}`} className="category-card">
+                <h3 className="category-card-title">
                   {category.name}
                 </h3>
               </Link>
@@ -561,64 +457,23 @@ export default function Home() {
       </section>
 
       {/* Popular Products */}
-      <section style={{ padding: 'clamp(80px, 10vw, 120px) 0', background: '#000000', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
-        <div style={{ maxWidth: '1400px', margin: '0 auto', paddingLeft: 'clamp(24px, 5vw, 80px)', paddingRight: 'clamp(24px, 5vw, 80px)' }}>
-          <AnimatedSection animation="fadeUp" style={{ marginBottom: 'clamp(40px, 6vw, 64px)' }}>
-            <h2 style={{ 
-              fontSize: 'clamp(32px, 6vw, 48px)', 
-              fontWeight: '600', 
-              marginBottom: '16px', 
-              color: '#f5f5f7',
-              letterSpacing: '-0.018em',
-              lineHeight: '1.08',
-            }}>
+      <section className="carousel-section">
+        <div className="carousel-container">
+          <AnimatedSection animation="fadeUp" className="carousel-header">
+            <h2 className="carousel-title">
               Popular Products
             </h2>
-            <p style={{ 
-              fontSize: 'clamp(17px, 3vw, 21px)', 
-              color: '#86868b', 
-              margin: '0', 
-              maxWidth: '480px', 
-              lineHeight: '1.5',
-              letterSpacing: '-0.016em',
-            }}>
+            <p className="carousel-subtitle">
               Customer favorites crafted for wellness.
             </p>
           </AnimatedSection>
 
           {/* Carousel Container */}
-          <div style={{ position: 'relative', paddingLeft: 'clamp(50px, 8vw, 70px)', paddingRight: 'clamp(50px, 8vw, 70px)' }}>
-            {/* Left Arrow - Apple Style White */}
+          <div className="carousel-wrapper">
+            {/* Left Arrow - Apple Style White (hidden on mobile) */}
             <button
               onClick={() => scroll('left')}
-              style={{
-                position: 'absolute',
-                left: '0',
-                top: '50%',
-                transform: 'translateY(-50%)',
-                background: '#ffffff',
-                border: 'none',
-                width: '44px',
-                height: '44px',
-                borderRadius: '50%',
-                color: '#1d1d1f',
-                fontSize: '18px',
-                cursor: 'pointer',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                transition: 'all 0.2s ease',
-                zIndex: 10,
-                boxShadow: '0 2px 8px rgba(0,0,0,0.15)',
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.transform = 'translateY(-50%) scale(1.08)';
-                e.currentTarget.style.boxShadow = '0 4px 12px rgba(0,0,0,0.25)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.transform = 'translateY(-50%) scale(1)';
-                e.currentTarget.style.boxShadow = '0 2px 8px rgba(0,0,0,0.15)';
-              }}
+              className="carousel-arrow carousel-arrow-left"
             >
               <AppleArrowLeft />
             </button>
@@ -634,15 +489,10 @@ export default function Home() {
               onTouchMove={handleTouchMove}
               onTouchEnd={handleTouchEnd}
               onScroll={handleScroll}
+              className="carousel-track"
               style={{
-                display: 'flex',
-                gap: '32px',
-                overflowX: 'scroll',
                 scrollBehavior: isDragging ? 'auto' : 'smooth',
-                scrollbarWidth: 'none',
-                paddingBottom: '16px',
                 cursor: isDragging ? 'grabbing' : 'grab',
-                userSelect: 'none',
               }}
             >
               {/* Triple the products for seamless infinite scroll */}
@@ -650,136 +500,50 @@ export default function Home() {
                 <Link
                   key={`${product.id}-${index}`}
                   href={`/products/${product.id}`}
+                  className="product-card-carousel"
                   style={{
-                    flexShrink: 0,
-                    width: '280px',
-                    textAlign: 'center',
                     pointerEvents: isDragging ? 'none' : 'auto',
-                    textDecoration: 'none',
-                    color: '#ffffff',
-                    transition: 'all 0.3s ease',
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.transform = 'translateY(-4px)';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.transform = 'translateY(0)';
                   }}
                 >
                   {/* Product Image - Apple Style White Box */}
-                  <div style={{
-                    background: '#ffffff',
-                    borderRadius: '20px',
-                    height: '300px',
-                    marginBottom: '16px',
-                    overflow: 'hidden',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    cursor: 'pointer',
-                    border: 'none',
-                    transition: 'all 0.3s ease',
-                    position: 'relative',
-                    boxShadow: '0 2px 12px rgba(0,0,0,0.08)',
-                  }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.transform = 'scale(1.02)';
-                      e.currentTarget.style.boxShadow = '0 8px 24px rgba(0,0,0,0.15)';
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.transform = 'scale(1)';
-                      e.currentTarget.style.boxShadow = '0 2px 12px rgba(0,0,0,0.08)';
-                    }}
-                  >
+                  <div className="product-card-image-wrapper">
                     {/* Badge */}
                     {product.badge && (
-                      <span style={{
-                        position: 'absolute',
-                        top: '12px',
-                        left: '12px',
-                        background: product.badge === 'New' ? '#22c55e' : '#fff',
-                        color: product.badge === 'New' ? '#fff' : '#000',
-                        fontSize: '10px',
-                        fontWeight: '600',
-                        padding: '6px 10px',
-                        borderRadius: '4px',
-                        textTransform: 'uppercase',
-                        letterSpacing: '0.5px',
-                        zIndex: 5,
-                      }}>
+                      <span 
+                        className="product-card-badge"
+                        style={{
+                          background: product.badge === 'New' ? '#22c55e' : '#fff',
+                          color: product.badge === 'New' ? '#fff' : '#000',
+                        }}
+                      >
                         {product.badge}
                       </span>
                     )}
                     <img
                       src={product.image}
                       alt={product.name}
-                      style={{
-                        width: '85%',
-                        height: '85%',
-                        objectFit: 'contain',
-                        userSelect: 'none',
-                      }}
+                      className="product-card-image"
                       draggable={false}
                     />
                   </div>
                   
                   {/* Product Name */}
-                  <h3 style={{
-                    fontSize: '19px',
-                    fontWeight: '600',
-                    marginBottom: '6px',
-                    letterSpacing: '-0.012em',
-                    color: '#f5f5f7',
-                    lineHeight: '1.21',
-                  }}>
+                  <h3 className="product-card-name">
                     {product.name}
                   </h3>
 
                   {/* Category */}
-                  <p style={{
-                    fontSize: '14px',
-                    color: '#86868b',
-                    marginBottom: '0',
-                    letterSpacing: '-0.016em',
-                    lineHeight: '1.43',
-                  }}>
+                  <p className="product-card-category">
                     Smoothie
                   </p>
                 </Link>
               ))}
             </div>
 
-            {/* Right Arrow - Apple Style White */}
+            {/* Right Arrow - Apple Style White (hidden on mobile) */}
             <button
               onClick={() => scroll('right')}
-              style={{
-                position: 'absolute',
-                right: '0',
-                top: '50%',
-                transform: 'translateY(-50%)',
-                background: '#ffffff',
-                border: 'none',
-                width: '44px',
-                height: '44px',
-                borderRadius: '50%',
-                color: '#1d1d1f',
-                fontSize: '18px',
-                cursor: 'pointer',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                transition: 'all 0.2s ease',
-                zIndex: 10,
-                boxShadow: '0 2px 8px rgba(0,0,0,0.15)',
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.transform = 'translateY(-50%) scale(1.08)';
-                e.currentTarget.style.boxShadow = '0 4px 12px rgba(0,0,0,0.25)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.transform = 'translateY(-50%) scale(1)';
-                e.currentTarget.style.boxShadow = '0 2px 8px rgba(0,0,0,0.15)';
-              }}
+              className="carousel-arrow carousel-arrow-right"
             >
               <AppleArrowRight />
             </button>
@@ -788,192 +552,63 @@ export default function Home() {
       </section>
 
       {/* Experts Section - Apple Style White Boxes */}
-      <section style={{
-        background: '#000',
-        padding: 'clamp(80px, 10vw, 120px) 0',
-      }}>
-        <div style={{
-          maxWidth: '1400px',
-          margin: '0 auto',
-          paddingLeft: 'clamp(24px, 5vw, 80px)',
-          paddingRight: 'clamp(24px, 5vw, 80px)',
-        }}>
-          <p style={{
-            fontSize: '12px',
-            fontWeight: '600',
-            color: '#6e6e73',
-            textAlign: 'center',
-            marginBottom: '12px',
-            letterSpacing: '0.06em',
-            textTransform: 'uppercase',
-          }}>
+      <section className="video-section">
+        <div className="video-section-container">
+          <p className="video-section-eyebrow">
             OVER 50K FIVE STAR REVIEWS
           </p>
-          <h2 style={{
-            fontSize: 'clamp(32px, 6vw, 48px)',
-            fontWeight: '600',
-            marginBottom: '16px',
-            letterSpacing: '-0.018em',
-            textAlign: 'center',
-            color: '#f5f5f7',
-            lineHeight: '1.08',
-          }}>
+          <h2 className="video-section-title">
             Join the Movement
           </h2>
-          <p style={{
-            fontSize: 'clamp(17px, 3vw, 21px)',
-            color: '#86868b',
-            textAlign: 'center',
-            letterSpacing: '-0.016em',
-            maxWidth: '520px',
-            margin: '0 auto clamp(40px, 6vw, 56px) auto',
-            lineHeight: '1.5',
-          }}>
+          <p className="video-section-subtitle">
             Trusted by over 2 million wellness enthusiasts worldwide.
           </p>
 
           {/* Apple Style Card Carousel */}
-          <div style={{ position: 'relative', padding: '0 60px' }}>
-            {/* Left Arrow - Apple Style */}
+          <div className="video-carousel-wrapper">
+            {/* Left Arrow - Apple Style (hidden on mobile) */}
             <button
               onClick={() => setExpertPosition(prev => (prev - 1 + EXPERTS.length) % EXPERTS.length)}
-              style={{
-                position: 'absolute',
-                left: '0',
-                top: '50%',
-                transform: 'translateY(-50%)',
-                background: '#ffffff',
-                border: 'none',
-                width: '48px',
-                height: '48px',
-                borderRadius: '50%',
-                color: '#1d1d1f',
-                cursor: 'pointer',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                transition: 'all 0.2s ease',
-                zIndex: 10,
-                boxShadow: '0 4px 14px rgba(0,0,0,0.25)',
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.transform = 'translateY(-50%) scale(1.05)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.transform = 'translateY(-50%) scale(1)';
-              }}
+              className="carousel-arrow carousel-arrow-left"
             >
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <polyline points="15 18 9 12 15 6" />
               </svg>
             </button>
 
-            <div style={{
-              display: 'flex',
-              gap: '12px',
-              alignItems: 'stretch',
-              justifyContent: 'center',
-              overflowX: 'auto',
-              scrollbarWidth: 'none',
-              padding: '8px 0',
-            }}>
+            <div className="video-carousel-track">
               {[...EXPERTS, ...EXPERTS].slice(expertPosition, expertPosition + 5).map((expert, idx) => (
                 <div 
                   key={`${expert.id}-${idx}`} 
-                  style={{
-                    flexShrink: 0,
-                    width: '240px',
-                    height: '340px',
-                    borderRadius: '20px',
-                    overflow: 'hidden',
-                    position: 'relative',
-                    cursor: 'pointer',
-                    background: '#ffffff',
-                    transition: 'all 0.3s ease',
-                    boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
-                  }}
+                  className="video-card"
                   onClick={() => {
                     setUnMutedExpert(unMutedExpert === expert.id ? null : expert.id);
                   }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.transform = 'scale(1.02)';
-                    e.currentTarget.style.boxShadow = '0 8px 24px rgba(0,0,0,0.15)';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.transform = 'scale(1)';
-                    e.currentTarget.style.boxShadow = '0 2px 8px rgba(0,0,0,0.08)';
-                  }}
                 >
                   {/* Category Label */}
-                  <div style={{
-                    padding: '20px 20px 0 20px',
-                  }}>
-                    <p style={{
-                      fontSize: '11px',
-                      fontWeight: '600',
-                      color: '#bf4800',
-                      margin: 0,
-                      letterSpacing: '0.5px',
-                      textTransform: 'uppercase',
-                    }}>
+                  <div className="video-card-header">
+                    <p className="video-card-label video-card-label-expert">
                       EXPERT REVIEW
                     </p>
-                    <h3 style={{
-                      fontSize: '21px',
-                      fontWeight: '600',
-                      color: '#1d1d1f',
-                      margin: '6px 0 0 0',
-                      lineHeight: '1.2',
-                      letterSpacing: '-0.01em',
-                    }}>
+                    <h3 className="video-card-name">
                       {expert.name}
                     </h3>
-                    <p style={{
-                      fontSize: '14px',
-                      color: '#86868b',
-                      margin: '4px 0 0 0',
-                      lineHeight: '1.4',
-                    }}>
+                    <p className="video-card-quote">
                       "{expert.quote}"
                     </p>
                   </div>
                   {/* Video Container */}
-                  <div style={{
-                    position: 'absolute',
-                    bottom: 0,
-                    left: 0,
-                    right: 0,
-                    height: '180px',
-                    overflow: 'hidden',
-                  }}>
+                  <div className="video-card-video-container">
                     <video
                       src={expert.video}
-                      style={{
-                        width: '100%',
-                        height: '100%',
-                        objectFit: 'cover',
-                      }}
+                      className="video-card-video"
                       loop
                       autoPlay
                       muted={unMutedExpert !== expert.id}
                       playsInline
                     />
                     {/* Play Button Overlay */}
-                    <div style={{
-                      position: 'absolute',
-                      top: '50%',
-                      left: '50%',
-                      transform: 'translate(-50%, -50%)',
-                      width: '44px',
-                      height: '44px',
-                      borderRadius: '50%',
-                      border: '2px solid rgba(255,255,255,0.9)',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      background: 'rgba(0,0,0,0.3)',
-                      backdropFilter: 'blur(4px)',
-                    }}>
+                    <div className="video-card-play-btn">
                       <svg width="16" height="16" viewBox="0 0 24 24" fill="white">
                         <polygon points="8 5 19 12 8 19 8 5" />
                       </svg>
@@ -983,34 +618,10 @@ export default function Home() {
               ))}
             </div>
 
-            {/* Right Arrow - Apple Style */}
+            {/* Right Arrow - Apple Style (hidden on mobile) */}
             <button
               onClick={() => setExpertPosition(prev => (prev + 1) % EXPERTS.length)}
-              style={{
-                position: 'absolute',
-                right: '0',
-                top: '50%',
-                transform: 'translateY(-50%)',
-                background: '#ffffff',
-                border: 'none',
-                width: '48px',
-                height: '48px',
-                borderRadius: '50%',
-                color: '#1d1d1f',
-                cursor: 'pointer',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                transition: 'all 0.2s ease',
-                zIndex: 10,
-                boxShadow: '0 4px 14px rgba(0,0,0,0.25)',
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.transform = 'translateY(-50%) scale(1.05)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.transform = 'translateY(-50%) scale(1)';
-              }}
+              className="carousel-arrow carousel-arrow-right"
             >
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <polyline points="9 18 15 12 9 6" />
@@ -1021,170 +632,57 @@ export default function Home() {
       </section>
 
       {/* Customers Section - Apple Style White Boxes */}
-      <section style={{
-        background: '#000',
-        padding: 'clamp(80px, 10vw, 120px) 0',
-      }}>
-        <div style={{
-          maxWidth: '1400px',
-          margin: '0 auto',
-          paddingLeft: 'clamp(24px, 5vw, 80px)',
-          paddingRight: 'clamp(24px, 5vw, 80px)',
-        }}>
-          <h2 style={{
-            fontSize: 'clamp(32px, 6vw, 48px)',
-            fontWeight: '600',
-            marginBottom: 'clamp(40px, 6vw, 56px)',
-            letterSpacing: '-0.018em',
-            textAlign: 'center',
-            color: '#f5f5f7',
-            lineHeight: '1.08',
-          }}>
+      <section className="video-section">
+        <div className="video-section-container">
+          <h2 className="video-section-title" style={{ marginBottom: 'clamp(32px, 5vw, 56px)' }}>
             Loved by Customers
           </h2>
 
           {/* Apple Style Card Carousel */}
-          <div style={{ position: 'relative', padding: '0 60px' }}>
-            {/* Left Arrow - Apple Style */}
+          <div className="video-carousel-wrapper">
+            {/* Left Arrow - Apple Style (hidden on mobile) */}
             <button
               onClick={() => setCustomerPosition(prev => (prev - 1 + CUSTOMERS.length) % CUSTOMERS.length)}
-              style={{
-                position: 'absolute',
-                left: '0',
-                top: '50%',
-                transform: 'translateY(-50%)',
-                background: '#ffffff',
-                border: 'none',
-                width: '48px',
-                height: '48px',
-                borderRadius: '50%',
-                color: '#1d1d1f',
-                cursor: 'pointer',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                transition: 'all 0.2s ease',
-                zIndex: 10,
-                boxShadow: '0 4px 14px rgba(0,0,0,0.25)',
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.transform = 'translateY(-50%) scale(1.05)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.transform = 'translateY(-50%) scale(1)';
-              }}
+              className="carousel-arrow carousel-arrow-left"
             >
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <polyline points="15 18 9 12 15 6" />
               </svg>
             </button>
 
-            <div style={{
-              display: 'flex',
-              gap: '12px',
-              alignItems: 'stretch',
-              justifyContent: 'center',
-              overflowX: 'auto',
-              scrollbarWidth: 'none',
-              padding: '8px 0',
-            }}>
+            <div className="video-carousel-track">
               {[...CUSTOMERS, ...CUSTOMERS].slice(customerPosition, customerPosition + 5).map((customer, idx) => (
                 <div 
                   key={`${customer.id}-${idx}`} 
-                  style={{
-                    flexShrink: 0,
-                    width: '240px',
-                    height: '340px',
-                    borderRadius: '20px',
-                    overflow: 'hidden',
-                    position: 'relative',
-                    cursor: 'pointer',
-                    background: '#ffffff',
-                    transition: 'all 0.3s ease',
-                    boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
-                  }}
+                  className="video-card"
                   onClick={() => {
                     setUnMutedCustomer(unMutedCustomer === customer.id ? null : customer.id);
                   }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.transform = 'scale(1.02)';
-                    e.currentTarget.style.boxShadow = '0 8px 24px rgba(0,0,0,0.15)';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.transform = 'scale(1)';
-                    e.currentTarget.style.boxShadow = '0 2px 8px rgba(0,0,0,0.08)';
-                  }}
                 >
                   {/* Category Label */}
-                  <div style={{
-                    padding: '20px 20px 0 20px',
-                  }}>
-                    <p style={{
-                      fontSize: '11px',
-                      fontWeight: '600',
-                      color: '#0066cc',
-                      margin: 0,
-                      letterSpacing: '0.5px',
-                      textTransform: 'uppercase',
-                    }}>
+                  <div className="video-card-header">
+                    <p className="video-card-label video-card-label-customer">
                       CUSTOMER REVIEW
                     </p>
-                    <h3 style={{
-                      fontSize: '21px',
-                      fontWeight: '600',
-                      color: '#1d1d1f',
-                      margin: '6px 0 0 0',
-                      lineHeight: '1.2',
-                      letterSpacing: '-0.01em',
-                    }}>
+                    <h3 className="video-card-name">
                       {customer.name}
                     </h3>
-                    <p style={{
-                      fontSize: '14px',
-                      color: '#86868b',
-                      margin: '4px 0 0 0',
-                      lineHeight: '1.4',
-                    }}>
+                    <p className="video-card-quote">
                       "{customer.quote}"
                     </p>
                   </div>
                   {/* Video Container */}
-                  <div style={{
-                    position: 'absolute',
-                    bottom: 0,
-                    left: 0,
-                    right: 0,
-                    height: '180px',
-                    overflow: 'hidden',
-                  }}>
+                  <div className="video-card-video-container">
                     <video
                       src={customer.video}
-                      style={{
-                        width: '100%',
-                        height: '100%',
-                        objectFit: 'cover',
-                      }}
+                      className="video-card-video"
                       loop
                       autoPlay
                       muted={unMutedCustomer !== customer.id}
                       playsInline
                     />
                     {/* Play Button Overlay */}
-                    <div style={{
-                      position: 'absolute',
-                      top: '50%',
-                      left: '50%',
-                      transform: 'translate(-50%, -50%)',
-                      width: '44px',
-                      height: '44px',
-                      borderRadius: '50%',
-                      border: '2px solid rgba(255,255,255,0.9)',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      background: 'rgba(0,0,0,0.3)',
-                      backdropFilter: 'blur(4px)',
-                    }}>
+                    <div className="video-card-play-btn">
                       <svg width="16" height="16" viewBox="0 0 24 24" fill="white">
                         <polygon points="8 5 19 12 8 19 8 5" />
                       </svg>
@@ -1194,35 +692,10 @@ export default function Home() {
               ))}
             </div>
 
-            {/* Right Arrow - Apple Style */}
+            {/* Right Arrow - Apple Style (hidden on mobile) */}
             <button
               onClick={() => setCustomerPosition(prev => (prev + 1) % CUSTOMERS.length)}
-              style={{
-                position: 'absolute',
-                right: '0',
-                top: '50%',
-                transform: 'translateY(-50%)',
-                background: '#ffffff',
-                border: 'none',
-                width: '48px',
-                height: '48px',
-                borderRadius: '50%',
-                color: '#1d1d1f',
-                cursor: 'pointer',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                transition: 'all 0.2s ease',
-                zIndex: 10,
-                boxShadow: '0 4px 14px rgba(0,0,0,0.25)',
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.transform = 'translateY(-50%) scale(1.05)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.transform = 'translateY(-50%) scale(1)';
-                e.currentTarget.style.boxShadow = '0 2px 8px rgba(0,0,0,0.15)';
-              }}
+              className="carousel-arrow carousel-arrow-right"
             >
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <polyline points="9 18 15 12 9 6" />
@@ -1231,30 +704,8 @@ export default function Home() {
           </div>
 
           {/* CTA Button */}
-          <div style={{ textAlign: 'center', marginTop: '56px' }}>
-            <Link href="/collections/smoothies" style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '8px',
-              padding: '16px 32px',
-              background: '#ffffff',
-              color: '#1d1d1f',
-              textDecoration: 'none',
-              borderRadius: '980px',
-              fontSize: '17px',
-              fontWeight: '500',
-              letterSpacing: '-0.022em',
-              transition: 'all 0.3s ease',
-            }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.background = 'rgba(255,255,255,0.9)';
-                e.currentTarget.style.transform = 'scale(1.04)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.background = '#ffffff';
-                e.currentTarget.style.transform = 'scale(1)';
-              }}
-            >
+          <div style={{ textAlign: 'center', marginTop: 'clamp(32px, 5vw, 56px)' }}>
+            <Link href="/collections/smoothies" className="cta-btn">
               Shop All Reviews
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M5 12h14M12 5l7 7-7 7"/>
@@ -1265,66 +716,20 @@ export default function Home() {
       </section>
 
       {/* CTA Section */}
-      <section style={{
-        background: '#000000',
-        padding: 'clamp(100px, 14vw, 180px) 0',
-        textAlign: 'center',
-        borderTop: '1px solid rgba(255,255,255,0.06)',
-      }}>
-        <div style={{
-          maxWidth: '1400px',
-          margin: '0 auto',
-          paddingLeft: 'clamp(24px, 5vw, 80px)',
-          paddingRight: 'clamp(24px, 5vw, 80px)',
-        }}>
-        <h2 style={{
-          fontSize: 'clamp(32px, 6vw, 56px)',
-          marginBottom: '24px',
-          fontWeight: '600',
-          letterSpacing: '-0.022em',
-          color: '#f5f5f7',
-          lineHeight: '1.08',
-        }}>
-          Start Your Wellness Journey
-        </h2>
-        <p style={{
-          fontSize: 'clamp(17px, 3vw, 21px)',
-          color: '#86868b',
-          maxWidth: '520px',
-          margin: '0 auto 48px auto',
-          lineHeight: '1.5',
-          letterSpacing: '-0.016em',
-        }}>
-          Join thousands who have made wellness a daily habit.
-        </p>
-        <Link href="/auth" style={{
-          display: 'inline-flex',
-          alignItems: 'center',
-          gap: '8px',
-          padding: '18px 44px',
-          background: '#ffffff',
-          color: '#1d1d1f',
-          textDecoration: 'none',
-          borderRadius: '980px',
-          fontSize: '17px',
-          fontWeight: '500',
-          transition: 'all 0.3s ease',
-          letterSpacing: '-0.022em',
-        }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.background = 'rgba(255,255,255,0.9)';
-            e.currentTarget.style.transform = 'scale(1.04)';
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.background = '#ffffff';
-            e.currentTarget.style.transform = 'scale(1)';
-          }}
-        >
-          Get Started
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M5 12h14M12 5l7 7-7 7"/>
-          </svg>
-        </Link>
+      <section className="cta-section">
+        <div className="cta-container">
+          <h2 className="cta-title">
+            Start Your Wellness Journey
+          </h2>
+          <p className="cta-subtitle">
+            Join thousands who have made wellness a daily habit.
+          </p>
+          <Link href="/auth" className="cta-btn">
+            Get Started
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </Link>
         </div>
       </section>
       <Footer />

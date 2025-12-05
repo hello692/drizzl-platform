@@ -13,6 +13,7 @@ export default function Checkout() {
   const { items, total, clear } = useCart(user?.id);
   const [step, setStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [summaryCollapsed, setSummaryCollapsed] = useState(true);
   const [shippingData, setShippingData] = useState({
     firstName: '',
     lastName: '',
@@ -69,8 +70,10 @@ export default function Checkout() {
     return (
       <>
         <Navbar />
-        <div style={{ minHeight: '60vh', padding: '60px 0', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-          <p>Loading...</p>
+        <div className="checkout-container">
+          <div className="checkout-inner" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '50vh' }}>
+            <p style={{ color: '#666' }}>Loading...</p>
+          </div>
         </div>
         <Footer />
       </>
@@ -81,13 +84,14 @@ export default function Checkout() {
     return (
       <>
         <Navbar />
-        <div style={{ minHeight: '60vh', padding: '60px 0', textAlign: 'center', paddingLeft: 'clamp(24px, 5vw, 80px)', paddingRight: 'clamp(24px, 5vw, 80px)' }}>
-          <div style={{ maxWidth: '500px', margin: '0 auto' }}>
-            <h1 style={{ marginBottom: '16px' }}>Your cart is empty</h1>
-            <p style={{ color: '#666', marginBottom: '24px' }}>Add some products to your cart before checking out.</p>
+        <div className="checkout-empty">
+          <div className="checkout-empty-inner">
+            <h1 className="checkout-empty-title">Your cart is empty</h1>
+            <p className="checkout-empty-text">Add some products to your cart before checking out.</p>
             <button
               onClick={() => router.push('/products')}
-              style={{ padding: '14px 32px', background: '#000', color: '#fff', border: 'none', borderRadius: '8px', fontSize: '14px', fontWeight: '600', cursor: 'pointer' }}
+              className="checkout-btn"
+              style={{ maxWidth: '280px', margin: '0 auto' }}
             >
               Browse Products
             </button>
@@ -101,64 +105,151 @@ export default function Checkout() {
   return (
     <>
       <Navbar />
-      <div style={{ minHeight: '60vh', padding: '60px 0' }}>
-        <div style={{ maxWidth: '1400px', margin: '0 auto', paddingLeft: 'clamp(24px, 5vw, 80px)', paddingRight: 'clamp(24px, 5vw, 80px)' }}>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 300px', gap: '40px' }}>
-            <div>
-              <h1 style={{ marginBottom: '32px' }}>Checkout</h1>
+      <div className="checkout-container">
+        <div className="checkout-inner">
+          <h1 className="checkout-title">Checkout</h1>
 
-              <div style={{ display: 'flex', gap: '20px', marginBottom: '40px', justifyContent: 'space-between' }}>
-                <div style={{ padding: '12px 24px', background: step === 1 ? '#000' : '#f9f9f9', color: step === 1 ? 'white' : '#666', borderRadius: '4px', fontSize: '14px', fontWeight: '600' }}>
+          <button
+            className="checkout-summary-toggle"
+            onClick={() => setSummaryCollapsed(!summaryCollapsed)}
+            type="button"
+          >
+            <span className="checkout-summary-toggle-content">
+              <span>Order Summary ({items.length} item{items.length !== 1 ? 's' : ''}) • ${total.toFixed(2)}</span>
+              <span className={`checkout-summary-toggle-icon ${!summaryCollapsed ? 'open' : ''}`}>
+                ▼
+              </span>
+            </span>
+          </button>
+
+          <div className="checkout-grid">
+            <div>
+              <div className="checkout-steps">
+                <div className={`checkout-step ${step === 1 ? 'active' : ''}`}>
                   1. Shipping
                 </div>
-                <div style={{ padding: '12px 24px', background: step === 2 ? '#000' : '#f9f9f9', color: step === 2 ? 'white' : '#666', borderRadius: '4px', fontSize: '14px', fontWeight: '600' }}>
+                <div className={`checkout-step ${step === 2 ? 'active' : ''}`}>
                   2. Payment
                 </div>
               </div>
 
               {step === 1 && (
-                <form onSubmit={handleShippingSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                  <h2 style={{ fontSize: '20px', marginBottom: '16px' }}>Shipping Address</h2>
+                <form onSubmit={handleShippingSubmit} className="checkout-form">
+                  <h2 className="checkout-form-title">Shipping Address</h2>
 
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
-                    <input type="text" placeholder="First Name" value={shippingData.firstName} onChange={(e) => setShippingData({ ...shippingData, firstName: e.target.value })} required style={{ padding: '12px', border: '1px solid #e8e8e8', borderRadius: '4px', fontSize: '14px' }} />
-                    <input type="text" placeholder="Last Name" value={shippingData.lastName} onChange={(e) => setShippingData({ ...shippingData, lastName: e.target.value })} required style={{ padding: '12px', border: '1px solid #e8e8e8', borderRadius: '4px', fontSize: '14px' }} />
+                  <div className="checkout-input-row">
+                    <input
+                      type="text"
+                      placeholder="First Name"
+                      value={shippingData.firstName}
+                      onChange={(e) => setShippingData({ ...shippingData, firstName: e.target.value })}
+                      required
+                      className="checkout-input"
+                    />
+                    <input
+                      type="text"
+                      placeholder="Last Name"
+                      value={shippingData.lastName}
+                      onChange={(e) => setShippingData({ ...shippingData, lastName: e.target.value })}
+                      required
+                      className="checkout-input"
+                    />
                   </div>
 
-                  <input type="email" placeholder="Email" value={shippingData.email} onChange={(e) => setShippingData({ ...shippingData, email: e.target.value })} required style={{ padding: '12px', border: '1px solid #e8e8e8', borderRadius: '4px', fontSize: '14px' }} />
-                  <input type="text" placeholder="Street Address" value={shippingData.address} onChange={(e) => setShippingData({ ...shippingData, address: e.target.value })} required style={{ padding: '12px', border: '1px solid #e8e8e8', borderRadius: '4px', fontSize: '14px' }} />
+                  <input
+                    type="email"
+                    placeholder="Email"
+                    value={shippingData.email}
+                    onChange={(e) => setShippingData({ ...shippingData, email: e.target.value })}
+                    required
+                    className="checkout-input"
+                  />
 
-                  <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr', gap: '12px' }}>
-                    <input type="text" placeholder="City" value={shippingData.city} onChange={(e) => setShippingData({ ...shippingData, city: e.target.value })} required style={{ padding: '12px', border: '1px solid #e8e8e8', borderRadius: '4px', fontSize: '14px' }} />
-                    <input type="text" placeholder="State" value={shippingData.state} onChange={(e) => setShippingData({ ...shippingData, state: e.target.value })} required style={{ padding: '12px', border: '1px solid #e8e8e8', borderRadius: '4px', fontSize: '14px' }} />
-                    <input type="text" placeholder="ZIP" value={shippingData.zip} onChange={(e) => setShippingData({ ...shippingData, zip: e.target.value })} required style={{ padding: '12px', border: '1px solid #e8e8e8', borderRadius: '4px', fontSize: '14px' }} />
+                  <input
+                    type="text"
+                    placeholder="Street Address"
+                    value={shippingData.address}
+                    onChange={(e) => setShippingData({ ...shippingData, address: e.target.value })}
+                    required
+                    className="checkout-input"
+                  />
+
+                  <div className="checkout-input-row-3">
+                    <input
+                      type="text"
+                      placeholder="City"
+                      value={shippingData.city}
+                      onChange={(e) => setShippingData({ ...shippingData, city: e.target.value })}
+                      required
+                      className="checkout-input"
+                    />
+                    <input
+                      type="text"
+                      placeholder="State"
+                      value={shippingData.state}
+                      onChange={(e) => setShippingData({ ...shippingData, state: e.target.value })}
+                      required
+                      className="checkout-input"
+                    />
+                    <input
+                      type="text"
+                      placeholder="ZIP"
+                      value={shippingData.zip}
+                      onChange={(e) => setShippingData({ ...shippingData, zip: e.target.value })}
+                      required
+                      className="checkout-input"
+                    />
                   </div>
 
-                  <button type="submit" style={{ padding: '14px 24px', background: '#000', color: 'white', border: 'none', borderRadius: '4px', fontSize: '16px', fontWeight: '600', cursor: 'pointer', marginTop: '16px' }}>
+                  <button type="submit" className="checkout-btn">
                     Continue to Payment
                   </button>
                 </form>
               )}
 
               {step === 2 && (
-                <form onSubmit={handlePaymentSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                  <h2 style={{ fontSize: '20px', marginBottom: '16px' }}>Payment Method</h2>
-                  <p style={{ color: '#666', marginBottom: '16px' }}>
+                <form onSubmit={handlePaymentSubmit} className="checkout-form">
+                  <h2 className="checkout-form-title">Payment Method</h2>
+                  <p className="checkout-form-description">
                     Stripe integration coming in Phase 2. For now, this is a demo checkout - orders will be saved to the database.
                   </p>
 
-                  <input type="text" placeholder="Card Number" defaultValue="4242 4242 4242 4242" style={{ padding: '12px', border: '1px solid #e8e8e8', borderRadius: '4px', fontSize: '14px' }} />
+                  <input
+                    type="text"
+                    placeholder="Card Number"
+                    defaultValue="4242 4242 4242 4242"
+                    className="checkout-input"
+                  />
 
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
-                    <input type="text" placeholder="MM/YY" defaultValue="12/25" style={{ padding: '12px', border: '1px solid #e8e8e8', borderRadius: '4px', fontSize: '14px' }} />
-                    <input type="text" placeholder="CVC" defaultValue="123" style={{ padding: '12px', border: '1px solid #e8e8e8', borderRadius: '4px', fontSize: '14px' }} />
+                  <div className="checkout-input-row">
+                    <input
+                      type="text"
+                      placeholder="MM/YY"
+                      defaultValue="12/25"
+                      className="checkout-input"
+                    />
+                    <input
+                      type="text"
+                      placeholder="CVC"
+                      defaultValue="123"
+                      className="checkout-input"
+                    />
                   </div>
 
-                  <div style={{ display: 'flex', gap: '12px', marginTop: '16px' }}>
-                    <button type="button" onClick={() => setStep(1)} style={{ padding: '14px 24px', background: '#f5f5f5', color: '#000', border: 'none', borderRadius: '4px', fontSize: '14px', cursor: 'pointer' }}>
+                  <div className="checkout-btn-group">
+                    <button
+                      type="button"
+                      onClick={() => setStep(1)}
+                      className="checkout-btn-secondary"
+                    >
                       Back
                     </button>
-                    <button type="submit" disabled={isSubmitting} style={{ flex: 1, padding: '14px 24px', background: '#000', color: 'white', border: 'none', borderRadius: '4px', fontSize: '16px', fontWeight: '600', cursor: isSubmitting ? 'default' : 'pointer', opacity: isSubmitting ? 0.7 : 1 }}>
+                    <button
+                      type="submit"
+                      disabled={isSubmitting}
+                      className="checkout-btn"
+                      style={{ flex: 1 }}
+                    >
                       {isSubmitting ? 'Processing...' : 'Complete Purchase'}
                     </button>
                   </div>
@@ -166,40 +257,50 @@ export default function Checkout() {
               )}
             </div>
 
-            <div style={{ background: '#f9f9f9', padding: '24px', borderRadius: '4px', height: 'fit-content' }}>
-              <h3 style={{ fontSize: '16px', fontWeight: '600', marginBottom: '16px' }}>Order Summary</h3>
+            <div className={`checkout-summary ${summaryCollapsed ? 'collapsed' : ''}`}>
+              <h3 className="checkout-summary-title">Order Summary</h3>
               
-              <div style={{ marginBottom: '16px' }}>
+              <div className="checkout-summary-items">
                 {items.map(item => (
-                  <div key={item.id} style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '12px', fontSize: '14px' }}>
-                    <span>{item.product?.name || 'Product'} x {item.quantity}</span>
-                    <span style={{ fontWeight: '600' }}>${((item.product?.price || 0) * item.quantity).toFixed(2)}</span>
+                  <div key={item.id} className="checkout-summary-item">
+                    <span className="checkout-summary-item-name">
+                      {item.product?.name || 'Product'} × {item.quantity}
+                    </span>
+                    <span className="checkout-summary-item-price">
+                      ${((item.product?.price || 0) * item.quantity).toFixed(2)}
+                    </span>
                   </div>
                 ))}
               </div>
               
-              <div style={{ borderTop: '1px solid #e8e8e8', paddingTop: '16px', marginBottom: '16px' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
-                  <span style={{ color: '#666', fontSize: '14px' }}>Subtotal</span>
-                  <span style={{ fontSize: '14px', fontWeight: '600' }}>${total.toFixed(2)}</span>
+              <div className="checkout-summary-divider">
+                <div className="checkout-summary-row">
+                  <span className="checkout-summary-label">Subtotal</span>
+                  <span className="checkout-summary-value">${total.toFixed(2)}</span>
                 </div>
-                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                  <span style={{ color: '#666', fontSize: '14px' }}>Shipping</span>
-                  <span style={{ fontSize: '14px', fontWeight: '600' }}>FREE</span>
+                <div className="checkout-summary-row">
+                  <span className="checkout-summary-label">Shipping</span>
+                  <span className="checkout-summary-value">FREE</span>
                 </div>
               </div>
               
-              <div style={{ borderTop: '1px solid #e8e8e8', paddingTop: '16px' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                  <span style={{ fontSize: '16px', fontWeight: '600' }}>Total</span>
-                  <span style={{ fontSize: '20px', fontWeight: '700' }}>${total.toFixed(2)}</span>
-                </div>
+              <div className="checkout-summary-total">
+                <span className="checkout-summary-total-label">Total</span>
+                <span className="checkout-summary-total-value">${total.toFixed(2)}</span>
               </div>
             </div>
           </div>
         </div>
       </div>
       <Footer />
+
+      <style jsx>{`
+        @media (min-width: 769px) {
+          .checkout-summary.collapsed {
+            display: block !important;
+          }
+        }
+      `}</style>
     </>
   );
 }

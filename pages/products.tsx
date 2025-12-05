@@ -58,70 +58,41 @@ export default function Products() {
   return (
     <>
       <Navbar />
-      <div style={{ minHeight: '60vh', padding: '60px 0' }}>
-        <div style={{ maxWidth: '1400px', margin: '0 auto', paddingLeft: 'clamp(24px, 5vw, 80px)', paddingRight: 'clamp(24px, 5vw, 80px)' }}>
-          <h1 style={{ marginBottom: '40px' }}>
+      <div className="products-page">
+        <div className="products-container">
+          <h1 className="products-title">
             {categoryName.charAt(0).toUpperCase() + categoryName.slice(1)}
           </h1>
 
           {loading ? (
-            <p>Loading products...</p>
+            <p style={{ color: 'rgba(255,255,255,0.6)' }}>Loading products...</p>
           ) : products.length === 0 ? (
-            <p>No products found.</p>
+            <p style={{ color: 'rgba(255,255,255,0.6)' }}>No products found.</p>
           ) : (
-            <div style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
-              gap: '32px',
-            }}>
+            <div className="products-grid">
               {products.map(product => (
-                <div key={product.id} style={{
-                  background: 'white',
-                  border: '1px solid #e8e8e8',
-                  borderRadius: '4px',
-                  overflow: 'hidden',
-                  transition: 'all 0.2s',
-                }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.boxShadow = '0 4px 12px rgba(0,0,0,0.08)';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.boxShadow = 'none';
-                  }}
-                >
+                <div key={product.id} className="product-card">
                   {product.image_url && (
-                    <div style={{
-                      width: '100%',
-                      height: '240px',
-                      background: '#f9f9f9',
-                      overflow: 'hidden',
-                    }}>
+                    <div className="product-image-container">
                       <img
                         src={product.image_url}
                         alt={product.name}
-                        style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                        className="product-image"
                       />
                     </div>
                   )}
-                  <div style={{ padding: '20px' }}>
-                    <h3 style={{ fontSize: '16px', marginBottom: '8px' }}>
+                  <div className="product-info">
+                    <h3 className="product-name">
                       {product.name}
                     </h3>
-                    <p style={{ fontSize: '14px', color: '#999', marginBottom: '12px' }}>
+                    <p className="product-description">
                       {product.description}
                     </p>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                      <span style={{ fontWeight: '600' }}>${product.price}</span>
+                    <div className="product-footer">
+                      <span className="product-price">${product.price}</span>
                       <button
                         onClick={() => handleAddToCart(product)}
-                        style={{
-                          padding: '8px 16px',
-                          background: '#000',
-                          color: 'white',
-                          border: 'none',
-                          borderRadius: '4px',
-                          fontSize: '14px',
-                        }}
+                        className="add-to-cart-btn"
                       >
                         Add
                       </button>
@@ -134,6 +105,177 @@ export default function Products() {
         </div>
       </div>
       <Footer />
+
+      <style jsx>{`
+        .products-page {
+          min-height: 60vh;
+          padding: clamp(40px, 8vw, 60px) 0;
+          background: #000000;
+        }
+
+        .products-container {
+          max-width: 1400px;
+          margin: 0 auto;
+          padding-left: clamp(16px, 5vw, 80px);
+          padding-right: clamp(16px, 5vw, 80px);
+        }
+
+        .products-title {
+          font-size: clamp(28px, 6vw, 48px);
+          font-weight: 600;
+          margin-bottom: clamp(24px, 5vw, 40px);
+          color: #ffffff;
+          letter-spacing: -0.5px;
+        }
+
+        .products-grid {
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+          gap: clamp(16px, 3vw, 32px);
+        }
+
+        .product-card {
+          background: #111111;
+          border: 1px solid rgba(255,255,255,0.1);
+          border-radius: 12px;
+          overflow: hidden;
+          transition: all 0.3s ease;
+        }
+
+        .product-card:hover {
+          box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+          transform: translateY(-4px);
+        }
+
+        .product-image-container {
+          width: 100%;
+          aspect-ratio: 1;
+          background: rgba(255,255,255,0.05);
+          overflow: hidden;
+        }
+
+        .product-image {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          transition: transform 0.3s ease;
+        }
+
+        .product-card:hover .product-image {
+          transform: scale(1.05);
+        }
+
+        .product-info {
+          padding: clamp(16px, 3vw, 20px);
+        }
+
+        .product-name {
+          font-size: clamp(14px, 2vw, 16px);
+          font-weight: 600;
+          margin-bottom: 8px;
+          color: #ffffff;
+          letter-spacing: -0.3px;
+        }
+
+        .product-description {
+          font-size: clamp(12px, 1.5vw, 14px);
+          color: rgba(255,255,255,0.6);
+          margin-bottom: 12px;
+          line-height: 1.5;
+          display: -webkit-box;
+          -webkit-line-clamp: 2;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+        }
+
+        .product-footer {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          gap: 12px;
+        }
+
+        .product-price {
+          font-weight: 600;
+          font-size: clamp(14px, 2vw, 16px);
+          color: #ffffff;
+        }
+
+        .add-to-cart-btn {
+          padding: clamp(10px, 2vw, 12px) clamp(16px, 3vw, 20px);
+          background: #ffffff;
+          color: #000000;
+          border: none;
+          border-radius: 980px;
+          font-size: clamp(12px, 1.5vw, 14px);
+          font-weight: 500;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          min-height: 44px;
+          min-width: 44px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .add-to-cart-btn:hover {
+          background: rgba(255,255,255,0.9);
+          transform: scale(1.05);
+        }
+
+        .add-to-cart-btn:active {
+          transform: scale(0.98);
+        }
+
+        @media (max-width: 1024px) {
+          .products-grid {
+            grid-template-columns: repeat(3, 1fr);
+          }
+        }
+
+        @media (max-width: 768px) {
+          .products-grid {
+            grid-template-columns: repeat(2, 1fr);
+          }
+        }
+
+        @media (max-width: 480px) {
+          .products-grid {
+            grid-template-columns: 1fr;
+            gap: 20px;
+          }
+
+          .product-card {
+            max-width: 100%;
+          }
+
+          .add-to-cart-btn {
+            flex: 1;
+            min-height: 48px;
+          }
+
+          .product-footer {
+            flex-direction: column;
+            align-items: stretch;
+          }
+
+          .product-price {
+            text-align: center;
+            margin-bottom: 8px;
+          }
+        }
+
+        @media (max-width: 320px) {
+          .products-container {
+            padding-left: 12px;
+            padding-right: 12px;
+          }
+
+          .product-info {
+            padding: 12px;
+          }
+        }
+      `}</style>
     </>
   );
 }
