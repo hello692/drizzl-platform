@@ -22,27 +22,33 @@ const LANGUAGES = [
 
 const MENU_ITEMS = [
   { 
-    title: 'BEST SELLERS', 
+    title: 'Best Sellers', 
+    href: '/collections/best-sellers',
     items: ['Strawberry + Peach', 'Matcha', 'Acai', 'Coffee Mushroom'] 
   },
   { 
-    title: 'NEW ARRIVALS', 
+    title: 'New Arrivals', 
+    href: '/collections/new-arrivals',
     items: ['Pink Piyata', 'Mango Jackfruit', 'Chocolate Berry'] 
   },
   { 
-    title: 'COLLECTIONS', 
+    title: 'Collections', 
+    href: '/collections',
     items: ['Smoothies', 'High Protein', 'Low Sugar', 'Immunity Boost'] 
   },
   { 
-    title: 'DIETARY NEEDS', 
+    title: 'Dietary Needs', 
+    href: '/collections/dietary',
     items: ['Gluten Free', 'Dairy Free', 'Vegan', 'Keto Friendly'] 
   },
   { 
-    title: 'SMOOTHIE BOXES', 
+    title: 'Smoothie Boxes', 
+    href: '/collections/boxes',
     items: ['Starter Box', 'Family Box', 'Weekly Box', 'Monthly Box'] 
   },
   { 
-    title: 'GIFTS', 
+    title: 'Gifts', 
+    href: '/gifts',
     items: ['Gift Cards', 'Gift Sets', 'Subscriptions'] 
   },
 ];
@@ -96,164 +102,216 @@ export default function Navbar() {
 
   return (
     <>
+      {/* Apple-style Full Screen Dark Menu */}
       <div 
-        className={`menu-overlay-animated ${menuOpen ? 'active' : ''}`}
-        onClick={() => setMenuOpen(false)} 
-        style={{ zIndex: 998 }}
-      />
-      
-      <div className={`menu-sidebar-animated ${menuOpen ? 'active' : ''}`} style={{ 
-        display: 'flex', 
-        flexDirection: 'column', 
-        height: '100%',
-        background: '#fff'
-      }}>
-        <div style={{ 
-          padding: '32px 24px 24px 24px', 
-          display: 'flex', 
-          justifyContent: 'space-between', 
-          alignItems: 'flex-start' 
-        }}>
-          <span style={{ 
-            fontSize: '32px', 
-            fontWeight: '300', 
-            letterSpacing: '-0.5px', 
-            color: '#000',
-            fontFamily: 'system-ui, -apple-system, sans-serif'
-          }}>Menu</span>
-          <button 
-            onClick={() => setMenuOpen(false)}
-            style={{
-              padding: '8px',
-              border: 'none',
-              background: 'none',
-              cursor: 'pointer',
-              marginTop: '4px'
-            }}
-          >
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000" strokeWidth="1.5" strokeLinecap="round">
-              <line x1="6" y1="6" x2="18" y2="18" />
-              <line x1="18" y1="6" x2="6" y2="18" />
-            </svg>
-          </button>
-        </div>
-        
-        <div style={{ 
-          flex: 1, 
+        className={`apple-menu-overlay ${menuOpen ? 'active' : ''}`}
+        style={{
+          position: 'fixed',
+          inset: 0,
+          background: 'rgba(0, 0, 0, 0.97)',
+          backdropFilter: 'blur(20px)',
+          WebkitBackdropFilter: 'blur(20px)',
+          zIndex: 9999,
+          opacity: menuOpen ? 1 : 0,
+          visibility: menuOpen ? 'visible' : 'hidden',
+          transition: 'opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.4s',
           overflowY: 'auto',
-          padding: '16px 24px'
+        }}
+      >
+        {/* Close Button - Top Right */}
+        <button 
+          onClick={() => setMenuOpen(false)}
+          style={{
+            position: 'fixed',
+            top: '20px',
+            right: '24px',
+            padding: '12px',
+            border: 'none',
+            background: 'transparent',
+            cursor: 'pointer',
+            zIndex: 10001,
+            opacity: menuOpen ? 1 : 0,
+            transition: 'opacity 0.3s ease 0.1s',
+          }}
+        >
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+            <path d="M1 1L17 17M17 1L1 17" stroke="#f5f5f7" strokeWidth="1.5" strokeLinecap="round"/>
+          </svg>
+        </button>
+        
+        {/* Menu Content */}
+        <div style={{
+          maxWidth: '980px',
+          margin: '0 auto',
+          padding: '80px 48px 48px 48px',
         }}>
-          {MENU_ITEMS.map((menuItem) => (
-            <div key={menuItem.title} style={{ borderBottom: 'none' }}>
-              <button
-                onClick={() => toggleExpandedMenu(menuItem.title)}
+          {/* Main Navigation Items */}
+          <nav style={{ marginBottom: '48px' }}>
+            {MENU_ITEMS.map((menuItem, index) => (
+              <div 
+                key={menuItem.title}
                 style={{
-                  width: '100%',
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                  padding: '20px 0',
-                  border: 'none',
-                  background: 'none',
-                  cursor: 'pointer',
-                  textAlign: 'left'
+                  borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
+                  opacity: menuOpen ? 1 : 0,
+                  transform: menuOpen ? 'translateY(0)' : 'translateY(20px)',
+                  transition: `opacity 0.5s ease ${0.1 + index * 0.05}s, transform 0.5s ease ${0.1 + index * 0.05}s`,
                 }}
               >
-                <span style={{ 
-                  fontSize: '14px', 
-                  fontWeight: '700', 
-                  letterSpacing: '0.5px', 
-                  color: '#000' 
-                }}>
-                  {menuItem.title}
-                </span>
-                <svg 
-                  width="14" 
-                  height="14" 
-                  viewBox="0 0 24 24" 
-                  fill="none" 
-                  xmlns="http://www.w3.org/2000/svg"
+                <button
+                  onClick={() => toggleExpandedMenu(menuItem.title)}
                   style={{
-                    transform: expandedMenu === menuItem.title ? 'rotate(180deg)' : 'rotate(0deg)',
-                    transition: 'transform 0.2s ease'
+                    width: '100%',
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    padding: '20px 0',
+                    border: 'none',
+                    background: 'none',
+                    cursor: 'pointer',
+                    textAlign: 'left',
                   }}
                 >
-                  <path d="M6 9L12 15L18 9" stroke="#000" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-              </button>
-              
-              {expandedMenu === menuItem.title && (
-                <div style={{ 
-                  paddingBottom: '16px',
-                  paddingLeft: '8px'
+                  <span style={{ 
+                    fontSize: 'clamp(24px, 5vw, 28px)', 
+                    fontWeight: '600',
+                    letterSpacing: '-0.016em',
+                    color: '#f5f5f7',
+                    transition: 'color 0.2s ease',
+                  }}
+                    onMouseEnter={(e) => e.currentTarget.style.color = '#86868b'}
+                    onMouseLeave={(e) => e.currentTarget.style.color = '#f5f5f7'}
+                  >
+                    {menuItem.title}
+                  </span>
+                  <svg 
+                    width="16" 
+                    height="16" 
+                    viewBox="0 0 16 16" 
+                    fill="none"
+                    style={{
+                      transform: expandedMenu === menuItem.title ? 'rotate(45deg)' : 'rotate(0deg)',
+                      transition: 'transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                    }}
+                  >
+                    <path d="M8 3v10M3 8h10" stroke="#86868b" strokeWidth="1.5" strokeLinecap="round"/>
+                  </svg>
+                </button>
+                
+                {/* Expanded Submenu */}
+                <div style={{
+                  maxHeight: expandedMenu === menuItem.title ? '400px' : '0',
+                  overflow: 'hidden',
+                  transition: 'max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
                 }}>
-                  {menuItem.items.map((item) => (
-                    <button
-                      key={item}
-                      onClick={() => navigateTo(`/collections/${item.toLowerCase().replace(/\s+/g, '-')}`)}
-                      style={{
-                        display: 'block',
-                        width: '100%',
-                        padding: '12px 0',
-                        border: 'none',
-                        background: 'none',
-                        cursor: 'pointer',
-                        textAlign: 'left',
-                        fontSize: '14px',
-                        color: '#666',
-                        fontWeight: '400'
-                      }}
-                    >
-                      {item}
-                    </button>
-                  ))}
+                  <div style={{ 
+                    paddingBottom: '20px',
+                    paddingLeft: '4px',
+                  }}>
+                    {menuItem.items.map((item, subIdx) => (
+                      <button
+                        key={item}
+                        onClick={() => navigateTo(`/collections/${item.toLowerCase().replace(/\s+/g, '-')}`)}
+                        style={{
+                          display: 'block',
+                          width: '100%',
+                          padding: '10px 0',
+                          border: 'none',
+                          background: 'none',
+                          cursor: 'pointer',
+                          textAlign: 'left',
+                          fontSize: '17px',
+                          color: '#86868b',
+                          fontWeight: '400',
+                          letterSpacing: '-0.022em',
+                          transition: 'color 0.2s ease',
+                          opacity: expandedMenu === menuItem.title ? 1 : 0,
+                          transform: expandedMenu === menuItem.title ? 'translateX(0)' : 'translateX(-10px)',
+                          transitionDelay: `${subIdx * 0.03}s`,
+                        }}
+                        onMouseEnter={(e) => e.currentTarget.style.color = '#f5f5f7'}
+                        onMouseLeave={(e) => e.currentTarget.style.color = '#86868b'}
+                      >
+                        {item}
+                      </button>
+                    ))}
+                  </div>
                 </div>
-              )}
-            </div>
-          ))}
+              </div>
+            ))}
+          </nav>
           
-          <button
-            onClick={() => navigateTo('/offers')}
-            style={{
-              display: 'block',
-              width: '100%',
-              padding: '24px 0',
-              border: 'none',
-              background: 'none',
-              cursor: 'pointer',
-              textAlign: 'left',
-              fontSize: '13px',
-              color: '#000',
-              fontWeight: '400',
-              letterSpacing: '0.3px'
-            }}
-          >
-            GET $25 OFF
-          </button>
-        </div>
-        
-        <div style={{ 
-          borderTop: '1px solid #e8e8e8',
-          padding: '24px',
-          marginTop: 'auto'
-        }}>
-          <button
-            onClick={() => navigateTo('/auth')}
-            style={{
-              display: 'block',
-              width: '100%',
-              padding: '0',
-              border: 'none',
-              background: 'none',
-              cursor: 'pointer',
-              textAlign: 'left',
-              fontSize: '14px',
-              color: '#000',
-              fontWeight: '400'
-            }}
-          >
-            Log in
-          </button>
+          {/* Secondary Links */}
+          <div style={{
+            opacity: menuOpen ? 1 : 0,
+            transform: menuOpen ? 'translateY(0)' : 'translateY(20px)',
+            transition: 'opacity 0.5s ease 0.4s, transform 0.5s ease 0.4s',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '16px',
+            paddingTop: '24px',
+            borderTop: '1px solid rgba(255, 255, 255, 0.06)',
+          }}>
+            <button
+              onClick={() => navigateTo('/offers')}
+              style={{
+                display: 'block',
+                padding: '0',
+                border: 'none',
+                background: 'none',
+                cursor: 'pointer',
+                textAlign: 'left',
+                fontSize: '14px',
+                color: '#86868b',
+                fontWeight: '400',
+                letterSpacing: '-0.016em',
+                transition: 'color 0.2s ease',
+              }}
+              onMouseEnter={(e) => e.currentTarget.style.color = '#f5f5f7'}
+              onMouseLeave={(e) => e.currentTarget.style.color = '#86868b'}
+            >
+              Get $25 Off Your First Order
+            </button>
+            <button
+              onClick={() => navigateTo('/auth')}
+              style={{
+                display: 'block',
+                padding: '0',
+                border: 'none',
+                background: 'none',
+                cursor: 'pointer',
+                textAlign: 'left',
+                fontSize: '14px',
+                color: '#86868b',
+                fontWeight: '400',
+                letterSpacing: '-0.016em',
+                transition: 'color 0.2s ease',
+              }}
+              onMouseEnter={(e) => e.currentTarget.style.color = '#f5f5f7'}
+              onMouseLeave={(e) => e.currentTarget.style.color = '#86868b'}
+            >
+              Sign In or Create Account
+            </button>
+            <button
+              onClick={() => navigateTo('/auth?type=retail')}
+              style={{
+                display: 'block',
+                padding: '0',
+                border: 'none',
+                background: 'none',
+                cursor: 'pointer',
+                textAlign: 'left',
+                fontSize: '14px',
+                color: '#86868b',
+                fontWeight: '400',
+                letterSpacing: '-0.016em',
+                transition: 'color 0.2s ease',
+              }}
+              onMouseEnter={(e) => e.currentTarget.style.color = '#f5f5f7'}
+              onMouseLeave={(e) => e.currentTarget.style.color = '#86868b'}
+            >
+              Wholesale Partners
+            </button>
+          </div>
         </div>
       </div>
       
