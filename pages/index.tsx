@@ -347,11 +347,11 @@ export default function Home() {
               <Link key={category.slug} href={`/products?category=${category.slug}`} style={{
                 padding: '28px 20px',
                 textAlign: 'center',
-                background: 'rgba(255,255,255,0.05)',
-                border: '1px solid rgba(255,255,255,0.1)',
-                borderRadius: '12px',
+                background: '#ffffff',
+                border: 'none',
+                borderRadius: '980px',
                 textDecoration: 'none',
-                color: '#ffffff',
+                color: '#000000',
                 transition: 'all 0.3s ease',
                 display: 'flex',
                 flexDirection: 'column',
@@ -359,13 +359,11 @@ export default function Home() {
                 justifyContent: 'center',
               }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.background = 'rgba(255,255,255,0.1)';
-                  e.currentTarget.style.borderColor = 'rgba(255,255,255,0.2)';
+                  e.currentTarget.style.background = 'rgba(255,255,255,0.85)';
                   e.currentTarget.style.transform = 'translateY(-2px)';
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.background = 'rgba(255,255,255,0.05)';
-                  e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)';
+                  e.currentTarget.style.background = '#ffffff';
                   e.currentTarget.style.transform = 'translateY(0)';
                 }}
               >
@@ -374,7 +372,7 @@ export default function Home() {
                   fontWeight: '600',
                   margin: 0,
                   letterSpacing: '-0.2px',
-                  color: '#ffffff',
+                  color: '#000000',
                 }}>
                   {category.name}
                 </h3>
