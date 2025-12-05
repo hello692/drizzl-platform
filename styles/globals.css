@@ -877,15 +877,11 @@ button {
   color: #f5f5f7;
 }
 
-/* Kiss Menu Section - Red menu items */
+/* Kiss Menu Section - Same style as regular menu items */
 .navbar-kiss-menu {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: clamp(8px, 1.5vw, 12px);
-  padding: clamp(24px, 4vw, 40px) 0;
-  margin-top: clamp(16px, 3vw, 24px);
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  gap: 0;
   opacity: 0;
   transform: translateY(20px);
   transition: opacity 0.5s ease 0.35s, transform 0.5s ease 0.35s;
@@ -897,19 +893,23 @@ button {
 }
 
 .navbar-kiss-item {
-  display: block;
-  padding: clamp(6px, 1vw, 8px) 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: clamp(14px, 2.5vw, 18px) 0;
   border: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
   background: none;
   cursor: pointer;
-  text-align: center;
-  font-size: clamp(13px, 2.2vw, 17px);
+  text-align: left;
+  font-size: clamp(20px, 4vw, 32px);
   font-weight: 600;
   color: #f5f5f7;
-  letter-spacing: 0.02em;
-  text-transform: uppercase;
-  transition: color 0.2s ease, transform 0.2s ease;
-  min-height: 36px;
+  letter-spacing: -0.02em;
+  text-transform: none;
+  transition: color 0.2s ease;
+  min-height: 44px;
   opacity: 0;
   transform: translateY(10px);
 }
@@ -920,33 +920,32 @@ button {
 }
 
 .navbar-kiss-item:hover {
-  color: #E85A71;
-  transform: scale(1.02);
+  color: #86868b;
 }
 
 /* Dripping Lips Icon */
 .navbar-lips-container {
   display: flex;
-  justify-content: center;
-  padding: clamp(16px, 3vw, 24px) 0;
+  justify-content: flex-start;
+  padding: clamp(24px, 4vw, 32px) 0;
   opacity: 0;
-  transform: translateY(20px) scale(0.9);
+  transform: translateY(20px);
   transition: opacity 0.5s ease 0.5s, transform 0.5s ease 0.5s;
 }
 
 .navbar-menu-overlay.active .navbar-lips-container {
   opacity: 1;
-  transform: translateY(0) scale(1);
+  transform: translateY(0);
 }
 
 .dripping-lips-icon {
-  width: clamp(60px, 10vw, 80px);
+  width: clamp(50px, 8vw, 70px);
   height: auto;
   transition: transform 0.3s ease;
 }
 
 .dripping-lips-icon:hover {
-  transform: scale(1.1);
+  transform: scale(1.05);
 }
 
 .navbar-menu-secondary {

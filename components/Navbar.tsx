@@ -54,13 +54,13 @@ const MENU_ITEMS = [
 ];
 
 const KISS_MENU_ITEMS = [
-  { title: 'SMOOCH THE MENU', href: '/menu' },
-  { title: 'THE DRIZZL WELLNESS WAY', href: '/about' },
-  { title: 'WHERE TO GET SMOOCHED', href: '/locations' },
-  { title: 'WANNA STOCK KISS IN YOUR SPOT?', href: '/wholesale' },
-  { title: "WHAT'S IN THESE CUPS?", href: '/ingredients' },
-  { title: 'THE KISS CLUB', href: '/club' },
-  { title: 'SCAN. SMOOCH. SIP', href: '/app' },
+  { title: 'Smooch the Menu', href: '/menu' },
+  { title: 'The Drizzl Wellness Way', href: '/about' },
+  { title: 'Where to Get Smooched', href: '/locations' },
+  { title: 'Wanna Stock Kiss in Your Spot?', href: '/wholesale' },
+  { title: "What's in These Cups?", href: '/ingredients' },
+  { title: 'The Kiss Club', href: '/club' },
+  { title: 'Scan. Smooch. Sip', href: '/app' },
 ];
 
 const DrippingLips = () => (
