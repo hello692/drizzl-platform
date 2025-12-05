@@ -217,13 +217,15 @@ export default function Home() {
 
       {/* Hero Section with Background Video */}
       <section style={{
-        padding: 'clamp(40px, 8vw, 100px) clamp(16px, 4vw, 60px)',
+        padding: '0 clamp(16px, 4vw, 60px)',
+        paddingTop: 'clamp(120px, 20vh, 200px)',
+        paddingBottom: 'clamp(60px, 10vh, 100px)',
         textAlign: 'center',
-        minHeight: 'clamp(500px, 75vh, 800px)',
+        minHeight: 'clamp(600px, 85vh, 900px)',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        justifyContent: 'center',
+        justifyContent: 'flex-end',
         background: '#000',
         position: 'relative',
         overflow: 'hidden',
@@ -247,11 +249,11 @@ export default function Home() {
           <source src="/videos/hero-video.mp4" type="video/mp4" />
         </video>
         
-        {/* Dark overlay for better text readability */}
+        {/* Subtle gradient overlay - lighter at top to show video, darker at bottom for text */}
         <div style={{
           position: 'absolute',
           inset: 0,
-          background: 'linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.5) 100%)',
+          background: 'linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.2) 40%, rgba(0,0,0,0.6) 100%)',
           zIndex: 1,
         }}></div>
         
