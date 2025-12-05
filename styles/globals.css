@@ -877,10 +877,82 @@ button {
   color: #f5f5f7;
 }
 
+/* Kiss Menu Section - Red menu items */
+.navbar-kiss-menu {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(8px, 1.5vw, 12px);
+  padding: clamp(24px, 4vw, 40px) 0;
+  margin-top: clamp(16px, 3vw, 24px);
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease 0.35s, transform 0.5s ease 0.35s;
+}
+
+.navbar-menu-overlay.active .navbar-kiss-menu {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.navbar-kiss-item {
+  display: block;
+  padding: clamp(6px, 1vw, 8px) 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  text-align: center;
+  font-size: clamp(13px, 2.2vw, 17px);
+  font-weight: 600;
+  color: #f5f5f7;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  transition: color 0.2s ease, transform 0.2s ease;
+  min-height: 36px;
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+.navbar-menu-overlay.active .navbar-kiss-item {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.navbar-kiss-item:hover {
+  color: #E85A71;
+  transform: scale(1.02);
+}
+
+/* Dripping Lips Icon */
+.navbar-lips-container {
+  display: flex;
+  justify-content: center;
+  padding: clamp(16px, 3vw, 24px) 0;
+  opacity: 0;
+  transform: translateY(20px) scale(0.9);
+  transition: opacity 0.5s ease 0.5s, transform 0.5s ease 0.5s;
+}
+
+.navbar-menu-overlay.active .navbar-lips-container {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.dripping-lips-icon {
+  width: clamp(60px, 10vw, 80px);
+  height: auto;
+  transition: transform 0.3s ease;
+}
+
+.dripping-lips-icon:hover {
+  transform: scale(1.1);
+}
+
 .navbar-menu-secondary {
   opacity: 0;
   transform: translateY(20px);
-  transition: opacity 0.5s ease 0.4s, transform 0.5s ease 0.4s;
+  transition: opacity 0.5s ease 0.55s, transform 0.5s ease 0.55s;
   display: flex;
   flex-direction: column;
   gap: clamp(12px, 2.5vw, 16px);
