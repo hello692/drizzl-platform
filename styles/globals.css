@@ -43,9 +43,38 @@
   --section-padding-y: clamp(80px, 10vw, 120px);
   --section-padding-x: clamp(20px, 5vw, 80px);
   
-  /* Container */
-  --container-max: 1120px;
-  --container-wide: 1440px;
+  /* Container - Unified System for Widescreen Alignment */
+  --container-max: 1400px;
+  --container-narrow: 1120px;
+  --container-padding: clamp(24px, 5vw, 80px);
+}
+
+/* ============================================
+   GLOBAL CONTAINER SYSTEM
+   All content aligned within max-width
+   ============================================ */
+
+.site-container {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding-left: var(--container-padding);
+  padding-right: var(--container-padding);
+  width: 100%;
+}
+
+.site-container-narrow {
+  max-width: var(--container-narrow);
+  margin: 0 auto;
+  padding-left: var(--container-padding);
+  padding-right: var(--container-padding);
+  width: 100%;
+}
+
+.site-container-full {
+  max-width: 100%;
+  padding-left: var(--container-padding);
+  padding-right: var(--container-padding);
+  width: 100%;
 }
 
 /* ============================================

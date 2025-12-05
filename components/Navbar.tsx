@@ -318,7 +318,7 @@ export default function Navbar() {
       <nav className="glass" style={{
         background: 'rgba(0, 0, 0, 0.85)',
         borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
-        padding: 'clamp(12px, 3vw, 14px) clamp(16px, 4vw, 60px)',
+        padding: 'clamp(12px, 3vw, 14px) 0',
         position: 'sticky',
         top: 0,
         zIndex: 100,
@@ -327,8 +327,10 @@ export default function Navbar() {
         overflow: 'visible',
       }}>
         <div style={{
-          maxWidth: '1440px',
+          maxWidth: '1400px',
           margin: '0 auto',
+          paddingLeft: 'clamp(24px, 5vw, 80px)',
+          paddingRight: 'clamp(24px, 5vw, 80px)',
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
