@@ -1282,7 +1282,6 @@ export default function Home() {
         <p style={{
           fontSize: 'clamp(17px, 3vw, 21px)',
           color: '#86868b',
-          marginBottom: '48px',
           maxWidth: '520px',
           margin: '0 auto 48px auto',
           lineHeight: '1.5',
