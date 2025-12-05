@@ -2723,12 +2723,12 @@ svg {
    Same dimensions for products, experts, customers
    ============================================ */
 
-/* Unified card width variable for consistency */
+/* Unified card width variable for consistency - 5 cards visible on desktop */
 :root {
-  --card-width: clamp(200px, 18vw, 280px);
-  --card-height: clamp(280px, 25vw, 380px);
+  --card-width: clamp(160px, 16vw, 220px);
+  --card-height: clamp(220px, 22vw, 300px);
   --card-radius: clamp(16px, 2vw, 20px);
-  --card-gap: clamp(16px, 2vw, 24px);
+  --card-gap: clamp(12px, 1.5vw, 20px);
 }
 
 /* ============================================
@@ -2876,12 +2876,12 @@ svg {
   padding-right: clamp(16px, 4vw, 80px);
 }
 
-/* On ultrawide screens (1920px+), scale cards up consistently */
+/* On ultrawide screens (1920px+), scale cards - maintain 5 visible */
 @media (min-width: 1920px) {
   :root {
-    --card-width: clamp(260px, 15vw, 320px);
-    --card-height: clamp(360px, 20vw, 440px);
-    --card-gap: 28px;
+    --card-width: clamp(220px, 14vw, 280px);
+    --card-height: clamp(300px, 18vw, 380px);
+    --card-gap: 24px;
   }
   
   .carousel-wrapper,
@@ -2891,12 +2891,12 @@ svg {
   }
 }
 
-/* On 2K+ screens (2560px+), even larger cards */
+/* On 2K+ screens (2560px+), larger cards - maintain 5 visible */
 @media (min-width: 2560px) {
   :root {
-    --card-width: clamp(300px, 14vw, 380px);
-    --card-height: clamp(420px, 18vw, 520px);
-    --card-gap: 32px;
+    --card-width: clamp(260px, 12vw, 340px);
+    --card-height: clamp(360px, 16vw, 460px);
+    --card-gap: 28px;
   }
   
   .carousel-wrapper,
