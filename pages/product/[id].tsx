@@ -452,24 +452,24 @@ const smoothies: { [key: string]: any } = {
   },
 };
 
-const ModernArrowDown = ({ isOpen }: { isOpen: boolean }) => (
-  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{
+const AppleArrowDown = ({ isOpen }: { isOpen: boolean }) => (
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style={{
     transition: 'transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
     transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)',
   }}>
-    <polyline points="6 9 12 15 18 9"></polyline>
+    <path d="M6 9L12 15L18 9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
   </svg>
 );
 
-const ModernArrowRight = () => (
-  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-    <polyline points="9 18 15 12 9 6"></polyline>
+const AppleArrowRight = () => (
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M9 6L15 12L9 18" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
   </svg>
 );
 
-const ModernArrowLeft = () => (
-  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-    <polyline points="15 18 9 12 15 6"></polyline>
+const AppleArrowLeft = () => (
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M15 6L9 12L15 18" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
   </svg>
 );
 
@@ -501,7 +501,7 @@ const AccordionSection = ({ title, content, defaultOpen = false }: { title: stri
       >
         <span>{title}</span>
         <div style={{ display: 'flex', alignItems: 'center', color: '#ffffff' }}>
-          <ModernArrowDown isOpen={isOpen} />
+          <AppleArrowDown isOpen={isOpen} />
         </div>
       </button>
       {isOpen && (
@@ -652,7 +652,7 @@ export default function ProductDetail() {
                         e.currentTarget.style.transform = 'translateY(-50%)';
                       }}
                     >
-                      <ModernArrowLeft />
+                      <AppleArrowLeft />
                     </button>
 
                     <button
@@ -685,7 +685,7 @@ export default function ProductDetail() {
                         e.currentTarget.style.transform = 'translateY(-50%)';
                       }}
                     >
-                      <ModernArrowRight />
+                      <AppleArrowRight />
                     </button>
                   </>
                 )}
@@ -1024,7 +1024,7 @@ export default function ProductDetail() {
                     }}
                     disabled={selectedIngredient === 0}
                   >
-                    <ModernArrowLeft />
+                    <AppleArrowLeft />
                   </button>
 
                   {/* Cards Container */}
@@ -1099,7 +1099,7 @@ export default function ProductDetail() {
                     }}
                     disabled={selectedIngredient >= product.keyIngredients.length - 2}
                   >
-                    <ModernArrowRight />
+                    <AppleArrowRight />
                   </button>
                 </div>
               </div>
@@ -1239,7 +1239,7 @@ export default function ProductDetail() {
                   }}
                   disabled={relatedScrollPosition === 0}
                 >
-                  <ModernArrowLeft />
+                  <AppleArrowLeft />
                 </button>
 
                 {/* Products Container */}
@@ -1353,7 +1353,7 @@ export default function ProductDetail() {
                   }}
                   disabled={relatedScrollPosition >= relatedProducts.length - 4}
                 >
-                  <ModernArrowRight />
+                  <AppleArrowRight />
                 </button>
               </div>
             </div>

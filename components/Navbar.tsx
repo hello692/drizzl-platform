@@ -168,19 +168,17 @@ export default function Navbar() {
                   {menuItem.title}
                 </span>
                 <svg 
-                  width="16" 
-                  height="16" 
+                  width="14" 
+                  height="14" 
                   viewBox="0 0 24 24" 
                   fill="none" 
-                  stroke="#000" 
-                  strokeWidth="2" 
-                  strokeLinecap="round"
+                  xmlns="http://www.w3.org/2000/svg"
                   style={{
                     transform: expandedMenu === menuItem.title ? 'rotate(180deg)' : 'rotate(0deg)',
                     transition: 'transform 0.2s ease'
                   }}
                 >
-                  <polyline points="6 9 12 15 18 9" />
+                  <path d="M6 9L12 15L18 9" stroke="#000" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
               </button>
               
