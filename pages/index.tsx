@@ -396,7 +396,7 @@ export default function Home() {
 
           {/* Carousel Container */}
           <div style={{ position: 'relative', paddingLeft: 'clamp(50px, 8vw, 70px)', paddingRight: 'clamp(50px, 8vw, 70px)' }}>
-            {/* Left Arrow */}
+            {/* Left Arrow - Apple Style White */}
             <button
               onClick={() => scroll('left')}
               style={{
@@ -404,31 +404,28 @@ export default function Home() {
                 left: '0',
                 top: '50%',
                 transform: 'translateY(-50%)',
-                background: 'transparent',
-                border: '1px solid rgba(255,255,255,0.3)',
-                width: '48px',
-                height: '48px',
+                background: '#ffffff',
+                border: 'none',
+                width: '44px',
+                height: '44px',
                 borderRadius: '50%',
-                color: '#fff',
+                color: '#1d1d1f',
                 fontSize: '18px',
                 cursor: 'pointer',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                transition: 'all 0.3s ease',
+                transition: 'all 0.2s ease',
                 zIndex: 10,
+                boxShadow: '0 2px 8px rgba(0,0,0,0.15)',
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.background = '#fff';
-                e.currentTarget.style.color = '#000';
-                e.currentTarget.style.borderColor = '#fff';
-                e.currentTarget.style.transform = 'translateY(-50%) scale(1.05)';
+                e.currentTarget.style.transform = 'translateY(-50%) scale(1.08)';
+                e.currentTarget.style.boxShadow = '0 4px 12px rgba(0,0,0,0.25)';
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.background = 'transparent';
-                e.currentTarget.style.color = '#fff';
-                e.currentTarget.style.borderColor = 'rgba(255,255,255,0.3)';
                 e.currentTarget.style.transform = 'translateY(-50%) scale(1)';
+                e.currentTarget.style.boxShadow = '0 2px 8px rgba(0,0,0,0.15)';
               }}
             >
               <AppleArrowLeft />
@@ -477,10 +474,10 @@ export default function Home() {
                     e.currentTarget.style.transform = 'translateY(0)';
                   }}
                 >
-                  {/* Product Image */}
+                  {/* Product Image - Apple Style White Box */}
                   <div style={{
-                    background: '#111111',
-                    borderRadius: '16px',
+                    background: '#ffffff',
+                    borderRadius: '20px',
                     height: '300px',
                     marginBottom: '16px',
                     overflow: 'hidden',
@@ -488,17 +485,18 @@ export default function Home() {
                     alignItems: 'center',
                     justifyContent: 'center',
                     cursor: 'pointer',
-                    border: '1px solid rgba(255,255,255,0.1)',
+                    border: 'none',
                     transition: 'all 0.3s ease',
                     position: 'relative',
+                    boxShadow: '0 2px 12px rgba(0,0,0,0.08)',
                   }}
                     onMouseEnter={(e) => {
-                      e.currentTarget.style.borderColor = 'rgba(255,255,255,0.2)';
-                      e.currentTarget.style.background = 'rgba(255,255,255,0.08)';
+                      e.currentTarget.style.transform = 'scale(1.02)';
+                      e.currentTarget.style.boxShadow = '0 8px 24px rgba(0,0,0,0.15)';
                     }}
                     onMouseLeave={(e) => {
-                      e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)';
-                      e.currentTarget.style.background = '#111111';
+                      e.currentTarget.style.transform = 'scale(1)';
+                      e.currentTarget.style.boxShadow = '0 2px 12px rgba(0,0,0,0.08)';
                     }}
                   >
                     {/* Badge */}
@@ -557,7 +555,7 @@ export default function Home() {
               ))}
             </div>
 
-            {/* Right Arrow */}
+            {/* Right Arrow - Apple Style White */}
             <button
               onClick={() => scroll('right')}
               style={{
@@ -565,31 +563,28 @@ export default function Home() {
                 right: '0',
                 top: '50%',
                 transform: 'translateY(-50%)',
-                background: 'transparent',
-                border: '1px solid rgba(255,255,255,0.3)',
-                width: '48px',
-                height: '48px',
+                background: '#ffffff',
+                border: 'none',
+                width: '44px',
+                height: '44px',
                 borderRadius: '50%',
-                color: '#fff',
+                color: '#1d1d1f',
                 fontSize: '18px',
                 cursor: 'pointer',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                transition: 'all 0.3s ease',
+                transition: 'all 0.2s ease',
                 zIndex: 10,
+                boxShadow: '0 2px 8px rgba(0,0,0,0.15)',
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.background = '#fff';
-                e.currentTarget.style.color = '#000';
-                e.currentTarget.style.borderColor = '#fff';
-                e.currentTarget.style.transform = 'translateY(-50%) scale(1.05)';
+                e.currentTarget.style.transform = 'translateY(-50%) scale(1.08)';
+                e.currentTarget.style.boxShadow = '0 4px 12px rgba(0,0,0,0.25)';
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.background = 'transparent';
-                e.currentTarget.style.color = '#fff';
-                e.currentTarget.style.borderColor = 'rgba(255,255,255,0.3)';
                 e.currentTarget.style.transform = 'translateY(-50%) scale(1)';
+                e.currentTarget.style.boxShadow = '0 2px 8px rgba(0,0,0,0.15)';
               }}
             >
               <AppleArrowRight />
@@ -645,7 +640,7 @@ export default function Home() {
 
           {/* Video Cards Container */}
           <div style={{ position: 'relative', padding: '0 50px' }}>
-            {/* Left Arrow */}
+            {/* Left Arrow - Apple Style White */}
             <button
               onClick={() => setExpertPosition(prev => (prev - 1 + EXPERTS.length) % EXPERTS.length)}
               style={{
@@ -653,21 +648,30 @@ export default function Home() {
                 left: '0',
                 top: '50%',
                 transform: 'translateY(-50%)',
-                background: 'transparent',
-                border: '2px solid rgba(255,255,255,0.5)',
-                width: '36px',
-                height: '36px',
+                background: '#ffffff',
+                border: 'none',
+                width: '44px',
+                height: '44px',
                 borderRadius: '50%',
-                color: '#fff',
+                color: '#1d1d1f',
                 cursor: 'pointer',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 transition: 'all 0.2s ease',
                 zIndex: 10,
+                boxShadow: '0 2px 8px rgba(0,0,0,0.15)',
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = 'translateY(-50%) scale(1.08)';
+                e.currentTarget.style.boxShadow = '0 4px 12px rgba(0,0,0,0.25)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = 'translateY(-50%) scale(1)';
+                e.currentTarget.style.boxShadow = '0 2px 8px rgba(0,0,0,0.15)';
               }}
             >
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                 <polyline points="15 18 9 12 15 6" />
               </svg>
             </button>
@@ -764,7 +768,7 @@ export default function Home() {
               })}
             </div>
 
-            {/* Right Arrow */}
+            {/* Right Arrow - Apple Style White */}
             <button
               onClick={() => setExpertPosition(prev => (prev + 1) % EXPERTS.length)}
               style={{
@@ -772,21 +776,30 @@ export default function Home() {
                 right: '0',
                 top: '50%',
                 transform: 'translateY(-50%)',
-                background: 'transparent',
-                border: '2px solid rgba(255,255,255,0.5)',
-                width: '36px',
-                height: '36px',
+                background: '#ffffff',
+                border: 'none',
+                width: '44px',
+                height: '44px',
                 borderRadius: '50%',
-                color: '#fff',
+                color: '#1d1d1f',
                 cursor: 'pointer',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 transition: 'all 0.2s ease',
                 zIndex: 10,
+                boxShadow: '0 2px 8px rgba(0,0,0,0.15)',
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = 'translateY(-50%) scale(1.08)';
+                e.currentTarget.style.boxShadow = '0 4px 12px rgba(0,0,0,0.25)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = 'translateY(-50%) scale(1)';
+                e.currentTarget.style.boxShadow = '0 2px 8px rgba(0,0,0,0.15)';
               }}
             >
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                 <polyline points="9 18 15 12 9 6" />
               </svg>
             </button>
@@ -818,7 +831,7 @@ export default function Home() {
 
           {/* Video Cards Container */}
           <div style={{ position: 'relative', padding: '0 50px' }}>
-            {/* Left Arrow */}
+            {/* Left Arrow - Apple Style White */}
             <button
               onClick={() => setCustomerPosition(prev => (prev - 1 + CUSTOMERS.length) % CUSTOMERS.length)}
               style={{
@@ -826,21 +839,30 @@ export default function Home() {
                 left: '0',
                 top: '50%',
                 transform: 'translateY(-50%)',
-                background: 'transparent',
-                border: '2px solid rgba(255,255,255,0.5)',
-                width: '36px',
-                height: '36px',
+                background: '#ffffff',
+                border: 'none',
+                width: '44px',
+                height: '44px',
                 borderRadius: '50%',
-                color: '#fff',
+                color: '#1d1d1f',
                 cursor: 'pointer',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 transition: 'all 0.2s ease',
                 zIndex: 10,
+                boxShadow: '0 2px 8px rgba(0,0,0,0.15)',
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = 'translateY(-50%) scale(1.08)';
+                e.currentTarget.style.boxShadow = '0 4px 12px rgba(0,0,0,0.25)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = 'translateY(-50%) scale(1)';
+                e.currentTarget.style.boxShadow = '0 2px 8px rgba(0,0,0,0.15)';
               }}
             >
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                 <polyline points="15 18 9 12 15 6" />
               </svg>
             </button>
@@ -937,7 +959,7 @@ export default function Home() {
               })}
             </div>
 
-            {/* Right Arrow */}
+            {/* Right Arrow - Apple Style White */}
             <button
               onClick={() => setCustomerPosition(prev => (prev + 1) % CUSTOMERS.length)}
               style={{
@@ -945,21 +967,30 @@ export default function Home() {
                 right: '0',
                 top: '50%',
                 transform: 'translateY(-50%)',
-                background: 'transparent',
-                border: '2px solid rgba(255,255,255,0.5)',
-                width: '36px',
-                height: '36px',
+                background: '#ffffff',
+                border: 'none',
+                width: '44px',
+                height: '44px',
                 borderRadius: '50%',
-                color: '#fff',
+                color: '#1d1d1f',
                 cursor: 'pointer',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 transition: 'all 0.2s ease',
                 zIndex: 10,
+                boxShadow: '0 2px 8px rgba(0,0,0,0.15)',
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = 'translateY(-50%) scale(1.08)';
+                e.currentTarget.style.boxShadow = '0 4px 12px rgba(0,0,0,0.25)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = 'translateY(-50%) scale(1)';
+                e.currentTarget.style.boxShadow = '0 2px 8px rgba(0,0,0,0.15)';
               }}
             >
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                 <polyline points="9 18 15 12 9 6" />
               </svg>
             </button>
