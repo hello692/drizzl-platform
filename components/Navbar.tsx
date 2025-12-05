@@ -188,7 +188,7 @@ export default function Navbar() {
         </div>
       </div>
       
-      <nav className="navbar glass">
+      <nav className="navbar">
         <div className="navbar-container">
           <div className="navbar-logo-container">
             <Link href="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center' }}>
