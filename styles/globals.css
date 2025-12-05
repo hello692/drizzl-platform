@@ -2633,9 +2633,9 @@ svg {
 }
 
 .drizzl-kiss-gif {
-  width: clamp(180px, 30vw, 320px);
+  width: clamp(280px, 50vw, 500px);
   height: auto;
-  filter: drop-shadow(0 0 60px rgba(232, 90, 113, 0.3));
+  filter: drop-shadow(0 0 80px rgba(232, 90, 113, 0.4));
   animation: kissFloat 4s ease-in-out infinite;
 }
 
