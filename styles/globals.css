@@ -2692,30 +2692,20 @@ svg {
   right: clamp(16px, 4vw, 40px);
 }
 
-/* Unified track styles - both carousels use identical layout */
+/* Unified track styles - CSS Grid for perfect 5-card alignment */
 .carousel-track,
 .video-carousel-track {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
   gap: var(--card-gap);
-  overflow-x: auto;
-  scroll-behavior: smooth;
-  scrollbar-width: none;
   padding: 8px 0;
-  cursor: grab;
-  user-select: none;
-  -webkit-overflow-scrolling: touch;
-  justify-content: flex-start;
-  align-items: stretch;
+  width: 100%;
 }
 
+/* Hide scrollbar (kept for compatibility) */
 .carousel-track::-webkit-scrollbar,
 .video-carousel-track::-webkit-scrollbar {
   display: none;
-}
-
-.carousel-track:active,
-.video-carousel-track:active {
-  cursor: grabbing;
 }
 
 /* ============================================
@@ -2736,10 +2726,9 @@ svg {
    Product cards and video cards share same base dimensions
    ============================================ */
 
-/* Product Cards in Carousel - matches video card dimensions */
+/* Product Cards in Carousel - fills grid cell */
 .product-card-carousel {
-  flex-shrink: 0;
-  width: var(--card-width);
+  width: 100%;
   text-align: center;
   text-decoration: none;
   color: #ffffff;
@@ -2765,10 +2754,9 @@ svg {
   transition: all 0.3s ease;
 }
 
-/* Video cards - same dimensions as product cards */
+/* Video cards - fills grid cell */
 .video-card {
-  flex-shrink: 0;
-  width: var(--card-width);
+  width: 100%;
   height: var(--card-height);
   border-radius: var(--card-radius);
   overflow: hidden;
