@@ -457,77 +457,59 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Popular Products */}
-      <section className="carousel-section">
-        <div className="carousel-container">
-          <AnimatedSection animation="fadeUp" className="carousel-header">
-            <h2 className="carousel-title">
-              Popular Products
-            </h2>
-            <p className="carousel-subtitle">
-              Customer favorites crafted for wellness.
-            </p>
-          </AnimatedSection>
+      {/* Popular Products - SAME structure as expert/customer sections */}
+      <section className="video-section">
+        <div className="video-section-container">
+          <h2 className="video-section-title">
+            Popular Products
+          </h2>
+          <p className="video-section-subtitle">
+            Customer favorites crafted for wellness.
+          </p>
 
-          {/* Carousel Container - Same structure as expert carousel */}
           <div className="video-carousel-wrapper">
-            {/* Left Arrow */}
             <button
               onClick={() => setProductPosition(prev => (prev - 1 + POPULAR_SMOOTHIES.length) % POPULAR_SMOOTHIES.length)}
               className="carousel-arrow carousel-arrow-left"
             >
-              <AppleArrowLeft />
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="15 18 9 12 15 6" />
+              </svg>
             </button>
 
-            {/* Carousel Track - Shows exactly 5 items like expert carousel */}
             <div className="video-carousel-track">
               {[...POPULAR_SMOOTHIES, ...POPULAR_SMOOTHIES].slice(productPosition, productPosition + 5).map((product, index) => (
-                <Link
-                  key={`${product.id}-${index}`}
-                  href={`/products/${product.id}`}
-                  className="product-card-carousel"
-                >
-                  {/* Product Image - Apple Style White Box */}
-                  <div className="product-card-image-wrapper">
-                    {/* Badge */}
-                    {product.badge && (
-                      <span 
-                        className="product-card-badge"
-                        style={{
-                          background: product.badge === 'New' ? '#22c55e' : '#fff',
-                          color: product.badge === 'New' ? '#fff' : '#000',
-                        }}
-                      >
-                        {product.badge}
-                      </span>
-                    )}
+                <div key={`${product.id}-${index}`} className="video-card">
+                  <div className="video-card-header">
+                    <p className="video-card-label" style={{ color: product.badge === 'New' ? '#22c55e' : '#E85A71' }}>
+                      {product.badge || 'SMOOTHIE'}
+                    </p>
+                    <h3 className="video-card-name">
+                      {product.name}
+                    </h3>
+                    <p className="video-card-quote">
+                      Smoothie
+                    </p>
+                  </div>
+                  <div className="video-card-video-container" style={{ background: '#f5f5f7' }}>
                     <img
                       src={product.image}
                       alt={product.name}
-                      className="product-card-image"
+                      style={{ width: '100%', height: '100%', objectFit: 'contain' }}
                       draggable={false}
                     />
                   </div>
-                  
-                  {/* Product Name */}
-                  <h3 className="product-card-name">
-                    {product.name}
-                  </h3>
-
-                  {/* Category */}
-                  <p className="product-card-category">
-                    Smoothie
-                  </p>
-                </Link>
+                </div>
               ))}
             </div>
 
-            {/* Right Arrow */}
             <button
               onClick={() => setProductPosition(prev => (prev + 1) % POPULAR_SMOOTHIES.length)}
               className="carousel-arrow carousel-arrow-right"
             >
-              <AppleArrowRight />
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="9 18 15 12 9 6" />
+              </svg>
             </button>
           </div>
         </div>
