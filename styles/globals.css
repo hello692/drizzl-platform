@@ -2573,12 +2573,20 @@ svg {
   letter-spacing: -0.016em;
 }
 
-/* Both carousels use identical padding for perfect edge alignment */
+/* ============================================
+   UNIFIED CAROUSEL SYSTEM
+   Both product and video carousels use same structure
+   for perfect geometric alignment
+   ============================================ */
+
 .carousel-wrapper,
 .video-carousel-wrapper {
   position: relative;
+  width: 100%;
+  max-width: 100%;
   padding-left: clamp(48px, 6vw, 100px);
   padding-right: clamp(48px, 6vw, 100px);
+  box-sizing: border-box;
 }
 
 .carousel-arrow {
@@ -2613,23 +2621,29 @@ svg {
   right: clamp(16px, 4vw, 40px);
 }
 
-.carousel-track {
+/* Unified track styles - both carousels use identical layout */
+.carousel-track,
+.video-carousel-track {
   display: flex;
   gap: var(--card-gap);
-  overflow-x: scroll;
+  overflow-x: auto;
   scroll-behavior: smooth;
   scrollbar-width: none;
-  padding-bottom: 16px;
+  padding: 8px 0;
   cursor: grab;
   user-select: none;
   -webkit-overflow-scrolling: touch;
+  justify-content: flex-start;
+  align-items: stretch;
 }
 
-.carousel-track::-webkit-scrollbar {
+.carousel-track::-webkit-scrollbar,
+.video-carousel-track::-webkit-scrollbar {
   display: none;
 }
 
-.carousel-track:active {
+.carousel-track:active,
+.video-carousel-track:active {
   cursor: grabbing;
 }
 
@@ -2646,7 +2660,12 @@ svg {
   --card-gap: clamp(16px, 2vw, 24px);
 }
 
-/* Product Cards in Carousel */
+/* ============================================
+   UNIFIED CARD STYLES
+   Product cards and video cards share same base dimensions
+   ============================================ */
+
+/* Product Cards in Carousel - matches video card dimensions */
 .product-card-carousel {
   flex-shrink: 0;
   width: var(--card-width);
@@ -2673,6 +2692,20 @@ svg {
   position: relative;
   box-shadow: 0 2px 12px rgba(0,0,0,0.08);
   transition: all 0.3s ease;
+}
+
+/* Video cards - same dimensions as product cards */
+.video-card {
+  flex-shrink: 0;
+  width: var(--card-width);
+  height: var(--card-height);
+  border-radius: var(--card-radius);
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+  background: #ffffff;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
 
 .product-card-image-wrapper:hover {
@@ -2770,45 +2803,6 @@ svg {
   line-height: 1.5;
   padding-left: clamp(16px, 4vw, 80px);
   padding-right: clamp(16px, 4vw, 80px);
-}
-
-/* Video carousel wrapper width */
-.video-carousel-wrapper {
-  width: 100%;
-}
-
-/* Carousel track - aligned with product carousel */
-.video-carousel-track {
-  display: flex;
-  gap: var(--card-gap);
-  align-items: stretch;
-  justify-content: flex-start;
-  overflow-x: auto;
-  scrollbar-width: none;
-  padding: 8px 0;
-  -webkit-overflow-scrolling: touch;
-  scroll-snap-type: x mandatory;
-  cursor: grab;
-  user-select: none;
-}
-
-.video-carousel-track::-webkit-scrollbar {
-  display: none;
-}
-
-/* Video cards use same dimensions as product cards for consistency */
-.video-card {
-  flex-shrink: 0;
-  width: var(--card-width);
-  height: var(--card-height);
-  border-radius: var(--card-radius);
-  overflow: hidden;
-  position: relative;
-  cursor: pointer;
-  background: #ffffff;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-  scroll-snap-align: start;
 }
 
 /* On ultrawide screens (1920px+), scale cards up consistently */
