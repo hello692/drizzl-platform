@@ -58,34 +58,6 @@ const MENU_ITEMS = [
   },
 ];
 
-const DrippingLips = () => (
-  <svg 
-    width="80" 
-    height="56" 
-    viewBox="0 0 80 56" 
-    fill="none" 
-    xmlns="http://www.w3.org/2000/svg"
-    className="dripping-lips-icon"
-  >
-    <path 
-      d="M40 4C25 4 12 14 12 22C12 30 25 38 40 38C55 38 68 30 68 22C68 14 55 4 40 4Z" 
-      fill="#E85A71"
-    />
-    <path 
-      d="M40 8C28 8 18 16 18 22C18 28 28 34 40 34C52 34 62 28 62 22C62 16 52 8 40 8Z" 
-      fill="#D14B62"
-    />
-    <ellipse cx="40" cy="22" rx="18" ry="10" fill="#C03A52"/>
-    <path 
-      d="M40 2C20 2 8 14 8 24C8 34 20 42 40 42C60 42 72 34 72 24C72 14 60 2 40 2ZM40 6C55 6 66 15 66 24C66 33 55 40 40 40C25 40 14 33 14 24C14 15 25 6 40 6Z" 
-      fill="#E85A71"
-    />
-    <path d="M22 38L22 48C22 50 24 52 26 52C28 52 30 50 30 48L30 42" stroke="#E85A71" strokeWidth="4" strokeLinecap="round"/>
-    <path d="M35 40L35 50C35 52 36 54 38 54C40 54 41 52 41 50L41 42" stroke="#E85A71" strokeWidth="4" strokeLinecap="round"/>
-    <path d="M50 38L50 46C50 48 51 50 53 50C55 50 56 48 56 46L56 40" stroke="#E85A71" strokeWidth="4" strokeLinecap="round"/>
-  </svg>
-);
-
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [langOpen, setLangOpen] = useState(false);
@@ -200,11 +172,6 @@ export default function Navbar() {
               </div>
             ))}
           </nav>
-          
-          {/* Dripping Lips Icon */}
-          <div className="navbar-lips-container">
-            <DrippingLips />
-          </div>
           
           {/* Secondary Links */}
           <div className="navbar-menu-secondary">
