@@ -1,7 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@400;500;600;700&family=SF+Pro+Text:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
 /* Apple Dark Premium Theme - Luxury Black & White */
 :root {
+  --font-display: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Inter', 'Segoe UI', Roboto, sans-serif;
+  --font-text: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Inter', 'Segoe UI', Roboto, sans-serif;
   --color-black: #000000;
   --color-white: #ffffff;
   --color-bg-primary: #000000;
@@ -9,8 +12,8 @@
   --color-bg-tertiary: #111111;
   --color-bg-card: #161616;
   --color-text-primary: #ffffff;
-  --color-text-secondary: #a1a1a1;
-  --color-text-muted: #666666;
+  --color-text-secondary: #86868b;
+  --color-text-muted: #6e6e73;
   --color-border: rgba(255, 255, 255, 0.1);
   --color-border-light: rgba(255, 255, 255, 0.06);
   --color-gray-10: #1a1a1a;
@@ -58,75 +61,114 @@
 }
 
 html, body {
-  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Inter', 'Segoe UI', sans-serif;
+  font-family: var(--font-text);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
-  font-size: 16px;
-  line-height: 1.6;
-  letter-spacing: -0.2px;
+  font-feature-settings: 'kern' 1;
+  font-size: 17px;
+  line-height: 1.47059;
+  font-weight: 400;
+  letter-spacing: -0.022em;
   background-color: var(--color-bg-primary);
   color: var(--color-text-primary);
   overflow-x: hidden;
 }
 
+/* Apple-style Headlines - Bold Display Font */
 h1 {
-  font-size: 64px;
+  font-family: var(--font-display);
+  font-size: 56px;
   font-weight: 700;
-  line-height: 1.1;
-  letter-spacing: -1.2px;
+  line-height: 1.07143;
+  letter-spacing: -0.005em;
   color: var(--color-text-primary);
   margin-bottom: 16px;
 }
 
 h2 {
+  font-family: var(--font-display);
   font-size: 48px;
-  font-weight: 600;
-  line-height: 1.15;
-  letter-spacing: -0.8px;
+  font-weight: 700;
+  line-height: 1.08349;
+  letter-spacing: -0.003em;
   color: var(--color-text-primary);
   margin-bottom: 12px;
 }
 
 h3 {
+  font-family: var(--font-display);
   font-size: 28px;
   font-weight: 600;
-  line-height: 1.2;
-  letter-spacing: -0.4px;
+  line-height: 1.14286;
+  letter-spacing: 0.007em;
   color: var(--color-text-primary);
   margin-bottom: 10px;
 }
 
 h4 {
-  font-size: 18px;
+  font-family: var(--font-display);
+  font-size: 21px;
   font-weight: 600;
-  letter-spacing: -0.2px;
+  line-height: 1.19048;
+  letter-spacing: 0.011em;
   color: var(--color-text-primary);
   margin-bottom: 8px;
 }
 
+/* Apple-style Body Text */
 p {
-  font-size: 16px;
+  font-family: var(--font-text);
+  font-size: 17px;
   font-weight: 400;
-  line-height: 1.7;
+  line-height: 1.47059;
   color: var(--color-text-secondary);
-  letter-spacing: -0.2px;
+  letter-spacing: -0.022em;
+}
+
+/* Apple-style Subtitle/Caption Text */
+.text-subtitle {
+  font-family: var(--font-text);
+  font-size: 21px;
+  font-weight: 400;
+  line-height: 1.381;
+  letter-spacing: 0.011em;
+  color: var(--color-text-secondary);
+}
+
+.text-caption {
+  font-family: var(--font-text);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.42859;
+  letter-spacing: -0.016em;
+  color: var(--color-text-muted);
+}
+
+.text-eyebrow {
+  font-family: var(--font-text);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.33337;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
 }
 
 button {
-  font-family: inherit;
-  font-size: 14px;
-  font-weight: 600;
+  font-family: var(--font-text);
+  font-size: 17px;
+  font-weight: 400;
   cursor: pointer;
-  transition: all 1s cubic-bezier(0.32, 0, 0.67, 0);
+  transition: all 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
   border: none;
-  letter-spacing: -0.1px;
+  letter-spacing: -0.022em;
 }
 
 a {
-  color: var(--color-black);
+  color: var(--color-text-primary);
   text-decoration: none;
-  transition: all 1s cubic-bezier(0.32, 0, 0.67, 0);
+  transition: all 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
 }
 
 input, textarea, select {

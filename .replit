@@ -46,10 +46,6 @@ externalPort = 3001
 localPort = 42959
 externalPort = 3002
 
-[[ports]]
-localPort = 43467
-externalPort = 5000
-
 [agent]
 expertMode = true
 integrations = ["google-calendar:1.0.0"]
