@@ -255,75 +255,73 @@ export default function Home() {
           zIndex: 1,
         }}></div>
         
-        <div style={{ position: 'relative', zIndex: 2, maxWidth: '800px', margin: '0 auto' }}>
+        <div style={{ position: 'relative', zIndex: 2, maxWidth: '720px', margin: '0 auto', padding: '0 24px' }}>
           <AnimatedSection animation="fadeUp">
             <h1 style={{
-              fontSize: 'clamp(36px, 10vw, 80px)',
+              fontSize: 'clamp(48px, 12vw, 96px)',
               fontWeight: '700',
               textAlign: 'center',
-              letterSpacing: '-2px',
-              color: '#fff',
-              textShadow: '0 4px 30px rgba(0,0,0,0.4)',
-              marginBottom: 'clamp(16px, 3vw, 24px)',
-              lineHeight: '1.05',
+              letterSpacing: '-0.025em',
+              color: '#f5f5f7',
+              marginBottom: 'clamp(20px, 4vw, 32px)',
+              lineHeight: '1.04',
             }}>
-              {t('hero.title')}
+              Feel the Flavor
             </h1>
           </AnimatedSection>
           <AnimatedSection animation="fadeUp" delay={100}>
             <p style={{ 
               textAlign: 'center', 
               margin: '0 auto', 
-              fontSize: 'clamp(16px, 4vw, 21px)', 
-              color: 'rgba(255,255,255,0.85)', 
+              fontSize: 'clamp(19px, 4vw, 28px)', 
+              color: 'rgba(245,245,247,0.8)', 
               maxWidth: '520px', 
-              lineHeight: '1.5',
+              lineHeight: '1.4',
               fontWeight: '400',
-              letterSpacing: '-0.2px',
-              marginBottom: 'clamp(32px, 6vw, 48px)',
+              letterSpacing: '-0.016em',
+              marginBottom: 'clamp(40px, 8vw, 56px)',
             }}>
-              {t('hero.subtitle')}
+              Fresh. Frozen. Fantastic. Smoothies that make you smile.
             </p>
           </AnimatedSection>
           <AnimatedSection animation="fadeUp" delay={200}>
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '16px' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '20px' }}>
               <Link href="/products" style={{
                 fontSize: '17px',
                 fontWeight: '500',
-                padding: '18px 48px',
+                padding: '18px 44px',
                 background: '#ffffff',
-                color: '#000000',
+                color: '#1d1d1f',
                 borderRadius: '980px',
                 textDecoration: 'none',
                 display: 'inline-flex',
                 alignItems: 'center',
-                gap: '10px',
+                gap: '8px',
                 transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-                boxShadow: '0 4px 20px rgba(255,255,255,0.25)',
-                letterSpacing: '-0.2px',
+                letterSpacing: '-0.022em',
               }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.transform = 'scale(1.05)';
-                  e.currentTarget.style.boxShadow = '0 8px 32px rgba(255,255,255,0.35)';
+                  e.currentTarget.style.transform = 'scale(1.04)';
+                  e.currentTarget.style.background = 'rgba(255,255,255,0.92)';
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.transform = 'scale(1)';
-                  e.currentTarget.style.boxShadow = '0 4px 20px rgba(255,255,255,0.25)';
+                  e.currentTarget.style.background = '#ffffff';
                 }}
               >
-                {t('hero.cta')}
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                Shop Now
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M5 12h14M12 5l7 7-7 7"/>
                 </svg>
               </Link>
-              <p style={{
-                fontSize: '13px',
-                color: 'rgba(255,255,255,0.5)',
-                margin: 0,
-                letterSpacing: '0.3px',
+              <span style={{
+                fontSize: '14px',
+                color: 'rgba(245,245,247,0.5)',
+                letterSpacing: '-0.016em',
+                fontWeight: '400',
               }}>
                 Free shipping on orders over $50
-              </p>
+              </span>
             </div>
           </AnimatedSection>
         </div>
@@ -492,14 +490,28 @@ export default function Home() {
       </div>
 
       {/* Category Grid */}
-      <section style={{ padding: 'clamp(32px, 6vw, 80px) clamp(16px, 4vw, 60px)', background: '#000000' }}>
-        <div style={{ maxWidth: '1360px', margin: '0 auto' }}>
-          <AnimatedSection animation="fadeUp" style={{ textAlign: 'center', marginBottom: 'clamp(20px, 4vw, 40px)' }}>
-            <h2 style={{ fontSize: 'clamp(24px, 6vw, 48px)', fontWeight: '600', marginBottom: '8px', color: '#ffffff' }}>
+      <section style={{ padding: 'clamp(64px, 10vw, 100px) clamp(20px, 5vw, 80px)', background: '#000000' }}>
+        <div style={{ maxWidth: '980px', margin: '0 auto' }}>
+          <AnimatedSection animation="fadeUp" style={{ textAlign: 'center', marginBottom: 'clamp(32px, 6vw, 56px)' }}>
+            <h2 style={{ 
+              fontSize: 'clamp(32px, 6vw, 48px)', 
+              fontWeight: '600', 
+              marginBottom: '16px', 
+              color: '#f5f5f7',
+              letterSpacing: '-0.018em',
+              lineHeight: '1.08',
+            }}>
               Shop by Category
             </h2>
-            <p style={{ fontSize: 'clamp(13px, 3.5vw, 16px)', color: 'rgba(255,255,255,0.6)', margin: '0 auto', maxWidth: '600px', lineHeight: '1.6' }}>
-              Explore our full range of products
+            <p style={{ 
+              fontSize: 'clamp(17px, 3vw, 21px)', 
+              color: '#86868b', 
+              margin: '0 auto', 
+              maxWidth: '480px', 
+              lineHeight: '1.5',
+              letterSpacing: '-0.016em',
+            }}>
+              Explore our complete collection of wellness products.
             </p>
           </AnimatedSection>
           <div style={{
@@ -532,11 +544,11 @@ export default function Home() {
                 }}
               >
                 <h3 style={{
-                  fontSize: '15px',
-                  fontWeight: '600',
+                  fontSize: '17px',
+                  fontWeight: '500',
                   margin: 0,
-                  letterSpacing: '-0.2px',
-                  color: '#000000',
+                  letterSpacing: '-0.022em',
+                  color: '#1d1d1f',
                 }}>
                   {category.name}
                 </h3>
@@ -547,14 +559,28 @@ export default function Home() {
       </section>
 
       {/* Popular Products */}
-      <section style={{ padding: 'clamp(32px, 6vw, 80px) clamp(16px, 4vw, 60px)', background: '#000000', borderTop: '1px solid rgba(255,255,255,0.08)' }}>
-        <div style={{ maxWidth: '1360px', margin: '0 auto' }}>
-          <AnimatedSection animation="fadeUp" style={{ marginBottom: 'clamp(20px, 4vw, 40px)' }}>
-            <h2 style={{ fontSize: 'clamp(24px, 6vw, 48px)', fontWeight: '600', marginBottom: '8px', color: '#ffffff' }}>
+      <section style={{ padding: 'clamp(80px, 10vw, 120px) clamp(20px, 5vw, 80px)', background: '#000000', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
+        <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+          <AnimatedSection animation="fadeUp" style={{ marginBottom: 'clamp(40px, 6vw, 64px)' }}>
+            <h2 style={{ 
+              fontSize: 'clamp(32px, 6vw, 48px)', 
+              fontWeight: '600', 
+              marginBottom: '16px', 
+              color: '#f5f5f7',
+              letterSpacing: '-0.018em',
+              lineHeight: '1.08',
+            }}>
               Popular Products
             </h2>
-            <p style={{ fontSize: 'clamp(13px, 3.5vw, 16px)', color: 'rgba(255,255,255,0.6)', margin: '0', maxWidth: '600px', lineHeight: '1.6' }}>
-              Customer favorites you'll love
+            <p style={{ 
+              fontSize: 'clamp(17px, 3vw, 21px)', 
+              color: '#86868b', 
+              margin: '0', 
+              maxWidth: '480px', 
+              lineHeight: '1.5',
+              letterSpacing: '-0.016em',
+            }}>
+              Customer favorites crafted for wellness.
             </p>
           </AnimatedSection>
 
@@ -697,21 +723,23 @@ export default function Home() {
                   
                   {/* Product Name */}
                   <h3 style={{
-                    fontSize: '16px',
+                    fontSize: '19px',
                     fontWeight: '600',
                     marginBottom: '6px',
-                    letterSpacing: '-0.3px',
-                    color: '#ffffff',
+                    letterSpacing: '-0.012em',
+                    color: '#f5f5f7',
+                    lineHeight: '1.21',
                   }}>
                     {product.name}
                   </h3>
 
                   {/* Category */}
                   <p style={{
-                    fontSize: '13px',
-                    color: 'rgba(255,255,255,0.6)',
-                    marginBottom: '8px',
-                    letterSpacing: '-0.2px',
+                    fontSize: '14px',
+                    color: '#86868b',
+                    marginBottom: '0',
+                    letterSpacing: '-0.016em',
+                    lineHeight: '1.43',
                   }}>
                     Smoothie
                   </p>
@@ -760,45 +788,46 @@ export default function Home() {
       {/* Experts Section - Apple Style White Boxes */}
       <section style={{
         background: '#000',
-        padding: 'clamp(48px, 8vw, 80px) 0',
+        padding: 'clamp(80px, 10vw, 120px) 0',
       }}>
         <div style={{
           maxWidth: '100%',
           margin: '0 auto',
-          paddingLeft: 'clamp(16px, 4vw, 40px)',
-          paddingRight: 'clamp(16px, 4vw, 40px)',
+          paddingLeft: 'clamp(20px, 5vw, 60px)',
+          paddingRight: 'clamp(20px, 5vw, 60px)',
         }}>
           <p style={{
             fontSize: '12px',
             fontWeight: '600',
-            color: '#86868b',
+            color: '#6e6e73',
             textAlign: 'center',
-            marginBottom: '8px',
-            letterSpacing: '0.5px',
+            marginBottom: '12px',
+            letterSpacing: '0.06em',
             textTransform: 'uppercase',
           }}>
             OVER 50K FIVE STAR REVIEWS
           </p>
           <h2 style={{
-            fontSize: 'clamp(32px, 7vw, 48px)',
-            fontWeight: '700',
-            marginBottom: '12px',
-            letterSpacing: '-0.5px',
+            fontSize: 'clamp(32px, 6vw, 48px)',
+            fontWeight: '600',
+            marginBottom: '16px',
+            letterSpacing: '-0.018em',
             textAlign: 'center',
-            color: '#fff',
+            color: '#f5f5f7',
+            lineHeight: '1.08',
           }}>
-            Join The Movement
+            Join the Movement
           </h2>
           <p style={{
-            fontSize: '17px',
+            fontSize: 'clamp(17px, 3vw, 21px)',
             color: '#86868b',
             textAlign: 'center',
-            letterSpacing: '-0.022em',
-            maxWidth: '600px',
-            margin: '0 auto clamp(32px, 6vw, 48px) auto',
-            lineHeight: '1.47',
+            letterSpacing: '-0.016em',
+            maxWidth: '520px',
+            margin: '0 auto clamp(40px, 6vw, 56px) auto',
+            lineHeight: '1.5',
           }}>
-            Trusted by 2 million+ wellness enthusiasts worldwide.
+            Trusted by over 2 million wellness enthusiasts worldwide.
           </p>
 
           {/* Apple Style Card Carousel */}
@@ -992,23 +1021,24 @@ export default function Home() {
       {/* Customers Section - Apple Style White Boxes */}
       <section style={{
         background: '#000',
-        padding: 'clamp(48px, 8vw, 80px) 0',
+        padding: 'clamp(80px, 10vw, 120px) 0',
       }}>
         <div style={{
           maxWidth: '100%',
           margin: '0 auto',
-          paddingLeft: 'clamp(16px, 4vw, 40px)',
-          paddingRight: 'clamp(16px, 4vw, 40px)',
+          paddingLeft: 'clamp(20px, 5vw, 60px)',
+          paddingRight: 'clamp(20px, 5vw, 60px)',
         }}>
           <h2 style={{
-            fontSize: 'clamp(32px, 7vw, 48px)',
-            fontWeight: '700',
-            marginBottom: 'clamp(32px, 6vw, 48px)',
-            letterSpacing: '-0.5px',
+            fontSize: 'clamp(32px, 6vw, 48px)',
+            fontWeight: '600',
+            marginBottom: 'clamp(40px, 6vw, 56px)',
+            letterSpacing: '-0.018em',
             textAlign: 'center',
-            color: '#fff',
+            color: '#f5f5f7',
+            lineHeight: '1.08',
           }}>
-            Loved by the Spoiled*
+            Loved by Customers
           </h2>
 
           {/* Apple Style Card Carousel */}
@@ -1199,29 +1229,34 @@ export default function Home() {
           </div>
 
           {/* CTA Button */}
-          <div style={{ textAlign: 'center', marginTop: '48px' }}>
+          <div style={{ textAlign: 'center', marginTop: '56px' }}>
             <Link href="/collections/smoothies" style={{
-              display: 'inline-block',
-              padding: '14px 32px',
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '8px',
+              padding: '16px 32px',
               background: '#ffffff',
-              color: '#000000',
+              color: '#1d1d1f',
               textDecoration: 'none',
               borderRadius: '980px',
-              fontSize: '15px',
+              fontSize: '17px',
               fontWeight: '500',
-              letterSpacing: '0',
+              letterSpacing: '-0.022em',
               transition: 'all 0.3s ease',
             }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.background = 'rgba(255,255,255,0.85)';
-                e.currentTarget.style.transform = 'scale(1.02)';
+                e.currentTarget.style.background = 'rgba(255,255,255,0.9)';
+                e.currentTarget.style.transform = 'scale(1.04)';
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.background = '#ffffff';
                 e.currentTarget.style.transform = 'scale(1)';
               }}
             >
-              Try It & Save 50%
+              Shop All Reviews
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+              </svg>
             </Link>
           </div>
         </div>
@@ -1230,52 +1265,58 @@ export default function Home() {
       {/* CTA Section */}
       <section style={{
         background: '#000000',
-        padding: 'clamp(80px, 12vw, 160px) clamp(16px, 4vw, 60px)',
+        padding: 'clamp(100px, 14vw, 180px) clamp(20px, 5vw, 80px)',
         textAlign: 'center',
-        borderTop: '1px solid rgba(255,255,255,0.08)',
+        borderTop: '1px solid rgba(255,255,255,0.06)',
       }}>
         <h2 style={{
-          fontSize: 'clamp(28px, 6vw, 52px)',
-          marginBottom: '28px',
-          fontWeight: '700',
-          letterSpacing: '-0.8px',
-          color: '#ffffff',
+          fontSize: 'clamp(32px, 6vw, 56px)',
+          marginBottom: '24px',
+          fontWeight: '600',
+          letterSpacing: '-0.022em',
+          color: '#f5f5f7',
+          lineHeight: '1.08',
         }}>
-          Start Your Wellness Journey Today
+          Start Your Wellness Journey
         </h2>
         <p style={{
-          fontSize: 'clamp(14px, 3vw, 17px)',
-          color: 'rgba(255,255,255,0.6)',
-          marginBottom: '56px',
-          maxWidth: '720px',
-          margin: '0 auto 56px auto',
-          lineHeight: '1.8',
-          letterSpacing: '-0.3px',
+          fontSize: 'clamp(17px, 3vw, 21px)',
+          color: '#86868b',
+          marginBottom: '48px',
+          maxWidth: '520px',
+          margin: '0 auto 48px auto',
+          lineHeight: '1.5',
+          letterSpacing: '-0.016em',
         }}>
-          Join thousands of people who have made smoothies and bowls their daily habit.
+          Join thousands who have made wellness a daily habit.
         </p>
         <Link href="/auth" style={{
-          display: 'inline-block',
-          padding: '14px 32px',
+          display: 'inline-flex',
+          alignItems: 'center',
+          gap: '8px',
+          padding: '18px 44px',
           background: '#ffffff',
-          color: '#000000',
+          color: '#1d1d1f',
           textDecoration: 'none',
           borderRadius: '980px',
-          fontSize: '15px',
+          fontSize: '17px',
           fontWeight: '500',
           transition: 'all 0.3s ease',
-          letterSpacing: '0',
+          letterSpacing: '-0.022em',
         }}
           onMouseEnter={(e) => {
-            e.currentTarget.style.background = 'rgba(255,255,255,0.85)';
-            e.currentTarget.style.transform = 'scale(1.02)';
+            e.currentTarget.style.background = 'rgba(255,255,255,0.9)';
+            e.currentTarget.style.transform = 'scale(1.04)';
           }}
           onMouseLeave={(e) => {
             e.currentTarget.style.background = '#ffffff';
             e.currentTarget.style.transform = 'scale(1)';
           }}
         >
-          Create Your Account
+          Get Started
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
         </Link>
       </section>
       <Footer />
