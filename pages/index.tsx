@@ -72,6 +72,7 @@ export default function Home() {
   const [isDragging, setIsDragging] = useState(false);
   const [startX, setStartX] = useState(0);
   const [scrollLeft, setScrollLeft] = useState(0);
+  const [productPosition, setProductPosition] = useState(0);
   const [expertPosition, setExpertPosition] = useState(0);
   const [customerPosition, setCustomerPosition] = useState(0);
   const [unMutedExpert, setUnMutedExpert] = useState<string | null>(null);
@@ -468,42 +469,23 @@ export default function Home() {
             </p>
           </AnimatedSection>
 
-          {/* Carousel Container */}
-          <div className="carousel-wrapper">
-            {/* Left Arrow - Apple Style White (hidden on mobile) */}
+          {/* Carousel Container - Same structure as expert carousel */}
+          <div className="video-carousel-wrapper">
+            {/* Left Arrow */}
             <button
-              onClick={() => scroll('left')}
+              onClick={() => setProductPosition(prev => (prev - 1 + POPULAR_SMOOTHIES.length) % POPULAR_SMOOTHIES.length)}
               className="carousel-arrow carousel-arrow-left"
             >
               <AppleArrowLeft />
             </button>
 
-            {/* Carousel - Infinite Scroll */}
-            <div
-              ref={carouselRef}
-              onMouseDown={handleMouseDown}
-              onMouseLeave={handleMouseLeave}
-              onMouseUp={handleMouseUp}
-              onMouseMove={handleMouseMove}
-              onTouchStart={handleTouchStart}
-              onTouchMove={handleTouchMove}
-              onTouchEnd={handleTouchEnd}
-              onScroll={handleScroll}
-              className="carousel-track"
-              style={{
-                scrollBehavior: isDragging ? 'auto' : 'smooth',
-                cursor: isDragging ? 'grabbing' : 'grab',
-              }}
-            >
-              {/* Triple the products for seamless infinite scroll */}
-              {[...POPULAR_SMOOTHIES, ...POPULAR_SMOOTHIES, ...POPULAR_SMOOTHIES].map((product, index) => (
+            {/* Carousel Track - Shows exactly 5 items like expert carousel */}
+            <div className="video-carousel-track">
+              {[...POPULAR_SMOOTHIES, ...POPULAR_SMOOTHIES].slice(productPosition, productPosition + 5).map((product, index) => (
                 <Link
                   key={`${product.id}-${index}`}
                   href={`/products/${product.id}`}
                   className="product-card-carousel"
-                  style={{
-                    pointerEvents: isDragging ? 'none' : 'auto',
-                  }}
                 >
                   {/* Product Image - Apple Style White Box */}
                   <div className="product-card-image-wrapper">
@@ -540,9 +522,9 @@ export default function Home() {
               ))}
             </div>
 
-            {/* Right Arrow - Apple Style White (hidden on mobile) */}
+            {/* Right Arrow */}
             <button
-              onClick={() => scroll('right')}
+              onClick={() => setProductPosition(prev => (prev + 1) % POPULAR_SMOOTHIES.length)}
               className="carousel-arrow carousel-arrow-right"
             >
               <AppleArrowRight />
