@@ -542,7 +542,7 @@ button {
    ============================================ */
 
 .navbar {
-  background: rgba(0, 0, 0, 0.85);
+  background: #000000;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   padding: clamp(10px, 2.5vw, 14px) 0;
   position: sticky;
@@ -2766,11 +2766,11 @@ svg {
   padding-right: clamp(16px, 4vw, 80px);
 }
 
-/* Full-bleed carousel wrapper */
+/* Full-bleed carousel wrapper with proper edge spacing */
 .video-carousel-wrapper {
   position: relative;
   width: 100%;
-  padding: 0 clamp(16px, 4vw, 60px);
+  padding: 0 clamp(48px, 6vw, 100px);
 }
 
 /* Carousel track - full width with centered content on ultrawide */
@@ -2815,6 +2815,10 @@ svg {
   .video-carousel-track {
     gap: 24px;
   }
+  
+  .video-carousel-wrapper {
+    padding: 0 clamp(80px, 8vw, 140px);
+  }
 }
 
 /* On 2K+ screens (2560px+), even larger cards */
@@ -2829,7 +2833,7 @@ svg {
   }
   
   .video-carousel-wrapper {
-    padding: 0 clamp(40px, 5vw, 120px);
+    padding: 0 clamp(100px, 8vw, 180px);
   }
 }
 
@@ -2996,18 +3000,21 @@ svg {
     grid-template-columns: repeat(2, 1fr);
   }
   
+  /* Keep arrows visible but smaller on mobile */
   .carousel-arrow {
-    display: none;
+    display: flex;
+    width: 36px;
+    height: 36px;
   }
   
   .carousel-wrapper {
-    padding-left: 0;
-    padding-right: 0;
+    padding-left: clamp(40px, 8vw, 60px);
+    padding-right: clamp(40px, 8vw, 60px);
   }
   
   .video-carousel-wrapper {
-    padding-left: 0;
-    padding-right: 0;
+    padding-left: clamp(40px, 8vw, 60px);
+    padding-right: clamp(40px, 8vw, 60px);
   }
   
   .cta-btn {
@@ -3034,6 +3041,22 @@ svg {
   .category-card {
     padding: clamp(14px, 2.5vw, 20px) clamp(10px, 1.5vw, 16px);
     border-radius: 50px;
+  }
+  
+  /* Smaller arrows on mobile but still visible */
+  .carousel-arrow {
+    width: 32px;
+    height: 32px;
+  }
+  
+  .carousel-wrapper {
+    padding-left: clamp(36px, 10vw, 48px);
+    padding-right: clamp(36px, 10vw, 48px);
+  }
+  
+  .video-carousel-wrapper {
+    padding-left: clamp(36px, 10vw, 48px);
+    padding-right: clamp(36px, 10vw, 48px);
   }
   
   .product-card-carousel {
@@ -3069,6 +3092,22 @@ svg {
   
   .category-card-title {
     font-size: clamp(11px, 2vw, 14px);
+  }
+  
+  /* Even smaller arrows but still visible on small phones */
+  .carousel-arrow {
+    width: 28px;
+    height: 28px;
+  }
+  
+  .carousel-wrapper {
+    padding-left: clamp(32px, 12vw, 40px);
+    padding-right: clamp(32px, 12vw, 40px);
+  }
+  
+  .video-carousel-wrapper {
+    padding-left: clamp(32px, 12vw, 40px);
+    padding-right: clamp(32px, 12vw, 40px);
   }
   
   .product-card-carousel {
@@ -3122,6 +3161,22 @@ svg {
   
   .category-card-title {
     font-size: 10px;
+  }
+  
+  /* Smallest arrows for fold phones */
+  .carousel-arrow {
+    width: 24px;
+    height: 24px;
+  }
+  
+  .carousel-wrapper {
+    padding-left: 28px;
+    padding-right: 28px;
+  }
+  
+  .video-carousel-wrapper {
+    padding-left: 28px;
+    padding-right: 28px;
   }
   
   .carousel-track {
