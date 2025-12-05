@@ -24,37 +24,37 @@ const MENU_ITEMS = [
   { 
     title: 'Smooch the Menu', 
     href: '/menu',
-    items: ['Best Sellers', 'New Arrivals', 'Collections'] 
+    items: ['Best Sellers', 'New Arrivals', 'Smoothie Boxes', 'Bundles', 'Gifts'] 
   },
   { 
     title: 'The Drizzl Wellness Way', 
     href: '/about',
-    items: ['Dietary Needs'] 
+    items: ['Our Story', 'Our Mission', 'Sustainability', 'Meet the Team'] 
   },
   { 
     title: 'Where to Get Smooched', 
     href: '/locations',
-    items: [] 
+    items: ['Store Locator', 'Delivery Areas', 'Pop-Up Events'] 
   },
   { 
     title: 'Wanna Stock Kiss in Your Spot?', 
     href: '/wholesale',
-    items: [] 
+    items: ['Partner With Us', 'Wholesale Pricing', 'Retail Inquiries', 'Food Service'] 
   },
   { 
     title: "What's in These Cups?", 
     href: '/ingredients',
-    items: [] 
+    items: ['Ingredients', 'Nutrition Facts', 'Dietary Options', 'Sourcing'] 
   },
   { 
     title: 'The Kiss Club', 
     href: '/club',
-    items: [] 
+    items: ['Join the Club', 'Member Benefits', 'Rewards', 'Refer a Friend'] 
   },
   { 
     title: 'Scan. Smooch. Sip', 
     href: '/app',
-    items: [] 
+    items: ['Download the App', 'How It Works', 'Mobile Ordering', 'Track Your Order'] 
   },
 ];
 
