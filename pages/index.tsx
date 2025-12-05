@@ -434,29 +434,6 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Category Grid */}
-      <section className="category-section">
-        <div className="category-container">
-          <AnimatedSection animation="fadeUp" className="category-header">
-            <h2 className="category-title">
-              Shop by Category
-            </h2>
-            <p className="category-subtitle">
-              Explore our complete collection of wellness products.
-            </p>
-          </AnimatedSection>
-          <div className="category-grid">
-            {CATEGORIES.map((category) => (
-              <Link key={category.slug} href={`/products?category=${category.slug}`} className="category-card">
-                <h3 className="category-card-title">
-                  {category.name}
-                </h3>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* Drizzl Kiss Section */}
       <section className="drizzl-kiss-section">
         <div className="drizzl-kiss-container">
@@ -479,6 +456,29 @@ export default function Home() {
                 Kiss boring goodbye. Drizzl on.
               </p>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Category Grid */}
+      <section className="category-section">
+        <div className="category-container">
+          <AnimatedSection animation="fadeUp" className="category-header">
+            <h2 className="category-title">
+              Shop by Category
+            </h2>
+            <p className="category-subtitle">
+              Explore our complete collection of wellness products.
+            </p>
+          </AnimatedSection>
+          <div className="category-grid">
+            {CATEGORIES.map((category) => (
+              <Link key={category.slug} href={`/products?category=${category.slug}`} className="category-card">
+                <h3 className="category-card-title">
+                  {category.name}
+                </h3>
+              </Link>
+            ))}
           </div>
         </div>
       </section>
