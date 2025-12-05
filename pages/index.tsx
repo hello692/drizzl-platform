@@ -327,6 +327,114 @@ export default function Home() {
         </div>
       </div>
 
+      {/* Featured In Press Logos */}
+      <div style={{
+        background: '#000000',
+        padding: '32px 0',
+        borderBottom: '1px solid rgba(255,255,255,0.08)',
+      }}>
+        <div style={{
+          maxWidth: '1200px',
+          margin: '0 auto',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: 'clamp(32px, 6vw, 80px)',
+          padding: '0 24px',
+          flexWrap: 'wrap',
+        }}>
+          {/* TODAY Logo */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+              <circle cx="16" cy="16" r="14" stroke="white" strokeWidth="2"/>
+              <circle cx="16" cy="10" r="3" fill="white"/>
+              <path d="M16 14v10M12 18h8" stroke="white" strokeWidth="2" strokeLinecap="round"/>
+            </svg>
+            <span style={{ 
+              fontSize: '18px', 
+              fontWeight: '700', 
+              color: '#ffffff',
+              letterSpacing: '-0.5px',
+            }}>TODAY</span>
+          </div>
+          
+          {/* Business Insider */}
+          <div style={{ 
+            display: 'flex', 
+            flexDirection: 'column', 
+            alignItems: 'center',
+            lineHeight: '1.1',
+          }}>
+            <span style={{ 
+              fontSize: '11px', 
+              fontWeight: '400', 
+              color: '#ffffff',
+              letterSpacing: '1px',
+            }}>BUSINESS</span>
+            <span style={{ 
+              fontSize: '14px', 
+              fontWeight: '700', 
+              color: '#ffffff',
+              letterSpacing: '0.5px',
+            }}>INSIDER</span>
+          </div>
+          
+          {/* Forbes */}
+          <span style={{ 
+            fontSize: '22px', 
+            fontWeight: '400', 
+            color: '#ffffff',
+            fontStyle: 'italic',
+            letterSpacing: '1px',
+          }}>Forbes</span>
+          
+          {/* The Guardian */}
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            <span style={{ 
+              fontSize: '13px', 
+              fontWeight: '400', 
+              color: '#ffffff',
+              letterSpacing: '0.5px',
+            }}>The</span>
+            <span style={{ 
+              fontSize: '20px', 
+              fontWeight: '700', 
+              color: '#ffffff',
+              marginLeft: '4px',
+              fontStyle: 'italic',
+            }}>Guardian</span>
+          </div>
+          
+          {/* Inc. Best Workplaces */}
+          <div style={{ 
+            display: 'flex', 
+            alignItems: 'baseline',
+            gap: '4px',
+          }}>
+            <span style={{ 
+              fontSize: '18px', 
+              fontWeight: '400', 
+              color: '#ffffff',
+              fontStyle: 'italic',
+            }}>Inc.</span>
+            <div style={{ display: 'flex', flexDirection: 'column', lineHeight: '1' }}>
+              <span style={{ 
+                fontSize: '10px', 
+                fontWeight: '700', 
+                color: '#ffffff',
+                letterSpacing: '0.5px',
+              }}>Best</span>
+              <span style={{ 
+                fontSize: '10px', 
+                fontWeight: '700', 
+                color: '#ffffff',
+                letterSpacing: '0.5px',
+              }}>Workplaces</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
       {/* Category Grid */}
       <section style={{ padding: 'clamp(32px, 6vw, 80px) clamp(16px, 4vw, 60px)', background: '#000000' }}>
         <div style={{ maxWidth: '1360px', margin: '0 auto' }}>
