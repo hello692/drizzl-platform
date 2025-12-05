@@ -283,7 +283,7 @@ export default function Navbar() {
           <div style={{ display: 'flex', justifyContent: 'flex-start', minWidth: 0, flexShrink: 1 }}>
             <Link href="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center' }}>
               <img 
-                src="/logo.gif" 
+                src="/images/drizzl-logo-white.gif" 
                 alt="Drizzl Wellness" 
                 style={{ 
                   height: 'clamp(28px, 6vw, 40px)', 
