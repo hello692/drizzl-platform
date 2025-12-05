@@ -22,45 +22,40 @@ const LANGUAGES = [
 
 const MENU_ITEMS = [
   { 
-    title: 'Best Sellers', 
-    href: '/collections/best-sellers',
-    items: ['Strawberry + Peach', 'Matcha', 'Acai', 'Coffee Mushroom'] 
+    title: 'Smooch the Menu', 
+    href: '/menu',
+    items: ['Best Sellers', 'New Arrivals', 'Collections'] 
   },
   { 
-    title: 'New Arrivals', 
-    href: '/collections/new-arrivals',
-    items: ['Pink Piyata', 'Mango Jackfruit', 'Chocolate Berry'] 
+    title: 'The Drizzl Wellness Way', 
+    href: '/about',
+    items: ['Dietary Needs'] 
   },
   { 
-    title: 'Collections', 
-    href: '/collections',
-    items: ['Smoothies', 'High Protein', 'Low Sugar', 'Immunity Boost'] 
+    title: 'Where to Get Smooched', 
+    href: '/locations',
+    items: [] 
   },
   { 
-    title: 'Dietary Needs', 
-    href: '/collections/dietary',
-    items: ['Gluten Free', 'Dairy Free', 'Vegan', 'Keto Friendly'] 
+    title: 'Wanna Stock Kiss in Your Spot?', 
+    href: '/wholesale',
+    items: [] 
   },
   { 
-    title: 'Smoothie Boxes', 
-    href: '/collections/boxes',
-    items: ['Starter Box', 'Family Box', 'Weekly Box', 'Monthly Box'] 
+    title: "What's in These Cups?", 
+    href: '/ingredients',
+    items: [] 
   },
   { 
-    title: 'Gifts', 
-    href: '/gifts',
-    items: ['Gift Cards', 'Gift Sets', 'Subscriptions'] 
+    title: 'The Kiss Club', 
+    href: '/club',
+    items: [] 
   },
-];
-
-const KISS_MENU_ITEMS = [
-  { title: 'Smooch the Menu', href: '/menu' },
-  { title: 'The Drizzl Wellness Way', href: '/about' },
-  { title: 'Where to Get Smooched', href: '/locations' },
-  { title: 'Wanna Stock Kiss in Your Spot?', href: '/wholesale' },
-  { title: "What's in These Cups?", href: '/ingredients' },
-  { title: 'The Kiss Club', href: '/club' },
-  { title: 'Scan. Smooch. Sip', href: '/app' },
+  { 
+    title: 'Scan. Smooch. Sip', 
+    href: '/app',
+    items: [] 
+  },
 ];
 
 const DrippingLips = () => (
@@ -166,55 +161,43 @@ export default function Navbar() {
                 }}
               >
                 <button
-                  onClick={() => toggleExpandedMenu(menuItem.title)}
+                  onClick={() => menuItem.items.length > 0 ? toggleExpandedMenu(menuItem.title) : navigateTo(menuItem.href)}
                   className="navbar-menu-btn"
                 >
                   <span className="navbar-menu-title">
                     {menuItem.title}
                   </span>
-                  <svg 
-                    className={`navbar-menu-expand-icon ${expandedMenu === menuItem.title ? 'expanded' : ''}`}
-                    viewBox="0 0 16 16" 
-                    fill="none"
-                  >
-                    <path d="M8 3v10M3 8h10" stroke="#86868b" strokeWidth="1.5" strokeLinecap="round"/>
-                  </svg>
+                  {menuItem.items.length > 0 && (
+                    <svg 
+                      className={`navbar-menu-expand-icon ${expandedMenu === menuItem.title ? 'expanded' : ''}`}
+                      viewBox="0 0 16 16" 
+                      fill="none"
+                    >
+                      <path d="M8 3v10M3 8h10" stroke="#86868b" strokeWidth="1.5" strokeLinecap="round"/>
+                    </svg>
+                  )}
                 </button>
                 
-                {/* Expanded Submenu */}
-                <div className={`navbar-menu-submenu ${expandedMenu === menuItem.title ? 'expanded' : ''}`}>
-                  <div className="navbar-menu-submenu-inner">
-                    {menuItem.items.map((item, subIdx) => (
-                      <button
-                        key={item}
-                        onClick={() => navigateTo(`/collections/${item.toLowerCase().replace(/\s+/g, '-')}`)}
-                        className="navbar-menu-subitem"
-                        style={{
-                          transitionDelay: expandedMenu === menuItem.title ? `${subIdx * 0.03}s` : '0s',
-                        }}
-                      >
-                        {item}
-                      </button>
-                    ))}
+                {/* Expanded Submenu - only if has items */}
+                {menuItem.items.length > 0 && (
+                  <div className={`navbar-menu-submenu ${expandedMenu === menuItem.title ? 'expanded' : ''}`}>
+                    <div className="navbar-menu-submenu-inner">
+                      {menuItem.items.map((item, subIdx) => (
+                        <button
+                          key={item}
+                          onClick={() => navigateTo(`/collections/${item.toLowerCase().replace(/\s+/g, '-')}`)}
+                          className="navbar-menu-subitem"
+                          style={{
+                            transitionDelay: expandedMenu === menuItem.title ? `${subIdx * 0.03}s` : '0s',
+                          }}
+                        >
+                          {item}
+                        </button>
+                      ))}
+                    </div>
                   </div>
-                </div>
+                )}
               </div>
-            ))}
-          </nav>
-          
-          {/* Kiss Menu Section */}
-          <nav className="navbar-kiss-menu">
-            {KISS_MENU_ITEMS.map((item, index) => (
-              <button
-                key={item.title}
-                onClick={() => navigateTo(item.href)}
-                className="navbar-kiss-item"
-                style={{
-                  transitionDelay: `${0.2 + index * 0.04}s`,
-                }}
-              >
-                {item.title}
-              </button>
             ))}
           </nav>
           
