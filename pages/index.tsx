@@ -255,35 +255,76 @@ export default function Home() {
           zIndex: 1,
         }}></div>
         
-        <div style={{ position: 'relative', zIndex: 2 }}>
+        <div style={{ position: 'relative', zIndex: 2, maxWidth: '800px', margin: '0 auto' }}>
           <AnimatedSection animation="fadeUp">
             <h1 style={{
-              fontSize: 'clamp(28px, 8vw, 64px)',
+              fontSize: 'clamp(36px, 10vw, 80px)',
               fontWeight: '700',
               textAlign: 'center',
-              letterSpacing: '-1px',
+              letterSpacing: '-2px',
               color: '#fff',
-              textShadow: '0 2px 20px rgba(0,0,0,0.3)',
-              animation: 'subtleFloat 6s ease-in-out infinite',
+              textShadow: '0 4px 30px rgba(0,0,0,0.4)',
+              marginBottom: 'clamp(16px, 3vw, 24px)',
+              lineHeight: '1.05',
             }}>
               {t('hero.title')}
             </h1>
           </AnimatedSection>
           <AnimatedSection animation="fadeUp" delay={100}>
-            <p style={{ textAlign: 'center', margin: '0 auto clamp(24px, 6vw, 48px)', fontSize: 'clamp(14px, 4vw, 18px)', color: 'rgba(255,255,255,0.9)', maxWidth: '600px', lineHeight: '1.7', animation: 'delicateFade 1.2s cubic-bezier(0.32, 0, 0.67, 0) 0.3s forwards', opacity: 0 }}>
+            <p style={{ 
+              textAlign: 'center', 
+              margin: '0 auto', 
+              fontSize: 'clamp(16px, 4vw, 21px)', 
+              color: 'rgba(255,255,255,0.85)', 
+              maxWidth: '520px', 
+              lineHeight: '1.5',
+              fontWeight: '400',
+              letterSpacing: '-0.2px',
+              marginBottom: 'clamp(32px, 6vw, 48px)',
+            }}>
               {t('hero.subtitle')}
             </p>
           </AnimatedSection>
           <AnimatedSection animation="fadeUp" delay={200}>
-            <Link href="/products" className="btn-premium" style={{
-              fontSize: '14px',
-              padding: '14px 32px',
-              background: '#fff',
-              color: '#000',
-              animation: 'smoothScale 1s cubic-bezier(0.32, 0, 0.67, 0) 0.6s forwards',
-            }}>
-              {t('hero.cta')}
-            </Link>
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '16px' }}>
+              <Link href="/products" style={{
+                fontSize: '17px',
+                fontWeight: '500',
+                padding: '18px 48px',
+                background: '#ffffff',
+                color: '#000000',
+                borderRadius: '980px',
+                textDecoration: 'none',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '10px',
+                transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                boxShadow: '0 4px 20px rgba(255,255,255,0.25)',
+                letterSpacing: '-0.2px',
+              }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = 'scale(1.05)';
+                  e.currentTarget.style.boxShadow = '0 8px 32px rgba(255,255,255,0.35)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = 'scale(1)';
+                  e.currentTarget.style.boxShadow = '0 4px 20px rgba(255,255,255,0.25)';
+                }}
+              >
+                {t('hero.cta')}
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+              </Link>
+              <p style={{
+                fontSize: '13px',
+                color: 'rgba(255,255,255,0.5)',
+                margin: 0,
+                letterSpacing: '0.3px',
+              }}>
+                Free shipping on orders over $50
+              </p>
+            </div>
           </AnimatedSection>
         </div>
       </section>
