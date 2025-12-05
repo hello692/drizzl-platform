@@ -8,7 +8,7 @@ const POPULAR_SMOOTHIES = [
   { id: '9', name: 'Pink Piyata', price: 8.99, image: '/products/pink-piyata/transparent-glass-1.png', description: 'Tropical dragon fruit' },
   { id: '10', name: 'Matcha', price: 9.49, image: '/products/matcha/transparent-glass-1.png', description: 'Zen in a cup' },
   { id: '14', name: 'Coffee Mushroom', price: 9.99, image: '/products/coffee-mushroom/transparent-glass-1.png', description: 'Adaptogenic energy' },
-  { id: '17', name: 'Acai', price: 9.49, image: '/products/acai/transparent-glass-1.png', description: 'Amazonian superfruit' },
+  { id: '17', name: 'Acai', price: 9.49, image: '/products/acai/Acai-TG-1.jpg', description: 'Amazonian superfruit' },
   { id: '12', name: 'Nutty Monkey', price: 8.99, image: '/products/nutty-monkey/transparent-glass-1.png', description: 'Creamy peanut butter' },
 ];
 

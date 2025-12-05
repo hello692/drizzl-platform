@@ -12,7 +12,7 @@ const SMOOTHIES = [
   { id: '12', name: 'Nutty Monkey', price: 8.99, image: '/products/nutty-monkey/transparent-glass-1.png', category: 'Nutty', reviews: 389 },
   { id: '13', name: 'Mango Jackfruit', price: 8.99, image: '/products/mango-jackfruit/transparent-glass-1.png', category: 'Tropical', reviews: 156 },
   { id: '14', name: 'Coffee Mushroom', price: 9.99, image: '/products/coffee-mushroom/transparent-glass-1.png', category: 'Energy', reviews: 203 },
-  { id: '17', name: 'Acai', price: 9.49, image: '/products/acai/transparent-glass-1.png', category: 'Antioxidant', reviews: 487 },
+  { id: '17', name: 'Acai', price: 9.49, image: '/products/acai/Acai-TG-1.jpg', category: 'Antioxidant', reviews: 487 },
 ];
 
 export default function Smoothies() {

@@ -44,7 +44,7 @@ const POPULAR_SMOOTHIES = [
   { id: '14', name: 'Coffee Mushroom', price: 9.99, image: '/products/coffee-mushroom/transparent-glass-1.png', badge: 'Best Seller' },
   { id: '15', name: 'Chocolate Berry', price: 8.99, image: '/products/chocolate-berry/transparent-glass-1.png', badge: 'Best Seller' },
   { id: '16', name: 'Almond', price: 8.99, image: '/products/almond/transparent-glass-1.png', badge: 'Best Seller' },
-  { id: '17', name: 'Acai', price: 9.49, image: '/products/acai/transparent-glass-1.png', badge: 'Best Seller' },
+  { id: '17', name: 'Acai', price: 9.49, image: '/products/acai/Acai-TG-1.jpg', badge: 'Best Seller' },
 ];
 
 const EXPERTS = [
