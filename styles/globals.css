@@ -2575,8 +2575,8 @@ svg {
 
 .carousel-wrapper {
   position: relative;
-  padding-left: clamp(0px, 6vw, 70px);
-  padding-right: clamp(0px, 6vw, 70px);
+  padding-left: clamp(48px, 6vw, 100px);
+  padding-right: clamp(48px, 6vw, 100px);
 }
 
 .carousel-arrow {
@@ -2613,7 +2613,7 @@ svg {
 
 .carousel-track {
   display: flex;
-  gap: clamp(16px, 3vw, 32px);
+  gap: var(--card-gap);
   overflow-x: scroll;
   scroll-behavior: smooth;
   scrollbar-width: none;
@@ -2631,10 +2631,23 @@ svg {
   cursor: grabbing;
 }
 
+/* ============================================
+   UNIFIED CARD SYSTEM - Consistent across site
+   Same dimensions for products, experts, customers
+   ============================================ */
+
+/* Unified card width variable for consistency */
+:root {
+  --card-width: clamp(200px, 18vw, 280px);
+  --card-height: clamp(280px, 25vw, 380px);
+  --card-radius: clamp(16px, 2vw, 20px);
+  --card-gap: clamp(16px, 2vw, 24px);
+}
+
 /* Product Cards in Carousel */
 .product-card-carousel {
   flex-shrink: 0;
-  width: clamp(200px, 35vw, 280px);
+  width: var(--card-width);
   text-align: center;
   text-decoration: none;
   color: #ffffff;
@@ -2648,8 +2661,8 @@ svg {
 
 .product-card-image-wrapper {
   background: #ffffff;
-  border-radius: clamp(14px, 2vw, 20px);
-  height: clamp(220px, 35vw, 300px);
+  border-radius: var(--card-radius);
+  height: var(--card-height);
   margin-bottom: clamp(12px, 2vw, 16px);
   overflow: hidden;
   display: flex;
@@ -2757,17 +2770,18 @@ svg {
   padding-right: clamp(16px, 4vw, 80px);
 }
 
-/* Full-bleed carousel wrapper with proper edge spacing */
+/* Full-bleed carousel wrapper - matches product carousel spacing */
 .video-carousel-wrapper {
   position: relative;
   width: 100%;
-  padding: 0 clamp(48px, 6vw, 100px);
+  padding-left: clamp(48px, 6vw, 100px);
+  padding-right: clamp(48px, 6vw, 100px);
 }
 
 /* Carousel track - full width with centered content on ultrawide */
 .video-carousel-track {
   display: flex;
-  gap: clamp(12px, 1.5vw, 20px);
+  gap: var(--card-gap);
   align-items: stretch;
   justify-content: center;
   overflow-x: auto;
@@ -2781,12 +2795,12 @@ svg {
   display: none;
 }
 
-/* Cards scale larger on widescreen - up to 320px */
+/* Video cards use same dimensions as product cards for consistency */
 .video-card {
   flex-shrink: 0;
-  width: clamp(180px, 18vw, 320px);
-  height: clamp(260px, 28vw, 420px);
-  border-radius: clamp(14px, 2vw, 24px);
+  width: var(--card-width);
+  height: var(--card-height);
+  border-radius: var(--card-radius);
   overflow: hidden;
   position: relative;
   cursor: pointer;
@@ -2796,35 +2810,33 @@ svg {
   scroll-snap-align: start;
 }
 
-/* On ultrawide screens (1920px+), show more cards and larger */
+/* On ultrawide screens (1920px+), scale cards up consistently */
 @media (min-width: 1920px) {
-  .video-card {
-    width: clamp(280px, 16vw, 360px);
-    height: clamp(380px, 22vw, 480px);
+  :root {
+    --card-width: clamp(260px, 15vw, 320px);
+    --card-height: clamp(360px, 20vw, 440px);
+    --card-gap: 28px;
   }
   
-  .video-carousel-track {
-    gap: 24px;
-  }
-  
+  .carousel-wrapper,
   .video-carousel-wrapper {
-    padding: 0 clamp(80px, 8vw, 140px);
+    padding-left: clamp(80px, 8vw, 140px);
+    padding-right: clamp(80px, 8vw, 140px);
   }
 }
 
 /* On 2K+ screens (2560px+), even larger cards */
 @media (min-width: 2560px) {
-  .video-card {
-    width: clamp(320px, 14vw, 400px);
-    height: clamp(420px, 20vw, 520px);
+  :root {
+    --card-width: clamp(300px, 14vw, 380px);
+    --card-height: clamp(420px, 18vw, 520px);
+    --card-gap: 32px;
   }
   
-  .video-carousel-track {
-    gap: 32px;
-  }
-  
+  .carousel-wrapper,
   .video-carousel-wrapper {
-    padding: 0 clamp(100px, 8vw, 180px);
+    padding-left: clamp(100px, 8vw, 180px);
+    padding-right: clamp(100px, 8vw, 180px);
   }
 }
 
@@ -3006,14 +3018,17 @@ svg {
     right: clamp(12px, 3vw, 28px);
   }
   
-  .carousel-wrapper {
+  .carousel-wrapper,
+  .video-carousel-wrapper {
     padding-left: clamp(48px, 10vw, 70px);
     padding-right: clamp(48px, 10vw, 70px);
   }
   
-  .video-carousel-wrapper {
-    padding-left: clamp(48px, 10vw, 70px);
-    padding-right: clamp(48px, 10vw, 70px);
+  /* Unified card sizing for 768px */
+  :root {
+    --card-width: clamp(180px, 28vw, 240px);
+    --card-height: clamp(250px, 38vw, 340px);
+    --card-gap: 18px;
   }
   
   .cta-btn {
@@ -3066,17 +3081,11 @@ svg {
     padding-right: clamp(44px, 12vw, 56px);
   }
   
-  .product-card-carousel {
-    width: clamp(160px, 42vw, 220px);
-  }
-  
-  .product-card-image-wrapper {
-    height: clamp(180px, 42vw, 240px);
-  }
-  
-  .video-card {
-    width: clamp(160px, 42vw, 200px);
-    height: clamp(220px, 55vw, 280px);
+  /* Unified card sizing for 480px */
+  :root {
+    --card-width: clamp(160px, 42vw, 220px);
+    --card-height: clamp(220px, 55vw, 300px);
+    --card-gap: 14px;
   }
   
   .video-card-video-container {
@@ -3125,17 +3134,11 @@ svg {
     padding-right: clamp(40px, 14vw, 50px);
   }
   
-  .product-card-carousel {
-    width: clamp(140px, 44vw, 180px);
-  }
-  
-  .product-card-image-wrapper {
-    height: clamp(160px, 44vw, 200px);
-  }
-  
-  .video-card {
-    width: clamp(140px, 44vw, 180px);
-    height: clamp(200px, 52vw, 240px);
+  /* Unified card sizing for 360px */
+  :root {
+    --card-width: clamp(140px, 44vw, 180px);
+    --card-height: clamp(200px, 52vw, 260px);
+    --card-gap: 12px;
   }
 }
 
@@ -3192,27 +3195,18 @@ svg {
     right: 6px;
   }
   
-  .carousel-wrapper {
-    padding-left: 36px;
-    padding-right: 36px;
-  }
-  
+  .carousel-wrapper,
   .video-carousel-wrapper {
     padding-left: 36px;
     padding-right: 36px;
   }
   
-  .carousel-track {
-    gap: 12px;
-  }
-  
-  .product-card-carousel {
-    width: clamp(120px, 48vw, 160px);
-  }
-  
-  .product-card-image-wrapper {
-    height: clamp(140px, 48vw, 180px);
-    border-radius: 12px;
+  /* Unified card sizing for 280px (Galaxy Fold) */
+  :root {
+    --card-width: clamp(120px, 48vw, 160px);
+    --card-height: clamp(170px, 60vw, 220px);
+    --card-gap: 10px;
+    --card-radius: 12px;
   }
   
   .product-card-name {
@@ -3221,16 +3215,6 @@ svg {
   
   .product-card-category {
     font-size: 10px;
-  }
-  
-  .video-carousel-track {
-    gap: 8px;
-  }
-  
-  .video-card {
-    width: clamp(120px, 48vw, 160px);
-    height: clamp(170px, 60vw, 200px);
-    border-radius: 12px;
   }
   
   .video-card-header {
