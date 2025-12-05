@@ -492,8 +492,8 @@ export default function Home() {
       </div>
 
       {/* Category Grid */}
-      <section style={{ padding: 'clamp(64px, 10vw, 100px) clamp(20px, 5vw, 80px)', background: '#000000' }}>
-        <div style={{ maxWidth: '980px', margin: '0 auto' }}>
+      <section style={{ padding: 'clamp(64px, 10vw, 100px) 0', background: '#000000' }}>
+        <div style={{ maxWidth: '1400px', margin: '0 auto', paddingLeft: 'clamp(24px, 5vw, 80px)', paddingRight: 'clamp(24px, 5vw, 80px)' }}>
           <AnimatedSection animation="fadeUp" style={{ textAlign: 'center', marginBottom: 'clamp(32px, 6vw, 56px)' }}>
             <h2 style={{ 
               fontSize: 'clamp(32px, 6vw, 48px)', 
@@ -561,8 +561,8 @@ export default function Home() {
       </section>
 
       {/* Popular Products */}
-      <section style={{ padding: 'clamp(80px, 10vw, 120px) clamp(20px, 5vw, 80px)', background: '#000000', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
-        <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+      <section style={{ padding: 'clamp(80px, 10vw, 120px) 0', background: '#000000', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
+        <div style={{ maxWidth: '1400px', margin: '0 auto', paddingLeft: 'clamp(24px, 5vw, 80px)', paddingRight: 'clamp(24px, 5vw, 80px)' }}>
           <AnimatedSection animation="fadeUp" style={{ marginBottom: 'clamp(40px, 6vw, 64px)' }}>
             <h2 style={{ 
               fontSize: 'clamp(32px, 6vw, 48px)', 
@@ -793,10 +793,10 @@ export default function Home() {
         padding: 'clamp(80px, 10vw, 120px) 0',
       }}>
         <div style={{
-          maxWidth: '100%',
+          maxWidth: '1400px',
           margin: '0 auto',
-          paddingLeft: 'clamp(20px, 5vw, 60px)',
-          paddingRight: 'clamp(20px, 5vw, 60px)',
+          paddingLeft: 'clamp(24px, 5vw, 80px)',
+          paddingRight: 'clamp(24px, 5vw, 80px)',
         }}>
           <p style={{
             fontSize: '12px',
@@ -1026,10 +1026,10 @@ export default function Home() {
         padding: 'clamp(80px, 10vw, 120px) 0',
       }}>
         <div style={{
-          maxWidth: '100%',
+          maxWidth: '1400px',
           margin: '0 auto',
-          paddingLeft: 'clamp(20px, 5vw, 60px)',
-          paddingRight: 'clamp(20px, 5vw, 60px)',
+          paddingLeft: 'clamp(24px, 5vw, 80px)',
+          paddingRight: 'clamp(24px, 5vw, 80px)',
         }}>
           <h2 style={{
             fontSize: 'clamp(32px, 6vw, 48px)',
@@ -1267,10 +1267,16 @@ export default function Home() {
       {/* CTA Section */}
       <section style={{
         background: '#000000',
-        padding: 'clamp(100px, 14vw, 180px) clamp(20px, 5vw, 80px)',
+        padding: 'clamp(100px, 14vw, 180px) 0',
         textAlign: 'center',
         borderTop: '1px solid rgba(255,255,255,0.06)',
       }}>
+        <div style={{
+          maxWidth: '1400px',
+          margin: '0 auto',
+          paddingLeft: 'clamp(24px, 5vw, 80px)',
+          paddingRight: 'clamp(24px, 5vw, 80px)',
+        }}>
         <h2 style={{
           fontSize: 'clamp(32px, 6vw, 56px)',
           marginBottom: '24px',
@@ -1319,6 +1325,7 @@ export default function Home() {
             <path d="M5 12h14M12 5l7 7-7 7"/>
           </svg>
         </Link>
+        </div>
       </section>
       <Footer />
     </>

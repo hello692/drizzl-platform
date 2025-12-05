@@ -4,12 +4,14 @@ export default function Footer() {
   return (
     <footer style={{
       borderTop: '1px solid rgba(255, 255, 255, 0.08)',
-      padding: 'clamp(24px, 4vw, 48px) clamp(16px, 4vw, 60px) clamp(20px, 3vw, 32px) clamp(16px, 4vw, 60px)',
+      padding: 'clamp(24px, 4vw, 48px) 0 clamp(20px, 3vw, 32px) 0',
       background: '#000',
     }}>
       <div style={{
-        maxWidth: '1360px',
+        maxWidth: '1400px',
         margin: '0 auto',
+        paddingLeft: 'clamp(24px, 5vw, 80px)',
+        paddingRight: 'clamp(24px, 5vw, 80px)',
       }}>
         {/* Main Footer Content */}
         <div style={{
