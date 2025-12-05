@@ -457,6 +457,32 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Drizzl Kiss Section */}
+      <section className="drizzl-kiss-section">
+        <div className="drizzl-kiss-container">
+          <div className="drizzl-kiss-content">
+            <img 
+              src="/drizzl-lips.gif" 
+              alt="Drizzl Wellness Kiss" 
+              className="drizzl-kiss-gif"
+            />
+            <div className="drizzl-kiss-text">
+              <h2 className="drizzl-kiss-title">
+                One Sip. Pure Bliss.
+              </h2>
+              <p className="drizzl-kiss-subtitle">
+                Every Drizzl smoothie is a love letter to your body. Crafted with organic superfoods, 
+                zero artificial anything, and enough flavor to make your taste buds fall in love. 
+                This isn't just a smoothie — it's self-care you can drink.
+              </p>
+              <p className="drizzl-kiss-tagline">
+                Kiss boring goodbye. Drizzl on.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Popular Products - SAME structure as expert/customer sections */}
       <section className="video-section">
         <div className="video-section-container">
