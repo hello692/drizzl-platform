@@ -2632,11 +2632,28 @@ svg {
   gap: clamp(32px, 5vw, 48px);
 }
 
+.drizzl-kiss-gif-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
 .drizzl-kiss-gif {
   width: clamp(280px, 50vw, 500px);
   height: auto;
-  filter: drop-shadow(0 0 80px rgba(232, 90, 113, 0.4));
-  animation: kissFloat 4s ease-in-out infinite;
+  filter: drop-shadow(0 0 80px rgba(232, 90, 113, 0.5));
+  animation: kissFloat 4s ease-in-out infinite, kissShimmer 3s ease-in-out infinite;
+  position: relative;
+  z-index: 2;
+}
+
+/* Juicy shimmer overlay effect */
+@keyframes kissShimmer {
+  0%, 100% {
+    filter: drop-shadow(0 0 80px rgba(232, 90, 113, 0.5)) brightness(1);
+  }
+  50% {
+    filter: drop-shadow(0 0 100px rgba(255, 141, 161, 0.7)) brightness(1.1);
+  }
 }
 
 @keyframes kissFloat {
@@ -2645,6 +2662,93 @@ svg {
   }
   50% {
     transform: translateY(-12px);
+  }
+}
+
+/* Infinite dripping drops container */
+.drizzl-drips {
+  position: absolute;
+  bottom: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  height: 200px;
+  pointer-events: none;
+  overflow: visible;
+  z-index: 1;
+}
+
+/* Individual drip drops */
+.drip {
+  position: absolute;
+  width: 12px;
+  height: 18px;
+  background: linear-gradient(180deg, #E85A71 0%, #FF8DA1 50%, #E85A71 100%);
+  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+  opacity: 0;
+  animation: dripFall 2s ease-in infinite;
+  filter: drop-shadow(0 4px 8px rgba(232, 90, 113, 0.5));
+}
+
+.drip::after {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 4px;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.4);
+  border-radius: 50%;
+}
+
+.drip:nth-child(1) { left: 15%; animation-delay: 0s; }
+.drip:nth-child(2) { left: 30%; animation-delay: 0.4s; width: 10px; height: 15px; }
+.drip:nth-child(3) { left: 45%; animation-delay: 0.8s; width: 14px; height: 20px; }
+.drip:nth-child(4) { left: 55%; animation-delay: 0.2s; }
+.drip:nth-child(5) { left: 70%; animation-delay: 0.6s; width: 10px; height: 15px; }
+.drip:nth-child(6) { left: 85%; animation-delay: 1s; width: 8px; height: 12px; }
+.drip:nth-child(7) { left: 25%; animation-delay: 1.2s; width: 9px; height: 14px; }
+.drip:nth-child(8) { left: 60%; animation-delay: 1.4s; width: 11px; height: 16px; }
+
+@keyframes dripFall {
+  0% {
+    opacity: 0;
+    transform: translateY(0) scale(0.5);
+  }
+  10% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  90% {
+    opacity: 1;
+    transform: translateY(180px) scale(0.8);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(200px) scale(0.5);
+  }
+}
+
+/* Extra juicy splash effect at bottom */
+.drip-splash {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  height: 20px;
+  background: radial-gradient(ellipse at center, rgba(232, 90, 113, 0.3) 0%, transparent 70%);
+  animation: splashPulse 2s ease-in-out infinite;
+}
+
+@keyframes splashPulse {
+  0%, 100% {
+    opacity: 0.3;
+    transform: translateX(-50%) scaleX(0.8);
+  }
+  50% {
+    opacity: 0.6;
+    transform: translateX(-50%) scaleX(1.2);
   }
 }
 

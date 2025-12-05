@@ -438,11 +438,25 @@ export default function Home() {
       <section className="drizzl-kiss-section">
         <div className="drizzl-kiss-container">
           <div className="drizzl-kiss-content">
-            <img 
-              src="/drizzl-lips.gif" 
-              alt="Drizzl Wellness Kiss" 
-              className="drizzl-kiss-gif"
-            />
+            <div className="drizzl-kiss-gif-wrapper">
+              <img 
+                src="/drizzl-lips.gif" 
+                alt="Drizzl Wellness Kiss" 
+                className="drizzl-kiss-gif"
+              />
+              {/* Infinite dripping drops */}
+              <div className="drizzl-drips">
+                <div className="drip"></div>
+                <div className="drip"></div>
+                <div className="drip"></div>
+                <div className="drip"></div>
+                <div className="drip"></div>
+                <div className="drip"></div>
+                <div className="drip"></div>
+                <div className="drip"></div>
+                <div className="drip-splash"></div>
+              </div>
+            </div>
             <div className="drizzl-kiss-text">
               <h2 className="drizzl-kiss-title">
                 One Sip. Pure Bliss.
