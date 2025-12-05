@@ -21,12 +21,12 @@ export default function Footer() {
           {/* PRODUCTS */}
           <div>
             <h4 style={{ 
-              fontSize: 'clamp(11px, 2.5vw, 12px)', 
+              fontSize: '12px', 
               fontWeight: '600', 
               textTransform: 'uppercase', 
-              letterSpacing: '0.8px',
-              marginBottom: 'clamp(8px, 2vw, 12px)',
-              color: '#fff',
+              letterSpacing: '0.08em',
+              marginBottom: '16px',
+              color: '#f5f5f7',
             }}>
               Products
             </h4>
@@ -46,12 +46,12 @@ export default function Footer() {
           {/* COLLECTIONS */}
           <div>
             <h4 style={{ 
-              fontSize: 'clamp(11px, 2.5vw, 12px)', 
+              fontSize: '12px', 
               fontWeight: '600', 
               textTransform: 'uppercase', 
-              letterSpacing: '0.8px',
-              marginBottom: 'clamp(8px, 2vw, 12px)',
-              color: '#fff',
+              letterSpacing: '0.08em',
+              marginBottom: '16px',
+              color: '#f5f5f7',
             }}>
               Collections
             </h4>
@@ -74,12 +74,12 @@ export default function Footer() {
           {/* LEARN */}
           <div>
             <h4 style={{ 
-              fontSize: 'clamp(11px, 2.5vw, 12px)', 
+              fontSize: '12px', 
               fontWeight: '600', 
               textTransform: 'uppercase', 
-              letterSpacing: '0.8px',
-              marginBottom: 'clamp(8px, 2vw, 12px)',
-              color: '#fff',
+              letterSpacing: '0.08em',
+              marginBottom: '16px',
+              color: '#f5f5f7',
             }}>
               Learn
             </h4>
@@ -102,12 +102,12 @@ export default function Footer() {
           {/* COMPANY */}
           <div>
             <h4 style={{ 
-              fontSize: 'clamp(11px, 2.5vw, 12px)', 
+              fontSize: '12px', 
               fontWeight: '600', 
               textTransform: 'uppercase', 
-              letterSpacing: '0.8px',
-              marginBottom: 'clamp(8px, 2vw, 12px)',
-              color: '#fff',
+              letterSpacing: '0.08em',
+              marginBottom: '16px',
+              color: '#f5f5f7',
             }}>
               Company
             </h4>
@@ -127,12 +127,12 @@ export default function Footer() {
           {/* LEGAL */}
           <div>
             <h4 style={{ 
-              fontSize: 'clamp(11px, 2.5vw, 12px)', 
+              fontSize: '12px', 
               fontWeight: '600', 
               textTransform: 'uppercase', 
-              letterSpacing: '0.8px',
-              marginBottom: 'clamp(8px, 2vw, 12px)',
-              color: '#fff',
+              letterSpacing: '0.08em',
+              marginBottom: '16px',
+              color: '#f5f5f7',
             }}>
               Legal
             </h4>
@@ -149,28 +149,30 @@ export default function Footer() {
 
         {/* Newsletter */}
         <div style={{
-          maxWidth: '600px',
-          margin: '0 auto clamp(20px, 4vw, 32px)',
-          paddingBottom: 'clamp(20px, 4vw, 32px)',
-          borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
+          maxWidth: '560px',
+          margin: '0 auto clamp(24px, 5vw, 40px)',
+          paddingBottom: 'clamp(24px, 5vw, 40px)',
+          borderBottom: '1px solid rgba(255, 255, 255, 0.06)',
           textAlign: 'center',
         }}>
           <h3 style={{
-            fontSize: 'clamp(18px, 4vw, 24px)',
+            fontSize: 'clamp(21px, 4vw, 28px)',
             fontWeight: '600',
-            marginBottom: 'clamp(4px, 1vw, 8px)',
-            letterSpacing: '-0.4px',
-            color: '#fff',
+            marginBottom: '8px',
+            letterSpacing: '-0.016em',
+            color: '#f5f5f7',
+            lineHeight: '1.14',
           }}>
-            Subscribe
+            Stay in the Loop
           </h3>
           <p style={{
-            fontSize: 'clamp(12px, 3vw, 14px)',
-            color: 'rgba(255,255,255,0.6)',
-            marginBottom: 'clamp(12px, 3vw, 16px)',
-            lineHeight: '1.6',
+            fontSize: '14px',
+            color: '#86868b',
+            marginBottom: '20px',
+            lineHeight: '1.5',
+            letterSpacing: '-0.016em',
           }}>
-            Get wellness updates and exclusive offers
+            Get wellness updates and exclusive offers.
           </p>
           <div className="footer-newsletter" style={{
             display: 'flex',
