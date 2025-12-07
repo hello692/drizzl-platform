@@ -239,7 +239,7 @@ export default function Home() {
         clearInterval(typeInterval);
         setIsTyping(false);
         
-        // Wait 2 seconds then delete
+        // Wait 2.5 seconds then delete
         setTimeout(() => {
           let deleteIndex = currentWord.length;
           const deleteInterval = setInterval(() => {
@@ -251,10 +251,10 @@ export default function Home() {
               setCurrentWordIndex(prev => (prev + 1) % ROTATING_WORDS.length);
               setIsTyping(true);
             }
-          }, 50);
-        }, 2000);
+          }, 80);
+        }, 2500);
       }
-    }, 100);
+    }, 150);
     
     return () => clearInterval(typeInterval);
   }, [currentWordIndex]);

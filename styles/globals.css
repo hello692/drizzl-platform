@@ -2522,8 +2522,6 @@ svg {
   color: #f5f5f7;
   display: inline-block;
   position: relative;
-  border-bottom: 3px solid #ffffff;
-  padding-bottom: 4px;
   min-width: 1ch;
   min-height: 1.1em;
 }
