@@ -2,6 +2,7 @@ import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import Link from 'next/link';
 import { useState, useEffect, useMemo } from 'react';
+import SmoothieCard from '../../components/SmoothieCard';
 
 interface Product {
   id: string;
@@ -908,7 +909,15 @@ export default function Smoothies() {
 
           <div className="smoothies-grid">
             {filteredAndSortedProducts.map(product => (
-              <ProductCard key={product.id} product={product} />
+              <SmoothieCard
+                key={product.id}
+                id={product.id}
+                name={product.name}
+                price={product.price}
+                image={product.defaultImage}
+                badge={product.badge === 'Best Seller' ? 'BEST SELLER' : product.badge === 'New' ? 'NEW' : undefined}
+                showPrice={true}
+              />
             ))}
           </div>
 
