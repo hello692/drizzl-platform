@@ -513,7 +513,7 @@ export default function Home() {
                 marginBottom: '16px',
                 display: 'block',
               }}>
-                WHY DRIZZL
+                WHY WE EXIST
               </span>
               <h2 style={{
                 fontSize: 'clamp(32px, 5vw, 48px)',
@@ -523,48 +523,49 @@ export default function Home() {
                 color: '#ffffff',
                 marginBottom: '24px',
               }}>
-                The science of fresh
+                We got tired of the lies.
               </h2>
               <p style={{
                 fontSize: 'clamp(16px, 2vw, 18px)',
                 fontWeight: 400,
                 lineHeight: 1.7,
                 color: '#a1a1a6',
-                marginBottom: '24px',
+                marginBottom: '20px',
               }}>
-                Flash-frozen within 3 hours of blending. 100% organic ingredients sourced from trusted farms. 
-                Zero preservatives, zero added sugars, zero compromises.
+                "Healthy" smoothies loaded with hidden sugars. Wellness brands that care more about margins than your body. 
+                Powder mixes that taste like regret. We started Drizzl because we couldn't find a single smoothie brand 
+                that actually gave a damn.
               </p>
-              <div style={{
-                display: 'flex',
-                flexWrap: 'wrap',
-                gap: '16px',
+              <p style={{
+                fontSize: 'clamp(16px, 2vw, 18px)',
+                fontWeight: 500,
+                lineHeight: 1.7,
+                color: '#ffffff',
                 marginBottom: '32px',
               }}>
-                <span style={{
-                  padding: '8px 16px',
-                  border: '1px solid rgba(255,255,255,0.2)',
-                  borderRadius: '980px',
-                  fontSize: '13px',
-                  color: '#ffffff',
-                  fontWeight: 500,
-                }}>30-second prep</span>
-                <span style={{
-                  padding: '8px 16px',
-                  border: '1px solid rgba(255,255,255,0.2)',
-                  borderRadius: '980px',
-                  fontSize: '13px',
-                  color: '#ffffff',
-                  fontWeight: 500,
-                }}>12+ superfoods</span>
-                <span style={{
-                  padding: '8px 16px',
-                  border: '1px solid rgba(255,255,255,0.2)',
-                  borderRadius: '980px',
-                  fontSize: '13px',
-                  color: '#ffffff',
-                  fontWeight: 500,
-                }}>Chef-crafted</span>
+                So we built one. Chef-crafted recipes. Real organic ingredients. Flash-frozen at peak nutrition. 
+                No compromises, no asterisks, no BS.
+              </p>
+              <div style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(3, 1fr)',
+                gap: '24px',
+                marginBottom: '32px',
+                paddingTop: '24px',
+                borderTop: '1px solid rgba(255,255,255,0.1)',
+              }}>
+                <div>
+                  <p style={{ fontSize: '28px', fontWeight: 700, color: '#ffffff', marginBottom: '4px' }}>0g</p>
+                  <p style={{ fontSize: '13px', color: '#6e6e73' }}>Added sugar</p>
+                </div>
+                <div>
+                  <p style={{ fontSize: '28px', fontWeight: 700, color: '#ffffff', marginBottom: '4px' }}>100%</p>
+                  <p style={{ fontSize: '13px', color: '#6e6e73' }}>Organic</p>
+                </div>
+                <div>
+                  <p style={{ fontSize: '28px', fontWeight: 700, color: '#ffffff', marginBottom: '4px' }}>3hrs</p>
+                  <p style={{ fontSize: '13px', color: '#6e6e73' }}>Farm to freeze</p>
+                </div>
               </div>
               <Link href="/our-story" style={{
                 display: 'inline-flex',
@@ -578,7 +579,7 @@ export default function Home() {
                 paddingBottom: '4px',
                 transition: 'all 0.2s ease',
               }}>
-                Go behind the blend
+                Read the full story
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M5 12h14M12 5l7 7-7 7"/>
                 </svg>
