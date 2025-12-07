@@ -332,11 +332,18 @@ export default function Home() {
               textDecoration: 'none',
               transition: 'all 0.2s ease',
             }}>
-              Find Your Flavor
+              Get My First Box
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M5 12h14M12 5l7 7-7 7"/>
               </svg>
             </Link>
+            <p style={{
+              fontSize: '13px',
+              color: 'rgba(255,255,255,0.5)',
+              marginTop: '16px',
+            }}>
+              Free shipping on orders $50+ · 100% money-back guarantee
+            </p>
           </AnimatedSection>
         </div>
       </section>
@@ -571,7 +578,7 @@ export default function Home() {
                 paddingBottom: '4px',
                 transition: 'all 0.2s ease',
               }}>
-                See how we make magic
+                Go behind the blend
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M5 12h14M12 5l7 7-7 7"/>
                 </svg>
@@ -987,6 +994,16 @@ export default function Home() {
       }}>
         <div style={{ maxWidth: '720px', margin: '0 auto' }}>
           <AnimatedSection animation="fadeUp">
+            <p style={{
+              fontSize: '12px',
+              fontWeight: 600,
+              letterSpacing: '0.15em',
+              textTransform: 'uppercase',
+              color: 'rgba(255,255,255,0.4)',
+              marginBottom: '20px',
+            }}>
+              LIMITED TIME OFFER
+            </p>
             <h2 style={{
               fontSize: 'clamp(36px, 7vw, 64px)',
               fontWeight: 700,
@@ -995,7 +1012,7 @@ export default function Home() {
               color: '#ffffff',
               marginBottom: '24px',
             }}>
-              Your body called.<br/>It wants the good stuff.
+              Get 20% off your first order
             </h2>
           </AnimatedSection>
           <AnimatedSection animation="fadeUp" delay={100}>
@@ -1004,9 +1021,16 @@ export default function Home() {
               fontWeight: 400,
               lineHeight: 1.6,
               color: '#a1a1a6',
+              marginBottom: '16px',
+            }}>
+              Use code <span style={{ color: '#ffffff', fontWeight: 600 }}>DRIZZL20</span> at checkout.
+            </p>
+            <p style={{
+              fontSize: '14px',
+              color: 'rgba(255,255,255,0.5)',
               marginBottom: '40px',
             }}>
-              50,000+ five-star reviews can't be wrong. Try it risk-free.
+              50,000+ five-star reviews · Free shipping $50+ · 100% money-back guarantee
             </p>
           </AnimatedSection>
           <AnimatedSection animation="fadeUp" delay={200}>
@@ -1016,15 +1040,15 @@ export default function Home() {
               gap: '10px',
               background: '#ffffff',
               color: '#000000',
-              padding: '18px 48px',
+              padding: '20px 56px',
               borderRadius: '980px',
-              fontSize: '16px',
-              fontWeight: 500,
+              fontSize: '17px',
+              fontWeight: 600,
               letterSpacing: '0.02em',
               textDecoration: 'none',
               transition: 'all 0.2s ease',
             }}>
-              Start Drizzlin'
+              Claim My 20% Off
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M5 12h14M12 5l7 7-7 7"/>
               </svg>
