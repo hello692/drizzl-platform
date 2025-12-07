@@ -48,12 +48,12 @@ const CUSTOMERS = [
 ];
 
 const ROTATING_WORDS = [
-  { word: 'Best', color: '#22c55e' },      // Matcha green
-  { word: 'Glow', color: '#f97316' },      // Mango orange
-  { word: 'Energy', color: '#ec4899' },    // Pink Piyata
-  { word: 'Strong', color: '#facc15' },    // Banana yellow
-  { word: 'Alive', color: '#8b5cf6' },     // Acai purple
-  { word: 'Amazing', color: '#ef4444' },   // Strawberry red
+  { word: 'Good', color: '#22c55e' },      // Matcha green
+  { word: 'Flavor', color: '#f97316' },    // Mango orange
+  { word: 'Alive', color: '#ec4899' },     // Pink Piyata
+  { word: 'Happy', color: '#facc15' },     // Banana yellow
+  { word: 'Better', color: '#8b5cf6' },    // Acai purple
+  { word: 'Me', color: '#ef4444' },        // Strawberry red
 ];
 
 const BENEFITS = [
@@ -295,7 +295,7 @@ export default function Home() {
               color: '#ffffff',
               marginBottom: '24px',
             }}>
-              <span>Feel Your </span>
+              <span>I Feel </span>
               <span style={{
                 display: 'inline-block',
                 minWidth: '2ch',
@@ -335,7 +335,7 @@ export default function Home() {
               textDecoration: 'none',
               transition: 'all 0.2s ease',
             }}>
-              Get My First Box
+              Feel Your Best
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M5 12h14M12 5l7 7-7 7"/>
               </svg>
