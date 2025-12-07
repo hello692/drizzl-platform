@@ -451,9 +451,9 @@ export default function Home() {
                 One Sip. Pure Bliss.
               </h2>
               <p className="drizzl-kiss-subtitle">
-                Every Drizzl smoothie is a love letter to your body. Crafted with organic superfoods, 
-                zero artificial anything, and enough flavor to make your taste buds fall in love. 
-                This isn't just a smoothie — it's self-care you can drink.
+                Close your eyes. Take a sip. Feel it. That rush of flavor, that moment of calm, 
+                that little voice saying "yes, this is exactly what I needed." This isn't just a smoothie — 
+                it's your moment. Your ritual. Your daily act of self-love.
               </p>
               <p className="drizzl-kiss-tagline">
                 Kiss boring goodbye. Drizzl on.
@@ -516,19 +516,49 @@ export default function Home() {
                 color: '#ffffff',
                 marginBottom: '24px',
               }}>
-                The smoothie that changed everything
+                The science of fresh
               </h2>
               <p style={{
                 fontSize: 'clamp(16px, 2vw, 18px)',
                 fontWeight: 400,
                 lineHeight: 1.7,
                 color: '#a1a1a6',
+                marginBottom: '24px',
+              }}>
+                Flash-frozen within 3 hours of blending. 100% organic ingredients sourced from trusted farms. 
+                Zero preservatives, zero added sugars, zero compromises.
+              </p>
+              <div style={{
+                display: 'flex',
+                flexWrap: 'wrap',
+                gap: '16px',
                 marginBottom: '32px',
               }}>
-                We believe wellness should be simple, delicious, and accessible. Our chef-crafted blends 
-                use only premium organic ingredients — flash-frozen at peak freshness to lock in nutrients 
-                and flavor. No prep, no waste, no compromise.
-              </p>
+                <span style={{
+                  padding: '8px 16px',
+                  border: '1px solid rgba(255,255,255,0.2)',
+                  borderRadius: '980px',
+                  fontSize: '13px',
+                  color: '#ffffff',
+                  fontWeight: 500,
+                }}>30-second prep</span>
+                <span style={{
+                  padding: '8px 16px',
+                  border: '1px solid rgba(255,255,255,0.2)',
+                  borderRadius: '980px',
+                  fontSize: '13px',
+                  color: '#ffffff',
+                  fontWeight: 500,
+                }}>12+ superfoods</span>
+                <span style={{
+                  padding: '8px 16px',
+                  border: '1px solid rgba(255,255,255,0.2)',
+                  borderRadius: '980px',
+                  fontSize: '13px',
+                  color: '#ffffff',
+                  fontWeight: 500,
+                }}>Chef-crafted</span>
+              </div>
               <Link href="/our-story" style={{
                 display: 'inline-flex',
                 alignItems: 'center',
