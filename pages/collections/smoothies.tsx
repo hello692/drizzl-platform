@@ -504,16 +504,17 @@ function SortDropdown({ value, onChange }: { value: string; onChange: (value: st
           display: 'flex',
           alignItems: 'center',
           gap: '8px',
-          padding: '12px 20px',
-          background: '#111111',
-          border: '1px solid rgba(255,255,255,0.1)',
-          borderRadius: '0',
+          padding: '12px 24px',
+          background: '#1a1a1a',
+          border: '1px solid rgba(255,255,255,0.15)',
+          borderRadius: '980px',
           fontSize: '13px',
           fontWeight: '500',
           cursor: 'pointer',
           minWidth: '120px',
           color: '#ffffff',
           minHeight: '48px',
+          transition: 'all 0.2s ease',
         }}
       >
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="2">
@@ -1004,15 +1005,21 @@ export default function Smoothies() {
           display: flex;
           align-items: center;
           gap: 8px;
-          padding: 12px 20px;
-          background: #111111;
-          border: 1px solid rgba(255,255,255,0.1);
-          border-radius: 0;
+          padding: 12px 24px;
+          background: #1a1a1a;
+          border: 1px solid rgba(255,255,255,0.15);
+          border-radius: 980px;
           font-size: 13px;
           font-weight: 500;
           cursor: pointer;
           color: #ffffff;
           min-height: 48px;
+          transition: all 0.2s ease;
+        }
+        
+        .filter-button:hover {
+          background: #2a2a2a;
+          border-color: rgba(255,255,255,0.25);
         }
 
         .filter-count {

@@ -502,6 +502,32 @@ button {
   min-height: var(--touch-target-min);
 }
 
+/* Dark Button - For filters, tabs on dark backgrounds */
+.btn-dark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 24px;
+  background: #1a1a1a;
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 980px;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  min-height: var(--touch-target-min);
+}
+
+.btn-dark:hover {
+  background: #2a2a2a;
+  border-color: rgba(255, 255, 255, 0.25);
+  opacity: 1;
+}
+
 .btn-tertiary:hover {
   opacity: 0.7;
 }
