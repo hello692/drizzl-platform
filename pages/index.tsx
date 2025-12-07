@@ -114,18 +114,18 @@ const BENEFITS = [
 const HOW_IT_WORKS = [
   {
     step: '01',
-    title: 'Choose your flavors',
-    description: 'Pick from our menu of chef-crafted, dietitian-approved smoothie flavors.'
+    title: 'Pick your vibe',
+    description: 'Choose from 10+ chef-crafted flavors. Energy boost? Gut reset? We\'ve got you.'
   },
   {
     step: '02',
-    title: 'Blend in seconds',
-    description: 'Add your liquid of choice, blend for 30 seconds, and you\'re done.'
+    title: 'Blend. Done.',
+    description: 'Add oat milk, almond milk, or just water. Blend 30 seconds. That\'s literally it.'
   },
   {
     step: '03',
-    title: 'Feel the difference',
-    description: 'Experience the boost of real nutrition with every delicious sip.'
+    title: 'Sip. Smile. Repeat.',
+    description: 'Your new morning ritual starts now. No cleanup, no regrets, just good vibes.'
   }
 ];
 
@@ -593,13 +593,13 @@ export default function Home() {
                 ...headingStyles,
                 marginBottom: '16px',
               }}>
-                Fuel your best self
+                What's inside matters
               </h2>
               <p style={{
                 ...subheadingStyles,
                 margin: '0 auto',
               }}>
-                Every sip delivers real nutrition designed for how you live.
+                Not all smoothies are created equal. Here's what makes ours hit different.
               </p>
             </div>
           </AnimatedSection>
@@ -723,10 +723,10 @@ export default function Home() {
       <section className="video-section" style={{ background: '#0a0a0a' }}>
         <div className="video-section-container">
           <h2 className="video-section-title">
-            Popular Products
+            The lineup
           </h2>
           <p className="video-section-subtitle">
-            Customer favorites crafted for wellness.
+            These are the ones people can't stop reordering.
           </p>
 
           <div className="video-carousel-wrapper">
@@ -775,13 +775,13 @@ export default function Home() {
                 ...headingStyles,
                 marginBottom: '16px',
               }}>
-                Why choose Drizzl?
+                The comparison nobody asked for
               </h2>
               <p style={{
                 ...subheadingStyles,
                 margin: '0 auto',
               }}>
-                The smarter way to get your daily nutrition.
+                (But you'll be glad you saw it.)
               </p>
             </div>
           </AnimatedSection>
@@ -995,7 +995,7 @@ export default function Home() {
               color: '#ffffff',
               marginBottom: '24px',
             }}>
-              Ready to feel better?
+              Your body called.<br/>It wants the good stuff.
             </h2>
           </AnimatedSection>
           <AnimatedSection animation="fadeUp" delay={100}>
@@ -1006,7 +1006,7 @@ export default function Home() {
               color: '#a1a1a6',
               marginBottom: '40px',
             }}>
-              Join thousands who have made wellness a daily habit.
+              50,000+ five-star reviews can't be wrong. Try it risk-free.
             </p>
           </AnimatedSection>
           <AnimatedSection animation="fadeUp" delay={200}>
