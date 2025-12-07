@@ -2665,108 +2665,99 @@ svg {
   }
 }
 
-/* Infinite dripping drops container - positioned at lip drip points */
+/* Infinite dripping drops container - at the bottom tips of the lip drips */
 .drizzl-drips {
   position: absolute;
-  bottom: 15%;
+  bottom: -5%;
   left: 50%;
   transform: translateX(-50%);
-  width: 60%;
-  height: 300px;
+  width: 50%;
+  height: 350px;
   pointer-events: none;
   overflow: visible;
   z-index: 1;
 }
 
-/* Individual drip drops - Matching the lips drip colors */
+/* Individual drip drops - Same size and shape as the drips in the lips image */
 .drip {
   position: absolute;
-  width: 18px;
-  height: 28px;
-  background: linear-gradient(180deg, #E88A9A 0%, #E4707F 30%, #D85A6A 60%, #C94D5D 100%);
-  border-radius: 45% 45% 50% 50% / 35% 35% 65% 65%;
+  top: 0;
+  background: linear-gradient(180deg, #E88A9C 0%, #E57283 40%, #D65C6C 70%, #C74E5E 100%);
+  border-radius: 40% 40% 50% 50% / 30% 30% 70% 70%;
   opacity: 0;
-  animation: dripFall 5s cubic-bezier(0.25, 0, 0.4, 1) infinite;
-  filter: drop-shadow(0 6px 12px rgba(212, 90, 106, 0.5));
-}
-
-.drip::before {
-  content: '';
-  position: absolute;
-  top: -12px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 10px;
-  height: 16px;
-  background: linear-gradient(180deg, #F0A0AD 0%, #E88A9A 50%, #E4707F 100%);
-  border-radius: 50% 50% 45% 45% / 70% 70% 30% 30%;
-  animation: dripStretch 5s cubic-bezier(0.25, 0, 0.4, 1) infinite;
+  animation: dripFall 6s ease-in infinite;
+  filter: drop-shadow(0 4px 8px rgba(200, 78, 94, 0.4));
 }
 
 .drip::after {
   content: '';
   position: absolute;
-  top: 5px;
-  left: 5px;
-  width: 5px;
-  height: 7px;
-  background: rgba(255, 200, 210, 0.6);
+  top: 15%;
+  left: 20%;
+  width: 25%;
+  height: 20%;
+  background: rgba(255, 220, 225, 0.5);
   border-radius: 50%;
   filter: blur(1px);
 }
 
-/* Position drops to match the 5 drip points in the lips image */
-.drip:nth-child(1) { left: 22%; animation-delay: 0.3s; width: 14px; height: 22px; }
-.drip:nth-child(2) { left: 35%; animation-delay: 1.5s; width: 16px; height: 26px; }
-.drip:nth-child(3) { left: 50%; animation-delay: 0s; width: 20px; height: 32px; }
-.drip:nth-child(4) { left: 65%; animation-delay: 0.8s; width: 16px; height: 26px; }
-.drip:nth-child(5) { left: 78%; animation-delay: 2s; width: 14px; height: 22px; }
-.drip:nth-child(6) { left: 28%; animation-delay: 2.5s; width: 12px; height: 20px; }
-.drip:nth-child(7) { left: 57%; animation-delay: 3s; width: 14px; height: 24px; }
-.drip:nth-child(8) { left: 72%; animation-delay: 3.5s; width: 13px; height: 21px; }
+/* 5 drips matching the exact positions of the lip drips - left to right */
+/* Drip 1 - far left small drip */
+.drip:nth-child(1) { 
+  left: 18%; 
+  width: 16px; 
+  height: 28px; 
+  animation-delay: 0.5s; 
+}
+/* Drip 2 - left-center drip */
+.drip:nth-child(2) { 
+  left: 32%; 
+  width: 18px; 
+  height: 32px; 
+  animation-delay: 1.8s; 
+}
+/* Drip 3 - center largest drip */
+.drip:nth-child(3) { 
+  left: 48%; 
+  width: 22px; 
+  height: 40px; 
+  animation-delay: 0s; 
+}
+/* Drip 4 - right-center drip */
+.drip:nth-child(4) { 
+  left: 64%; 
+  width: 18px; 
+  height: 32px; 
+  animation-delay: 1s; 
+}
+/* Drip 5 - far right small drip */
+.drip:nth-child(5) { 
+  left: 80%; 
+  width: 14px; 
+  height: 24px; 
+  animation-delay: 2.5s; 
+}
+/* Extra drips for continuous effect */
+.drip:nth-child(6) { left: 18%; width: 16px; height: 28px; animation-delay: 3.5s; }
+.drip:nth-child(7) { left: 48%; width: 22px; height: 40px; animation-delay: 3s; }
+.drip:nth-child(8) { left: 64%; width: 18px; height: 32px; animation-delay: 4s; }
 
 @keyframes dripFall {
   0% {
     opacity: 0;
-    transform: translateY(-10px) scale(0.3) scaleY(0.5);
+    transform: translateY(0) scale(1);
   }
   5% {
-    opacity: 0.8;
-    transform: translateY(0) scale(0.6) scaleY(1.2);
-  }
-  15% {
     opacity: 1;
-    transform: translateY(5px) scale(1) scaleY(1);
+    transform: translateY(0) scale(1);
   }
-  20% {
-    transform: translateY(10px) scale(1.05) scaleY(0.95);
-  }
-  80% {
+  85% {
     opacity: 1;
-    transform: translateY(220px) scale(0.9) scaleY(1.1);
-  }
-  95% {
-    opacity: 0.6;
-    transform: translateY(260px) scale(0.7) scaleY(1.3);
+    transform: translateY(300px) scale(0.95);
   }
   100% {
     opacity: 0;
-    transform: translateY(280px) scale(0.4) scaleY(1.5);
-  }
-}
-
-@keyframes dripStretch {
-  0%, 15% {
-    opacity: 1;
-    height: 12px;
-  }
-  20% {
-    opacity: 0;
-    height: 0;
-  }
-  100% {
-    opacity: 0;
-    height: 0;
+    transform: translateY(350px) scale(0.9);
   }
 }
 
