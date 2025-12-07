@@ -2524,10 +2524,22 @@ svg {
   transition: all 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
   opacity: 1;
   transform: translateY(0);
-  background: linear-gradient(135deg, #ffffff 0%, #a8e6cf 50%, #88d8b0 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  position: relative;
+  border-bottom: 3px solid #ffffff;
+  padding-bottom: 4px;
+}
+
+.hero-title-rotating::after {
+  content: '|';
+  display: inline-block;
+  margin-left: 2px;
+  animation: blink 1s step-end infinite;
+  color: #ffffff;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
 }
 
 .hero-title-rotating.animating {
