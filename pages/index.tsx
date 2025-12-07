@@ -525,6 +525,136 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Science Section - DryWater Style */}
+      <section className="drywater-section">
+        <div className="drywater-container">
+          <div className="drywater-x-mark">X</div>
+          <h2 className="drywater-title">
+            Wellness. <span className="drywater-accent">/from nature</span>
+          </h2>
+          <p className="drywater-description">
+            Our science-backed approach combines the purest organic ingredients with optimal nutrition. 
+            Each smoothie delivers essential vitamins, minerals, and superfoods directly to your cells 
+            for complete nourishment. The result: sustained energy, improved focus, and vibrant wellness.
+          </p>
+          <div className="drywater-cta-row">
+            <Link href="/products" className="drywater-btn-primary">Try Now</Link>
+            <Link href="/about" className="drywater-btn-secondary">Learn More</Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Clean Ingredients Section - DryWater Style */}
+      <section className="drywater-section drywater-section-alt">
+        <div className="drywater-container">
+          <div className="drywater-x-mark">X</div>
+          <h2 className="drywater-title">
+            Clean Ingredients. <span className="drywater-accent">/from earth</span>
+          </h2>
+          <p className="drywater-description">
+            The components of our blends are of the highest grade, pure and natural. Free from artificial 
+            additives, preservatives, and chemicals. Everything your body needs to thrive in its most 
+            natural form — in one delicious smoothie.
+          </p>
+          <div className="drywater-cta-row">
+            <Link href="/products" className="drywater-btn-primary">Try Now</Link>
+            <Link href="/ingredients" className="drywater-btn-secondary">View Ingredients</Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Feature Icons Grid - DryWater Style */}
+      <section className="feature-icons-section">
+        <div className="feature-icons-container">
+          <h2 className="feature-icons-title">Clean. Tested. Ingredients.</h2>
+          <div className="feature-icons-grid">
+            <div className="feature-icon-card">
+              <div className="feature-icon-circle">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/>
+                  <path d="M8 12l2 2 4-4"/>
+                </svg>
+              </div>
+              <span className="feature-icon-label">Gluten Free</span>
+            </div>
+            <div className="feature-icon-card">
+              <div className="feature-icon-circle">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                  <path d="M12 8v4M12 16h.01"/>
+                </svg>
+              </div>
+              <span className="feature-icon-label">Vegan</span>
+            </div>
+            <div className="feature-icon-card">
+              <div className="feature-icon-circle">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                  <circle cx="12" cy="12" r="10"/>
+                  <line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/>
+                </svg>
+              </div>
+              <span className="feature-icon-label">Zero Added Sugar</span>
+            </div>
+            <div className="feature-icon-card">
+              <div className="feature-icon-circle">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                  <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                  <path d="M2 17l10 5 10-5"/>
+                  <path d="M2 12l10 5 10-5"/>
+                </svg>
+              </div>
+              <span className="feature-icon-label">Non-GMO</span>
+            </div>
+            <div className="feature-icon-card">
+              <div className="feature-icon-circle">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                  <path d="M12 2a10 10 0 1 0 10 10"/>
+                  <path d="M12 2v10l6.5-6.5"/>
+                </svg>
+              </div>
+              <span className="feature-icon-label">Made in USA</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 0% Absolutely No Section - DryWater Style */}
+      <section className="absolutely-no-section">
+        <div className="absolutely-no-container">
+          <div className="absolutely-no-content">
+            <div className="absolutely-no-number">0%</div>
+            <div className="absolutely-no-text">
+              <h3 className="absolutely-no-title">ABSOLUTELY NO:</h3>
+              <ul className="absolutely-no-list">
+                <li>No Added Sugar</li>
+                <li>No Gluten</li>
+                <li>No Dairy</li>
+                <li>No Artificial Colors</li>
+                <li>No Artificial Sweeteners</li>
+                <li>No Preservatives</li>
+                <li>No GMOs</li>
+                <li>No Fillers</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Benefits Pills Section - DryWater Style */}
+      <section className="benefits-section">
+        <div className="benefits-container">
+          <h2 className="benefits-title">0% Sugar, 100% delicious and loaded with health benefits.</h2>
+          <div className="benefits-pills">
+            <span className="benefit-pill">ENERGY</span>
+            <span className="benefit-pill">IMMUNITY</span>
+            <span className="benefit-pill">FOCUS</span>
+            <span className="benefit-pill">WELLNESS</span>
+            <span className="benefit-pill">DIGESTION</span>
+            <span className="benefit-pill">SKIN</span>
+          </div>
+        </div>
+      </section>
+
       {/* Category Grid */}
       <section className="category-section">
         <div className="category-container">
