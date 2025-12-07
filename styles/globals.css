@@ -1,15 +1,15 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Helvetica+Neue:wght@300;400;500;700&display=swap');
 @import './design-tokens.css';
 
 /* ============================================
-   APPLE-STYLE TYPOGRAPHY SYSTEM
-   Premium, Minimal, World-Class Design
+   DRYWATER-STYLE TYPOGRAPHY SYSTEM
+   Clean, Modern, Premium Sans-Serif
    ============================================ */
 
 :root {
-  /* Font Families - Apple System Stack */
-  --font-display: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Inter', 'Segoe UI', Roboto, sans-serif;
-  --font-text: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Inter', 'Segoe UI', Roboto, sans-serif;
+  /* Font Families - Clean Sans-Serif Stack (like drywater.com) */
+  --font-display: 'Helvetica Neue', Helvetica, Arial, -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-text: 'Helvetica Neue', Helvetica, Arial, -apple-system, BlinkMacSystemFont, sans-serif;
   
   /* Color System - Luxury Dark Theme */
   --color-black: #000000;
