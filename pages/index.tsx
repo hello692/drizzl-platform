@@ -379,22 +379,13 @@ export default function Home() {
         </div>
       </div>
 
-      {/* As Seen On - Press Logos Marquee */}
+      {/* Press Logos Marquee */}
       <div style={{
         background: '#000000',
-        padding: '32px 0',
+        padding: '24px 0',
         borderBottom: '1px solid rgba(255,255,255,0.08)',
         overflow: 'hidden',
       }}>
-        <p style={{
-          textAlign: 'center',
-          fontSize: '11px',
-          fontWeight: 600,
-          color: 'rgba(255,255,255,0.4)',
-          letterSpacing: '0.15em',
-          textTransform: 'uppercase',
-          marginBottom: '20px',
-        }}>As Seen On</p>
         <div 
           style={{
             display: 'flex',
