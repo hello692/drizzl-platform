@@ -304,8 +304,7 @@ export default function Home() {
           <AnimatedSection animation="fadeUp" delay={100}>
             <p className="hero-subtitle">
               Fresh. Frozen. Fantastic.<br />
-              Because feeling better should taste better.<br />
-              Smoothies made to taste amazing and help you feel better from the inside out.
+              Smoothies that taste amazing and help you feel better.
             </p>
           </AnimatedSection>
           <AnimatedSection animation="fadeUp" delay={200}>
