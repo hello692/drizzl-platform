@@ -66,12 +66,12 @@ const CUSTOMERS = [
   { id: '6', name: 'Emma Wilson', video: 'https://media.coverr.co/videos/coverr-woman-drinking-smoothie-juice-7481/preview', quote: 'best smoothies ever' },
 ];
 
-const ROTATING_PHRASES = [
-  'Feel the Flavor',
-  'Feel the Energy',
-  'Feel the Love',
-  'Feel the Glow',
-  'Feel the Drizzl',
+const ROTATING_WORDS = [
+  'Flavor',
+  'Energy',
+  'Love',
+  'Glow',
+  'Drizzl',
 ];
 
 export default function Home() {
@@ -86,8 +86,9 @@ export default function Home() {
   const [customerPosition, setCustomerPosition] = useState(0);
   const [unMutedExpert, setUnMutedExpert] = useState<string | null>(null);
   const [unMutedCustomer, setUnMutedCustomer] = useState<string | null>(null);
-  const [currentPhraseIndex, setCurrentPhraseIndex] = useState(0);
-  const [isAnimating, setIsAnimating] = useState(false);
+  const [currentWordIndex, setCurrentWordIndex] = useState(0);
+  const [displayedText, setDisplayedText] = useState('');
+  const [isTyping, setIsTyping] = useState(true);
   
   let t: ReturnType<typeof useTranslations>;
   try {
@@ -223,17 +224,39 @@ export default function Home() {
     return () => clearInterval(interval);
   }, []);
 
-  // Rotating phrases animation (2.5 seconds per phrase)
+  // Typewriter effect for rotating words
   useEffect(() => {
-    const interval = setInterval(() => {
-      setIsAnimating(true);
-      setTimeout(() => {
-        setCurrentPhraseIndex(prev => (prev + 1) % ROTATING_PHRASES.length);
-        setIsAnimating(false);
-      }, 400);
-    }, 2500);
-    return () => clearInterval(interval);
-  }, []);
+    const currentWord = ROTATING_WORDS[currentWordIndex];
+    let charIndex = 0;
+    
+    // Type out the word
+    const typeInterval = setInterval(() => {
+      if (charIndex <= currentWord.length) {
+        setDisplayedText(currentWord.slice(0, charIndex));
+        charIndex++;
+      } else {
+        clearInterval(typeInterval);
+        setIsTyping(false);
+        
+        // Wait 2 seconds then delete
+        setTimeout(() => {
+          let deleteIndex = currentWord.length;
+          const deleteInterval = setInterval(() => {
+            if (deleteIndex >= 0) {
+              setDisplayedText(currentWord.slice(0, deleteIndex));
+              deleteIndex--;
+            } else {
+              clearInterval(deleteInterval);
+              setCurrentWordIndex(prev => (prev + 1) % ROTATING_WORDS.length);
+              setIsTyping(true);
+            }
+          }, 50);
+        }, 2000);
+      }
+    }, 100);
+    
+    return () => clearInterval(typeInterval);
+  }, [currentWordIndex]);
 
   return (
     <>
@@ -271,9 +294,9 @@ export default function Home() {
         <div className="hero-content">
           <AnimatedSection animation="fadeUp">
             <h1 className="hero-title">
-              <span className="hero-title-static">I Feel the </span>
-              <span className={`hero-title-rotating ${isAnimating ? 'animating' : ''}`}>
-                {ROTATING_PHRASES[currentPhraseIndex].replace('Feel the ', '')}
+              <span className="hero-title-static">I Feel </span>
+              <span className="hero-title-rotating">
+                {displayedText}
               </span>
             </h1>
           </AnimatedSection>
