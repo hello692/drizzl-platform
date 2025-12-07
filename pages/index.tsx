@@ -207,10 +207,10 @@ export default function Home() {
               setCurrentWordIndex(prev => (prev + 1) % ROTATING_WORDS.length);
               setIsTyping(true);
             }
-          }, 80);
-        }, 2500);
+          }, 40);
+        }, 1200);
       }
-    }, 150);
+    }, 70);
     
     return () => clearInterval(typeInterval);
   }, [currentWordIndex]);
@@ -298,8 +298,12 @@ export default function Home() {
               <span style={{
                 display: 'inline-block',
                 minWidth: '2ch',
-                borderRight: '3px solid #ffffff',
+                borderRight: '3px solid #22c55e',
                 animation: 'blink 1s step-end infinite',
+                background: 'linear-gradient(135deg, #22c55e 0%, #10b981 50%, #059669 100%)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text',
               }}>
                 {displayedText}
               </span>
