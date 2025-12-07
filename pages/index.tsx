@@ -271,7 +271,7 @@ export default function Home() {
         <div className="hero-content">
           <AnimatedSection animation="fadeUp">
             <h1 className="hero-title">
-              <span className="hero-title-static">Feel the </span>
+              <span className="hero-title-static">I Feel the </span>
               <span className={`hero-title-rotating ${isAnimating ? 'animating' : ''}`}>
                 {ROTATING_PHRASES[currentPhraseIndex].replace('Feel the ', '')}
               </span>
