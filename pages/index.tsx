@@ -317,7 +317,7 @@ export default function Home() {
               marginBottom: '40px',
             }}>
               Fresh. Frozen. Fantastic.<br />
-              Smoothies that make you feel good.
+              Smoothies for people who want to feel their best.
             </p>
           </AnimatedSection>
           <AnimatedSection animation="fadeUp" delay={200}>
