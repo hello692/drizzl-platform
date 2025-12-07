@@ -72,6 +72,7 @@ const ROTATING_WORDS = [
   'Alive',
   'Happy',
   'Better',
+  'Me',
 ];
 
 export default function Home() {
