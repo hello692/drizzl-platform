@@ -48,12 +48,12 @@ const CUSTOMERS = [
 ];
 
 const ROTATING_WORDS = [
-  'Good',
-  'Flavor',
-  'Alive',
-  'Happy',
-  'Better',
-  'Me',
+  { word: 'Good', color: '#22c55e' },      // Matcha green
+  { word: 'Flavor', color: '#f97316' },    // Mango orange
+  { word: 'Alive', color: '#ec4899' },     // Pink Piyata
+  { word: 'Happy', color: '#facc15' },     // Banana yellow
+  { word: 'Better', color: '#8b5cf6' },    // Acai purple
+  { word: 'Me', color: '#ef4444' },        // Strawberry red
 ];
 
 const BENEFITS = [
@@ -185,7 +185,8 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    const currentWord = ROTATING_WORDS[currentWordIndex];
+    const currentItem = ROTATING_WORDS[currentWordIndex];
+    const currentWord = currentItem.word;
     let charIndex = 0;
     
     const typeInterval = setInterval(() => {
@@ -207,10 +208,10 @@ export default function Home() {
               setCurrentWordIndex(prev => (prev + 1) % ROTATING_WORDS.length);
               setIsTyping(true);
             }
-          }, 40);
-        }, 1200);
+          }, 60);
+        }, 1800);
       }
-    }, 70);
+    }, 120);
     
     return () => clearInterval(typeInterval);
   }, [currentWordIndex]);
@@ -298,12 +299,10 @@ export default function Home() {
               <span style={{
                 display: 'inline-block',
                 minWidth: '2ch',
-                borderRight: '3px solid #22c55e',
+                borderRight: `3px solid ${ROTATING_WORDS[currentWordIndex].color}`,
                 animation: 'blink 1s step-end infinite',
-                background: 'linear-gradient(135deg, #22c55e 0%, #10b981 50%, #059669 100%)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                backgroundClip: 'text',
+                color: ROTATING_WORDS[currentWordIndex].color,
+                transition: 'color 0.3s ease',
               }}>
                 {displayedText}
               </span>
