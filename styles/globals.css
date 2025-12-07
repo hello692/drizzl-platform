@@ -3161,6 +3161,143 @@ svg {
   border-radius: clamp(10px, 1.5vw, 14px);
 }
 
+/* ============================================
+   SMOOTHIE CARD - Shared component for landing page and /smoothies
+   ============================================ */
+.smoothie-card {
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+  border-radius: var(--card-radius, 16px);
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.3s ease;
+  padding: clamp(14px, 2vw, 20px) clamp(14px, 2vw, 20px) 0 clamp(14px, 2vw, 20px);
+  height: 100%;
+  min-height: var(--card-height, 280px);
+}
+
+.smoothie-card:hover {
+  transform: scale(1.02);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+}
+
+.smoothie-card-header {
+  flex-shrink: 0;
+}
+
+.smoothie-card-badge {
+  font-size: clamp(9px, 1.2vw, 10px);
+  font-weight: 600;
+  margin: 0 0 clamp(4px, 0.8vw, 6px) 0;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+}
+
+.smoothie-card-name {
+  font-size: clamp(15px, 2.2vw, 19px);
+  font-weight: 700;
+  color: #1d1d1f;
+  margin: 0 0 clamp(2px, 0.4vw, 4px) 0;
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+}
+
+.smoothie-card-subtitle {
+  font-size: clamp(11px, 1.5vw, 13px);
+  color: #86868b;
+  margin: 0;
+  line-height: 1.3;
+}
+
+.smoothie-card-price {
+  color: #1d1d1f;
+  font-weight: 600;
+}
+
+.smoothie-card-image-container {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  margin-top: clamp(10px, 1.5vw, 16px);
+  background: #f5f5f7;
+  border-radius: clamp(10px, 1.5vw, 14px);
+  min-height: 120px;
+}
+
+.smoothie-card-image {
+  width: 85%;
+  height: 85%;
+  object-fit: contain;
+}
+
+/* Tiktok Section Backgrounds */
+.tiktok-section {
+  padding: clamp(60px, 8vw, 120px) clamp(20px, 4vw, 60px);
+}
+
+.tiktok-section-white {
+  background: #ffffff;
+}
+
+.tiktok-section-light {
+  background: #f8f8f8;
+}
+
+.tiktok-section-cream {
+  background: linear-gradient(135deg, #fff9f0 0%, #f5efe6 100%);
+}
+
+.tiktok-section-black {
+  background: #000000;
+}
+
+.tiktok-section-black .tiktok-heading,
+.tiktok-section-black h2,
+.tiktok-section-black h3 {
+  color: #f5f5f7;
+}
+
+.tiktok-section-black .tiktok-subheading,
+.tiktok-section-black p {
+  color: #86868b;
+}
+
+/* Smoothie grid for /smoothies page */
+.smoothie-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: var(--card-gap, 20px);
+  width: 100%;
+}
+
+@media (max-width: 1400px) {
+  .smoothie-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (max-width: 1024px) {
+  .smoothie-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .smoothie-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .smoothie-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* Larger video containers on ultrawide */
 @media (min-width: 1920px) {
   .video-card {

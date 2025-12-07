@@ -1,4 +1,5 @@
 import PageLayout, { PageHero, PageSection, SectionHeader, ProductGrid, AnimatedSection } from '../components/PageLayout';
+import SmoothieCard from '../components/SmoothieCard';
 import Link from 'next/link';
 import { GetStaticPropsContext } from 'next';
 import { useTranslations } from 'next-intl';
@@ -38,68 +39,24 @@ export default function Smoothies() {
         subtitle={t('subtitle')}
       />
       
-      <PageSection background="white">
+      <PageSection background="black">
         <SectionHeader
           emoji="🥤"
           title={t('allTitle')}
           subtitle={t('allSubtitle')}
         />
         
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
-          gap: '32px',
-        }}>
+        <div className="smoothie-grid">
           {SMOOTHIES.map((product, index) => (
             <AnimatedSection key={product.id} animation="fadeUp" delay={index * 80}>
-              <Link href={`/products/${product.id}`} className="tiktok-card" style={{
-                textDecoration: 'none',
-                color: 'inherit',
-                padding: '0',
-                overflow: 'hidden',
-                display: 'block',
-              }}>
-                <div className="tiktok-image-reveal" style={{ marginBottom: '16px' }}>
-                  <img 
-                    src={product.image} 
-                    alt={product.name}
-                    style={{
-                      width: '100%',
-                      height: '240px',
-                      objectFit: 'cover',
-                    }}
-                  />
-                </div>
-                <div style={{ padding: '0 20px 20px' }}>
-                  <span className="energy-badge" style={{ marginBottom: '12px', display: 'inline-block' }}>
-                    {product.category}
-                  </span>
-                  <h3 style={{
-                    fontSize: '18px',
-                    fontWeight: '700',
-                    marginBottom: '8px',
-                    letterSpacing: '-0.3px',
-                  }}>
-                    {product.name}
-                  </h3>
-                  <p className="stars-vibrant" style={{
-                    fontSize: '13px',
-                    marginBottom: '12px',
-                  }}>
-                    ★★★★★ {product.reviews} reviews
-                  </p>
-                  <p style={{
-                    fontSize: '18px',
-                    fontWeight: '700',
-                    background: 'linear-gradient(135deg, #FF8A4B, #FF4F7B)',
-                    WebkitBackgroundClip: 'text',
-                    WebkitTextFillColor: 'transparent',
-                    backgroundClip: 'text',
-                  }}>
-                    ${product.price.toFixed(2)}
-                  </p>
-                </div>
-              </Link>
+              <SmoothieCard
+                id={product.id}
+                name={product.name}
+                image={product.image}
+                badge={product.category === 'Tropical' ? 'NEW' : 'BEST SELLER'}
+                price={product.price}
+                showPrice={true}
+              />
             </AnimatedSection>
           ))}
         </div>

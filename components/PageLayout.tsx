@@ -97,7 +97,7 @@ export function PageHero({
 
 interface PageSectionProps {
   children: ReactNode;
-  background?: 'white' | 'light' | 'cream' | 'gradient';
+  background?: 'white' | 'light' | 'cream' | 'gradient' | 'black';
   className?: string;
 }
 
@@ -107,6 +107,7 @@ export function PageSection({ children, background = 'white', className = '' }: 
     light: 'tiktok-section-light',
     cream: 'tiktok-section-cream',
     gradient: '',
+    black: 'tiktok-section-black',
   };
   
   return (

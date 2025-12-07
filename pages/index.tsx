@@ -4,6 +4,7 @@ import { GetStaticPropsContext } from 'next';
 import { useTranslations } from 'next-intl';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import SmoothieCard from '../components/SmoothieCard';
 import { AnimatedSection, AnimatedText, StaggeredGrid } from '../components/ScrollAnimations';
 import { getMessages } from '../lib/getMessages';
 
@@ -519,27 +520,13 @@ export default function Home() {
 
             <div className="video-carousel-track">
               {[...POPULAR_SMOOTHIES, ...POPULAR_SMOOTHIES].slice(productPosition, productPosition + 5).map((product, index) => (
-                <div key={`${product.id}-${index}`} className="video-card">
-                  <div className="video-card-header">
-                    <p className="video-card-label" style={{ color: product.badge === 'New' ? '#22c55e' : '#E85A71' }}>
-                      {product.badge || 'SMOOTHIE'}
-                    </p>
-                    <h3 className="video-card-name">
-                      {product.name}
-                    </h3>
-                    <p className="video-card-quote">
-                      Smoothie
-                    </p>
-                  </div>
-                  <div className="video-card-video-container">
-                    <img
-                      src={product.image}
-                      alt={product.name}
-                      style={{ width: '85%', height: '85%', objectFit: 'contain' }}
-                      draggable={false}
-                    />
-                  </div>
-                </div>
+                <SmoothieCard
+                  key={`${product.id}-${index}`}
+                  id={product.id}
+                  name={product.name}
+                  image={product.image}
+                  badge={product.badge || 'BEST SELLER'}
+                />
               ))}
             </div>
 
