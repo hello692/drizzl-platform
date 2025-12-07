@@ -67,11 +67,11 @@ const CUSTOMERS = [
 ];
 
 const ROTATING_WORDS = [
+  'Good',
   'Flavor',
-  'Energy',
-  'Love',
-  'Glow',
-  'Drizzl',
+  'Alive',
+  'Happy',
+  'Better',
 ];
 
 export default function Home() {
