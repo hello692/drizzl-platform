@@ -563,12 +563,12 @@ export default function Home() {
                   <p style={{ fontSize: '13px', color: '#6e6e73' }}>Added sugar</p>
                 </div>
                 <div>
-                  <p style={{ fontSize: '28px', fontWeight: 700, color: '#ffffff', marginBottom: '4px' }}>100%</p>
-                  <p style={{ fontSize: '13px', color: '#6e6e73' }}>Organic</p>
+                  <p style={{ fontSize: '28px', fontWeight: 700, color: '#ffffff', marginBottom: '4px' }}>90%+</p>
+                  <p style={{ fontSize: '13px', color: '#6e6e73' }}>Organic ingredients</p>
                 </div>
                 <div>
-                  <p style={{ fontSize: '28px', fontWeight: 700, color: '#ffffff', marginBottom: '4px' }}>3hrs</p>
-                  <p style={{ fontSize: '13px', color: '#6e6e73' }}>Farm to freeze</p>
+                  <p style={{ fontSize: '28px', fontWeight: 700, color: '#ffffff', marginBottom: '4px' }}>Peak</p>
+                  <p style={{ fontSize: '13px', color: '#6e6e73' }}>Frozen for freshness</p>
                 </div>
               </div>
               <Link href="/our-story" style={{
