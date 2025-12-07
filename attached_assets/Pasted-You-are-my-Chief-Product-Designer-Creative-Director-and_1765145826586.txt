@@ -1,0 +1,257 @@
+You are my Chief Product Designer, Creative Director, and Senior UX Architect.
+
+OBJECTIVE
+Redesign and refactor the ENTIRE smoothie website so it feels like a billion-dollar wellness brand.
+
+Your focus is:
+- UI/UX architecture
+- Page structure
+- Section layouts
+- Grid systems
+- Typography, spacing, buttons, components
+- Overall interaction + flow
+
+NOT copy or wording from other brands.
+
+INSPIRATION SITES (FOR STRUCTURE ONLY)
+Study these deeply for layout, section patterns, hierarchy, UX, and storytelling — NOT for copying text or visuals:
+- https://drywater.com/
+- https://drinkag1.com/
+- https://daily-harvest.com/
+- https://www.mudwtrgather.com/
+- https://ouraring.com/
+- https://ai.google/societal-impact/
+
+Take the BEST ideas and section types from all of them and combine into one superior system.
+
+COLOR CONSTRAINT
+- Website must stay BLACK & WHITE ONLY (monochrome).
+- You may use multiple shades of grey for depth, hierarchy, borders, and backgrounds.
+- No brand colors, no color accents. The “color” is typography, layout, and photography.
+
+BRAND CONTEXT
+- Product: premium frozen smoothies.
+- Brand energy: Fresh. Frozen. Fantastic. Smoothies that make life feel better.
+- Emotional language: “I Feel Good / I Feel Better / I Feel Me.”
+- Positioning: premium, minimal, confident, Apple/Oura-level calm.
+
+TECH ASSUMPTIONS
+- Assume React (or Next.js) with components.
+- Assume some global CSS or utility approach.
+- You may reorganize components and styles but must not break nav, cart, or routing.
+
+------------------------------------------------
+1. GLOBAL DESIGN SYSTEM (BLACK & WHITE)
+------------------------------------------------
+Define and enforce a single global design system for the site:
+
+A) Typography
+- Choose a modern, humanist sans-serif type style (Apple / Oura inspired).
+- Define a full scale:
+  - H1, H2, H3, H4, H5, H6
+  - Lead / intro text
+  - Body, small body
+  - Overline / eyebrow
+  - Button text
+- For each, specify:
+  - Font size
+  - Weight
+  - Line height
+  - Letter-spacing
+- Define mobile vs desktop behavior (e.g. clamp or separate sizes).
+- Headings should feel bold and confident; body highly readable.
+
+B) Color Palette (Monochrome)
+- Define tokens like:
+  - bg-main (white)
+  - bg-alt (light grey)
+  - text-main (black)
+  - text-muted (grey)
+  - border-subtle (light grey)
+  - border-strong (dark grey)
+- Keep everything black/white/grey, no accent colors.
+- Use contrast and negative space instead of color to guide the eye.
+
+C) Spacing & Layout
+- Define a spacing scale (e.g. 4/8/12/16/24/32/40/56/72).
+- Set rules for:
+  - Vertical space between sections
+  - Padding inside sections and cards
+  - Max content width (e.g. 1200–1280px)
+  - Grid system (e.g. 12-column layout on desktop, 1-column on mobile)
+- The site should feel airy, calm, and structured like Oura / Apple.
+
+D) Components
+Define reusable UI building blocks:
+- Buttons: primary, secondary, ghost — all in black/white with subtle hover states.
+- Text links.
+- Cards: product cards, benefit cards, story cards.
+- Badges: small monochrome tags (e.g. “Gluten-free”, “No junk”).
+- Inputs: text fields, selects, checkboxes.
+- Navigation: header nav, mobile nav, sticky behavior.
+- Banner / CTA components.
+- Accordions (for FAQ).
+- Comparison tables.
+- Section wrappers with consistent padding and max-width.
+
+For each component:
+- Specify default, hover, active, focus, disabled.
+- Make everything accessible (contrast, focus outlines, semantic HTML).
+
+E) Motion & Interaction
+- Subtle, tasteful animations:
+  - Slight fade/slide on scroll into view.
+  - Minimal hover lift for cards & buttons.
+- No flashy or aggressive transitions; everything should feel calm and intentional.
+
+------------------------------------------------
+2. SITE-WIDE INFORMATION ARCHITECTURE
+------------------------------------------------
+Define the full site IA like a billion-dollar brand.
+
+At minimum design these page types:
+
+1) Home / Landing
+2) Shop / All Smoothies
+3) Product Detail Page
+4) Bundles / Build Your Box
+5) How It Works (Ritual)
+6) Benefits / Ingredients / “What’s Inside”
+7) About / Brand Story
+8) Impact / Sustainability / Societal Benefit
+9) FAQ / Help Center
+10) Account (Sign In / Sign Up / Profile)
+11) Cart & Checkout
+12) Wholesale / Partners / B2B
+13) Journal / Blog (optional but recommended)
+
+For EACH page:
+- Define its primary goal (e.g. “Home should drive to shop and explain why the brand exists”).
+- List the sections in order using your best understanding from Drywater, AG1, Daily Harvest, MUD/WTR, Oura, and Google AI.
+- Use the global design system and components consistently.
+
+------------------------------------------------
+3. SECTION & PAGE LAYOUT – BEST OF ALL WORLDS
+------------------------------------------------
+Using the inspiration sites, pick the best section patterns and fuse them into one system.
+
+Examples (you must design these, not just list them):
+
+HOME
+- Hero section with “I Feel…” copy, simple CTA, and strong monochrome layout.
+- “Why these smoothies exist” (problem/solution narrative).
+- “What’s in the cup” benefits grid (AG1 + Daily Harvest style).
+- “How it works” 3-step ritual (AG1 pattern).
+- Comparison table (smoothies vs juice bar vs bottled vs snacks).
+- Lifestyle / use-case cards (Oura-like storytelling, Daily Harvest scenario blocks).
+- Social proof / reviews / logos.
+- Impact/purpose band (inspired by Google AI societal-impact and Oura’s responsible tone).
+- FAQ preview.
+- Final CTA banner.
+
+SHOP
+- Filter bar (category, function, flavor).
+- Clean product grid (monochrome, minimal).
+- Hover states with subtle details (e.g. “view details” or “add to box”).
+
+PRODUCT DETAIL
+- Large product image section.
+- Clear summary top area (name, short description, key benefits).
+- Nutrition / ingredients / prep instructions – organized with tabs or accordions.
+- “Perfect for” use-cases.
+- Reviews / ratings.
+- Upsell / related products.
+
+HOW IT WORKS
+- 3-step ritual section.
+- “Day in the life” layout showing when you drink smoothies.
+- Visual timeline section.
+
+BENEFITS / WHAT’S INSIDE
+- Ingredient categories (energy, mood, gut, etc.).
+- Always / Never list (like AG1 & Drywater).
+- Monochrome icon grid with strong alignment and spacing.
+
+ABOUT
+- Brand story, mission, values.
+- “The world we want to build” style narrative inspired by Google AI societal impact and Oura’s tone.
+
+IMPACT
+- Sections on health, environment, community.
+- Timeline or pillars block.
+
+FAQ
+- Strong accordion layout.
+- Group questions by topics.
+
+WHOLESALE / PARTNERS
+- B2B pitch blocks.
+- Benefits for shops / cafés / gyms.
+- Clear CTA for partnerships.
+
+CART & CHECKOUT
+- Minimal, high-clarity layout.
+- Easy-to-read summary.
+- Clear steps and progress indication.
+
+------------------------------------------------
+4. APPLY BLACK & WHITE STYLE CONSISTENTLY
+------------------------------------------------
+For every page and section:
+- Use the typography and spacing rules.
+- Use the monochrome palette only.
+- Use consistent buttons and card styles everywhere.
+- Maintain alignment and grid consistency to make the whole site feel like one cohesive system.
+
+Make typography + negative space the “brand color.”
+
+------------------------------------------------
+5. DELIVERABLE FORMAT
+------------------------------------------------
+Your output must include:
+
+1) Global Design System
+   - Typography tokens.
+   - Color tokens (black/white/grey).
+   - Spacing scale.
+   - Button and component styles.
+   - Motion/interaction rules.
+
+2) Component Architecture
+   - Suggested component structure (e.g., `/components/Button`, `/components/SectionHero`, `/components/ProductCard`, `/components/FAQAccordion`, etc.).
+   - Which components are reused on which pages.
+
+3) Page Layout Blueprints
+   - For each key page, list sections in the exact order they should appear.
+   - For each section, describe:
+     - Layout (columns, grids).
+     - What content type goes there (headline, body, cards, table, etc.).
+     - Which components are used.
+
+4) Example Markup (React/JSX or semantic HTML)
+   - Show sample structure for:
+     - Home
+     - Shop
+     - Product Detail
+     - Benefits
+     - About
+     - Impact
+     - FAQ
+   - Use semantic HTML (`<header>`, `<main>`, `<section>`, `<footer>`) and the component system.
+
+5) On-Brand Placeholder Copy (Short)
+   - No lorem ipsum.
+   - Short, clean English that fits a premium black & white smoothie wellness brand.
+   - You don’t need long essays — this is UI copy.
+
+6) Notes for Implementation
+   - How to handle responsive behavior.
+   - Where images or videos should go.
+   - How scroll animations should be applied (e.g., fade-up on section enter).
+
+FINAL GOAL
+The result should be:
+- A fully defined UI/UX architecture for the entire site.
+- A reusable component and layout system.
+- A black-and-white, minimal, premium aesthetic.
+- A site that feels like the BEST-designed smoothie/wellness brand in the world, borrowing the strongest ideas from Drywater, AG1, Daily Harvest, MUD/WTR, Oura, and Google AI’s societal impact storytelling — without copying any of them.

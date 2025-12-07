@@ -8,18 +8,6 @@ import SmoothieCard from '../components/SmoothieCard';
 import { AnimatedSection, AnimatedText, StaggeredGrid } from '../components/ScrollAnimations';
 import { getMessages } from '../lib/getMessages';
 
-const AppleArrowLeft = () => (
-  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M15 6L9 12L15 18" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-  </svg>
-);
-
-const AppleArrowRight = () => (
-  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M9 6L15 12L9 18" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-  </svg>
-);
-
 interface Product {
   id: string;
   name: string;
@@ -27,13 +15,6 @@ interface Product {
   price: number;
   image_url: string;
 }
-
-const CATEGORIES = [
-  { name: 'Smoothies', slug: 'smoothies' },
-  { name: 'High Protein', slug: 'high-protein' },
-  { name: 'Smoothie Boxes', slug: 'boxes' },
-  { name: 'Gift Guide', slug: 'gift' },
-];
 
 const POPULAR_SMOOTHIES = [
   { id: '1', name: 'Strawberry + Peach', price: 8.49, image: '/products/strawberry-peach/transparent-glass-1.png', badge: 'Best Seller' },
@@ -73,6 +54,56 @@ const ROTATING_WORDS = [
   'Happy',
   'Better',
   'Me',
+];
+
+const BENEFITS = [
+  {
+    icon: (
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+      </svg>
+    ),
+    title: 'Energy & Focus',
+    description: 'Sustained energy without the crash. Natural ingredients that fuel your mind and body throughout the day.'
+  },
+  {
+    icon: (
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+      </svg>
+    ),
+    title: 'Immune Support',
+    description: 'Packed with vitamins, antioxidants, and superfoods that strengthen your body\'s natural defenses.'
+  },
+  {
+    icon: (
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <circle cx="12" cy="12" r="10"/>
+        <path d="M8 12h8"/>
+        <path d="M12 8v8"/>
+      </svg>
+    ),
+    title: 'Gut Health',
+    description: 'Fiber-rich blends with prebiotics that promote digestive wellness and a healthy microbiome.'
+  }
+];
+
+const HOW_IT_WORKS = [
+  {
+    step: '01',
+    title: 'Choose your flavors',
+    description: 'Pick from our menu of chef-crafted, dietitian-approved smoothie flavors.'
+  },
+  {
+    step: '02',
+    title: 'Blend in seconds',
+    description: 'Add your liquid of choice, blend for 30 seconds, and you\'re done.'
+  },
+  {
+    step: '03',
+    title: 'Feel the difference',
+    description: 'Experience the boost of real nutrition with every delicious sip.'
+  }
 ];
 
 export default function Home() {
@@ -116,100 +147,6 @@ export default function Home() {
     fetchProducts();
   }, []);
 
-  const scroll = (direction: 'left' | 'right') => {
-    if (carouselRef.current) {
-      const scrollAmount = 320;
-      carouselRef.current.scrollBy({
-        left: direction === 'left' ? -scrollAmount : scrollAmount,
-        behavior: 'smooth',
-      });
-    }
-  };
-
-  // Touch and drag handlers
-  const handleMouseDown = (e: React.MouseEvent) => {
-    if (carouselRef.current) {
-      setIsDragging(true);
-      setStartX(e.pageX - carouselRef.current.offsetLeft);
-      setScrollLeft(carouselRef.current.scrollLeft);
-    }
-  };
-
-  const handleMouseLeave = () => {
-    setIsDragging(false);
-  };
-
-  const handleMouseUp = () => {
-    setIsDragging(false);
-  };
-
-  const handleMouseMove = (e: React.MouseEvent) => {
-    if (!isDragging || !carouselRef.current) return;
-    e.preventDefault();
-    const x = e.pageX - carouselRef.current.offsetLeft;
-    const walk = (x - startX) * 1.5;
-    carouselRef.current.scrollLeft = scrollLeft - walk;
-  };
-
-  // Touch handlers for mobile
-  const handleTouchStart = (e: React.TouchEvent) => {
-    if (carouselRef.current) {
-      setIsDragging(true);
-      setStartX(e.touches[0].pageX - carouselRef.current.offsetLeft);
-      setScrollLeft(carouselRef.current.scrollLeft);
-    }
-  };
-
-  const handleTouchMove = (e: React.TouchEvent) => {
-    if (!isDragging || !carouselRef.current) return;
-    const x = e.touches[0].pageX - carouselRef.current.offsetLeft;
-    const walk = (x - startX) * 1.5;
-    carouselRef.current.scrollLeft = scrollLeft - walk;
-  };
-
-  const handleTouchEnd = () => {
-    setIsDragging(false);
-  };
-
-  // Infinite scroll handler
-  const handleScroll = () => {
-    if (carouselRef.current) {
-      const { scrollLeft, scrollWidth, clientWidth } = carouselRef.current;
-      const itemWidth = 312; // 280px width + 32px gap
-      const totalItems = POPULAR_SMOOTHIES.length;
-      const sectionWidth = itemWidth * totalItems;
-      
-      // When scrolled to end of first section, jump to middle section
-      if (scrollLeft <= itemWidth / 2) {
-        carouselRef.current.scrollLeft = sectionWidth + scrollLeft;
-      }
-      // When scrolled past middle section, jump back
-      else if (scrollLeft >= sectionWidth * 2 - clientWidth) {
-        carouselRef.current.scrollLeft = sectionWidth + (scrollLeft - sectionWidth * 2 + clientWidth);
-      }
-    }
-  };
-
-  // Initialize scroll position to middle section on mount
-  useEffect(() => {
-    if (carouselRef.current) {
-      const itemWidth = 312;
-      const totalItems = POPULAR_SMOOTHIES.length;
-      carouselRef.current.scrollLeft = itemWidth * totalItems;
-    }
-  }, []);
-
-  // Auto-scroll for Popular Products (3 seconds)
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (carouselRef.current && !isDragging) {
-        carouselRef.current.scrollBy({ left: 312, behavior: 'smooth' });
-      }
-    }, 3000);
-    return () => clearInterval(interval);
-  }, [isDragging]);
-
-  // Auto-scroll for Experts section (3 seconds)
   useEffect(() => {
     const interval = setInterval(() => {
       setExpertPosition(prev => (prev + 1) % EXPERTS.length);
@@ -217,7 +154,6 @@ export default function Home() {
     return () => clearInterval(interval);
   }, []);
 
-  // Auto-scroll for Customers section (3 seconds)
   useEffect(() => {
     const interval = setInterval(() => {
       setCustomerPosition(prev => (prev + 1) % CUSTOMERS.length);
@@ -225,12 +161,10 @@ export default function Home() {
     return () => clearInterval(interval);
   }, []);
 
-  // Typewriter effect for rotating words
   useEffect(() => {
     const currentWord = ROTATING_WORDS[currentWordIndex];
     let charIndex = 0;
     
-    // Type out the word
     const typeInterval = setInterval(() => {
       if (charIndex <= currentWord.length) {
         setDisplayedText(currentWord.slice(0, charIndex));
@@ -239,7 +173,6 @@ export default function Home() {
         clearInterval(typeInterval);
         setIsTyping(false);
         
-        // Wait 2.5 seconds then delete
         setTimeout(() => {
           let deleteIndex = currentWord.length;
           const deleteInterval = setInterval(() => {
@@ -259,13 +192,43 @@ export default function Home() {
     return () => clearInterval(typeInterval);
   }, [currentWordIndex]);
 
+  const sectionStyles = {
+    padding: 'clamp(80px, 12vw, 140px) clamp(24px, 6vw, 100px)',
+    maxWidth: '1280px',
+    margin: '0 auto',
+  };
+
+  const headingStyles = {
+    fontSize: 'clamp(32px, 6vw, 56px)',
+    fontWeight: 600,
+    lineHeight: 1.1,
+    letterSpacing: '-0.02em',
+    color: '#ffffff',
+    marginBottom: '24px',
+  };
+
+  const subheadingStyles = {
+    fontSize: 'clamp(16px, 2vw, 18px)',
+    fontWeight: 400,
+    lineHeight: 1.6,
+    color: '#a1a1a6',
+    maxWidth: '600px',
+  };
+
   return (
     <>
       <Navbar />
 
-      {/* Hero Section with Background Video */}
-      <section className="hero-section">
-        {/* Background Video */}
+      {/* 1. Hero Section */}
+      <section style={{
+        position: 'relative',
+        minHeight: '90vh',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        background: '#000000',
+        overflow: 'hidden',
+      }}>
         <video
           autoPlay
           loop
@@ -279,60 +242,91 @@ export default function Home() {
             height: '100%',
             objectFit: 'cover',
             zIndex: 0,
+            opacity: 0.6,
           }}
         >
           <source src="/videos/hero-video.mp4" type="video/mp4" />
         </video>
         
-        {/* Subtle gradient overlay - lighter at top to show video, darker at bottom for text */}
         <div style={{
           position: 'absolute',
           inset: 0,
-          background: 'linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.2) 40%, rgba(0,0,0,0.6) 100%)',
+          background: 'linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.5) 50%, rgba(0,0,0,0.8) 100%)',
           zIndex: 1,
         }}></div>
         
-        <div className="hero-content">
+        <div style={{
+          position: 'relative',
+          zIndex: 2,
+          textAlign: 'center',
+          padding: '0 24px',
+          maxWidth: '960px',
+        }}>
           <AnimatedSection animation="fadeUp">
-            <h1 className="hero-title">
-              <span className="hero-title-static">I Feel </span>
-              <span className="hero-title-rotating">
+            <h1 style={{
+              fontSize: 'clamp(48px, 12vw, 96px)',
+              fontWeight: 700,
+              lineHeight: 1.05,
+              letterSpacing: '-0.03em',
+              color: '#ffffff',
+              marginBottom: '24px',
+            }}>
+              <span>I Feel </span>
+              <span style={{
+                display: 'inline-block',
+                minWidth: '2ch',
+                borderRight: '3px solid #ffffff',
+                animation: 'blink 1s step-end infinite',
+              }}>
                 {displayedText}
               </span>
             </h1>
           </AnimatedSection>
           <AnimatedSection animation="fadeUp" delay={100}>
-            <p className="hero-subtitle">
+            <p style={{
+              fontSize: 'clamp(18px, 3vw, 24px)',
+              fontWeight: 400,
+              lineHeight: 1.5,
+              color: 'rgba(255,255,255,0.8)',
+              marginBottom: '40px',
+            }}>
               Fresh. Frozen. Fantastic.<br />
               Smoothies that make you feel good.
             </p>
           </AnimatedSection>
           <AnimatedSection animation="fadeUp" delay={200}>
-            <div className="hero-cta-container">
-              <Link href="/products" className="hero-btn">
-                Shop Now
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M5 12h14M12 5l7 7-7 7"/>
-                </svg>
-              </Link>
-              <span className="hero-shipping-text">
-                Free shipping on orders over $50
-              </span>
-            </div>
+            <Link href="/products" style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '10px',
+              background: '#ffffff',
+              color: '#000000',
+              padding: '18px 40px',
+              borderRadius: '980px',
+              fontSize: '16px',
+              fontWeight: 500,
+              letterSpacing: '0.02em',
+              textDecoration: 'none',
+              transition: 'all 0.2s ease',
+            }}>
+              Shop Now
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+              </svg>
+            </Link>
           </AnimatedSection>
         </div>
       </section>
 
-      {/* Scrolling Marquee Banner */}
+      {/* 2. Feature Banner - Scrolling Marquee */}
       <div style={{
         background: '#000000',
         borderTop: '1px solid rgba(255,255,255,0.08)',
         borderBottom: '1px solid rgba(255,255,255,0.08)',
         overflow: 'hidden',
-        padding: '16px 0',
+        padding: '18px 0',
       }}>
         <div 
-          className="marquee-track"
           style={{
             display: 'flex',
             animation: 'marqueeScroll 25s linear infinite',
@@ -341,16 +335,16 @@ export default function Home() {
         >
           {[...Array(3)].map((_, repeatIndex) => (
             <div key={repeatIndex} style={{ display: 'flex', alignItems: 'center' }}>
-              {['GLUTEN FREE', 'BUILT ON ORGANIC', 'DAIRY FREE', 'GLUTEN FREE', 'BUILT ON ORGANIC', 'DAIRY FREE'].map((text, idx) => (
+              {['GLUTEN FREE', 'BUILT ON ORGANIC', 'DAIRY FREE', 'NO ADDED SUGAR', 'NON-GMO', 'VEGAN'].map((text, idx) => (
                 <span 
                   key={`${repeatIndex}-${idx}`}
                   style={{
                     fontSize: '12px',
-                    fontWeight: '500',
-                    color: 'rgba(255,255,255,0.6)',
-                    letterSpacing: '1.5px',
+                    fontWeight: 600,
+                    color: 'rgba(255,255,255,0.5)',
+                    letterSpacing: '0.1em',
                     textTransform: 'uppercase',
-                    padding: '0 40px',
+                    padding: '0 48px',
                     whiteSpace: 'nowrap',
                   }}
                 >
@@ -362,324 +356,234 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Featured In Press Logos - Scrolling Marquee */}
-      <div style={{
+      {/* 3. Why Drizzl Section */}
+      <section style={{
         background: '#000000',
-        padding: '24px 0',
-        borderBottom: '1px solid rgba(255,255,255,0.08)',
-        overflow: 'hidden',
+        padding: 'clamp(80px, 12vw, 140px) clamp(24px, 6vw, 100px)',
       }}>
-        <div 
-          className="marquee-track"
-          style={{
-            display: 'flex',
-            animation: 'marqueeScroll 30s linear infinite',
-            width: 'max-content',
-          }}
-        >
-          {[...Array(4)].map((_, repeatIndex) => (
-            <div key={repeatIndex} style={{ display: 'flex', alignItems: 'center' }}>
-              {/* TODAY Logo */}
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '0 48px' }}>
-                <svg width="28" height="28" viewBox="0 0 32 32" fill="none">
-                  <circle cx="16" cy="16" r="14" stroke="white" strokeWidth="2"/>
-                  <circle cx="16" cy="10" r="3" fill="white"/>
-                  <path d="M16 14v10M12 18h8" stroke="white" strokeWidth="2" strokeLinecap="round"/>
-                </svg>
-                <span style={{ 
-                  fontSize: '16px', 
-                  fontWeight: '700', 
-                  color: '#ffffff',
-                  letterSpacing: '-0.5px',
-                  whiteSpace: 'nowrap',
-                }}>TODAY</span>
-              </div>
-              
-              {/* Business Insider */}
-              <div style={{ 
-                display: 'flex', 
-                flexDirection: 'column', 
-                alignItems: 'center',
-                lineHeight: '1.1',
-                padding: '0 48px',
-              }}>
-                <span style={{ 
-                  fontSize: '10px', 
-                  fontWeight: '400', 
-                  color: '#ffffff',
-                  letterSpacing: '1px',
-                  whiteSpace: 'nowrap',
-                }}>BUSINESS</span>
-                <span style={{ 
-                  fontSize: '13px', 
-                  fontWeight: '700', 
-                  color: '#ffffff',
-                  letterSpacing: '0.5px',
-                  whiteSpace: 'nowrap',
-                }}>INSIDER</span>
-              </div>
-              
-              {/* Forbes */}
-              <span style={{ 
-                fontSize: '20px', 
-                fontWeight: '400', 
-                color: '#ffffff',
-                fontStyle: 'italic',
-                letterSpacing: '1px',
-                padding: '0 48px',
-                whiteSpace: 'nowrap',
-              }}>Forbes</span>
-              
-              {/* The Guardian */}
-              <div style={{ display: 'flex', alignItems: 'center', padding: '0 48px' }}>
-                <span style={{ 
-                  fontSize: '12px', 
-                  fontWeight: '400', 
-                  color: '#ffffff',
-                  letterSpacing: '0.5px',
-                  whiteSpace: 'nowrap',
-                }}>The</span>
-                <span style={{ 
-                  fontSize: '18px', 
-                  fontWeight: '700', 
-                  color: '#ffffff',
-                  marginLeft: '4px',
-                  fontStyle: 'italic',
-                  whiteSpace: 'nowrap',
-                }}>Guardian</span>
-              </div>
-              
-              {/* Inc. Best Workplaces */}
-              <div style={{ 
-                display: 'flex', 
-                alignItems: 'baseline',
-                gap: '4px',
-                padding: '0 48px',
-              }}>
-                <span style={{ 
-                  fontSize: '16px', 
-                  fontWeight: '400', 
-                  color: '#ffffff',
-                  fontStyle: 'italic',
-                  whiteSpace: 'nowrap',
-                }}>Inc.</span>
-                <div style={{ display: 'flex', flexDirection: 'column', lineHeight: '1' }}>
-                  <span style={{ 
-                    fontSize: '9px', 
-                    fontWeight: '700', 
-                    color: '#ffffff',
-                    letterSpacing: '0.5px',
-                    whiteSpace: 'nowrap',
-                  }}>Best</span>
-                  <span style={{ 
-                    fontSize: '9px', 
-                    fontWeight: '700', 
-                    color: '#ffffff',
-                    letterSpacing: '0.5px',
-                    whiteSpace: 'nowrap',
-                  }}>Workplaces</span>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Drizzl Kiss Section */}
-      <section className="drizzl-kiss-section">
-        <div className="drizzl-kiss-container">
-          <div className="drizzl-kiss-content">
-            <div className="drizzl-kiss-gif-wrapper">
+        <div style={{
+          maxWidth: '1280px',
+          margin: '0 auto',
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 480px), 1fr))',
+          gap: 'clamp(48px, 8vw, 80px)',
+          alignItems: 'center',
+        }}>
+          <AnimatedSection animation="fadeUp">
+            <div style={{
+              position: 'relative',
+              borderRadius: '24px',
+              overflow: 'hidden',
+              aspectRatio: '4/3',
+            }}>
               <img 
-                src="/drizzl-lips.gif" 
-                alt="Drizzl Wellness Kiss" 
-                className="drizzl-kiss-gif"
+                src="/products/strawberry-peach/lifestyle-1.jpg" 
+                alt="Drizzl Smoothie"
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover',
+                }}
               />
-              {/* Infinite dripping drops */}
-              <div className="drizzl-drips">
-                <div className="drip"></div>
-                <div className="drip"></div>
-                <div className="drip"></div>
-                <div className="drip"></div>
-                <div className="drip"></div>
-                <div className="drip"></div>
-                <div className="drip"></div>
-                <div className="drip"></div>
-                <div className="drip-splash"></div>
-              </div>
             </div>
-            <div className="drizzl-kiss-text">
-              <h2 className="drizzl-kiss-title">
-                One Sip. Pure Bliss.
-              </h2>
-              <p className="drizzl-kiss-subtitle">
-                Every Drizzl smoothie is a love letter to your body. Crafted with organic superfoods, 
-                zero artificial anything, and enough flavor to make your taste buds fall in love. 
-                This isn't just a smoothie — it's self-care you can drink.
-              </p>
-              <p className="drizzl-kiss-tagline">
-                Kiss boring goodbye. Drizzl on.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Science Section - DryWater Style */}
-      <section className="drywater-section">
-        <div className="drywater-container">
-          <div className="drywater-x-mark">X</div>
-          <h2 className="drywater-title">
-            Wellness. <span className="drywater-accent">/from nature</span>
-          </h2>
-          <p className="drywater-description">
-            Our science-backed approach combines the purest organic ingredients with optimal nutrition. 
-            Each smoothie delivers essential vitamins, minerals, and superfoods directly to your cells 
-            for complete nourishment. The result: sustained energy, improved focus, and vibrant wellness.
-          </p>
-          <div className="drywater-cta-row">
-            <Link href="/products" className="drywater-btn-primary">Try Now</Link>
-            <Link href="/about" className="drywater-btn-secondary">Learn More</Link>
-          </div>
-        </div>
-      </section>
-
-      {/* Clean Ingredients Section - DryWater Style */}
-      <section className="drywater-section drywater-section-alt">
-        <div className="drywater-container">
-          <div className="drywater-x-mark">X</div>
-          <h2 className="drywater-title">
-            Clean Ingredients. <span className="drywater-accent">/from earth</span>
-          </h2>
-          <p className="drywater-description">
-            The components of our blends are of the highest grade, pure and natural. Free from artificial 
-            additives, preservatives, and chemicals. Everything your body needs to thrive in its most 
-            natural form — in one delicious smoothie.
-          </p>
-          <div className="drywater-cta-row">
-            <Link href="/products" className="drywater-btn-primary">Try Now</Link>
-            <Link href="/ingredients" className="drywater-btn-secondary">View Ingredients</Link>
-          </div>
-        </div>
-      </section>
-
-      {/* Feature Icons Grid - DryWater Style */}
-      <section className="feature-icons-section">
-        <div className="feature-icons-container">
-          <h2 className="feature-icons-title">Clean. Tested. Ingredients.</h2>
-          <div className="feature-icons-grid">
-            <div className="feature-icon-card">
-              <div className="feature-icon-circle">
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/>
-                  <path d="M8 12l2 2 4-4"/>
-                </svg>
-              </div>
-              <span className="feature-icon-label">Gluten Free</span>
-            </div>
-            <div className="feature-icon-card">
-              <div className="feature-icon-circle">
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-                  <path d="M12 8v4M12 16h.01"/>
-                </svg>
-              </div>
-              <span className="feature-icon-label">Vegan</span>
-            </div>
-            <div className="feature-icon-card">
-              <div className="feature-icon-circle">
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                  <circle cx="12" cy="12" r="10"/>
-                  <line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/>
-                </svg>
-              </div>
-              <span className="feature-icon-label">Zero Added Sugar</span>
-            </div>
-            <div className="feature-icon-card">
-              <div className="feature-icon-circle">
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                  <path d="M12 2L2 7l10 5 10-5-10-5z"/>
-                  <path d="M2 17l10 5 10-5"/>
-                  <path d="M2 12l10 5 10-5"/>
-                </svg>
-              </div>
-              <span className="feature-icon-label">Non-GMO</span>
-            </div>
-            <div className="feature-icon-card">
-              <div className="feature-icon-circle">
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                  <path d="M12 2a10 10 0 1 0 10 10"/>
-                  <path d="M12 2v10l6.5-6.5"/>
-                </svg>
-              </div>
-              <span className="feature-icon-label">Made in USA</span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 0% Absolutely No Section - DryWater Style */}
-      <section className="absolutely-no-section">
-        <div className="absolutely-no-container">
-          <div className="absolutely-no-content">
-            <div className="absolutely-no-number">0%</div>
-            <div className="absolutely-no-text">
-              <h3 className="absolutely-no-title">ABSOLUTELY NO:</h3>
-              <ul className="absolutely-no-list">
-                <li>No Added Sugar</li>
-                <li>No Gluten</li>
-                <li>No Dairy</li>
-                <li>No Artificial Colors</li>
-                <li>No Artificial Sweeteners</li>
-                <li>No Preservatives</li>
-                <li>No GMOs</li>
-                <li>No Fillers</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Benefits Pills Section - DryWater Style */}
-      <section className="benefits-section">
-        <div className="benefits-container">
-          <h2 className="benefits-title">0% Sugar, 100% delicious and loaded with health benefits.</h2>
-          <div className="benefits-pills">
-            <span className="benefit-pill">ENERGY</span>
-            <span className="benefit-pill">IMMUNITY</span>
-            <span className="benefit-pill">FOCUS</span>
-            <span className="benefit-pill">WELLNESS</span>
-            <span className="benefit-pill">DIGESTION</span>
-            <span className="benefit-pill">SKIN</span>
-          </div>
-        </div>
-      </section>
-
-      {/* Category Grid */}
-      <section className="category-section">
-        <div className="category-container">
-          <AnimatedSection animation="fadeUp" className="category-header">
-            <h2 className="category-title">
-              Shop by Category
-            </h2>
-            <p className="category-subtitle">
-              Explore our complete collection of wellness products.
-            </p>
           </AnimatedSection>
-          <div className="category-grid">
-            {CATEGORIES.map((category) => (
-              <Link key={category.slug} href={`/products?category=${category.slug}`} className="category-card">
-                <h3 className="category-card-title">
-                  {category.name}
-                </h3>
+          
+          <AnimatedSection animation="fadeUp" delay={100}>
+            <div>
+              <span style={{
+                fontSize: '12px',
+                fontWeight: 600,
+                letterSpacing: '0.1em',
+                textTransform: 'uppercase',
+                color: '#6e6e73',
+                marginBottom: '16px',
+                display: 'block',
+              }}>
+                WHY DRIZZL
+              </span>
+              <h2 style={{
+                fontSize: 'clamp(32px, 5vw, 48px)',
+                fontWeight: 600,
+                lineHeight: 1.1,
+                letterSpacing: '-0.02em',
+                color: '#ffffff',
+                marginBottom: '24px',
+              }}>
+                The smoothie that changed everything
+              </h2>
+              <p style={{
+                fontSize: 'clamp(16px, 2vw, 18px)',
+                fontWeight: 400,
+                lineHeight: 1.7,
+                color: '#a1a1a6',
+                marginBottom: '32px',
+              }}>
+                We believe wellness should be simple, delicious, and accessible. Our chef-crafted blends 
+                use only premium organic ingredients — flash-frozen at peak freshness to lock in nutrients 
+                and flavor. No prep, no waste, no compromise.
+              </p>
+              <Link href="/our-story" style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '8px',
+                color: '#ffffff',
+                fontSize: '16px',
+                fontWeight: 500,
+                textDecoration: 'none',
+                borderBottom: '1px solid rgba(255,255,255,0.3)',
+                paddingBottom: '4px',
+                transition: 'all 0.2s ease',
+              }}>
+                Learn more about us
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
               </Link>
+            </div>
+          </AnimatedSection>
+        </div>
+      </section>
+
+      {/* 4. Benefits Grid */}
+      <section style={{
+        background: '#0a0a0a',
+        padding: 'clamp(80px, 12vw, 140px) clamp(24px, 6vw, 100px)',
+      }}>
+        <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
+          <AnimatedSection animation="fadeUp">
+            <div style={{ textAlign: 'center', marginBottom: 'clamp(48px, 8vw, 80px)' }}>
+              <h2 style={{
+                ...headingStyles,
+                marginBottom: '16px',
+              }}>
+                Fuel your best self
+              </h2>
+              <p style={{
+                ...subheadingStyles,
+                margin: '0 auto',
+              }}>
+                Every sip delivers real nutrition designed for how you live.
+              </p>
+            </div>
+          </AnimatedSection>
+          
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 300px), 1fr))',
+            gap: '32px',
+          }}>
+            {BENEFITS.map((benefit, index) => (
+              <AnimatedSection key={index} animation="fadeUp" delay={index * 100}>
+                <div style={{
+                  background: 'transparent',
+                  border: '1px solid rgba(255,255,255,0.1)',
+                  borderRadius: '16px',
+                  padding: '40px 32px',
+                  textAlign: 'center',
+                  transition: 'all 0.2s ease',
+                }}>
+                  <div style={{
+                    width: '80px',
+                    height: '80px',
+                    background: 'rgba(255,255,255,0.05)',
+                    borderRadius: '50%',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    margin: '0 auto 24px',
+                    color: '#ffffff',
+                  }}>
+                    {benefit.icon}
+                  </div>
+                  <h3 style={{
+                    fontSize: '22px',
+                    fontWeight: 600,
+                    color: '#ffffff',
+                    marginBottom: '12px',
+                  }}>
+                    {benefit.title}
+                  </h3>
+                  <p style={{
+                    fontSize: '15px',
+                    lineHeight: 1.6,
+                    color: '#a1a1a6',
+                  }}>
+                    {benefit.description}
+                  </p>
+                </div>
+              </AnimatedSection>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Popular Products - SAME structure as expert/customer sections */}
-      <section className="video-section">
+      {/* 5. How It Works */}
+      <section style={{
+        background: '#000000',
+        padding: 'clamp(80px, 12vw, 140px) clamp(24px, 6vw, 100px)',
+      }}>
+        <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
+          <AnimatedSection animation="fadeUp">
+            <div style={{ textAlign: 'center', marginBottom: 'clamp(48px, 8vw, 80px)' }}>
+              <h2 style={{
+                ...headingStyles,
+                marginBottom: '16px',
+              }}>
+                How it works
+              </h2>
+              <p style={{
+                ...subheadingStyles,
+                margin: '0 auto',
+              }}>
+                From freezer to table in under a minute.
+              </p>
+            </div>
+          </AnimatedSection>
+          
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))',
+            gap: '48px',
+          }}>
+            {HOW_IT_WORKS.map((item, index) => (
+              <AnimatedSection key={index} animation="fadeUp" delay={index * 100}>
+                <div style={{ textAlign: 'center' }}>
+                  <div style={{
+                    fontSize: '64px',
+                    fontWeight: 700,
+                    color: 'rgba(255,255,255,0.1)',
+                    lineHeight: 1,
+                    marginBottom: '24px',
+                    fontFamily: 'var(--font-display)',
+                  }}>
+                    {item.step}
+                  </div>
+                  <h3 style={{
+                    fontSize: '24px',
+                    fontWeight: 600,
+                    color: '#ffffff',
+                    marginBottom: '12px',
+                  }}>
+                    {item.title}
+                  </h3>
+                  <p style={{
+                    fontSize: '16px',
+                    lineHeight: 1.6,
+                    color: '#a1a1a6',
+                    maxWidth: '280px',
+                    margin: '0 auto',
+                  }}>
+                    {item.description}
+                  </p>
+                </div>
+              </AnimatedSection>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 6. Product Carousel */}
+      <section className="video-section" style={{ background: '#0a0a0a' }}>
         <div className="video-section-container">
           <h2 className="video-section-title">
             Popular Products
@@ -722,22 +626,94 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Experts Section - Apple Style White Boxes */}
+      {/* 7. Comparison Table */}
+      <section style={{
+        background: '#000000',
+        padding: 'clamp(80px, 12vw, 140px) clamp(24px, 6vw, 100px)',
+      }}>
+        <div style={{ maxWidth: '1000px', margin: '0 auto' }}>
+          <AnimatedSection animation="fadeUp">
+            <div style={{ textAlign: 'center', marginBottom: 'clamp(48px, 8vw, 64px)' }}>
+              <h2 style={{
+                ...headingStyles,
+                marginBottom: '16px',
+              }}>
+                Why choose Drizzl?
+              </h2>
+              <p style={{
+                ...subheadingStyles,
+                margin: '0 auto',
+              }}>
+                The smarter way to get your daily nutrition.
+              </p>
+            </div>
+          </AnimatedSection>
+          
+          <AnimatedSection animation="fadeUp" delay={100}>
+            <div style={{
+              border: '1px solid rgba(255,255,255,0.1)',
+              borderRadius: '16px',
+              overflow: 'hidden',
+            }}>
+              <div style={{
+                display: 'grid',
+                gridTemplateColumns: '1.5fr repeat(4, 1fr)',
+                background: 'rgba(255,255,255,0.03)',
+                borderBottom: '1px solid rgba(255,255,255,0.1)',
+              }}>
+                <div style={{ padding: '20px 24px' }}></div>
+                <div style={{ padding: '20px 16px', textAlign: 'center', fontSize: '14px', fontWeight: 600, color: '#a1a1a6' }}>Juice Bars</div>
+                <div style={{ padding: '20px 16px', textAlign: 'center', fontSize: '14px', fontWeight: 600, color: '#a1a1a6' }}>Bottled</div>
+                <div style={{ padding: '20px 16px', textAlign: 'center', fontSize: '14px', fontWeight: 600, color: '#a1a1a6' }}>DIY</div>
+                <div style={{ padding: '20px 16px', textAlign: 'center', fontSize: '14px', fontWeight: 600, color: '#ffffff', background: 'rgba(255,255,255,0.05)' }}>Drizzl</div>
+              </div>
+              
+              {[
+                { feature: 'Price per serving', values: ['$12+', '$6-8', '$5-10', '$4.99'] },
+                { feature: 'Fresh ingredients', values: ['✓', '✗', '✓', '✓'] },
+                { feature: 'No preservatives', values: ['✓', '✗', '✓', '✓'] },
+                { feature: 'Ready in seconds', values: ['✗', '✓', '✗', '✓'] },
+                { feature: 'No prep or cleanup', values: ['✓', '✓', '✗', '✓'] },
+                { feature: 'Consistent quality', values: ['Varies', '✓', 'Varies', '✓'] },
+              ].map((row, rowIndex) => (
+                <div key={rowIndex} style={{
+                  display: 'grid',
+                  gridTemplateColumns: '1.5fr repeat(4, 1fr)',
+                  borderBottom: rowIndex < 5 ? '1px solid rgba(255,255,255,0.06)' : 'none',
+                }}>
+                  <div style={{ padding: '16px 24px', fontSize: '15px', color: '#ffffff' }}>{row.feature}</div>
+                  {row.values.map((value, colIndex) => (
+                    <div key={colIndex} style={{
+                      padding: '16px',
+                      textAlign: 'center',
+                      fontSize: '14px',
+                      color: value === '✓' ? '#22c55e' : value === '✗' ? '#ef4444' : '#a1a1a6',
+                      background: colIndex === 3 ? 'rgba(255,255,255,0.03)' : 'transparent',
+                    }}>
+                      {value}
+                    </div>
+                  ))}
+                </div>
+              ))}
+            </div>
+          </AnimatedSection>
+        </div>
+      </section>
+
+      {/* 8. Social Proof - Experts Section */}
       <section className="video-section">
         <div className="video-section-container">
           <p className="video-section-eyebrow">
             OVER 50K FIVE STAR REVIEWS
           </p>
           <h2 className="video-section-title">
-            Join the Movement
+            Trusted by Experts
           </h2>
           <p className="video-section-subtitle">
-            Trusted by over 2 million wellness enthusiasts worldwide.
+            See what healthcare professionals are saying.
           </p>
 
-          {/* Apple Style Card Carousel */}
           <div className="video-carousel-wrapper">
-            {/* Left Arrow - Apple Style (hidden on mobile) */}
             <button
               onClick={() => setExpertPosition(prev => (prev - 1 + EXPERTS.length) % EXPERTS.length)}
               className="carousel-arrow carousel-arrow-left"
@@ -756,7 +732,6 @@ export default function Home() {
                     setUnMutedExpert(unMutedExpert === expert.id ? null : expert.id);
                   }}
                 >
-                  {/* Category Label */}
                   <div className="video-card-header">
                     <p className="video-card-label video-card-label-expert">
                       EXPERT REVIEW
@@ -768,7 +743,6 @@ export default function Home() {
                       "{expert.quote}"
                     </p>
                   </div>
-                  {/* Video Container */}
                   <div className="video-card-video-container">
                     <video
                       src={expert.video}
@@ -778,7 +752,6 @@ export default function Home() {
                       muted={unMutedExpert !== expert.id}
                       playsInline
                     />
-                    {/* Play Button Overlay */}
                     <div className="video-card-play-btn">
                       <svg width="16" height="16" viewBox="0 0 24 24" fill="white">
                         <polygon points="8 5 19 12 8 19 8 5" />
@@ -789,7 +762,6 @@ export default function Home() {
               ))}
             </div>
 
-            {/* Right Arrow - Apple Style (hidden on mobile) */}
             <button
               onClick={() => setExpertPosition(prev => (prev + 1) % EXPERTS.length)}
               className="carousel-arrow carousel-arrow-right"
@@ -802,16 +774,14 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Customers Section - Apple Style White Boxes */}
+      {/* Customer Reviews Section */}
       <section className="video-section">
         <div className="video-section-container">
           <h2 className="video-section-title" style={{ marginBottom: 'clamp(32px, 5vw, 56px)' }}>
             Loved by Customers
           </h2>
 
-          {/* Apple Style Card Carousel */}
           <div className="video-carousel-wrapper">
-            {/* Left Arrow - Apple Style (hidden on mobile) */}
             <button
               onClick={() => setCustomerPosition(prev => (prev - 1 + CUSTOMERS.length) % CUSTOMERS.length)}
               className="carousel-arrow carousel-arrow-left"
@@ -830,7 +800,6 @@ export default function Home() {
                     setUnMutedCustomer(unMutedCustomer === customer.id ? null : customer.id);
                   }}
                 >
-                  {/* Category Label */}
                   <div className="video-card-header">
                     <p className="video-card-label video-card-label-customer">
                       CUSTOMER REVIEW
@@ -842,7 +811,6 @@ export default function Home() {
                       "{customer.quote}"
                     </p>
                   </div>
-                  {/* Video Container */}
                   <div className="video-card-video-container">
                     <video
                       src={customer.video}
@@ -852,7 +820,6 @@ export default function Home() {
                       muted={unMutedCustomer !== customer.id}
                       playsInline
                     />
-                    {/* Play Button Overlay */}
                     <div className="video-card-play-btn">
                       <svg width="16" height="16" viewBox="0 0 24 24" fill="white">
                         <polygon points="8 5 19 12 8 19 8 5" />
@@ -863,7 +830,6 @@ export default function Home() {
               ))}
             </div>
 
-            {/* Right Arrow - Apple Style (hidden on mobile) */}
             <button
               onClick={() => setCustomerPosition(prev => (prev + 1) % CUSTOMERS.length)}
               className="carousel-arrow carousel-arrow-right"
@@ -873,37 +839,72 @@ export default function Home() {
               </svg>
             </button>
           </div>
+        </div>
+      </section>
 
-          {/* CTA Button */}
-          <div style={{ textAlign: 'center', marginTop: 'clamp(32px, 5vw, 56px)' }}>
-            <Link href="/collections/smoothies" className="cta-btn">
-              Shop All Reviews
+      {/* 9. CTA Banner */}
+      <section style={{
+        background: 'linear-gradient(180deg, #0a0a0a 0%, #000000 100%)',
+        padding: 'clamp(80px, 12vw, 140px) clamp(24px, 6vw, 100px)',
+        textAlign: 'center',
+      }}>
+        <div style={{ maxWidth: '720px', margin: '0 auto' }}>
+          <AnimatedSection animation="fadeUp">
+            <h2 style={{
+              fontSize: 'clamp(36px, 7vw, 64px)',
+              fontWeight: 700,
+              lineHeight: 1.05,
+              letterSpacing: '-0.03em',
+              color: '#ffffff',
+              marginBottom: '24px',
+            }}>
+              Ready to feel better?
+            </h2>
+          </AnimatedSection>
+          <AnimatedSection animation="fadeUp" delay={100}>
+            <p style={{
+              fontSize: 'clamp(16px, 2vw, 20px)',
+              fontWeight: 400,
+              lineHeight: 1.6,
+              color: '#a1a1a6',
+              marginBottom: '40px',
+            }}>
+              Join thousands who have made wellness a daily habit.
+            </p>
+          </AnimatedSection>
+          <AnimatedSection animation="fadeUp" delay={200}>
+            <Link href="/products" style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '10px',
+              background: '#ffffff',
+              color: '#000000',
+              padding: '18px 48px',
+              borderRadius: '980px',
+              fontSize: '16px',
+              fontWeight: 500,
+              letterSpacing: '0.02em',
+              textDecoration: 'none',
+              transition: 'all 0.2s ease',
+            }}>
+              Shop Now
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M5 12h14M12 5l7 7-7 7"/>
               </svg>
             </Link>
-          </div>
+          </AnimatedSection>
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="cta-section">
-        <div className="cta-container">
-          <h2 className="cta-title">
-            Start Your Wellness Journey
-          </h2>
-          <p className="cta-subtitle">
-            Join thousands who have made wellness a daily habit.
-          </p>
-          <Link href="/auth" className="cta-btn">
-            Get Started
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M5 12h14M12 5l7 7-7 7"/>
-            </svg>
-          </Link>
-        </div>
-      </section>
+      {/* 10. Footer */}
       <Footer />
+
+      <style jsx>{`
+        @keyframes blink {
+          0%, 100% { border-color: #ffffff; }
+          50% { border-color: transparent; }
+        }
+      `}</style>
     </>
   );
 }

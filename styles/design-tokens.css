@@ -1,0 +1,388 @@
+/* ============================================
+   DRIZZL WELLNESS - DESIGN TOKENS
+   Billion-Dollar Brand Design System
+   Black & White Monochrome Only
+   ============================================ */
+
+:root {
+  /* ==========================================
+     TYPOGRAPHY
+     ========================================== */
+  
+  /* Font Families */
+  --font-display: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Inter', 'Segoe UI', Roboto, sans-serif;
+  --font-text: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Inter', 'Segoe UI', Roboto, sans-serif;
+  
+  /* Heading Sizes */
+  --h1-size: clamp(40px, 8vw, 80px);
+  --h2-size: clamp(32px, 6vw, 56px);
+  --h3-size: clamp(28px, 4vw, 40px);
+  --h4-size: clamp(22px, 3vw, 28px);
+  --h5-size: clamp(18px, 2.5vw, 22px);
+  --h6-size: clamp(16px, 2vw, 18px);
+  
+  /* Body Sizes */
+  --text-lead: clamp(20px, 3vw, 24px);
+  --text-body: clamp(16px, 2vw, 18px);
+  --text-body-sm: clamp(14px, 1.8vw, 15px);
+  --text-overline: clamp(11px, 1.5vw, 12px);
+  --text-button: clamp(15px, 2vw, 16px);
+  
+  /* Heading Weights */
+  --h-weight: 600;
+  
+  /* Line Heights */
+  --lh-tight: 1.05;
+  --lh-heading: 1.15;
+  --lh-body: 1.6;
+  --lh-relaxed: 1.75;
+  
+  /* Letter Spacing */
+  --ls-tight: -0.03em;
+  --ls-heading: -0.02em;
+  --ls-body: 0;
+  --ls-overline: 0.1em;
+  
+  /* ==========================================
+     COLORS (MONOCHROME ONLY)
+     ========================================== */
+  
+  /* Backgrounds */
+  --bg-main: #000000;
+  --bg-alt: #0a0a0a;
+  --bg-elevated: #111111;
+  --bg-surface: #161616;
+  --bg-hover: #1a1a1a;
+  --bg-card: #ffffff;
+  
+  /* Text */
+  --text-main: #ffffff;
+  --text-inverse: #000000;
+  --text-secondary: #a1a1a6;
+  --text-muted: #6e6e73;
+  --text-subtle: #48484a;
+  
+  /* Borders */
+  --border-subtle: rgba(255, 255, 255, 0.06);
+  --border-default: rgba(255, 255, 255, 0.1);
+  --border-strong: rgba(255, 255, 255, 0.2);
+  --border-focus: rgba(255, 255, 255, 0.5);
+  
+  /* ==========================================
+     SPACING
+     ========================================== */
+  
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-14: 56px;
+  --space-16: 64px;
+  --space-20: 80px;
+  --space-24: 96px;
+  --space-32: 128px;
+  
+  /* Section Spacing */
+  --section-py: clamp(80px, 12vw, 140px);
+  --section-px: clamp(24px, 6vw, 100px);
+  --section-py-sm: clamp(48px, 8vw, 80px);
+  
+  /* Container */
+  --container-max: 1280px;
+  --container-narrow: 960px;
+  --container-reading: 720px;
+  --container-px: clamp(24px, 6vw, 100px);
+  
+  /* ==========================================
+     RADII
+     ========================================== */
+  
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-2xl: 32px;
+  --radius-full: 980px;
+  
+  /* ==========================================
+     SHADOWS (Subtle for dark theme)
+     ========================================== */
+  
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.5);
+  --shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.6);
+  
+  /* ==========================================
+     TRANSITIONS
+     ========================================== */
+  
+  --transition-fast: 0.15s ease;
+  --transition-default: 0.2s ease;
+  --transition-slow: 0.3s ease;
+  --transition-entrance: 0.4s ease-out;
+  
+  /* ==========================================
+     Z-INDEX
+     ========================================== */
+  
+  --z-dropdown: 100;
+  --z-sticky: 200;
+  --z-modal: 300;
+  --z-toast: 400;
+  --z-tooltip: 500;
+}
+
+/* ============================================
+   UTILITY CLASSES
+   ============================================ */
+
+/* Typography Utilities */
+.text-h1 {
+  font-family: var(--font-display);
+  font-size: var(--h1-size);
+  font-weight: var(--h-weight);
+  line-height: var(--lh-tight);
+  letter-spacing: var(--ls-tight);
+  color: var(--text-main);
+}
+
+.text-h2 {
+  font-family: var(--font-display);
+  font-size: var(--h2-size);
+  font-weight: var(--h-weight);
+  line-height: var(--lh-heading);
+  letter-spacing: var(--ls-heading);
+  color: var(--text-main);
+}
+
+.text-h3 {
+  font-family: var(--font-display);
+  font-size: var(--h3-size);
+  font-weight: var(--h-weight);
+  line-height: var(--lh-heading);
+  letter-spacing: var(--ls-heading);
+  color: var(--text-main);
+}
+
+.text-h4 {
+  font-family: var(--font-display);
+  font-size: var(--h4-size);
+  font-weight: var(--h-weight);
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+  color: var(--text-main);
+}
+
+.text-lead {
+  font-family: var(--font-text);
+  font-size: var(--text-lead);
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: -0.01em;
+  color: var(--text-secondary);
+}
+
+.text-body {
+  font-family: var(--font-text);
+  font-size: var(--text-body);
+  font-weight: 400;
+  line-height: var(--lh-body);
+  color: var(--text-secondary);
+}
+
+.text-overline {
+  font-family: var(--font-text);
+  font-size: var(--text-overline);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: var(--ls-overline);
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+/* Button Utilities */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 16px 32px;
+  font-family: var(--font-text);
+  font-size: var(--text-button);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  border: none;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: all var(--transition-default);
+}
+
+.btn-primary {
+  background: var(--text-main);
+  color: var(--text-inverse);
+}
+
+.btn-primary:hover {
+  background: rgba(255, 255, 255, 0.9);
+  transform: translateY(-1px);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--text-main);
+  border: 1px solid var(--border-strong);
+}
+
+.btn-secondary:hover {
+  border-color: var(--border-focus);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--text-main);
+  padding: 12px 0;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.btn-ghost:hover {
+  color: var(--text-secondary);
+}
+
+/* Container Utilities */
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding-left: var(--container-px);
+  padding-right: var(--container-px);
+}
+
+.container-narrow {
+  max-width: var(--container-narrow);
+}
+
+.container-reading {
+  max-width: var(--container-reading);
+}
+
+/* Section Utilities */
+.section {
+  padding-top: var(--section-py);
+  padding-bottom: var(--section-py);
+}
+
+.section-sm {
+  padding-top: var(--section-py-sm);
+  padding-bottom: var(--section-py-sm);
+}
+
+/* Background Utilities */
+.bg-main { background-color: var(--bg-main); }
+.bg-alt { background-color: var(--bg-alt); }
+.bg-elevated { background-color: var(--bg-elevated); }
+
+/* Border Utilities */
+.border-subtle { border: 1px solid var(--border-subtle); }
+.border-default { border: 1px solid var(--border-default); }
+.border-top { border-top: 1px solid var(--border-subtle); }
+.border-bottom { border-bottom: 1px solid var(--border-subtle); }
+
+/* Card Styles */
+.card {
+  background: var(--bg-card);
+  border-radius: var(--radius-xl);
+  padding: var(--space-6);
+  transition: transform var(--transition-default);
+}
+
+.card:hover {
+  transform: scale(1.02);
+}
+
+.card-dark {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-default);
+}
+
+/* Badge Styles */
+.badge {
+  display: inline-block;
+  padding: 8px 16px;
+  font-size: var(--text-overline);
+  font-weight: 600;
+  letter-spacing: var(--ls-overline);
+  text-transform: uppercase;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-full);
+  color: var(--text-main);
+}
+
+.badge-filled {
+  background: var(--text-main);
+  color: var(--text-inverse);
+  border: none;
+}
+
+/* Grid Utilities */
+.grid {
+  display: grid;
+  gap: var(--space-8);
+}
+
+.grid-2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.grid-3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.grid-4 {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+@media (max-width: 1024px) {
+  .grid-4 { grid-template-columns: repeat(2, 1fr); }
+  .grid-3 { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 640px) {
+  .grid-4, .grid-3, .grid-2 { grid-template-columns: 1fr; }
+}
+
+/* Flex Utilities */
+.flex { display: flex; }
+.flex-col { flex-direction: column; }
+.flex-wrap { flex-wrap: wrap; }
+.items-center { align-items: center; }
+.justify-center { justify-content: center; }
+.justify-between { justify-content: space-between; }
+.gap-2 { gap: var(--space-2); }
+.gap-4 { gap: var(--space-4); }
+.gap-6 { gap: var(--space-6); }
+.gap-8 { gap: var(--space-8); }
+
+/* Text Alignment */
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+
+/* Scroll Animation Base */
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity var(--transition-entrance), transform var(--transition-entrance);
+}
+
+.animate-on-scroll.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
