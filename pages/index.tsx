@@ -59,8 +59,17 @@ const ROTATING_WORDS = [
 const BENEFITS = [
   {
     icon: (
-      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+      <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+        <circle cx="24" cy="24" r="23" stroke="url(#grad1)" strokeWidth="2"/>
+        <path d="M24 12v8l6 4" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+        <path d="M16 28c0 4.4 3.6 8 8 8s8-3.6 8-8" stroke="#ffffff" strokeWidth="2" strokeLinecap="round"/>
+        <circle cx="24" cy="24" r="3" fill="#ffffff"/>
+        <defs>
+          <linearGradient id="grad1" x1="0" y1="0" x2="48" y2="48">
+            <stop offset="0%" stopColor="#ffffff" stopOpacity="0.8"/>
+            <stop offset="100%" stopColor="#ffffff" stopOpacity="0.2"/>
+          </linearGradient>
+        </defs>
       </svg>
     ),
     title: 'Energy & Focus',
@@ -68,8 +77,15 @@ const BENEFITS = [
   },
   {
     icon: (
-      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+      <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+        <path d="M24 4L8 14v12c0 10.5 6.8 20.3 16 24 9.2-3.7 16-13.5 16-24V14L24 4z" stroke="url(#grad2)" strokeWidth="2" strokeLinejoin="round"/>
+        <path d="M17 24l5 5 9-9" stroke="#ffffff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+        <defs>
+          <linearGradient id="grad2" x1="8" y1="4" x2="40" y2="40">
+            <stop offset="0%" stopColor="#ffffff" stopOpacity="0.9"/>
+            <stop offset="100%" stopColor="#ffffff" stopOpacity="0.3"/>
+          </linearGradient>
+        </defs>
       </svg>
     ),
     title: 'Immune Support',
@@ -77,10 +93,17 @@ const BENEFITS = [
   },
   {
     icon: (
-      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <circle cx="12" cy="12" r="10"/>
-        <path d="M8 12h8"/>
-        <path d="M12 8v8"/>
+      <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+        <ellipse cx="24" cy="24" rx="18" ry="10" stroke="url(#grad3)" strokeWidth="2"/>
+        <ellipse cx="24" cy="24" rx="10" ry="18" stroke="url(#grad3)" strokeWidth="2"/>
+        <circle cx="24" cy="24" r="6" stroke="#ffffff" strokeWidth="2"/>
+        <circle cx="24" cy="24" r="2" fill="#ffffff"/>
+        <defs>
+          <linearGradient id="grad3" x1="6" y1="6" x2="42" y2="42">
+            <stop offset="0%" stopColor="#ffffff" stopOpacity="0.7"/>
+            <stop offset="100%" stopColor="#ffffff" stopOpacity="0.2"/>
+          </linearGradient>
+        </defs>
       </svg>
     ),
     title: 'Gut Health',
@@ -355,6 +378,99 @@ export default function Home() {
           ))}
         </div>
       </div>
+
+      {/* As Seen On - Press Logos Marquee */}
+      <div style={{
+        background: '#000000',
+        padding: '32px 0',
+        borderBottom: '1px solid rgba(255,255,255,0.08)',
+        overflow: 'hidden',
+      }}>
+        <p style={{
+          textAlign: 'center',
+          fontSize: '11px',
+          fontWeight: 600,
+          color: 'rgba(255,255,255,0.4)',
+          letterSpacing: '0.15em',
+          textTransform: 'uppercase',
+          marginBottom: '20px',
+        }}>As Seen On</p>
+        <div 
+          style={{
+            display: 'flex',
+            animation: 'marqueeScroll 30s linear infinite',
+            width: 'max-content',
+          }}
+        >
+          {[...Array(4)].map((_, repeatIndex) => (
+            <div key={repeatIndex} style={{ display: 'flex', alignItems: 'center' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '0 48px' }}>
+                <svg width="28" height="28" viewBox="0 0 32 32" fill="none">
+                  <circle cx="16" cy="16" r="14" stroke="white" strokeWidth="2"/>
+                  <circle cx="16" cy="10" r="3" fill="white"/>
+                  <path d="M16 14v10M12 18h8" stroke="white" strokeWidth="2" strokeLinecap="round"/>
+                </svg>
+                <span style={{ fontSize: '16px', fontWeight: 700, color: '#ffffff', letterSpacing: '-0.5px', whiteSpace: 'nowrap' }}>TODAY</span>
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', lineHeight: 1.1, padding: '0 48px' }}>
+                <span style={{ fontSize: '10px', fontWeight: 400, color: '#ffffff', letterSpacing: '1px', whiteSpace: 'nowrap' }}>BUSINESS</span>
+                <span style={{ fontSize: '13px', fontWeight: 700, color: '#ffffff', letterSpacing: '0.5px', whiteSpace: 'nowrap' }}>INSIDER</span>
+              </div>
+              <span style={{ fontSize: '20px', fontWeight: 400, color: '#ffffff', fontStyle: 'italic', letterSpacing: '1px', padding: '0 48px', whiteSpace: 'nowrap' }}>Forbes</span>
+              <div style={{ display: 'flex', alignItems: 'center', padding: '0 48px' }}>
+                <span style={{ fontSize: '12px', fontWeight: 400, color: '#ffffff', letterSpacing: '0.5px', whiteSpace: 'nowrap' }}>The</span>
+                <span style={{ fontSize: '18px', fontWeight: 700, color: '#ffffff', marginLeft: '4px', fontStyle: 'italic', whiteSpace: 'nowrap' }}>Guardian</span>
+              </div>
+              <div style={{ display: 'flex', alignItems: 'baseline', gap: '4px', padding: '0 48px' }}>
+                <span style={{ fontSize: '16px', fontWeight: 400, color: '#ffffff', fontStyle: 'italic', whiteSpace: 'nowrap' }}>Inc.</span>
+                <div style={{ display: 'flex', flexDirection: 'column', lineHeight: 1 }}>
+                  <span style={{ fontSize: '9px', fontWeight: 700, color: '#ffffff', letterSpacing: '0.5px', whiteSpace: 'nowrap' }}>Best</span>
+                  <span style={{ fontSize: '9px', fontWeight: 700, color: '#ffffff', letterSpacing: '0.5px', whiteSpace: 'nowrap' }}>Workplaces</span>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Drizzl Kiss Section - Brand Signature */}
+      <section className="drizzl-kiss-section">
+        <div className="drizzl-kiss-container">
+          <div className="drizzl-kiss-content">
+            <div className="drizzl-kiss-gif-wrapper">
+              <img 
+                src="/drizzl-lips.gif" 
+                alt="Drizzl Wellness Kiss" 
+                className="drizzl-kiss-gif"
+              />
+              <div className="drizzl-drips">
+                <div className="drip"></div>
+                <div className="drip"></div>
+                <div className="drip"></div>
+                <div className="drip"></div>
+                <div className="drip"></div>
+                <div className="drip"></div>
+                <div className="drip"></div>
+                <div className="drip"></div>
+                <div className="drip-splash"></div>
+              </div>
+            </div>
+            <div className="drizzl-kiss-text">
+              <h2 className="drizzl-kiss-title">
+                One Sip. Pure Bliss.
+              </h2>
+              <p className="drizzl-kiss-subtitle">
+                Every Drizzl smoothie is a love letter to your body. Crafted with organic superfoods, 
+                zero artificial anything, and enough flavor to make your taste buds fall in love. 
+                This isn't just a smoothie — it's self-care you can drink.
+              </p>
+              <p className="drizzl-kiss-tagline">
+                Kiss boring goodbye. Drizzl on.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* 3. Why Drizzl Section */}
       <section style={{
