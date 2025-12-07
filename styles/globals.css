@@ -2665,17 +2665,17 @@ svg {
   }
 }
 
-/* Infinite dripping drops container - at the bottom tips of the lip drips */
+/* Infinite dripping drops container - positioned at the tip of each drip */
 .drizzl-drips {
   position: absolute;
-  bottom: -5%;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 50%;
-  height: 350px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 400px;
   pointer-events: none;
   overflow: visible;
-  z-index: 1;
+  z-index: 3;
 }
 
 /* Individual drip drops - Same size and shape as the drips in the lips image */
@@ -2687,6 +2687,7 @@ svg {
   opacity: 0;
   animation: dripFall 6s ease-in infinite;
   filter: drop-shadow(0 4px 8px rgba(200, 78, 94, 0.4));
+  transform-origin: top center;
 }
 
 .drip::after {
@@ -2701,46 +2702,48 @@ svg {
   filter: blur(1px);
 }
 
-/* 5 drips matching the exact positions of the lip drips - left to right */
-/* Drip 1 - far left small drip */
+/* 5 drips positioned exactly at each drip tip from the lips image */
+/* The lips image has 5 drips - positions based on where each drip tip ends */
+
+/* Drip 1 - leftmost drip tip */
 .drip:nth-child(1) { 
-  left: 18%; 
-  width: 16px; 
-  height: 28px; 
-  animation-delay: 0.5s; 
+  left: 27%; 
+  width: 12px; 
+  height: 20px; 
+  animation-delay: 0.8s; 
 }
-/* Drip 2 - left-center drip */
+/* Drip 2 - second from left drip tip */
 .drip:nth-child(2) { 
-  left: 32%; 
-  width: 18px; 
-  height: 32px; 
-  animation-delay: 1.8s; 
-}
-/* Drip 3 - center largest drip */
-.drip:nth-child(3) { 
-  left: 48%; 
-  width: 22px; 
-  height: 40px; 
-  animation-delay: 0s; 
-}
-/* Drip 4 - right-center drip */
-.drip:nth-child(4) { 
-  left: 64%; 
-  width: 18px; 
-  height: 32px; 
-  animation-delay: 1s; 
-}
-/* Drip 5 - far right small drip */
-.drip:nth-child(5) { 
-  left: 80%; 
+  left: 38%; 
   width: 14px; 
   height: 24px; 
-  animation-delay: 2.5s; 
+  animation-delay: 2s; 
 }
-/* Extra drips for continuous effect */
-.drip:nth-child(6) { left: 18%; width: 16px; height: 28px; animation-delay: 3.5s; }
-.drip:nth-child(7) { left: 48%; width: 22px; height: 40px; animation-delay: 3s; }
-.drip:nth-child(8) { left: 64%; width: 18px; height: 32px; animation-delay: 4s; }
+/* Drip 3 - center drip tip (longest) */
+.drip:nth-child(3) { 
+  left: 49%; 
+  width: 16px; 
+  height: 28px; 
+  animation-delay: 0s; 
+}
+/* Drip 4 - second from right drip tip */
+.drip:nth-child(4) { 
+  left: 60%; 
+  width: 14px; 
+  height: 24px; 
+  animation-delay: 1.2s; 
+}
+/* Drip 5 - rightmost drip tip */
+.drip:nth-child(5) { 
+  left: 71%; 
+  width: 12px; 
+  height: 20px; 
+  animation-delay: 2.8s; 
+}
+/* Repeat drips for continuous flow */
+.drip:nth-child(6) { left: 38%; width: 14px; height: 24px; animation-delay: 4s; }
+.drip:nth-child(7) { left: 49%; width: 16px; height: 28px; animation-delay: 3s; }
+.drip:nth-child(8) { left: 60%; width: 14px; height: 24px; animation-delay: 4.5s; }
 
 @keyframes dripFall {
   0% {
