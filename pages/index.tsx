@@ -531,11 +531,11 @@ export default function Home() {
                       Smoothie
                     </p>
                   </div>
-                  <div className="video-card-video-container" style={{ background: '#f5f5f7' }}>
+                  <div className="video-card-video-container">
                     <img
                       src={product.image}
                       alt={product.name}
-                      style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+                      style={{ width: '85%', height: '85%', objectFit: 'contain' }}
                       draggable={false}
                     />
                   </div>

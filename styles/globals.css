@@ -2972,12 +2972,12 @@ svg {
   overflow: hidden;
   position: relative;
   cursor: pointer;
-  background: #f5f5f7;
+  background: #ffffff;
   transition: all 0.3s ease;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  box-shadow: none;
   display: flex;
   flex-direction: column;
-  padding: clamp(12px, 2vw, 18px);
+  padding: clamp(14px, 2vw, 20px) clamp(14px, 2vw, 20px) 0 clamp(14px, 2vw, 20px);
 }
 
 .product-card-image-wrapper:hover {
@@ -3156,7 +3156,9 @@ svg {
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  margin-top: clamp(8px, 1.5vw, 12px);
+  margin-top: clamp(10px, 1.5vw, 16px);
+  background: #f5f5f7;
+  border-radius: clamp(10px, 1.5vw, 14px);
 }
 
 /* Larger video containers on ultrawide */
