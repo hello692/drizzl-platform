@@ -66,6 +66,14 @@ const CUSTOMERS = [
   { id: '6', name: 'Emma Wilson', video: 'https://media.coverr.co/videos/coverr-woman-drinking-smoothie-juice-7481/preview', quote: 'best smoothies ever' },
 ];
 
+const ROTATING_PHRASES = [
+  'Feel the Flavor',
+  'Feel the Energy',
+  'Feel the Love',
+  'Feel the Glow',
+  'Feel the Drizzl',
+];
+
 export default function Home() {
   const [featuredProducts, setFeaturedProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
@@ -78,6 +86,8 @@ export default function Home() {
   const [customerPosition, setCustomerPosition] = useState(0);
   const [unMutedExpert, setUnMutedExpert] = useState<string | null>(null);
   const [unMutedCustomer, setUnMutedCustomer] = useState<string | null>(null);
+  const [currentPhraseIndex, setCurrentPhraseIndex] = useState(0);
+  const [isAnimating, setIsAnimating] = useState(false);
   
   let t: ReturnType<typeof useTranslations>;
   try {
@@ -213,6 +223,18 @@ export default function Home() {
     return () => clearInterval(interval);
   }, []);
 
+  // Rotating phrases animation (2.5 seconds per phrase)
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIsAnimating(true);
+      setTimeout(() => {
+        setCurrentPhraseIndex(prev => (prev + 1) % ROTATING_PHRASES.length);
+        setIsAnimating(false);
+      }, 400);
+    }, 2500);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <>
       <Navbar />
@@ -249,7 +271,10 @@ export default function Home() {
         <div className="hero-content">
           <AnimatedSection animation="fadeUp">
             <h1 className="hero-title">
-              Feel the Flavor
+              <span className="hero-title-static">Feel the </span>
+              <span className={`hero-title-rotating ${isAnimating ? 'animating' : ''}`}>
+                {ROTATING_PHRASES[currentPhraseIndex].replace('Feel the ', '')}
+              </span>
             </h1>
           </AnimatedSection>
           <AnimatedSection animation="fadeUp" delay={100}>

@@ -2508,6 +2508,31 @@ svg {
   color: #f5f5f7;
   margin-bottom: clamp(16px, 3vw, 32px);
   line-height: 1.04;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0 0.25em;
+}
+
+.hero-title-static {
+  color: #f5f5f7;
+}
+
+.hero-title-rotating {
+  color: #f5f5f7;
+  display: inline-block;
+  transition: all 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
+  opacity: 1;
+  transform: translateY(0);
+  background: linear-gradient(135deg, #ffffff 0%, #a8e6cf 50%, #88d8b0 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-title-rotating.animating {
+  opacity: 0;
+  transform: translateY(-20px);
 }
 
 .hero-subtitle {
