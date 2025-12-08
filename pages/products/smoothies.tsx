@@ -13,7 +13,7 @@ const products = [
   { id: '14', name: 'Coffee Mushroom', type: 'Smoothie', price: 9.99, reviews: 203, rating: 4.8, badge: 'NEW', image: '/products/coffee-mushroom/gallery-1.jpg' },
   { id: '15', name: 'Chocolate Berry', type: 'Smoothie', price: 8.99, reviews: 278, rating: 4.8, badge: 'NEW', image: '/products/chocolate-berry/gallery-1.jpg' },
   { id: '16', name: 'Almond', type: 'Smoothie', price: 8.99, reviews: 187, rating: 4.7, badge: 'NEW', image: '/products/almond/gallery-1.jpg' },
-  { id: '17', name: 'Acai', type: 'Smoothie', price: 9.49, reviews: 487, rating: 4.9, badge: 'BEST SELLER', image: '/products/acai/Acai-TG-1.jpg' },
+  { id: '17', name: 'Acai', type: 'Smoothie', price: 9.49, reviews: 487, rating: 4.9, badge: 'BEST SELLER', image: '/products/acai/gallery-1.jpg' },
 ];
 
 export default function Smoothies() {
