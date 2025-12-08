@@ -1075,13 +1075,12 @@ export default function ProductPage() {
           <div className="lifestyle-wrapper">
             <div className="lifestyle-track" id="lifestyle-track">
               {[
-                '/lifestyle/DSC09048-1.jpg',
-                '/lifestyle/DSC09063.jpg',
-                '/lifestyle/DSC09073-1-2.jpg',
-                '/lifestyle/DSC09091.jpg',
-                '/lifestyle/DSC09092.jpg',
-                '/lifestyle/DSC09108-2.jpg',
-                '/lifestyle/DSC09118.jpg',
+                '/lifestyle/DSC08818.jpg',
+                '/lifestyle/DSC08825.jpg',
+                '/lifestyle/DSC08827.jpg',
+                '/lifestyle/DSC08836.jpg',
+                '/lifestyle/DSC08837.jpg',
+                '/lifestyle/DSC09048-1Almond.jpg',
               ].map((img, index) => (
                 <div key={index} className="lifestyle-card">
                   <img src={img} alt="Lifestyle" />
