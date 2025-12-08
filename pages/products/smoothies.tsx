@@ -8,7 +8,7 @@ const products = [
   { id: '9', name: 'Pink Piyata', type: 'Smoothie', price: 8.99, reviews: 127, rating: 4.8, badge: 'NEW', image: '/products/pink-piyata/gallery-1.jpg' },
   { id: '10', name: 'Matcha', type: 'Smoothie', price: 9.49, reviews: 312, rating: 4.7, badge: 'NEW', image: '/products/matcha/gallery-1.jpg' },
   { id: '11', name: 'Mocha', type: 'Smoothie', price: 9.49, reviews: 245, rating: 4.8, badge: 'NEW', image: '/products/mocha/gallery-1.jpg' },
-  { id: '12', name: 'Nutty Monkey', type: 'Smoothie', price: 8.99, reviews: 389, rating: 4.9, badge: 'BEST SELLER', image: '/products/nutty-monkey/transparent-glass-1.png' },
+  { id: '12', name: 'Nutty Monkey', type: 'Smoothie', price: 8.99, reviews: 389, rating: 4.9, badge: 'BEST SELLER', image: '/products/nutty-monkey/gallery-1.jpg' },
   { id: '14', name: 'Coffee Mushroom', type: 'Smoothie', price: 9.99, reviews: 203, rating: 4.8, badge: 'NEW', image: '/products/coffee-mushroom/transparent-glass-1.png' },
   { id: '15', name: 'Chocolate Berry', type: 'Smoothie', price: 8.99, reviews: 278, rating: 4.8, badge: 'NEW', image: '/products/chocolate-berry/transparent-glass-1.png' },
   { id: '17', name: 'Acai', type: 'Smoothie', price: 9.49, reviews: 487, rating: 4.9, badge: 'BEST SELLER', image: '/products/acai/Acai-TG-1.jpg' },
