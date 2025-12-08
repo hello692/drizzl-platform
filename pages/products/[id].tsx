@@ -1082,17 +1082,16 @@ export default function ProductPage() {
           <div className="lifestyle-wrapper">
             <div className="lifestyle-track" id="lifestyle-track">
               {[
-                { img: '/lifestyle/DSC09048-1.jpg', label: 'Start fresh' },
-                { img: '/lifestyle/DSC09063.jpg', label: 'Move freely' },
-                { img: '/lifestyle/DSC09073-1-2.jpg', label: 'Find balance' },
-                { img: '/lifestyle/DSC09091.jpg', label: 'Feel alive' },
-                { img: '/lifestyle/DSC09092.jpg', label: 'Live fully' },
-                { img: '/lifestyle/DSC09108-2.jpg', label: 'Fuel joy' },
-                { img: '/lifestyle/DSC09118.jpg', label: 'Be you' },
-              ].map((slide, index) => (
+                '/lifestyle/DSC09048-1.jpg',
+                '/lifestyle/DSC09063.jpg',
+                '/lifestyle/DSC09073-1-2.jpg',
+                '/lifestyle/DSC09091.jpg',
+                '/lifestyle/DSC09092.jpg',
+                '/lifestyle/DSC09108-2.jpg',
+                '/lifestyle/DSC09118.jpg',
+              ].map((img, index) => (
                 <div key={index} className="lifestyle-card">
-                  <img src={slide.img} alt={slide.label} />
-                  <span className="lifestyle-label">{slide.label}</span>
+                  <img src={img} alt="Lifestyle" />
                 </div>
               ))}
             </div>
