@@ -4,17 +4,17 @@ import { useState } from 'react';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 
-// Apple-inspired design tokens (light theme)
+// Apple-inspired design tokens (light theme - monochrome)
 const apple = {
   bgPrimary: '#ffffff',
   bgSecondary: '#f5f5f7',
   bgTertiary: '#e8e8ed',
-  textPrimary: '#1d1d1f',
-  textSecondary: '#86868b',
-  textTertiary: '#6e6e73',
-  accent: '#0071e3',
-  accentHover: '#0077ed',
-  divider: 'rgba(0,0,0,0.08)',
+  textPrimary: '#000000',
+  textSecondary: '#6e6e73',
+  textTertiary: '#86868b',
+  accent: '#000000',
+  accentHover: '#1d1d1f',
+  divider: 'rgba(0,0,0,0.1)',
 };
 
 interface ProductData {
@@ -309,11 +309,11 @@ export default function ProductPage() {
             <span style={{
               display: 'inline-block',
               padding: '6px 14px',
-              background: 'rgba(255,149,0,0.15)',
+              background: '#000000',
               borderRadius: '100px',
               fontSize: '12px',
               fontWeight: '500',
-              color: '#ff9500',
+              color: '#ffffff',
               letterSpacing: '0.5px',
             }}>
               Best Seller
@@ -450,7 +450,7 @@ export default function ProductPage() {
                 gap: '8px',
               }}>
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                  <path d="M20 6L9 17l-5-5" stroke="#30d158" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  <path d="M20 6L9 17l-5-5" stroke="#000000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
                 {badge}
               </span>
