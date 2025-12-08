@@ -724,90 +724,65 @@ export default function ProductPage() {
 
         {/* The Lineup Section */}
         <section style={{
-          padding: '80px 0',
+          padding: '60px 0 80px',
           backgroundColor: '#000000',
           position: 'relative',
         }}>
           {/* Header */}
           <div style={{
             textAlign: 'center',
-            marginBottom: '48px',
+            marginBottom: '40px',
           }}>
             <h2 style={{
-              fontSize: '48px',
+              fontSize: '42px',
               fontWeight: '600',
               color: '#ffffff',
-              margin: '0 0 12px 0',
+              margin: '0 0 8px 0',
             }}>
               The lineup
             </h2>
             <p style={{
-              fontSize: '16px',
-              color: 'rgba(255,255,255,0.6)',
+              fontSize: '14px',
+              color: 'rgba(255,255,255,0.5)',
               margin: 0,
             }}>
               These are the ones people can't stop reordering.
             </p>
           </div>
 
-          {/* Left Arrow */}
-          <button
-            style={{
-              position: 'absolute',
-              left: '24px',
-              top: '50%',
-              transform: 'translateY(-50%)',
-              width: '48px',
-              height: '48px',
-              borderRadius: '50%',
-              border: '1px solid rgba(0,0,0,0.2)',
-              background: '#ffffff',
-              cursor: 'pointer',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              zIndex: 10,
-            }}
-          >
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-              <path d="M15 18l-6-6 6-6" stroke="#000000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-          </button>
-
-          {/* Right Arrow */}
-          <button
-            style={{
-              position: 'absolute',
-              right: '24px',
-              top: '50%',
-              transform: 'translateY(-50%)',
-              width: '48px',
-              height: '48px',
-              borderRadius: '50%',
-              border: '1px solid rgba(0,0,0,0.2)',
-              background: '#ffffff',
-              cursor: 'pointer',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              zIndex: 10,
-            }}
-          >
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-              <path d="M9 18l6-6-6-6" stroke="#000000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-          </button>
-
-          {/* Product Cards */}
+          {/* Content with Arrows */}
           <div style={{
-            maxWidth: '1200px',
-            margin: '0 auto',
-            padding: '0 80px',
-            overflow: 'hidden',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: '24px',
+            padding: '0 24px',
           }}>
+            {/* Left Arrow */}
+            <button
+              style={{
+                width: '40px',
+                height: '40px',
+                borderRadius: '50%',
+                border: '1px solid rgba(255,255,255,0.3)',
+                background: 'transparent',
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                flexShrink: 0,
+              }}
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                <path d="M15 18l-6-6 6-6" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </button>
+
+            {/* Product Cards */}
             <div style={{
               display: 'flex',
-              gap: '16px',
+              gap: '12px',
+              overflow: 'hidden',
             }}>
               {POPULAR_SMOOTHIES.slice(0, 5).map((item, index) => {
                 const labels = ['BEST SELLER', 'NEW', 'BEST SELLER', 'BEST SELLER', 'BEST SELLER'];
@@ -819,24 +794,27 @@ export default function ProductPage() {
                     style={{
                       textDecoration: 'none',
                       display: 'block',
-                      flex: '0 0 calc(20% - 13px)',
-                      minWidth: '180px',
+                      width: '180px',
+                      flexShrink: 0,
                     }}
                   >
                     <div style={{
                       backgroundColor: '#ffffff',
-                      borderRadius: '16px',
-                      padding: '20px',
-                      height: '100%',
+                      borderRadius: '12px',
+                      padding: '16px',
+                      height: '320px',
+                      display: 'flex',
+                      flexDirection: 'column',
                     }}>
                       {/* Label */}
-                      <div style={{ height: '18px', marginBottom: '8px' }}>
+                      <div style={{ height: '16px', marginBottom: '6px' }}>
                         {labels[index] && (
                           <span style={{
-                            fontSize: '11px',
-                            fontWeight: '600',
+                            fontSize: '10px',
+                            fontWeight: '700',
                             color: labelColors[index],
                             letterSpacing: '0.5px',
+                            textTransform: 'uppercase',
                           }}>
                             {labels[index]}
                           </span>
@@ -845,29 +823,33 @@ export default function ProductPage() {
                       
                       {/* Product Name */}
                       <h3 style={{
-                        fontSize: '18px',
+                        fontSize: '16px',
                         fontWeight: '600',
                         color: '#000000',
-                        margin: '0 0 4px 0',
+                        margin: '0 0 2px 0',
+                        lineHeight: '1.2',
                       }}>
                         {item.name}
                       </h3>
                       
                       {/* Subtitle */}
                       <p style={{
-                        fontSize: '14px',
+                        fontSize: '13px',
                         color: '#86868b',
-                        margin: '0 0 16px 0',
+                        margin: '0 0 12px 0',
                       }}>
                         Smoothie
                       </p>
                       
                       {/* Product Image */}
                       <div style={{
-                        aspectRatio: '1',
+                        flex: 1,
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
+                        backgroundColor: '#f5f5f7',
+                        borderRadius: '8px',
+                        padding: '8px',
                       }}>
                         <img
                           src={item.image}
@@ -884,6 +866,26 @@ export default function ProductPage() {
                 );
               })}
             </div>
+
+            {/* Right Arrow */}
+            <button
+              style={{
+                width: '40px',
+                height: '40px',
+                borderRadius: '50%',
+                border: '1px solid rgba(255,255,255,0.3)',
+                background: 'transparent',
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                flexShrink: 0,
+              }}
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                <path d="M9 18l6-6-6-6" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </button>
           </div>
         </section>
 
