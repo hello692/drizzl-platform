@@ -756,114 +756,132 @@ export default function ProductPage() {
     </section>
   );
 
-  // Default Layout
+  // Louis Vuitton Style Layout
   const renderDefaultLayout = () => (
-    <section style={{
-      paddingTop: '120px',
-      paddingBottom: '0',
-      textAlign: 'center',
-    }}>
-      <h1 style={{
-        fontSize: 'clamp(36px, 5vw, 48px)',
-        fontWeight: '600',
-        color: apple.textPrimary,
-        margin: '0 0 12px 0',
-        letterSpacing: '-0.02em',
-        lineHeight: '1.1',
-      }}>
-        {productData.name}
-      </h1>
-      <p style={{
-        fontSize: 'clamp(16px, 2vw, 20px)',
-        fontWeight: '400',
-        color: apple.textSecondary,
-        margin: '0 auto 32px',
-        maxWidth: '600px',
-        lineHeight: '1.5',
-      }}>
-        Inspired by {productData.tagline}
-      </p>
-      <div style={{
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        gap: '24px',
-        marginBottom: '12px',
-      }}>
-        <button style={{
-          padding: '12px 24px',
-          backgroundColor: apple.accent,
-          color: '#ffffff',
-          fontSize: '17px',
-          fontWeight: '400',
-          border: 'none',
-          borderRadius: '980px',
-          cursor: 'pointer',
-          transition: 'background-color 0.2s',
-        }}>
-          Add to Cart
-        </button>
-        <Link href="/collections/smoothies" style={{
-          fontSize: '17px',
-          color: apple.accent,
-          textDecoration: 'none',
-        }}>
-          View all smoothies &rarr;
-        </Link>
-      </div>
-      <div style={{
-        maxWidth: '700px',
-        margin: '0 auto',
-        padding: '0 24px',
-        overflow: 'hidden',
-      }}>
-        <img
-          src={productData.gallery[selectedImageIndex]}
-          alt={productData.name}
-          style={{
-            width: '100%',
-            maxHeight: '700px',
-            objectFit: 'contain',
-            ...(productId === '1' ? { marginTop: '-10px' } : {}),
-          }}
-        />
-      </div>
-      <div style={{
-        display: 'flex',
-        justifyContent: 'center',
-        gap: '12px',
-        marginTop: '40px',
-        padding: '0 24px',
-      }}>
-        {productData.gallery.map((img, index) => (
-          <button
-            key={index}
-            onClick={() => setSelectedImageIndex(index)}
-            style={{
-              width: '80px',
-              height: '80px',
-              borderRadius: '12px',
-              border: selectedImageIndex === index ? '2px solid #000000' : '2px solid transparent',
-              backgroundColor: '#f5f5f7',
-              cursor: 'pointer',
-              padding: '8px',
-              transition: 'all 0.2s',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}
-          >
+    <section className="lv-product-section">
+      <div className="lv-product-grid">
+        {/* Left Side - Image Gallery */}
+        <div className="lv-product-gallery">
+          <div className="lv-gallery-main">
+            <button 
+              className="lv-gallery-nav lv-gallery-nav-left"
+              onClick={() => setSelectedImageIndex(prev => prev > 0 ? prev - 1 : productData.gallery.length - 1)}
+            >
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M15 18l-6-6 6-6" />
+              </svg>
+            </button>
             <img
-              src={img}
-              alt={`${productData.name} view ${index + 1}`}
-              style={{
-                width: '100%',
-                height: '100%',
-                objectFit: 'contain',
-              }}
+              src={productData.gallery[selectedImageIndex]}
+              alt={productData.name}
+              className="lv-gallery-image"
             />
-          </button>
-        ))}
+            <button 
+              className="lv-gallery-nav lv-gallery-nav-right"
+              onClick={() => setSelectedImageIndex(prev => prev < productData.gallery.length - 1 ? prev + 1 : 0)}
+            >
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M9 18l6-6-6-6" />
+              </svg>
+            </button>
+          </div>
+          <div className="lv-gallery-thumbs">
+            {productData.gallery.slice(0, 8).map((img, index) => (
+              <button
+                key={index}
+                onClick={() => setSelectedImageIndex(index)}
+                className={`lv-gallery-thumb ${selectedImageIndex === index ? 'active' : ''}`}
+              >
+                <img src={img} alt={`View ${index + 1}`} />
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Right Side - Product Info */}
+        <div className="lv-product-info">
+          <div className="lv-product-sku">SKU-{productData.id.padStart(5, '0')}</div>
+          <h1 className="lv-product-name">{productData.name}</h1>
+          <div className="lv-product-price">${productData.price.toFixed(2)}</div>
+          
+          <div className="lv-product-material">
+            <span className="lv-material-label">Type</span>
+            <span className="lv-material-value">Smoothie Cup</span>
+          </div>
+
+          <button className="lv-add-to-cart">Place in Cart</button>
+          
+          <button className="lv-contact-link">Contact an Advisor</button>
+          
+          <p className="lv-shipping-info">Complimentary Standard Delivery or Collect in Store</p>
+
+          <div className="lv-product-description">
+            <p>{productData.description}</p>
+            <button className="lv-read-more">Read more</button>
+          </div>
+
+          {/* Accordion Sections */}
+          <div className="lv-accordion-section">
+            <button 
+              className="lv-accordion-header"
+              onClick={() => toggleSection('ingredients')}
+            >
+              <span>Ingredients</span>
+              <span className="lv-accordion-icon">{openSections.ingredients ? '−' : '+'}</span>
+            </button>
+            {openSections.ingredients && (
+              <div className="lv-accordion-content">
+                <p>{productData.ingredients}</p>
+              </div>
+            )}
+          </div>
+
+          <div className="lv-accordion-section">
+            <button 
+              className="lv-accordion-header"
+              onClick={() => toggleSection('nutrition')}
+            >
+              <span>Nutrition Facts</span>
+              <span className="lv-accordion-icon">›</span>
+            </button>
+            {openSections.nutrition && (
+              <div className="lv-accordion-content">
+                <div className="lv-nutrition-grid">
+                  {productData.nutrition.map((item, index) => (
+                    <div key={index} className="lv-nutrition-item">
+                      <span>{item.label}</span>
+                      <span>{item.value}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+
+          <div className="lv-accordion-section">
+            <button 
+              className="lv-accordion-header"
+              onClick={() => toggleSection('howToPrep')}
+            >
+              <span>How to Prepare</span>
+              <span className="lv-accordion-icon">›</span>
+            </button>
+            {openSections.howToPrep && (
+              <div className="lv-accordion-content">
+                <p><strong>1. Add liquid:</strong> Fill cup to top with water, oat milk, or coconut water.</p>
+                <p><strong>2. Blend:</strong> Pour into a blender and blend until silky smooth.</p>
+                <p><strong>3. Enjoy:</strong> Pour back into your cup. Sip. Smile. Repeat.</p>
+              </div>
+            )}
+          </div>
+
+          {/* Badges */}
+          <div className="lv-badges">
+            {productData.badges.map((badge, index) => (
+              <span key={index} className="lv-badge">{badge}</span>
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   );
@@ -878,316 +896,6 @@ export default function ProductPage() {
       
       <main>
         {renderDefaultLayout()}
-
-          {/* Accordion Sections - Menu Style - Black Background */}
-          <div style={{
-            backgroundColor: '#000000',
-            margin: '40px 0 0',
-            padding: '40px 24px',
-          }}>
-            <div style={{
-              maxWidth: '600px',
-              margin: '0 auto',
-              textAlign: 'left',
-            }}>
-            {/* All Ingredients */}
-            <div style={{ borderTop: '1px solid rgba(255,255,255,0.2)' }}>
-              <button
-                onClick={() => toggleSection('ingredients')}
-                style={{
-                  width: '100%',
-                  padding: '24px 0',
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'flex-start',
-                  background: 'none',
-                  border: 'none',
-                  cursor: 'pointer',
-                  textAlign: 'left',
-                }}
-              >
-                <div>
-                  <div style={{
-                    fontSize: '28px',
-                    fontWeight: '600',
-                    color: '#ffffff',
-                    marginBottom: '4px',
-                  }}>
-                    Ingredients
-                  </div>
-                  <div style={{
-                    fontSize: '14px',
-                    color: '#ffffff',
-                  }}>
-                    What goes in every cup
-                  </div>
-                </div>
-                <span style={{
-                  fontSize: '24px',
-                  color: '#ffffff',
-                  fontWeight: '300',
-                  lineHeight: '1',
-                  marginTop: '8px',
-                }}>
-                  {openSections.ingredients ? '−' : '+'}
-                </span>
-              </button>
-              {openSections.ingredients && (
-                <p style={{
-                  paddingBottom: '24px',
-                  fontSize: '15px',
-                  color: '#ffffff',
-                  lineHeight: '1.6',
-                  margin: 0,
-                }}>
-                  {productData.ingredients}
-                </p>
-              )}
-            </div>
-
-            {/* Nutrition Facts */}
-            <div style={{ borderTop: '1px solid rgba(255,255,255,0.2)' }}>
-              <button
-                onClick={() => toggleSection('nutrition')}
-                style={{
-                  width: '100%',
-                  padding: '24px 0',
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'flex-start',
-                  background: 'none',
-                  border: 'none',
-                  cursor: 'pointer',
-                  textAlign: 'left',
-                }}
-              >
-                <div>
-                  <div style={{
-                    fontSize: '28px',
-                    fontWeight: '600',
-                    color: '#ffffff',
-                    marginBottom: '4px',
-                  }}>
-                    Nutrition
-                  </div>
-                  <div style={{
-                    fontSize: '14px',
-                    color: '#ffffff',
-                  }}>
-                    What you put in matters
-                  </div>
-                </div>
-                <span style={{
-                  fontSize: '24px',
-                  color: '#ffffff',
-                  fontWeight: '300',
-                  lineHeight: '1',
-                  marginTop: '8px',
-                }}>
-                  {openSections.nutrition ? '−' : '+'}
-                </span>
-              </button>
-              {openSections.nutrition && (
-                <div style={{
-                  paddingBottom: '24px',
-                  display: 'flex',
-                  flexWrap: 'wrap',
-                  gap: '16px',
-                }}>
-                  {productData.nutrition.map((item, index) => (
-                    <div key={index} style={{
-                      display: 'flex',
-                      gap: '8px',
-                      fontSize: '15px',
-                    }}>
-                      <span style={{ color: '#ffffff', fontWeight: '500' }}>{item.label}:</span>
-                      <span style={{ color: '#ffffff' }}>{item.value}</span>
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
-
-            {/* Description */}
-            <div style={{ borderTop: '1px solid rgba(255,255,255,0.2)' }}>
-              <button
-                onClick={() => toggleSection('description')}
-                style={{
-                  width: '100%',
-                  padding: '24px 0',
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'flex-start',
-                  background: 'none',
-                  border: 'none',
-                  cursor: 'pointer',
-                  textAlign: 'left',
-                }}
-              >
-                <div>
-                  <div style={{
-                    fontSize: '28px',
-                    fontWeight: '600',
-                    color: '#ffffff',
-                    marginBottom: '4px',
-                  }}>
-                    About
-                  </div>
-                  <div style={{
-                    fontSize: '14px',
-                    color: '#ffffff',
-                  }}>
-                    Taste the difference
-                  </div>
-                </div>
-                <span style={{
-                  fontSize: '24px',
-                  color: '#ffffff',
-                  fontWeight: '300',
-                  lineHeight: '1',
-                  marginTop: '8px',
-                }}>
-                  {openSections.description ? '−' : '+'}
-                </span>
-              </button>
-              {openSections.description && (
-                <p style={{
-                  paddingBottom: '24px',
-                  fontSize: '15px',
-                  color: '#ffffff',
-                  lineHeight: '1.6',
-                  margin: 0,
-                }}>
-                  {productData.description}
-                </p>
-              )}
-            </div>
-
-            {/* Key Ingredients */}
-            <div style={{ borderTop: '1px solid rgba(255,255,255,0.2)' }}>
-              <button
-                onClick={() => toggleSection('keyIngredients')}
-                style={{
-                  width: '100%',
-                  padding: '24px 0',
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'flex-start',
-                  background: 'none',
-                  border: 'none',
-                  cursor: 'pointer',
-                  textAlign: 'left',
-                }}
-              >
-                <div>
-                  <div style={{
-                    fontSize: '28px',
-                    fontWeight: '600',
-                    color: '#ffffff',
-                    marginBottom: '4px',
-                  }}>
-                    Key Ingredients
-                  </div>
-                  <div style={{
-                    fontSize: '14px',
-                    color: '#ffffff',
-                  }}>
-                    The power behind every sip
-                  </div>
-                </div>
-                <span style={{
-                  fontSize: '24px',
-                  color: '#ffffff',
-                  fontWeight: '300',
-                  lineHeight: '1',
-                  marginTop: '8px',
-                }}>
-                  {openSections.keyIngredients ? '−' : '+'}
-                </span>
-              </button>
-              {openSections.keyIngredients && (
-                <div style={{
-                  paddingBottom: '24px',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  gap: '12px',
-                }}>
-                  {productData.keyIngredients.map((ingredient, index) => (
-                    <div key={index} style={{ fontSize: '15px' }}>
-                      <span style={{ color: '#ffffff', fontWeight: '500' }}>{ingredient.name}: </span>
-                      <span style={{ color: '#ffffff' }}>{ingredient.benefit}</span>
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
-
-            {/* How to Prep */}
-            <div style={{ borderTop: '1px solid rgba(255,255,255,0.2)', borderBottom: '1px solid rgba(255,255,255,0.2)' }}>
-              <button
-                onClick={() => toggleSection('howToPrep')}
-                style={{
-                  width: '100%',
-                  padding: '24px 0',
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'flex-start',
-                  background: 'none',
-                  border: 'none',
-                  cursor: 'pointer',
-                  textAlign: 'left',
-                }}
-              >
-                <div>
-                  <div style={{
-                    fontSize: '28px',
-                    fontWeight: '600',
-                    color: '#ffffff',
-                    marginBottom: '4px',
-                  }}>
-                    How to Prepare
-                  </div>
-                  <div style={{
-                    fontSize: '14px',
-                    color: '#ffffff',
-                  }}>
-                    Ready in 60 seconds
-                  </div>
-                </div>
-                <span style={{
-                  fontSize: '24px',
-                  color: '#ffffff',
-                  fontWeight: '300',
-                  lineHeight: '1',
-                  marginTop: '8px',
-                }}>
-                  {openSections.howToPrep ? '−' : '+'}
-                </span>
-              </button>
-              {openSections.howToPrep && (
-                <div style={{
-                  paddingBottom: '24px',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  gap: '12px',
-                }}>
-                  <div style={{ fontSize: '15px' }}>
-                    <span style={{ color: '#ffffff', fontWeight: '500' }}>1. Add liquid: </span>
-                    <span style={{ color: '#ffffff' }}>Fill cup to top with water, oat milk, or coconut water.</span>
-                  </div>
-                  <div style={{ fontSize: '15px' }}>
-                    <span style={{ color: '#ffffff', fontWeight: '500' }}>2. Blend: </span>
-                    <span style={{ color: '#ffffff' }}>Pour into a blender and blend until silky smooth.</span>
-                  </div>
-                  <div style={{ fontSize: '15px' }}>
-                    <span style={{ color: '#ffffff', fontWeight: '500' }}>3. Enjoy: </span>
-                    <span style={{ color: '#ffffff' }}>Pour back into your cup. Sip. Smile. Repeat.</span>
-                  </div>
-                </div>
-              )}
-            </div>
-            </div>
-          </div>
 
         {/* Louis Vuitton Style Lifestyle Gallery Section */}
         <section className="lv-gallery-section">
