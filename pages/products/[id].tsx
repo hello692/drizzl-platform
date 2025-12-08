@@ -416,49 +416,57 @@ export default function ProductPage() {
             ))}
           </div>
 
-          {/* All Ingredients - Right Under Cup */}
+          {/* Accordion Sections - Menu Style */}
           <div style={{
             maxWidth: '600px',
             margin: '40px auto 0',
             padding: '0 24px',
           }}>
-            <div style={{ borderTop: `1px solid ${apple.divider}`, borderBottom: `1px solid ${apple.divider}` }}>
+            {/* All Ingredients */}
+            <div style={{ borderTop: `1px solid ${apple.divider}` }}>
               <button
                 onClick={() => toggleSection('ingredients')}
                 style={{
                   width: '100%',
-                  padding: '20px 0',
+                  padding: '24px 0',
                   display: 'flex',
                   justifyContent: 'space-between',
-                  alignItems: 'center',
+                  alignItems: 'flex-start',
                   background: 'none',
                   border: 'none',
                   cursor: 'pointer',
+                  textAlign: 'left',
                 }}
               >
+                <div>
+                  <div style={{
+                    fontSize: '28px',
+                    fontWeight: '600',
+                    color: apple.textPrimary,
+                    marginBottom: '4px',
+                  }}>
+                    Ingredients
+                  </div>
+                  <div style={{
+                    fontSize: '14px',
+                    color: apple.textSecondary,
+                  }}>
+                    What goes in every cup
+                  </div>
+                </div>
                 <span style={{
-                  fontSize: '16px',
-                  fontWeight: '600',
-                  color: apple.textPrimary,
+                  fontSize: '24px',
+                  color: apple.textSecondary,
+                  fontWeight: '300',
+                  lineHeight: '1',
+                  marginTop: '8px',
                 }}>
-                  All ingredients
+                  {openSections.ingredients ? '−' : '+'}
                 </span>
-                <svg 
-                  width="14" 
-                  height="14" 
-                  viewBox="0 0 24 24" 
-                  fill="none"
-                  style={{ 
-                    transform: openSections.ingredients ? 'rotate(180deg)' : 'rotate(0deg)',
-                    transition: 'transform 0.3s ease',
-                  }}
-                >
-                  <path d="M6 9l6 6 6-6" stroke={apple.textSecondary} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
               </button>
               {openSections.ingredients && (
                 <p style={{
-                  paddingBottom: '20px',
+                  paddingBottom: '24px',
                   fontSize: '15px',
                   color: apple.textSecondary,
                   lineHeight: '1.6',
@@ -469,44 +477,51 @@ export default function ProductPage() {
               )}
             </div>
 
-            {/* Nutrition Facts Accordion */}
-            <div style={{ borderBottom: `1px solid ${apple.divider}` }}>
+            {/* Nutrition Facts */}
+            <div style={{ borderTop: `1px solid ${apple.divider}` }}>
               <button
                 onClick={() => toggleSection('nutrition')}
                 style={{
                   width: '100%',
-                  padding: '20px 0',
+                  padding: '24px 0',
                   display: 'flex',
                   justifyContent: 'space-between',
-                  alignItems: 'center',
+                  alignItems: 'flex-start',
                   background: 'none',
                   border: 'none',
                   cursor: 'pointer',
+                  textAlign: 'left',
                 }}
               >
+                <div>
+                  <div style={{
+                    fontSize: '28px',
+                    fontWeight: '600',
+                    color: apple.textPrimary,
+                    marginBottom: '4px',
+                  }}>
+                    Nutrition
+                  </div>
+                  <div style={{
+                    fontSize: '14px',
+                    color: apple.textSecondary,
+                  }}>
+                    What you put in matters
+                  </div>
+                </div>
                 <span style={{
-                  fontSize: '16px',
-                  fontWeight: '600',
-                  color: apple.textPrimary,
+                  fontSize: '24px',
+                  color: apple.textSecondary,
+                  fontWeight: '300',
+                  lineHeight: '1',
+                  marginTop: '8px',
                 }}>
-                  Nutrition facts
+                  {openSections.nutrition ? '−' : '+'}
                 </span>
-                <svg 
-                  width="14" 
-                  height="14" 
-                  viewBox="0 0 24 24" 
-                  fill="none"
-                  style={{ 
-                    transform: openSections.nutrition ? 'rotate(180deg)' : 'rotate(0deg)',
-                    transition: 'transform 0.3s ease',
-                  }}
-                >
-                  <path d="M6 9l6 6 6-6" stroke={apple.textSecondary} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
               </button>
               {openSections.nutrition && (
                 <div style={{
-                  paddingBottom: '20px',
+                  paddingBottom: '24px',
                   display: 'flex',
                   flexWrap: 'wrap',
                   gap: '16px',
@@ -525,44 +540,51 @@ export default function ProductPage() {
               )}
             </div>
 
-            {/* Description Accordion */}
-            <div style={{ borderBottom: `1px solid ${apple.divider}` }}>
+            {/* Description */}
+            <div style={{ borderTop: `1px solid ${apple.divider}` }}>
               <button
                 onClick={() => toggleSection('description')}
                 style={{
                   width: '100%',
-                  padding: '20px 0',
+                  padding: '24px 0',
                   display: 'flex',
                   justifyContent: 'space-between',
-                  alignItems: 'center',
+                  alignItems: 'flex-start',
                   background: 'none',
                   border: 'none',
                   cursor: 'pointer',
+                  textAlign: 'left',
                 }}
               >
+                <div>
+                  <div style={{
+                    fontSize: '28px',
+                    fontWeight: '600',
+                    color: apple.textPrimary,
+                    marginBottom: '4px',
+                  }}>
+                    About
+                  </div>
+                  <div style={{
+                    fontSize: '14px',
+                    color: apple.textSecondary,
+                  }}>
+                    Taste the difference
+                  </div>
+                </div>
                 <span style={{
-                  fontSize: '16px',
-                  fontWeight: '600',
-                  color: apple.textPrimary,
+                  fontSize: '24px',
+                  color: apple.textSecondary,
+                  fontWeight: '300',
+                  lineHeight: '1',
+                  marginTop: '8px',
                 }}>
-                  Taste the difference
+                  {openSections.description ? '−' : '+'}
                 </span>
-                <svg 
-                  width="14" 
-                  height="14" 
-                  viewBox="0 0 24 24" 
-                  fill="none"
-                  style={{ 
-                    transform: openSections.description ? 'rotate(180deg)' : 'rotate(0deg)',
-                    transition: 'transform 0.3s ease',
-                  }}
-                >
-                  <path d="M6 9l6 6 6-6" stroke={apple.textSecondary} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
               </button>
               {openSections.description && (
                 <p style={{
-                  paddingBottom: '20px',
+                  paddingBottom: '24px',
                   fontSize: '15px',
                   color: apple.textSecondary,
                   lineHeight: '1.6',
@@ -573,44 +595,51 @@ export default function ProductPage() {
               )}
             </div>
 
-            {/* Key Ingredients Accordion */}
-            <div style={{ borderBottom: `1px solid ${apple.divider}` }}>
+            {/* Key Ingredients */}
+            <div style={{ borderTop: `1px solid ${apple.divider}` }}>
               <button
                 onClick={() => toggleSection('keyIngredients')}
                 style={{
                   width: '100%',
-                  padding: '20px 0',
+                  padding: '24px 0',
                   display: 'flex',
                   justifyContent: 'space-between',
-                  alignItems: 'center',
+                  alignItems: 'flex-start',
                   background: 'none',
                   border: 'none',
                   cursor: 'pointer',
+                  textAlign: 'left',
                 }}
               >
+                <div>
+                  <div style={{
+                    fontSize: '28px',
+                    fontWeight: '600',
+                    color: apple.textPrimary,
+                    marginBottom: '4px',
+                  }}>
+                    Key Ingredients
+                  </div>
+                  <div style={{
+                    fontSize: '14px',
+                    color: apple.textSecondary,
+                  }}>
+                    The power behind every sip
+                  </div>
+                </div>
                 <span style={{
-                  fontSize: '16px',
-                  fontWeight: '600',
-                  color: apple.textPrimary,
+                  fontSize: '24px',
+                  color: apple.textSecondary,
+                  fontWeight: '300',
+                  lineHeight: '1',
+                  marginTop: '8px',
                 }}>
-                  Key ingredients
+                  {openSections.keyIngredients ? '−' : '+'}
                 </span>
-                <svg 
-                  width="14" 
-                  height="14" 
-                  viewBox="0 0 24 24" 
-                  fill="none"
-                  style={{ 
-                    transform: openSections.keyIngredients ? 'rotate(180deg)' : 'rotate(0deg)',
-                    transition: 'transform 0.3s ease',
-                  }}
-                >
-                  <path d="M6 9l6 6 6-6" stroke={apple.textSecondary} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
               </button>
               {openSections.keyIngredients && (
                 <div style={{
-                  paddingBottom: '20px',
+                  paddingBottom: '24px',
                   display: 'flex',
                   flexDirection: 'column',
                   gap: '12px',
@@ -625,44 +654,51 @@ export default function ProductPage() {
               )}
             </div>
 
-            {/* How to Prep Accordion */}
-            <div style={{ borderBottom: `1px solid ${apple.divider}` }}>
+            {/* How to Prep */}
+            <div style={{ borderTop: `1px solid ${apple.divider}`, borderBottom: `1px solid ${apple.divider}` }}>
               <button
                 onClick={() => toggleSection('howToPrep')}
                 style={{
                   width: '100%',
-                  padding: '20px 0',
+                  padding: '24px 0',
                   display: 'flex',
                   justifyContent: 'space-between',
-                  alignItems: 'center',
+                  alignItems: 'flex-start',
                   background: 'none',
                   border: 'none',
                   cursor: 'pointer',
+                  textAlign: 'left',
                 }}
               >
+                <div>
+                  <div style={{
+                    fontSize: '28px',
+                    fontWeight: '600',
+                    color: apple.textPrimary,
+                    marginBottom: '4px',
+                  }}>
+                    How to Prepare
+                  </div>
+                  <div style={{
+                    fontSize: '14px',
+                    color: apple.textSecondary,
+                  }}>
+                    Ready in 60 seconds
+                  </div>
+                </div>
                 <span style={{
-                  fontSize: '16px',
-                  fontWeight: '600',
-                  color: apple.textPrimary,
+                  fontSize: '24px',
+                  color: apple.textSecondary,
+                  fontWeight: '300',
+                  lineHeight: '1',
+                  marginTop: '8px',
                 }}>
-                  How to prepare
+                  {openSections.howToPrep ? '−' : '+'}
                 </span>
-                <svg 
-                  width="14" 
-                  height="14" 
-                  viewBox="0 0 24 24" 
-                  fill="none"
-                  style={{ 
-                    transform: openSections.howToPrep ? 'rotate(180deg)' : 'rotate(0deg)',
-                    transition: 'transform 0.3s ease',
-                  }}
-                >
-                  <path d="M6 9l6 6 6-6" stroke={apple.textSecondary} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
               </button>
               {openSections.howToPrep && (
                 <div style={{
-                  paddingBottom: '20px',
+                  paddingBottom: '24px',
                   display: 'flex',
                   flexDirection: 'column',
                   gap: '12px',
