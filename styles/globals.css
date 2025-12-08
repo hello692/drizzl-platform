@@ -3763,7 +3763,7 @@ svg {
   height: 140%;
   object-fit: contain;
   transition: opacity 0.3s ease, transform 0.3s ease;
-  margin-top: -12px;
+  margin-top: -24px;
 }
 
 .smoothie-card-dh:hover .smoothie-card-dh-image {
