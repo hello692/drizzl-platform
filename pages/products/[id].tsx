@@ -721,6 +721,171 @@ export default function ProductPage() {
           </div>
         </section>
 
+        {/* The Lineup Section */}
+        <section style={{
+          padding: '80px 0',
+          backgroundColor: '#000000',
+          position: 'relative',
+        }}>
+          {/* Header */}
+          <div style={{
+            textAlign: 'center',
+            marginBottom: '48px',
+          }}>
+            <h2 style={{
+              fontSize: '48px',
+              fontWeight: '600',
+              color: '#ffffff',
+              margin: '0 0 12px 0',
+            }}>
+              The lineup
+            </h2>
+            <p style={{
+              fontSize: '16px',
+              color: 'rgba(255,255,255,0.6)',
+              margin: 0,
+            }}>
+              These are the ones people can't stop reordering.
+            </p>
+          </div>
+
+          {/* Left Arrow */}
+          <button
+            style={{
+              position: 'absolute',
+              left: '24px',
+              top: '50%',
+              transform: 'translateY(-50%)',
+              width: '48px',
+              height: '48px',
+              borderRadius: '50%',
+              border: '1px solid rgba(0,0,0,0.2)',
+              background: '#ffffff',
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              zIndex: 10,
+            }}
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+              <path d="M15 18l-6-6 6-6" stroke="#000000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </button>
+
+          {/* Right Arrow */}
+          <button
+            style={{
+              position: 'absolute',
+              right: '24px',
+              top: '50%',
+              transform: 'translateY(-50%)',
+              width: '48px',
+              height: '48px',
+              borderRadius: '50%',
+              border: '1px solid rgba(0,0,0,0.2)',
+              background: '#ffffff',
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              zIndex: 10,
+            }}
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+              <path d="M9 18l6-6-6-6" stroke="#000000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </button>
+
+          {/* Product Cards */}
+          <div style={{
+            maxWidth: '1200px',
+            margin: '0 auto',
+            padding: '0 80px',
+            overflow: 'hidden',
+          }}>
+            <div style={{
+              display: 'flex',
+              gap: '16px',
+            }}>
+              {POPULAR_SMOOTHIES.slice(0, 5).map((item, index) => {
+                const labels = ['BEST SELLER', 'NEW', 'BEST SELLER', 'BEST SELLER', 'BEST SELLER'];
+                const labelColors = ['#ff3b5c', '#4ade80', '#ff3b5c', '#ff3b5c', '#ff3b5c'];
+                return (
+                  <Link
+                    key={item.id}
+                    href={`/products/${item.id}`}
+                    style={{
+                      textDecoration: 'none',
+                      display: 'block',
+                      flex: '0 0 calc(20% - 13px)',
+                      minWidth: '180px',
+                    }}
+                  >
+                    <div style={{
+                      backgroundColor: '#ffffff',
+                      borderRadius: '16px',
+                      padding: '20px',
+                      height: '100%',
+                    }}>
+                      {/* Label */}
+                      <div style={{ height: '18px', marginBottom: '8px' }}>
+                        {labels[index] && (
+                          <span style={{
+                            fontSize: '11px',
+                            fontWeight: '600',
+                            color: labelColors[index],
+                            letterSpacing: '0.5px',
+                          }}>
+                            {labels[index]}
+                          </span>
+                        )}
+                      </div>
+                      
+                      {/* Product Name */}
+                      <h3 style={{
+                        fontSize: '18px',
+                        fontWeight: '600',
+                        color: '#000000',
+                        margin: '0 0 4px 0',
+                      }}>
+                        {item.name}
+                      </h3>
+                      
+                      {/* Subtitle */}
+                      <p style={{
+                        fontSize: '14px',
+                        color: '#86868b',
+                        margin: '0 0 16px 0',
+                      }}>
+                        Smoothie
+                      </p>
+                      
+                      {/* Product Image */}
+                      <div style={{
+                        aspectRatio: '1',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                      }}>
+                        <img
+                          src={item.image}
+                          alt={item.name}
+                          style={{
+                            width: '100%',
+                            height: '100%',
+                            objectFit: 'contain',
+                          }}
+                        />
+                      </div>
+                    </div>
+                  </Link>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+
       </main>
 
       <Footer />
