@@ -224,7 +224,7 @@ export default function Home() {
   };
 
   const headingStyles = {
-    fontSize: 'clamp(24px, 4vw, 36px)',
+    fontSize: '28px',
     fontWeight: 600,
     lineHeight: 1.1,
     letterSpacing: '-0.02em',
@@ -233,7 +233,7 @@ export default function Home() {
   };
 
   const subheadingStyles = {
-    fontSize: 'clamp(16px, 2vw, 18px)',
+    fontSize: '16px',
     fontWeight: 400,
     lineHeight: 1.6,
     color: '#a1a1a6',
@@ -289,7 +289,7 @@ export default function Home() {
         }}>
           <AnimatedSection animation="fadeUp">
             <h1 style={{
-              fontSize: 'clamp(36px, 8vw, 64px)',
+              fontSize: '28px',
               fontWeight: 700,
               lineHeight: 1.05,
               letterSpacing: '-0.03em',
@@ -311,7 +311,7 @@ export default function Home() {
           </AnimatedSection>
           <AnimatedSection animation="fadeUp" delay={100}>
             <p style={{
-              fontSize: 'clamp(18px, 3vw, 24px)',
+              fontSize: '16px',
               fontWeight: 400,
               lineHeight: 1.5,
               color: 'rgba(255,255,255,0.8)',
@@ -520,7 +520,7 @@ export default function Home() {
                 WHY WE EXIST
               </span>
               <h2 style={{
-                fontSize: 'clamp(24px, 4vw, 36px)',
+                fontSize: '28px',
                 fontWeight: 600,
                 lineHeight: 1.1,
                 letterSpacing: '-0.02em',
@@ -530,7 +530,7 @@ export default function Home() {
                 We got tired of the lies.
               </h2>
               <p style={{
-                fontSize: 'clamp(16px, 2vw, 18px)',
+                fontSize: '16px',
                 fontWeight: 400,
                 lineHeight: 1.7,
                 color: '#a1a1a6',
@@ -541,7 +541,7 @@ export default function Home() {
                 that actually gave a damn.
               </p>
               <p style={{
-                fontSize: 'clamp(16px, 2vw, 18px)',
+                fontSize: '16px',
                 fontWeight: 500,
                 lineHeight: 1.7,
                 color: '#ffffff',
@@ -645,7 +645,7 @@ export default function Home() {
                     {benefit.icon}
                   </div>
                   <h3 style={{
-                    fontSize: '22px',
+                    fontSize: '28px',
                     fontWeight: 600,
                     color: '#ffffff',
                     marginBottom: '12px',
@@ -653,7 +653,7 @@ export default function Home() {
                     {benefit.title}
                   </h3>
                   <p style={{
-                    fontSize: '15px',
+                    fontSize: '16px',
                     lineHeight: 1.6,
                     color: '#a1a1a6',
                   }}>
@@ -708,7 +708,7 @@ export default function Home() {
                     {item.step}
                   </div>
                   <h3 style={{
-                    fontSize: '24px',
+                    fontSize: '28px',
                     fontWeight: 600,
                     color: '#ffffff',
                     marginBottom: '12px',
