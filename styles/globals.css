@@ -3724,6 +3724,7 @@ svg {
   position: relative;
   height: 100%;
   padding: 10px;
+  border-radius: 10px;
 }
 
 .smoothie-card-dh-badge {
@@ -3758,8 +3759,8 @@ svg {
 }
 
 .smoothie-card-dh-image {
-  width: 120%;
-  height: 120%;
+  width: 140%;
+  height: 140%;
   object-fit: contain;
   transition: opacity 0.3s ease, transform 0.3s ease;
 }
