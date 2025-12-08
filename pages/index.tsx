@@ -611,9 +611,10 @@ export default function Home() {
             display: 'grid',
             gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))',
             gap: '24px',
+            alignItems: 'stretch',
           }}>
             {BENEFITS.map((benefit, index) => (
-              <AnimatedSection key={index} animation="fadeUp" delay={index * 100}>
+              <AnimatedSection key={index} animation="fadeUp" delay={index * 100} style={{ height: '100%' }}>
                 <div style={{
                   background: 'transparent',
                   border: '1px solid rgba(255,255,255,0.08)',
@@ -621,6 +622,12 @@ export default function Home() {
                   padding: '32px 24px',
                   textAlign: 'center',
                   transition: 'all 0.2s ease',
+                  height: '100%',
+                  minHeight: '280px',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  boxSizing: 'border-box',
                 }}>
                   <div style={{
                     width: '64px',
@@ -632,6 +639,7 @@ export default function Home() {
                     justifyContent: 'center',
                     margin: '0 auto 20px',
                     color: '#ffffff',
+                    flexShrink: 0,
                   }}>
                     {benefit.icon}
                   </div>
@@ -647,6 +655,7 @@ export default function Home() {
                     fontSize: 'var(--fs-body)',
                     lineHeight: 1.6,
                     color: 'var(--color-text-secondary)',
+                    flex: 1,
                   }}>
                     {benefit.description}
                   </p>
