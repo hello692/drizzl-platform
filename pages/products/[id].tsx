@@ -4,6 +4,20 @@ import { useState } from 'react';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 
+// Google AI-inspired theme tokens
+const theme = {
+  bgPage: '#050608',
+  bgPanel: '#101218',
+  bgPanelHover: '#1a1d24',
+  textMain: '#f5f5f5',
+  textMuted: '#a3a3a3',
+  textSubtle: '#6b6b6b',
+  borderSubtle: '#272727',
+  borderLight: '#333333',
+  accent: '#8ab4f8',
+  accentGreen: '#81c995',
+};
+
 interface ProductData {
   id: string;
   name: string;
@@ -18,7 +32,6 @@ interface ProductData {
   nutrition: { label: string; value: string }[];
   keyIngredients: { name: string; benefit: string; image: string }[];
   badges: string[];
-  pairsWellWith?: { name: string; price: number; image: string };
 }
 
 const PRODUCT_DATA: Record<string, ProductData> = {
@@ -55,7 +68,6 @@ const PRODUCT_DATA: Record<string, ProductData> = {
       { name: 'Goji Berry', benefit: 'Goji berries are a superfood rich in amino acids and beta-carotene.', image: '/ingredients/goji.png' },
     ],
     badges: ['Gluten-Free', 'Dairy-Free', 'Made from Plants', 'No Sugar Added'],
-    pairsWellWith: { name: 'Organic Pea Protein Powder', price: 44.99, image: '/products/protein-powder.png' },
   },
   '9': {
     id: '9',
@@ -90,7 +102,6 @@ const PRODUCT_DATA: Record<string, ProductData> = {
       { name: 'Chia Seeds', benefit: 'Omega-3 fatty acids and plant-based protein for sustained energy.', image: '/ingredients/chia.png' },
     ],
     badges: ['Gluten-Free', 'Dairy-Free', 'Made from Plants', 'No Sugar Added'],
-    pairsWellWith: { name: 'Organic Pea Protein Powder', price: 44.99, image: '/products/protein-powder.png' },
   },
   '10': {
     id: '10',
@@ -125,7 +136,6 @@ const PRODUCT_DATA: Record<string, ProductData> = {
       { name: 'Vanilla', benefit: 'Natural mood enhancer with calming aromatherapy benefits.', image: '/ingredients/vanilla.png' },
     ],
     badges: ['Gluten-Free', 'Dairy-Free', 'Made from Plants', 'Caffeine'],
-    pairsWellWith: { name: 'Organic Pea Protein Powder', price: 44.99, image: '/products/protein-powder.png' },
   },
   '14': {
     id: '14',
@@ -160,7 +170,6 @@ const PRODUCT_DATA: Record<string, ProductData> = {
       { name: 'Cacao', benefit: 'Mood-boosting antioxidants and natural magnesium.', image: '/ingredients/cacao.png' },
     ],
     badges: ['Gluten-Free', 'Dairy-Free', 'Adaptogenic', 'Caffeine'],
-    pairsWellWith: { name: 'Organic Pea Protein Powder', price: 44.99, image: '/products/protein-powder.png' },
   },
   '17': {
     id: '17',
@@ -195,7 +204,6 @@ const PRODUCT_DATA: Record<string, ProductData> = {
       { name: 'Coconut Water', benefit: 'Natural hydration and electrolytes for recovery.', image: '/ingredients/coconutwater.png' },
     ],
     badges: ['Gluten-Free', 'Dairy-Free', 'Made from Plants', 'Superfood'],
-    pairsWellWith: { name: 'Organic Pea Protein Powder', price: 44.99, image: '/products/protein-powder.png' },
   },
   '12': {
     id: '12',
@@ -230,7 +238,6 @@ const PRODUCT_DATA: Record<string, ProductData> = {
       { name: 'Flax Seeds', benefit: 'Omega-3 fatty acids for brain and heart health.', image: '/ingredients/flax.png' },
     ],
     badges: ['Gluten-Free', 'Dairy-Free', 'Made from Plants', 'High Protein'],
-    pairsWellWith: { name: 'Organic Pea Protein Powder', price: 44.99, image: '/products/protein-powder.png' },
   },
 };
 
@@ -243,20 +250,6 @@ const POPULAR_SMOOTHIES = [
   { id: '12', name: 'Nutty Monkey', price: 8.99, image: '/products/nutty-monkey/transparent-glass-1.png' },
 ];
 
-const getBadgeIcon = (badge: string) => {
-  switch (badge) {
-    case 'Gluten-Free': return '🌾';
-    case 'Dairy-Free': return '🥛';
-    case 'Made from Plants': return '🌱';
-    case 'No Sugar Added': return '🚫';
-    case 'Caffeine': return '☕';
-    case 'Adaptogenic': return '🍄';
-    case 'Superfood': return '⭐';
-    case 'High Protein': return '💪';
-    default: return '✓';
-  }
-};
-
 export default function ProductPage() {
   const router = useRouter();
   const { id } = router.query;
@@ -266,10 +259,10 @@ export default function ProductPage() {
   
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [openSections, setOpenSections] = useState({
-    description: false,
+    description: true,
     ingredients: false,
     nutrition: false,
-    about: true,
+    about: false,
   });
   const [selectedIngredient, setSelectedIngredient] = useState(0);
 
@@ -279,11 +272,11 @@ export default function ProductPage() {
 
   if (!product || !productData) {
     return (
-      <div style={{ backgroundColor: '#FFFFFF', minHeight: '100vh' }}>
+      <div style={{ backgroundColor: theme.bgPage, minHeight: '100vh' }}>
         <Navbar />
         <div style={{ padding: '120px 24px', textAlign: 'center' }}>
-          <h1 style={{ fontSize: '24px', color: '#000000' }}>Product not found</h1>
-          <Link href="/collections/smoothies" style={{ color: '#000000', textDecoration: 'underline' }}>
+          <h1 style={{ fontSize: '24px', color: theme.textMain }}>Product not found</h1>
+          <Link href="/collections/smoothies" style={{ color: theme.accent, textDecoration: 'underline' }}>
             Back to Smoothies
           </Link>
         </div>
@@ -296,643 +289,668 @@ export default function ProductPage() {
     const fullStars = Math.floor(rating);
     const hasHalfStar = rating % 1 >= 0.5;
     return (
-      <span style={{ color: '#000000', fontSize: '16px', letterSpacing: '2px' }}>
+      <span style={{ color: '#fbbf24', fontSize: '14px', letterSpacing: '1px' }}>
         {'★'.repeat(fullStars)}
-        {hasHalfStar && '½'}
+        {hasHalfStar && '★'}
         {'☆'.repeat(5 - fullStars - (hasHalfStar ? 1 : 0))}
       </span>
     );
   };
 
   return (
-    <div style={{ backgroundColor: '#FFFFFF', minHeight: '100vh' }}>
+    <div style={{ backgroundColor: theme.bgPage, minHeight: '100vh' }}>
       <Navbar />
       
-      <main style={{ paddingTop: '80px' }}>
-        {/* Best Seller Badge - Top Left */}
-        <div style={{ padding: '20px 48px' }}>
-          <span style={{
-            display: 'inline-block',
-            padding: '6px 12px',
-            border: '1px solid #000000',
-            fontSize: '11px',
-            fontWeight: '500',
-            letterSpacing: '1px',
-            color: '#000000',
-            textTransform: 'uppercase',
-          }}>
-            BEST SELLER
-          </span>
-        </div>
-
-        {/* Main Product Section */}
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: '60px 1fr 1fr',
-          gap: '40px',
-          padding: '0 48px 60px',
-          maxWidth: '1400px',
-          margin: '0 auto',
-        }}>
-          {/* Gallery Numbers - Left */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', paddingTop: '40px' }}>
-            {productData.gallery.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => setSelectedImageIndex(index)}
-                style={{
-                  width: '32px',
-                  height: '32px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  fontSize: '14px',
-                  fontWeight: selectedImageIndex === index ? '600' : '400',
-                  color: selectedImageIndex === index ? '#000000' : '#999999',
-                  background: 'none',
-                  border: 'none',
-                  cursor: 'pointer',
-                  transition: 'color 0.2s',
-                }}
-              >
-                {index + 1}
-              </button>
-            ))}
-          </div>
-
-          {/* Product Image - Center */}
-          <div style={{ position: 'relative' }}>
-            <img
-              src={productData.gallery[selectedImageIndex]}
-              alt={productData.name}
-              style={{
-                width: '100%',
-                maxWidth: '500px',
-                height: 'auto',
-                objectFit: 'contain',
-              }}
-            />
-            {/* Certification Badges */}
-            <div style={{
-              position: 'absolute',
-              bottom: '20px',
-              right: '20px',
-              display: 'flex',
-              gap: '8px',
-            }}>
-              <div style={{
-                width: '60px',
-                height: '60px',
-                borderRadius: '50%',
-                border: '1px solid #000000',
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                justifyContent: 'center',
-                backgroundColor: '#FFFFFF',
-                fontSize: '8px',
-                textAlign: 'center',
-                lineHeight: '1.1',
-              }}>
-                <span style={{ fontWeight: '600' }}>USDA</span>
-                <span>ORGANIC</span>
-              </div>
-              <div style={{
-                width: '60px',
-                height: '60px',
-                borderRadius: '50%',
-                border: '1px solid #000000',
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                justifyContent: 'center',
-                backgroundColor: '#FFFFFF',
-                fontSize: '8px',
-                textAlign: 'center',
-                lineHeight: '1.1',
-              }}>
-                <span style={{ fontWeight: '600' }}>NON</span>
-                <span>GMO</span>
-              </div>
-            </div>
-          </div>
-
-          {/* Product Info - Right */}
-          <div style={{ paddingTop: '20px' }}>
-            {/* Category */}
-            <p style={{
-              fontSize: '12px',
-              fontWeight: '500',
-              letterSpacing: '1.5px',
-              color: '#666666',
-              textTransform: 'uppercase',
-              marginBottom: '8px',
-            }}>
-              SMOOTHIE
-            </p>
-
-            {/* Product Name */}
-            <h1 style={{
-              fontSize: '42px',
-              fontWeight: '700',
-              color: '#000000',
-              margin: '0 0 12px 0',
-              lineHeight: '1.1',
-              textTransform: 'uppercase',
-            }}>
-              {productData.name}
-            </h1>
-
-            {/* Tagline */}
-            <p style={{
-              fontSize: '16px',
-              color: '#666666',
-              marginBottom: '16px',
-              fontStyle: 'italic',
-            }}>
-              <span style={{ fontWeight: '500', fontStyle: 'normal' }}>Inspired by: </span>
-              {productData.tagline}
-            </p>
-
-            {/* Rating */}
-            <div style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '8px',
-              marginBottom: '24px',
-            }}>
-              {renderStars(productData.rating.average)}
-              <span style={{ fontSize: '14px', color: '#666666' }}>
-                {productData.rating.count.toLocaleString()} reviews
-              </span>
-            </div>
-
-            {/* Add to Cart Button */}
-            <button style={{
-              width: '100%',
-              padding: '18px 32px',
-              backgroundColor: '#000000',
-              color: '#FFFFFF',
-              fontSize: '14px',
-              fontWeight: '600',
-              letterSpacing: '1px',
-              border: 'none',
-              cursor: 'pointer',
-              textTransform: 'uppercase',
-              marginBottom: '24px',
-              transition: 'opacity 0.2s',
-            }}>
-              ADD TO CART ${productData.price.toFixed(2)}
-            </button>
-
-            {/* Badges Row */}
-            <div style={{
-              display: 'flex',
-              flexWrap: 'wrap',
-              gap: '16px',
-              marginBottom: '32px',
-              paddingBottom: '32px',
-              borderBottom: '1px solid #E5E5E5',
-            }}>
-              {productData.badges.map((badge, index) => (
-                <div key={index} style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '6px',
-                  fontSize: '13px',
-                  color: '#333333',
-                }}>
-                  <span style={{ fontSize: '14px' }}>{getBadgeIcon(badge)}</span>
-                  <span>{badge}</span>
-                </div>
-              ))}
-            </div>
-
-            {/* Accordion Sections */}
-            <div>
-              {/* Description */}
-              <div style={{ borderBottom: '1px solid #E5E5E5' }}>
-                <button
-                  onClick={() => toggleSection('description')}
-                  style={{
-                    width: '100%',
-                    padding: '20px 0',
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                    background: 'none',
-                    border: 'none',
-                    cursor: 'pointer',
-                    fontSize: '16px',
-                    fontWeight: '500',
-                    color: '#000000',
-                  }}
-                >
-                  Description
-                  <span style={{ fontSize: '20px', transform: openSections.description ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s' }}>
-                    ∨
-                  </span>
-                </button>
-                {openSections.description && (
-                  <div style={{ paddingBottom: '20px', fontSize: '15px', color: '#333333', lineHeight: '1.7' }}>
-                    {productData.description}
-                  </div>
-                )}
-              </div>
-
-              {/* All Ingredients */}
-              <div style={{ borderBottom: '1px solid #E5E5E5' }}>
-                <button
-                  onClick={() => toggleSection('ingredients')}
-                  style={{
-                    width: '100%',
-                    padding: '20px 0',
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                    background: 'none',
-                    border: 'none',
-                    cursor: 'pointer',
-                    fontSize: '16px',
-                    fontWeight: '500',
-                    color: '#000000',
-                  }}
-                >
-                  All ingredients
-                  <span style={{ fontSize: '20px', transform: openSections.ingredients ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s' }}>
-                    ∨
-                  </span>
-                </button>
-                {openSections.ingredients && (
-                  <div style={{ paddingBottom: '20px', fontSize: '15px', color: '#333333', lineHeight: '1.7' }}>
-                    {productData.ingredients}
-                  </div>
-                )}
-              </div>
-
-              {/* Nutrition Facts */}
-              <div style={{ borderBottom: '1px solid #E5E5E5' }}>
-                <button
-                  onClick={() => toggleSection('nutrition')}
-                  style={{
-                    width: '100%',
-                    padding: '20px 0',
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                    background: 'none',
-                    border: 'none',
-                    cursor: 'pointer',
-                    fontSize: '16px',
-                    fontWeight: '500',
-                    color: '#000000',
-                  }}
-                >
-                  Nutrition facts
-                  <span style={{ fontSize: '20px', transform: openSections.nutrition ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s' }}>
-                    ∨
-                  </span>
-                </button>
-                {openSections.nutrition && (
-                  <div style={{ paddingBottom: '20px' }}>
-                    {productData.nutrition.map((item, index) => (
-                      <div key={index} style={{
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                        padding: '8px 0',
-                        fontSize: '14px',
-                        color: '#333333',
-                        borderBottom: index < productData.nutrition.length - 1 ? '1px solid #F0F0F0' : 'none',
-                      }}>
-                        <span>{item.label}</span>
-                        <span style={{ fontWeight: '500' }}>{item.value}</span>
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
-
-              {/* About Drizzl */}
-              <div style={{ borderBottom: '1px solid #E5E5E5' }}>
-                <button
-                  onClick={() => toggleSection('about')}
-                  style={{
-                    width: '100%',
-                    padding: '20px 0',
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                    background: 'none',
-                    border: 'none',
-                    cursor: 'pointer',
-                    fontSize: '16px',
-                    fontWeight: '500',
-                    color: '#000000',
-                  }}
-                >
-                  About Drizzl Wellness
-                  <span style={{ fontSize: '20px', transform: openSections.about ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s' }}>
-                    ∨
-                  </span>
-                </button>
-                {openSections.about && (
-                  <div style={{ paddingBottom: '20px', fontSize: '15px', color: '#333333', lineHeight: '1.7' }}>
-                    Drizzl Wellness makes pre-portioned food built on organic fruits and vegetables that arrives frozen at your doorstep—so all <em>you</em> have to make is a good decision. No prep, no mess, no stress and ready in minutes.
-                  </div>
-                )}
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Key Ingredients Section */}
+      <main style={{ paddingTop: '100px', paddingBottom: '80px' }}>
+        {/* Main Product Section - Card Panel */}
         <section style={{
-          padding: '80px 48px',
-          backgroundColor: '#FFFFFF',
+          maxWidth: '1200px',
+          margin: '0 auto',
+          padding: '0 24px',
         }}>
           <div style={{
             display: 'grid',
             gridTemplateColumns: '1fr 1fr',
-            gap: '60px',
-            maxWidth: '1400px',
-            margin: '0 auto',
-            alignItems: 'center',
+            gap: '48px',
+            background: theme.bgPanel,
+            borderRadius: '24px',
+            border: `1px solid ${theme.borderSubtle}`,
+            padding: '48px',
           }}>
-            {/* Ingredient Image */}
-            <div style={{ position: 'relative' }}>
+            {/* Left - Image Gallery */}
+            <div>
+              {/* Best Seller Badge */}
+              <div style={{ marginBottom: '20px' }}>
+                <span style={{
+                  display: 'inline-block',
+                  padding: '8px 16px',
+                  background: 'rgba(139, 180, 248, 0.15)',
+                  border: `1px solid ${theme.accent}`,
+                  borderRadius: '100px',
+                  fontSize: '11px',
+                  fontWeight: '600',
+                  letterSpacing: '1px',
+                  color: theme.accent,
+                  textTransform: 'uppercase',
+                }}>
+                  BEST SELLER
+                </span>
+              </div>
+
+              {/* Main Image */}
               <div style={{
-                width: '100%',
-                height: '400px',
-                backgroundColor: '#FAFAFA',
+                background: theme.bgPage,
+                borderRadius: '16px',
+                padding: '32px',
+                marginBottom: '16px',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                fontSize: '120px',
+                minHeight: '400px',
               }}>
-                {productData.keyIngredients[selectedIngredient]?.name === 'Strawberry' && '🍓'}
-                {productData.keyIngredients[selectedIngredient]?.name === 'Banana' && '🍌'}
-                {productData.keyIngredients[selectedIngredient]?.name === 'Peach' && '🍑'}
-                {productData.keyIngredients[selectedIngredient]?.name === 'Raspberry' && '🫐'}
-                {productData.keyIngredients[selectedIngredient]?.name === 'Oats' && '🌾'}
-                {productData.keyIngredients[selectedIngredient]?.name === 'Goji Berry' && '🔴'}
-                {productData.keyIngredients[selectedIngredient]?.name === 'Dragon Fruit' && '🐲'}
-                {productData.keyIngredients[selectedIngredient]?.name === 'Pineapple' && '🍍'}
-                {productData.keyIngredients[selectedIngredient]?.name === 'Coconut' && '🥥'}
-                {productData.keyIngredients[selectedIngredient]?.name === 'Mango' && '🥭'}
-                {productData.keyIngredients[selectedIngredient]?.name === 'Chia Seeds' && '🌱'}
-                {productData.keyIngredients[selectedIngredient]?.name === 'Matcha' && '🍵'}
-                {productData.keyIngredients[selectedIngredient]?.name === 'Almond Butter' && '🌰'}
-                {productData.keyIngredients[selectedIngredient]?.name === 'Spinach' && '🥬'}
-                {productData.keyIngredients[selectedIngredient]?.name === 'Hemp Seeds' && '🌿'}
-                {productData.keyIngredients[selectedIngredient]?.name === 'Vanilla' && '✨'}
-                {productData.keyIngredients[selectedIngredient]?.name === 'Cold Brew' && '☕'}
-                {productData.keyIngredients[selectedIngredient]?.name === 'Lions Mane' && '🦁'}
-                {productData.keyIngredients[selectedIngredient]?.name === 'Chaga' && '🍄'}
-                {productData.keyIngredients[selectedIngredient]?.name === 'Reishi' && '🌙'}
-                {productData.keyIngredients[selectedIngredient]?.name === 'Oat Milk' && '🥛'}
-                {productData.keyIngredients[selectedIngredient]?.name === 'Cacao' && '🍫'}
-                {productData.keyIngredients[selectedIngredient]?.name === 'Acai' && '🫐'}
-                {productData.keyIngredients[selectedIngredient]?.name === 'Blueberries' && '🔵'}
-                {productData.keyIngredients[selectedIngredient]?.name === 'Guarana' && '⚡'}
-                {productData.keyIngredients[selectedIngredient]?.name === 'Hemp Hearts' && '💚'}
-                {productData.keyIngredients[selectedIngredient]?.name === 'Coconut Water' && '🥥'}
-                {productData.keyIngredients[selectedIngredient]?.name === 'Peanut Butter' && '🥜'}
-                {productData.keyIngredients[selectedIngredient]?.name === 'Honey' && '🍯'}
-                {productData.keyIngredients[selectedIngredient]?.name === 'Flax Seeds' && '🌾'}
+                <img
+                  src={productData.gallery[selectedImageIndex]}
+                  alt={productData.name}
+                  style={{
+                    maxWidth: '100%',
+                    maxHeight: '400px',
+                    objectFit: 'contain',
+                  }}
+                />
               </div>
-            </div>
 
-            {/* Ingredient Info */}
-            <div>
-              <h2 style={{
-                fontSize: '14px',
-                fontWeight: '600',
-                letterSpacing: '2px',
-                color: '#000000',
-                textTransform: 'uppercase',
-                marginBottom: '24px',
-              }}>
-                KEY INGREDIENTS
-              </h2>
-
-              {/* Ingredient Tabs */}
+              {/* Thumbnail Gallery */}
               <div style={{
                 display: 'flex',
-                flexWrap: 'wrap',
-                gap: '8px',
-                marginBottom: '32px',
+                gap: '12px',
               }}>
-                {productData.keyIngredients.map((ingredient, index) => (
+                {productData.gallery.map((img, index) => (
                   <button
                     key={index}
-                    onClick={() => setSelectedIngredient(index)}
+                    onClick={() => setSelectedImageIndex(index)}
                     style={{
-                      padding: '8px 16px',
-                      fontSize: '13px',
-                      fontWeight: '500',
-                      color: selectedIngredient === index ? '#FFFFFF' : '#000000',
-                      backgroundColor: selectedIngredient === index ? '#000000' : '#FFFFFF',
-                      border: '1px solid #000000',
+                      width: '72px',
+                      height: '72px',
+                      borderRadius: '12px',
+                      overflow: 'hidden',
+                      border: selectedImageIndex === index 
+                        ? `2px solid ${theme.accent}` 
+                        : `1px solid ${theme.borderSubtle}`,
+                      background: theme.bgPage,
                       cursor: 'pointer',
+                      padding: '8px',
                       transition: 'all 0.2s',
                     }}
                   >
-                    {ingredient.name}
+                    <img
+                      src={img}
+                      alt={`${productData.name} ${index + 1}`}
+                      style={{
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'contain',
+                      }}
+                    />
                   </button>
                 ))}
               </div>
+            </div>
 
-              {/* Ingredient Cards */}
-              <div style={{
-                display: 'grid',
-                gridTemplateColumns: '1fr 1fr',
-                gap: '16px',
+            {/* Right - Product Info */}
+            <div>
+              {/* Category */}
+              <p style={{
+                fontSize: '12px',
+                fontWeight: '500',
+                letterSpacing: '2px',
+                color: theme.textMuted,
+                textTransform: 'uppercase',
+                marginBottom: '12px',
               }}>
-                {productData.keyIngredients.slice(0, 2).map((ingredient, index) => (
-                  <div key={index} style={{
-                    padding: '24px',
-                    border: '1px solid #E5E5E5',
+                SMOOTHIE
+              </p>
+
+              {/* Product Name */}
+              <h1 style={{
+                fontSize: '36px',
+                fontWeight: '600',
+                color: theme.textMain,
+                margin: '0 0 16px 0',
+                lineHeight: '1.2',
+                letterSpacing: '-0.5px',
+              }}>
+                {productData.name}
+              </h1>
+
+              {/* Tagline */}
+              <p style={{
+                fontSize: '16px',
+                color: theme.textMuted,
+                marginBottom: '20px',
+                lineHeight: '1.6',
+              }}>
+                <span style={{ color: theme.textSubtle }}>Inspired by: </span>
+                {productData.tagline}
+              </p>
+
+              {/* Rating */}
+              <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '10px',
+                marginBottom: '32px',
+              }}>
+                {renderStars(productData.rating.average)}
+                <span style={{ fontSize: '14px', color: theme.textMuted }}>
+                  {productData.rating.count.toLocaleString()} reviews
+                </span>
+              </div>
+
+              {/* Price */}
+              <div style={{
+                fontSize: '32px',
+                fontWeight: '600',
+                color: theme.textMain,
+                marginBottom: '24px',
+              }}>
+                ${productData.price.toFixed(2)}
+              </div>
+
+              {/* Add to Cart Button */}
+              <button style={{
+                width: '100%',
+                padding: '18px 32px',
+                backgroundColor: theme.textMain,
+                color: theme.bgPage,
+                fontSize: '15px',
+                fontWeight: '600',
+                letterSpacing: '0.5px',
+                border: 'none',
+                borderRadius: '12px',
+                cursor: 'pointer',
+                marginBottom: '24px',
+                transition: 'all 0.2s',
+              }}>
+                Add to Cart
+              </button>
+
+              {/* Badges */}
+              <div style={{
+                display: 'flex',
+                flexWrap: 'wrap',
+                gap: '10px',
+                marginBottom: '32px',
+              }}>
+                {productData.badges.map((badge, index) => (
+                  <span key={index} style={{
+                    padding: '8px 14px',
+                    background: 'rgba(255,255,255,0.05)',
+                    border: `1px solid ${theme.borderSubtle}`,
+                    borderRadius: '100px',
+                    fontSize: '12px',
+                    color: theme.textMuted,
                   }}>
-                    <h3 style={{
-                      fontSize: '18px',
-                      fontWeight: '600',
-                      color: '#000000',
-                      marginBottom: '12px',
-                    }}>
-                      {ingredient.name}
-                    </h3>
-                    <p style={{
-                      fontSize: '14px',
-                      color: '#666666',
-                      lineHeight: '1.6',
-                      margin: 0,
-                    }}>
-                      {ingredient.benefit}
-                    </p>
-                  </div>
+                    {badge}
+                  </span>
                 ))}
+              </div>
+
+              {/* Accordion Sections */}
+              <div style={{ borderTop: `1px solid ${theme.borderSubtle}` }}>
+                {/* Description */}
+                <div style={{ borderBottom: `1px solid ${theme.borderSubtle}` }}>
+                  <button
+                    onClick={() => toggleSection('description')}
+                    style={{
+                      width: '100%',
+                      padding: '20px 0',
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      alignItems: 'center',
+                      background: 'none',
+                      border: 'none',
+                      cursor: 'pointer',
+                      fontSize: '15px',
+                      fontWeight: '500',
+                      color: theme.textMain,
+                    }}
+                  >
+                    Description
+                    <svg 
+                      width="20" 
+                      height="20" 
+                      viewBox="0 0 24 24" 
+                      fill="none" 
+                      style={{ 
+                        transform: openSections.description ? 'rotate(180deg)' : 'rotate(0deg)',
+                        transition: 'transform 0.2s',
+                      }}
+                    >
+                      <path d="M6 9l6 6 6-6" stroke={theme.textMuted} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                  </button>
+                  {openSections.description && (
+                    <p style={{
+                      paddingBottom: '20px',
+                      fontSize: '14px',
+                      color: theme.textMuted,
+                      lineHeight: '1.7',
+                      maxWidth: '640px',
+                    }}>
+                      {productData.description}
+                    </p>
+                  )}
+                </div>
+
+                {/* All Ingredients */}
+                <div style={{ borderBottom: `1px solid ${theme.borderSubtle}` }}>
+                  <button
+                    onClick={() => toggleSection('ingredients')}
+                    style={{
+                      width: '100%',
+                      padding: '20px 0',
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      alignItems: 'center',
+                      background: 'none',
+                      border: 'none',
+                      cursor: 'pointer',
+                      fontSize: '15px',
+                      fontWeight: '500',
+                      color: theme.textMain,
+                    }}
+                  >
+                    All Ingredients
+                    <svg 
+                      width="20" 
+                      height="20" 
+                      viewBox="0 0 24 24" 
+                      fill="none" 
+                      style={{ 
+                        transform: openSections.ingredients ? 'rotate(180deg)' : 'rotate(0deg)',
+                        transition: 'transform 0.2s',
+                      }}
+                    >
+                      <path d="M6 9l6 6 6-6" stroke={theme.textMuted} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                  </button>
+                  {openSections.ingredients && (
+                    <p style={{
+                      paddingBottom: '20px',
+                      fontSize: '14px',
+                      color: theme.textMuted,
+                      lineHeight: '1.7',
+                      maxWidth: '640px',
+                    }}>
+                      {productData.ingredients}
+                    </p>
+                  )}
+                </div>
+
+                {/* Nutrition Facts */}
+                <div style={{ borderBottom: `1px solid ${theme.borderSubtle}` }}>
+                  <button
+                    onClick={() => toggleSection('nutrition')}
+                    style={{
+                      width: '100%',
+                      padding: '20px 0',
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      alignItems: 'center',
+                      background: 'none',
+                      border: 'none',
+                      cursor: 'pointer',
+                      fontSize: '15px',
+                      fontWeight: '500',
+                      color: theme.textMain,
+                    }}
+                  >
+                    Nutrition Facts
+                    <svg 
+                      width="20" 
+                      height="20" 
+                      viewBox="0 0 24 24" 
+                      fill="none" 
+                      style={{ 
+                        transform: openSections.nutrition ? 'rotate(180deg)' : 'rotate(0deg)',
+                        transition: 'transform 0.2s',
+                      }}
+                    >
+                      <path d="M6 9l6 6 6-6" stroke={theme.textMuted} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                  </button>
+                  {openSections.nutrition && (
+                    <div style={{ paddingBottom: '20px' }}>
+                      <div style={{
+                        display: 'grid',
+                        gridTemplateColumns: 'repeat(3, 1fr)',
+                        gap: '12px',
+                      }}>
+                        {productData.nutrition.map((item, index) => (
+                          <div key={index} style={{
+                            padding: '16px',
+                            background: theme.bgPage,
+                            borderRadius: '12px',
+                            textAlign: 'center',
+                          }}>
+                            <div style={{
+                              fontSize: '18px',
+                              fontWeight: '600',
+                              color: theme.textMain,
+                              marginBottom: '4px',
+                            }}>
+                              {item.value}
+                            </div>
+                            <div style={{
+                              fontSize: '12px',
+                              color: theme.textMuted,
+                            }}>
+                              {item.label}
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+
+                {/* About */}
+                <div>
+                  <button
+                    onClick={() => toggleSection('about')}
+                    style={{
+                      width: '100%',
+                      padding: '20px 0',
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      alignItems: 'center',
+                      background: 'none',
+                      border: 'none',
+                      cursor: 'pointer',
+                      fontSize: '15px',
+                      fontWeight: '500',
+                      color: theme.textMain,
+                    }}
+                  >
+                    About Drizzl Wellness
+                    <svg 
+                      width="20" 
+                      height="20" 
+                      viewBox="0 0 24 24" 
+                      fill="none" 
+                      style={{ 
+                        transform: openSections.about ? 'rotate(180deg)' : 'rotate(0deg)',
+                        transition: 'transform 0.2s',
+                      }}
+                    >
+                      <path d="M6 9l6 6 6-6" stroke={theme.textMuted} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                  </button>
+                  {openSections.about && (
+                    <p style={{
+                      paddingBottom: '20px',
+                      fontSize: '14px',
+                      color: theme.textMuted,
+                      lineHeight: '1.7',
+                      maxWidth: '640px',
+                    }}>
+                      Drizzl Wellness makes pre-portioned food built on organic fruits and vegetables that arrives frozen at your doorstep—so all you have to make is a good decision. No prep, no mess, no stress and ready in minutes.
+                    </p>
+                  )}
+                </div>
               </div>
             </div>
           </div>
         </section>
 
-        {/* How to Prep Section */}
+        {/* Key Ingredients Section */}
         <section style={{
-          padding: '80px 48px',
-          backgroundColor: '#F5F5F5',
+          maxWidth: '1200px',
+          margin: '64px auto 0',
+          padding: '0 24px',
         }}>
+          <h2 style={{
+            fontSize: '28px',
+            fontWeight: '600',
+            color: theme.textMain,
+            marginBottom: '12px',
+            letterSpacing: '-0.5px',
+          }}>
+            Key Ingredients
+          </h2>
+          <p style={{
+            fontSize: '15px',
+            color: theme.textMuted,
+            marginBottom: '32px',
+            maxWidth: '640px',
+          }}>
+            Carefully selected organic ingredients that fuel your body and mind.
+          </p>
+
+          {/* Ingredient Tabs */}
+          <div style={{
+            display: 'flex',
+            gap: '8px',
+            marginBottom: '24px',
+            flexWrap: 'wrap',
+          }}>
+            {productData.keyIngredients.map((ingredient, index) => (
+              <button
+                key={index}
+                onClick={() => setSelectedIngredient(index)}
+                style={{
+                  padding: '10px 20px',
+                  fontSize: '13px',
+                  fontWeight: '500',
+                  color: selectedIngredient === index ? theme.bgPage : theme.textMuted,
+                  backgroundColor: selectedIngredient === index ? theme.textMain : 'transparent',
+                  border: `1px solid ${selectedIngredient === index ? theme.textMain : theme.borderSubtle}`,
+                  borderRadius: '100px',
+                  cursor: 'pointer',
+                  transition: 'all 0.2s',
+                }}
+              >
+                {ingredient.name}
+              </button>
+            ))}
+          </div>
+
+          {/* Ingredient Cards Grid */}
           <div style={{
             display: 'grid',
-            gridTemplateColumns: '1fr 1fr',
-            gap: '80px',
-            maxWidth: '1400px',
-            margin: '0 auto',
-            alignItems: 'center',
+            gridTemplateColumns: 'repeat(3, 1fr)',
+            gap: '16px',
           }}>
-            {/* Blender Image */}
-            <div style={{
-              width: '100%',
-              height: '400px',
-              backgroundColor: '#E8E8E8',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              fontSize: '100px',
-            }}>
-              🫗
-            </div>
-
-            {/* Prep Steps */}
-            <div>
-              <h2 style={{
-                fontSize: '14px',
-                fontWeight: '600',
-                letterSpacing: '2px',
-                color: '#000000',
-                textTransform: 'uppercase',
-                marginBottom: '40px',
+            {productData.keyIngredients.slice(0, 3).map((ingredient, index) => (
+              <div key={index} style={{
+                background: theme.bgPanel,
+                borderRadius: '16px',
+                border: `1px solid ${theme.borderSubtle}`,
+                padding: '24px',
               }}>
-                HOW TO PREP
-              </h2>
-
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
-                <div style={{ display: 'flex', gap: '20px', alignItems: 'flex-start' }}>
-                  <div style={{
-                    width: '32px',
-                    height: '32px',
-                    borderRadius: '50%',
-                    backgroundColor: '#000000',
-                    color: '#FFFFFF',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    fontSize: '14px',
-                    fontWeight: '600',
-                    flexShrink: 0,
-                  }}>
-                    1
-                  </div>
-                  <p style={{ fontSize: '16px', color: '#333333', lineHeight: '1.6', margin: 0 }}>
-                    Fill cup to top with your preferred liquid (any liquid works, but we'd go with an option like water or coconut water).
-                  </p>
-                </div>
-
-                <div style={{ display: 'flex', gap: '20px', alignItems: 'flex-start' }}>
-                  <div style={{
-                    width: '32px',
-                    height: '32px',
-                    borderRadius: '50%',
-                    backgroundColor: '#000000',
-                    color: '#FFFFFF',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    fontSize: '14px',
-                    fontWeight: '600',
-                    flexShrink: 0,
-                  }}>
-                    2
-                  </div>
-                  <p style={{ fontSize: '16px', color: '#333333', lineHeight: '1.6', margin: 0 }}>
-                    Pour into a blender and blend.
-                  </p>
-                </div>
-
-                <div style={{ display: 'flex', gap: '20px', alignItems: 'flex-start' }}>
-                  <div style={{
-                    width: '32px',
-                    height: '32px',
-                    borderRadius: '50%',
-                    backgroundColor: '#000000',
-                    color: '#FFFFFF',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    fontSize: '14px',
-                    fontWeight: '600',
-                    flexShrink: 0,
-                  }}>
-                    3
-                  </div>
-                  <p style={{ fontSize: '16px', color: '#333333', lineHeight: '1.6', margin: 0 }}>
-                    Pour back into your cup and enjoy.
-                  </p>
-                </div>
+                <h3 style={{
+                  fontSize: '18px',
+                  fontWeight: '600',
+                  color: theme.textMain,
+                  marginBottom: '12px',
+                }}>
+                  {ingredient.name}
+                </h3>
+                <p style={{
+                  fontSize: '14px',
+                  color: theme.textMuted,
+                  lineHeight: '1.6',
+                  margin: 0,
+                }}>
+                  {ingredient.benefit}
+                </p>
               </div>
+            ))}
+          </div>
+        </section>
+
+        {/* How to Prep Section */}
+        <section style={{
+          maxWidth: '1200px',
+          margin: '64px auto 0',
+          padding: '0 24px',
+        }}>
+          <div style={{
+            background: theme.bgPanel,
+            borderRadius: '24px',
+            border: `1px solid ${theme.borderSubtle}`,
+            padding: '48px',
+          }}>
+            <h2 style={{
+              fontSize: '28px',
+              fontWeight: '600',
+              color: theme.textMain,
+              marginBottom: '12px',
+              letterSpacing: '-0.5px',
+            }}>
+              How to Prep
+            </h2>
+            <p style={{
+              fontSize: '15px',
+              color: theme.textMuted,
+              marginBottom: '40px',
+              maxWidth: '640px',
+            }}>
+              From freezer to table in under a minute.
+            </p>
+
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(3, 1fr)',
+              gap: '24px',
+            }}>
+              {[
+                { step: '1', title: 'Add Liquid', desc: 'Fill cup to top with your preferred liquid (water, oat milk, or coconut water).' },
+                { step: '2', title: 'Blend', desc: 'Pour into a blender and blend until smooth.' },
+                { step: '3', title: 'Enjoy', desc: 'Pour back into your cup and enjoy your fresh smoothie.' },
+              ].map((item, index) => (
+                <div key={index} style={{
+                  background: theme.bgPage,
+                  borderRadius: '16px',
+                  padding: '32px 24px',
+                  textAlign: 'center',
+                }}>
+                  <div style={{
+                    width: '48px',
+                    height: '48px',
+                    borderRadius: '50%',
+                    background: 'rgba(139, 180, 248, 0.15)',
+                    border: `1px solid ${theme.accent}`,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    margin: '0 auto 20px',
+                    fontSize: '18px',
+                    fontWeight: '600',
+                    color: theme.accent,
+                  }}>
+                    {item.step}
+                  </div>
+                  <h3 style={{
+                    fontSize: '18px',
+                    fontWeight: '600',
+                    color: theme.textMain,
+                    marginBottom: '12px',
+                  }}>
+                    {item.title}
+                  </h3>
+                  <p style={{
+                    fontSize: '14px',
+                    color: theme.textMuted,
+                    lineHeight: '1.6',
+                    margin: 0,
+                  }}>
+                    {item.desc}
+                  </p>
+                </div>
+              ))}
             </div>
           </div>
         </section>
 
         {/* Related Products */}
         <section style={{
-          padding: '80px 48px',
-          backgroundColor: '#FFFFFF',
+          maxWidth: '1200px',
+          margin: '64px auto 0',
+          padding: '0 24px',
         }}>
-          <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
-            <div style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              marginBottom: '40px',
-            }}>
+          <div style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            marginBottom: '32px',
+          }}>
+            <div>
               <h2 style={{
-                fontSize: '24px',
+                fontSize: '28px',
                 fontWeight: '600',
-                color: '#000000',
-                margin: 0,
+                color: theme.textMain,
+                marginBottom: '8px',
+                letterSpacing: '-0.5px',
               }}>
                 You might also like
               </h2>
-              <Link href="/collections/smoothies" style={{
-                fontSize: '14px',
-                color: '#000000',
-                textDecoration: 'underline',
+              <p style={{
+                fontSize: '15px',
+                color: theme.textMuted,
+                margin: 0,
               }}>
-                View All
-              </Link>
+                Explore more of our premium smoothie collection.
+              </p>
             </div>
-
-            <div style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(4, 1fr)',
-              gap: '24px',
+            <Link href="/collections/smoothies" style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px',
+              padding: '12px 24px',
+              border: `1px solid ${theme.borderSubtle}`,
+              borderRadius: '100px',
+              color: theme.textMain,
+              fontSize: '14px',
+              fontWeight: '500',
+              textDecoration: 'none',
+              transition: 'all 0.2s',
             }}>
-              {POPULAR_SMOOTHIES.filter(p => p.id !== productId).slice(0, 4).map((relatedProduct) => (
-                <Link
-                  key={relatedProduct.id}
-                  href={`/products/${relatedProduct.id}`}
-                  style={{
-                    textDecoration: 'none',
-                    color: 'inherit',
-                  }}
-                >
+              View All
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                <path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </Link>
+          </div>
+
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(4, 1fr)',
+            gap: '20px',
+          }}>
+            {POPULAR_SMOOTHIES.filter(p => p.id !== productId).slice(0, 4).map((relatedProduct) => (
+              <Link
+                key={relatedProduct.id}
+                href={`/products/${relatedProduct.id}`}
+                style={{
+                  textDecoration: 'none',
+                  color: 'inherit',
+                }}
+              >
+                <div style={{
+                  background: theme.bgPanel,
+                  borderRadius: '16px',
+                  border: `1px solid ${theme.borderSubtle}`,
+                  overflow: 'hidden',
+                  transition: 'all 0.2s',
+                }}>
                   <div style={{
-                    backgroundColor: '#FAFAFA',
-                    aspectRatio: '1',
+                    background: theme.bgPage,
+                    padding: '24px',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    marginBottom: '16px',
+                    aspectRatio: '1',
                   }}>
                     <img
                       src={relatedProduct.image}
@@ -944,24 +962,26 @@ export default function ProductPage() {
                       }}
                     />
                   </div>
-                  <h3 style={{
-                    fontSize: '16px',
-                    fontWeight: '500',
-                    color: '#000000',
-                    margin: '0 0 4px 0',
-                  }}>
-                    {relatedProduct.name}
-                  </h3>
-                  <p style={{
-                    fontSize: '14px',
-                    color: '#666666',
-                    margin: 0,
-                  }}>
-                    ${relatedProduct.price.toFixed(2)}
-                  </p>
-                </Link>
-              ))}
-            </div>
+                  <div style={{ padding: '20px' }}>
+                    <h3 style={{
+                      fontSize: '15px',
+                      fontWeight: '500',
+                      color: theme.textMain,
+                      margin: '0 0 6px 0',
+                    }}>
+                      {relatedProduct.name}
+                    </h3>
+                    <p style={{
+                      fontSize: '14px',
+                      color: theme.textMuted,
+                      margin: 0,
+                    }}>
+                      ${relatedProduct.price.toFixed(2)}
+                    </p>
+                  </div>
+                </div>
+              </Link>
+            ))}
           </div>
         </section>
       </main>
