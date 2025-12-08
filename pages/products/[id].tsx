@@ -329,7 +329,6 @@ const PRODUCT_DATA: Record<string, ProductData> = {
       '/products/almond/Almond-4.png',
       '/products/almond/Almond-5.png',
       '/products/almond/Almond-6.png',
-      '/products/almond/Almond-7.png',
     ],
     lifestyleGallery: [
       { src: '/lifestyle/DSC08818.jpg', alt: 'Almond lifestyle 1' },
