@@ -5545,90 +5545,39 @@ svg {
 .apple-slider-controls {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 40px 24px 20px;
+  justify-content: flex-end;
+  padding: 32px 24px 20px;
 }
 
-.apple-slider-left-controls {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-}
-
-.apple-slider-dots {
+.apple-slider-arrows {
   display: flex;
   gap: 8px;
   align-items: center;
 }
 
-.apple-slider-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.3);
-  border: none;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  padding: 0;
-}
-
-.apple-slider-dot.active {
-  background: #ffffff;
-  width: 24px;
-  border-radius: 4px;
-}
-
-.apple-slider-progress {
-  flex: 1;
-  max-width: 200px;
-  height: 3px;
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 2px;
-  overflow: hidden;
-}
-
-.apple-slider-progress-bar {
-  height: 100%;
-  background: #ffffff;
-  border-radius: 2px;
-  transition: width 0.3s ease;
-}
-
-.apple-slider-arrows {
-  display: flex;
-  gap: 12px;
-  align-items: center;
-}
-
 .apple-slider-arrow {
-  width: 40px;
-  height: 40px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.4);
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
   padding: 0;
+  color: rgba(255, 255, 255, 0.8);
 }
 
 .apple-slider-arrow:hover {
-  background: rgba(255, 255, 255, 0.2);
-  border-color: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.6);
+  color: #ffffff;
 }
 
 .apple-slider-arrow:active {
   transform: scale(0.95);
-}
-
-.apple-slider-arrow svg {
-  width: 16px;
-  height: 16px;
-  stroke: #ffffff;
-  stroke-width: 2;
-  fill: none;
 }
 
 /* Mobile Responsive - Apple Slider */
