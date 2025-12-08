@@ -564,7 +564,7 @@ export default function ProductPage() {
         {/* Hero Product Section - Apple Style Full Width */}
         <section style={{
           paddingTop: '120px',
-          paddingBottom: '80px',
+          paddingBottom: '0',
           textAlign: 'center',
         }}>
           {/* Product Name */}
