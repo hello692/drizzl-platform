@@ -218,26 +218,26 @@ export default function Home() {
   }, [currentWordIndex]);
 
   const sectionStyles = {
-    padding: 'clamp(80px, 12vw, 140px) clamp(24px, 6vw, 100px)',
+    padding: 'var(--section-padding-y) var(--section-padding-x)',
     maxWidth: '1280px',
     margin: '0 auto',
   };
 
   const headingStyles = {
-    fontSize: '28px',
+    fontSize: 'var(--fs-h2)',
     fontWeight: 600,
-    lineHeight: 1.1,
-    letterSpacing: '-0.02em',
+    lineHeight: 1.15,
+    letterSpacing: '-0.015em',
     color: '#ffffff',
-    marginBottom: '24px',
+    marginBottom: 'var(--space-after-h2)',
   };
 
   const subheadingStyles = {
-    fontSize: '16px',
+    fontSize: 'var(--fs-body)',
     fontWeight: 400,
     lineHeight: 1.6,
-    color: '#a1a1a6',
-    maxWidth: '600px',
+    color: '#86868b',
+    maxWidth: 'var(--text-max-width)',
   };
 
   return (
@@ -289,12 +289,12 @@ export default function Home() {
         }}>
           <AnimatedSection animation="fadeUp">
             <h1 style={{
-              fontSize: '28px',
-              fontWeight: 700,
-              lineHeight: 1.05,
-              letterSpacing: '-0.03em',
+              fontSize: 'var(--fs-h1)',
+              fontWeight: 600,
+              lineHeight: 1.1,
+              letterSpacing: '-0.02em',
               color: '#ffffff',
-              marginBottom: '24px',
+              marginBottom: 'var(--space-after-h1)',
             }}>
               <span>i am </span>
               <span style={{
@@ -311,11 +311,13 @@ export default function Home() {
           </AnimatedSection>
           <AnimatedSection animation="fadeUp" delay={100}>
             <p style={{
-              fontSize: '16px',
+              fontSize: 'var(--fs-lead)',
               fontWeight: 400,
-              lineHeight: 1.5,
-              color: 'rgba(255,255,255,0.8)',
-              marginBottom: '40px',
+              lineHeight: 1.6,
+              color: 'rgba(255,255,255,0.7)',
+              marginBottom: '32px',
+              maxWidth: 'var(--text-max-width)',
+              margin: '0 auto 32px',
             }}>
               Fresh. Frozen. Fantastic.<br />
               Smoothies for people who want to feel their best.
@@ -509,43 +511,43 @@ export default function Home() {
           <AnimatedSection animation="fadeUp" delay={100}>
             <div>
               <span style={{
-                fontSize: '12px',
-                fontWeight: 600,
-                letterSpacing: '0.1em',
+                fontSize: 'var(--fs-label)',
+                fontWeight: 500,
+                letterSpacing: '0.08em',
                 textTransform: 'uppercase',
-                color: '#6e6e73',
-                marginBottom: '16px',
+                color: 'var(--color-text-tertiary)',
+                marginBottom: '12px',
                 display: 'block',
               }}>
                 WHY WE EXIST
               </span>
               <h2 style={{
-                fontSize: '28px',
+                fontSize: 'var(--fs-h2)',
                 fontWeight: 600,
-                lineHeight: 1.1,
-                letterSpacing: '-0.02em',
+                lineHeight: 1.15,
+                letterSpacing: '-0.015em',
                 color: '#ffffff',
-                marginBottom: '24px',
+                marginBottom: 'var(--space-after-h2)',
               }}>
                 We got tired of the lies.
               </h2>
               <p style={{
-                fontSize: '16px',
+                fontSize: 'var(--fs-body)',
                 fontWeight: 400,
                 lineHeight: 1.7,
-                color: '#a1a1a6',
-                marginBottom: '20px',
+                color: 'var(--color-text-secondary)',
+                marginBottom: 'var(--space-after-p)',
               }}>
                 "Healthy" smoothies loaded with hidden sugars. Wellness brands that care more about margins than your body. 
                 Powder mixes that taste like regret. We started Drizzl because we couldn't find a single smoothie brand 
                 that actually gave a damn.
               </p>
               <p style={{
-                fontSize: '16px',
+                fontSize: 'var(--fs-body)',
                 fontWeight: 500,
                 lineHeight: 1.7,
                 color: '#ffffff',
-                marginBottom: '32px',
+                marginBottom: '24px',
               }}>
                 So we built one. Chef-crafted recipes. Real organic ingredients. Flash-frozen at peak nutrition. 
                 No compromises, no asterisks, no BS.
@@ -554,21 +556,21 @@ export default function Home() {
                 display: 'grid',
                 gridTemplateColumns: 'repeat(3, 1fr)',
                 gap: '24px',
-                marginBottom: '32px',
-                paddingTop: '24px',
+                marginBottom: '24px',
+                paddingTop: '20px',
                 borderTop: '1px solid rgba(255,255,255,0.1)',
               }}>
                 <div>
-                  <p style={{ fontSize: '28px', fontWeight: 700, color: '#ffffff', marginBottom: '4px' }}>0g</p>
-                  <p style={{ fontSize: '13px', color: '#6e6e73' }}>Added sugar</p>
+                  <p style={{ fontSize: 'var(--fs-h3)', fontWeight: 600, color: '#ffffff', marginBottom: '4px' }}>0g</p>
+                  <p style={{ fontSize: 'var(--fs-small)', color: 'var(--color-text-tertiary)' }}>Added sugar</p>
                 </div>
                 <div>
-                  <p style={{ fontSize: '28px', fontWeight: 700, color: '#ffffff', marginBottom: '4px' }}>90%+</p>
-                  <p style={{ fontSize: '13px', color: '#6e6e73' }}>Organic ingredients</p>
+                  <p style={{ fontSize: 'var(--fs-h3)', fontWeight: 600, color: '#ffffff', marginBottom: '4px' }}>90%+</p>
+                  <p style={{ fontSize: 'var(--fs-small)', color: 'var(--color-text-tertiary)' }}>Organic ingredients</p>
                 </div>
                 <div>
-                  <p style={{ fontSize: '28px', fontWeight: 700, color: '#ffffff', marginBottom: '4px' }}>Peak</p>
-                  <p style={{ fontSize: '13px', color: '#6e6e73' }}>Frozen for freshness</p>
+                  <p style={{ fontSize: 'var(--fs-h3)', fontWeight: 600, color: '#ffffff', marginBottom: '4px' }}>Peak</p>
+                  <p style={{ fontSize: 'var(--fs-small)', color: 'var(--color-text-tertiary)' }}>Frozen for freshness</p>
                 </div>
               </div>
               <Link href="/our-story" style={{
@@ -596,14 +598,14 @@ export default function Home() {
       {/* 4. Benefits Grid */}
       <section style={{
         background: '#0a0a0a',
-        padding: 'clamp(80px, 12vw, 140px) clamp(24px, 6vw, 100px)',
+        padding: 'var(--section-padding-y) var(--section-padding-x)',
       }}>
         <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
           <AnimatedSection animation="fadeUp">
-            <div style={{ textAlign: 'center', marginBottom: 'clamp(48px, 8vw, 80px)' }}>
+            <div style={{ textAlign: 'center', marginBottom: 'clamp(48px, 6vw, 64px)' }}>
               <h2 style={{
                 ...headingStyles,
-                marginBottom: '16px',
+                marginBottom: 'var(--space-after-h2)',
               }}>
                 What's inside matters
               </h2>
@@ -618,44 +620,44 @@ export default function Home() {
           
           <div style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 300px), 1fr))',
-            gap: '32px',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))',
+            gap: '24px',
           }}>
             {BENEFITS.map((benefit, index) => (
               <AnimatedSection key={index} animation="fadeUp" delay={index * 100}>
                 <div style={{
                   background: 'transparent',
-                  border: '1px solid rgba(255,255,255,0.1)',
+                  border: '1px solid rgba(255,255,255,0.08)',
                   borderRadius: '16px',
-                  padding: '40px 32px',
+                  padding: '32px 24px',
                   textAlign: 'center',
                   transition: 'all 0.2s ease',
                 }}>
                   <div style={{
-                    width: '80px',
-                    height: '80px',
+                    width: '64px',
+                    height: '64px',
                     background: 'rgba(255,255,255,0.05)',
                     borderRadius: '50%',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    margin: '0 auto 24px',
+                    margin: '0 auto 20px',
                     color: '#ffffff',
                   }}>
                     {benefit.icon}
                   </div>
                   <h3 style={{
-                    fontSize: '28px',
-                    fontWeight: 600,
+                    fontSize: 'var(--fs-h3)',
+                    fontWeight: 500,
                     color: '#ffffff',
-                    marginBottom: '12px',
+                    marginBottom: 'var(--space-after-h3)',
                   }}>
                     {benefit.title}
                   </h3>
                   <p style={{
-                    fontSize: '16px',
+                    fontSize: 'var(--fs-body)',
                     lineHeight: 1.6,
-                    color: '#a1a1a6',
+                    color: 'var(--color-text-secondary)',
                   }}>
                     {benefit.description}
                   </p>
@@ -669,14 +671,14 @@ export default function Home() {
       {/* 5. How It Works */}
       <section style={{
         background: '#000000',
-        padding: 'clamp(80px, 12vw, 140px) clamp(24px, 6vw, 100px)',
+        padding: 'var(--section-padding-y) var(--section-padding-x)',
       }}>
         <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
           <AnimatedSection animation="fadeUp">
-            <div style={{ textAlign: 'center', marginBottom: 'clamp(48px, 8vw, 80px)' }}>
+            <div style={{ textAlign: 'center', marginBottom: 'clamp(48px, 6vw, 64px)' }}>
               <h2 style={{
                 ...headingStyles,
-                marginBottom: '16px',
+                marginBottom: 'var(--space-after-h2)',
               }}>
                 How it works
               </h2>
@@ -691,15 +693,15 @@ export default function Home() {
           
           <div style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))',
-            gap: '48px',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 240px), 1fr))',
+            gap: '40px',
           }}>
             {HOW_IT_WORKS.map((item, index) => (
               <AnimatedSection key={index} animation="fadeUp" delay={index * 100}>
                 <div style={{ textAlign: 'center' }}>
                   <div style={{
-                    fontSize: '64px',
-                    fontWeight: 700,
+                    fontSize: '48px',
+                    fontWeight: 600,
                     color: 'rgba(255,255,255,0.1)',
                     lineHeight: 1,
                     marginBottom: '24px',
@@ -708,18 +710,18 @@ export default function Home() {
                     {item.step}
                   </div>
                   <h3 style={{
-                    fontSize: '28px',
-                    fontWeight: 600,
+                    fontSize: 'var(--fs-h3)',
+                    fontWeight: 500,
                     color: '#ffffff',
-                    marginBottom: '12px',
+                    marginBottom: 'var(--space-after-h3)',
                   }}>
                     {item.title}
                   </h3>
                   <p style={{
-                    fontSize: '16px',
+                    fontSize: 'var(--fs-body)',
                     lineHeight: 1.6,
-                    color: '#a1a1a6',
-                    maxWidth: '280px',
+                    color: 'var(--color-text-secondary)',
+                    maxWidth: '260px',
                     margin: '0 auto',
                   }}>
                     {item.description}
