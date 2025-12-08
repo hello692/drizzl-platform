@@ -5556,28 +5556,28 @@ svg {
 }
 
 .apple-slider-arrow {
-  width: 36px;
-  height: 36px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   background: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.4);
+  border: 1.5px solid rgba(255, 255, 255, 0.5);
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: all 0.2s ease;
   padding: 0;
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba(255, 255, 255, 0.7);
 }
 
 .apple-slider-arrow:hover {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 255, 255, 0.6);
+  border-color: rgba(255, 255, 255, 0.9);
   color: #ffffff;
 }
 
 .apple-slider-arrow:active {
   transform: scale(0.95);
+  border-color: #ffffff;
 }
 
 /* Mobile Responsive - Apple Slider */
