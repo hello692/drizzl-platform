@@ -860,15 +860,15 @@ export default function Smoothies() {
         onApply={handleApply}
       />
       <div className="smoothies-page" style={{ minHeight: '100vh', background: '#000000' }}>
+        <div className="smoothies-hero-fullwidth">
+          <img
+            src="/images/smoothies-hero.jpg"
+            alt="Smoothies"
+            style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+          />
+        </div>
         <div className="page-container">
           <div className="hero-wrapper">
-            <div className="smoothies-hero">
-              <img
-                src="/images/smoothies-hero.jpg"
-                alt="Smoothies"
-                style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
-              />
-            </div>
             <h1 className="page-title">
               Smoothies
             </h1>
@@ -948,17 +948,11 @@ export default function Smoothies() {
           margin-bottom: clamp(24px, 4vw, 32px);
         }
 
-        .smoothies-hero {
-          background: #111111;
-          border-radius: clamp(8px, 1.5vw, 12px);
+        .smoothies-hero-fullwidth {
+          width: 100vw;
+          height: clamp(300px, 50vw, 600px);
           overflow: hidden;
-          margin-bottom: clamp(24px, 4vw, 40px);
-          width: 100%;
-          max-width: 1200px;
-          aspect-ratio: 1200 / 800;
-          margin-left: auto;
-          margin-right: auto;
-          border: 1px solid rgba(255,255,255,0.1);
+          margin-bottom: clamp(32px, 5vw, 48px);
         }
 
         .page-title {
