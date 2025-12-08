@@ -343,13 +343,6 @@ export default function Home() {
                 <path d="M5 12h14M12 5l7 7-7 7"/>
               </svg>
             </Link>
-            <p style={{
-              fontSize: 'var(--fs-small)',
-              color: 'rgba(255,255,255,0.5)',
-              marginTop: '16px',
-            }}>
-              Free shipping on orders $50+ · 100% money-back guarantee
-            </p>
           </AnimatedSection>
         </div>
       </section>
