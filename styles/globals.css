@@ -5557,7 +5557,9 @@ svg {
 
 .apple-slider-arrow {
   width: 40px;
+  min-width: 40px;
   height: 40px;
+  min-height: 40px;
   border-radius: 50%;
   background: #ffffff;
   border: none;
@@ -5568,6 +5570,8 @@ svg {
   transition: all 0.2s ease;
   padding: 0;
   color: #111111;
+  flex-shrink: 0;
+  aspect-ratio: 1 / 1;
 }
 
 .apple-slider-arrow:hover {
