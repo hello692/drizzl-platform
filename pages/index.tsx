@@ -224,7 +224,7 @@ export default function Home() {
   };
 
   const headingStyles = {
-    fontSize: 'clamp(32px, 6vw, 56px)',
+    fontSize: 'clamp(24px, 4vw, 36px)',
     fontWeight: 600,
     lineHeight: 1.1,
     letterSpacing: '-0.02em',
@@ -289,7 +289,7 @@ export default function Home() {
         }}>
           <AnimatedSection animation="fadeUp">
             <h1 style={{
-              fontSize: 'clamp(48px, 12vw, 96px)',
+              fontSize: 'clamp(36px, 8vw, 64px)',
               fontWeight: 700,
               lineHeight: 1.05,
               letterSpacing: '-0.03em',
@@ -520,7 +520,7 @@ export default function Home() {
                 WHY WE EXIST
               </span>
               <h2 style={{
-                fontSize: 'clamp(32px, 5vw, 48px)',
+                fontSize: 'clamp(24px, 4vw, 36px)',
                 fontWeight: 600,
                 lineHeight: 1.1,
                 letterSpacing: '-0.02em',
