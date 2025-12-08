@@ -417,15 +417,19 @@ export default function ProductPage() {
             ))}
           </div>
 
-          {/* Accordion Sections - Menu Style */}
+          {/* Accordion Sections - Menu Style - Black Background */}
           <div style={{
-            maxWidth: '600px',
-            margin: '40px auto 0',
-            padding: '0 24px',
-            textAlign: 'left',
+            backgroundColor: '#000000',
+            margin: '40px 0 0',
+            padding: '40px 24px',
           }}>
+            <div style={{
+              maxWidth: '600px',
+              margin: '0 auto',
+              textAlign: 'left',
+            }}>
             {/* All Ingredients */}
-            <div style={{ borderTop: `1px solid ${apple.divider}` }}>
+            <div style={{ borderTop: '1px solid rgba(255,255,255,0.2)' }}>
               <button
                 onClick={() => toggleSection('ingredients')}
                 style={{
@@ -444,21 +448,21 @@ export default function ProductPage() {
                   <div style={{
                     fontSize: '28px',
                     fontWeight: '600',
-                    color: apple.textPrimary,
+                    color: '#ffffff',
                     marginBottom: '4px',
                   }}>
                     Ingredients
                   </div>
                   <div style={{
                     fontSize: '14px',
-                    color: apple.textPrimary,
+                    color: '#ffffff',
                   }}>
                     What goes in every cup
                   </div>
                 </div>
                 <span style={{
                   fontSize: '24px',
-                  color: apple.textPrimary,
+                  color: '#ffffff',
                   fontWeight: '300',
                   lineHeight: '1',
                   marginTop: '8px',
@@ -470,7 +474,7 @@ export default function ProductPage() {
                 <p style={{
                   paddingBottom: '24px',
                   fontSize: '15px',
-                  color: apple.textPrimary,
+                  color: '#ffffff',
                   lineHeight: '1.6',
                   margin: 0,
                 }}>
@@ -480,7 +484,7 @@ export default function ProductPage() {
             </div>
 
             {/* Nutrition Facts */}
-            <div style={{ borderTop: `1px solid ${apple.divider}` }}>
+            <div style={{ borderTop: '1px solid rgba(255,255,255,0.2)' }}>
               <button
                 onClick={() => toggleSection('nutrition')}
                 style={{
@@ -499,21 +503,21 @@ export default function ProductPage() {
                   <div style={{
                     fontSize: '28px',
                     fontWeight: '600',
-                    color: apple.textPrimary,
+                    color: '#ffffff',
                     marginBottom: '4px',
                   }}>
                     Nutrition
                   </div>
                   <div style={{
                     fontSize: '14px',
-                    color: apple.textPrimary,
+                    color: '#ffffff',
                   }}>
                     What you put in matters
                   </div>
                 </div>
                 <span style={{
                   fontSize: '24px',
-                  color: apple.textPrimary,
+                  color: '#ffffff',
                   fontWeight: '300',
                   lineHeight: '1',
                   marginTop: '8px',
@@ -534,8 +538,8 @@ export default function ProductPage() {
                       gap: '8px',
                       fontSize: '15px',
                     }}>
-                      <span style={{ color: apple.textPrimary, fontWeight: '500' }}>{item.label}:</span>
-                      <span style={{ color: apple.textPrimary }}>{item.value}</span>
+                      <span style={{ color: '#ffffff', fontWeight: '500' }}>{item.label}:</span>
+                      <span style={{ color: '#ffffff' }}>{item.value}</span>
                     </div>
                   ))}
                 </div>
@@ -543,7 +547,7 @@ export default function ProductPage() {
             </div>
 
             {/* Description */}
-            <div style={{ borderTop: `1px solid ${apple.divider}` }}>
+            <div style={{ borderTop: '1px solid rgba(255,255,255,0.2)' }}>
               <button
                 onClick={() => toggleSection('description')}
                 style={{
@@ -562,21 +566,21 @@ export default function ProductPage() {
                   <div style={{
                     fontSize: '28px',
                     fontWeight: '600',
-                    color: apple.textPrimary,
+                    color: '#ffffff',
                     marginBottom: '4px',
                   }}>
                     About
                   </div>
                   <div style={{
                     fontSize: '14px',
-                    color: apple.textPrimary,
+                    color: '#ffffff',
                   }}>
                     Taste the difference
                   </div>
                 </div>
                 <span style={{
                   fontSize: '24px',
-                  color: apple.textPrimary,
+                  color: '#ffffff',
                   fontWeight: '300',
                   lineHeight: '1',
                   marginTop: '8px',
@@ -588,7 +592,7 @@ export default function ProductPage() {
                 <p style={{
                   paddingBottom: '24px',
                   fontSize: '15px',
-                  color: apple.textPrimary,
+                  color: '#ffffff',
                   lineHeight: '1.6',
                   margin: 0,
                 }}>
@@ -598,7 +602,7 @@ export default function ProductPage() {
             </div>
 
             {/* Key Ingredients */}
-            <div style={{ borderTop: `1px solid ${apple.divider}` }}>
+            <div style={{ borderTop: '1px solid rgba(255,255,255,0.2)' }}>
               <button
                 onClick={() => toggleSection('keyIngredients')}
                 style={{
@@ -617,21 +621,21 @@ export default function ProductPage() {
                   <div style={{
                     fontSize: '28px',
                     fontWeight: '600',
-                    color: apple.textPrimary,
+                    color: '#ffffff',
                     marginBottom: '4px',
                   }}>
                     Key Ingredients
                   </div>
                   <div style={{
                     fontSize: '14px',
-                    color: apple.textPrimary,
+                    color: '#ffffff',
                   }}>
                     The power behind every sip
                   </div>
                 </div>
                 <span style={{
                   fontSize: '24px',
-                  color: apple.textPrimary,
+                  color: '#ffffff',
                   fontWeight: '300',
                   lineHeight: '1',
                   marginTop: '8px',
@@ -648,8 +652,8 @@ export default function ProductPage() {
                 }}>
                   {productData.keyIngredients.map((ingredient, index) => (
                     <div key={index} style={{ fontSize: '15px' }}>
-                      <span style={{ color: apple.textPrimary, fontWeight: '500' }}>{ingredient.name}: </span>
-                      <span style={{ color: apple.textPrimary }}>{ingredient.benefit}</span>
+                      <span style={{ color: '#ffffff', fontWeight: '500' }}>{ingredient.name}: </span>
+                      <span style={{ color: '#ffffff' }}>{ingredient.benefit}</span>
                     </div>
                   ))}
                 </div>
@@ -657,7 +661,7 @@ export default function ProductPage() {
             </div>
 
             {/* How to Prep */}
-            <div style={{ borderTop: `1px solid ${apple.divider}`, borderBottom: `1px solid ${apple.divider}` }}>
+            <div style={{ borderTop: '1px solid rgba(255,255,255,0.2)', borderBottom: '1px solid rgba(255,255,255,0.2)' }}>
               <button
                 onClick={() => toggleSection('howToPrep')}
                 style={{
@@ -676,21 +680,21 @@ export default function ProductPage() {
                   <div style={{
                     fontSize: '28px',
                     fontWeight: '600',
-                    color: apple.textPrimary,
+                    color: '#ffffff',
                     marginBottom: '4px',
                   }}>
                     How to Prepare
                   </div>
                   <div style={{
                     fontSize: '14px',
-                    color: apple.textPrimary,
+                    color: '#ffffff',
                   }}>
                     Ready in 60 seconds
                   </div>
                 </div>
                 <span style={{
                   fontSize: '24px',
-                  color: apple.textPrimary,
+                  color: '#ffffff',
                   fontWeight: '300',
                   lineHeight: '1',
                   marginTop: '8px',
@@ -706,19 +710,20 @@ export default function ProductPage() {
                   gap: '12px',
                 }}>
                   <div style={{ fontSize: '15px' }}>
-                    <span style={{ color: apple.textPrimary, fontWeight: '500' }}>1. Add liquid: </span>
-                    <span style={{ color: apple.textPrimary }}>Fill cup to top with water, oat milk, or coconut water.</span>
+                    <span style={{ color: '#ffffff', fontWeight: '500' }}>1. Add liquid: </span>
+                    <span style={{ color: '#ffffff' }}>Fill cup to top with water, oat milk, or coconut water.</span>
                   </div>
                   <div style={{ fontSize: '15px' }}>
-                    <span style={{ color: apple.textPrimary, fontWeight: '500' }}>2. Blend: </span>
-                    <span style={{ color: apple.textPrimary }}>Pour into a blender and blend until silky smooth.</span>
+                    <span style={{ color: '#ffffff', fontWeight: '500' }}>2. Blend: </span>
+                    <span style={{ color: '#ffffff' }}>Pour into a blender and blend until silky smooth.</span>
                   </div>
                   <div style={{ fontSize: '15px' }}>
-                    <span style={{ color: apple.textPrimary, fontWeight: '500' }}>3. Enjoy: </span>
-                    <span style={{ color: apple.textPrimary }}>Pour back into your cup. Sip. Smile. Repeat.</span>
+                    <span style={{ color: '#ffffff', fontWeight: '500' }}>3. Enjoy: </span>
+                    <span style={{ color: '#ffffff' }}>Pour back into your cup. Sip. Smile. Repeat.</span>
                   </div>
                 </div>
               )}
+            </div>
             </div>
           </div>
         </section>
