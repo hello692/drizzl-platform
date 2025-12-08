@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { useState } from 'react';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
+import SmoothieCard from '../../components/SmoothieCard';
 
 // Apple-inspired design tokens (light theme - monochrome)
 const apple = {
@@ -722,170 +723,44 @@ export default function ProductPage() {
           </div>
         </section>
 
-        {/* The Lineup Section */}
-        <section style={{
-          padding: '60px 0 80px',
-          backgroundColor: '#000000',
-          position: 'relative',
-        }}>
-          {/* Header */}
-          <div style={{
-            textAlign: 'center',
-            marginBottom: '40px',
-          }}>
-            <h2 style={{
-              fontSize: '42px',
-              fontWeight: '600',
-              color: '#ffffff',
-              margin: '0 0 8px 0',
-            }}>
+        {/* The Lineup Section - Exact clone from landing page */}
+        <section className="video-section" style={{ background: '#0a0a0a' }}>
+          <div className="video-section-container">
+            <h2 className="video-section-title">
               The lineup
             </h2>
-            <p style={{
-              fontSize: '14px',
-              color: 'rgba(255,255,255,0.5)',
-              margin: 0,
-            }}>
+            <p className="video-section-subtitle">
               These are the ones people can't stop reordering.
             </p>
-          </div>
 
-          {/* Content with Arrows */}
-          <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            gap: '24px',
-            padding: '0 24px',
-          }}>
-            {/* Left Arrow */}
-            <button
-              style={{
-                width: '40px',
-                height: '40px',
-                borderRadius: '50%',
-                border: '1px solid rgba(255,255,255,0.3)',
-                background: 'transparent',
-                cursor: 'pointer',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                flexShrink: 0,
-              }}
-            >
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                <path d="M15 18l-6-6 6-6" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-            </button>
+            <div className="video-carousel-wrapper">
+              <button className="carousel-arrow carousel-arrow-left">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <polyline points="15 18 9 12 15 6" />
+                </svg>
+              </button>
 
-            {/* Product Cards */}
-            <div style={{
-              display: 'flex',
-              gap: '12px',
-              overflow: 'hidden',
-            }}>
-              {POPULAR_SMOOTHIES.slice(0, 5).map((item, index) => {
-                const labels = ['BEST SELLER', 'NEW', 'BEST SELLER', 'BEST SELLER', 'BEST SELLER'];
-                const labelColors = ['#ff3b5c', '#4ade80', '#ff3b5c', '#ff3b5c', '#ff3b5c'];
-                return (
-                  <Link
-                    key={item.id}
-                    href={`/products/${item.id}`}
-                    style={{
-                      textDecoration: 'none',
-                      display: 'block',
-                      width: '180px',
-                      flexShrink: 0,
-                    }}
-                  >
-                    <div style={{
-                      backgroundColor: '#ffffff',
-                      borderRadius: '12px',
-                      padding: '16px',
-                      height: '320px',
-                      display: 'flex',
-                      flexDirection: 'column',
-                    }}>
-                      {/* Label */}
-                      <div style={{ height: '16px', marginBottom: '6px' }}>
-                        {labels[index] && (
-                          <span style={{
-                            fontSize: '10px',
-                            fontWeight: '700',
-                            color: labelColors[index],
-                            letterSpacing: '0.5px',
-                            textTransform: 'uppercase',
-                          }}>
-                            {labels[index]}
-                          </span>
-                        )}
-                      </div>
-                      
-                      {/* Product Name */}
-                      <h3 style={{
-                        fontSize: '16px',
-                        fontWeight: '600',
-                        color: '#000000',
-                        margin: '0 0 2px 0',
-                        lineHeight: '1.2',
-                      }}>
-                        {item.name}
-                      </h3>
-                      
-                      {/* Subtitle */}
-                      <p style={{
-                        fontSize: '13px',
-                        color: '#86868b',
-                        margin: '0 0 12px 0',
-                      }}>
-                        Smoothie
-                      </p>
-                      
-                      {/* Product Image */}
-                      <div style={{
-                        flex: 1,
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        backgroundColor: '#f5f5f7',
-                        borderRadius: '8px',
-                        padding: '8px',
-                      }}>
-                        <img
-                          src={item.image}
-                          alt={item.name}
-                          style={{
-                            width: '100%',
-                            height: '100%',
-                            objectFit: 'contain',
-                          }}
-                        />
-                      </div>
-                    </div>
-                  </Link>
-                );
-              })}
+              <div className="video-carousel-track">
+                {POPULAR_SMOOTHIES.slice(0, 5).map((item, index) => {
+                  const badges = ['Best Seller', 'New', 'Best Seller', 'Best Seller', 'Best Seller'];
+                  return (
+                    <SmoothieCard
+                      key={item.id}
+                      id={item.id}
+                      name={item.name}
+                      image={item.image}
+                      badge={badges[index]}
+                    />
+                  );
+                })}
+              </div>
+
+              <button className="carousel-arrow carousel-arrow-right">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <polyline points="9 18 15 12 9 6" />
+                </svg>
+              </button>
             </div>
-
-            {/* Right Arrow */}
-            <button
-              style={{
-                width: '40px',
-                height: '40px',
-                borderRadius: '50%',
-                border: '1px solid rgba(255,255,255,0.3)',
-                background: 'transparent',
-                cursor: 'pointer',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                flexShrink: 0,
-              }}
-            >
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                <path d="M9 18l6-6-6-6" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-            </button>
           </div>
         </section>
 
