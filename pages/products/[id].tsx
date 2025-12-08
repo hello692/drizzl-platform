@@ -1,22 +1,9 @@
 import { useRouter } from 'next/router';
 import Link from 'next/link';
-import { useState, useEffect, useRef } from 'react';
-import Navbar from '../../components/Navbar';
+import { useState, useEffect } from 'react';
+import LVNavbar from '../../components/LVNavbar';
 import Footer from '../../components/Footer';
 import SmoothieCard from '../../components/SmoothieCard';
-
-// Apple-inspired design tokens (light theme - monochrome)
-const apple = {
-  bgPrimary: '#ffffff',
-  bgSecondary: '#f5f5f7',
-  bgTertiary: '#e8e8ed',
-  textPrimary: '#000000',
-  textSecondary: '#6e6e73',
-  textTertiary: '#86868b',
-  accent: '#000000',
-  accentHover: '#1d1d1f',
-  divider: 'rgba(0,0,0,0.1)',
-};
 
 interface ProductData {
   id: string;
@@ -89,15 +76,6 @@ const PRODUCT_DATA: Record<string, ProductData> = {
       '/products/pink-piyata/gallery-6.jpg',
       '/products/pink-piyata/gallery-7.jpg',
       '/products/pink-piyata/gallery-8.jpg',
-      '/products/pink-piyata/gallery-9.jpg',
-      '/products/pink-piyata/gallery-10.jpg',
-      '/products/pink-piyata/gallery-11.jpg',
-      '/products/pink-piyata/gallery-12.jpg',
-      '/products/pink-piyata/gallery-13.jpg',
-      '/products/pink-piyata/gallery-14.jpg',
-      '/products/pink-piyata/gallery-15.jpg',
-      '/products/pink-piyata/gallery-16.jpg',
-      '/products/pink-piyata/gallery-17.jpg',
     ],
     description: 'Transport yourself to a tropical oasis with every sip. Vibrant dragon fruit meets sweet pineapple and creamy coconut for a smoothie that tastes like vacation. Packed with antioxidants and natural electrolytes to keep you feeling refreshed and energized.',
     ingredients: 'organic dragon fruit, organic pineapple, organic coconut cream, organic banana, organic mango, organic chia seeds',
@@ -136,13 +114,6 @@ const PRODUCT_DATA: Record<string, ProductData> = {
       '/products/matcha/gallery-6.jpg',
       '/products/matcha/gallery-7.jpg',
       '/products/matcha/gallery-8.jpg',
-      '/products/matcha/gallery-9.jpg',
-      '/products/matcha/gallery-10.jpg',
-      '/products/matcha/gallery-11.jpg',
-      '/products/matcha/gallery-12.jpg',
-      '/products/matcha/gallery-13.jpg',
-      '/products/matcha/gallery-14.jpg',
-      '/products/matcha/gallery-15.jpg',
     ],
     description: 'Find your zen with this ceremonial-grade matcha blend. The earthy sweetness of premium Japanese matcha is perfectly balanced with creamy banana and a hint of vanilla. A gentle caffeine boost without the jitters, plus L-theanine for calm, focused energy.',
     ingredients: 'organic ceremonial matcha, organic banana, organic almond butter, organic vanilla extract, organic spinach, organic hemp seeds',
@@ -181,12 +152,6 @@ const PRODUCT_DATA: Record<string, ProductData> = {
       '/products/mocha/gallery-6.jpg',
       '/products/mocha/gallery-7.jpg',
       '/products/mocha/gallery-8.jpg',
-      '/products/mocha/gallery-9.jpg',
-      '/products/mocha/gallery-10.jpg',
-      '/products/mocha/gallery-11.jpg',
-      '/products/mocha/gallery-12.jpg',
-      '/products/mocha/gallery-13.jpg',
-      '/products/mocha/gallery-14.jpg',
     ],
     description: 'Indulge in the perfect marriage of rich chocolate and smooth espresso. This creamy mocha blend delivers coffeehouse vibes without leaving home. Made with organic cold brew, raw cacao, and banana for natural sweetness that satisfies your cravings guilt-free.',
     ingredients: 'organic cold brew coffee, organic cacao powder, organic banana, organic almond butter, organic dates, organic oat milk, organic vanilla extract',
@@ -225,16 +190,6 @@ const PRODUCT_DATA: Record<string, ProductData> = {
       '/products/coffee-mushroom/gallery-6.jpg',
       '/products/coffee-mushroom/gallery-7.jpg',
       '/products/coffee-mushroom/gallery-8.jpg',
-      '/products/coffee-mushroom/gallery-9.jpg',
-      '/products/coffee-mushroom/gallery-10.jpg',
-      '/products/coffee-mushroom/gallery-11.jpg',
-      '/products/coffee-mushroom/gallery-12.jpg',
-      '/products/coffee-mushroom/gallery-13.jpg',
-      '/products/coffee-mushroom/gallery-14.jpg',
-      '/products/coffee-mushroom/gallery-15.jpg',
-      '/products/coffee-mushroom/gallery-16.jpg',
-      '/products/coffee-mushroom/gallery-17.jpg',
-      '/products/coffee-mushroom/gallery-18.jpg',
     ],
     description: 'Your morning coffee just got a serious upgrade. Cold brew meets adaptogenic mushrooms for sustained energy without the crash. Lions mane for focus, chaga for immunity, and reishi for stress relief. Blended with creamy oat milk and a touch of maple.',
     ingredients: 'organic cold brew coffee, organic lions mane mushroom, organic chaga mushroom, organic reishi mushroom, organic oat milk, organic maple syrup, organic cacao',
@@ -273,10 +228,6 @@ const PRODUCT_DATA: Record<string, ProductData> = {
       '/products/chocolate-berry/gallery-6.jpg',
       '/products/chocolate-berry/gallery-7.jpg',
       '/products/chocolate-berry/gallery-8.jpg',
-      '/products/chocolate-berry/gallery-9.jpg',
-      '/products/chocolate-berry/gallery-10.jpg',
-      '/products/chocolate-berry/gallery-11.jpg',
-      '/products/chocolate-berry/gallery-12.jpg',
     ],
     description: 'Satisfy your chocolate cravings without the guilt. Rich organic cacao meets antioxidant-packed berries in this decadent yet nutritious blend. Dark chocolate depth balanced with bright berry notes, creamy almond butter, and a hint of vanilla. Dessert for breakfast? Yes, please.',
     ingredients: 'organic cacao powder, organic raspberries, organic strawberries, organic blueberries, organic almond butter, organic banana, organic vanilla, organic almond milk',
@@ -315,12 +266,6 @@ const PRODUCT_DATA: Record<string, ProductData> = {
       '/products/almond/gallery-6.jpg',
       '/products/almond/gallery-7.jpg',
       '/products/almond/gallery-8.jpg',
-      '/products/almond/gallery-9.jpg',
-      '/products/almond/gallery-10.jpg',
-      '/products/almond/gallery-11.jpg',
-      '/products/almond/gallery-12.jpg',
-      '/products/almond/gallery-13.jpg',
-      '/products/almond/gallery-14.jpg',
     ],
     description: 'Experience the pure, creamy goodness of almonds in every sip. This smooth and satisfying blend combines rich almond butter with vanilla, a touch of honey, and warming spices. Perfect for those who love the simple pleasures of nutty, wholesome ingredients.',
     ingredients: 'organic almond butter, organic almond milk, organic banana, organic honey, organic vanilla, organic cinnamon, organic dates, organic flax seeds',
@@ -359,11 +304,6 @@ const PRODUCT_DATA: Record<string, ProductData> = {
       '/products/acai/gallery-6.jpg',
       '/products/acai/gallery-7.jpg',
       '/products/acai/gallery-8.jpg',
-      '/products/acai/gallery-9.jpg',
-      '/products/acai/gallery-10.jpg',
-      '/products/acai/gallery-11.jpg',
-      '/products/acai/gallery-12.jpg',
-      '/products/acai/gallery-13.jpg',
     ],
     description: 'The legendary Amazonian superfruit takes center stage in this antioxidant-rich blend. Wild-harvested acai berries combined with mixed berries, banana, and a hint of guarana for natural energy. Deep purple, deeply delicious, deeply nutritious.',
     ingredients: 'organic acai berries, organic blueberries, organic banana, organic strawberries, organic guarana, organic hemp hearts, organic coconut water',
@@ -402,26 +342,6 @@ const PRODUCT_DATA: Record<string, ProductData> = {
       '/products/nutty-monkey/gallery-6.jpg',
       '/products/nutty-monkey/gallery-7.jpg',
       '/products/nutty-monkey/gallery-8.jpg',
-      '/products/nutty-monkey/gallery-9.jpg',
-      '/products/nutty-monkey/gallery-10.jpg',
-      '/products/nutty-monkey/gallery-11.jpg',
-      '/products/nutty-monkey/gallery-12.jpg',
-      '/products/nutty-monkey/gallery-13.jpg',
-      '/products/nutty-monkey/gallery-14.jpg',
-      '/products/nutty-monkey/gallery-15.jpg',
-      '/products/nutty-monkey/gallery-16.jpg',
-      '/products/nutty-monkey/gallery-17.jpg',
-      '/products/nutty-monkey/gallery-18.jpg',
-      '/products/nutty-monkey/gallery-19.jpg',
-      '/products/nutty-monkey/gallery-20.jpg',
-      '/products/nutty-monkey/gallery-21.jpg',
-      '/products/nutty-monkey/gallery-22.jpg',
-      '/products/nutty-monkey/gallery-23.jpg',
-      '/products/nutty-monkey/gallery-24.jpg',
-      '/products/nutty-monkey/gallery-25.jpg',
-      '/products/nutty-monkey/gallery-26.jpg',
-      '/products/nutty-monkey/gallery-27.jpg',
-      '/products/nutty-monkey/gallery-28.jpg',
     ],
     description: 'The beloved peanut butter and banana combo, elevated to smoothie perfection. Creamy organic peanut butter meets ripe bananas, a touch of cacao, and a drizzle of honey. Protein-packed and utterly satisfying for breakfast or post-workout fuel.',
     ingredients: 'organic peanut butter, organic banana, organic cacao nibs, organic honey, organic oat milk, organic vanilla, organic flax seeds',
@@ -449,8 +369,8 @@ const PRODUCT_DATA: Record<string, ProductData> = {
     price: 8.99,
     image: '/products/mango-jackfruit/gallery-1.jpg',
     shortDescription: 'Tropical paradise',
-    tagline: 'sunshine in every sip',
-    rating: { average: 4.8, count: 2134 },
+    tagline: 'island vibes in a cup',
+    rating: { average: 4.7, count: 2134 },
     gallery: [
       '/products/mango-jackfruit/gallery-1.jpg',
       '/products/mango-jackfruit/gallery-2.jpg',
@@ -460,20 +380,6 @@ const PRODUCT_DATA: Record<string, ProductData> = {
       '/products/mango-jackfruit/gallery-6.jpg',
       '/products/mango-jackfruit/gallery-7.jpg',
       '/products/mango-jackfruit/gallery-8.jpg',
-      '/products/mango-jackfruit/gallery-9.jpg',
-      '/products/mango-jackfruit/gallery-10.jpg',
-      '/products/mango-jackfruit/gallery-11.jpg',
-      '/products/mango-jackfruit/gallery-12.jpg',
-      '/products/mango-jackfruit/gallery-13.jpg',
-      '/products/mango-jackfruit/gallery-14.jpg',
-      '/products/mango-jackfruit/gallery-15.jpg',
-      '/products/mango-jackfruit/gallery-16.jpg',
-      '/products/mango-jackfruit/gallery-17.jpg',
-      '/products/mango-jackfruit/gallery-18.jpg',
-      '/products/mango-jackfruit/gallery-19.jpg',
-      '/products/mango-jackfruit/gallery-20.jpg',
-      '/products/mango-jackfruit/gallery-21.jpg',
-      '/products/mango-jackfruit/gallery-22.jpg',
     ],
     description: 'Transport yourself to a tropical paradise with this exotic blend of sun-ripened mangoes and sweet jackfruit. Each sip delivers a burst of golden sunshine, balanced with creamy coconut and a hint of lime for the ultimate island escape.',
     ingredients: 'organic mango, organic jackfruit, organic coconut milk, organic lime juice, organic turmeric, organic ginger, organic coconut water',
@@ -518,51 +424,25 @@ export default function ProductPage() {
   const product = POPULAR_SMOOTHIES.find(p => p.id === productId);
   
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
+  const [descriptionExpanded, setDescriptionExpanded] = useState(false);
   const [openSections, setOpenSections] = useState({
-    description: false,
-    ingredients: false,
-    nutrition: false,
-    keyIngredients: false,
-    howToPrep: false,
+    productDetails: false,
+    deliveryReturns: false,
+    gifting: false,
   });
-  const [selectedIngredient, setSelectedIngredient] = useState(0);
-  const [activeCardIndex, setActiveCardIndex] = useState(0);
 
   const toggleSection = (section: keyof typeof openSections) => {
     setOpenSections(prev => ({ ...prev, [section]: !prev[section] }));
   };
 
-  // Track horizontal scroll in the Apple-style slider
-  useEffect(() => {
-    const slider = document.getElementById('lifestyle-slider');
-    if (!slider) return;
-
-    const handleSliderScroll = () => {
-      const scrollLeft = slider.scrollLeft;
-      const slideWidth = slider.scrollWidth / 5;
-      const newIndex = Math.round(scrollLeft / slideWidth);
-      setActiveCardIndex(Math.min(Math.max(newIndex, 0), 4));
-    };
-
-    slider.addEventListener('scroll', handleSliderScroll, { passive: true });
-    
-    return () => slider.removeEventListener('scroll', handleSliderScroll);
-  }, []);
-
   if (!product || !productData) {
     return (
-      <div style={{ backgroundColor: apple.bgPrimary, minHeight: '100vh' }}>
-        <Navbar />
-        <div style={{ padding: '200px 24px', textAlign: 'center' }}>
-          <h1 style={{ fontSize: '48px', fontWeight: '600', color: apple.textPrimary, marginBottom: '24px' }}>
-            Product not found
-          </h1>
-          <Link href="/collections/smoothies" style={{ 
-            color: apple.accent, 
-            fontSize: '21px',
-            textDecoration: 'none',
-          }}>
-            Back to Smoothies &rarr;
+      <div className="lv-page">
+        <LVNavbar />
+        <div className="lv-not-found">
+          <h1>Product not found</h1>
+          <Link href="/collections/smoothies">
+            Back to Smoothies
           </Link>
         </div>
         <Footer />
@@ -570,421 +450,173 @@ export default function ProductPage() {
     );
   }
 
-  // Product 9 - Side by Side Layout
-  const renderProduct9Layout = () => (
-    <section style={{
-      paddingTop: '120px',
-      paddingBottom: '40px',
-      maxWidth: '1200px',
-      margin: '0 auto',
-      padding: '120px 48px 40px',
-    }}>
-      <div style={{
-        display: 'grid',
-        gridTemplateColumns: '1fr 1fr',
-        gap: '60px',
-        alignItems: 'start',
-      }}>
-        {/* Left Side - Images */}
-        <div>
-          <div style={{
-            backgroundColor: '#f5f5f7',
-            borderRadius: '24px',
-            padding: '40px',
-            marginBottom: '20px',
-          }}>
-            <img
-              src={productData.gallery[selectedImageIndex]}
-              alt={productData.name}
-              style={{
-                width: '100%',
-                maxHeight: '500px',
-                objectFit: 'contain',
-              }}
-            />
-          </div>
-          <div style={{
-            display: 'flex',
-            gap: '12px',
-            flexWrap: 'wrap',
-          }}>
-            {productData.gallery.map((img, index) => (
-              <button
-                key={index}
-                onClick={() => setSelectedImageIndex(index)}
-                style={{
-                  width: '80px',
-                  height: '80px',
-                  borderRadius: '12px',
-                  border: selectedImageIndex === index ? '2px solid #000000' : '2px solid transparent',
-                  backgroundColor: '#f5f5f7',
-                  cursor: 'pointer',
-                  padding: '8px',
-                  transition: 'all 0.2s',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}
-              >
-                <img
-                  src={img}
-                  alt={`${productData.name} view ${index + 1}`}
-                  style={{
-                    width: '100%',
-                    height: '100%',
-                    objectFit: 'contain',
-                  }}
-                />
-              </button>
-            ))}
-          </div>
-        </div>
-
-        {/* Right Side - Product Info & Actions */}
-        <div style={{ position: 'sticky', top: '120px' }}>
-          <h1 style={{
-            fontSize: '40px',
-            fontWeight: '600',
-            color: apple.textPrimary,
-            margin: '0 0 12px 0',
-            letterSpacing: '-0.02em',
-            lineHeight: '1.1',
-          }}>
-            {productData.name}
-          </h1>
-          <p style={{
-            fontSize: '18px',
-            fontWeight: '400',
-            color: apple.textSecondary,
-            margin: '0 0 24px',
-            lineHeight: '1.5',
-          }}>
-            Inspired by {productData.tagline}
-          </p>
-          <p style={{
-            fontSize: '28px',
-            fontWeight: '600',
-            color: apple.textPrimary,
-            margin: '0 0 24px',
-          }}>
-            ${productData.price.toFixed(2)}
-          </p>
-          <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '8px',
-            marginBottom: '32px',
-          }}>
-            <div style={{ display: 'flex', gap: '2px' }}>
-              {[...Array(5)].map((_, i) => (
-                <span key={i} style={{ color: i < Math.floor(productData.rating.average) ? '#000' : '#ccc', fontSize: '18px' }}>★</span>
-              ))}
-            </div>
-            <span style={{ fontSize: '14px', color: apple.textSecondary }}>
-              ({productData.rating.count.toLocaleString()} reviews)
-            </span>
-          </div>
-          <button style={{
-            width: '100%',
-            padding: '16px 32px',
-            backgroundColor: apple.accent,
-            color: '#ffffff',
-            fontSize: '18px',
-            fontWeight: '500',
-            border: 'none',
-            borderRadius: '980px',
-            cursor: 'pointer',
-            transition: 'background-color 0.2s',
-            marginBottom: '16px',
-          }}>
-            Add to Cart
-          </button>
-          <Link href="/collections/smoothies" style={{
-            display: 'block',
-            textAlign: 'center',
-            fontSize: '17px',
-            color: apple.accent,
-            textDecoration: 'none',
-            marginBottom: '40px',
-          }}>
-            View all smoothies →
-          </Link>
-          <div style={{
-            borderTop: '1px solid rgba(0,0,0,0.1)',
-            paddingTop: '24px',
-          }}>
-            <h3 style={{
-              fontSize: '16px',
-              fontWeight: '600',
-              color: apple.textPrimary,
-              marginBottom: '12px',
-            }}>
-              About this smoothie
-            </h3>
-            <p style={{
-              fontSize: '15px',
-              color: apple.textSecondary,
-              lineHeight: '1.6',
-            }}>
-              {productData.description}
-            </p>
-          </div>
-          <div style={{
-            display: 'flex',
-            flexWrap: 'wrap',
-            gap: '8px',
-            marginTop: '24px',
-          }}>
-            {productData.badges.map((badge, index) => (
-              <span
-                key={index}
-                style={{
-                  padding: '6px 12px',
-                  backgroundColor: '#f5f5f7',
-                  borderRadius: '980px',
-                  fontSize: '12px',
-                  fontWeight: '500',
-                  color: apple.textSecondary,
-                }}
-              >
-                {badge}
-              </span>
-            ))}
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-
-  // Louis Vuitton Style Layout
-  const renderDefaultLayout = () => (
-    <section className="lv-product-section">
-      <div className="lv-product-grid">
-        {/* Left Side - Image Gallery */}
-        <div className="lv-product-gallery">
-          <div className="lv-gallery-main">
-            <button 
-              className="lv-gallery-nav lv-gallery-nav-left"
-              onClick={() => setSelectedImageIndex(prev => prev > 0 ? prev - 1 : productData.gallery.length - 1)}
-            >
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M15 18l-6-6 6-6" />
-              </svg>
-            </button>
-            <img
-              src={productData.gallery[selectedImageIndex]}
-              alt={productData.name}
-              className="lv-gallery-image"
-            />
-            <button 
-              className="lv-gallery-nav lv-gallery-nav-right"
-              onClick={() => setSelectedImageIndex(prev => prev < productData.gallery.length - 1 ? prev + 1 : 0)}
-            >
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M9 18l6-6-6-6" />
-              </svg>
-            </button>
-          </div>
-          <div className="lv-gallery-thumbs">
-            {productData.gallery.slice(0, 8).map((img, index) => (
-              <button
-                key={index}
-                onClick={() => setSelectedImageIndex(index)}
-                className={`lv-gallery-thumb ${selectedImageIndex === index ? 'active' : ''}`}
-              >
-                <img src={img} alt={`View ${index + 1}`} />
-              </button>
-            ))}
-          </div>
-        </div>
-
-        {/* Right Side - Product Info */}
-        <div className="lv-product-info">
-          <div className="lv-product-sku">SKU-{productData.id.padStart(5, '0')}</div>
-          <h1 className="lv-product-name">{productData.name}</h1>
-          <div className="lv-product-price">${productData.price.toFixed(2)}</div>
-          
-          <div className="lv-product-material">
-            <span className="lv-material-label">Type</span>
-            <span className="lv-material-value">Smoothie Cup</span>
-          </div>
-
-          <button className="lv-add-to-cart">Place in Cart</button>
-          
-          <button className="lv-contact-link">Contact an Advisor</button>
-          
-          <p className="lv-shipping-info">Complimentary Standard Delivery or Collect in Store</p>
-
-          <div className="lv-product-description">
-            <p>{productData.description}</p>
-            <button className="lv-read-more">Read more</button>
-          </div>
-
-          {/* Accordion Sections */}
-          <div className="lv-accordion-section">
-            <button 
-              className="lv-accordion-header"
-              onClick={() => toggleSection('ingredients')}
-            >
-              <span>Ingredients</span>
-              <span className="lv-accordion-icon">{openSections.ingredients ? '−' : '+'}</span>
-            </button>
-            {openSections.ingredients && (
-              <div className="lv-accordion-content">
-                <p>{productData.ingredients}</p>
-              </div>
-            )}
-          </div>
-
-          <div className="lv-accordion-section">
-            <button 
-              className="lv-accordion-header"
-              onClick={() => toggleSection('nutrition')}
-            >
-              <span>Nutrition Facts</span>
-              <span className="lv-accordion-icon">›</span>
-            </button>
-            {openSections.nutrition && (
-              <div className="lv-accordion-content">
-                <div className="lv-nutrition-grid">
-                  {productData.nutrition.map((item, index) => (
-                    <div key={index} className="lv-nutrition-item">
-                      <span>{item.label}</span>
-                      <span>{item.value}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-          </div>
-
-          <div className="lv-accordion-section">
-            <button 
-              className="lv-accordion-header"
-              onClick={() => toggleSection('howToPrep')}
-            >
-              <span>How to Prepare</span>
-              <span className="lv-accordion-icon">›</span>
-            </button>
-            {openSections.howToPrep && (
-              <div className="lv-accordion-content">
-                <p><strong>1. Add liquid:</strong> Fill cup to top with water, oat milk, or coconut water.</p>
-                <p><strong>2. Blend:</strong> Pour into a blender and blend until silky smooth.</p>
-                <p><strong>3. Enjoy:</strong> Pour back into your cup. Sip. Smile. Repeat.</p>
-              </div>
-            )}
-          </div>
-
-          {/* Badges */}
-          <div className="lv-badges">
-            {productData.badges.map((badge, index) => (
-              <span key={index} className="lv-badge">{badge}</span>
-            ))}
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-
   return (
-    <div style={{ 
-      backgroundColor: apple.bgPrimary, 
-      minHeight: '100vh',
-      fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", sans-serif',
-    }}>
-      <Navbar />
+    <div className="lv-page">
+      <LVNavbar />
       
-      <main>
-        {renderDefaultLayout()}
-
-        {/* Louis Vuitton Style Lifestyle Gallery Section */}
-        <section className="lv-gallery-section">
-          <div className="lv-gallery-container">
-            <h2 className="lv-gallery-title">Your Everyday — Powered Naturally.</h2>
-            <p className="lv-gallery-subtitle">Real nourishment. Real moments. Real life.</p>
-            
-            {/* Main Featured Image */}
-            <div className="lv-main-image-wrapper">
-              <img 
-                src={[
-                  '/lifestyle/beach.jpg',
-                  '/lifestyle/biking.jpg', 
-                  '/lifestyle/bees.jpg',
-                  '/lifestyle/skiing.jpg',
-                  '/lifestyle/wellness.jpg'
-                ][activeCardIndex]} 
-                alt={['Find balance', 'Move freely', 'Powered by nature', 'Live fully', 'Fuel joy'][activeCardIndex]}
-                className="lv-main-image"
-              />
-              <div className="lv-main-image-label">
-                {['Find balance', 'Move freely', 'Powered by nature', 'Live fully', 'Fuel joy'][activeCardIndex]}
-              </div>
-            </div>
-            
-            {/* Thumbnail Row */}
-            <div className="lv-thumbnails-wrapper">
-              {[
-                { img: '/lifestyle/beach.jpg', label: 'Find balance' },
-                { img: '/lifestyle/biking.jpg', label: 'Move freely' },
-                { img: '/lifestyle/bees.jpg', label: 'Powered by nature' },
-                { img: '/lifestyle/skiing.jpg', label: 'Live fully' },
-                { img: '/lifestyle/wellness.jpg', label: 'Fuel joy' },
-              ].map((slide, index) => (
+      <main className="lv-main">
+        <section className="lv-product-section">
+          <div className="lv-product-grid">
+            <div className="lv-product-gallery">
+              <div className="lv-gallery-main">
                 <button 
-                  key={index} 
-                  className={`lv-thumbnail ${activeCardIndex === index ? 'active' : ''}`}
-                  onClick={() => setActiveCardIndex(index)}
-                  aria-label={slide.label}
+                  className="lv-gallery-nav lv-gallery-nav-left"
+                  onClick={() => setSelectedImageIndex(prev => prev > 0 ? prev - 1 : productData.gallery.length - 1)}
+                  aria-label="Previous image"
                 >
-                  <img src={slide.img} alt={slide.label} />
+                  <svg width="10" height="16" viewBox="0 0 10 16" fill="none">
+                    <path d="M8 2L2 8L8 14" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
                 </button>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* The Lineup Section - Exact clone from landing page */}
-        <section className="video-section" style={{ background: '#0a0a0a' }}>
-          <div className="video-section-container">
-            <h2 className="video-section-title">
-              The lineup
-            </h2>
-            <p className="video-section-subtitle">
-              These are the ones people can't stop reordering.
-            </p>
-
-            <div className="video-carousel-wrapper">
-              <button className="carousel-arrow carousel-arrow-left">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <polyline points="15 18 9 12 15 6" />
-                </svg>
-              </button>
-
-              <div className="video-carousel-track">
-                {POPULAR_SMOOTHIES.slice(0, 5).map((item) => (
-                  <SmoothieCard
-                    key={item.id}
-                    id={item.id}
-                    name={item.name}
-                    image={item.image}
-                    hoverImage={item.hoverImage}
-                    badge={item.badge}
-                    price={item.price}
-                    rating={item.rating}
-                    reviews={item.reviews}
-                  />
+                <img
+                  src={productData.gallery[selectedImageIndex]}
+                  alt={productData.name}
+                  className="lv-gallery-image"
+                />
+                <button 
+                  className="lv-gallery-nav lv-gallery-nav-right"
+                  onClick={() => setSelectedImageIndex(prev => prev < productData.gallery.length - 1 ? prev + 1 : 0)}
+                  aria-label="Next image"
+                >
+                  <svg width="10" height="16" viewBox="0 0 10 16" fill="none">
+                    <path d="M2 2L8 8L2 14" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                </button>
+              </div>
+              <div className="lv-gallery-thumbs-row">
+                {productData.gallery.slice(0, 7).map((img, index) => (
+                  <button
+                    key={index}
+                    onClick={() => setSelectedImageIndex(index)}
+                    className={`lv-gallery-thumb-btn ${selectedImageIndex === index ? 'active' : ''}`}
+                  >
+                    <img src={img} alt={`View ${index + 1}`} />
+                  </button>
                 ))}
               </div>
+            </div>
 
-              <button className="carousel-arrow carousel-arrow-right">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <polyline points="9 18 15 12 9 6" />
-                </svg>
-              </button>
+            <div className="lv-product-info">
+              <span className="lv-product-sku">DRZ-{productData.id.padStart(5, '0')}</span>
+              <h1 className="lv-product-title">{productData.name}</h1>
+              <p className="lv-product-price">${productData.price.toFixed(2)}</p>
+
+              <button className="lv-add-to-bag">ADD TO SHOPPING BAG</button>
+
+              <div className="lv-product-actions">
+                <button className="lv-action-link">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                    <circle cx="12" cy="10" r="3"/>
+                  </svg>
+                  Find in Store
+                </button>
+                <button className="lv-action-link">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                  </svg>
+                  Add to Wishlist
+                </button>
+              </div>
+
+              <div className="lv-divider"></div>
+
+              <div className="lv-description-section">
+                <p className={`lv-description-text ${descriptionExpanded ? 'expanded' : ''}`}>
+                  {productData.description}
+                </p>
+                {productData.description.length > 150 && (
+                  <button 
+                    className="lv-read-more-btn"
+                    onClick={() => setDescriptionExpanded(!descriptionExpanded)}
+                  >
+                    {descriptionExpanded ? 'Read less' : 'Read more'}
+                  </button>
+                )}
+              </div>
+
+              <div className="lv-accordion">
+                <div className="lv-accordion-item">
+                  <button 
+                    className="lv-accordion-header"
+                    onClick={() => toggleSection('productDetails')}
+                  >
+                    <span>Product Details</span>
+                    <span className="lv-accordion-icon">{openSections.productDetails ? '−' : '+'}</span>
+                  </button>
+                  {openSections.productDetails && (
+                    <div className="lv-accordion-body">
+                      <p><strong>Ingredients:</strong> {productData.ingredients}</p>
+                      <div className="lv-nutrition-list">
+                        {productData.nutrition.map((item, index) => (
+                          <div key={index} className="lv-nutrition-row">
+                            <span>{item.label}</span>
+                            <span>{item.value}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+
+                <div className="lv-accordion-item">
+                  <button 
+                    className="lv-accordion-header"
+                    onClick={() => toggleSection('deliveryReturns')}
+                  >
+                    <span>Delivery & Returns</span>
+                    <span className="lv-accordion-icon">{openSections.deliveryReturns ? '−' : '+'}</span>
+                  </button>
+                  {openSections.deliveryReturns && (
+                    <div className="lv-accordion-body">
+                      <p>Free standard delivery on orders over $50.</p>
+                      <p>Express delivery available for $9.99.</p>
+                      <p>Due to the frozen nature of our products, returns are not accepted. If you receive a damaged product, please contact our customer service team.</p>
+                    </div>
+                  )}
+                </div>
+
+                <div className="lv-accordion-item">
+                  <button 
+                    className="lv-accordion-header"
+                    onClick={() => toggleSection('gifting')}
+                  >
+                    <span>Gifting</span>
+                    <span className="lv-accordion-icon">{openSections.gifting ? '−' : '+'}</span>
+                  </button>
+                  {openSections.gifting && (
+                    <div className="lv-accordion-body">
+                      <p>Each order is beautifully packaged in our signature insulated box.</p>
+                      <p>Add a personalized gift message at checkout.</p>
+                      <p>Corporate gifting available for orders of 10+ units.</p>
+                    </div>
+                  )}
+                </div>
+              </div>
             </div>
           </div>
         </section>
 
+        <section className="lv-recommendations">
+          <div className="lv-recommendations-container">
+            <h2 className="lv-recommendations-title">You May Also Like</h2>
+            <div className="lv-recommendations-grid">
+              {POPULAR_SMOOTHIES.filter(s => s.id !== productId).slice(0, 4).map((item) => (
+                <SmoothieCard
+                  key={item.id}
+                  id={item.id}
+                  name={item.name}
+                  image={item.image}
+                  hoverImage={item.hoverImage}
+                  badge={item.badge}
+                  price={item.price}
+                  rating={item.rating}
+                  reviews={item.reviews}
+                />
+              ))}
+            </div>
+          </div>
+        </section>
       </main>
 
       <Footer />
