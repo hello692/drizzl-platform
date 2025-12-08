@@ -293,7 +293,15 @@ const PRODUCT_DATA: Record<string, ProductData> = {
       '/products/chocolate-berry/gallery-11.jpg',
       '/products/chocolate-berry/gallery-12.jpg',
     ],
-    lifestyleGallery: DEFAULT_LIFESTYLE_GALLERY,
+    lifestyleGallery: [
+      { src: '/lifestyle/Chocolate-Berry-TG-1.jpg', alt: 'Chocolate Berry lifestyle 1' },
+      { src: '/lifestyle/Chocolate-Berry-TG-2.jpg', alt: 'Chocolate Berry lifestyle 2' },
+      { src: '/lifestyle/Chocolate-Berry-TG-3.jpg', alt: 'Chocolate Berry lifestyle 3' },
+      { src: '/lifestyle/DSC07702.jpg', alt: 'Chocolate Berry lifestyle 4' },
+      { src: '/lifestyle/DSC07714.jpg', alt: 'Chocolate Berry lifestyle 5' },
+      { src: '/lifestyle/DSC07720-2.jpg', alt: 'Chocolate Berry lifestyle 6' },
+      { src: '/lifestyle/DSC09073-1-2Chocolate-berry.jpg', alt: 'Chocolate Berry lifestyle 7' },
+    ],
     description: 'Satisfy your chocolate cravings without the guilt. Rich organic cacao meets antioxidant-packed berries in this decadent yet nutritious blend. Dark chocolate depth balanced with bright berry notes, creamy almond butter, and a hint of vanilla. Dessert for breakfast? Yes, please.',
     ingredients: 'organic cacao powder, organic raspberries, organic strawberries, organic blueberries, organic almond butter, organic banana, organic vanilla, organic almond milk',
     nutrition: [
