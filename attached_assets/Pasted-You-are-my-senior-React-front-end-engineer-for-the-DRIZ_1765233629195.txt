@@ -1,0 +1,100 @@
+You are my senior React/front-end engineer for the DRIZZL website.
+
+BUG
+When I changed the lifestyle slider photos for the ALMOND smoothie, it also changed the photos for ACAI. That means both product pages are using the SAME shared images array. I need each smoothie to have its OWN independent lifestyle gallery.
+
+GOAL
+- Each product (Acai, Almond, etc.) has its own lifestyle image list.
+- Changing Almond images never changes Acai.
+- Restore the original Acai lifestyle photos.
+- Keep the slider UI, arrows, and scrolling behavior exactly the same.
+
+TASKS
+
+1) DATA: MAKE GALLERY PER PRODUCT
+Find where my smoothies/products are defined (for example `smoothies.ts`, `products.ts`, etc.).
+
+Create a `lifestyleGallery` field on each smoothie object. Example shape (adapt to existing types):
+
+const smoothies = [
+  {
+    id: "acai",
+    slug: "acai",
+    name: "Acai",
+    // existing fields...
+    lifestyleGallery: [
+      { src: "/images/lifestyle/acai-1.jpg", alt: "Acai lifestyle 1" },
+      { src: "/images/lifestyle/acai-2.jpg", alt: "Acai lifestyle 2" },
+      { src: "/images/lifestyle/acai-3.jpg", alt: "Acai lifestyle 3" }
+    ]
+  },
+  {
+    id: "almond",
+    slug: "almond",
+    name: "Almond",
+    // existing fields...
+    lifestyleGallery: [
+      { src: "/images/lifestyle/almond-1.jpg", alt: "Almond lifestyle 1" },
+      { src: "/images/lifestyle/almond-2.jpg", alt: "Almond lifestyle 2" },
+      { src: "/images/lifestyle/almond-3.jpg", alt: "Almond lifestyle 3" }
+    ]
+  }
+];
+
+Use the NEW images I chose for ALMOND only inside the Almond `lifestyleGallery`.
+
+For ACAI, RESTORE the original images that were used before I changed Almond. Use the acai-specific image files already in the repo (any with “acai” in the filename or the old list if available in the code).
+
+Remove or stop using any global shared array like `lifestyleSlides` that is used for all products.
+
+2) COMPONENT: USE PRODUCT-SPECIFIC GALLERY
+
+In the product page component (e.g. `ProductPage.tsx`):
+
+- Get the current product by slug or id from the route.
+- Pass that product’s gallery into the lifestyle slider component.
+
+Example:
+
+const product = smoothies.find(p => p.slug === productSlug);
+
+<LifestyleGallery slides={product?.lifestyleGallery ?? []} />
+
+Inside the `LifestyleGallery` component, rely only on the `slides` prop:
+
+type Slide = { src: string; alt: string };
+
+function LifestyleGallery({ slides }: { slides: Slide[] }) {
+  return (
+    <section className="lifestyle-section">
+      <div className="lifestyle-track">
+        {slides.map((slide) => (
+          <div className="lifestyle-card" key={slide.src}>
+            <img src={slide.src} alt={slide.alt} />
+          </div>
+        ))}
+      </div>
+      {/* keep my existing arrows and scroll logic */}
+    </section>
+  );
+}
+
+Do NOT import a global array of slides inside `LifestyleGallery`.
+
+3) STATE: RESET PER PRODUCT (IF NEEDED)
+
+If the slider uses state like `currentIndex`, keep that state inside `LifestyleGallery` and reset when `slides` changes:
+
+useEffect(() => {
+  setCurrentIndex(0);
+}, [slides]);
+
+Make sure there is no global/shared state that persists between products.
+
+4) VERIFY
+
+- On the Acai page: show ONLY the restored Acai lifestyle photos.
+- On the Almond page: show ONLY the Almond photos.
+- Editing Almond’s `lifestyleGallery` must not change Acai.
+
+Please implement all of the above and adjust filenames/types to match my existing codebase.
