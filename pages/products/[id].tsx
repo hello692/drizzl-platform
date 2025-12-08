@@ -421,6 +421,7 @@ export default function ProductPage() {
             maxWidth: '600px',
             margin: '40px auto 0',
             padding: '0 24px',
+            textAlign: 'left',
           }}>
             {/* All Ingredients */}
             <div style={{ borderTop: `1px solid ${apple.divider}` }}>
