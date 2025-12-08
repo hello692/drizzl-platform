@@ -254,6 +254,32 @@ export default function Home() {
         background: '#000000',
         overflow: 'hidden',
       }}>
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+            zIndex: 0,
+            opacity: 0.6,
+          }}
+        >
+          <source src="/videos/hero-video.mp4" type="video/mp4" />
+        </video>
+        
+        <div style={{
+          position: 'absolute',
+          inset: 0,
+          background: 'linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.5) 50%, rgba(0,0,0,0.8) 100%)',
+          zIndex: 1,
+        }}></div>
+        
         <div style={{
           position: 'relative',
           zIndex: 2,
