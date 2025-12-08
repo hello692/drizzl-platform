@@ -4,8 +4,7 @@ import { GetStaticPropsContext } from 'next';
 import { useTranslations } from 'next-intl';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import SmoothieCard from '../components/SmoothieCard';
-import { AnimatedSection, AnimatedText, StaggeredGrid } from '../components/ScrollAnimations';
+import { AnimatedSection } from '../components/ScrollAnimations';
 import { getMessages } from '../lib/getMessages';
 
 interface Product {
@@ -48,13 +47,13 @@ const CUSTOMERS = [
 ];
 
 const ROTATING_WORDS = [
-  { word: 'nourished', color: '#22c55e' },  // Matcha green
-  { word: 'fueled', color: '#f97316' },     // Mango orange
-  { word: 'strong', color: '#ec4899' },     // Pink Piyata
-  { word: 'happy', color: '#facc15' },      // Banana yellow
-  { word: 'relaxed', color: '#8b5cf6' },    // Acai purple
-  { word: 'glowing', color: '#ef4444' },    // Strawberry red
-  { word: 'balanced', color: '#06b6d4' },   // Cyan
+  { word: 'nourished', color: '#22c55e' },
+  { word: 'fueled', color: '#f97316' },
+  { word: 'strong', color: '#ec4899' },
+  { word: 'happy', color: '#facc15' },
+  { word: 'relaxed', color: '#8b5cf6' },
+  { word: 'glowing', color: '#ef4444' },
+  { word: 'balanced', color: '#06b6d4' },
 ];
 
 const BENEFITS = [
@@ -130,14 +129,18 @@ const HOW_IT_WORKS = [
   }
 ];
 
+const CATEGORY_TILES = [
+  { label: 'Collection', title: 'Energy Blends', image: '/products/mint-cacao/lifestyle-1.jpg', link: '/collections/smoothies' },
+  { label: 'Collection', title: 'Immunity Boost', image: '/products/pink-piyata/lifestyle-1.jpg', link: '/collections/smoothies' },
+  { label: 'Collection', title: 'Daily Essentials', image: '/products/strawberry-banana-protein/lifestyle-1.jpg', link: '/collections/smoothies' },
+  { label: 'New Season', title: 'New Arrivals', image: '/products/pink-piyata/lifestyle-2.jpg', link: '/collections/new-arrivals' },
+  { label: 'Bestsellers', title: 'Most Loved', image: '/products/strawberry-peach/gallery-3.png', link: '/collections/best-sellers' },
+  { label: 'Gift', title: 'Gift Guide', image: '/products/mint-cacao/lifestyle-2.jpg', link: '/collections/gift-guide' },
+];
+
 export default function Home() {
   const [featuredProducts, setFeaturedProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
-  const carouselRef = useRef<HTMLDivElement>(null);
-  const [isDragging, setIsDragging] = useState(false);
-  const [startX, setStartX] = useState(0);
-  const [scrollLeft, setScrollLeft] = useState(0);
-  const [productPosition, setProductPosition] = useState(0);
   const [expertPosition, setExpertPosition] = useState(0);
   const [customerPosition, setCustomerPosition] = useState(0);
   const [unMutedExpert, setUnMutedExpert] = useState<string | null>(null);
@@ -145,6 +148,8 @@ export default function Home() {
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
   const [displayedText, setDisplayedText] = useState('');
   const [isTyping, setIsTyping] = useState(true);
+  const expertsRef = useRef<HTMLDivElement>(null);
+  const customersRef = useRef<HTMLDivElement>(null);
   
   let t: ReturnType<typeof useTranslations>;
   try {
@@ -169,20 +174,6 @@ export default function Home() {
     };
 
     fetchProducts();
-  }, []);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setExpertPosition(prev => (prev + 1) % EXPERTS.length);
-    }, 3000);
-    return () => clearInterval(interval);
-  }, []);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCustomerPosition(prev => (prev + 1) % CUSTOMERS.length);
-    }, 3000);
-    return () => clearInterval(interval);
   }, []);
 
   useEffect(() => {
@@ -217,90 +208,42 @@ export default function Home() {
     return () => clearInterval(typeInterval);
   }, [currentWordIndex]);
 
-  const sectionStyles = {
-    padding: 'var(--section-padding-y) var(--section-padding-x)',
-    maxWidth: '1280px',
-    margin: '0 auto',
-  };
-
-  const headingStyles = {
-    fontSize: 'var(--fs-h2)',
-    fontWeight: 600,
-    lineHeight: 1.15,
-    letterSpacing: '-0.015em',
-    color: '#ffffff',
-    marginBottom: 'var(--space-after-h2)',
-  };
-
-  const subheadingStyles = {
-    fontSize: 'var(--fs-body)',
-    fontWeight: 400,
-    lineHeight: 1.6,
-    color: '#86868b',
-    maxWidth: 'var(--text-max-width)',
+  const scrollCarousel = (ref: React.RefObject<HTMLDivElement>, direction: 'left' | 'right') => {
+    if (ref.current) {
+      const scrollAmount = 340;
+      ref.current.scrollBy({
+        left: direction === 'left' ? -scrollAmount : scrollAmount,
+        behavior: 'smooth'
+      });
+    }
   };
 
   return (
     <>
       <Navbar />
 
-      {/* 1. Hero Section */}
-      <section style={{
-        position: 'relative',
-        minHeight: '90vh',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        background: '#000000',
-        overflow: 'hidden',
-      }}>
+      {/* 1. Hero Section - LV Style */}
+      <section className="lv-home-hero">
         <video
           autoPlay
           loop
           muted
           playsInline
-          style={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            width: '100%',
-            height: '100%',
-            objectFit: 'cover',
-            zIndex: 0,
-            opacity: 0.6,
-          }}
+          className="lv-home-hero-video"
         >
           <source src="/videos/hero-video.mp4" type="video/mp4" />
         </video>
         
-        <div style={{
-          position: 'absolute',
-          inset: 0,
-          background: 'linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.5) 50%, rgba(0,0,0,0.8) 100%)',
-          zIndex: 1,
-        }}></div>
+        <div className="lv-home-hero-overlay"></div>
         
-        <div style={{
-          position: 'relative',
-          zIndex: 2,
-          textAlign: 'center',
-          padding: '0 24px',
-          maxWidth: '960px',
-        }}>
+        <div className="lv-home-hero-content">
           <AnimatedSection animation="fadeUp">
-            <h1 style={{
-              fontSize: 'var(--fs-h1)',
-              fontWeight: 600,
-              lineHeight: 1.1,
-              letterSpacing: '-0.02em',
-              color: '#ffffff',
-              marginBottom: 'var(--space-after-h1)',
-            }}>
+            <h1 className="lv-home-hero-title">
               <span>i am </span>
               <span style={{
                 display: 'inline-block',
                 minWidth: '2ch',
-                borderRight: `3px solid ${ROTATING_WORDS[currentWordIndex].color}`,
+                borderRight: `2px solid ${ROTATING_WORDS[currentWordIndex].color}`,
                 animation: 'blink 1s step-end infinite',
                 color: ROTATING_WORDS[currentWordIndex].color,
                 transition: 'color 0.3s ease',
@@ -310,413 +253,178 @@ export default function Home() {
             </h1>
           </AnimatedSection>
           <AnimatedSection animation="fadeUp" delay={100}>
-            <p style={{
-              fontSize: 'var(--fs-lead)',
-              fontWeight: 400,
-              lineHeight: 1.6,
-              color: 'rgba(255,255,255,0.7)',
-              marginBottom: '32px',
-              maxWidth: 'var(--text-max-width)',
-              margin: '0 auto 32px',
-            }}>
+            <p className="lv-home-hero-subtitle">
               Fresh. Frozen. Fantastic.<br />
               Smoothies for people who want to feel their best.
             </p>
           </AnimatedSection>
           <AnimatedSection animation="fadeUp" delay={200}>
-            <Link href="/products" style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '10px',
-              background: '#ffffff',
-              color: '#000000',
-              padding: '18px 40px',
-              borderRadius: '980px',
-              fontSize: 'var(--fs-body)',
-              fontWeight: 500,
-              letterSpacing: '0.02em',
-              textDecoration: 'none',
-              transition: 'all 0.2s ease',
-            }}>
-              Feel Your Best
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M5 12h14M12 5l7 7-7 7"/>
-              </svg>
+            <Link href="/products" className="lv-home-hero-cta">
+              Discover
+            </Link>
+          </AnimatedSection>
+        </div>
+        
+        <div className="lv-home-hero-line"></div>
+      </section>
+
+      {/* 2. Category Tiles Section - LV Style Grid */}
+      <section className="lv-home-tiles">
+        <div className="lv-home-tiles-grid">
+          {CATEGORY_TILES.map((tile, index) => (
+            <Link href={tile.link} key={index} className="lv-home-tile">
+              <img 
+                src={tile.image} 
+                alt={tile.title}
+                className="lv-home-tile-image"
+              />
+              <div className="lv-home-tile-overlay">
+                <span className="lv-home-tile-label">{tile.label}</span>
+                <h3 className="lv-home-tile-title">{tile.title}</h3>
+              </div>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      {/* 3. Editorial Section - Why We Exist */}
+      <section className="lv-home-editorial">
+        <div className="lv-home-editorial-image">
+          <img 
+            src="/products/strawberry-banana-protein/lifestyle-2.jpg" 
+            alt="Drizzl Smoothie"
+          />
+        </div>
+        <div className="lv-home-editorial-content">
+          <AnimatedSection animation="fadeUp">
+            <span className="lv-home-editorial-label">Why We Exist</span>
+            <h2 className="lv-home-editorial-title">
+              We got tired of the lies.
+            </h2>
+            <p className="lv-home-editorial-body">
+              "Healthy" smoothies loaded with hidden sugars. Wellness brands that care more about margins than your body. 
+              Powder mixes that taste like regret. We started Drizzl because we couldn't find a single smoothie brand 
+              that actually gave a damn.
+            </p>
+            <p className="lv-home-editorial-body">
+              So we built one. Chef-crafted recipes. Real organic ingredients. Flash-frozen at peak nutrition. 
+              No compromises, no asterisks, no BS.
+            </p>
+            
+            <div className="lv-home-editorial-stats">
+              <div>
+                <p className="lv-home-editorial-stat-value">0g</p>
+                <p className="lv-home-editorial-stat-label">Added sugar</p>
+              </div>
+              <div>
+                <p className="lv-home-editorial-stat-value">90%+</p>
+                <p className="lv-home-editorial-stat-label">Organic</p>
+              </div>
+              <div>
+                <p className="lv-home-editorial-stat-value">Peak</p>
+                <p className="lv-home-editorial-stat-label">Freshness</p>
+              </div>
+            </div>
+            
+            <Link href="/our-story" className="lv-home-editorial-link">
+              Read Our Story
             </Link>
           </AnimatedSection>
         </div>
       </section>
 
-      {/* 2. Feature Banner - Scrolling Marquee */}
-      <div style={{
-        background: '#000000',
-        borderTop: '1px solid rgba(255,255,255,0.08)',
-        borderBottom: '1px solid rgba(255,255,255,0.08)',
-        overflow: 'hidden',
-        padding: '18px 0',
-      }}>
-        <div 
-          style={{
-            display: 'flex',
-            animation: 'marqueeScroll 25s linear infinite',
-            width: 'max-content',
-          }}
-        >
-          {[...Array(3)].map((_, repeatIndex) => (
-            <div key={repeatIndex} style={{ display: 'flex', alignItems: 'center' }}>
-              {['GLUTEN FREE', 'BUILT ON ORGANIC', 'DAIRY FREE', 'NO ADDED SUGAR', 'NON-GMO', 'VEGAN'].map((text, idx) => (
-                <span 
-                  key={`${repeatIndex}-${idx}`}
-                  style={{
-                    fontSize: '12px',
-                    fontWeight: 600,
-                    color: 'rgba(255,255,255,0.5)',
-                    letterSpacing: '0.1em',
-                    textTransform: 'uppercase',
-                    padding: '0 48px',
-                    whiteSpace: 'nowrap',
-                  }}
-                >
-                  {text}
-                </span>
-              ))}
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Press Logos Marquee */}
-      <div style={{
-        background: '#000000',
-        padding: '24px 0',
-        borderBottom: '1px solid rgba(255,255,255,0.08)',
-        overflow: 'hidden',
-      }}>
-        <div 
-          style={{
-            display: 'flex',
-            animation: 'marqueeScroll 30s linear infinite',
-            width: 'max-content',
-          }}
-        >
-          {[...Array(4)].map((_, repeatIndex) => (
-            <div key={repeatIndex} style={{ display: 'flex', alignItems: 'center' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '0 48px' }}>
-                <svg width="28" height="28" viewBox="0 0 32 32" fill="none">
-                  <circle cx="16" cy="16" r="14" stroke="white" strokeWidth="2"/>
-                  <circle cx="16" cy="10" r="3" fill="white"/>
-                  <path d="M16 14v10M12 18h8" stroke="white" strokeWidth="2" strokeLinecap="round"/>
-                </svg>
-                <span style={{ fontSize: '16px', fontWeight: 700, color: '#ffffff', letterSpacing: '-0.5px', whiteSpace: 'nowrap' }}>TODAY</span>
-              </div>
-              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', lineHeight: 1.1, padding: '0 48px' }}>
-                <span style={{ fontSize: '10px', fontWeight: 400, color: '#ffffff', letterSpacing: '1px', whiteSpace: 'nowrap' }}>BUSINESS</span>
-                <span style={{ fontSize: '13px', fontWeight: 700, color: '#ffffff', letterSpacing: '0.5px', whiteSpace: 'nowrap' }}>INSIDER</span>
-              </div>
-              <span style={{ fontSize: '20px', fontWeight: 400, color: '#ffffff', fontStyle: 'italic', letterSpacing: '1px', padding: '0 48px', whiteSpace: 'nowrap' }}>Forbes</span>
-              <div style={{ display: 'flex', alignItems: 'center', padding: '0 48px' }}>
-                <span style={{ fontSize: '12px', fontWeight: 400, color: '#ffffff', letterSpacing: '0.5px', whiteSpace: 'nowrap' }}>The</span>
-                <span style={{ fontSize: '18px', fontWeight: 700, color: '#ffffff', marginLeft: '4px', fontStyle: 'italic', whiteSpace: 'nowrap' }}>Guardian</span>
-              </div>
-              <div style={{ display: 'flex', alignItems: 'baseline', gap: '4px', padding: '0 48px' }}>
-                <span style={{ fontSize: '16px', fontWeight: 400, color: '#ffffff', fontStyle: 'italic', whiteSpace: 'nowrap' }}>Inc.</span>
-                <div style={{ display: 'flex', flexDirection: 'column', lineHeight: 1 }}>
-                  <span style={{ fontSize: '9px', fontWeight: 700, color: '#ffffff', letterSpacing: '0.5px', whiteSpace: 'nowrap' }}>Best</span>
-                  <span style={{ fontSize: '9px', fontWeight: 700, color: '#ffffff', letterSpacing: '0.5px', whiteSpace: 'nowrap' }}>Workplaces</span>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Drizzl Kiss Section - Brand Signature */}
-      <section className="drizzl-kiss-section">
-        <div className="drizzl-kiss-container">
-          <div className="drizzl-kiss-content">
-            <div className="drizzl-kiss-gif-wrapper">
-              <img 
-                src="/drizzl-lips.gif" 
-                alt="Drizzl Wellness Kiss" 
-                className="drizzl-kiss-gif"
-              />
-            </div>
-            <div className="drizzl-kiss-text">
-              <h2 className="drizzl-kiss-title">
-                One Sip. Pure Bliss.
-              </h2>
-              <p className="drizzl-kiss-subtitle">
-                Close your eyes. Take a sip. Feel it. That rush of flavor, that moment of calm, 
-                that little voice saying "yes, this is exactly what I needed." This isn't just a smoothie — 
-                it's your moment. Your ritual. Your daily act of self-love.
-              </p>
-              <p className="drizzl-kiss-tagline">
-                Kiss boring goodbye. Drizzl on.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 3. Why Drizzl Section */}
-      <section style={{
-        background: '#000000',
-        padding: 'clamp(80px, 12vw, 140px) clamp(24px, 6vw, 100px)',
-      }}>
-        <div style={{
-          maxWidth: '1280px',
-          margin: '0 auto',
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 480px), 1fr))',
-          gap: 'clamp(48px, 8vw, 80px)',
-          alignItems: 'center',
-        }}>
+      {/* 4. Product Grid Section - LV Style */}
+      <section className="lv-home-products">
+        <div className="lv-home-products-header">
           <AnimatedSection animation="fadeUp">
-            <div style={{
-              position: 'relative',
-              borderRadius: '24px',
-              overflow: 'hidden',
-              aspectRatio: '4/3',
-            }}>
-              <img 
-                src="/products/strawberry-peach/lifestyle-1.jpg" 
-                alt="Drizzl Smoothie"
-                style={{
-                  width: '100%',
-                  height: '100%',
-                  objectFit: 'cover',
-                }}
-              />
-            </div>
+            <h2 className="lv-home-products-title">The Collection</h2>
+            <p className="lv-home-products-subtitle">Chef-crafted smoothies for every moment</p>
           </AnimatedSection>
-          
-          <AnimatedSection animation="fadeUp" delay={100}>
-            <div>
-              <span style={{
-                fontSize: 'var(--fs-label)',
-                fontWeight: 500,
-                letterSpacing: '0.08em',
-                textTransform: 'uppercase',
-                color: 'var(--color-text-tertiary)',
-                marginBottom: '12px',
-                display: 'block',
-              }}>
-                WHY WE EXIST
-              </span>
-              <h2 style={{
-                fontSize: 'var(--fs-h2)',
-                fontWeight: 600,
-                lineHeight: 1.15,
-                letterSpacing: '-0.015em',
-                color: '#ffffff',
-                marginBottom: 'var(--space-after-h2)',
-              }}>
-                We got tired of the lies.
-              </h2>
-              <p style={{
-                fontSize: 'var(--fs-body)',
-                fontWeight: 400,
-                lineHeight: 1.7,
-                color: 'var(--color-text-secondary)',
-                marginBottom: 'var(--space-after-p)',
-              }}>
-                "Healthy" smoothies loaded with hidden sugars. Wellness brands that care more about margins than your body. 
-                Powder mixes that taste like regret. We started Drizzl because we couldn't find a single smoothie brand 
-                that actually gave a damn.
-              </p>
-              <p style={{
-                fontSize: 'var(--fs-body)',
-                fontWeight: 500,
-                lineHeight: 1.7,
-                color: '#ffffff',
-                marginBottom: '24px',
-              }}>
-                So we built one. Chef-crafted recipes. Real organic ingredients. Flash-frozen at peak nutrition. 
-                No compromises, no asterisks, no BS.
-              </p>
-              <div style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(3, 1fr)',
-                gap: '24px',
-                marginBottom: '24px',
-                paddingTop: '20px',
-                borderTop: '1px solid rgba(255,255,255,0.1)',
-              }}>
-                <div>
-                  <p style={{ fontSize: 'var(--fs-h3)', fontWeight: 600, color: '#ffffff', marginBottom: '4px' }}>0g</p>
-                  <p style={{ fontSize: 'var(--fs-small)', color: 'var(--color-text-tertiary)' }}>Added sugar</p>
+        </div>
+        
+        <div className="lv-home-products-grid">
+          {POPULAR_SMOOTHIES.slice(0, 8).map((product) => (
+            <AnimatedSection key={product.id} animation="fadeUp">
+              <Link href={`/products/${product.id}`} className="lv-home-product-card">
+                <div className="lv-home-product-image-wrap">
+                  <img 
+                    src={product.image} 
+                    alt={product.name}
+                    className="lv-home-product-image"
+                  />
                 </div>
-                <div>
-                  <p style={{ fontSize: 'var(--fs-h3)', fontWeight: 600, color: '#ffffff', marginBottom: '4px' }}>90%+</p>
-                  <p style={{ fontSize: 'var(--fs-small)', color: 'var(--color-text-tertiary)' }}>Organic ingredients</p>
-                </div>
-                <div>
-                  <p style={{ fontSize: 'var(--fs-h3)', fontWeight: 600, color: '#ffffff', marginBottom: '4px' }}>Peak</p>
-                  <p style={{ fontSize: 'var(--fs-small)', color: 'var(--color-text-tertiary)' }}>Frozen for freshness</p>
-                </div>
-              </div>
-              <Link href="/our-story" style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '8px',
-                color: '#ffffff',
-                fontSize: 'var(--fs-body)',
-                fontWeight: 500,
-                textDecoration: 'none',
-                borderBottom: '1px solid rgba(255,255,255,0.3)',
-                paddingBottom: '4px',
-                transition: 'all 0.2s ease',
-              }}>
-                Read the full story
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M5 12h14M12 5l7 7-7 7"/>
-                </svg>
+                <h3 className="lv-home-product-name">{product.name}</h3>
+                <p className="lv-home-product-price">${product.price.toFixed(2)}</p>
               </Link>
-            </div>
+            </AnimatedSection>
+          ))}
+        </div>
+        
+        <div className="lv-home-products-footer">
+          <Link href="/products" className="lv-home-products-link">
+            Discover the Collection
+          </Link>
+        </div>
+      </section>
+
+      {/* 5. World of Drizzl Section - Drizzl Kiss */}
+      <section className="lv-home-world">
+        <img 
+          src="/products/pink-piyata/lifestyle-3.jpg" 
+          alt="Drizzl Lifestyle"
+          className="lv-home-world-image"
+        />
+        <div className="lv-home-world-overlay"></div>
+        <div className="lv-home-world-content">
+          <AnimatedSection animation="fadeUp">
+            <img 
+              src="/drizzl-lips.gif" 
+              alt="Drizzl Kiss" 
+              className="lv-home-world-gif"
+            />
+            <h2 className="lv-home-world-title">
+              One Sip. Pure Bliss.
+            </h2>
+            <p className="lv-home-world-text">
+              Close your eyes. Take a sip. Feel it. That rush of flavor, that moment of calm, 
+              that little voice saying "yes, this is exactly what I needed." This isn't just a smoothie — 
+              it's your moment. Your ritual. Your daily act of self-love.
+            </p>
+            <p className="lv-home-world-tagline">
+              Kiss boring goodbye. Drizzl on.
+            </p>
           </AnimatedSection>
         </div>
       </section>
 
-      {/* 4. Benefits Grid */}
-      <section style={{
-        background: '#0a0a0a',
-        padding: 'var(--section-padding-y) var(--section-padding-x)',
-      }}>
-        <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
-          <AnimatedSection animation="fadeUp">
-            <div style={{ textAlign: 'center', marginBottom: 'clamp(48px, 6vw, 64px)' }}>
-              <h2 style={{
-                ...headingStyles,
-                marginBottom: 'var(--space-after-h2)',
-              }}>
-                What's inside matters
-              </h2>
-              <p style={{
-                ...subheadingStyles,
-                margin: '0 auto',
-              }}>
-                Not all smoothies are created equal. Here's what makes ours hit different.
-              </p>
+      {/* 6. Benefits Strip - Horizontal */}
+      <section className="lv-home-benefits">
+        <div className="lv-home-benefits-container">
+          {BENEFITS.map((benefit, index) => (
+            <div key={index} className="lv-home-benefit">
+              <div className="lv-home-benefit-icon">
+                {benefit.icon}
+              </div>
+              <h3 className="lv-home-benefit-title">{benefit.title}</h3>
+              <p className="lv-home-benefit-text">{benefit.description}</p>
             </div>
-          </AnimatedSection>
-          
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))',
-            gap: '24px',
-            alignItems: 'stretch',
-          }}>
-            {BENEFITS.map((benefit, index) => (
-              <AnimatedSection key={index} animation="fadeUp" delay={index * 100} style={{ height: '100%' }}>
-                <div style={{
-                  background: 'transparent',
-                  border: '1px solid rgba(255,255,255,0.08)',
-                  borderRadius: '16px',
-                  padding: '32px 24px',
-                  textAlign: 'center',
-                  transition: 'all 0.2s ease',
-                  height: '100%',
-                  minHeight: '280px',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  boxSizing: 'border-box',
-                }}>
-                  <div style={{
-                    width: '64px',
-                    height: '64px',
-                    background: 'rgba(255,255,255,0.05)',
-                    borderRadius: '50%',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    margin: '0 auto 20px',
-                    color: '#ffffff',
-                    flexShrink: 0,
-                  }}>
-                    {benefit.icon}
-                  </div>
-                  <h3 style={{
-                    fontSize: 'var(--fs-h3)',
-                    fontWeight: 500,
-                    color: '#ffffff',
-                    marginBottom: 'var(--space-after-h3)',
-                  }}>
-                    {benefit.title}
-                  </h3>
-                  <p style={{
-                    fontSize: 'var(--fs-body)',
-                    lineHeight: 1.6,
-                    color: 'var(--color-text-secondary)',
-                    flex: 1,
-                  }}>
-                    {benefit.description}
-                  </p>
-                </div>
-              </AnimatedSection>
-            ))}
-          </div>
+          ))}
         </div>
       </section>
 
-      {/* 5. How It Works */}
-      <section style={{
-        background: '#000000',
-        padding: 'var(--section-padding-y) var(--section-padding-x)',
-      }}>
-        <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
+      {/* 7. How It Works - Simplified */}
+      <section className="lv-home-how">
+        <div className="lv-home-how-container">
           <AnimatedSection animation="fadeUp">
-            <div style={{ textAlign: 'center', marginBottom: 'clamp(48px, 6vw, 64px)' }}>
-              <h2 style={{
-                ...headingStyles,
-                marginBottom: 'var(--space-after-h2)',
-              }}>
-                How it works
-              </h2>
-              <p style={{
-                ...subheadingStyles,
-                margin: '0 auto',
-              }}>
-                From freezer to table in under a minute.
-              </p>
-            </div>
+            <h2 className="lv-home-how-title">How It Works</h2>
           </AnimatedSection>
-          
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 240px), 1fr))',
-            gap: '40px',
-          }}>
+          <div className="lv-home-how-steps">
             {HOW_IT_WORKS.map((item, index) => (
               <AnimatedSection key={index} animation="fadeUp" delay={index * 100}>
-                <div style={{ textAlign: 'center' }}>
-                  <div style={{
-                    fontSize: '48px',
-                    fontWeight: 600,
-                    color: 'rgba(255,255,255,0.1)',
-                    lineHeight: 1,
-                    marginBottom: '24px',
-                    fontFamily: 'var(--font-display)',
-                  }}>
-                    {item.step}
-                  </div>
-                  <h3 style={{
-                    fontSize: 'var(--fs-h3)',
-                    fontWeight: 500,
-                    color: '#ffffff',
-                    marginBottom: 'var(--space-after-h3)',
-                  }}>
-                    {item.title}
-                  </h3>
-                  <p style={{
-                    fontSize: 'var(--fs-body)',
-                    lineHeight: 1.6,
-                    color: 'var(--color-text-secondary)',
-                    maxWidth: '260px',
-                    margin: '0 auto',
-                  }}>
-                    {item.description}
-                  </p>
+                <div className="lv-home-how-step">
+                  <div className="lv-home-how-step-number">{item.step}</div>
+                  <h3 className="lv-home-how-step-title">{item.title}</h3>
+                  <p className="lv-home-how-step-text">{item.description}</p>
                 </div>
               </AnimatedSection>
             ))}
@@ -724,202 +432,130 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 6. Product Carousel */}
-      <section className="video-section" style={{ background: '#0a0a0a' }}>
-        <div className="video-section-container">
-          <h2 className="video-section-title">
-            The lineup
-          </h2>
-          <p className="video-section-subtitle">
-            These are the ones people can't stop reordering.
-          </p>
-
-          <div className="video-carousel-wrapper">
-            <button
-              onClick={() => setProductPosition(prev => (prev - 1 + POPULAR_SMOOTHIES.length) % POPULAR_SMOOTHIES.length)}
-              className="carousel-arrow carousel-arrow-left"
-            >
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <polyline points="15 18 9 12 15 6" />
-              </svg>
-            </button>
-
-            <div className="video-carousel-track">
-              {[...POPULAR_SMOOTHIES, ...POPULAR_SMOOTHIES].slice(productPosition, productPosition + 5).map((product, index) => (
-                <SmoothieCard
-                  key={`${product.id}-${index}`}
-                  id={product.id}
-                  name={product.name}
-                  image={product.image}
-                  hoverImage={product.hoverImage}
-                  badge={product.badge}
-                  price={product.price}
-                  rating={product.rating}
-                  reviews={product.reviews}
-                />
-              ))}
-            </div>
-
-            <button
-              onClick={() => setProductPosition(prev => (prev + 1) % POPULAR_SMOOTHIES.length)}
-              className="carousel-arrow carousel-arrow-right"
-            >
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <polyline points="9 18 15 12 9 6" />
-              </svg>
-            </button>
-          </div>
+      {/* 8. Expert Testimonials - LV Style */}
+      <section className="lv-home-testimonials">
+        <div className="lv-home-testimonials-header">
+          <AnimatedSection animation="fadeUp">
+            <p className="lv-home-testimonials-eyebrow">Over 50K Five Star Reviews</p>
+            <h2 className="lv-home-testimonials-title">Trusted by Experts</h2>
+          </AnimatedSection>
         </div>
-      </section>
-
-      {/* 7. Social Proof - Experts Section */}
-      <section className="video-section">
-        <div className="video-section-container">
-          <p className="video-section-eyebrow">
-            OVER 50K FIVE STAR REVIEWS
-          </p>
-          <h2 className="video-section-title">
-            Trusted by Experts
-          </h2>
-          <p className="video-section-subtitle">
-            See what healthcare professionals are saying.
-          </p>
-
-          <div className="video-carousel-wrapper">
-            <button
-              onClick={() => setExpertPosition(prev => (prev - 1 + EXPERTS.length) % EXPERTS.length)}
-              className="carousel-arrow carousel-arrow-left"
-            >
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <polyline points="15 18 9 12 15 6" />
-              </svg>
-            </button>
-
-            <div className="video-carousel-track">
-              {[...EXPERTS, ...EXPERTS].slice(expertPosition, expertPosition + 5).map((expert, idx) => (
-                <div 
-                  key={`${expert.id}-${idx}`} 
-                  className="video-card"
-                  onClick={() => {
-                    setUnMutedExpert(unMutedExpert === expert.id ? null : expert.id);
-                  }}
-                >
-                  <div className="video-card-header">
-                    <p className="video-card-label video-card-label-expert">
-                      EXPERT REVIEW
-                    </p>
-                    <h3 className="video-card-name">
-                      {expert.name}
-                    </h3>
-                    <p className="video-card-quote">
-                      "{expert.quote}"
-                    </p>
-                  </div>
-                  <div className="video-card-video-container">
-                    <video
-                      src={expert.video}
-                      className="video-card-video"
-                      loop
-                      autoPlay
-                      muted={unMutedExpert !== expert.id}
-                      playsInline
-                    />
-                    <div className="video-card-play-btn">
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="white">
-                        <polygon points="8 5 19 12 8 19 8 5" />
-                      </svg>
-                    </div>
+        
+        <div className="lv-home-testimonials-carousel">
+          <button 
+            className="lv-carousel-arrow lv-carousel-arrow-left"
+            onClick={() => scrollCarousel(expertsRef, 'left')}
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <polyline points="15 18 9 12 15 6" />
+            </svg>
+          </button>
+          
+          <div className="lv-home-testimonials-track" ref={expertsRef}>
+            {EXPERTS.map((expert) => (
+              <div 
+                key={expert.id} 
+                className="lv-home-testimonial-card"
+                onClick={() => setUnMutedExpert(unMutedExpert === expert.id ? null : expert.id)}
+              >
+                <span className="lv-home-testimonial-label">Expert Review</span>
+                <div className="lv-home-testimonial-quote-mark">"</div>
+                <p className="lv-home-testimonial-quote">{expert.quote}</p>
+                <p className="lv-home-testimonial-author">{expert.name}</p>
+                <div className="lv-home-testimonial-video-wrap">
+                  <video
+                    src={expert.video}
+                    className="lv-home-testimonial-video"
+                    loop
+                    autoPlay
+                    muted={unMutedExpert !== expert.id}
+                    playsInline
+                  />
+                  <div className="lv-home-testimonial-play">
+                    <svg viewBox="0 0 24 24">
+                      <polygon points="8 5 19 12 8 19 8 5" />
+                    </svg>
                   </div>
                 </div>
-              ))}
-            </div>
-
-            <button
-              onClick={() => setExpertPosition(prev => (prev + 1) % EXPERTS.length)}
-              className="carousel-arrow carousel-arrow-right"
-            >
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <polyline points="9 18 15 12 9 6" />
-              </svg>
-            </button>
+              </div>
+            ))}
           </div>
+          
+          <button 
+            className="lv-carousel-arrow lv-carousel-arrow-right"
+            onClick={() => scrollCarousel(expertsRef, 'right')}
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <polyline points="9 18 15 12 9 6" />
+            </svg>
+          </button>
         </div>
       </section>
 
-      {/* Customer Reviews Section */}
-      <section className="video-section">
-        <div className="video-section-container">
-          <h2 className="video-section-title" style={{ marginBottom: 'clamp(32px, 5vw, 56px)' }}>
-            Loved by Customers
-          </h2>
-
-          <div className="video-carousel-wrapper">
-            <button
-              onClick={() => setCustomerPosition(prev => (prev - 1 + CUSTOMERS.length) % CUSTOMERS.length)}
-              className="carousel-arrow carousel-arrow-left"
-            >
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <polyline points="15 18 9 12 15 6" />
-              </svg>
-            </button>
-
-            <div className="video-carousel-track">
-              {[...CUSTOMERS, ...CUSTOMERS].slice(customerPosition, customerPosition + 5).map((customer, idx) => (
-                <div 
-                  key={`${customer.id}-${idx}`} 
-                  className="video-card"
-                  onClick={() => {
-                    setUnMutedCustomer(unMutedCustomer === customer.id ? null : customer.id);
-                  }}
-                >
-                  <div className="video-card-header">
-                    <p className="video-card-label video-card-label-customer">
-                      CUSTOMER REVIEW
-                    </p>
-                    <h3 className="video-card-name">
-                      {customer.name}
-                    </h3>
-                    <p className="video-card-quote">
-                      "{customer.quote}"
-                    </p>
-                  </div>
-                  <div className="video-card-video-container">
-                    <video
-                      src={customer.video}
-                      className="video-card-video"
-                      loop
-                      autoPlay
-                      muted={unMutedCustomer !== customer.id}
-                      playsInline
-                    />
-                    <div className="video-card-play-btn">
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="white">
-                        <polygon points="8 5 19 12 8 19 8 5" />
-                      </svg>
-                    </div>
+      {/* 9. Customer Testimonials - LV Style */}
+      <section className="lv-home-testimonials">
+        <div className="lv-home-testimonials-header">
+          <AnimatedSection animation="fadeUp">
+            <h2 className="lv-home-testimonials-title">Loved by Customers</h2>
+          </AnimatedSection>
+        </div>
+        
+        <div className="lv-home-testimonials-carousel">
+          <button 
+            className="lv-carousel-arrow lv-carousel-arrow-left"
+            onClick={() => scrollCarousel(customersRef, 'left')}
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <polyline points="15 18 9 12 15 6" />
+            </svg>
+          </button>
+          
+          <div className="lv-home-testimonials-track" ref={customersRef}>
+            {CUSTOMERS.map((customer) => (
+              <div 
+                key={customer.id} 
+                className="lv-home-testimonial-card"
+                onClick={() => setUnMutedCustomer(unMutedCustomer === customer.id ? null : customer.id)}
+              >
+                <span className="lv-home-testimonial-label">Customer Review</span>
+                <div className="lv-home-testimonial-quote-mark">"</div>
+                <p className="lv-home-testimonial-quote">{customer.quote}</p>
+                <p className="lv-home-testimonial-author">{customer.name}</p>
+                <div className="lv-home-testimonial-video-wrap">
+                  <video
+                    src={customer.video}
+                    className="lv-home-testimonial-video"
+                    loop
+                    autoPlay
+                    muted={unMutedCustomer !== customer.id}
+                    playsInline
+                  />
+                  <div className="lv-home-testimonial-play">
+                    <svg viewBox="0 0 24 24">
+                      <polygon points="8 5 19 12 8 19 8 5" />
+                    </svg>
                   </div>
                 </div>
-              ))}
-            </div>
-
-            <button
-              onClick={() => setCustomerPosition(prev => (prev + 1) % CUSTOMERS.length)}
-              className="carousel-arrow carousel-arrow-right"
-            >
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <polyline points="9 18 15 12 9 6" />
-              </svg>
-            </button>
+              </div>
+            ))}
           </div>
+          
+          <button 
+            className="lv-carousel-arrow lv-carousel-arrow-right"
+            onClick={() => scrollCarousel(customersRef, 'right')}
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <polyline points="9 18 15 12 9 6" />
+            </svg>
+          </button>
         </div>
       </section>
 
-      {/* Footer */}
       <Footer />
 
       <style jsx>{`
         @keyframes blink {
-          0%, 100% { border-color: #ffffff; }
+          0%, 100% { border-color: inherit; }
           50% { border-color: transparent; }
         }
       `}</style>
