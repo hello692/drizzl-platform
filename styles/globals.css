@@ -5439,180 +5439,101 @@ svg {
   }
 }
 
-/* Apple-Style Lifestyle Slider Section */
-.lifestyle-story-section {
-  background: #000000;
-  padding: 0;
-  width: 100%;
-  overflow: hidden;
-  position: relative;
+/* Stories Film-Strip Section */
+.stories-strip {
+  background: #000;
+  color: #fff;
+  padding: 3rem 0;
 }
 
-.lifestyle-story-container {
-  max-width: 100%;
-  margin: 0 auto;
-  padding: 80px 0 60px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.stories-header {
+  text-align: center;
+  padding: 0 24px;
+  margin-bottom: 48px;
 }
 
-.lifestyle-story-title {
+.stories-title {
   font-size: clamp(32px, 5vw, 56px);
   font-weight: 600;
   color: #ffffff;
-  text-align: center;
   margin: 0 0 16px 0;
   letter-spacing: -0.02em;
   line-height: 1.1;
-  padding: 0 24px;
 }
 
-.lifestyle-story-subtitle {
+.stories-subtitle {
   font-size: clamp(16px, 2vw, 22px);
   font-weight: 400;
   color: rgba(255, 255, 255, 0.6);
-  text-align: center;
-  margin: 0 0 60px 0;
+  margin: 0;
   line-height: 1.5;
-  padding: 0 24px;
 }
 
-.apple-slider-wrapper {
-  width: 100%;
-  position: relative;
-}
-
-.apple-slider-track {
+.stories-scroller {
   display: flex;
-  gap: 12px;
+  gap: 24px;
   overflow-x: auto;
+  overflow-y: hidden;
+  padding: 0 5vw 1.5rem;
   scroll-snap-type: x mandatory;
-  scroll-behavior: smooth;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
   -ms-overflow-style: none;
-  padding: 0 24px;
-  cursor: grab;
 }
 
-.apple-slider-track::-webkit-scrollbar {
+.stories-scroller::-webkit-scrollbar {
   display: none;
 }
 
-.apple-slider-track:active {
-  cursor: grabbing;
-}
-
-.apple-slide {
-  flex: 0 0 calc(50% - 6px);
-  min-width: calc(50% - 6px);
-  aspect-ratio: 4 / 5;
-  scroll-snap-align: start;
-  border-radius: 24px;
-  overflow: hidden;
+.story-item {
+  flex: 0 0 60vw;
+  max-width: 900px;
+  scroll-snap-align: center;
   position: relative;
-  background: #ffffff;
+  margin: 0;
 }
 
-.apple-slide img {
+.story-item img {
   width: 100%;
-  height: 100%;
+  height: auto;
+  display: block;
   object-fit: contain;
-  object-position: center;
-  background: #ffffff;
-  padding: 2rem;
+  background: transparent;
+  border-radius: 32px;
 }
 
-.apple-slide:hover img {
-  transform: scale(1.01);
-}
-
-.apple-slide-label {
+.story-item figcaption {
   position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: 40px 32px;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0) 100%);
-}
-
-.apple-slide-label span {
-  font-size: clamp(20px, 2.5vw, 28px);
+  left: 32px;
+  bottom: 24px;
+  font-size: 1.25rem;
   font-weight: 600;
+  text-shadow: 0 0 18px rgba(0,0,0,0.55);
   color: #ffffff;
-  letter-spacing: -0.01em;
 }
 
-.apple-slider-controls {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  padding: 32px 24px 20px;
-}
-
-.apple-slider-arrows {
-  display: flex;
-  gap: 8px;
-  align-items: center;
-}
-
-.apple-slider-arrow {
-  width: 40px;
-  min-width: 40px;
-  height: 40px;
-  min-height: 40px;
-  border-radius: 50%;
-  background: #ffffff;
-  border: none;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.2s ease;
-  padding: 0;
-  color: #111111;
-  flex-shrink: 0;
-  aspect-ratio: 1 / 1;
-}
-
-.apple-slider-arrow:hover {
-  background: rgba(255, 255, 255, 0.85);
-  color: #000000;
-}
-
-.apple-slider-arrow:active {
-  transform: scale(0.95);
-  background: rgba(255, 255, 255, 0.9);
-}
-
-/* Mobile Responsive - Apple Slider */
 @media (max-width: 768px) {
-  .lifestyle-story-container {
-    padding: 60px 0 40px;
+  .stories-strip {
+    padding: 2rem 0;
   }
   
-  .lifestyle-story-subtitle {
-    margin-bottom: 40px;
+  .stories-header {
+    margin-bottom: 32px;
   }
   
-  .apple-slider-track {
-    padding: 0 16px;
-    gap: 8px;
+  .stories-scroller {
+    gap: 16px;
+    padding: 0 4vw 1rem;
   }
   
-  .apple-slide {
-    flex: 0 0 85%;
-    min-width: 85%;
-    aspect-ratio: 4 / 5;
+  .story-item {
+    flex: 0 0 85vw;
   }
   
-  .apple-slide img {
-    padding: 1rem;
-  }
-  
-  .apple-slider-controls {
-    padding: 24px 16px 16px;
+  .story-item figcaption {
+    left: 20px;
+    bottom: 16px;
+    font-size: 1rem;
   }
 }
 

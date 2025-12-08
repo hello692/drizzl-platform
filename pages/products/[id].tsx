@@ -534,33 +534,22 @@ export default function ProductPage() {
     setOpenSections(prev => ({ ...prev, [section]: !prev[section] }));
   };
 
-  // Track horizontal scroll in the Apple-style slider + auto-scroll
+  // Horizontal mouse wheel scroll for stories film-strip
   useEffect(() => {
-    const slider = document.getElementById('lifestyle-slider');
-    if (!slider) return;
+    const scroller = document.querySelector('.stories-scroller');
+    if (!scroller) return;
 
-    const totalSlides = 7;
-    let currentIndex = 0;
-
-    const handleSliderScroll = () => {
-      const scrollLeft = slider.scrollLeft;
-      const slideWidth = slider.scrollWidth / totalSlides;
-      const newIndex = Math.round(scrollLeft / slideWidth);
-      setActiveCardIndex(Math.min(Math.max(newIndex, 0), totalSlides - 1));
+    const handleWheel = (e: WheelEvent) => {
+      if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
+        e.preventDefault();
+        scroller.scrollLeft += e.deltaY;
+      }
     };
 
-    // Auto-scroll every 4 seconds
-    const autoScroll = setInterval(() => {
-      currentIndex = (currentIndex + 1) % totalSlides;
-      const slideWidth = slider.scrollWidth / totalSlides;
-      slider.scrollTo({ left: slideWidth * currentIndex, behavior: 'smooth' });
-    }, 4000);
-
-    slider.addEventListener('scroll', handleSliderScroll, { passive: true });
+    scroller.addEventListener('wheel', handleWheel as EventListener, { passive: false });
     
     return () => {
-      slider.removeEventListener('scroll', handleSliderScroll);
-      clearInterval(autoScroll);
+      scroller.removeEventListener('wheel', handleWheel as EventListener);
     };
   }, []);
 
@@ -1084,69 +1073,27 @@ export default function ProductPage() {
       <main>
         {renderDefaultLayout()}
 
-        {/* Apple-Style Lifestyle Slider Section */}
-        <section className="lifestyle-story-section">
-          <div className="lifestyle-story-container">
-            <h2 className="lifestyle-story-title">Your Everyday — Powered Naturally.</h2>
-            <p className="lifestyle-story-subtitle">Real nourishment. Real moments. Real life.</p>
-            
-            <div className="apple-slider-wrapper">
-              <div className="apple-slider-track" id="lifestyle-slider">
-                {[
-                  { img: '/lifestyle/DSC09048-1.jpg', label: 'Start fresh' },
-                  { img: '/lifestyle/DSC09063.jpg', label: 'Move freely' },
-                  { img: '/lifestyle/DSC09073-1-2.jpg', label: 'Find balance' },
-                  { img: '/lifestyle/DSC09091.jpg', label: 'Feel alive' },
-                  { img: '/lifestyle/DSC09092.jpg', label: 'Live fully' },
-                  { img: '/lifestyle/DSC09108-2.jpg', label: 'Fuel joy' },
-                  { img: '/lifestyle/DSC09118.jpg', label: 'Be you' },
-                ].map((slide, index) => (
-                  <div key={index} className="apple-slide">
-                    <img src={slide.img} alt={slide.label} />
-                    <div className="apple-slide-label">
-                      <span>{slide.label}</span>
-                    </div>
-                  </div>
-                ))}
-              </div>
-              
-              <div className="apple-slider-controls">
-                <div className="apple-slider-arrows">
-                  <button 
-                    className="apple-slider-arrow"
-                    onClick={() => {
-                      const slider = document.getElementById('lifestyle-slider');
-                      if (slider) {
-                        const slideWidth = slider.scrollWidth / 7;
-                        const newIndex = Math.max(0, activeCardIndex - 1);
-                        slider.scrollTo({ left: slideWidth * newIndex, behavior: 'smooth' });
-                      }
-                    }}
-                    aria-label="Previous slide"
-                  >
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M15 18l-6-6 6-6" />
-                    </svg>
-                  </button>
-                  <button 
-                    className="apple-slider-arrow"
-                    onClick={() => {
-                      const slider = document.getElementById('lifestyle-slider');
-                      if (slider) {
-                        const slideWidth = slider.scrollWidth / 7;
-                        const newIndex = Math.min(6, activeCardIndex + 1);
-                        slider.scrollTo({ left: slideWidth * newIndex, behavior: 'smooth' });
-                      }
-                    }}
-                    aria-label="Next slide"
-                  >
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M9 18l6-6-6-6" />
-                    </svg>
-                  </button>
-                </div>
-              </div>
-            </div>
+        {/* Stories Film-Strip Section */}
+        <section className="stories-strip">
+          <div className="stories-header">
+            <h2 className="stories-title">Your Everyday — Powered Naturally.</h2>
+            <p className="stories-subtitle">Real nourishment. Real moments. Real life.</p>
+          </div>
+          <div className="stories-scroller" id="stories-scroller">
+            {[
+              { img: '/lifestyle/DSC09048-1.jpg', label: 'Start fresh' },
+              { img: '/lifestyle/DSC09063.jpg', label: 'Move freely' },
+              { img: '/lifestyle/DSC09073-1-2.jpg', label: 'Find balance' },
+              { img: '/lifestyle/DSC09091.jpg', label: 'Feel alive' },
+              { img: '/lifestyle/DSC09092.jpg', label: 'Live fully' },
+              { img: '/lifestyle/DSC09108-2.jpg', label: 'Fuel joy' },
+              { img: '/lifestyle/DSC09118.jpg', label: 'Be you' },
+            ].map((slide, index) => (
+              <figure key={index} className="story-item">
+                <img src={slide.img} alt={slide.label} />
+                <figcaption>{slide.label}</figcaption>
+              </figure>
+            ))}
           </div>
         </section>
 
