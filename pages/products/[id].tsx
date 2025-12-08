@@ -756,8 +756,194 @@ export default function ProductPage() {
     </section>
   );
 
-  // Default Layout
+  // Default Layout - Split: Left Images, Right Text
   const renderDefaultLayout = () => (
+    <section style={{
+      paddingTop: '120px',
+      paddingBottom: '40px',
+      maxWidth: '1200px',
+      margin: '0 auto',
+      padding: '120px 48px 40px',
+    }}>
+      <div style={{
+        display: 'grid',
+        gridTemplateColumns: '1fr 1fr',
+        gap: '60px',
+        alignItems: 'start',
+      }}>
+        {/* Left Side - Images */}
+        <div>
+          <div style={{
+            backgroundColor: '#f5f5f7',
+            borderRadius: '24px',
+            padding: '40px',
+            marginBottom: '20px',
+          }}>
+            <img
+              src={productData.gallery[selectedImageIndex]}
+              alt={productData.name}
+              style={{
+                width: '100%',
+                maxHeight: '500px',
+                objectFit: 'contain',
+              }}
+            />
+          </div>
+          <div style={{
+            display: 'flex',
+            gap: '12px',
+            flexWrap: 'wrap',
+          }}>
+            {productData.gallery.slice(0, 6).map((img, index) => (
+              <button
+                key={index}
+                onClick={() => setSelectedImageIndex(index)}
+                style={{
+                  width: '80px',
+                  height: '80px',
+                  borderRadius: '12px',
+                  border: selectedImageIndex === index ? '2px solid #000000' : '2px solid transparent',
+                  backgroundColor: '#f5f5f7',
+                  cursor: 'pointer',
+                  padding: '8px',
+                  transition: 'all 0.2s',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+              >
+                <img
+                  src={img}
+                  alt={`${productData.name} view ${index + 1}`}
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'contain',
+                  }}
+                />
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Right Side - Product Info & Actions */}
+        <div style={{ position: 'sticky', top: '120px' }}>
+          <h1 style={{
+            fontSize: '48px',
+            fontWeight: '600',
+            color: apple.textPrimary,
+            margin: '0 0 12px 0',
+            letterSpacing: '-0.02em',
+            lineHeight: '1.1',
+          }}>
+            {productData.name}
+          </h1>
+          <p style={{
+            fontSize: '20px',
+            fontWeight: '400',
+            color: apple.textSecondary,
+            margin: '0 0 24px',
+            lineHeight: '1.5',
+          }}>
+            Inspired by {productData.tagline}
+          </p>
+          <p style={{
+            fontSize: '28px',
+            fontWeight: '600',
+            color: apple.textPrimary,
+            margin: '0 0 24px',
+          }}>
+            ${productData.price.toFixed(2)}
+          </p>
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '8px',
+            marginBottom: '32px',
+          }}>
+            <div style={{ display: 'flex', gap: '2px' }}>
+              {[...Array(5)].map((_, i) => (
+                <span key={i} style={{ color: i < Math.floor(productData.rating.average) ? '#000' : '#ccc', fontSize: '18px' }}>★</span>
+              ))}
+            </div>
+            <span style={{ fontSize: '14px', color: apple.textSecondary }}>
+              ({productData.rating.count.toLocaleString()} reviews)
+            </span>
+          </div>
+          <button style={{
+            width: '100%',
+            padding: '16px 32px',
+            backgroundColor: apple.accent,
+            color: '#ffffff',
+            fontSize: '18px',
+            fontWeight: '500',
+            border: 'none',
+            borderRadius: '980px',
+            cursor: 'pointer',
+            transition: 'background-color 0.2s',
+            marginBottom: '16px',
+          }}>
+            Add to Cart
+          </button>
+          <Link href="/collections/smoothies" style={{
+            display: 'block',
+            textAlign: 'center',
+            fontSize: '17px',
+            color: apple.accent,
+            textDecoration: 'none',
+            marginBottom: '40px',
+          }}>
+            View all smoothies →
+          </Link>
+          <div style={{
+            borderTop: '1px solid rgba(0,0,0,0.1)',
+            paddingTop: '24px',
+          }}>
+            <h3 style={{
+              fontSize: '16px',
+              fontWeight: '600',
+              color: apple.textPrimary,
+              marginBottom: '12px',
+            }}>
+              About this smoothie
+            </h3>
+            <p style={{
+              fontSize: '15px',
+              color: apple.textSecondary,
+              lineHeight: '1.6',
+            }}>
+              {productData.description}
+            </p>
+          </div>
+          <div style={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            gap: '8px',
+            marginTop: '24px',
+          }}>
+            {productData.badges.map((badge, index) => (
+              <span
+                key={index}
+                style={{
+                  padding: '6px 12px',
+                  backgroundColor: '#f5f5f7',
+                  borderRadius: '980px',
+                  fontSize: '12px',
+                  fontWeight: '500',
+                  color: apple.textSecondary,
+                }}
+              >
+                {badge}
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+
+  // Old centered layout (for reference)
+  const renderCenteredLayout = () => (
     <section style={{
       paddingTop: '120px',
       paddingBottom: '0',
