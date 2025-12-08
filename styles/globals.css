@@ -13,14 +13,25 @@
   --font-display: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --font-text: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   
-  /* Typography Scale - Uniform */
-  --fs-h1: 1.75rem;                          /* 28px - all titles */
-  --fs-h2: 1.75rem;                          /* 28px - all titles */
-  --fs-h3: 1.75rem;                          /* 28px - all titles */
-  --fs-h4: 1.75rem;                          /* 28px - all titles */
-  --fs-body: 1rem;                           /* 16px - all body text */
-  --fs-small: 1rem;                          /* 16px - all body text */
-  --fs-label: 0.75rem;                       /* 12px - labels only */
+  /* Typography Scale - Google AI Inspired Hierarchy */
+  --fs-h1: clamp(2.25rem, 5vw, 3.25rem);     /* 36-52px - Hero titles (once per page) */
+  --fs-h2: clamp(1.75rem, 3.5vw, 2.25rem);   /* 28-36px - Section titles */
+  --fs-h3: clamp(1.25rem, 2vw, 1.5rem);      /* 20-24px - Card/sub-section titles */
+  --fs-h4: 1.125rem;                          /* 18px - Small card titles */
+  --fs-body: 1rem;                            /* 16px - Body text */
+  --fs-lead: clamp(1.125rem, 1.5vw, 1.25rem); /* 18-20px - Lead paragraphs */
+  --fs-small: 0.875rem;                       /* 14px - Captions, meta */
+  --fs-label: 0.75rem;                        /* 12px - Labels, fine print */
+  
+  /* Spacing for Typography Rhythm */
+  --space-after-h1: 1.5rem;                   /* 24px */
+  --space-after-h2: 1rem;                     /* 16px */
+  --space-after-h3: 0.75rem;                  /* 12px */
+  --space-after-p: 1rem;                      /* 16px */
+  
+  /* Text Max Widths for Readability */
+  --text-max-width: 680px;
+  --text-max-width-narrow: 560px;
   
   /* Font Weights */
   --fw-light: 300;
@@ -168,6 +179,135 @@
   padding-right: var(--safe-area-inset-right);
   padding-bottom: var(--safe-area-inset-bottom);
   padding-left: var(--safe-area-inset-left);
+}
+
+/* ============================================
+   TYPOGRAPHY UTILITY CLASSES
+   Google AI Inspired - Consistent Hierarchy
+   ============================================ */
+
+/* Heading 1 - Hero titles (once per page) */
+.heading-1 {
+  font-family: var(--font-display);
+  font-size: var(--fs-h1);
+  font-weight: var(--fw-semibold);
+  line-height: var(--lh-tight);
+  letter-spacing: -0.02em;
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-after-h1);
+}
+
+/* Heading 2 - Section titles */
+.heading-2 {
+  font-family: var(--font-display);
+  font-size: var(--fs-h2);
+  font-weight: var(--fw-semibold);
+  line-height: var(--lh-heading);
+  letter-spacing: -0.015em;
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-after-h2);
+}
+
+/* Heading 3 - Card/sub-section titles */
+.heading-3 {
+  font-family: var(--font-display);
+  font-size: var(--fs-h3);
+  font-weight: var(--fw-medium);
+  line-height: var(--lh-subheading);
+  letter-spacing: -0.01em;
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-after-h3);
+}
+
+/* Heading 4 - Small card titles */
+.heading-4 {
+  font-family: var(--font-display);
+  font-size: var(--fs-h4);
+  font-weight: var(--fw-medium);
+  line-height: var(--lh-subheading);
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-after-h3);
+}
+
+/* Lead text - Larger intro paragraphs */
+.text-lead {
+  font-family: var(--font-text);
+  font-size: var(--fs-lead);
+  font-weight: var(--fw-regular);
+  line-height: var(--lh-body);
+  color: var(--color-text-secondary);
+  max-width: var(--text-max-width);
+  margin-bottom: var(--space-after-p);
+}
+
+/* Body text - Standard paragraphs */
+.text-body {
+  font-family: var(--font-text);
+  font-size: var(--fs-body);
+  font-weight: var(--fw-regular);
+  line-height: var(--lh-body);
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-after-p);
+}
+
+/* Small text - Captions, meta info */
+.text-small {
+  font-family: var(--font-text);
+  font-size: var(--fs-small);
+  font-weight: var(--fw-regular);
+  line-height: var(--lh-body);
+  color: var(--color-text-tertiary);
+}
+
+/* Label text - Fine print, labels */
+.text-label {
+  font-family: var(--font-text);
+  font-size: var(--fs-label);
+  font-weight: var(--fw-medium);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-tertiary);
+}
+
+/* Text alignment utilities */
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+
+/* Text max-width utilities */
+.text-readable {
+  max-width: var(--text-max-width);
+}
+.text-readable-narrow {
+  max-width: var(--text-max-width-narrow);
+}
+.text-readable-center {
+  max-width: var(--text-max-width);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ============================================
+   SECTION LAYOUT PATTERNS
+   Consistent vertical rhythm
+   ============================================ */
+
+.section {
+  padding: var(--section-padding-y) var(--section-padding-x);
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: clamp(48px, 8vw, 80px);
+}
+
+.section-header .heading-2 {
+  margin-bottom: 1rem;
+}
+
+.section-header .text-lead {
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* ============================================
