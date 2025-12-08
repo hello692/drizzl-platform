@@ -13,6 +13,7 @@ const SMOOTHIES = [
   { id: '12', name: 'Nutty Monkey', price: 8.99, image: '/products/nutty-monkey/gallery-1.jpg', category: 'Nutty', reviews: 389 },
   { id: '13', name: 'Mango Jackfruit', price: 8.99, image: '/products/mango-jackfruit/gallery-1.jpg', category: 'Tropical', reviews: 156 },
   { id: '14', name: 'Coffee Mushroom', price: 9.99, image: '/products/coffee-mushroom/gallery-1.jpg', category: 'Energy', reviews: 203 },
+  { id: '15', name: 'Chocolate Berry', price: 8.99, image: '/products/chocolate-berry/gallery-1.jpg', category: 'Indulgent', reviews: 278 },
   { id: '17', name: 'Acai', price: 9.49, image: '/products/acai/Acai-TG-1.jpg', category: 'Antioxidant', reviews: 487 },
 ];
 
