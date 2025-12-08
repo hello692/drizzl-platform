@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useState } from 'react';
 
 const products = [
-  { id: '1', name: 'Strawberry + Peach', type: 'Smoothie', price: 8.49, reviews: 4619, rating: 4.5, badge: 'BEST SELLER', image: '/products/strawberry-peach/main-product.jpg' },
+  { id: '1', name: 'Strawberry + Peach', type: 'Smoothie', price: 8.49, reviews: 4619, rating: 4.5, badge: 'BEST SELLER', image: '/products/strawberry-peach/gallery-1.jpg' },
   { id: '9', name: 'Pink Piyata', type: 'Smoothie', price: 8.99, reviews: 127, rating: 4.8, badge: 'NEW', image: '/products/pink-piyata/transparent-glass-1.png' },
   { id: '10', name: 'Matcha', type: 'Smoothie', price: 9.49, reviews: 312, rating: 4.7, badge: 'NEW', image: '/products/matcha/transparent-glass-1.png' },
   { id: '11', name: 'Mocha', type: 'Smoothie', price: 9.49, reviews: 245, rating: 4.8, badge: 'NEW', image: '/products/mocha/transparent-glass-1.png' },
