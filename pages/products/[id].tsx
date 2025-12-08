@@ -896,7 +896,7 @@ export default function ProductPage() {
       <Navbar />
       
       <main>
-        {productId === '9' ? renderProduct9Layout() : renderDefaultLayout()}
+        {renderDefaultLayout()}
 
           {/* Accordion Sections - Menu Style - Black Background */}
           <div style={{
