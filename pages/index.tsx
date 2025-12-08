@@ -917,78 +917,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 9. CTA Banner */}
-      <section style={{
-        background: 'linear-gradient(180deg, #0a0a0a 0%, #000000 100%)',
-        padding: 'clamp(80px, 12vw, 140px) clamp(24px, 6vw, 100px)',
-        textAlign: 'center',
-      }}>
-        <div style={{ maxWidth: '720px', margin: '0 auto' }}>
-          <AnimatedSection animation="fadeUp">
-            <p style={{
-              fontSize: '12px',
-              fontWeight: 600,
-              letterSpacing: '0.15em',
-              textTransform: 'uppercase',
-              color: 'rgba(255,255,255,0.4)',
-              marginBottom: '20px',
-            }}>
-              LIMITED TIME OFFER
-            </p>
-            <h2 style={{
-              fontSize: 'clamp(36px, 7vw, 64px)',
-              fontWeight: 700,
-              lineHeight: 1.05,
-              letterSpacing: '-0.03em',
-              color: '#ffffff',
-              marginBottom: '24px',
-            }}>
-              Get 20% off your first order
-            </h2>
-          </AnimatedSection>
-          <AnimatedSection animation="fadeUp" delay={100}>
-            <p style={{
-              fontSize: 'clamp(16px, 2vw, 20px)',
-              fontWeight: 400,
-              lineHeight: 1.6,
-              color: '#a1a1a6',
-              marginBottom: '16px',
-            }}>
-              Use code <span style={{ color: '#ffffff', fontWeight: 600 }}>DRIZZL20</span> at checkout.
-            </p>
-            <p style={{
-              fontSize: '14px',
-              color: 'rgba(255,255,255,0.5)',
-              marginBottom: '40px',
-            }}>
-              50,000+ five-star reviews · Free shipping $50+ · 100% money-back guarantee
-            </p>
-          </AnimatedSection>
-          <AnimatedSection animation="fadeUp" delay={200}>
-            <Link href="/products" style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '10px',
-              background: '#ffffff',
-              color: '#000000',
-              padding: '20px 56px',
-              borderRadius: '980px',
-              fontSize: '17px',
-              fontWeight: 600,
-              letterSpacing: '0.02em',
-              textDecoration: 'none',
-              transition: 'all 0.2s ease',
-            }}>
-              Claim My 20% Off
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M5 12h14M12 5l7 7-7 7"/>
-              </svg>
-            </Link>
-          </AnimatedSection>
-        </div>
-      </section>
-
-      {/* 10. Footer */}
+      {/* Footer */}
       <Footer />
 
       <style jsx>{`
