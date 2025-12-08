@@ -534,22 +534,22 @@ export default function ProductPage() {
     setOpenSections(prev => ({ ...prev, [section]: !prev[section] }));
   };
 
-  // Horizontal mouse wheel scroll for stories film-strip
+  // Horizontal mouse wheel scroll for lifestyle track
   useEffect(() => {
-    const scroller = document.querySelector('.stories-scroller');
-    if (!scroller) return;
+    const track = document.querySelector('.lifestyle-track');
+    if (!track) return;
 
     const handleWheel = (e: WheelEvent) => {
       if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
         e.preventDefault();
-        scroller.scrollLeft += e.deltaY;
+        track.scrollLeft += e.deltaY;
       }
     };
 
-    scroller.addEventListener('wheel', handleWheel as EventListener, { passive: false });
+    track.addEventListener('wheel', handleWheel as EventListener, { passive: false });
     
     return () => {
-      scroller.removeEventListener('wheel', handleWheel as EventListener);
+      track.removeEventListener('wheel', handleWheel as EventListener);
     };
   }, []);
 
@@ -1073,27 +1073,63 @@ export default function ProductPage() {
       <main>
         {renderDefaultLayout()}
 
-        {/* Stories Film-Strip Section */}
-        <section className="stories-strip">
-          <div className="stories-header">
-            <h2 className="stories-title">Your Everyday — Powered Naturally.</h2>
-            <p className="stories-subtitle">Real nourishment. Real moments. Real life.</p>
+        {/* Lifestyle Film-Strip Section */}
+        <section className="lifestyle-section">
+          <div className="lifestyle-header">
+            <h2 className="lifestyle-title">Your Everyday — Powered Naturally.</h2>
+            <p className="lifestyle-subtitle">Real nourishment. Real moments. Real life.</p>
           </div>
-          <div className="stories-scroller" id="stories-scroller">
-            {[
-              { img: '/lifestyle/DSC09048-1.jpg', label: 'Start fresh' },
-              { img: '/lifestyle/DSC09063.jpg', label: 'Move freely' },
-              { img: '/lifestyle/DSC09073-1-2.jpg', label: 'Find balance' },
-              { img: '/lifestyle/DSC09091.jpg', label: 'Feel alive' },
-              { img: '/lifestyle/DSC09092.jpg', label: 'Live fully' },
-              { img: '/lifestyle/DSC09108-2.jpg', label: 'Fuel joy' },
-              { img: '/lifestyle/DSC09118.jpg', label: 'Be you' },
-            ].map((slide, index) => (
-              <figure key={index} className="story-item">
-                <img src={slide.img} alt={slide.label} />
-                <figcaption>{slide.label}</figcaption>
-              </figure>
-            ))}
+          <div className="lifestyle-wrapper">
+            <div className="lifestyle-track" id="lifestyle-track">
+              {[
+                { img: '/lifestyle/DSC09048-1.jpg', label: 'Start fresh' },
+                { img: '/lifestyle/DSC09063.jpg', label: 'Move freely' },
+                { img: '/lifestyle/DSC09073-1-2.jpg', label: 'Find balance' },
+                { img: '/lifestyle/DSC09091.jpg', label: 'Feel alive' },
+                { img: '/lifestyle/DSC09092.jpg', label: 'Live fully' },
+                { img: '/lifestyle/DSC09108-2.jpg', label: 'Fuel joy' },
+                { img: '/lifestyle/DSC09118.jpg', label: 'Be you' },
+              ].map((slide, index) => (
+                <div key={index} className="lifestyle-card">
+                  <img src={slide.img} alt={slide.label} />
+                  <span className="lifestyle-label">{slide.label}</span>
+                </div>
+              ))}
+            </div>
+            <div className="lifestyle-arrows">
+              <button 
+                className="lifestyle-arrow prev"
+                onClick={() => {
+                  const track = document.getElementById('lifestyle-track');
+                  const card = document.querySelector('.lifestyle-card');
+                  if (track && card) {
+                    const step = card.getBoundingClientRect().width + 24;
+                    track.scrollBy({ left: -step, behavior: 'smooth' });
+                  }
+                }}
+                aria-label="Previous"
+              >
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M15 18l-6-6 6-6" />
+                </svg>
+              </button>
+              <button 
+                className="lifestyle-arrow next"
+                onClick={() => {
+                  const track = document.getElementById('lifestyle-track');
+                  const card = document.querySelector('.lifestyle-card');
+                  if (track && card) {
+                    const step = card.getBoundingClientRect().width + 24;
+                    track.scrollBy({ left: step, behavior: 'smooth' });
+                  }
+                }}
+                aria-label="Next"
+              >
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M9 18l6-6-6-6" />
+                </svg>
+              </button>
+            </div>
           </div>
         </section>
 
