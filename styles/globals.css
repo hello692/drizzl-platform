@@ -3759,17 +3759,13 @@ svg {
 }
 
 .smoothie-card-dh-image {
-  width: 140%;
-  height: 140%;
+  width: 130%;
+  height: 130%;
   object-fit: contain;
-  transition: opacity 0.3s ease, transform 0.3s ease;
+  transition: opacity 0.3s ease;
   margin-top: -24px;
   position: relative;
   z-index: 5;
-}
-
-.smoothie-card-dh:hover .smoothie-card-dh-image {
-  transform: scale(1.08);
 }
 
 .smoothie-card-dh-zoom {
