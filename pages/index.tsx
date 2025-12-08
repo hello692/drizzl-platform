@@ -48,12 +48,13 @@ const CUSTOMERS = [
 ];
 
 const ROTATING_WORDS = [
-  { word: 'Good', color: '#22c55e' },      // Matcha green
-  { word: 'Flavor', color: '#f97316' },    // Mango orange
-  { word: 'Alive', color: '#ec4899' },     // Pink Piyata
-  { word: 'Happy', color: '#facc15' },     // Banana yellow
-  { word: 'Better', color: '#8b5cf6' },    // Acai purple
-  { word: 'Me', color: '#ef4444' },        // Strawberry red
+  { word: 'Nourished', color: '#22c55e' },  // Matcha green
+  { word: 'Fueled', color: '#f97316' },     // Mango orange
+  { word: 'Strong', color: '#ec4899' },     // Pink Piyata
+  { word: 'Happy', color: '#facc15' },      // Banana yellow
+  { word: 'Relaxed', color: '#8b5cf6' },    // Acai purple
+  { word: 'Glowing', color: '#ef4444' },    // Strawberry red
+  { word: 'Balanced', color: '#06b6d4' },   // Cyan
 ];
 
 const BENEFITS = [
@@ -295,7 +296,7 @@ export default function Home() {
               color: '#ffffff',
               marginBottom: '24px',
             }}>
-              <span>I Feel </span>
+              <span>I Am </span>
               <span style={{
                 display: 'inline-block',
                 minWidth: '2ch',
