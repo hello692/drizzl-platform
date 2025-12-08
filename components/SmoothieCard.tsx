@@ -99,7 +99,7 @@ export default function SmoothieCard({
       </div>
       
       <Link href={`/products/${id}`} className="smoothie-card-dh-button">
-        ADD TO CART  ${price.toFixed(2)}
+        Add to Cart  ${price.toFixed(2)}
       </Link>
     </div>
   );
