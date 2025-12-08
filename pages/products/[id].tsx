@@ -304,22 +304,6 @@ export default function ProductPage() {
           paddingBottom: '80px',
           textAlign: 'center',
         }}>
-          {/* Product Badge */}
-          <div style={{ marginBottom: '16px' }}>
-            <span style={{
-              display: 'inline-block',
-              padding: '6px 14px',
-              background: '#000000',
-              borderRadius: '100px',
-              fontSize: '12px',
-              fontWeight: '500',
-              color: '#ffffff',
-              letterSpacing: '0.5px',
-            }}>
-              Best Seller
-            </span>
-          </div>
-
           {/* Product Name - Large Apple Typography */}
           <h1 style={{
             fontSize: 'clamp(48px, 8vw, 80px)',
