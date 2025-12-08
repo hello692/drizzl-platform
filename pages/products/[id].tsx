@@ -1214,26 +1214,63 @@ export default function ProductPage() {
               </div>
               
               <div className="apple-slider-controls">
-                <div className="apple-slider-dots">
-                  {[0, 1, 2, 3, 4].map((dotIndex) => (
-                    <button
-                      key={dotIndex}
-                      className={`apple-slider-dot ${activeCardIndex === dotIndex ? 'active' : ''}`}
-                      onClick={() => {
-                        const slider = document.getElementById('lifestyle-slider');
-                        if (slider) {
-                          const slideWidth = slider.scrollWidth / 5;
-                          slider.scrollTo({ left: slideWidth * dotIndex, behavior: 'smooth' });
-                        }
-                      }}
+                <div className="apple-slider-left-controls">
+                  <div className="apple-slider-dots">
+                    {[0, 1, 2, 3, 4].map((dotIndex) => (
+                      <button
+                        key={dotIndex}
+                        className={`apple-slider-dot ${activeCardIndex === dotIndex ? 'active' : ''}`}
+                        onClick={() => {
+                          const slider = document.getElementById('lifestyle-slider');
+                          if (slider) {
+                            const slideWidth = slider.scrollWidth / 5;
+                            slider.scrollTo({ left: slideWidth * dotIndex, behavior: 'smooth' });
+                          }
+                        }}
+                      />
+                    ))}
+                  </div>
+                  <div className="apple-slider-progress">
+                    <div 
+                      className="apple-slider-progress-bar" 
+                      style={{ width: `${((activeCardIndex + 1) / 5) * 100}%` }}
                     />
-                  ))}
+                  </div>
                 </div>
-                <div className="apple-slider-progress">
-                  <div 
-                    className="apple-slider-progress-bar" 
-                    style={{ width: `${((activeCardIndex + 1) / 5) * 100}%` }}
-                  />
+                
+                <div className="apple-slider-arrows">
+                  <button 
+                    className="apple-slider-arrow"
+                    onClick={() => {
+                      const slider = document.getElementById('lifestyle-slider');
+                      if (slider) {
+                        const slideWidth = slider.scrollWidth / 5;
+                        const newIndex = Math.max(0, activeCardIndex - 1);
+                        slider.scrollTo({ left: slideWidth * newIndex, behavior: 'smooth' });
+                      }
+                    }}
+                    aria-label="Previous slide"
+                  >
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <polyline points="15 18 9 12 15 6" />
+                    </svg>
+                  </button>
+                  <button 
+                    className="apple-slider-arrow"
+                    onClick={() => {
+                      const slider = document.getElementById('lifestyle-slider');
+                      if (slider) {
+                        const slideWidth = slider.scrollWidth / 5;
+                        const newIndex = Math.min(4, activeCardIndex + 1);
+                        slider.scrollTo({ left: slideWidth * newIndex, behavior: 'smooth' });
+                      }
+                    }}
+                    aria-label="Next slide"
+                  >
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <polyline points="9 18 15 12 9 6" />
+                    </svg>
+                  </button>
                 </div>
               </div>
             </div>

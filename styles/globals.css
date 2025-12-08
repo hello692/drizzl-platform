@@ -5545,9 +5545,14 @@ svg {
 .apple-slider-controls {
   display: flex;
   align-items: center;
-  justify-content: flex-start;
-  gap: 16px;
+  justify-content: space-between;
   padding: 40px 24px 20px;
+}
+
+.apple-slider-left-controls {
+  display: flex;
+  align-items: center;
+  gap: 16px;
 }
 
 .apple-slider-dots {
@@ -5580,7 +5585,6 @@ svg {
   background: rgba(255, 255, 255, 0.2);
   border-radius: 2px;
   overflow: hidden;
-  margin-left: 16px;
 }
 
 .apple-slider-progress-bar {
@@ -5588,6 +5592,43 @@ svg {
   background: #ffffff;
   border-radius: 2px;
   transition: width 0.3s ease;
+}
+
+.apple-slider-arrows {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.apple-slider-arrow {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  padding: 0;
+}
+
+.apple-slider-arrow:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+.apple-slider-arrow:active {
+  transform: scale(0.95);
+}
+
+.apple-slider-arrow svg {
+  width: 16px;
+  height: 16px;
+  stroke: #ffffff;
+  stroke-width: 2;
+  fill: none;
 }
 
 /* Mobile Responsive - Apple Slider */
