@@ -5607,3 +5607,296 @@ svg {
     padding: 24px 16px 16px;
   }
 }
+
+/* ============================================
+   LV-INSPIRED LUXURY PRODUCT PAGE LAYOUT
+   ============================================ */
+
+.lv-product-page {
+  background: #ffffff;
+  min-height: 100vh;
+  padding-top: 70px;
+}
+
+.lv-product-main {
+  display: grid;
+  grid-template-columns: 55% 45%;
+  gap: 0;
+  align-items: flex-start;
+}
+
+/* Left Column - Vertical Scrolling Image Gallery */
+.lv-product-gallery {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.lv-gallery-image-wrapper {
+  width: 100%;
+  background: #fafafa;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+}
+
+.lv-gallery-image {
+  width: 100%;
+  height: auto;
+  max-height: 600px;
+  object-fit: contain;
+  display: block;
+}
+
+/* Right Column - Sticky Product Info Panel */
+.lv-product-info {
+  position: sticky;
+  top: 70px;
+  align-self: flex-start;
+  height: calc(100vh - 70px);
+  overflow-y: auto;
+  padding: 48px 60px 48px 48px;
+  background: #ffffff;
+}
+
+.lv-product-info-inner {
+  max-width: 400px;
+}
+
+.lv-product-name {
+  font-size: 32px;
+  font-weight: 500;
+  color: #111111;
+  margin: 0 0 8px 0;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+}
+
+.lv-product-subtitle {
+  font-size: 15px;
+  font-weight: 400;
+  color: #666666;
+  margin: 0 0 20px 0;
+  line-height: 1.5;
+}
+
+.lv-product-price {
+  font-size: 18px;
+  font-weight: 500;
+  color: #111111;
+  margin: 0 0 16px 0;
+}
+
+.lv-product-rating {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 28px;
+}
+
+.lv-stars {
+  display: flex;
+  gap: 2px;
+  font-size: 14px;
+}
+
+.lv-stars span {
+  color: #cccccc;
+}
+
+.lv-stars span.filled {
+  color: #111111;
+}
+
+.lv-review-count {
+  font-size: 13px;
+  color: #666666;
+}
+
+.lv-add-to-cart {
+  width: 100%;
+  padding: 16px 32px;
+  background: #111111;
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  border: none;
+  border-radius: 980px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-bottom: 16px;
+}
+
+.lv-add-to-cart:hover {
+  background: #333333;
+  transform: scale(1.01);
+}
+
+.lv-add-to-cart:active {
+  transform: scale(0.99);
+}
+
+.lv-view-all {
+  display: block;
+  text-align: center;
+  font-size: 14px;
+  color: #111111;
+  text-decoration: none;
+  padding: 8px 0;
+  transition: opacity 0.2s;
+}
+
+.lv-view-all:hover {
+  text-decoration: underline;
+}
+
+.lv-divider {
+  height: 1px;
+  background: #e5e5e5;
+  margin: 24px 0;
+}
+
+/* Accordion Styles */
+.lv-accordion {
+  margin-bottom: 24px;
+}
+
+.lv-accordion-item {
+  border-top: 1px solid #e5e5e5;
+}
+
+.lv-accordion-item:last-child {
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.lv-accordion-header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  color: #111111;
+  text-align: left;
+  transition: opacity 0.2s;
+}
+
+.lv-accordion-header:hover {
+  opacity: 0.7;
+}
+
+.lv-accordion-icon {
+  font-size: 18px;
+  font-weight: 300;
+  color: #111111;
+}
+
+.lv-accordion-content {
+  padding: 0 0 20px 0;
+}
+
+.lv-accordion-content p {
+  font-size: 13px;
+  color: #666666;
+  line-height: 1.7;
+  margin: 0 0 8px 0;
+}
+
+.lv-accordion-content p:last-child {
+  margin-bottom: 0;
+}
+
+/* Nutrition Grid */
+.lv-nutrition-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.lv-nutrition-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.lv-nutrition-label {
+  font-size: 11px;
+  color: #999999;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.lv-nutrition-value {
+  font-size: 14px;
+  font-weight: 500;
+  color: #111111;
+}
+
+/* Badges */
+.lv-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.lv-badge {
+  padding: 6px 14px;
+  background: #f5f5f5;
+  border-radius: 980px;
+  font-size: 11px;
+  font-weight: 500;
+  color: #666666;
+  letter-spacing: 0.02em;
+}
+
+/* Responsive - Tablet */
+@media (max-width: 1024px) {
+  .lv-product-main {
+    grid-template-columns: 1fr;
+  }
+  
+  .lv-product-info {
+    position: relative;
+    top: 0;
+    height: auto;
+    overflow: visible;
+    padding: 32px 24px 48px;
+  }
+  
+  .lv-product-info-inner {
+    max-width: 100%;
+  }
+  
+  .lv-gallery-image-wrapper {
+    min-height: 400px;
+  }
+}
+
+/* Responsive - Mobile */
+@media (max-width: 640px) {
+  .lv-product-page {
+    padding-top: 60px;
+  }
+  
+  .lv-product-info {
+    padding: 24px 16px 40px;
+  }
+  
+  .lv-product-name {
+    font-size: 28px;
+  }
+  
+  .lv-gallery-image-wrapper {
+    min-height: 300px;
+  }
+  
+  .lv-nutrition-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
