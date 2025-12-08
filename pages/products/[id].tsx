@@ -663,6 +663,7 @@ export default function ProductPage() {
             maxWidth: '700px',
             margin: '0 auto',
             padding: '0 24px',
+            overflow: 'hidden',
           }}>
             <img
               src={productData.gallery[selectedImageIndex]}
@@ -671,6 +672,7 @@ export default function ProductPage() {
                 width: '100%',
                 maxHeight: '700px',
                 objectFit: 'contain',
+                ...(productId === '1' ? { marginTop: '-40px' } : {}),
               }}
             />
           </div>
