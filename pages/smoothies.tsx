@@ -1,4 +1,4 @@
-import PageLayout, { PageHero, PageSection, SectionHeader, ProductGrid, AnimatedSection } from '../components/PageLayout';
+import PageLayout, { PageHero, PageSection, SectionHeader, AnimatedSection } from '../components/PageLayout';
 import SmoothieCard from '../components/SmoothieCard';
 import Link from 'next/link';
 import { GetStaticPropsContext } from 'next';
@@ -6,16 +6,16 @@ import { useTranslations } from 'next-intl';
 import { getMessages } from '../lib/getMessages';
 
 const SMOOTHIES = [
-  { id: '1', name: 'Strawberry + Peach', price: 8.49, image: '/products/strawberry-peach/gallery-1.jpg', category: 'Fruity', reviews: 4619 },
-  { id: '9', name: 'Pink Piyata', price: 8.99, image: '/products/pink-piyata/gallery-1.jpg', category: 'Tropical', reviews: 127 },
-  { id: '10', name: 'Matcha', price: 9.49, image: '/products/matcha/gallery-1.jpg', category: 'Energy', reviews: 312 },
-  { id: '11', name: 'Mocha', price: 9.49, image: '/products/mocha/gallery-1.jpg', category: 'Energy', reviews: 245 },
-  { id: '12', name: 'Nutty Monkey', price: 8.99, image: '/products/nutty-monkey/gallery-1.jpg', category: 'Nutty', reviews: 389 },
-  { id: '13', name: 'Mango Jackfruit', price: 8.99, image: '/products/mango-jackfruit/gallery-1.jpg', category: 'Tropical', reviews: 156 },
-  { id: '14', name: 'Coffee Mushroom', price: 9.99, image: '/products/coffee-mushroom/gallery-1.jpg', category: 'Energy', reviews: 203 },
-  { id: '15', name: 'Chocolate Berry', price: 8.99, image: '/products/chocolate-berry/gallery-1.jpg', category: 'Indulgent', reviews: 278 },
-  { id: '16', name: 'Almond', price: 8.99, image: '/products/almond/gallery-1.jpg', category: 'Nutty', reviews: 187 },
-  { id: '17', name: 'Acai', price: 9.49, image: '/products/acai/gallery-1.jpg', category: 'Antioxidant', reviews: 487 },
+  { id: '1', name: 'Strawberry + Peach', price: 8.49, image: '/products/strawberry-peach/gallery-1.jpg', hoverImage: '/products/strawberry-peach/gallery-2.jpg', category: 'Fruity', rating: 4.5, reviews: 4619 },
+  { id: '9', name: 'Pink Piyata', price: 8.99, image: '/products/pink-piyata/gallery-1.jpg', hoverImage: '/products/pink-piyata/gallery-2.jpg', category: 'Tropical', rating: 4.7, reviews: 127 },
+  { id: '10', name: 'Matcha', price: 9.49, image: '/products/matcha/gallery-1.jpg', hoverImage: '/products/matcha/gallery-2.jpg', category: 'Energy', rating: 4.8, reviews: 312 },
+  { id: '11', name: 'Mocha', price: 9.49, image: '/products/mocha/gallery-1.jpg', hoverImage: '/products/mocha/gallery-2.jpg', category: 'Energy', rating: 4.6, reviews: 245 },
+  { id: '12', name: 'Nutty Monkey', price: 8.99, image: '/products/nutty-monkey/gallery-1.jpg', hoverImage: '/products/nutty-monkey/gallery-2.jpg', category: 'Nutty', rating: 4.7, reviews: 389 },
+  { id: '13', name: 'Mango Jackfruit', price: 8.99, image: '/products/mango-jackfruit/gallery-1.jpg', hoverImage: '/products/mango-jackfruit/gallery-2.jpg', category: 'Tropical', rating: 4.8, reviews: 156 },
+  { id: '14', name: 'Coffee Mushroom', price: 9.99, image: '/products/coffee-mushroom/gallery-1.jpg', hoverImage: '/products/coffee-mushroom/gallery-2.jpg', category: 'Energy', rating: 4.8, reviews: 203 },
+  { id: '15', name: 'Chocolate Berry', price: 8.99, image: '/products/chocolate-berry/gallery-1.jpg', hoverImage: '/products/chocolate-berry/gallery-2.jpg', category: 'Indulgent', rating: 4.8, reviews: 278 },
+  { id: '16', name: 'Almond', price: 8.99, image: '/products/almond/gallery-1.jpg', hoverImage: '/products/almond/gallery-2.jpg', category: 'Nutty', rating: 4.7, reviews: 187 },
+  { id: '17', name: 'Acai', price: 9.49, image: '/products/acai/gallery-1.jpg', hoverImage: '/products/acai/gallery-2.jpg', category: 'Antioxidant', rating: 4.9, reviews: 487 },
 ];
 
 export default function Smoothies() {
@@ -41,23 +41,24 @@ export default function Smoothies() {
         subtitle={t('subtitle')}
       />
       
-      <PageSection background="black">
+      <PageSection background="white">
         <SectionHeader
-          emoji="🥤"
           title={t('allTitle')}
           subtitle={t('allSubtitle')}
         />
         
-        <div className="smoothie-grid">
+        <div className="smoothie-grid-dh">
           {SMOOTHIES.map((product, index) => (
             <AnimatedSection key={product.id} animation="fadeUp" delay={index * 80}>
               <SmoothieCard
                 id={product.id}
                 name={product.name}
                 image={product.image}
+                hoverImage={product.hoverImage}
                 badge={product.category === 'Tropical' ? 'NEW' : 'BEST SELLER'}
                 price={product.price}
-                showPrice={true}
+                rating={product.rating}
+                reviews={product.reviews}
               />
             </AnimatedSection>
           ))}
