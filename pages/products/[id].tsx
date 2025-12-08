@@ -660,7 +660,7 @@ export default function ProductPage() {
 
           {/* Large Hero Product Image */}
           <div style={{
-            maxWidth: '600px',
+            maxWidth: '700px',
             margin: '0 auto',
             padding: '0 24px',
           }}>
@@ -669,7 +669,7 @@ export default function ProductPage() {
               alt={productData.name}
               style={{
                 width: '100%',
-                maxHeight: '600px',
+                maxHeight: '700px',
                 objectFit: 'contain',
               }}
             />
