@@ -39,15 +39,15 @@ const PRODUCT_DATA: Record<string, ProductData> = {
     id: '1',
     name: 'Strawberry + Peach',
     price: 8.49,
-    image: '/products/strawberry-peach/main-product.png',
+    image: '/products/strawberry-peach/main-product.jpg',
     shortDescription: 'Creamy strawberry bliss',
     tagline: 'a scoop of strawberry-banana sorbet',
     rating: { average: 4.5, count: 4619 },
     gallery: [
-      '/products/strawberry-peach/main-product.png',
-      '/products/strawberry-peach/transparent-glass-1.png',
-      '/products/strawberry-peach/transparent-glass-2.png',
-      '/products/strawberry-peach/lifestyle-1.jpg',
+      '/products/strawberry-peach/main-product.jpg',
+      '/products/strawberry-peach/transparent-glass-1.jpg',
+      '/products/strawberry-peach/transparent-glass-2.jpg',
+      '/products/strawberry-peach/transparent-glass-3.jpg',
     ],
     description: 'If you asked a peach what it wanted to be when it grew up, it would tell you: THIS SMOOTHIE. Sweet strawberries, bright raspberries, and a hint of tartness from goji berries round out that irresistibly juicy peach flavor. Bananas, oats, and flax seeds make the whole thing creamy and satisfying.',
     ingredients: 'organic strawberries, organic bananas, organic peaches, organic raspberries, organic gluten-free whole grain oats, organic flax seeds, organic goji berries',
@@ -242,7 +242,7 @@ const PRODUCT_DATA: Record<string, ProductData> = {
 };
 
 const POPULAR_SMOOTHIES = [
-  { id: '1', name: 'Strawberry + Peach', price: 8.49, image: '/products/strawberry-peach/main-product.png' },
+  { id: '1', name: 'Strawberry + Peach', price: 8.49, image: '/products/strawberry-peach/main-product.jpg' },
   { id: '9', name: 'Pink Piyata', price: 8.99, image: '/products/pink-piyata/transparent-glass-1.png' },
   { id: '10', name: 'Matcha', price: 9.49, image: '/products/matcha/transparent-glass-1.png' },
   { id: '14', name: 'Coffee Mushroom', price: 9.99, image: '/products/coffee-mushroom/transparent-glass-1.png' },
