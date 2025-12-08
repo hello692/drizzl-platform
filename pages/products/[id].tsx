@@ -374,7 +374,6 @@ const PRODUCT_DATA: Record<string, ProductData> = {
       '/products/acai/Acai-4.png',
       '/products/acai/Acai-5.png',
       '/products/acai/Acai-6.png',
-      '/products/acai/Acai-7.png',
     ],
     lifestyleGallery: [
       { src: '/lifestyle/DSC09048-1.jpg', alt: 'Acai lifestyle 1' },
