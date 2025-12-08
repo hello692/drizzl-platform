@@ -508,64 +508,6 @@ export default function ProductPage() {
               ))}
             </div>
 
-            {/* Pairs Well With */}
-            {productData.pairsWellWith && (
-              <div style={{ marginBottom: '32px' }}>
-                <p style={{
-                  fontSize: '12px',
-                  fontWeight: '600',
-                  letterSpacing: '1px',
-                  color: '#000000',
-                  textTransform: 'uppercase',
-                  marginBottom: '16px',
-                }}>
-                  PAIRS WELL WITH
-                </p>
-                <div style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                  padding: '16px',
-                  border: '1px solid #E5E5E5',
-                }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-                    <div style={{
-                      width: '60px',
-                      height: '60px',
-                      backgroundColor: '#F5F5F5',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      fontSize: '10px',
-                      color: '#666666',
-                    }}>
-                      PROTEIN
-                    </div>
-                    <div>
-                      <p style={{ fontSize: '14px', fontWeight: '500', color: '#000000', margin: 0 }}>
-                        {productData.pairsWellWith.name}
-                      </p>
-                      <p style={{ fontSize: '14px', color: '#666666', margin: '4px 0 0 0' }}>
-                        ${productData.pairsWellWith.price.toFixed(2)}
-                      </p>
-                    </div>
-                  </div>
-                  <button style={{
-                    padding: '10px 20px',
-                    backgroundColor: '#000000',
-                    color: '#FFFFFF',
-                    fontSize: '12px',
-                    fontWeight: '600',
-                    border: 'none',
-                    cursor: 'pointer',
-                    borderRadius: '20px',
-                  }}>
-                    ADD +
-                  </button>
-                </div>
-              </div>
-            )}
-
             {/* Accordion Sections */}
             <div>
               {/* Description */}
