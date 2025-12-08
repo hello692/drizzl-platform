@@ -328,7 +328,7 @@ export default function ProductPage() {
             Inspired by {productData.tagline}
           </p>
 
-          {/* Price and CTA */}
+          {/* CTA */}
           <div style={{
             display: 'flex',
             alignItems: 'center',
@@ -336,13 +336,6 @@ export default function ProductPage() {
             gap: '24px',
             marginBottom: '60px',
           }}>
-            <span style={{
-              fontSize: '21px',
-              fontWeight: '400',
-              color: apple.textPrimary,
-            }}>
-              From ${productData.price.toFixed(2)}
-            </span>
             <button style={{
               padding: '12px 24px',
               backgroundColor: apple.accent,
