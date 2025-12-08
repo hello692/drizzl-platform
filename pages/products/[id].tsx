@@ -337,6 +337,7 @@ const PRODUCT_DATA: Record<string, ProductData> = {
       { src: '/lifestyle/DSC08836.jpg', alt: 'Almond lifestyle 4' },
       { src: '/lifestyle/DSC08837.jpg', alt: 'Almond lifestyle 5' },
       { src: '/lifestyle/DSC09048-1Almond.jpg', alt: 'Almond lifestyle 6' },
+      { src: '/lifestyle/DSC09073-1-2Almond.jpg', alt: 'Almond lifestyle 7' },
     ],
     description: 'Experience the pure, creamy goodness of almonds in every sip. This smooth and satisfying blend combines rich almond butter with vanilla, a touch of honey, and warming spices. Perfect for those who love the simple pleasures of nutty, wholesome ingredients.',
     ingredients: 'organic almond butter, organic almond milk, organic banana, organic honey, organic vanilla, organic cinnamon, organic dates, organic flax seeds',
