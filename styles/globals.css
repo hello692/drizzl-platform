@@ -5778,15 +5778,32 @@ svg {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 18px 0;
+  padding: 16px 0;
   background: none;
   border: none;
   cursor: pointer;
-  font-size: 14px;
-  font-weight: 500;
-  color: #111111;
   text-align: left;
   transition: opacity 0.2s;
+}
+
+.lv-accordion-header > div {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.lv-accordion-title {
+  font-size: 15px;
+  font-weight: 500;
+  color: #111111;
+  display: block;
+}
+
+.lv-accordion-subtitle {
+  font-size: 12px;
+  font-weight: 400;
+  color: #777777;
+  display: block;
 }
 
 .lv-accordion-header:hover {
@@ -5797,15 +5814,16 @@ svg {
   font-size: 18px;
   font-weight: 300;
   color: #111111;
+  flex-shrink: 0;
 }
 
 .lv-accordion-content {
-  padding: 0 0 20px 0;
+  padding: 0 0 16px 0;
 }
 
 .lv-accordion-content p {
   font-size: 13px;
-  color: #666666;
+  color: #333333;
   line-height: 1.7;
   margin: 0 0 8px 0;
 }

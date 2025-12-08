@@ -820,7 +820,10 @@ export default function ProductPage() {
                   className="lv-accordion-header"
                   onClick={() => toggleInfoSection('about')}
                 >
-                  <span>About this smoothie</span>
+                  <div>
+                    <span className="lv-accordion-title">About</span>
+                    <span className="lv-accordion-subtitle">Taste the difference</span>
+                  </div>
                   <span className="lv-accordion-icon">{infoSections.about ? '−' : '+'}</span>
                 </button>
                 {infoSections.about && (
@@ -830,35 +833,38 @@ export default function ProductPage() {
                 )}
               </div>
 
-              {/* How to prepare */}
+              {/* Ingredients */}
               <div className="lv-accordion-item">
                 <button 
                   className="lv-accordion-header"
-                  onClick={() => toggleInfoSection('prepare')}
+                  onClick={() => toggleSection('ingredients')}
                 >
-                  <span>How to prepare</span>
-                  <span className="lv-accordion-icon">{infoSections.prepare ? '−' : '+'}</span>
+                  <div>
+                    <span className="lv-accordion-title">Ingredients</span>
+                    <span className="lv-accordion-subtitle">What goes in every cup</span>
+                  </div>
+                  <span className="lv-accordion-icon">{openSections.ingredients ? '−' : '+'}</span>
                 </button>
-                {infoSections.prepare && (
+                {openSections.ingredients && (
                   <div className="lv-accordion-content">
-                    <p>1. Add smoothie pack contents to blender</p>
-                    <p>2. Add 8-10 oz of your favorite liquid (water, milk, or juice)</p>
-                    <p>3. Blend until smooth, approximately 60 seconds</p>
-                    <p>4. Pour into your favorite glass and enjoy</p>
+                    <p>{productData.ingredients}</p>
                   </div>
                 )}
               </div>
 
-              {/* Nutrition & Ingredients */}
+              {/* Nutrition */}
               <div className="lv-accordion-item">
                 <button 
                   className="lv-accordion-header"
-                  onClick={() => toggleInfoSection('nutrition')}
+                  onClick={() => toggleSection('nutrition')}
                 >
-                  <span>Nutrition & Ingredients</span>
-                  <span className="lv-accordion-icon">{infoSections.nutrition ? '−' : '+'}</span>
+                  <div>
+                    <span className="lv-accordion-title">Nutrition</span>
+                    <span className="lv-accordion-subtitle">What you put in matters</span>
+                  </div>
+                  <span className="lv-accordion-icon">{openSections.nutrition ? '−' : '+'}</span>
                 </button>
-                {infoSections.nutrition && (
+                {openSections.nutrition && (
                   <div className="lv-accordion-content">
                     <div className="lv-nutrition-grid">
                       {productData.nutrition.map((item, idx) => (
@@ -868,9 +874,48 @@ export default function ProductPage() {
                         </div>
                       ))}
                     </div>
-                    <p style={{ marginTop: '16px', fontSize: '13px', color: '#666' }}>
-                      <strong>Ingredients:</strong> {productData.ingredients}
-                    </p>
+                  </div>
+                )}
+              </div>
+
+              {/* Key Ingredients */}
+              <div className="lv-accordion-item">
+                <button 
+                  className="lv-accordion-header"
+                  onClick={() => toggleSection('keyIngredients')}
+                >
+                  <div>
+                    <span className="lv-accordion-title">Key Ingredients</span>
+                    <span className="lv-accordion-subtitle">The power behind every sip</span>
+                  </div>
+                  <span className="lv-accordion-icon">{openSections.keyIngredients ? '−' : '+'}</span>
+                </button>
+                {openSections.keyIngredients && (
+                  <div className="lv-accordion-content">
+                    {productData.keyIngredients.map((ingredient, idx) => (
+                      <p key={idx}><strong>{ingredient.name}:</strong> {ingredient.benefit}</p>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              {/* How to prepare */}
+              <div className="lv-accordion-item">
+                <button 
+                  className="lv-accordion-header"
+                  onClick={() => toggleSection('howToPrep')}
+                >
+                  <div>
+                    <span className="lv-accordion-title">How to Prepare</span>
+                    <span className="lv-accordion-subtitle">Ready in 60 seconds</span>
+                  </div>
+                  <span className="lv-accordion-icon">{openSections.howToPrep ? '−' : '+'}</span>
+                </button>
+                {openSections.howToPrep && (
+                  <div className="lv-accordion-content">
+                    <p><strong>1. Add liquid:</strong> Fill cup to top with water, oat milk, or coconut water.</p>
+                    <p><strong>2. Blend:</strong> Pour into a blender and blend until silky smooth.</p>
+                    <p><strong>3. Enjoy:</strong> Pour back into your cup. Sip. Smile. Repeat.</p>
                   </div>
                 )}
               </div>
@@ -881,15 +926,17 @@ export default function ProductPage() {
                   className="lv-accordion-header"
                   onClick={() => toggleInfoSection('delivery')}
                 >
-                  <span>Delivery & Returns</span>
+                  <div>
+                    <span className="lv-accordion-title">Delivery & Returns</span>
+                    <span className="lv-accordion-subtitle">Free shipping on orders over $50</span>
+                  </div>
                   <span className="lv-accordion-icon">{infoSections.delivery ? '−' : '+'}</span>
                 </button>
                 {infoSections.delivery && (
                   <div className="lv-accordion-content">
-                    <p><strong>Free Shipping</strong> on orders over $50</p>
                     <p>Standard delivery: 3-5 business days</p>
                     <p>Express delivery: 1-2 business days</p>
-                    <p style={{ marginTop: '12px' }}>We accept returns within 30 days of purchase for unopened products.</p>
+                    <p>We accept returns within 30 days of purchase for unopened products.</p>
                   </div>
                 )}
               </div>
@@ -1029,316 +1076,6 @@ export default function ProductPage() {
       
       <main>
         {renderDefaultLayout()}
-
-          {/* Accordion Sections - Menu Style - Black Background */}
-          <div style={{
-            backgroundColor: '#000000',
-            margin: '40px 0 0',
-            padding: '40px 24px',
-          }}>
-            <div style={{
-              maxWidth: '600px',
-              margin: '0 auto',
-              textAlign: 'left',
-            }}>
-            {/* All Ingredients */}
-            <div style={{ borderTop: '1px solid rgba(255,255,255,0.2)' }}>
-              <button
-                onClick={() => toggleSection('ingredients')}
-                style={{
-                  width: '100%',
-                  padding: '24px 0',
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'flex-start',
-                  background: 'none',
-                  border: 'none',
-                  cursor: 'pointer',
-                  textAlign: 'left',
-                }}
-              >
-                <div>
-                  <div style={{
-                    fontSize: '28px',
-                    fontWeight: '600',
-                    color: '#ffffff',
-                    marginBottom: '4px',
-                  }}>
-                    Ingredients
-                  </div>
-                  <div style={{
-                    fontSize: '14px',
-                    color: '#ffffff',
-                  }}>
-                    What goes in every cup
-                  </div>
-                </div>
-                <span style={{
-                  fontSize: '24px',
-                  color: '#ffffff',
-                  fontWeight: '300',
-                  lineHeight: '1',
-                  marginTop: '8px',
-                }}>
-                  {openSections.ingredients ? '−' : '+'}
-                </span>
-              </button>
-              {openSections.ingredients && (
-                <p style={{
-                  paddingBottom: '24px',
-                  fontSize: '15px',
-                  color: '#ffffff',
-                  lineHeight: '1.6',
-                  margin: 0,
-                }}>
-                  {productData.ingredients}
-                </p>
-              )}
-            </div>
-
-            {/* Nutrition Facts */}
-            <div style={{ borderTop: '1px solid rgba(255,255,255,0.2)' }}>
-              <button
-                onClick={() => toggleSection('nutrition')}
-                style={{
-                  width: '100%',
-                  padding: '24px 0',
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'flex-start',
-                  background: 'none',
-                  border: 'none',
-                  cursor: 'pointer',
-                  textAlign: 'left',
-                }}
-              >
-                <div>
-                  <div style={{
-                    fontSize: '28px',
-                    fontWeight: '600',
-                    color: '#ffffff',
-                    marginBottom: '4px',
-                  }}>
-                    Nutrition
-                  </div>
-                  <div style={{
-                    fontSize: '14px',
-                    color: '#ffffff',
-                  }}>
-                    What you put in matters
-                  </div>
-                </div>
-                <span style={{
-                  fontSize: '24px',
-                  color: '#ffffff',
-                  fontWeight: '300',
-                  lineHeight: '1',
-                  marginTop: '8px',
-                }}>
-                  {openSections.nutrition ? '−' : '+'}
-                </span>
-              </button>
-              {openSections.nutrition && (
-                <div style={{
-                  paddingBottom: '24px',
-                  display: 'flex',
-                  flexWrap: 'wrap',
-                  gap: '16px',
-                }}>
-                  {productData.nutrition.map((item, index) => (
-                    <div key={index} style={{
-                      display: 'flex',
-                      gap: '8px',
-                      fontSize: '15px',
-                    }}>
-                      <span style={{ color: '#ffffff', fontWeight: '500' }}>{item.label}:</span>
-                      <span style={{ color: '#ffffff' }}>{item.value}</span>
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
-
-            {/* Description */}
-            <div style={{ borderTop: '1px solid rgba(255,255,255,0.2)' }}>
-              <button
-                onClick={() => toggleSection('description')}
-                style={{
-                  width: '100%',
-                  padding: '24px 0',
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'flex-start',
-                  background: 'none',
-                  border: 'none',
-                  cursor: 'pointer',
-                  textAlign: 'left',
-                }}
-              >
-                <div>
-                  <div style={{
-                    fontSize: '28px',
-                    fontWeight: '600',
-                    color: '#ffffff',
-                    marginBottom: '4px',
-                  }}>
-                    About
-                  </div>
-                  <div style={{
-                    fontSize: '14px',
-                    color: '#ffffff',
-                  }}>
-                    Taste the difference
-                  </div>
-                </div>
-                <span style={{
-                  fontSize: '24px',
-                  color: '#ffffff',
-                  fontWeight: '300',
-                  lineHeight: '1',
-                  marginTop: '8px',
-                }}>
-                  {openSections.description ? '−' : '+'}
-                </span>
-              </button>
-              {openSections.description && (
-                <p style={{
-                  paddingBottom: '24px',
-                  fontSize: '15px',
-                  color: '#ffffff',
-                  lineHeight: '1.6',
-                  margin: 0,
-                }}>
-                  {productData.description}
-                </p>
-              )}
-            </div>
-
-            {/* Key Ingredients */}
-            <div style={{ borderTop: '1px solid rgba(255,255,255,0.2)' }}>
-              <button
-                onClick={() => toggleSection('keyIngredients')}
-                style={{
-                  width: '100%',
-                  padding: '24px 0',
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'flex-start',
-                  background: 'none',
-                  border: 'none',
-                  cursor: 'pointer',
-                  textAlign: 'left',
-                }}
-              >
-                <div>
-                  <div style={{
-                    fontSize: '28px',
-                    fontWeight: '600',
-                    color: '#ffffff',
-                    marginBottom: '4px',
-                  }}>
-                    Key Ingredients
-                  </div>
-                  <div style={{
-                    fontSize: '14px',
-                    color: '#ffffff',
-                  }}>
-                    The power behind every sip
-                  </div>
-                </div>
-                <span style={{
-                  fontSize: '24px',
-                  color: '#ffffff',
-                  fontWeight: '300',
-                  lineHeight: '1',
-                  marginTop: '8px',
-                }}>
-                  {openSections.keyIngredients ? '−' : '+'}
-                </span>
-              </button>
-              {openSections.keyIngredients && (
-                <div style={{
-                  paddingBottom: '24px',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  gap: '12px',
-                }}>
-                  {productData.keyIngredients.map((ingredient, index) => (
-                    <div key={index} style={{ fontSize: '15px' }}>
-                      <span style={{ color: '#ffffff', fontWeight: '500' }}>{ingredient.name}: </span>
-                      <span style={{ color: '#ffffff' }}>{ingredient.benefit}</span>
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
-
-            {/* How to Prep */}
-            <div style={{ borderTop: '1px solid rgba(255,255,255,0.2)', borderBottom: '1px solid rgba(255,255,255,0.2)' }}>
-              <button
-                onClick={() => toggleSection('howToPrep')}
-                style={{
-                  width: '100%',
-                  padding: '24px 0',
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'flex-start',
-                  background: 'none',
-                  border: 'none',
-                  cursor: 'pointer',
-                  textAlign: 'left',
-                }}
-              >
-                <div>
-                  <div style={{
-                    fontSize: '28px',
-                    fontWeight: '600',
-                    color: '#ffffff',
-                    marginBottom: '4px',
-                  }}>
-                    How to Prepare
-                  </div>
-                  <div style={{
-                    fontSize: '14px',
-                    color: '#ffffff',
-                  }}>
-                    Ready in 60 seconds
-                  </div>
-                </div>
-                <span style={{
-                  fontSize: '24px',
-                  color: '#ffffff',
-                  fontWeight: '300',
-                  lineHeight: '1',
-                  marginTop: '8px',
-                }}>
-                  {openSections.howToPrep ? '−' : '+'}
-                </span>
-              </button>
-              {openSections.howToPrep && (
-                <div style={{
-                  paddingBottom: '24px',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  gap: '12px',
-                }}>
-                  <div style={{ fontSize: '15px' }}>
-                    <span style={{ color: '#ffffff', fontWeight: '500' }}>1. Add liquid: </span>
-                    <span style={{ color: '#ffffff' }}>Fill cup to top with water, oat milk, or coconut water.</span>
-                  </div>
-                  <div style={{ fontSize: '15px' }}>
-                    <span style={{ color: '#ffffff', fontWeight: '500' }}>2. Blend: </span>
-                    <span style={{ color: '#ffffff' }}>Pour into a blender and blend until silky smooth.</span>
-                  </div>
-                  <div style={{ fontSize: '15px' }}>
-                    <span style={{ color: '#ffffff', fontWeight: '500' }}>3. Enjoy: </span>
-                    <span style={{ color: '#ffffff' }}>Pour back into your cup. Sip. Smile. Repeat.</span>
-                  </div>
-                </div>
-              )}
-            </div>
-            </div>
-          </div>
 
         {/* Apple-Style Lifestyle Slider Section */}
         <section className="lifestyle-story-section">

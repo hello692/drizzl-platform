@@ -1,0 +1,95 @@
+You are editing the DRIZZL product detail page.
+
+GOAL
+- Move ALL accordion content into the RIGHT product info panel under the price and CTA.
+- Remove the separate full-width black section at the bottom.
+- Final look: a single, clean, black-and-white accordion on a white background in the right column (like Louis Vuitton’s product info).
+
+1. REMOVE BOTTOM BLACK SECTION
+Find the section that renders the full-width black accordion (Ingredients, Nutrition, About, Key Ingredients, How to Prepare) at the bottom of the page.
+
+It likely has a wrapper like:
+  <section className="..."> or <div className="details-section dark"> 
+
+Delete this entire block OR stop rendering it on this page.
+
+2. RIGHT-SIDE ACCORDION CONTENT
+Extend the existing accordion inside the RIGHT column (below "About this smoothie") so it includes all the items we need.
+
+Final accordion items (in this order):
+
+  1) About this smoothie
+  2) Ingredients
+  3) Nutrition
+  4) Key Ingredients
+  5) How to prepare
+  6) Delivery & Returns
+
+Use the existing "About this smoothie" text for the first item.
+
+For the others, reuse the content that was previously in the big black section (Ingredients / Nutrition / About / Key Ingredients / How to Prepare). Map it as follows:
+
+- "Ingredients" -> goes into the "Ingredients" accordion item.
+- "Nutrition" -> goes into the "Nutrition" accordion item.
+- "About" + "Key Ingredients" -> split into "About this smoothie" and "Key Ingredients" or keep the headings as appropriate.
+- "How to Prepare" -> goes into the "How to prepare" accordion item.
+
+3. UNIFIED WHITE STYLING
+Make sure the RIGHT-SIDE accordion uses ONLY black text on a white background:
+
+Accordion wrapper:
+
+.details-accordion {
+  background: #ffffff;
+  color: #000000;
+  border-top: 1px solid #e5e5e5;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+Accordion row/headline:
+
+.details-accordion-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 0;
+  border-top: 1px solid #e5e5e5;
+}
+
+.details-accordion-title {
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.details-accordion-subtitle {
+  font-size: 0.8rem;
+  color: #777777;
+}
+
+.details-accordion-icon {
+  font-size: 1rem;
+}
+
+Accordion content:
+
+.details-accordion-content {
+  padding: 0 0 16px;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: #333333;
+}
+
+4. ACCORDION BEHAVIOR
+Reuse your existing JS logic for open/close. Each item should toggle with a "+" / "–" icon on the right.
+
+Default state:
+- "About this smoothie" open.
+- All other items closed.
+
+5. TAGS
+Keep the dietary tags (Gluten-Free, Dairy-Free, Made from Plants, Superfood) under the accordion as they are, but ensure they also use black/gray on white (no colored badges).
+
+.summary: 
+- Remove the separate dark section.
+- Show one single, clean, white accordion with all sections inside the right product info column.
+- Ensure the entire page remains black text on white background with subtle gray dividers.
