@@ -4,17 +4,17 @@ import { useState } from 'react';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 
-// Apple-inspired design tokens
+// Apple-inspired design tokens (light theme)
 const apple = {
-  bgPrimary: '#000000',
-  bgSecondary: '#0d0d0d',
-  bgTertiary: '#1d1d1f',
-  textPrimary: '#f5f5f7',
+  bgPrimary: '#ffffff',
+  bgSecondary: '#f5f5f7',
+  bgTertiary: '#e8e8ed',
+  textPrimary: '#1d1d1f',
   textSecondary: '#86868b',
   textTertiary: '#6e6e73',
   accent: '#0071e3',
   accentHover: '#0077ed',
-  divider: 'rgba(255,255,255,0.08)',
+  divider: 'rgba(0,0,0,0.08)',
 };
 
 interface ProductData {
