@@ -672,7 +672,7 @@ export default function ProductPage() {
                 width: '100%',
                 maxHeight: '700px',
                 objectFit: 'contain',
-                ...(productId === '1' ? { marginTop: '-180px' } : {}),
+                ...(productId === '1' ? { marginTop: '-10px' } : {}),
               }}
             />
           </div>
