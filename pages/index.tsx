@@ -48,13 +48,13 @@ const CUSTOMERS = [
 ];
 
 const ROTATING_WORDS = [
-  { word: 'Nourished', color: '#22c55e' },  // Matcha green
-  { word: 'Fueled', color: '#f97316' },     // Mango orange
-  { word: 'Strong', color: '#ec4899' },     // Pink Piyata
-  { word: 'Happy', color: '#facc15' },      // Banana yellow
-  { word: 'Relaxed', color: '#8b5cf6' },    // Acai purple
-  { word: 'Glowing', color: '#ef4444' },    // Strawberry red
-  { word: 'Balanced', color: '#06b6d4' },   // Cyan
+  { word: 'nourished', color: '#22c55e' },  // Matcha green
+  { word: 'fueled', color: '#f97316' },     // Mango orange
+  { word: 'strong', color: '#ec4899' },     // Pink Piyata
+  { word: 'happy', color: '#facc15' },      // Banana yellow
+  { word: 'relaxed', color: '#8b5cf6' },    // Acai purple
+  { word: 'glowing', color: '#ef4444' },    // Strawberry red
+  { word: 'balanced', color: '#06b6d4' },   // Cyan
 ];
 
 const BENEFITS = [
