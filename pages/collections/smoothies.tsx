@@ -873,13 +873,13 @@ export default function Smoothies() {
               Smoothies
             </h1>
             <p className="page-description">
-              It's never been easier—or healthier—to build a delicious daily routine.
+              Healthy made simple.
             </p>
             <ul className="features-list">
-              <li>Gluten-free + dairy-free</li>
-              <li>A plentiful array of fruits + vegetables in each</li>
-              <li>Comes frozen, pre-portioned + ready to blend</li>
-              <li>As easy as it gets</li>
+              <li>Always gluten-free + dairy-free</li>
+              <li>Whole fruits + vegetables in every cup</li>
+              <li>Frozen fresh and portioned for you</li>
+              <li>Blend. Enjoy. Done.</li>
             </ul>
           </div>
 

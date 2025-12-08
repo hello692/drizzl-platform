@@ -40,21 +40,21 @@ export default function Smoothies() {
 
             <h1 className="page-title">Smoothies</h1>
             <p className="page-description">
-              It's never been easier—or healthier—to build a delicious daily routine.
+              Healthy made simple.
             </p>
 
             <div className="features-grid">
               <div className="feature-item">
-                <p>Gluten-free + dairy-free</p>
+                <p>Always gluten-free + dairy-free</p>
               </div>
               <div className="feature-item">
-                <p>A plentiful array of fruits + vegetables in each</p>
+                <p>Whole fruits + vegetables in every cup</p>
               </div>
               <div className="feature-item">
-                <p>Comes frozen, pre-portioned + ready to blend</p>
+                <p>Frozen fresh and portioned for you</p>
               </div>
               <div className="feature-item">
-                <p>As easy as it gets</p>
+                <p>Blend. Enjoy. Done.</p>
               </div>
             </div>
 
