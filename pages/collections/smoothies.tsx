@@ -962,32 +962,33 @@ export default function Smoothies() {
         }
 
         .page-title {
-          margin-bottom: clamp(12px, 2vw, 16px);
-          font-size: clamp(28px, 6vw, 42px);
+          margin-bottom: var(--space-after-h1);
+          font-size: var(--fs-h1);
           font-weight: 600;
           color: #ffffff;
-          letter-spacing: -0.5px;
+          letter-spacing: -0.02em;
+          line-height: 1.1;
         }
 
         .page-description {
-          font-size: clamp(14px, 2vw, 16px);
-          color: rgba(255,255,255,0.6);
-          max-width: 600px;
+          font-size: var(--fs-lead);
+          color: var(--color-text-secondary);
+          max-width: var(--text-max-width);
           line-height: 1.6;
           margin: 0;
         }
 
         .features-list {
-          font-size: clamp(12px, 1.8vw, 14px);
-          color: rgba(255,255,255,0.6);
-          margin-top: clamp(16px, 3vw, 24px);
+          font-size: var(--fs-body);
+          color: var(--color-text-secondary);
+          margin-top: var(--space-after-h2);
           margin-left: 20px;
           line-height: 1.8;
           padding: 0;
         }
 
         .features-list li {
-          margin-bottom: 6px;
+          margin-bottom: 8px;
         }
 
         .filter-bar {

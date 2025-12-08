@@ -332,7 +332,7 @@ export default function Home() {
               color: '#000000',
               padding: '18px 40px',
               borderRadius: '980px',
-              fontSize: '16px',
+              fontSize: 'var(--fs-body)',
               fontWeight: 500,
               letterSpacing: '0.02em',
               textDecoration: 'none',
@@ -344,7 +344,7 @@ export default function Home() {
               </svg>
             </Link>
             <p style={{
-              fontSize: '13px',
+              fontSize: 'var(--fs-small)',
               color: 'rgba(255,255,255,0.5)',
               marginTop: '16px',
             }}>
@@ -578,7 +578,7 @@ export default function Home() {
                 alignItems: 'center',
                 gap: '8px',
                 color: '#ffffff',
-                fontSize: '16px',
+                fontSize: 'var(--fs-body)',
                 fontWeight: 500,
                 textDecoration: 'none',
                 borderBottom: '1px solid rgba(255,255,255,0.3)',
