@@ -451,14 +451,14 @@ export default function ProductPage() {
                   </div>
                   <div style={{
                     fontSize: '14px',
-                    color: apple.textSecondary,
+                    color: apple.textPrimary,
                   }}>
                     What goes in every cup
                   </div>
                 </div>
                 <span style={{
                   fontSize: '24px',
-                  color: apple.textSecondary,
+                  color: apple.textPrimary,
                   fontWeight: '300',
                   lineHeight: '1',
                   marginTop: '8px',
@@ -470,7 +470,7 @@ export default function ProductPage() {
                 <p style={{
                   paddingBottom: '24px',
                   fontSize: '15px',
-                  color: apple.textSecondary,
+                  color: apple.textPrimary,
                   lineHeight: '1.6',
                   margin: 0,
                 }}>
@@ -506,14 +506,14 @@ export default function ProductPage() {
                   </div>
                   <div style={{
                     fontSize: '14px',
-                    color: apple.textSecondary,
+                    color: apple.textPrimary,
                   }}>
                     What you put in matters
                   </div>
                 </div>
                 <span style={{
                   fontSize: '24px',
-                  color: apple.textSecondary,
+                  color: apple.textPrimary,
                   fontWeight: '300',
                   lineHeight: '1',
                   marginTop: '8px',
@@ -535,7 +535,7 @@ export default function ProductPage() {
                       fontSize: '15px',
                     }}>
                       <span style={{ color: apple.textPrimary, fontWeight: '500' }}>{item.label}:</span>
-                      <span style={{ color: apple.textSecondary }}>{item.value}</span>
+                      <span style={{ color: apple.textPrimary }}>{item.value}</span>
                     </div>
                   ))}
                 </div>
@@ -569,14 +569,14 @@ export default function ProductPage() {
                   </div>
                   <div style={{
                     fontSize: '14px',
-                    color: apple.textSecondary,
+                    color: apple.textPrimary,
                   }}>
                     Taste the difference
                   </div>
                 </div>
                 <span style={{
                   fontSize: '24px',
-                  color: apple.textSecondary,
+                  color: apple.textPrimary,
                   fontWeight: '300',
                   lineHeight: '1',
                   marginTop: '8px',
@@ -588,7 +588,7 @@ export default function ProductPage() {
                 <p style={{
                   paddingBottom: '24px',
                   fontSize: '15px',
-                  color: apple.textSecondary,
+                  color: apple.textPrimary,
                   lineHeight: '1.6',
                   margin: 0,
                 }}>
@@ -624,14 +624,14 @@ export default function ProductPage() {
                   </div>
                   <div style={{
                     fontSize: '14px',
-                    color: apple.textSecondary,
+                    color: apple.textPrimary,
                   }}>
                     The power behind every sip
                   </div>
                 </div>
                 <span style={{
                   fontSize: '24px',
-                  color: apple.textSecondary,
+                  color: apple.textPrimary,
                   fontWeight: '300',
                   lineHeight: '1',
                   marginTop: '8px',
@@ -649,7 +649,7 @@ export default function ProductPage() {
                   {productData.keyIngredients.map((ingredient, index) => (
                     <div key={index} style={{ fontSize: '15px' }}>
                       <span style={{ color: apple.textPrimary, fontWeight: '500' }}>{ingredient.name}: </span>
-                      <span style={{ color: apple.textSecondary }}>{ingredient.benefit}</span>
+                      <span style={{ color: apple.textPrimary }}>{ingredient.benefit}</span>
                     </div>
                   ))}
                 </div>
@@ -683,14 +683,14 @@ export default function ProductPage() {
                   </div>
                   <div style={{
                     fontSize: '14px',
-                    color: apple.textSecondary,
+                    color: apple.textPrimary,
                   }}>
                     Ready in 60 seconds
                   </div>
                 </div>
                 <span style={{
                   fontSize: '24px',
-                  color: apple.textSecondary,
+                  color: apple.textPrimary,
                   fontWeight: '300',
                   lineHeight: '1',
                   marginTop: '8px',
@@ -707,15 +707,15 @@ export default function ProductPage() {
                 }}>
                   <div style={{ fontSize: '15px' }}>
                     <span style={{ color: apple.textPrimary, fontWeight: '500' }}>1. Add liquid: </span>
-                    <span style={{ color: apple.textSecondary }}>Fill cup to top with water, oat milk, or coconut water.</span>
+                    <span style={{ color: apple.textPrimary }}>Fill cup to top with water, oat milk, or coconut water.</span>
                   </div>
                   <div style={{ fontSize: '15px' }}>
                     <span style={{ color: apple.textPrimary, fontWeight: '500' }}>2. Blend: </span>
-                    <span style={{ color: apple.textSecondary }}>Pour into a blender and blend until silky smooth.</span>
+                    <span style={{ color: apple.textPrimary }}>Pour into a blender and blend until silky smooth.</span>
                   </div>
                   <div style={{ fontSize: '15px' }}>
                     <span style={{ color: apple.textPrimary, fontWeight: '500' }}>3. Enjoy: </span>
-                    <span style={{ color: apple.textSecondary }}>Pour back into your cup. Sip. Smile. Repeat.</span>
+                    <span style={{ color: apple.textPrimary }}>Pour back into your cup. Sip. Smile. Repeat.</span>
                   </div>
                 </div>
               )}
