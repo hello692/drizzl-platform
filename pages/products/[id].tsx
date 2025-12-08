@@ -534,21 +534,34 @@ export default function ProductPage() {
     setOpenSections(prev => ({ ...prev, [section]: !prev[section] }));
   };
 
-  // Track horizontal scroll in the Apple-style slider
+  // Track horizontal scroll in the Apple-style slider + auto-scroll
   useEffect(() => {
     const slider = document.getElementById('lifestyle-slider');
     if (!slider) return;
 
+    const totalSlides = 7;
+    let currentIndex = 0;
+
     const handleSliderScroll = () => {
       const scrollLeft = slider.scrollLeft;
-      const slideWidth = slider.scrollWidth / 5;
+      const slideWidth = slider.scrollWidth / totalSlides;
       const newIndex = Math.round(scrollLeft / slideWidth);
-      setActiveCardIndex(Math.min(Math.max(newIndex, 0), 4));
+      setActiveCardIndex(Math.min(Math.max(newIndex, 0), totalSlides - 1));
     };
+
+    // Auto-scroll every 4 seconds
+    const autoScroll = setInterval(() => {
+      currentIndex = (currentIndex + 1) % totalSlides;
+      const slideWidth = slider.scrollWidth / totalSlides;
+      slider.scrollTo({ left: slideWidth * currentIndex, behavior: 'smooth' });
+    }, 4000);
 
     slider.addEventListener('scroll', handleSliderScroll, { passive: true });
     
-    return () => slider.removeEventListener('scroll', handleSliderScroll);
+    return () => {
+      slider.removeEventListener('scroll', handleSliderScroll);
+      clearInterval(autoScroll);
+    };
   }, []);
 
   if (!product || !productData) {
@@ -1080,11 +1093,13 @@ export default function ProductPage() {
             <div className="apple-slider-wrapper">
               <div className="apple-slider-track" id="lifestyle-slider">
                 {[
-                  { img: '/lifestyle/beach.jpg', label: 'Find balance' },
-                  { img: '/lifestyle/biking.jpg', label: 'Move freely' },
-                  { img: '/lifestyle/bees.jpg', label: 'Powered by nature' },
-                  { img: '/lifestyle/skiing.jpg', label: 'Live fully' },
-                  { img: '/lifestyle/wellness.jpg', label: 'Fuel joy' },
+                  { img: '/lifestyle/DSC09048-1.jpg', label: 'Start fresh' },
+                  { img: '/lifestyle/DSC09063.jpg', label: 'Move freely' },
+                  { img: '/lifestyle/DSC09073-1-2.jpg', label: 'Find balance' },
+                  { img: '/lifestyle/DSC09091.jpg', label: 'Feel alive' },
+                  { img: '/lifestyle/DSC09092.jpg', label: 'Live fully' },
+                  { img: '/lifestyle/DSC09108-2.jpg', label: 'Fuel joy' },
+                  { img: '/lifestyle/DSC09118.jpg', label: 'Be you' },
                 ].map((slide, index) => (
                   <div key={index} className="apple-slide">
                     <img src={slide.img} alt={slide.label} />
@@ -1102,7 +1117,7 @@ export default function ProductPage() {
                     onClick={() => {
                       const slider = document.getElementById('lifestyle-slider');
                       if (slider) {
-                        const slideWidth = slider.scrollWidth / 5;
+                        const slideWidth = slider.scrollWidth / 7;
                         const newIndex = Math.max(0, activeCardIndex - 1);
                         slider.scrollTo({ left: slideWidth * newIndex, behavior: 'smooth' });
                       }
@@ -1118,8 +1133,8 @@ export default function ProductPage() {
                     onClick={() => {
                       const slider = document.getElementById('lifestyle-slider');
                       if (slider) {
-                        const slideWidth = slider.scrollWidth / 5;
-                        const newIndex = Math.min(4, activeCardIndex + 1);
+                        const slideWidth = slider.scrollWidth / 7;
+                        const newIndex = Math.min(6, activeCardIndex + 1);
                         slider.scrollTo({ left: slideWidth * newIndex, behavior: 'smooth' });
                       }
                     }}
