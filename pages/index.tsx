@@ -296,7 +296,7 @@ export default function Home() {
               color: '#ffffff',
               marginBottom: '24px',
             }}>
-              <span>I Am </span>
+              <span>i am </span>
               <span style={{
                 display: 'inline-block',
                 minWidth: '2ch',
