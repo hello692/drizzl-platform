@@ -306,26 +306,26 @@ export default function ProductPage() {
           paddingBottom: '80px',
           textAlign: 'center',
         }}>
-          {/* Product Name - Large Apple Typography */}
+          {/* Product Name */}
           <h1 style={{
-            fontSize: 'clamp(48px, 8vw, 80px)',
+            fontSize: 'clamp(36px, 5vw, 48px)',
             fontWeight: '600',
             color: apple.textPrimary,
-            margin: '0 0 16px 0',
+            margin: '0 0 12px 0',
             letterSpacing: '-0.02em',
-            lineHeight: '1.05',
+            lineHeight: '1.1',
           }}>
             {productData.name}
           </h1>
 
           {/* Tagline */}
           <p style={{
-            fontSize: 'clamp(21px, 3vw, 28px)',
+            fontSize: 'clamp(16px, 2vw, 20px)',
             fontWeight: '400',
             color: apple.textSecondary,
-            margin: '0 auto 40px',
-            maxWidth: '680px',
-            lineHeight: '1.4',
+            margin: '0 auto 32px',
+            maxWidth: '600px',
+            lineHeight: '1.5',
           }}>
             Inspired by {productData.tagline}
           </p>
