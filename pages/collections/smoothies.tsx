@@ -864,7 +864,7 @@ export default function Smoothies() {
           <img
             src="/images/smoothies-hero.jpg"
             alt="Smoothies"
-            style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+            style={{ width: '100%', height: 'auto', objectFit: 'contain', display: 'block' }}
           />
         </div>
         <div className="page-container">
@@ -949,10 +949,15 @@ export default function Smoothies() {
         }
 
         .smoothies-hero-fullwidth {
-          width: 100vw;
-          height: clamp(300px, 50vw, 600px);
-          overflow: hidden;
+          width: 100%;
           margin-bottom: clamp(32px, 5vw, 48px);
+          background: #e8e8e8;
+        }
+        
+        .smoothies-hero-fullwidth img {
+          width: 100%;
+          height: auto;
+          display: block;
         }
 
         .page-title {
