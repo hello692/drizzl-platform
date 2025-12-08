@@ -5438,12 +5438,11 @@ svg {
   }
 }
 
-/* Lifestyle Story Section - TikTok-style Scroll Effect */
+/* Apple-Style Lifestyle Slider Section */
 .lifestyle-story-section {
-  background: #0a0a0a;
-  padding: 120px 0;
+  background: #000000;
+  padding: 0;
   width: 100%;
-  min-height: 100vh;
   overflow: hidden;
   position: relative;
 }
@@ -5451,11 +5450,10 @@ svg {
 .lifestyle-story-container {
   max-width: 100%;
   margin: 0 auto;
-  padding: 0 40px;
+  padding: 80px 0 60px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
 }
 
 .lifestyle-story-title {
@@ -5466,111 +5464,156 @@ svg {
   margin: 0 0 16px 0;
   letter-spacing: -0.02em;
   line-height: 1.1;
-  transition: opacity 0.1s ease, transform 0.1s ease;
+  padding: 0 24px;
 }
 
 .lifestyle-story-subtitle {
   font-size: clamp(16px, 2vw, 22px);
   font-weight: 400;
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(255, 255, 255, 0.6);
   text-align: center;
-  margin: 0 0 80px 0;
+  margin: 0 0 60px 0;
   line-height: 1.5;
-  transition: opacity 0.1s ease, transform 0.1s ease;
+  padding: 0 24px;
 }
 
-.lifestyle-cards-wrapper {
+.apple-slider-wrapper {
   width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.lifestyle-cards-track {
-  display: flex;
-  gap: 20px;
-  justify-content: center;
-  align-items: center;
-  transition: transform 0.05s linear, gap 0.05s linear;
-  will-change: transform;
-}
-
-.lifestyle-card {
   position: relative;
-  flex: 0 0 auto;
-  width: 220px;
-  height: 340px;
-  border-radius: 24px;
+}
+
+.apple-slider-track {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  padding: 0 24px;
+  cursor: grab;
+}
+
+.apple-slider-track::-webkit-scrollbar {
+  display: none;
+}
+
+.apple-slider-track:active {
+  cursor: grabbing;
+}
+
+.apple-slide {
+  flex: 0 0 calc(50% - 6px);
+  min-width: calc(50% - 6px);
+  height: 70vh;
+  min-height: 500px;
+  max-height: 700px;
+  scroll-snap-align: start;
+  border-radius: 16px;
   overflow: hidden;
-  cursor: pointer;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
-  transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease, z-index 0s;
-  will-change: transform, opacity;
+  position: relative;
 }
 
-.lifestyle-card-active {
-  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.8);
-}
-
-.lifestyle-card:hover {
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
-}
-
-.lifestyle-card img {
+.apple-slide img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   transition: transform 0.6s ease;
 }
 
-.lifestyle-card:hover img {
-  transform: scale(1.05);
+.apple-slide:hover img {
+  transform: scale(1.02);
 }
 
-.lifestyle-card-overlay {
+.apple-slide-label {
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
-  padding: 24px;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0) 100%);
+  padding: 40px 32px;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0) 100%);
 }
 
-.lifestyle-card-overlay span {
-  font-size: 18px;
+.apple-slide-label span {
+  font-size: clamp(20px, 2.5vw, 28px);
   font-weight: 600;
   color: #ffffff;
   letter-spacing: -0.01em;
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
 }
 
-/* Mobile Responsive - Lifestyle Section */
+.apple-slider-controls {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 16px;
+  padding: 40px 24px 20px;
+}
+
+.apple-slider-dots {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.apple-slider-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0;
+}
+
+.apple-slider-dot.active {
+  background: #ffffff;
+  width: 24px;
+  border-radius: 4px;
+}
+
+.apple-slider-progress {
+  flex: 1;
+  max-width: 200px;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 2px;
+  overflow: hidden;
+  margin-left: 16px;
+}
+
+.apple-slider-progress-bar {
+  height: 100%;
+  background: #ffffff;
+  border-radius: 2px;
+  transition: width 0.3s ease;
+}
+
+/* Mobile Responsive - Apple Slider */
 @media (max-width: 768px) {
-  .lifestyle-story-section {
-    padding: 80px 0;
-    min-height: auto;
-  }
-  
   .lifestyle-story-container {
-    padding: 0 20px;
+    padding: 60px 0 40px;
   }
   
   .lifestyle-story-subtitle {
     margin-bottom: 40px;
   }
   
-  .lifestyle-cards-track {
-    flex-direction: column;
-    align-items: center;
-    gap: 24px !important;
-    transform: none !important;
+  .apple-slider-track {
+    padding: 0 16px;
+    gap: 8px;
   }
   
-  .lifestyle-card {
-    width: 90%;
-    max-width: 340px;
-    height: 450px;
-    transform: none !important;
-    opacity: 1 !important;
+  .apple-slide {
+    flex: 0 0 85%;
+    min-width: 85%;
+    height: 60vh;
+    min-height: 400px;
+    max-height: 550px;
+  }
+  
+  .apple-slider-controls {
+    padding: 24px 16px 16px;
   }
 }

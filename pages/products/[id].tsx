@@ -526,46 +526,27 @@ export default function ProductPage() {
     howToPrep: false,
   });
   const [selectedIngredient, setSelectedIngredient] = useState(0);
-  const [lifestyleScale, setLifestyleScale] = useState(1);
   const [activeCardIndex, setActiveCardIndex] = useState(0);
-  const lifestyleSectionRef = useRef<HTMLDivElement>(null);
 
   const toggleSection = (section: keyof typeof openSections) => {
     setOpenSections(prev => ({ ...prev, [section]: !prev[section] }));
   };
 
-  // Scroll-triggered fullscreen effect for lifestyle cards
+  // Track horizontal scroll in the Apple-style slider
   useEffect(() => {
-    const handleScroll = () => {
-      if (!lifestyleSectionRef.current) return;
-      
-      const section = lifestyleSectionRef.current;
-      const rect = section.getBoundingClientRect();
-      const windowHeight = window.innerHeight;
-      
-      // Calculate progress through the section (0 to 1)
-      const sectionTop = rect.top;
-      const sectionHeight = rect.height;
-      
-      // Start animation when section enters viewport
-      if (sectionTop < windowHeight && sectionTop > -sectionHeight) {
-        // Progress from 0 (section enters) to 1 (section leaves)
-        const progress = Math.max(0, Math.min(1, (windowHeight - sectionTop) / (windowHeight + sectionHeight * 0.5)));
-        
-        // Scale from 1 to 1.8 as user scrolls
-        const scale = 1 + (progress * 0.8);
-        setLifestyleScale(Math.min(scale, 1.8));
-        
-        // Change active card based on progress
-        const cardIndex = Math.floor(progress * 5);
-        setActiveCardIndex(Math.min(cardIndex, 4));
-      }
+    const slider = document.getElementById('lifestyle-slider');
+    if (!slider) return;
+
+    const handleSliderScroll = () => {
+      const scrollLeft = slider.scrollLeft;
+      const slideWidth = slider.scrollWidth / 5;
+      const newIndex = Math.round(scrollLeft / slideWidth);
+      setActiveCardIndex(Math.min(Math.max(newIndex, 0), 4));
     };
 
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll(); // Initial check
+    slider.addEventListener('scroll', handleSliderScroll, { passive: true });
     
-    return () => window.removeEventListener('scroll', handleScroll);
+    return () => slider.removeEventListener('scroll', handleSliderScroll);
   }, []);
 
   if (!product || !productData) {
@@ -1208,50 +1189,52 @@ export default function ProductPage() {
             </div>
           </div>
 
-        {/* Lifestyle Story Section - TikTok-style Scroll Effect */}
-        <section className="lifestyle-story-section" ref={lifestyleSectionRef}>
+        {/* Apple-Style Lifestyle Slider Section */}
+        <section className="lifestyle-story-section">
           <div className="lifestyle-story-container">
-            <h2 className="lifestyle-story-title" style={{
-              opacity: Math.max(0, 1 - (lifestyleScale - 1) * 2),
-              transform: `translateY(${(lifestyleScale - 1) * -50}px)`,
-            }}>Your Everyday — Powered Naturally.</h2>
-            <p className="lifestyle-story-subtitle" style={{
-              opacity: Math.max(0, 1 - (lifestyleScale - 1) * 2),
-              transform: `translateY(${(lifestyleScale - 1) * -30}px)`,
-            }}>Real nourishment. Real moments. Real life.</p>
+            <h2 className="lifestyle-story-title">Your Everyday — Powered Naturally.</h2>
+            <p className="lifestyle-story-subtitle">Real nourishment. Real moments. Real life.</p>
             
-            <div className="lifestyle-cards-wrapper" style={{ overflow: 'visible' }}>
-              <div className="lifestyle-cards-track" style={{
-                transform: `scale(${lifestyleScale})`,
-                transformOrigin: 'center center',
-                gap: `${Math.max(20 - (lifestyleScale - 1) * 30, 0)}px`,
-              }}>
+            <div className="apple-slider-wrapper">
+              <div className="apple-slider-track" id="lifestyle-slider">
                 {[
                   { img: '/lifestyle/beach.jpg', label: 'Find balance' },
                   { img: '/lifestyle/biking.jpg', label: 'Move freely' },
                   { img: '/lifestyle/bees.jpg', label: 'Powered by nature' },
                   { img: '/lifestyle/skiing.jpg', label: 'Live fully' },
                   { img: '/lifestyle/wellness.jpg', label: 'Fuel joy' },
-                ].map((card, index) => (
-                  <div 
-                    key={index}
-                    className={`lifestyle-card ${activeCardIndex === index ? 'lifestyle-card-active' : ''}`}
-                    style={{
-                      transform: activeCardIndex === index && lifestyleScale > 1.3 
-                        ? `scale(${1 + (lifestyleScale - 1.3) * 0.5})` 
-                        : 'scale(1)',
-                      zIndex: activeCardIndex === index ? 10 : 1,
-                      opacity: lifestyleScale > 1.5 && activeCardIndex !== index 
-                        ? Math.max(0, 1 - (lifestyleScale - 1.5) * 3) 
-                        : 1,
-                    }}
-                  >
-                    <img src={card.img} alt={card.label} />
-                    <div className="lifestyle-card-overlay">
-                      <span>{card.label}</span>
+                ].map((slide, index) => (
+                  <div key={index} className="apple-slide">
+                    <img src={slide.img} alt={slide.label} />
+                    <div className="apple-slide-label">
+                      <span>{slide.label}</span>
                     </div>
                   </div>
                 ))}
+              </div>
+              
+              <div className="apple-slider-controls">
+                <div className="apple-slider-dots">
+                  {[0, 1, 2, 3, 4].map((dotIndex) => (
+                    <button
+                      key={dotIndex}
+                      className={`apple-slider-dot ${activeCardIndex === dotIndex ? 'active' : ''}`}
+                      onClick={() => {
+                        const slider = document.getElementById('lifestyle-slider');
+                        if (slider) {
+                          const slideWidth = slider.scrollWidth / 5;
+                          slider.scrollTo({ left: slideWidth * dotIndex, behavior: 'smooth' });
+                        }
+                      }}
+                    />
+                  ))}
+                </div>
+                <div className="apple-slider-progress">
+                  <div 
+                    className="apple-slider-progress-bar" 
+                    style={{ width: `${((activeCardIndex + 1) / 5) * 100}%` }}
+                  />
+                </div>
               </div>
             </div>
           </div>
