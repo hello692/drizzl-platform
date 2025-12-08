@@ -754,102 +754,168 @@ export default function ProductPage() {
           </div>
         </section>
 
-        {/* Related Products - Apple Carousel Style */}
+        {/* Related Products - Carousel Style */}
         <section style={{
-          padding: '120px 24px',
+          padding: '80px 0',
+          backgroundColor: '#000000',
+          position: 'relative',
         }}>
-          <div style={{
-            maxWidth: '1200px',
-            margin: '0 auto',
-          }}>
-            <h2 style={{
-              fontSize: 'clamp(32px, 5vw, 48px)',
-              fontWeight: '600',
-              color: apple.textPrimary,
-              textAlign: 'center',
-              margin: '0 0 64px 0',
-              letterSpacing: '-0.02em',
-            }}>
-              Explore more flavors.
-            </h2>
+          {/* Left Arrow */}
+          <button
+            style={{
+              position: 'absolute',
+              left: '24px',
+              top: '50%',
+              transform: 'translateY(-50%)',
+              width: '48px',
+              height: '48px',
+              borderRadius: '50%',
+              border: '1px solid rgba(255,255,255,0.3)',
+              background: 'transparent',
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              zIndex: 10,
+            }}
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+              <path d="M15 18l-6-6 6-6" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </button>
 
+          {/* Right Arrow */}
+          <button
+            style={{
+              position: 'absolute',
+              right: '24px',
+              top: '50%',
+              transform: 'translateY(-50%)',
+              width: '48px',
+              height: '48px',
+              borderRadius: '50%',
+              border: '1px solid rgba(255,255,255,0.3)',
+              background: 'transparent',
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              zIndex: 10,
+            }}
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+              <path d="M9 18l6-6-6-6" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </button>
+
+          {/* Carousel Container */}
+          <div style={{
+            maxWidth: '1400px',
+            margin: '0 auto',
+            padding: '0 80px',
+            overflow: 'hidden',
+          }}>
             <div style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(4, 1fr)',
-              gap: '20px',
+              display: 'flex',
+              gap: '16px',
             }}>
-              {POPULAR_SMOOTHIES.filter(p => p.id !== productId).slice(0, 4).map((relatedProduct) => (
-                <Link
-                  key={relatedProduct.id}
-                  href={`/products/${relatedProduct.id}`}
-                  style={{
-                    textDecoration: 'none',
-                    display: 'block',
-                  }}
-                >
-                  <div style={{
-                    backgroundColor: apple.bgSecondary,
-                    borderRadius: '20px',
-                    overflow: 'hidden',
-                    transition: 'transform 0.3s ease',
-                  }}>
-                    <div style={{
-                      padding: '40px 24px',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      aspectRatio: '1',
-                    }}>
-                      <img
-                        src={relatedProduct.image}
-                        alt={relatedProduct.name}
-                        style={{
-                          width: '85%',
-                          height: '85%',
-                          objectFit: 'contain',
-                        }}
-                      />
-                    </div>
-                    <div style={{ 
-                      padding: '0 24px 32px',
-                      textAlign: 'center',
-                    }}>
+              {POPULAR_SMOOTHIES.map((item, index) => {
+                const labels = ['BEST SELLER', 'NEW', 'BEST SELLER', '', 'BEST SELLER', ''];
+                const labelColors = ['#ff3b30', '#34c759', '#ff3b30', '', '#ff3b30', ''];
+                return (
+                  <Link
+                    key={item.id}
+                    href={`/products/${item.id}`}
+                    style={{
+                      textDecoration: 'none',
+                      display: 'block',
+                      flex: '0 0 calc(20% - 13px)',
+                      minWidth: '200px',
+                    }}
+                  >
+                    <div>
+                      {/* Label */}
+                      <div style={{ height: '20px', marginBottom: '8px' }}>
+                        {labels[index] && (
+                          <span style={{
+                            fontSize: '11px',
+                            fontWeight: '600',
+                            color: labelColors[index],
+                            letterSpacing: '0.5px',
+                          }}>
+                            {labels[index]}
+                          </span>
+                        )}
+                      </div>
+                      
+                      {/* Product Name */}
                       <h3 style={{
-                        fontSize: '19px',
+                        fontSize: '18px',
                         fontWeight: '600',
-                        color: apple.textPrimary,
+                        color: '#ffffff',
                         margin: '0 0 4px 0',
                       }}>
-                        {relatedProduct.name}
+                        {item.name}
                       </h3>
+                      
+                      {/* Subtitle */}
                       <p style={{
-                        fontSize: '17px',
-                        color: apple.textSecondary,
-                        margin: 0,
+                        fontSize: '14px',
+                        color: '#86868b',
+                        margin: '0 0 16px 0',
                       }}>
-                        ${relatedProduct.price.toFixed(2)}
+                        Smoothie
                       </p>
+                      
+                      {/* Product Image Card */}
+                      <div style={{
+                        backgroundColor: '#f5f5f7',
+                        borderRadius: '16px',
+                        padding: '24px',
+                        aspectRatio: '1',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                      }}>
+                        <img
+                          src={item.image}
+                          alt={item.name}
+                          style={{
+                            width: '100%',
+                            height: '100%',
+                            objectFit: 'contain',
+                          }}
+                        />
+                      </div>
                     </div>
-                  </div>
-                </Link>
-              ))}
+                  </Link>
+                );
+              })}
             </div>
+          </div>
 
-            <div style={{ textAlign: 'center', marginTop: '48px' }}>
-              <Link href="/collections/smoothies" style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '6px',
-                fontSize: '17px',
-                color: apple.accent,
-                textDecoration: 'none',
-              }}>
-                Shop all smoothies
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
-                  <path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-              </Link>
-            </div>
+          {/* Oval Pagination Dots */}
+          <div style={{
+            display: 'flex',
+            justifyContent: 'center',
+            gap: '8px',
+            marginTop: '40px',
+          }}>
+            {[0, 1, 2, 3, 4].map((dot, index) => (
+              <button
+                key={index}
+                style={{
+                  width: index === 0 ? '24px' : '8px',
+                  height: '8px',
+                  borderRadius: '4px',
+                  border: 'none',
+                  backgroundColor: index === 0 ? '#ffffff' : 'rgba(255,255,255,0.3)',
+                  cursor: 'pointer',
+                  padding: 0,
+                  transition: 'all 0.3s ease',
+                }}
+              />
+            ))}
           </div>
         </section>
       </main>
