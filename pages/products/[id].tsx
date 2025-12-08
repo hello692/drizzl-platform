@@ -55,7 +55,6 @@ const PRODUCT_DATA: Record<string, ProductData> = {
       '/products/strawberry-peach/gallery-9.jpg',
       '/products/strawberry-peach/gallery-10.jpg',
       '/products/strawberry-peach/gallery-11.jpg',
-      '/products/strawberry-peach/gallery-12.jpg',
       '/products/strawberry-peach/gallery-13.jpg',
     ],
     description: 'If you asked a peach what it wanted to be when it grew up, it would tell you: THIS SMOOTHIE. Sweet strawberries, bright raspberries, and a hint of tartness from goji berries round out that irresistibly juicy peach flavor. Bananas, oats, and flax seeds make the whole thing creamy and satisfying.',
