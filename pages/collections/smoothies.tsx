@@ -950,13 +950,20 @@ export default function Smoothies() {
 
         .smoothies-hero-fullwidth {
           width: 100%;
+          height: clamp(400px, 70vh, 650px);
           margin-bottom: clamp(32px, 5vw, 48px);
-          background: #e8e8e8;
+          background: #e5e5e5;
+          overflow: hidden;
+          display: flex;
+          align-items: flex-end;
+          justify-content: center;
         }
         
         .smoothies-hero-fullwidth img {
-          width: 100%;
-          height: auto;
+          width: auto;
+          height: 100%;
+          max-width: 100%;
+          object-fit: contain;
           display: block;
         }
 
