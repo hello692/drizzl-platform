@@ -413,6 +413,60 @@ export default function ProductPage() {
               </button>
             ))}
           </div>
+
+          {/* All Ingredients - Right Under Cup */}
+          <div style={{
+            maxWidth: '600px',
+            margin: '40px auto 0',
+            padding: '0 24px',
+          }}>
+            <div style={{ borderTop: `1px solid ${apple.divider}`, borderBottom: `1px solid ${apple.divider}` }}>
+              <button
+                onClick={() => toggleSection('ingredients')}
+                style={{
+                  width: '100%',
+                  padding: '20px 0',
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  background: 'none',
+                  border: 'none',
+                  cursor: 'pointer',
+                }}
+              >
+                <span style={{
+                  fontSize: '16px',
+                  fontWeight: '600',
+                  color: apple.textPrimary,
+                }}>
+                  All ingredients
+                </span>
+                <svg 
+                  width="14" 
+                  height="14" 
+                  viewBox="0 0 24 24" 
+                  fill="none"
+                  style={{ 
+                    transform: openSections.ingredients ? 'rotate(180deg)' : 'rotate(0deg)',
+                    transition: 'transform 0.3s ease',
+                  }}
+                >
+                  <path d="M6 9l6 6 6-6" stroke={apple.textSecondary} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </button>
+              {openSections.ingredients && (
+                <p style={{
+                  paddingBottom: '20px',
+                  fontSize: '15px',
+                  color: apple.textSecondary,
+                  lineHeight: '1.6',
+                  margin: 0,
+                }}>
+                  {productData.ingredients}
+                </p>
+              )}
+            </div>
+          </div>
         </section>
 
         {/* Features Strip - Apple Style */}
@@ -708,62 +762,6 @@ export default function ProductPage() {
                 </p>
               </div>
             ))}
-          </div>
-        </section>
-
-        {/* Ingredients List - Collapsible Apple Style */}
-        <section style={{
-          borderTop: `1px solid ${apple.divider}`,
-          maxWidth: '800px',
-          margin: '0 auto',
-          padding: '0 24px',
-        }}>
-          {/* All Ingredients */}
-          <div style={{ borderBottom: `1px solid ${apple.divider}` }}>
-            <button
-              onClick={() => toggleSection('ingredients')}
-              style={{
-                width: '100%',
-                padding: '24px 0',
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                background: 'none',
-                border: 'none',
-                cursor: 'pointer',
-              }}
-            >
-              <span style={{
-                fontSize: '17px',
-                fontWeight: '600',
-                color: apple.textPrimary,
-              }}>
-                All ingredients
-              </span>
-              <svg 
-                width="14" 
-                height="14" 
-                viewBox="0 0 24 24" 
-                fill="none"
-                style={{ 
-                  transform: openSections.ingredients ? 'rotate(180deg)' : 'rotate(0deg)',
-                  transition: 'transform 0.3s ease',
-                }}
-              >
-                <path d="M6 9l6 6 6-6" stroke={apple.textSecondary} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-            </button>
-            {openSections.ingredients && (
-              <p style={{
-                paddingBottom: '24px',
-                fontSize: '17px',
-                color: apple.textSecondary,
-                lineHeight: '1.6',
-                margin: 0,
-              }}>
-                {productData.ingredients}
-              </p>
-            )}
           </div>
         </section>
 
