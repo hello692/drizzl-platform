@@ -466,6 +466,62 @@ export default function ProductPage() {
                 </p>
               )}
             </div>
+
+            {/* Nutrition Facts Accordion */}
+            <div style={{ borderBottom: `1px solid ${apple.divider}` }}>
+              <button
+                onClick={() => toggleSection('nutrition')}
+                style={{
+                  width: '100%',
+                  padding: '20px 0',
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  background: 'none',
+                  border: 'none',
+                  cursor: 'pointer',
+                }}
+              >
+                <span style={{
+                  fontSize: '16px',
+                  fontWeight: '600',
+                  color: apple.textPrimary,
+                }}>
+                  Nutrition facts
+                </span>
+                <svg 
+                  width="14" 
+                  height="14" 
+                  viewBox="0 0 24 24" 
+                  fill="none"
+                  style={{ 
+                    transform: openSections.nutrition ? 'rotate(180deg)' : 'rotate(0deg)',
+                    transition: 'transform 0.3s ease',
+                  }}
+                >
+                  <path d="M6 9l6 6 6-6" stroke={apple.textSecondary} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </button>
+              {openSections.nutrition && (
+                <div style={{
+                  paddingBottom: '20px',
+                  display: 'flex',
+                  flexWrap: 'wrap',
+                  gap: '16px',
+                }}>
+                  {productData.nutrition.map((item, index) => (
+                    <div key={index} style={{
+                      display: 'flex',
+                      gap: '8px',
+                      fontSize: '15px',
+                    }}>
+                      <span style={{ color: apple.textPrimary, fontWeight: '500' }}>{item.label}:</span>
+                      <span style={{ color: apple.textSecondary }}>{item.value}</span>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
         </section>
 
