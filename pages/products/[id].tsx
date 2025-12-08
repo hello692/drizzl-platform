@@ -634,7 +634,7 @@ export default function ProductPage() {
             alignItems: 'center',
             justifyContent: 'center',
             gap: '24px',
-            marginBottom: '60px',
+            marginBottom: '12px',
           }}>
             <button style={{
               padding: '12px 24px',
