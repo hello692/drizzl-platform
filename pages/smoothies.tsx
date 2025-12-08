@@ -6,7 +6,7 @@ import { useTranslations } from 'next-intl';
 import { getMessages } from '../lib/getMessages';
 
 const SMOOTHIES = [
-  { id: '1', name: 'Strawberry + Peach', price: 8.49, image: '/products/strawberry-peach/gallery-1.jpg', hoverImage: '/products/strawberry-peach/gallery-2.jpg', category: 'Fruity', rating: 4.5, reviews: 4619 },
+  { id: '1', name: 'Strawberry + Peach', price: 8.49, image: '/products/strawberry-peach/gallery-1.png', hoverImage: '/products/strawberry-peach/gallery-2.png', category: 'Fruity', rating: 4.5, reviews: 4619 },
   { id: '9', name: 'Pink Piyata', price: 8.99, image: '/products/pink-piyata/gallery-1.jpg', hoverImage: '/products/pink-piyata/gallery-2.jpg', category: 'Tropical', rating: 4.7, reviews: 127 },
   { id: '10', name: 'Matcha', price: 9.49, image: '/products/matcha/gallery-1.jpg', hoverImage: '/products/matcha/gallery-2.jpg', category: 'Energy', rating: 4.8, reviews: 312 },
   { id: '11', name: 'Mocha', price: 9.49, image: '/products/mocha/gallery-1.jpg', hoverImage: '/products/mocha/gallery-2.jpg', category: 'Energy', rating: 4.6, reviews: 245 },
