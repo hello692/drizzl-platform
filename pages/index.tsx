@@ -447,17 +447,6 @@ export default function Home() {
                 alt="Drizzl Wellness Kiss" 
                 className="drizzl-kiss-gif"
               />
-              <div className="drizzl-drips">
-                <div className="drip"></div>
-                <div className="drip"></div>
-                <div className="drip"></div>
-                <div className="drip"></div>
-                <div className="drip"></div>
-                <div className="drip"></div>
-                <div className="drip"></div>
-                <div className="drip"></div>
-                <div className="drip-splash"></div>
-              </div>
             </div>
             <div className="drizzl-kiss-text">
               <h2 className="drizzl-kiss-title">

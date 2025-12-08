@@ -2907,9 +2907,9 @@ svg {
 }
 
 .drizzl-kiss-gif {
-  width: clamp(240px, 40vw, 400px);
+  width: clamp(168px, 28vw, 280px);
   height: auto;
-  filter: drop-shadow(0 0 80px rgba(232, 90, 113, 0.5));
+  filter: drop-shadow(0 0 60px rgba(232, 90, 113, 0.4));
   animation: kissFloat 4s ease-in-out infinite, kissShimmer 3s ease-in-out infinite;
   position: relative;
   z-index: 2;
