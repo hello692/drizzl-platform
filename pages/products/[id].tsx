@@ -258,9 +258,11 @@ export default function ProductPage() {
   
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [openSections, setOpenSections] = useState({
-    description: true,
+    description: false,
     ingredients: false,
     nutrition: false,
+    keyIngredients: false,
+    howToPrep: false,
   });
   const [selectedIngredient, setSelectedIngredient] = useState(0);
 
@@ -522,234 +524,164 @@ export default function ProductPage() {
                 </div>
               )}
             </div>
-          </div>
-        </section>
 
-        {/* Features Strip - Apple Style */}
-        <section style={{
-          borderTop: `1px solid ${apple.divider}`,
-          borderBottom: `1px solid ${apple.divider}`,
-          padding: '20px 0',
-        }}>
-          <div style={{
-            display: 'flex',
-            justifyContent: 'center',
-            gap: '48px',
-            flexWrap: 'wrap',
-            maxWidth: '1200px',
-            margin: '0 auto',
-            padding: '0 24px',
-          }}>
-            {productData.badges.map((badge, index) => (
-              <span key={index} style={{
-                fontSize: '14px',
-                fontWeight: '400',
-                color: apple.textSecondary,
-                display: 'flex',
-                alignItems: 'center',
-                gap: '8px',
-              }}>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                  <path d="M20 6L9 17l-5-5" stroke="#000000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-                {badge}
-              </span>
-            ))}
-          </div>
-        </section>
-
-        {/* Description Section - Apple Full Width Text */}
-        <section style={{
-          padding: '120px 24px',
-          textAlign: 'center',
-          maxWidth: '1000px',
-          margin: '0 auto',
-        }}>
-          <h2 style={{
-            fontSize: 'clamp(32px, 5vw, 48px)',
-            fontWeight: '600',
-            color: apple.textPrimary,
-            margin: '0 0 32px 0',
-            letterSpacing: '-0.02em',
-            lineHeight: '1.1',
-          }}>
-            Taste the difference.
-          </h2>
-          <p style={{
-            fontSize: 'clamp(19px, 2.5vw, 21px)',
-            fontWeight: '400',
-            color: apple.textSecondary,
-            lineHeight: '1.6',
-            margin: '0 auto',
-            maxWidth: '720px',
-          }}>
-            {productData.description}
-          </p>
-        </section>
-
-        {/* Key Ingredients - Apple Grid Cards */}
-        <section style={{
-          padding: '0 24px 120px',
-          maxWidth: '1200px',
-          margin: '0 auto',
-        }}>
-          <h2 style={{
-            fontSize: 'clamp(32px, 5vw, 48px)',
-            fontWeight: '600',
-            color: apple.textPrimary,
-            textAlign: 'center',
-            margin: '0 0 16px 0',
-            letterSpacing: '-0.02em',
-          }}>
-            Key ingredients.
-          </h2>
-          <p style={{
-            fontSize: '21px',
-            color: apple.textSecondary,
-            textAlign: 'center',
-            margin: '0 auto 64px',
-            maxWidth: '600px',
-          }}>
-            Organic. Powerful. Purposeful.
-          </p>
-
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(3, 1fr)',
-            gap: '20px',
-          }}>
-            {productData.keyIngredients.slice(0, 6).map((ingredient, index) => (
-              <div 
-                key={index} 
+            {/* Description Accordion */}
+            <div style={{ borderBottom: `1px solid ${apple.divider}` }}>
+              <button
+                onClick={() => toggleSection('description')}
                 style={{
-                  backgroundColor: apple.bgSecondary,
-                  borderRadius: '20px',
-                  padding: '40px 32px',
-                  textAlign: 'center',
-                  transition: 'transform 0.3s, background-color 0.3s',
+                  width: '100%',
+                  padding: '20px 0',
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  background: 'none',
+                  border: 'none',
+                  cursor: 'pointer',
                 }}
               >
-                <div style={{
-                  fontSize: '48px',
-                  marginBottom: '20px',
-                }}>
-                  {ingredient.name === 'Strawberry' && '🍓'}
-                  {ingredient.name === 'Banana' && '🍌'}
-                  {ingredient.name === 'Peach' && '🍑'}
-                  {ingredient.name === 'Raspberry' && '🫐'}
-                  {ingredient.name === 'Oats' && '🌾'}
-                  {ingredient.name === 'Goji Berry' && '🔴'}
-                  {ingredient.name === 'Dragon Fruit' && '🐲'}
-                  {ingredient.name === 'Pineapple' && '🍍'}
-                  {ingredient.name === 'Coconut' && '🥥'}
-                  {ingredient.name === 'Mango' && '🥭'}
-                  {ingredient.name === 'Chia Seeds' && '🌱'}
-                  {ingredient.name === 'Matcha' && '🍵'}
-                  {ingredient.name === 'Almond Butter' && '🌰'}
-                  {ingredient.name === 'Spinach' && '🥬'}
-                  {ingredient.name === 'Hemp Seeds' && '🌿'}
-                  {ingredient.name === 'Vanilla' && '✨'}
-                  {ingredient.name === 'Cold Brew' && '☕'}
-                  {ingredient.name === 'Lions Mane' && '🦁'}
-                  {ingredient.name === 'Chaga' && '🍄'}
-                  {ingredient.name === 'Reishi' && '🌙'}
-                  {ingredient.name === 'Oat Milk' && '🥛'}
-                  {ingredient.name === 'Cacao' && '🍫'}
-                  {ingredient.name === 'Acai' && '🫐'}
-                  {ingredient.name === 'Blueberries' && '🔵'}
-                  {ingredient.name === 'Guarana' && '⚡'}
-                  {ingredient.name === 'Hemp Hearts' && '💚'}
-                  {ingredient.name === 'Coconut Water' && '🥥'}
-                  {ingredient.name === 'Peanut Butter' && '🥜'}
-                  {ingredient.name === 'Honey' && '🍯'}
-                  {ingredient.name === 'Flax Seeds' && '🌾'}
-                </div>
-                <h3 style={{
-                  fontSize: '24px',
+                <span style={{
+                  fontSize: '16px',
                   fontWeight: '600',
                   color: apple.textPrimary,
-                  margin: '0 0 12px 0',
                 }}>
-                  {ingredient.name}
-                </h3>
+                  Taste the difference
+                </span>
+                <svg 
+                  width="14" 
+                  height="14" 
+                  viewBox="0 0 24 24" 
+                  fill="none"
+                  style={{ 
+                    transform: openSections.description ? 'rotate(180deg)' : 'rotate(0deg)',
+                    transition: 'transform 0.3s ease',
+                  }}
+                >
+                  <path d="M6 9l6 6 6-6" stroke={apple.textSecondary} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </button>
+              {openSections.description && (
                 <p style={{
-                  fontSize: '14px',
+                  paddingBottom: '20px',
+                  fontSize: '15px',
                   color: apple.textSecondary,
-                  lineHeight: '1.5',
+                  lineHeight: '1.6',
                   margin: 0,
                 }}>
-                  {ingredient.benefit}
+                  {productData.description}
                 </p>
-              </div>
-            ))}
-          </div>
-        </section>
+              )}
+            </div>
 
-        {/* How to Prep - Apple Steps */}
-        <section style={{
-          padding: '120px 24px',
-          maxWidth: '1200px',
-          margin: '0 auto',
-        }}>
-          <h2 style={{
-            fontSize: 'clamp(32px, 5vw, 48px)',
-            fontWeight: '600',
-            color: apple.textPrimary,
-            textAlign: 'center',
-            margin: '0 0 16px 0',
-            letterSpacing: '-0.02em',
-          }}>
-            Ready in seconds.
-          </h2>
-          <p style={{
-            fontSize: '21px',
-            color: apple.textSecondary,
-            textAlign: 'center',
-            margin: '0 auto 80px',
-            maxWidth: '600px',
-          }}>
-            From freezer to bliss in three simple steps.
-          </p>
-
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(3, 1fr)',
-            gap: '48px',
-          }}>
-            {[
-              { num: '01', title: 'Add liquid', desc: 'Fill cup to top with water, oat milk, or coconut water.' },
-              { num: '02', title: 'Blend', desc: 'Pour into a blender and blend until silky smooth.' },
-              { num: '03', title: 'Enjoy', desc: 'Pour back into your cup. Sip. Smile. Repeat.' },
-            ].map((step, index) => (
-              <div key={index} style={{ textAlign: 'center' }}>
-                <div style={{
-                  fontSize: '64px',
-                  fontWeight: '600',
-                  color: apple.textTertiary,
-                  marginBottom: '24px',
-                  letterSpacing: '-0.02em',
-                  opacity: 0.5,
-                }}>
-                  {step.num}
-                </div>
-                <h3 style={{
-                  fontSize: '28px',
+            {/* Key Ingredients Accordion */}
+            <div style={{ borderBottom: `1px solid ${apple.divider}` }}>
+              <button
+                onClick={() => toggleSection('keyIngredients')}
+                style={{
+                  width: '100%',
+                  padding: '20px 0',
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  background: 'none',
+                  border: 'none',
+                  cursor: 'pointer',
+                }}
+              >
+                <span style={{
+                  fontSize: '16px',
                   fontWeight: '600',
                   color: apple.textPrimary,
-                  margin: '0 0 12px 0',
                 }}>
-                  {step.title}
-                </h3>
-                <p style={{
-                  fontSize: '17px',
-                  color: apple.textSecondary,
-                  lineHeight: '1.5',
-                  margin: 0,
+                  Key ingredients
+                </span>
+                <svg 
+                  width="14" 
+                  height="14" 
+                  viewBox="0 0 24 24" 
+                  fill="none"
+                  style={{ 
+                    transform: openSections.keyIngredients ? 'rotate(180deg)' : 'rotate(0deg)',
+                    transition: 'transform 0.3s ease',
+                  }}
+                >
+                  <path d="M6 9l6 6 6-6" stroke={apple.textSecondary} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </button>
+              {openSections.keyIngredients && (
+                <div style={{
+                  paddingBottom: '20px',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '12px',
                 }}>
-                  {step.desc}
-                </p>
-              </div>
-            ))}
+                  {productData.keyIngredients.map((ingredient, index) => (
+                    <div key={index} style={{ fontSize: '15px' }}>
+                      <span style={{ color: apple.textPrimary, fontWeight: '500' }}>{ingredient.name}: </span>
+                      <span style={{ color: apple.textSecondary }}>{ingredient.benefit}</span>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* How to Prep Accordion */}
+            <div style={{ borderBottom: `1px solid ${apple.divider}` }}>
+              <button
+                onClick={() => toggleSection('howToPrep')}
+                style={{
+                  width: '100%',
+                  padding: '20px 0',
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  background: 'none',
+                  border: 'none',
+                  cursor: 'pointer',
+                }}
+              >
+                <span style={{
+                  fontSize: '16px',
+                  fontWeight: '600',
+                  color: apple.textPrimary,
+                }}>
+                  How to prepare
+                </span>
+                <svg 
+                  width="14" 
+                  height="14" 
+                  viewBox="0 0 24 24" 
+                  fill="none"
+                  style={{ 
+                    transform: openSections.howToPrep ? 'rotate(180deg)' : 'rotate(0deg)',
+                    transition: 'transform 0.3s ease',
+                  }}
+                >
+                  <path d="M6 9l6 6 6-6" stroke={apple.textSecondary} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </button>
+              {openSections.howToPrep && (
+                <div style={{
+                  paddingBottom: '20px',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '12px',
+                }}>
+                  <div style={{ fontSize: '15px' }}>
+                    <span style={{ color: apple.textPrimary, fontWeight: '500' }}>1. Add liquid: </span>
+                    <span style={{ color: apple.textSecondary }}>Fill cup to top with water, oat milk, or coconut water.</span>
+                  </div>
+                  <div style={{ fontSize: '15px' }}>
+                    <span style={{ color: apple.textPrimary, fontWeight: '500' }}>2. Blend: </span>
+                    <span style={{ color: apple.textSecondary }}>Pour into a blender and blend until silky smooth.</span>
+                  </div>
+                  <div style={{ fontSize: '15px' }}>
+                    <span style={{ color: apple.textPrimary, fontWeight: '500' }}>3. Enjoy: </span>
+                    <span style={{ color: apple.textSecondary }}>Pour back into your cup. Sip. Smile. Repeat.</span>
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
         </section>
 
