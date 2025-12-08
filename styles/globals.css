@@ -5438,172 +5438,139 @@ svg {
   }
 }
 
-/* Apple-Style Lifestyle Slider Section */
-.lifestyle-story-section {
-  background: #000000;
+/* Louis Vuitton Style Gallery Section */
+.lv-gallery-section {
+  background: #ffffff;
   padding: 0;
   width: 100%;
   overflow: hidden;
   position: relative;
 }
 
-.lifestyle-story-container {
-  max-width: 100%;
+.lv-gallery-container {
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 80px 0 60px;
+  padding: 100px 24px 80px;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.lifestyle-story-title {
-  font-size: clamp(32px, 5vw, 56px);
-  font-weight: 600;
-  color: #ffffff;
+.lv-gallery-title {
+  font-size: clamp(28px, 4vw, 42px);
+  font-weight: 500;
+  color: #000000;
   text-align: center;
-  margin: 0 0 16px 0;
+  margin: 0 0 12px 0;
   letter-spacing: -0.02em;
-  line-height: 1.1;
-  padding: 0 24px;
+  line-height: 1.2;
 }
 
-.lifestyle-story-subtitle {
-  font-size: clamp(16px, 2vw, 22px);
+.lv-gallery-subtitle {
+  font-size: clamp(14px, 1.5vw, 18px);
   font-weight: 400;
-  color: rgba(255, 255, 255, 0.6);
+  color: #666666;
   text-align: center;
-  margin: 0 0 60px 0;
+  margin: 0 0 48px 0;
   line-height: 1.5;
-  padding: 0 24px;
 }
 
-.apple-slider-wrapper {
+.lv-main-image-wrapper {
   width: 100%;
+  max-width: 700px;
+  aspect-ratio: 4/3;
+  margin-bottom: 32px;
   position: relative;
-}
-
-.apple-slider-track {
-  display: flex;
-  gap: 12px;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  scroll-behavior: smooth;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-  padding: 0 24px;
-  cursor: grab;
-}
-
-.apple-slider-track::-webkit-scrollbar {
-  display: none;
-}
-
-.apple-slider-track:active {
-  cursor: grabbing;
-}
-
-.apple-slide {
-  flex: 0 0 calc(50% - 6px);
-  min-width: calc(50% - 6px);
-  height: 70vh;
-  min-height: 500px;
-  max-height: 700px;
-  scroll-snap-align: start;
-  border-radius: 16px;
-  overflow: hidden;
-  position: relative;
-}
-
-.apple-slide img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.6s ease;
-}
-
-.apple-slide:hover img {
-  transform: scale(1.02);
-}
-
-.apple-slide-label {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: 40px 32px;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0) 100%);
-}
-
-.apple-slide-label span {
-  font-size: clamp(20px, 2.5vw, 28px);
-  font-weight: 600;
-  color: #ffffff;
-  letter-spacing: -0.01em;
-}
-
-.apple-slider-controls {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  padding: 32px 24px 20px;
-}
-
-.apple-slider-arrows {
-  display: flex;
-  gap: 8px;
-  align-items: center;
-}
-
-.apple-slider-arrow {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background: transparent;
-  border: 1.5px solid rgba(255, 255, 255, 0.5);
-  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.2s ease;
-  padding: 0;
-  color: rgba(255, 255, 255, 0.7);
+  overflow: hidden;
 }
 
-.apple-slider-arrow:hover {
-  border-color: rgba(255, 255, 255, 0.9);
+.lv-main-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity 0.3s ease;
+}
+
+.lv-main-image-label {
+  position: absolute;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 16px;
+  font-weight: 500;
   color: #ffffff;
+  background: rgba(0, 0, 0, 0.6);
+  padding: 8px 20px;
+  border-radius: 20px;
+  white-space: nowrap;
 }
 
-.apple-slider-arrow:active {
-  transform: scale(0.95);
-  border-color: #ffffff;
+.lv-thumbnails-wrapper {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+  max-width: 100%;
 }
 
-/* Mobile Responsive - Apple Slider */
+.lv-thumbnail {
+  width: 64px;
+  height: 64px;
+  border-radius: 4px;
+  overflow: hidden;
+  cursor: pointer;
+  border: 1px solid #e0e0e0;
+  background: #ffffff;
+  padding: 0;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.lv-thumbnail:hover {
+  border-color: #999999;
+}
+
+.lv-thumbnail.active {
+  border-color: #000000;
+  border-width: 2px;
+}
+
+.lv-thumbnail img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Mobile Responsive - LV Gallery */
 @media (max-width: 768px) {
-  .lifestyle-story-container {
-    padding: 60px 0 40px;
+  .lv-gallery-container {
+    padding: 60px 16px 50px;
   }
   
-  .lifestyle-story-subtitle {
-    margin-bottom: 40px;
+  .lv-gallery-subtitle {
+    margin-bottom: 32px;
   }
   
-  .apple-slider-track {
-    padding: 0 16px;
+  .lv-main-image-wrapper {
+    max-width: 100%;
+    margin-bottom: 24px;
+  }
+  
+  .lv-thumbnails-wrapper {
     gap: 8px;
   }
   
-  .apple-slide {
-    flex: 0 0 85%;
-    min-width: 85%;
-    height: 60vh;
-    min-height: 400px;
-    max-height: 550px;
+  .lv-thumbnail {
+    width: 52px;
+    height: 52px;
   }
   
-  .apple-slider-controls {
-    padding: 24px 16px 16px;
+  .lv-main-image-label {
+    font-size: 14px;
+    padding: 6px 16px;
+    bottom: 16px;
   }
 }

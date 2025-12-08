@@ -1189,66 +1189,48 @@ export default function ProductPage() {
             </div>
           </div>
 
-        {/* Apple-Style Lifestyle Slider Section */}
-        <section className="lifestyle-story-section">
-          <div className="lifestyle-story-container">
-            <h2 className="lifestyle-story-title">Your Everyday — Powered Naturally.</h2>
-            <p className="lifestyle-story-subtitle">Real nourishment. Real moments. Real life.</p>
+        {/* Louis Vuitton Style Lifestyle Gallery Section */}
+        <section className="lv-gallery-section">
+          <div className="lv-gallery-container">
+            <h2 className="lv-gallery-title">Your Everyday — Powered Naturally.</h2>
+            <p className="lv-gallery-subtitle">Real nourishment. Real moments. Real life.</p>
             
-            <div className="apple-slider-wrapper">
-              <div className="apple-slider-track" id="lifestyle-slider">
-                {[
-                  { img: '/lifestyle/beach.jpg', label: 'Find balance' },
-                  { img: '/lifestyle/biking.jpg', label: 'Move freely' },
-                  { img: '/lifestyle/bees.jpg', label: 'Powered by nature' },
-                  { img: '/lifestyle/skiing.jpg', label: 'Live fully' },
-                  { img: '/lifestyle/wellness.jpg', label: 'Fuel joy' },
-                ].map((slide, index) => (
-                  <div key={index} className="apple-slide">
-                    <img src={slide.img} alt={slide.label} />
-                    <div className="apple-slide-label">
-                      <span>{slide.label}</span>
-                    </div>
-                  </div>
-                ))}
+            {/* Main Featured Image */}
+            <div className="lv-main-image-wrapper">
+              <img 
+                src={[
+                  '/lifestyle/beach.jpg',
+                  '/lifestyle/biking.jpg', 
+                  '/lifestyle/bees.jpg',
+                  '/lifestyle/skiing.jpg',
+                  '/lifestyle/wellness.jpg'
+                ][activeCardIndex]} 
+                alt={['Find balance', 'Move freely', 'Powered by nature', 'Live fully', 'Fuel joy'][activeCardIndex]}
+                className="lv-main-image"
+              />
+              <div className="lv-main-image-label">
+                {['Find balance', 'Move freely', 'Powered by nature', 'Live fully', 'Fuel joy'][activeCardIndex]}
               </div>
-              
-              <div className="apple-slider-controls">
-                <div className="apple-slider-arrows">
-                  <button 
-                    className="apple-slider-arrow"
-                    onClick={() => {
-                      const slider = document.getElementById('lifestyle-slider');
-                      if (slider) {
-                        const slideWidth = slider.scrollWidth / 5;
-                        const newIndex = Math.max(0, activeCardIndex - 1);
-                        slider.scrollTo({ left: slideWidth * newIndex, behavior: 'smooth' });
-                      }
-                    }}
-                    aria-label="Previous slide"
-                  >
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M15 18l-6-6 6-6" />
-                    </svg>
-                  </button>
-                  <button 
-                    className="apple-slider-arrow"
-                    onClick={() => {
-                      const slider = document.getElementById('lifestyle-slider');
-                      if (slider) {
-                        const slideWidth = slider.scrollWidth / 5;
-                        const newIndex = Math.min(4, activeCardIndex + 1);
-                        slider.scrollTo({ left: slideWidth * newIndex, behavior: 'smooth' });
-                      }
-                    }}
-                    aria-label="Next slide"
-                  >
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M9 18l6-6-6-6" />
-                    </svg>
-                  </button>
-                </div>
-              </div>
+            </div>
+            
+            {/* Thumbnail Row */}
+            <div className="lv-thumbnails-wrapper">
+              {[
+                { img: '/lifestyle/beach.jpg', label: 'Find balance' },
+                { img: '/lifestyle/biking.jpg', label: 'Move freely' },
+                { img: '/lifestyle/bees.jpg', label: 'Powered by nature' },
+                { img: '/lifestyle/skiing.jpg', label: 'Live fully' },
+                { img: '/lifestyle/wellness.jpg', label: 'Fuel joy' },
+              ].map((slide, index) => (
+                <button 
+                  key={index} 
+                  className={`lv-thumbnail ${activeCardIndex === index ? 'active' : ''}`}
+                  onClick={() => setActiveCardIndex(index)}
+                  aria-label={slide.label}
+                >
+                  <img src={slide.img} alt={slide.label} />
+                </button>
+              ))}
             </div>
           </div>
         </section>
