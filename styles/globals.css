@@ -6515,16 +6515,16 @@ svg {
    Dark luxury theme with elegant typography
    ============================================ */
 
-/* Font imports for LV style */
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&display=swap');
-
 :root {
-  --lv-font-serif: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+  --lv-font-serif: Georgia, 'Times New Roman', serif;
   --lv-font-sans: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
 }
 
-/* Hero Section - LV Style */
-.lv-home-hero {
+/* ============================================
+   1. HERO SECTION - Full Screen LV Style
+   ============================================ */
+
+.lv-hero {
   position: relative;
   min-height: 100vh;
   display: flex;
@@ -6534,7 +6534,7 @@ svg {
   overflow: hidden;
 }
 
-.lv-home-hero-video {
+.lv-hero-video {
   position: absolute;
   top: 0;
   left: 0;
@@ -6542,49 +6542,28 @@ svg {
   height: 100%;
   object-fit: cover;
   z-index: 0;
-  opacity: 0.5;
+  opacity: 0.6;
 }
 
-.lv-home-hero-overlay {
+.lv-hero-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.7) 100%);
+  background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.5) 100%);
   z-index: 1;
 }
 
-.lv-home-hero-content {
+.lv-hero-content {
   position: relative;
   z-index: 2;
   text-align: center;
   padding: 0 24px;
-  max-width: 1000px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
 }
 
-.lv-home-hero-title {
-  font-family: var(--lv-font-serif);
-  font-size: clamp(3.5rem, 10vw, 7rem);
-  font-weight: 300;
-  line-height: 1.05;
-  letter-spacing: 0.02em;
-  color: #ffffff;
-  margin-bottom: 32px;
-  text-transform: lowercase;
-}
-
-.lv-home-hero-subtitle {
-  font-family: var(--lv-font-sans);
-  font-size: clamp(14px, 2vw, 18px);
-  font-weight: 300;
-  line-height: 1.8;
-  color: rgba(255,255,255,0.7);
-  margin-bottom: 48px;
-  letter-spacing: 0.05em;
-  max-width: 500px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.lv-home-hero-cta {
+.lv-hero-discover {
   display: inline-block;
   font-family: var(--lv-font-sans);
   font-size: 12px;
@@ -6593,172 +6572,37 @@ svg {
   text-transform: uppercase;
   color: #ffffff;
   background: transparent;
-  border: 1px solid rgba(255,255,255,0.5);
-  padding: 18px 48px;
+  border: 1px solid rgba(255,255,255,0.6);
+  padding: 16px 48px;
   text-decoration: none;
   transition: all 0.3s ease;
 }
 
-.lv-home-hero-cta:hover {
+.lv-hero-discover:hover {
   background: #ffffff;
   color: #000000;
   border-color: #ffffff;
+  opacity: 1;
 }
 
-.lv-home-hero-line {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 1px;
-  background: rgba(255,255,255,0.2);
-  z-index: 3;
-}
-
-/* Category Tiles - LV Style Grid */
-.lv-home-tiles {
-  background: #000000;
-  padding: 0;
-}
-
-.lv-home-tiles-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(2, 1fr);
-  gap: 2px;
-}
-
-.lv-home-tile {
-  position: relative;
-  aspect-ratio: 4/5;
-  overflow: hidden;
-  cursor: pointer;
-}
-
-.lv-home-tile-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
-
-.lv-home-tile:hover .lv-home-tile-image {
-  transform: scale(1.05);
-}
-
-.lv-home-tile-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0) 60%);
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  padding: 32px;
-}
-
-.lv-home-tile-label {
-  font-family: var(--lv-font-sans);
-  font-size: 11px;
-  font-weight: 400;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.7);
-  margin-bottom: 8px;
-}
-
-.lv-home-tile-title {
+.lv-hero-headline {
   font-family: var(--lv-font-serif);
-  font-size: clamp(20px, 3vw, 28px);
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
   font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: 0.02em;
   color: #ffffff;
   margin: 0;
-  letter-spacing: 0.02em;
+  max-width: 800px;
 }
 
-/* Editorial Section - LV Magazine Style */
-.lv-home-editorial {
-  background: #000000;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  min-height: 80vh;
-}
-
-.lv-home-editorial-image {
-  position: relative;
-  overflow: hidden;
-}
-
-.lv-home-editorial-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.lv-home-editorial-content {
+.lv-hero-ctas {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: clamp(48px, 8vw, 120px);
-  background: #000000;
+  align-items: center;
+  gap: 24px;
 }
 
-.lv-home-editorial-label {
-  font-family: var(--lv-font-sans);
-  font-size: 11px;
-  font-weight: 400;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.5);
-  margin-bottom: 24px;
-}
-
-.lv-home-editorial-title {
-  font-family: var(--lv-font-serif);
-  font-size: clamp(32px, 5vw, 56px);
-  font-weight: 300;
-  line-height: 1.15;
-  color: #ffffff;
-  margin: 0 0 32px 0;
-  letter-spacing: 0.01em;
-}
-
-.lv-home-editorial-body {
-  font-family: var(--lv-font-sans);
-  font-size: 15px;
-  font-weight: 300;
-  line-height: 1.8;
-  color: rgba(255,255,255,0.6);
-  margin-bottom: 24px;
-  max-width: 480px;
-}
-
-.lv-home-editorial-stats {
-  display: flex;
-  gap: 48px;
-  padding-top: 32px;
-  border-top: 1px solid rgba(255,255,255,0.1);
-  margin-top: 32px;
-}
-
-.lv-home-editorial-stat-value {
-  font-family: var(--lv-font-serif);
-  font-size: clamp(24px, 3vw, 36px);
-  font-weight: 400;
-  color: #ffffff;
-  margin-bottom: 4px;
-}
-
-.lv-home-editorial-stat-label {
-  font-family: var(--lv-font-sans);
-  font-size: 11px;
-  font-weight: 400;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.4);
-}
-
-.lv-home-editorial-link {
-  display: inline-block;
+.lv-hero-cta-link {
   font-family: var(--lv-font-sans);
   font-size: 12px;
   font-weight: 400;
@@ -6766,437 +6610,189 @@ svg {
   text-transform: uppercase;
   color: #ffffff;
   text-decoration: none;
-  padding-bottom: 4px;
-  border-bottom: 1px solid rgba(255,255,255,0.3);
+  padding-bottom: 2px;
+  border-bottom: 1px solid transparent;
   transition: border-color 0.3s ease;
-  margin-top: 32px;
 }
 
-.lv-home-editorial-link:hover {
-  border-color: #ffffff;
+.lv-hero-cta-link:hover {
+  border-bottom-color: #ffffff;
+  opacity: 1;
 }
 
-/* Product Grid - LV Minimal Style */
-.lv-home-products {
+.lv-hero-cta-divider {
+  color: rgba(255,255,255,0.4);
+  font-weight: 300;
+}
+
+/* ============================================
+   2. CATEGORIES SECTION - The Art of Wellness
+   ============================================ */
+
+.lv-categories {
   background: #000000;
-  padding: clamp(80px, 10vw, 140px) clamp(24px, 5vw, 80px);
+  padding: clamp(80px, 10vw, 120px) clamp(24px, 6vw, 100px);
 }
 
-.lv-home-products-header {
+.lv-categories-header {
   text-align: center;
   margin-bottom: clamp(48px, 6vw, 80px);
 }
 
-.lv-home-products-title {
-  font-family: var(--lv-font-serif);
-  font-size: clamp(28px, 4vw, 44px);
-  font-weight: 400;
-  color: #ffffff;
-  margin: 0 0 16px 0;
-  letter-spacing: 0.02em;
-}
-
-.lv-home-products-subtitle {
+.lv-categories-tagline {
   font-family: var(--lv-font-sans);
-  font-size: 14px;
+  font-size: clamp(14px, 2vw, 16px);
   font-weight: 300;
-  color: rgba(255,255,255,0.5);
+  color: rgba(255,255,255,0.6);
   letter-spacing: 0.05em;
+  margin: 0;
 }
 
-.lv-home-products-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: clamp(16px, 2vw, 32px);
-  max-width: 1440px;
+.lv-categories-grid {
+  display: flex;
+  justify-content: center;
+  gap: clamp(60px, 10vw, 160px);
+  max-width: 800px;
   margin: 0 auto;
 }
 
-.lv-home-product-card {
+.lv-categories-column {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.lv-categories-link {
+  font-family: var(--lv-font-sans);
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #ffffff;
   text-decoration: none;
-  color: inherit;
+  padding-bottom: 2px;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.3s ease;
+}
+
+.lv-categories-link:hover {
+  border-bottom-color: rgba(255,255,255,0.5);
+  opacity: 1;
+}
+
+.lv-section-divider {
+  height: 1px;
+  background: rgba(255,255,255,0.1);
+  margin-top: clamp(60px, 8vw, 100px);
+}
+
+/* ============================================
+   3-5. COLLECTION SECTIONS - Product Rows
+   ============================================ */
+
+.lv-collection {
+  background: #000000;
+  padding: clamp(80px, 10vw, 120px) clamp(24px, 6vw, 100px);
+}
+
+.lv-collection-header {
+  text-align: center;
+  margin-bottom: clamp(40px, 5vw, 60px);
+}
+
+.lv-collection-label {
+  display: block;
+  font-family: var(--lv-font-sans);
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.5);
+  margin-bottom: 16px;
+}
+
+.lv-collection-title {
+  font-family: var(--lv-font-serif);
+  font-size: clamp(28px, 4vw, 42px);
+  font-weight: 400;
+  color: #ffffff;
+  margin: 0;
+  letter-spacing: 0.02em;
+}
+
+.lv-collection-carousel-wrapper {
+  position: relative;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.lv-collection-row {
+  display: flex;
+  gap: clamp(16px, 2vw, 32px);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  padding: 0 60px;
+}
+
+.lv-collection-row::-webkit-scrollbar {
+  display: none;
+}
+
+.lv-collection-card {
+  flex: 0 0 calc(25% - 24px);
+  min-width: 220px;
+  max-width: 320px;
+  scroll-snap-align: start;
+  text-decoration: none;
   display: block;
 }
 
-.lv-home-product-image-wrap {
+.lv-collection-card-image {
   position: relative;
-  aspect-ratio: 3/4;
+  aspect-ratio: 1/1;
   overflow: hidden;
-  background: #0a0a0a;
-  margin-bottom: 20px;
+  background: #f5f5f5;
+  margin-bottom: 16px;
 }
 
-.lv-home-product-image {
+.lv-collection-card-image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
-.lv-home-product-card:hover .lv-home-product-image {
-  transform: scale(1.03);
+.lv-collection-card:hover .lv-collection-card-image img {
+  transform: scale(1.05);
 }
 
-.lv-home-product-name {
+.lv-collection-card-name {
   font-family: var(--lv-font-serif);
-  font-size: clamp(16px, 2vw, 20px);
+  font-size: clamp(16px, 2vw, 18px);
   font-weight: 400;
   color: #ffffff;
-  margin: 0 0 8px 0;
+  margin: 0 0 6px 0;
   letter-spacing: 0.01em;
 }
 
-.lv-home-product-price {
+.lv-collection-card-price {
   font-family: var(--lv-font-sans);
   font-size: 13px;
   font-weight: 300;
   color: rgba(255,255,255,0.6);
-}
-
-.lv-home-products-footer {
-  text-align: center;
-  margin-top: clamp(48px, 6vw, 80px);
-}
-
-.lv-home-products-link {
-  display: inline-block;
-  font-family: var(--lv-font-sans);
-  font-size: 12px;
-  font-weight: 400;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: #ffffff;
-  text-decoration: none;
-  padding: 16px 40px;
-  border: 1px solid rgba(255,255,255,0.3);
-  transition: all 0.3s ease;
-}
-
-.lv-home-products-link:hover {
-  background: #ffffff;
-  color: #000000;
-  border-color: #ffffff;
-}
-
-/* World of Drizzl Section - Full Width Editorial */
-.lv-home-world {
-  position: relative;
-  min-height: 70vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: #000000;
-  overflow: hidden;
-}
-
-.lv-home-world-image {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  opacity: 0.4;
-}
-
-.lv-home-world-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to right, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.3) 100%);
-}
-
-.lv-home-world-content {
-  position: relative;
-  z-index: 2;
-  text-align: center;
-  padding: 48px;
-  max-width: 800px;
-}
-
-.lv-home-world-gif {
-  width: 120px;
-  height: auto;
-  margin-bottom: 32px;
-}
-
-.lv-home-world-title {
-  font-family: var(--lv-font-serif);
-  font-size: clamp(36px, 6vw, 64px);
-  font-weight: 300;
-  color: #ffffff;
-  margin: 0 0 24px 0;
-  letter-spacing: 0.02em;
-}
-
-.lv-home-world-text {
-  font-family: var(--lv-font-sans);
-  font-size: 15px;
-  font-weight: 300;
-  line-height: 1.9;
-  color: rgba(255,255,255,0.7);
-  margin: 0 0 16px 0;
-}
-
-.lv-home-world-tagline {
-  font-family: var(--lv-font-serif);
-  font-size: clamp(18px, 2.5vw, 24px);
-  font-weight: 400;
-  font-style: italic;
-  color: #ffffff;
-  margin-top: 32px;
-}
-
-/* Benefits Strip - Horizontal Icons */
-.lv-home-benefits {
-  background: #0a0a0a;
-  padding: clamp(60px, 8vw, 100px) clamp(24px, 5vw, 80px);
-  border-top: 1px solid rgba(255,255,255,0.08);
-  border-bottom: 1px solid rgba(255,255,255,0.08);
-}
-
-.lv-home-benefits-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  display: flex;
-  justify-content: space-between;
-  gap: 48px;
-}
-
-.lv-home-benefit {
-  flex: 1;
-  text-align: center;
-}
-
-.lv-home-benefit-icon {
-  width: 48px;
-  height: 48px;
-  margin: 0 auto 20px;
-  opacity: 0.8;
-}
-
-.lv-home-benefit-title {
-  font-family: var(--lv-font-serif);
-  font-size: 18px;
-  font-weight: 400;
-  color: #ffffff;
-  margin: 0 0 12px 0;
-  letter-spacing: 0.02em;
-}
-
-.lv-home-benefit-text {
-  font-family: var(--lv-font-sans);
-  font-size: 13px;
-  font-weight: 300;
-  line-height: 1.7;
-  color: rgba(255,255,255,0.5);
-}
-
-/* Testimonials - LV Editorial Style */
-.lv-home-testimonials {
-  background: #000000;
-  padding: clamp(80px, 10vw, 140px) clamp(24px, 5vw, 80px);
-}
-
-.lv-home-testimonials-header {
-  text-align: center;
-  margin-bottom: clamp(48px, 6vw, 80px);
-}
-
-.lv-home-testimonials-eyebrow {
-  font-family: var(--lv-font-sans);
-  font-size: 11px;
-  font-weight: 400;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.4);
-  margin-bottom: 16px;
-}
-
-.lv-home-testimonials-title {
-  font-family: var(--lv-font-serif);
-  font-size: clamp(28px, 4vw, 44px);
-  font-weight: 400;
-  color: #ffffff;
   margin: 0;
-  letter-spacing: 0.02em;
 }
 
-.lv-home-testimonials-carousel {
-  position: relative;
-  max-width: 1440px;
-  margin: 0 auto;
-}
-
-.lv-home-testimonials-track {
-  display: flex;
-  gap: clamp(16px, 2vw, 24px);
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-  padding: 0 clamp(16px, 3vw, 48px);
-}
-
-.lv-home-testimonials-track::-webkit-scrollbar {
-  display: none;
-}
-
-.lv-home-testimonial-card {
-  flex: 0 0 clamp(280px, 25vw, 320px);
-  scroll-snap-align: start;
-  background: rgba(255,255,255,0.02);
-  border: 1px solid rgba(255,255,255,0.06);
-  padding: 32px;
-  display: flex;
-  flex-direction: column;
-  cursor: pointer;
-  transition: border-color 0.3s ease;
-}
-
-.lv-home-testimonial-card:hover {
-  border-color: rgba(255,255,255,0.15);
-}
-
-.lv-home-testimonial-quote-mark {
-  font-family: var(--lv-font-serif);
-  font-size: 48px;
-  font-weight: 400;
-  color: rgba(255,255,255,0.15);
-  line-height: 1;
-  margin-bottom: 16px;
-}
-
-.lv-home-testimonial-quote {
-  font-family: var(--lv-font-serif);
-  font-size: 16px;
-  font-weight: 400;
-  font-style: italic;
-  color: rgba(255,255,255,0.8);
-  line-height: 1.6;
-  margin-bottom: 24px;
-  flex: 1;
-}
-
-.lv-home-testimonial-author {
-  font-family: var(--lv-font-sans);
-  font-size: 12px;
-  font-weight: 400;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.5);
-}
-
-.lv-home-testimonial-label {
-  font-family: var(--lv-font-sans);
-  font-size: 10px;
-  font-weight: 400;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.3);
-  margin-bottom: 8px;
-}
-
-.lv-home-testimonial-video-wrap {
-  position: relative;
-  aspect-ratio: 16/9;
-  border-radius: 4px;
-  overflow: hidden;
-  margin-top: 20px;
-}
-
-.lv-home-testimonial-video {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.lv-home-testimonial-play {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 40px;
-  height: 40px;
-  background: rgba(255,255,255,0.9);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.lv-home-testimonial-play svg {
-  width: 14px;
-  height: 14px;
-  fill: #000000;
-  margin-left: 2px;
-}
-
-/* How It Works - Simplified */
-.lv-home-how {
-  background: #000000;
-  padding: clamp(80px, 10vw, 120px) clamp(24px, 5vw, 80px);
-}
-
-.lv-home-how-container {
-  max-width: 1000px;
-  margin: 0 auto;
-  text-align: center;
-}
-
-.lv-home-how-title {
-  font-family: var(--lv-font-serif);
-  font-size: clamp(28px, 4vw, 40px);
-  font-weight: 400;
-  color: #ffffff;
-  margin: 0 0 clamp(48px, 6vw, 80px) 0;
-  letter-spacing: 0.02em;
-}
-
-.lv-home-how-steps {
-  display: flex;
-  justify-content: center;
-  gap: clamp(40px, 8vw, 100px);
-}
-
-.lv-home-how-step {
-  flex: 1;
-  max-width: 260px;
-}
-
-.lv-home-how-step-number {
-  font-family: var(--lv-font-serif);
-  font-size: 48px;
-  font-weight: 300;
-  color: rgba(255,255,255,0.1);
-  margin-bottom: 16px;
-}
-
-.lv-home-how-step-title {
-  font-family: var(--lv-font-serif);
-  font-size: 20px;
-  font-weight: 400;
-  color: #ffffff;
-  margin: 0 0 12px 0;
-  letter-spacing: 0.01em;
-}
-
-.lv-home-how-step-text {
-  font-family: var(--lv-font-sans);
-  font-size: 14px;
-  font-weight: 300;
-  line-height: 1.7;
-  color: rgba(255,255,255,0.5);
-}
-
-/* Carousel Arrows - LV Style */
-.lv-carousel-arrow {
+.lv-collection-arrow {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  width: 48px;
-  height: 48px;
+  width: 44px;
+  height: 44px;
   background: transparent;
-  border: 1px solid rgba(255,255,255,0.2);
-  border-radius: 0;
+  border: 1px solid rgba(255,255,255,0.3);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -7205,120 +6801,241 @@ svg {
   z-index: 10;
 }
 
-.lv-carousel-arrow:hover {
+.lv-collection-arrow:hover {
   background: rgba(255,255,255,0.1);
-  border-color: rgba(255,255,255,0.4);
+  border-color: rgba(255,255,255,0.5);
 }
 
-.lv-carousel-arrow svg {
-  width: 16px;
-  height: 16px;
+.lv-collection-arrow svg {
+  width: 18px;
+  height: 18px;
   stroke: #ffffff;
 }
 
-.lv-carousel-arrow-left {
+.lv-collection-arrow-left {
   left: 0;
 }
 
-.lv-carousel-arrow-right {
+.lv-collection-arrow-right {
   right: 0;
 }
 
-/* Responsive - LV Homepage */
+.lv-collection-footer {
+  text-align: right;
+  margin-top: clamp(32px, 4vw, 48px);
+  padding-right: 60px;
+}
+
+.lv-collection-shop-link {
+  font-family: var(--lv-font-sans);
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #ffffff;
+  text-decoration: none;
+  padding-bottom: 3px;
+  border-bottom: 1px solid rgba(255,255,255,0.4);
+  transition: border-color 0.3s ease;
+}
+
+.lv-collection-shop-link:hover {
+  border-bottom-color: #ffffff;
+  opacity: 1;
+}
+
+/* ============================================
+   6. SERVICES SECTION - Drizzl Services
+   ============================================ */
+
+.lv-services {
+  background: #000000;
+  padding: clamp(80px, 10vw, 120px) clamp(24px, 6vw, 100px);
+  border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+.lv-services-header {
+  text-align: center;
+  margin-bottom: clamp(48px, 6vw, 80px);
+}
+
+.lv-services-title {
+  font-family: var(--lv-font-serif);
+  font-size: clamp(28px, 4vw, 42px);
+  font-weight: 400;
+  color: #ffffff;
+  margin: 0 0 16px 0;
+  letter-spacing: 0.02em;
+}
+
+.lv-services-subtitle {
+  font-family: var(--lv-font-sans);
+  font-size: 14px;
+  font-weight: 300;
+  color: rgba(255,255,255,0.6);
+  letter-spacing: 0.03em;
+  margin: 0;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.lv-services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(24px, 3vw, 48px);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.lv-services-card {
+  text-align: center;
+}
+
+.lv-services-card-image {
+  position: relative;
+  aspect-ratio: 4/5;
+  overflow: hidden;
+  background: #0a0a0a;
+  margin-bottom: 24px;
+}
+
+.lv-services-card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.lv-services-card:hover .lv-services-card-image img {
+  transform: scale(1.03);
+}
+
+.lv-services-card-title {
+  font-family: var(--lv-font-serif);
+  font-size: clamp(18px, 2vw, 22px);
+  font-weight: 400;
+  color: #ffffff;
+  margin: 0 0 16px 0;
+  letter-spacing: 0.01em;
+}
+
+.lv-services-card-links {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+}
+
+.lv-services-card-link {
+  font-family: var(--lv-font-sans);
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.8);
+  text-decoration: none;
+  padding-bottom: 2px;
+  border-bottom: 1px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.lv-services-card-link:hover {
+  color: #ffffff;
+  border-bottom-color: rgba(255,255,255,0.5);
+  opacity: 1;
+}
+
+/* ============================================
+   RESPONSIVE STYLES - LV Homepage
+   ============================================ */
+
 @media (max-width: 1024px) {
-  .lv-home-tiles-grid {
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: auto;
+  .lv-collection-card {
+    flex: 0 0 calc(33.333% - 21px);
+    min-width: 200px;
   }
   
-  .lv-home-editorial {
-    grid-template-columns: 1fr;
-    min-height: auto;
-  }
-  
-  .lv-home-editorial-image {
-    aspect-ratio: 16/9;
-  }
-  
-  .lv-home-products-grid {
+  .lv-services-grid {
     grid-template-columns: repeat(3, 1fr);
-  }
-  
-  .lv-home-benefits-container {
-    flex-wrap: wrap;
-  }
-  
-  .lv-home-benefit {
-    flex: 1 1 calc(33.333% - 32px);
-    min-width: 180px;
+    gap: 24px;
   }
 }
 
 @media (max-width: 768px) {
-  .lv-home-hero-title {
-    font-size: clamp(2.5rem, 12vw, 4rem);
+  .lv-hero-headline {
+    font-size: clamp(2rem, 8vw, 3rem);
   }
   
-  .lv-home-tiles-grid {
+  .lv-hero-ctas {
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  .lv-hero-cta-divider {
+    display: none;
+  }
+  
+  .lv-categories-grid {
+    gap: 40px;
+  }
+  
+  .lv-collection-card {
+    flex: 0 0 calc(50% - 12px);
+    min-width: 160px;
+  }
+  
+  .lv-collection-row {
+    padding: 0 16px;
+  }
+  
+  .lv-collection-footer {
+    padding-right: 16px;
+    text-align: center;
+  }
+  
+  .lv-collection-arrow {
+    display: none;
+  }
+  
+  .lv-services-grid {
     grid-template-columns: 1fr;
-  }
-  
-  .lv-home-tile {
-    aspect-ratio: 16/9;
-  }
-  
-  .lv-home-products-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  
-  .lv-home-editorial-stats {
-    flex-wrap: wrap;
-    gap: 24px;
-  }
-  
-  .lv-home-benefits-container {
-    flex-direction: column;
-    gap: 32px;
-  }
-  
-  .lv-home-benefit {
-    flex: 1 1 100%;
-  }
-  
-  .lv-home-how-steps {
-    flex-direction: column;
     gap: 48px;
-  }
-  
-  .lv-home-how-step {
-    max-width: 100%;
-  }
-  
-  .lv-carousel-arrow {
-    width: 40px;
-    height: 40px;
+    max-width: 400px;
   }
 }
 
 @media (max-width: 480px) {
-  .lv-home-hero-cta {
-    padding: 14px 32px;
+  .lv-hero-discover {
+    padding: 14px 36px;
+    font-size: 11px;
   }
   
-  .lv-home-tile-overlay {
-    padding: 20px;
+  .lv-hero-headline {
+    font-size: clamp(1.75rem, 7vw, 2.5rem);
   }
   
-  .lv-home-editorial-content {
-    padding: 32px 20px;
+  .lv-categories-grid {
+    flex-direction: column;
+    align-items: center;
+    gap: 32px;
   }
   
-  .lv-home-products {
+  .lv-categories-column {
+    align-items: center;
+    text-align: center;
+  }
+  
+  .lv-collection {
     padding: 60px 16px;
   }
   
-  .lv-home-testimonial-card {
-    flex: 0 0 85vw;
-    padding: 24px;
+  .lv-collection-card {
+    flex: 0 0 75vw;
+    min-width: auto;
+  }
+  
+  .lv-services {
+    padding: 60px 16px;
   }
 }
