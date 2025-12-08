@@ -988,6 +988,49 @@ export default function ProductPage() {
           </div>
         </section>
 
+        {/* Lifestyle Story Section */}
+        <section className="lifestyle-story-section">
+          <div className="lifestyle-story-container">
+            <h2 className="lifestyle-story-title">Your Everyday — Powered Naturally.</h2>
+            <p className="lifestyle-story-subtitle">Real nourishment. Real moments. Real life.</p>
+            
+            <div className="lifestyle-cards-wrapper">
+              <div className="lifestyle-cards-track">
+                <div className="lifestyle-card">
+                  <img src="/lifestyle/beach.jpg" alt="Find balance" />
+                  <div className="lifestyle-card-overlay">
+                    <span>Find balance</span>
+                  </div>
+                </div>
+                <div className="lifestyle-card">
+                  <img src="/lifestyle/biking.jpg" alt="Move freely" />
+                  <div className="lifestyle-card-overlay">
+                    <span>Move freely</span>
+                  </div>
+                </div>
+                <div className="lifestyle-card">
+                  <img src="/lifestyle/bees.jpg" alt="Powered by nature" />
+                  <div className="lifestyle-card-overlay">
+                    <span>Powered by nature</span>
+                  </div>
+                </div>
+                <div className="lifestyle-card">
+                  <img src="/lifestyle/skiing.jpg" alt="Live fully" />
+                  <div className="lifestyle-card-overlay">
+                    <span>Live fully</span>
+                  </div>
+                </div>
+                <div className="lifestyle-card">
+                  <img src="/lifestyle/wellness.jpg" alt="Fuel joy" />
+                  <div className="lifestyle-card-overlay">
+                    <span>Fuel joy</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* The Lineup Section - Exact clone from landing page */}
         <section className="video-section" style={{ background: '#0a0a0a' }}>
           <div className="video-section-container">
