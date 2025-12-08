@@ -360,7 +360,7 @@ export default function ProductPage() {
 
           {/* Large Hero Product Image */}
           <div style={{
-            maxWidth: '900px',
+            maxWidth: '500px',
             margin: '0 auto',
             padding: '0 24px',
           }}>
@@ -369,35 +369,48 @@ export default function ProductPage() {
               alt={productData.name}
               style={{
                 width: '100%',
-                maxHeight: '600px',
+                maxHeight: '500px',
                 objectFit: 'contain',
               }}
             />
           </div>
 
-          {/* Image Dots Navigation */}
+          {/* Thumbnail Gallery - Like Reference Image 3 */}
           <div style={{
             display: 'flex',
             justifyContent: 'center',
             gap: '12px',
-            marginTop: '32px',
+            marginTop: '40px',
+            padding: '0 24px',
           }}>
-            {productData.gallery.map((_, index) => (
+            {productData.gallery.map((img, index) => (
               <button
                 key={index}
                 onClick={() => setSelectedImageIndex(index)}
                 style={{
-                  width: '8px',
-                  height: '8px',
-                  borderRadius: '50%',
-                  border: 'none',
-                  backgroundColor: selectedImageIndex === index ? apple.textPrimary : apple.textTertiary,
+                  width: '80px',
+                  height: '80px',
+                  borderRadius: '12px',
+                  border: selectedImageIndex === index ? '2px solid #000000' : '2px solid transparent',
+                  backgroundColor: '#f5f5f7',
                   cursor: 'pointer',
-                  transition: 'all 0.3s',
-                  padding: 0,
+                  padding: '8px',
+                  transition: 'all 0.2s',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
                 }}
-                aria-label={`View image ${index + 1}`}
-              />
+              >
+                <img
+                  src={img}
+                  alt={`${productData.name} view ${index + 1}`}
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'contain',
+                  }}
+                />
+              </button>
             ))}
           </div>
         </section>
