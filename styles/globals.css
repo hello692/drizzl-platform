@@ -6036,6 +6036,7 @@ svg {
 
 /* ============================================
    LV-STYLE HERO - Full-bleed cinematic video
+   Premium centered layout with responsive breakpoints
    ============================================ */
 
 .lv-hero {
@@ -6045,6 +6046,10 @@ svg {
   overflow: hidden;
   color: #ffffff;
   background: #000;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .lv-hero-video {
@@ -6054,6 +6059,7 @@ svg {
   height: 100%;
   object-fit: cover;
   object-position: center 65%;
+  z-index: 0;
 }
 
 .lv-hero-overlay {
@@ -6063,31 +6069,34 @@ svg {
     to bottom,
     rgba(0, 0, 0, 0.05) 0%,
     rgba(0, 0, 0, 0.15) 30%,
-    rgba(0, 0, 0, 0.70) 100%
+    rgba(0, 0, 0, 0.55) 100%
   );
+  z-index: 1;
 }
 
 .lv-hero-copy {
-  position: absolute;
-  left: 50%;
-  bottom: 8%;
-  transform: translateX(-50%);
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   text-align: center;
+  gap: 1rem;
   max-width: 800px;
   width: 100%;
-  padding: 0 20px;
-  z-index: 2;
+  padding: 0 1.5rem;
 }
 
-/* HERO TYPOGRAPHY - Compact Divine Engineering */
+/* HERO TYPOGRAPHY - Desktop defaults (>= 1024px) */
 
 .lv-hero-title {
-  font-family: var(--font-family-base) !important;
-  font-size: clamp(2.4rem, 5vw, 3.8rem) !important;
-  font-weight: 300 !important;
-  letter-spacing: -0.02em !important;
-  margin: 0 0 12px;
-  line-height: 1.1;
+  font-family: var(--font-family-base);
+  font-size: 2.8rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  margin: 0;
+  line-height: 1.15;
   color: #ffffff;
 }
 
@@ -6096,21 +6105,21 @@ svg {
   align-items: baseline;
   justify-content: center;
   width: 100%;
-  font-family: var(--font-family-base) !important;
-  font-size: inherit !important;
-  font-weight: 300 !important;
-  letter-spacing: -0.02em !important;
-  margin-top: 0;
+  font-family: var(--font-family-base);
+  font-size: 1.4rem;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  margin-top: 0.5rem;
   gap: 0.25em;
 }
 
 .lv-hero-dynamic-word {
   display: inline-block;
-  font-family: var(--font-family-base) !important;
-  font-size: inherit !important;
-  font-weight: 300 !important;
-  letter-spacing: -0.02em !important;
-  min-width: 280px;
+  font-family: var(--font-family-base);
+  font-size: inherit;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  min-width: 140px;
   text-align: left;
   opacity: 0;
   transition: opacity 0.4s ease, color 0.4s ease, text-shadow 0.4s ease;
@@ -6122,22 +6131,23 @@ svg {
 
 .lv-hero-sub {
   font-family: var(--font-family-base);
-  font-size: clamp(0.9rem, 1.4vw, 1.05rem);
+  font-size: 1.3rem;
   line-height: 1.5;
   color: #ffffff;
   opacity: 0.85;
-  margin-top: 0;
+  margin: 0;
   font-weight: 400;
   letter-spacing: 0.01em;
+  max-width: 600px;
 }
 
 .lv-hero-cta {
   display: inline-block;
-  margin-top: 20px;
+  margin-top: 24px;
   padding: 14px 36px;
   background: #ffffff;
   color: #000000;
-  font-size: 0.875rem;
+  font-size: 0.95rem;
   font-weight: 500;
   letter-spacing: 0em;
   text-decoration: none;
@@ -6151,8 +6161,47 @@ svg {
   transform: scale(1.03);
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
   background: #ffffff;
+  opacity: 1;
 }
 
+/* Desktop reinforcement (>= 1024px) - ensures no mobile overrides affect desktop */
+@media (min-width: 1024px) {
+  .lv-hero {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .lv-hero-copy {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    gap: 1rem;
+  }
+
+  .lv-hero-title {
+    font-size: 2.8rem;
+    font-weight: 600;
+  }
+
+  .lv-hero-title-line2 {
+    font-size: 1.4rem;
+  }
+
+  .lv-hero-sub {
+    font-size: 1.3rem;
+  }
+
+  .lv-hero-cta {
+    margin-top: 28px;
+  }
+}
+
+/* Mobile adjustments (<= 768px) */
 @media (max-width: 768px) {
   .lv-header {
     padding: 16px 20px;
@@ -6166,17 +6215,34 @@ svg {
     height: 32px;
   }
 
-  .lv-hero-title {
-    font-size: 1.6rem;
+  .lv-hero-copy {
+    gap: 0.75rem;
+    padding: 0 1.25rem;
+    max-width: 420px;
   }
 
-  .lv-hero-copy {
-    bottom: 12%;
-    max-width: 420px;
+  .lv-hero-title {
+    font-size: 1.8rem;
+    font-weight: 600;
+  }
+
+  .lv-hero-title-line2 {
+    font-size: 1.1rem;
+    margin-top: 0.25rem;
+  }
+
+  .lv-hero-dynamic-word {
+    min-width: 90px;
   }
   
   .lv-hero-sub {
-    font-size: 0.9rem;
+    font-size: 1rem;
+  }
+
+  .lv-hero-cta {
+    margin-top: 20px;
+    padding: 12px 28px;
+    font-size: 0.875rem;
   }
 }
 
