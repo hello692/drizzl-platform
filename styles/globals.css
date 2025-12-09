@@ -6114,10 +6114,10 @@ svg {
 
 .lv-hero-dynamic-word {
   display: inline-block;
-  font-family: 'Caveat', cursive;
-  font-size: 1.15em;
-  font-weight: 600;
-  letter-spacing: 0.01em;
+  font-family: 'Caveat', cursive !important;
+  font-size: 1.15em !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.01em !important;
   min-width: 140px;
   text-align: left;
   opacity: 0;
