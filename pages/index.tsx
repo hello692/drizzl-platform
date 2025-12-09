@@ -243,7 +243,7 @@ export default function Home() {
 
   return (
     <>
-      <Navbar />
+      {/* LV Header is built into HomeHero */}
 
       {/* 1. Hero Section - LV Inspired */}
       <HomeHero />

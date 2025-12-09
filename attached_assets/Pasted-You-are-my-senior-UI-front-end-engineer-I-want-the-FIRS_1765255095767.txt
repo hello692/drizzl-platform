@@ -1,0 +1,230 @@
+You are my senior UI/front-end engineer.
+
+I want the FIRST hero section of the DRIZZL homepage (and the header over it) to visually match the layout and proportions of the hero on the Louis Vuitton homepage (https://us.louisvuitton.com/eng-us/homepage). Do NOT copy their code or text; just match the structure, alignment, and spacing.
+
+Study these differences between current DRIZZL and LV:
+
+- LV: logo is centered at the very top; DRIZZL logo is left.
+- LV: nav links (Menu, Search) are left; account/cart icons are right.
+- LV: hero text block is LOW on the image (bottom 18–20%), narrow, and centered.
+- LV: title is a single line (or two short lines) with elegant tracking, not huge tall block.
+- LV: subtext sits directly underneath title with tight spacing.
+- LV: the background image/video has a lot of negative space above the subject; DRIZZL’s face fills too much of the screen.
+- LV: overlay gradient is subtle, mainly from the BOTTOM; DRIZZL overlay is heavier in the middle.
+
+Please refactor the DRIZZL hero + header to match LV’s layout 1:1 in terms of structure and spacing, while keeping DRIZZL branding.
+
+### 1. HEADER LAYOUT (MATCH LV)
+
+Requirements:
+- Header is absolutely positioned over the hero, transparent, white text/icons.
+- DRIZZL logo centered at the very top.
+- Left area: “Menu” (hamburger) and “Search”.
+- Right area: language, account, cart, etc.
+- All text/icons white, thin, minimal.
+
+Implementation:
+
+- Wrap existing header content into three zones:
+
+<header className="lv-header">
+  <div className="lv-header-left">
+    {/* menu icon + "Menu", search icon + "Search" */}
+  </div>
+
+  <div className="lv-header-center">
+    {/* DRIZZL logo (white version) */}
+  </div>
+
+  <div className="lv-header-right">
+    {/* Contact / language / account / cart icons */}
+  </div>
+</header>
+
+CSS:
+
+.lv-header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  padding: 24px 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: transparent !important;
+  color: #ffffff;
+  font-size: 0.85rem;
+}
+
+.lv-header-left,
+.lv-header-right {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  flex: 1;
+}
+
+.lv-header-center {
+  flex: 0;
+  display: flex;
+  justify-content: center;
+}
+
+.lv-header a,
+.lv-header button,
+.lv-header span {
+  color: #fff;
+  opacity: 0.9;
+  text-decoration: none;
+  font-weight: 400;
+}
+
+.lv-header a:hover,
+.lv-header button:hover {
+  opacity: 1;
+}
+
+Ensure the DRIZZL logo is white and centered, similar visual weight to “LOUIS VUITTON” but using our logo.
+
+### 2. HERO BACKGROUND & CROPPING
+
+We want more negative space above the subject like LV.
+
+- Keep the video, but adjust object position so the subject is lower:
+
+.hero-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 65%; /* push subject DOWN to create sky/space above */
+}
+
+- Adjust overlay to be mainly from the bottom:
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.05) 0%,
+    rgba(0, 0, 0, 0.15) 30%,
+    rgba(0, 0, 0, 0.70) 100%
+  );
+}
+
+### 3. HERO SECTION STRUCTURE
+
+Use this structure:
+
+<section className="lv-hero">
+  <video className="hero-video" ... />
+  <div className="hero-overlay"></div>
+
+  <div className="lv-hero-copy">
+    <h1 className="lv-hero-title">The Smoothie Season with DRIZZL</h1>
+    <p className="lv-hero-sub">
+      Be inspired by our selection of wellness smoothies this season.
+    </p>
+  </div>
+</section>
+
+Hero container:
+
+.lv-hero {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  color: #ffffff;
+}
+
+### 4. TEXT POSITION & TYPOGRAPHY (MATCH LV)
+
+The LV text block is low and centered, with elegant serif-like type.
+
+Apply:
+
+.lv-hero-copy {
+  position: absolute;
+  left: 50%;
+  bottom: 14%;     /* lower, like LV */
+  transform: translateX(-50%);
+  text-align: center;
+  max-width: 640px;
+  width: 100%;
+  padding: 0 24px;
+}
+
+.lv-hero-title {
+  font-family: "Times New Roman", "Georgia", serif; /* or the closest serif in our stack */
+  font-size: 2.4rem;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  margin: 0 0 12px;
+}
+
+.lv-hero-sub {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  opacity: 0.9;
+  margin: 0;
+}
+
+On large screens, the title should be ONE line or at most two very short lines, similar to “Holiday Gifts For Her”. If needed, adjust the wording or max-width so it doesn’t break into too many lines.
+
+### 5. REMOVE/ADJUST EXTRA BUTTONS
+
+For this hero, mimic LV’s simplicity:
+
+- Remove the large pill CTAs from the center of the hero.
+- For now, only show the title + subtext in the hero block.
+- If you keep CTAs, move them BELOW the subtext but keep them very minimal (small underlined text links), not big white pills. Example:
+
+<div className="lv-hero-links">
+  <a>Shop Smoothies</a>
+  <a>Feel Your Best</a>
+</div>
+
+.lv-hero-links {
+  margin-top: 18px;
+  display: flex;
+  gap: 24px;
+  justify-content: center;
+  font-size: 0.9rem;
+}
+
+.lv-hero-links a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+### 6. RESPONSIVE
+
+@media (max-width: 768px) {
+  .lv-header {
+    padding: 16px 20px;
+  }
+
+  .lv-hero-title {
+    font-size: 1.8rem;
+  }
+
+  .lv-hero-copy {
+    bottom: 12%;
+    max-width: 420px;
+  }
+}
+
+### 7. FINAL CHECK
+
+Make sure after these changes:
+
+- Header is transparent with white logo centered, left/right nav like LV.
+- Hero background shows more space above subject (subject lower in frame).
+- Title + subtext are centered near the bottom, same vertical zone as LV.
+- Typography and spacing feel as close as possible to LV while using our own fonts/text.
+- No large buttons floating in the middle; keep it clean and elegant.
+
+Implement all of this using my existing React components / CSS modules and replace the current DRIZZL hero implementation with this LV-inspired version.
