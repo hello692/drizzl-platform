@@ -6206,9 +6206,9 @@ svg {
   bottom: 8%;
   transform: translateX(-50%);
   text-align: center;
-  max-width: 800px;
+  max-width: 1000px;
   width: 100%;
-  padding: 0 20px;
+  padding: 0 40px;
   z-index: 2;
 }
 
@@ -6216,12 +6216,24 @@ svg {
 
 .lv-hero-title {
   font-family: var(--font-family-base) !important;
-  font-size: clamp(2.4rem, 5vw, 3.8rem) !important;
+  font-size: 5rem !important;
   font-weight: 300 !important;
   letter-spacing: -0.02em !important;
-  margin: 0 0 12px;
-  line-height: 1.15;
+  margin: 0 0 24px;
+  line-height: 1.05;
   color: #ffffff;
+}
+
+@media (min-width: 1200px) {
+  .lv-hero-title {
+    font-size: 5.5rem !important;
+  }
+}
+
+@media (min-width: 1600px) {
+  .lv-hero-title {
+    font-size: 6rem !important;
+  }
 }
 
 .lv-hero-line1 {
@@ -6332,15 +6344,15 @@ svg {
    Pixel 10/Pro/Pro XL, Samsung Galaxy S25/S25+/S25 Ultra
    ============================================ */
 
-/* TABLET & SMALL DESKTOP: 768px - 1024px */
-@media (max-width: 1024px) and (min-width: 769px) {
+/* TABLET & SMALL DESKTOP: 768px - 1200px */
+@media (max-width: 1199px) and (min-width: 769px) {
   .lv-hero-copy {
-    max-width: 600px;
+    max-width: 700px;
     bottom: 10%;
   }
   
   .lv-hero-title {
-    font-size: 2.4rem !important;
+    font-size: 4.2rem !important;
   }
   
   .lv-hero-dynamic-word {
@@ -6367,8 +6379,8 @@ svg {
   }
 
   .lv-hero-title {
-    font-size: 1.65rem !important;
-    line-height: 1.2;
+    font-size: 2.8rem !important;
+    line-height: 1.15;
   }
   
   .lv-hero-line1,
@@ -6378,8 +6390,8 @@ svg {
 
   .lv-hero-copy {
     bottom: 8%;
-    max-width: 320px;
-    padding: 0 16px;
+    max-width: 400px;
+    padding: 0 20px;
   }
   
   .lv-hero-dynamic-word {
@@ -6388,14 +6400,14 @@ svg {
   }
   
   .lv-hero-sub {
-    font-size: 0.8rem;
-    margin-top: 10px;
+    font-size: 0.9rem;
+    margin-top: 12px;
   }
   
   .lv-hero-cta {
-    margin-top: 14px;
-    padding: 11px 24px;
-    font-size: 0.78rem;
+    margin-top: 16px;
+    padding: 12px 28px;
+    font-size: 0.85rem;
   }
 }
 
