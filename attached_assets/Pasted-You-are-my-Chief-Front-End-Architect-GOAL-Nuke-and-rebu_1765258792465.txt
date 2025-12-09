@@ -1,0 +1,172 @@
+You are my Chief Front-End Architect.
+
+GOAL  
+Nuke and rebuild the ENTIRE site’s typography system so that EVERYTHING — headings, text, menus, CTAs, dropdowns, footers, modals — uses ONE unified sans-serif font with perfect hierarchy and luxury-brand precision.
+
+I DO NOT want to manually adjust fonts in each page or component.
+
+Your changes must affect the site globally.
+
+––––––––––––––––––––––––––––––––
+PRIMARY FONT: “Inter”
+Modern, clean, billion-dollar brand tone (Stripe / Notion / LV web voice).
+
+Font stack:
+
+"Inter", -apple-system, BlinkMacSystemFont, "SF Pro Text",
+system-ui, "Segoe UI", sans-serif;
+
+––––––––––––––––––––––––––––––––
+STEP 1: Load font globally (Google Fonts or equivalent)
+
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
+
+––––––––––––––––––––––––––––––––
+STEP 2: Define typography system tokens in :root
+
+:root {
+  --font-family-base: "Inter", -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, "Segoe UI", sans-serif;
+
+  /* Type scale */
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-md: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.5rem;
+  --font-size-2xl: 2rem;
+  --font-size-3xl: 2.75rem;
+
+  /* Line heights */
+  --lh-tight: 1.15;
+  --lh-normal: 1.5;
+  --lh-relaxed: 1.7;
+
+  /* Weights */
+  --fw-light: 300;
+  --fw-regular: 400;
+  --fw-medium: 500;
+  --fw-semibold: 600;
+  --fw-bold: 700;
+}
+
+––––––––––––––––––––––––––––––––
+STEP 3: Apply base font across entire site
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-md);
+  line-height: var(--lh-normal);
+  font-weight: var(--fw-regular);
+  color: #111;
+  background: #fff;
+}
+
+––––––––––––––––––––––––––––––––
+STEP 4: One typographic hierarchy controlling ALL text
+
+/* All headings */
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+  font-family: var(--font-family-base);
+  font-weight: var(--fw-semibold);
+  line-height: var(--lh-tight);
+  letter-spacing: 0.02em;
+  color: #111;
+}
+
+/* Hierarchy */
+h1 { font-size: var(--font-size-3xl); } /* Hero title */
+h2 { font-size: var(--font-size-2xl); } /* Main section heading */
+h3 { font-size: var(--font-size-xl); }  /* Subsection title */
+h4 { font-size: var(--font-size-lg); }
+h5 { font-size: var(--font-size-md); }
+h6 {
+  font-size: var(--font-size-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+/* Body text */
+p, li, span, a, button, input, textarea, select, label {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-md);
+  line-height: var(--lh-normal);
+  font-weight: var(--fw-regular);
+}
+
+/* Utility text sizes */
+small, .text-xs { font-size: var(--font-size-xs); }
+.text-sm { font-size: var(--font-size-sm); }
+.text-lg { font-size: var(--font-size-lg); }
+
+––––––––––––––––––––––––––––––––
+STEP 5: Buttons & CTAs unified
+
+button, .btn, .cta, [role="button"] {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-sm);
+  font-weight: var(--fw-medium);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+––––––––––––––––––––––––––––––––
+STEP 6: Navigation, menus, & dropdowns unified
+
+nav, .navbar, .menu, .dropdown, .dropdown-menu,
+.nav-link, .menu-item {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-sm);
+  font-weight: var(--fw-medium);
+  letter-spacing: 0.04em;
+}
+
+––––––––––––––––––––––––––––––––
+STEP 7: **Absolute override of ALL existing font-family rules**
+
+Add at the bottom of the main stylesheet:
+
+* {
+  font-family: var(--font-family-base) !important;
+}
+
+Then remove or comment out ANY other font-family definitions anywhere in components or theme files.
+
+This makes typography truly universal.
+
+––––––––––––––––––––––––––––––––
+STEP 8: Responsive scaling (mobile refinement)
+
+@media (max-width: 768px) {
+  :root {
+    --font-size-3xl: 2.1rem;
+    --font-size-2xl: 1.7rem;
+    --font-size-xl: 1.35rem;
+  }
+}
+
+––––––––––––––––––––––––––––––––
+STEP 9: VISUAL POLISH REQUIREMENTS (this part is crucial)
+
+After applying the global font reset, refine spacing & tone:
+
+✔ Titles slightly bold (fw-semibold)
+✔ Paragraph text thinner & smaller (fw-regular)
+✔ Hero title centered & airy spacing
+✔ Sub text reduced 1 or 2 scale steps
+✔ All buttons uppercase for luxury feel
+
+Audit checklist:
+– Menu, drawer menus, search fields, footer, and popups should look harmonized.
+– No serif remnants, no mismatched heading sizes.
+– The whole site should read like one luxury brand system.
+
+Your output should implement this across global CSS/theme so every new component automatically inherits this DNA without needing local typography styling.

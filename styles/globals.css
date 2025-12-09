@@ -2,33 +2,42 @@
 @import './design-tokens.css';
 
 /* ============================================
-   GOOGLE AI STYLE TYPOGRAPHY SYSTEM
-   Modern, Wide, Soft Sans-Serif
-   Matches Google AI "Societal Impact" Page
+   DRIZZL UNIFIED TYPOGRAPHY SYSTEM
+   One Font. Perfect Hierarchy. Luxury Precision.
    ============================================ */
 
 :root {
-  /* Font Family - Inter (Clean Modern Minimal) */
-  --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  --font-sans: var(--font-primary);
-  --font-display: var(--font-primary);
-  --font-text: var(--font-primary);
-  
-  /* Typography Scale - Google AI Inspired Hierarchy */
-  --fs-h1: clamp(2.25rem, 5vw, 3.25rem);     /* 36-52px - Hero titles (once per page) */
-  --fs-h2: clamp(1.75rem, 3.5vw, 2.25rem);   /* 28-36px - Section titles */
-  --fs-h3: clamp(1.25rem, 2vw, 1.5rem);      /* 20-24px - Card/sub-section titles */
-  --fs-h4: 1.125rem;                          /* 18px - Small card titles */
-  --fs-body: 1rem;                            /* 16px - Body text */
-  --fs-lead: clamp(1.125rem, 1.5vw, 1.25rem); /* 18-20px - Lead paragraphs */
-  --fs-small: 0.875rem;                       /* 14px - Captions, meta */
-  --fs-label: 0.75rem;                        /* 12px - Labels, fine print */
+  /* PRIMARY FONT - Inter (Stripe / Notion / LV web voice) */
+  --font-family-base: "Inter", -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, "Segoe UI", sans-serif;
+  --font-primary: var(--font-family-base);
+  --font-sans: var(--font-family-base);
+  --font-display: var(--font-family-base);
+  --font-text: var(--font-family-base);
+
+  /* Type Scale */
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-md: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.5rem;
+  --font-size-2xl: 2rem;
+  --font-size-3xl: 2.75rem;
+
+  /* Legacy aliases */
+  --fs-h1: clamp(2.25rem, 5vw, 3.25rem);
+  --fs-h2: clamp(1.75rem, 3.5vw, 2.25rem);
+  --fs-h3: clamp(1.25rem, 2vw, 1.5rem);
+  --fs-h4: 1.125rem;
+  --fs-body: 1rem;
+  --fs-lead: clamp(1.125rem, 1.5vw, 1.25rem);
+  --fs-small: 0.875rem;
+  --fs-label: 0.75rem;
   
   /* Spacing for Typography Rhythm */
-  --space-after-h1: 1.5rem;                   /* 24px */
-  --space-after-h2: 1rem;                     /* 16px */
-  --space-after-h3: 0.75rem;                  /* 12px */
-  --space-after-p: 1rem;                      /* 16px */
+  --space-after-h1: 1.5rem;
+  --space-after-h2: 1rem;
+  --space-after-h3: 0.75rem;
+  --space-after-p: 1rem;
   
   /* Text Max Widths for Readability */
   --text-max-width: 680px;
@@ -42,10 +51,12 @@
   --fw-bold: 700;
   
   /* Line Heights */
-  --lh-tight: 1.05;
+  --lh-tight: 1.15;
   --lh-heading: 1.15;
+  --lh-normal: 1.5;
   --lh-subheading: 1.2;
   --lh-body: 1.6;
+  --lh-relaxed: 1.7;
   
   /* Color System - Luxury Dark Theme */
   --color-black: #000000;
@@ -558,19 +569,22 @@
 }
 
 html {
+  font-size: 16px;
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
   -webkit-overflow-scrolling: touch;
+  text-rendering: optimizeLegibility;
 }
 
 body {
-  font-family: var(--font-text);
-  font-size: 17px;
-  line-height: 1.47059;
-  font-weight: 400;
-  letter-spacing: -0.022em;
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-md);
+  line-height: var(--lh-normal);
+  font-weight: var(--fw-regular);
   background-color: var(--color-bg-primary);
   color: var(--color-text-primary);
   overflow-x: hidden;
@@ -581,103 +595,88 @@ body {
 }
 
 /* ============================================
-   TYPOGRAPHY - GOOGLE AI STYLE HEADINGS
-   Modern, Wide, Soft Sans-Serif
+   UNIFIED TYPOGRAPHY HIERARCHY
+   One Font. Perfect Hierarchy. Luxury Precision.
    ============================================ */
+
+/* All headings unified */
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+  font-family: var(--font-family-base);
+  font-weight: var(--fw-semibold);
+  line-height: var(--lh-tight);
+  letter-spacing: -0.02em;
+  color: var(--color-text-primary);
+}
+
+/* Hierarchy sizes */
+h1, .headline-1, .heading-1 { 
+  font-size: var(--font-size-3xl);
+  margin-bottom: var(--space-md);
+}
+h2, .headline-2, .heading-2 { 
+  font-size: var(--font-size-2xl);
+  margin-bottom: var(--space-md);
+}
+h3, .headline-3, .heading-3 { 
+  font-size: var(--font-size-xl);
+  margin-bottom: var(--space-sm);
+}
+h4, .headline-4, .heading-4 { 
+  font-size: var(--font-size-lg);
+  margin-bottom: var(--space-sm);
+}
+h5, .headline-5, .heading-5 { 
+  font-size: var(--font-size-md);
+  margin-bottom: var(--space-xs);
+}
+h6, .headline-6, .heading-6 { 
+  font-size: var(--font-size-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: var(--space-xs);
+}
 
 /* Hero Headline - Massive Impact */
 .headline-hero, .heading-hero {
-  font-family: var(--font-sans);
+  font-family: var(--font-family-base);
   font-size: var(--fs-h1);
   font-weight: var(--fw-semibold);
   line-height: var(--lh-tight);
   letter-spacing: -0.02em;
   color: var(--color-text-primary);
-}
-
-/* H1 - Primary Page Title (52-56px) */
-h1, .headline-1, .heading-1 {
-  font-family: var(--font-sans);
-  font-size: var(--fs-h1);
-  font-weight: var(--fw-semibold);
-  line-height: var(--lh-tight);
-  letter-spacing: -0.02em;
-  color: var(--color-text-primary);
-  margin-bottom: var(--space-md);
-}
-
-/* H2 - Section Title (36-40px) */
-h2, .headline-2, .heading-2 {
-  font-family: var(--font-sans);
-  font-size: var(--fs-h2);
-  font-weight: var(--fw-semibold);
-  line-height: var(--lh-heading);
-  letter-spacing: -0.015em;
-  color: var(--color-text-primary);
-  margin-bottom: var(--space-md);
-}
-
-/* H3 - Subsection Title (28-32px) */
-h3, .headline-3, .heading-3 {
-  font-family: var(--font-sans);
-  font-size: var(--fs-h3);
-  font-weight: var(--fw-medium);
-  line-height: var(--lh-subheading);
-  letter-spacing: -0.01em;
-  color: var(--color-text-primary);
-  margin-bottom: var(--space-sm);
-}
-
-/* H4 - Card Title (20-22px) */
-h4, .headline-4, .heading-4 {
-  font-family: var(--font-sans);
-  font-size: var(--fs-h4);
-  font-weight: var(--fw-medium);
-  line-height: var(--lh-subheading);
-  letter-spacing: -0.005em;
-  color: var(--color-text-primary);
-  margin-bottom: var(--space-sm);
-}
-
-/* H5 - Small Title */
-h5, .headline-5, .heading-5 {
-  font-family: var(--font-sans);
-  font-size: 1.1rem;
-  font-weight: var(--fw-medium);
-  line-height: 1.25;
-  letter-spacing: 0;
-  color: var(--color-text-primary);
-  margin-bottom: var(--space-xs);
-}
-
-/* H6 - Micro Title */
-h6, .headline-6, .heading-6 {
-  font-family: var(--font-sans);
-  font-size: 1rem;
-  font-weight: var(--fw-medium);
-  line-height: 1.3;
-  letter-spacing: 0;
-  color: var(--color-text-primary);
-  margin-bottom: var(--space-xs);
 }
 
 /* ============================================
-   TYPOGRAPHY - BODY TEXT
+   TYPOGRAPHY - BODY TEXT & ELEMENTS
    ============================================ */
+
+/* Body text unified */
+p, li, span, a, button, input, textarea, select, label {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-md);
+  line-height: var(--lh-normal);
+  font-weight: var(--fw-regular);
+}
+
+/* Utility text sizes */
+small, .text-xs { font-size: var(--font-size-xs); }
+.text-sm { font-size: var(--font-size-sm); }
+.text-lg { font-size: var(--font-size-lg); }
 
 /* Body Large - Introductory Text */
 .body-large, .text-intro {
-  font-family: var(--font-sans);
+  font-family: var(--font-family-base);
   font-size: clamp(1.1rem, 2vw, 1.25rem);
   font-weight: var(--fw-regular);
-  line-height: var(--lh-body);
+  line-height: var(--lh-relaxed);
   letter-spacing: -0.01em;
   color: var(--color-text-secondary);
 }
 
 /* Body Text */
 .text-body, p {
-  font-family: var(--font-sans);
+  font-family: var(--font-family-base);
   font-size: var(--fs-body);
   font-weight: var(--fw-regular);
   line-height: var(--lh-body);
@@ -686,16 +685,16 @@ h6, .headline-6, .heading-6 {
 
 /* Small Text */
 .text-small {
-  font-family: var(--font-sans);
+  font-family: var(--font-family-base);
   font-size: var(--fs-small);
   font-weight: var(--fw-regular);
   line-height: 1.5;
   color: var(--color-text-tertiary);
 }
 
-/* Label Text - Google AI Style (ALL CAPS) */
+/* Label Text - Luxury Style (ALL CAPS) */
 .text-label {
-  font-family: var(--font-sans);
+  font-family: var(--font-family-base);
   font-size: var(--fs-label);
   font-weight: var(--fw-medium);
   line-height: 1.4;
@@ -6107,4 +6106,48 @@ svg {
   .lv-hero-sub {
     font-size: 0.85rem;
   }
+}
+
+/* ============================================
+   BUTTONS & CTAs - UNIFIED LUXURY STYLE
+   ============================================ */
+
+button, .btn, .cta, [role="button"] {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-sm);
+  font-weight: var(--fw-medium);
+  letter-spacing: 0.04em;
+}
+
+/* ============================================
+   NAVIGATION & MENUS - UNIFIED
+   ============================================ */
+
+nav, .navbar, .menu, .dropdown, .dropdown-menu,
+.nav-link, .menu-item {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-sm);
+  font-weight: var(--fw-medium);
+  letter-spacing: 0.02em;
+}
+
+/* ============================================
+   RESPONSIVE TYPOGRAPHY SCALING
+   ============================================ */
+
+@media (max-width: 768px) {
+  :root {
+    --font-size-3xl: 2.1rem;
+    --font-size-2xl: 1.7rem;
+    --font-size-xl: 1.35rem;
+  }
+}
+
+/* ============================================
+   UNIVERSAL FONT OVERRIDE
+   Ensures ALL elements use Inter
+   ============================================ */
+
+* {
+  font-family: var(--font-family-base) !important;
 }
