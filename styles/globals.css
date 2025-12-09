@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@1,9..144,400..700,0..100,0..1&display=swap');
 @import './design-tokens.css';
 
 /* ============================================
@@ -6114,10 +6114,11 @@ svg {
 
 .lv-hero-dynamic-word {
   display: inline-block;
-  font-family: 'Cormorant Garamond', 'Bodoni Moda', 'Didot', Georgia, serif !important;
-  font-size: 1.05em !important;
-  font-weight: 500 !important;
+  font-family: 'Fraunces', Georgia, serif !important;
+  font-size: 1.08em !important;
+  font-weight: 560 !important;
   font-style: italic !important;
+  font-variation-settings: 'opsz' 36, 'SOFT' 100, 'WONK' 1 !important;
   letter-spacing: 0.01em !important;
   min-width: 160px;
   text-align: left;
