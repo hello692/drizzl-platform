@@ -1,0 +1,157 @@
+{
+  "fontFamily": "Drizzl Didone",
+  "version": "1.0.0",
+  "designer": "DRIZZL Wellness",
+  "classification": "Didone / Modern Serif",
+  
+  "designCharacteristics": {
+    "contrast": "extreme",
+    "stress": "vertical",
+    "serifStyle": "hairline, unbracketed",
+    "xHeight": "low (0.42 ratio)",
+    "ascenderHeight": "elongated (1.35 ratio)",
+    "descenderDepth": "standard (0.25 ratio)"
+  },
+  
+  "metrics": {
+    "unitsPerEm": 1000,
+    "ascender": 800,
+    "descender": -200,
+    "capHeight": 700,
+    "xHeight": 420,
+    "baseline": 0
+  },
+  
+  "strokeWidthProportions": {
+    "stemThick": 80,
+    "stemThin": 12,
+    "hairline": 8,
+    "serifHeight": 16,
+    "serifWidth": 60,
+    "contrastRatio": "6.67:1",
+    "notes": "Extreme contrast typical of Didone style. Thick stems approximately 8% of em-width, hairlines under 1.5%"
+  },
+  
+  "serifGeometry": {
+    "style": "hairline, flat, unbracketed",
+    "thickness": 16,
+    "extension": {
+      "left": 40,
+      "right": 40
+    },
+    "angle": 0,
+    "bracket": "none",
+    "notes": "Pure horizontal hairline serifs with no bracketing. Sharp 90-degree joins to stems."
+  },
+  
+  "opticalSpacing": {
+    "sidebearings": {
+      "straight-straight": { "left": 60, "right": 60 },
+      "straight-round": { "left": 60, "right": 40 },
+      "round-straight": { "left": 40, "right": 60 },
+      "round-round": { "left": 40, "right": 40 },
+      "diagonal-straight": { "left": 20, "right": 60 },
+      "straight-diagonal": { "left": 60, "right": 20 },
+      "diagonal-diagonal": { "left": 20, "right": 20 }
+    },
+    "kerningPairs": {
+      "AV": -80,
+      "AW": -60,
+      "AY": -80,
+      "AT": -60,
+      "AO": -20,
+      "FA": -40,
+      "LT": -40,
+      "LV": -40,
+      "LW": -40,
+      "LY": -40,
+      "PA": -20,
+      "TA": -60,
+      "TO": -20,
+      "TR": -20,
+      "VA": -80,
+      "VO": -20,
+      "WA": -60,
+      "WO": -20,
+      "YA": -80,
+      "YO": -20
+    },
+    "trackingRecommendations": {
+      "displayLarge": "0.02em",
+      "displaySmall": "0.04em",
+      "headline": "0.03em",
+      "body": "0.01em"
+    }
+  },
+  
+  "weightVariation": {
+    "axes": ["wght"],
+    "range": {
+      "min": 100,
+      "max": 900,
+      "default": 400
+    },
+    "instances": {
+      "Hairline": 100,
+      "Thin": 200,
+      "Light": 300,
+      "Regular": 400,
+      "Medium": 500,
+      "SemiBold": 600,
+      "Bold": 700,
+      "ExtraBold": 800,
+      "Black": 900
+    },
+    "interpolation": {
+      "stemThickRange": [40, 160],
+      "stemThinRange": [6, 24],
+      "serifHeightRange": [12, 24],
+      "contrastPreservation": "Maintain minimum 4:1 contrast ratio across weight range"
+    }
+  },
+  
+  "letterWidths": {
+    "narrow": ["I", "J", "L"],
+    "standard": ["B", "C", "D", "E", "F", "G", "H", "K", "N", "O", "P", "Q", "R", "S", "T", "U", "X", "Y", "Z"],
+    "wide": ["A", "V", "W"],
+    "extraWide": ["M", "W"],
+    "proportions": {
+      "I": 0.32,
+      "J": 0.48,
+      "L": 0.56,
+      "E": 0.58,
+      "F": 0.56,
+      "S": 0.60,
+      "B": 0.64,
+      "P": 0.62,
+      "R": 0.68,
+      "T": 0.64,
+      "C": 0.68,
+      "G": 0.72,
+      "K": 0.68,
+      "Z": 0.62,
+      "H": 0.72,
+      "N": 0.72,
+      "U": 0.72,
+      "D": 0.70,
+      "O": 0.74,
+      "Q": 0.74,
+      "X": 0.68,
+      "Y": 0.68,
+      "A": 0.72,
+      "V": 0.70,
+      "W": 0.96,
+      "M": 0.88
+    }
+  },
+  
+  "usageGuidelines": {
+    "optimalSizes": {
+      "display": "48px - 200px",
+      "headline": "24px - 48px",
+      "subhead": "18px - 24px"
+    },
+    "notRecommendedFor": "Body text under 16px due to extreme contrast",
+    "pairing": "Pairs well with geometric sans-serifs like Inter, Montserrat, or Helvetica Neue"
+  }
+}
