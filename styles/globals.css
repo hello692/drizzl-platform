@@ -6036,7 +6036,7 @@ svg {
 
 /* ============================================
    LV-STYLE HERO - Full-bleed cinematic video
-   Premium centered layout with responsive breakpoints
+   Text positioned at bottom, luxury style
    ============================================ */
 
 .lv-hero {
@@ -6046,10 +6046,6 @@ svg {
   overflow: hidden;
   color: #ffffff;
   background: #000;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
 }
 
 .lv-hero-video {
@@ -6069,31 +6065,33 @@ svg {
     to bottom,
     rgba(0, 0, 0, 0.05) 0%,
     rgba(0, 0, 0, 0.15) 30%,
-    rgba(0, 0, 0, 0.55) 100%
+    rgba(0, 0, 0, 0.70) 100%
   );
   z-index: 1;
 }
 
 .lv-hero-copy {
-  position: relative;
+  position: absolute;
+  left: 50%;
+  bottom: 12%;
+  transform: translateX(-50%);
   z-index: 2;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   text-align: center;
-  gap: 1rem;
+  gap: 0.5rem;
   max-width: 800px;
   width: 100%;
   padding: 0 1.5rem;
 }
 
-/* HERO TYPOGRAPHY - Desktop defaults (>= 1024px) */
+/* HERO TYPOGRAPHY - Desktop (>= 1024px) */
 
 .lv-hero-title {
   font-family: var(--font-family-base);
-  font-size: 2.8rem;
-  font-weight: 600;
+  font-size: 2.6rem;
+  font-weight: 300;
   letter-spacing: -0.02em;
   margin: 0;
   line-height: 1.15;
@@ -6106,10 +6104,10 @@ svg {
   justify-content: center;
   width: 100%;
   font-family: var(--font-family-base);
-  font-size: 1.4rem;
-  font-weight: 400;
+  font-size: 1.2rem;
+  font-weight: 300;
   letter-spacing: -0.01em;
-  margin-top: 0.5rem;
+  margin-top: 0.25rem;
   gap: 0.25em;
 }
 
@@ -6117,9 +6115,9 @@ svg {
   display: inline-block;
   font-family: var(--font-family-base);
   font-size: inherit;
-  font-weight: 500;
+  font-weight: 400;
   letter-spacing: -0.01em;
-  min-width: 140px;
+  min-width: 120px;
   text-align: left;
   opacity: 0;
   transition: opacity 0.4s ease, color 0.4s ease, text-shadow 0.4s ease;
@@ -6131,23 +6129,23 @@ svg {
 
 .lv-hero-sub {
   font-family: var(--font-family-base);
-  font-size: 1.3rem;
+  font-size: 1rem;
   line-height: 1.5;
   color: #ffffff;
   opacity: 0.85;
   margin: 0;
   font-weight: 400;
   letter-spacing: 0.01em;
-  max-width: 600px;
+  max-width: 500px;
 }
 
 .lv-hero-cta {
   display: inline-block;
-  margin-top: 24px;
+  margin-top: 20px;
   padding: 14px 36px;
   background: #ffffff;
   color: #000000;
-  font-size: 0.95rem;
+  font-size: 0.875rem;
   font-weight: 500;
   letter-spacing: 0em;
   text-decoration: none;
@@ -6164,40 +6162,27 @@ svg {
   opacity: 1;
 }
 
-/* Desktop reinforcement (>= 1024px) - ensures no mobile overrides affect desktop */
+/* Desktop (>= 1024px) */
 @media (min-width: 1024px) {
-  .lv-hero {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-
   .lv-hero-copy {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    gap: 1rem;
+    bottom: 12%;
   }
 
   .lv-hero-title {
-    font-size: 2.8rem;
-    font-weight: 600;
+    font-size: 2.6rem;
+    font-weight: 300;
   }
 
   .lv-hero-title-line2 {
-    font-size: 1.4rem;
+    font-size: 1.2rem;
   }
 
   .lv-hero-sub {
-    font-size: 1.3rem;
+    font-size: 1rem;
   }
 
   .lv-hero-cta {
-    margin-top: 28px;
+    margin-top: 20px;
   }
 }
 
@@ -6216,33 +6201,34 @@ svg {
   }
 
   .lv-hero-copy {
-    gap: 0.75rem;
+    bottom: 10%;
+    gap: 0.4rem;
     padding: 0 1.25rem;
     max-width: 420px;
   }
 
   .lv-hero-title {
-    font-size: 1.8rem;
-    font-weight: 600;
+    font-size: 1.6rem;
+    font-weight: 300;
   }
 
   .lv-hero-title-line2 {
-    font-size: 1.1rem;
-    margin-top: 0.25rem;
+    font-size: 1rem;
+    margin-top: 0.2rem;
   }
 
   .lv-hero-dynamic-word {
-    min-width: 90px;
+    min-width: 80px;
   }
   
   .lv-hero-sub {
-    font-size: 1rem;
+    font-size: 0.9rem;
   }
 
   .lv-hero-cta {
-    margin-top: 20px;
+    margin-top: 16px;
     padding: 12px 28px;
-    font-size: 0.875rem;
+    font-size: 0.8rem;
   }
 }
 
