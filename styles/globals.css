@@ -6063,12 +6063,12 @@ svg {
 /* HERO TYPOGRAPHY - Clean Modern Minimal */
 
 .lv-hero-title {
-  font-family: var(--font-family-base);
-  font-size: clamp(2.8rem, 5.5vw, 4.2rem);
-  font-weight: 400;
-  letter-spacing: -0.03em;
+  font-family: var(--font-family-base) !important;
+  font-size: clamp(2.8rem, 5.5vw, 4.2rem) !important;
+  font-weight: 300 !important;
+  letter-spacing: -0.02em !important;
   margin: 0 0 20px;
-  line-height: 1.05;
+  line-height: 1.08;
   color: #ffffff;
 }
 
@@ -6077,14 +6077,20 @@ svg {
   align-items: baseline;
   justify-content: center;
   width: 100%;
-  font: inherit;
+  font-family: var(--font-family-base) !important;
+  font-size: inherit !important;
+  font-weight: 300 !important;
+  letter-spacing: -0.02em !important;
   margin-top: 0;
   gap: 0.25em;
 }
 
 .lv-hero-dynamic-word {
   display: inline-block;
-  font: inherit;
+  font-family: var(--font-family-base) !important;
+  font-size: inherit !important;
+  font-weight: 300 !important;
+  letter-spacing: -0.02em !important;
   min-width: 280px;
   text-align: left;
   opacity: 0;
