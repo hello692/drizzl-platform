@@ -6104,7 +6104,7 @@ svg {
   justify-content: center;
   width: 100%;
   font-family: var(--font-family-base);
-  font-size: 1.2rem;
+  font-size: 1.6rem;
   font-weight: 300;
   letter-spacing: -0.01em;
   margin-top: 0.25rem;
@@ -6117,7 +6117,7 @@ svg {
   font-size: inherit;
   font-weight: 400;
   letter-spacing: -0.01em;
-  min-width: 120px;
+  min-width: 140px;
   text-align: left;
   opacity: 0;
   transition: opacity 0.4s ease, color 0.4s ease, text-shadow 0.4s ease;
@@ -6129,14 +6129,14 @@ svg {
 
 .lv-hero-sub {
   font-family: var(--font-family-base);
-  font-size: 1rem;
+  font-size: 1.2rem;
   line-height: 1.5;
-  color: #ffffff;
-  opacity: 0.85;
-  margin: 0;
+  color: rgba(255, 255, 255, 0.9);
+  margin: 0.75rem 0 1.75rem 0;
   font-weight: 400;
   letter-spacing: 0.01em;
-  max-width: 500px;
+  max-width: 640px;
+  text-align: center;
 }
 
 .lv-hero-cta {
@@ -6174,15 +6174,30 @@ svg {
   }
 
   .lv-hero-title-line2 {
+    font-size: 1.6rem;
+    font-weight: 300;
+  }
+
+  .lv-hero-sub {
     font-size: 1.2rem;
+    line-height: 1.5;
+    font-weight: 400;
+  }
+
+  .lv-hero-cta {
+    margin-top: 8px;
+  }
+}
+
+/* Tablet / smaller screens */
+@media (max-width: 1023px) {
+  .lv-hero-title-line2 {
+    font-size: 1.3rem;
   }
 
   .lv-hero-sub {
     font-size: 1rem;
-  }
-
-  .lv-hero-cta {
-    margin-top: 20px;
+    line-height: 1.45;
   }
 }
 
@@ -6213,20 +6228,22 @@ svg {
   }
 
   .lv-hero-title-line2 {
-    font-size: 1rem;
+    font-size: 1.15rem;
     margin-top: 0.2rem;
   }
 
   .lv-hero-dynamic-word {
-    min-width: 80px;
+    min-width: 90px;
   }
   
   .lv-hero-sub {
-    font-size: 0.9rem;
+    font-size: 0.95rem;
+    line-height: 1.45;
+    margin: 0.5rem 0 1rem 0;
   }
 
   .lv-hero-cta {
-    margin-top: 16px;
+    margin-top: 12px;
     padding: 12px 28px;
     font-size: 0.8rem;
   }
