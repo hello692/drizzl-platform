@@ -6153,9 +6153,32 @@ svg {
   background: #ffffff;
 }
 
+/* ============================================
+   DEVICE-SPECIFIC HERO RESPONSIVE SYSTEM
+   Covering: iPhone SE, iPhone Air, iPhone 17/Pro/Pro Max,
+   Pixel 10/Pro/Pro XL, Samsung Galaxy S25/S25+/S25 Ultra
+   ============================================ */
+
+/* TABLET & SMALL DESKTOP: 768px - 1024px */
+@media (max-width: 1024px) and (min-width: 769px) {
+  .lv-hero-copy {
+    max-width: 600px;
+    bottom: 10%;
+  }
+  
+  .lv-hero-title {
+    font-size: 2.4rem !important;
+  }
+  
+  .lv-hero-dynamic-word {
+    min-width: 200px;
+  }
+}
+
+/* LARGE MOBILE / SMALL TABLET: 600-768px */
 @media (max-width: 768px) {
   .lv-header {
-    padding: 16px 20px;
+    padding: 14px 16px;
   }
   
   .lv-header-link span {
@@ -6163,20 +6186,240 @@ svg {
   }
   
   .lv-header-logo {
-    height: 32px;
+    height: 28px;
+  }
+
+  .lv-hero {
+    height: 100svh;
   }
 
   .lv-hero-title {
-    font-size: 1.6rem;
+    font-size: 1.85rem !important;
+    line-height: 1.15;
+  }
+  
+  .lv-hero-title br {
+    display: none;
   }
 
   .lv-hero-copy {
-    bottom: 12%;
-    max-width: 420px;
+    bottom: 10%;
+    max-width: 360px;
+    padding: 0 16px;
+  }
+  
+  .lv-hero-title-line2 {
+    display: inline;
+  }
+  
+  .lv-hero-dynamic-word {
+    min-width: 140px;
+    text-align: center;
   }
   
   .lv-hero-sub {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
+    margin-top: 10px;
+  }
+  
+  .lv-hero-cta {
+    margin-top: 16px;
+    padding: 12px 28px;
+    font-size: 0.8rem;
+  }
+}
+
+/* IPHONE 17 PRO MAX / PIXEL XL / S25 ULTRA: 430-600px */
+@media (max-width: 600px) and (min-width: 431px) {
+  .lv-hero-title {
+    font-size: 1.7rem !important;
+  }
+  
+  .lv-hero-copy {
+    max-width: 340px;
+    bottom: 12%;
+  }
+  
+  .lv-hero-dynamic-word {
+    min-width: 130px;
+  }
+}
+
+/* PIXEL 10 / S25 ULTRA / IPHONE 17 PRO: 412-430px */
+@media (max-width: 430px) and (min-width: 413px) {
+  .lv-header {
+    padding: 12px 14px;
+  }
+  
+  .lv-header-logo {
+    height: 26px;
+  }
+  
+  .lv-hero-title {
+    font-size: 1.55rem !important;
+    line-height: 1.2;
+  }
+  
+  .lv-hero-copy {
+    max-width: 320px;
+    bottom: 14%;
+    padding: 0 14px;
+  }
+  
+  .lv-hero-dynamic-word {
+    min-width: 115px;
+  }
+  
+  .lv-hero-sub {
+    font-size: 0.8rem;
+    margin-top: 8px;
+  }
+  
+  .lv-hero-cta {
+    padding: 11px 26px;
+    font-size: 0.78rem;
+  }
+}
+
+/* IPHONE AIR / IPHONE 17: 390-412px */
+@media (max-width: 412px) and (min-width: 391px) {
+  .lv-header {
+    padding: 12px 12px;
+  }
+  
+  .lv-header-logo {
+    height: 24px;
+  }
+  
+  .lv-hero-title {
+    font-size: 1.45rem !important;
+    line-height: 1.22;
+  }
+  
+  .lv-hero-copy {
+    max-width: 300px;
+    bottom: 14%;
+    padding: 0 12px;
+  }
+  
+  .lv-hero-dynamic-word {
+    min-width: 105px;
+  }
+  
+  .lv-hero-sub {
+    font-size: 0.78rem;
+  }
+  
+  .lv-hero-cta {
+    padding: 10px 24px;
+    font-size: 0.75rem;
+  }
+}
+
+/* SAMSUNG S25+ / IPHONE AIR RANGE: 376-390px */
+@media (max-width: 390px) and (min-width: 376px) {
+  .lv-header {
+    padding: 10px 12px;
+  }
+  
+  .lv-header-logo {
+    height: 22px;
+  }
+  
+  .lv-hero-title {
+    font-size: 1.35rem !important;
+    line-height: 1.25;
+  }
+  
+  .lv-hero-copy {
+    max-width: 280px;
+    bottom: 14%;
+    padding: 0 10px;
+  }
+  
+  .lv-hero-dynamic-word {
+    min-width: 95px;
+  }
+  
+  .lv-hero-sub {
+    font-size: 0.75rem;
+  }
+  
+  .lv-hero-cta {
+    padding: 10px 22px;
+    font-size: 0.72rem;
+  }
+}
+
+/* IPHONE SE / STANDARD MOBILE: 361-375px */
+@media (max-width: 375px) and (min-width: 361px) {
+  .lv-header {
+    padding: 10px 10px;
+  }
+  
+  .lv-header-logo {
+    height: 20px;
+  }
+  
+  .lv-hero-title {
+    font-size: 1.25rem !important;
+    line-height: 1.28;
+  }
+  
+  .lv-hero-copy {
+    max-width: 260px;
+    bottom: 15%;
+    padding: 0 8px;
+  }
+  
+  .lv-hero-dynamic-word {
+    min-width: 85px;
+  }
+  
+  .lv-hero-sub {
+    font-size: 0.72rem;
+  }
+  
+  .lv-hero-cta {
+    padding: 9px 20px;
+    font-size: 0.7rem;
+    margin-top: 12px;
+  }
+}
+
+/* SAMSUNG S25 / SMALL MOBILE: 360px and below */
+@media (max-width: 360px) {
+  .lv-header {
+    padding: 8px 10px;
+  }
+  
+  .lv-header-logo {
+    height: 18px;
+  }
+  
+  .lv-hero-title {
+    font-size: 1.15rem !important;
+    line-height: 1.3;
+  }
+  
+  .lv-hero-copy {
+    max-width: 240px;
+    bottom: 16%;
+    padding: 0 8px;
+  }
+  
+  .lv-hero-dynamic-word {
+    min-width: 75px;
+  }
+  
+  .lv-hero-sub {
+    font-size: 0.68rem;
+  }
+  
+  .lv-hero-cta {
+    padding: 8px 18px;
+    font-size: 0.68rem;
+    margin-top: 10px;
   }
 }
 
