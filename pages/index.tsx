@@ -626,7 +626,7 @@ export default function Home() {
             The lineup
           </h2>
           <p className="video-section-subtitle">
-            These are the ones people can't stop reordering.
+            The blends everyone's hooked on. These are the ones they keep coming back for.
           </p>
 
           <div className="video-carousel-wrapper">
