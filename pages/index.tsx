@@ -745,7 +745,7 @@ export default function Home() {
       <section className="video-section">
         <div className="video-section-container">
           <h2 className="video-section-title" style={{ marginBottom: 'clamp(32px, 5vw, 56px)' }}>
-            Loved by Customers
+            A Fan Favorite
           </h2>
 
           <div className="video-carousel-wrapper">
