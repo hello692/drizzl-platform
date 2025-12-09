@@ -120,7 +120,7 @@ export default function GlobalHeader({ variant = 'transparent' }: GlobalHeaderPr
               letterSpacing: '0.02em',
             }}
           >
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4">
               <path d="M4 6h16M4 12h16M4 18h16" strokeLinecap="round"/>
             </svg>
             <span>Menu</span>
@@ -141,7 +141,7 @@ export default function GlobalHeader({ variant = 'transparent' }: GlobalHeaderPr
               letterSpacing: '0.02em',
             }}
           >
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4">
               <circle cx="11" cy="11" r="7"/>
               <path d="M21 21l-4.35-4.35" strokeLinecap="round"/>
             </svg>
@@ -176,7 +176,7 @@ export default function GlobalHeader({ variant = 'transparent' }: GlobalHeaderPr
             href="/auth" 
             style={{ color: textColor, display: 'flex', alignItems: 'center' }}
           >
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4">
               <circle cx="12" cy="8" r="4"/>
               <path d="M5 20c0-2.76 3.13-5 7-5s7 2.24 7 5" strokeLinecap="round"/>
             </svg>
@@ -185,7 +185,7 @@ export default function GlobalHeader({ variant = 'transparent' }: GlobalHeaderPr
             href="/cart" 
             style={{ color: textColor, display: 'flex', alignItems: 'center' }}
           >
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4">
               <path d="M6 6h-2l-2 12h18l-2-12h-2M6 6V5a4 4 0 018 0v1M6 6h8"/>
             </svg>
           </Link>

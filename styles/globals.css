@@ -6064,13 +6064,17 @@ svg {
 
 .lv-hero-title {
   font-family: var(--font-family-base);
-  font-size: clamp(2rem, 4vw, 3.25rem);
+  font-size: clamp(2.2rem, 4.5vw, 3.5rem);
   font-weight: 400;
-  letter-spacing: -0.02em;
-  margin: 0 0 12px;
-  line-height: 1.1;
+  letter-spacing: -0.025em;
+  margin: 0 0 16px;
+  line-height: 1.15;
   color: #ffffff;
-  white-space: nowrap;
+}
+
+.lv-hero-title-line2 {
+  display: block;
+  margin-top: 4px;
 }
 
 .lv-hero-dynamic-word {
@@ -6080,7 +6084,7 @@ svg {
   min-width: 180px;
   text-align: left;
   opacity: 0;
-  transition: opacity 0.4s ease, color 0.4s ease;
+  transition: opacity 0.45s ease, color 0.4s ease, text-shadow 0.4s ease;
 }
 
 .lv-hero-dynamic-word.visible {
@@ -6100,23 +6104,23 @@ svg {
 
 .lv-hero-cta {
   display: inline-block;
-  margin-top: 24px;
-  padding: 16px 40px;
+  margin-top: 28px;
+  padding: 18px 48px;
   background: #ffffff;
   color: #000000;
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   font-weight: 500;
-  letter-spacing: 0.02em;
+  letter-spacing: 0em;
   text-decoration: none;
   border: none;
   border-radius: 100px;
-  transition: all 0.2s ease;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+  transition: all 0.18s ease;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.35);
 }
 
 .lv-hero-cta:hover {
-  transform: scale(1.02);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
+  transform: scale(1.03);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
   background: #ffffff;
 }
 

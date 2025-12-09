@@ -57,12 +57,19 @@ export default function HomeHero() {
 
       <div className="lv-hero-copy">
         <h1 className="lv-hero-title">
-          Smoothies you want to kiss and feel{' '}
-          <span 
-            className={`lv-hero-dynamic-word ${isVisible ? 'visible' : ''}`}
-            style={{ color: currentColor }}
-          >
-            {currentWord}
+          Smoothies you want to kiss
+          <br />
+          <span className="lv-hero-title-line2">
+            and feel{' '}
+            <span 
+              className={`lv-hero-dynamic-word ${isVisible ? 'visible' : ''}`}
+              style={{ 
+                color: currentColor,
+                textShadow: `0 4px 24px ${currentColor}40`
+              }}
+            >
+              {currentWord}
+            </span>
           </span>
         </h1>
         <p className="lv-hero-sub">
