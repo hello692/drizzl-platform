@@ -5,6 +5,7 @@ import { useTranslations } from 'next-intl';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import SmoothieCard from '../components/SmoothieCard';
+import HomeHero from '../components/HomeHero';
 import { AnimatedSection, AnimatedText, StaggeredGrid } from '../components/ScrollAnimations';
 import { getMessages } from '../lib/getMessages';
 
@@ -244,108 +245,8 @@ export default function Home() {
     <>
       <Navbar />
 
-      {/* 1. Hero Section */}
-      <section style={{
-        position: 'relative',
-        minHeight: '90vh',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        background: '#000000',
-        overflow: 'hidden',
-      }}>
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          style={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            width: '100%',
-            height: '100%',
-            objectFit: 'cover',
-            zIndex: 0,
-            opacity: 0.6,
-          }}
-        >
-          <source src="/videos/hero-video.mp4" type="video/mp4" />
-        </video>
-        
-        <div style={{
-          position: 'absolute',
-          inset: 0,
-          background: 'linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.5) 50%, rgba(0,0,0,0.8) 100%)',
-          zIndex: 1,
-        }}></div>
-        
-        <div style={{
-          position: 'relative',
-          zIndex: 2,
-          textAlign: 'center',
-          padding: '0 24px',
-          maxWidth: '960px',
-        }}>
-          <AnimatedSection animation="fadeUp">
-            <h1 style={{
-              fontSize: 'var(--fs-h1)',
-              fontWeight: 600,
-              lineHeight: 1.1,
-              letterSpacing: '-0.02em',
-              color: '#ffffff',
-              marginBottom: 'var(--space-after-h1)',
-            }}>
-              <span>i am </span>
-              <span style={{
-                display: 'inline-block',
-                minWidth: '2ch',
-                borderRight: `3px solid ${ROTATING_WORDS[currentWordIndex].color}`,
-                animation: 'blink 1s step-end infinite',
-                color: ROTATING_WORDS[currentWordIndex].color,
-                transition: 'color 0.3s ease',
-              }}>
-                {displayedText}
-              </span>
-            </h1>
-          </AnimatedSection>
-          <AnimatedSection animation="fadeUp" delay={100}>
-            <p style={{
-              fontSize: 'var(--fs-lead)',
-              fontWeight: 400,
-              lineHeight: 1.6,
-              color: 'rgba(255,255,255,0.7)',
-              marginBottom: '32px',
-              maxWidth: 'var(--text-max-width)',
-              margin: '0 auto 32px',
-            }}>
-              Fresh. Frozen. Fantastic.<br />
-              Smoothies for people who want to feel their best.
-            </p>
-          </AnimatedSection>
-          <AnimatedSection animation="fadeUp" delay={200}>
-            <Link href="/products" style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '10px',
-              background: '#ffffff',
-              color: '#000000',
-              padding: '18px 40px',
-              borderRadius: '980px',
-              fontSize: 'var(--fs-body)',
-              fontWeight: 500,
-              letterSpacing: '0.02em',
-              textDecoration: 'none',
-              transition: 'all 0.2s ease',
-            }}>
-              Feel Your Best
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M5 12h14M12 5l7 7-7 7"/>
-              </svg>
-            </Link>
-          </AnimatedSection>
-        </div>
-      </section>
+      {/* 1. Hero Section - LV Inspired */}
+      <HomeHero />
 
       {/* 2. Feature Banner - Scrolling Marquee */}
       <div style={{

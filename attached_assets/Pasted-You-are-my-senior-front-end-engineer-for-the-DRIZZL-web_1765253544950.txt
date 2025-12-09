@@ -1,0 +1,217 @@
+You are my senior front-end engineer for the DRIZZL website.
+
+I want you to completely redesign ONLY the FIRST hero section on the homepage, inspired by the minimal cinematic hero on the Louis Vuitton homepage (https://us.louisvuitton.com/eng-us/homepage), but with 100% original HTML/CSS/JS and DRIZZL branding.
+
+Requirements:
+
+GENERAL
+- Keep the existing top navigation/header exactly as it is.
+- Replace ONLY the current hero (“i am fueled”) section with a new full-bleed video hero.
+- No extra sections below it (I will handle the rest later).
+- Code in React + CSS (or CSS modules) using my current setup.
+
+HERO STRUCTURE
+Create a component, e.g. `HomeHero.tsx`, and use it on the homepage.
+
+Layout:
+- Full viewport height: hero covers `100vh` minus header height.
+- Background: autoplay, muted, looped video (with a poster image fallback).
+- Video should fill the screen edge-to-edge (`object-fit: cover`).
+- Dark gradient overlay on top of the video to keep text readable (top and bottom fades).
+
+Suggested JSX structure:
+
+<section className="home-hero">
+  <div className="home-hero__video-wrapper">
+    <video
+      className="home-hero__video"
+      autoPlay
+      muted
+      loop
+      playsInline
+      poster="/media/hero-drizzl-poster.jpg"
+    >
+      <source src="/media/hero-drizzl.mp4" type="video/mp4" />
+    </video>
+    <div className="home-hero__overlay" />
+  </div>
+
+  <div className="home-hero__content">
+    <p className="home-hero__kicker">DISCOVER</p>
+    <h1 className="home-hero__title">The Smoothie Season with DRIZZL</h1>
+    <div className="home-hero__links">
+      <button className="home-hero__primary">Shop Smoothies</button>
+      <button className="home-hero__secondary">Feel Your Best</button>
+    </div>
+  </div>
+
+  <button className="home-hero__control home-hero__control--left">⏸</button>
+  <button className="home-hero__control home-hero__control--right">🔈</button>
+</section>
+
+You can adjust copy, but keep it short and premium.
+
+STYLING (match LV vibe but original)
+
+In the CSS for `home-hero`:
+
+.home-hero {
+  position: relative;
+  width: 100%;
+  height: calc(100vh - var(--header-height, 64px));
+  overflow: hidden;
+  color: #ffffff;
+  background: #000;
+}
+
+/* Video fills the background */
+.home-hero__video-wrapper {
+  position: absolute;
+  inset: 0;
+}
+
+.home-hero__video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Dark gradient overlay */
+.home-hero__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.65) 0%,
+    rgba(0, 0, 0, 0.25) 40%,
+    rgba(0, 0, 0, 0.75) 100%
+  );
+}
+
+/* Centered content near the bottom like LV */
+.home-hero__content {
+  position: relative;
+  z-index: 2;
+  max-width: 640px;
+  margin: 0 auto;
+  text-align: center;
+  top: 55%;
+  transform: translateY(-50%);
+  padding: 0 24px;
+}
+
+.home-hero__kicker {
+  letter-spacing: 0.22em;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  opacity: 0.85;
+}
+
+.home-hero__title {
+  font-size: 2.4rem;
+  line-height: 1.2;
+  font-weight: 500;
+  margin-bottom: 24px;
+}
+
+.home-hero__links {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+}
+
+/* Primary + secondary buttons */
+.home-hero__primary,
+.home-hero__secondary {
+  padding: 0.75rem 1.75rem;
+  border-radius: 999px;
+  font-size: 0.95rem;
+  border: 1px solid #ffffff;
+  background: transparent;
+  color: #ffffff;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.home-hero__primary {
+  background: #ffffff;
+  color: #000000;
+}
+
+.home-hero__primary:hover {
+  transform: translateY(-1px);
+}
+
+.home-hero__secondary:hover {
+  background: rgba(255, 255, 255, 0.14);
+}
+
+/* Small playback / sound controls in corners (similar placement) */
+.home-hero__control {
+  position: absolute;
+  bottom: 18px;
+  z-index: 3;
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  background: rgba(0, 0, 0, 0.4);
+  color: #ffffff;
+  font-size: 0.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.home-hero__control--left {
+  left: 24px;
+}
+
+.home-hero__control--right {
+  right: 24px;
+}
+
+/* Responsive typography */
+@media (max-width: 768px) {
+  .home-hero__title {
+    font-size: 1.8rem;
+  }
+  .home-hero__links {
+    flex-direction: column;
+  }
+}
+
+/* Ensure header overlays the hero nicely */
+.header {
+  position: relative;
+  z-index: 4;
+}
+
+VIDEO CONTROLS LOGIC
+
+In `HomeHero.tsx`, add simple logic for play/pause and mute/unmute:
+
+- Left button toggles play/pause (update icon between “▶” and “⏸”).
+- Right button toggles mute/unmute (update icon between “🔈” and “🔇”).
+
+Use React refs:
+
+const videoRef = useRef<HTMLVideoElement | null>(null);
+const [isPaused, setIsPaused] = useState(false);
+const [isMuted, setIsMuted] = useState(true);
+
+Click handlers:
+- If paused, call `videoRef.current?.play()` then set `isPaused` false; else `videoRef.current?.pause()` and set true.
+- For sound, toggle `videoRef.current.muted`.
+
+ACCESSIBILITY
+- Provide meaningful `aria-label` for the buttons (“Pause background video”, “Play background video”, “Mute”, “Unmute”).
+- Keep the hero text readable with the gradient overlay.
+
+FINAL CHECK
+- On desktop and mobile, the hero should look like a clean, cinematic full-screen video section with centered headline + two calls-to-action and small controls in the corners.
+- No other content appears above or inside this section besides the nav/header.
+
+Implement this component and wire it into the homepage, replacing the old hero.
