@@ -6070,20 +6070,7 @@ svg {
   margin: 0 0 16px;
   line-height: 1.1;
   color: #ffffff;
-  white-space: nowrap;
-}
-
-.lv-hero-affirmation {
-  font-family: var(--font-family-base);
-  font-size: clamp(1.2rem, 2.5vw, 1.6rem);
-  font-weight: 300;
-  letter-spacing: -0.01em;
-  color: #ffffff;
-  margin: 0 0 16px;
-  min-height: 1.6em;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  min-height: 1.2em;
 }
 
 .lv-hero-cursor {

@@ -62,11 +62,10 @@ export default function HomeHero() {
       <div className="lv-hero-overlay" />
 
       <div className="lv-hero-copy">
-        <h1 className="lv-hero-title">Fall in Love with Smoothies Again.</h1>
-        <p className="lv-hero-affirmation">
-          <span>{displayText}</span>
+        <h1 className="lv-hero-title">
+          {displayText}
           <span className="lv-hero-cursor">|</span>
-        </p>
+        </h1>
         <p className="lv-hero-sub">
           Because being healthy shouldn't suck.
         </p>
