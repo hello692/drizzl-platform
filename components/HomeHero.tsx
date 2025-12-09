@@ -43,17 +43,11 @@ export default function HomeHero() {
       </div>
 
       <div className="home-hero__content">
-        <p className="home-hero__kicker">DISCOVER</p>
         <h1 className="home-hero__title">The Smoothie Season with DRIZZL</h1>
-        <p className="home-hero__subtitle">Smoothies for people who want to feel their best.</p>
-        <div className="home-hero__links">
-          <Link href="/collections/smoothies" className="home-hero__primary">
-            Shop Smoothies
-          </Link>
-          <Link href="/products" className="home-hero__secondary">
-            Feel Your Best
-          </Link>
-        </div>
+        <p className="home-hero__subtitle">
+          Be inspired by our selection of<br />
+          wellness smoothies this season.
+        </p>
       </div>
 
       <button 
