@@ -347,9 +347,7 @@ export default function Home() {
                 One Sip. Pure Bliss.
               </h2>
               <p className="drizzl-kiss-subtitle">
-                Close your eyes. Take a sip. Feel it. That rush of flavor, that moment of calm, 
-                that little voice saying "yes, this is exactly what I needed." This isn't just a smoothie — 
-                it's your moment. Your ritual. Your daily act of self-love.
+                Close your eyes. Take a sip. Feel it. That luscious burst of flavor, the velvety calm, the quiet thrill that says, "This is exactly what I've been craving." This isn't just a smoothie—it's your escape. Your glow-up. Your daily dose of indulgence, served with a wink.
               </p>
               <p className="drizzl-kiss-tagline">
                 Kiss boring goodbye. Drizzl on.
