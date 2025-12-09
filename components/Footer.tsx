@@ -30,7 +30,7 @@ export default function Footer() {
           </div>
 
           <div className="footer-section">
-            <h4 className="footer-section-title">Learn & Explore</h4>
+            <h4 className="footer-section-title">Discover</h4>
             <div className="footer-links">
               <Link href="/our-story" className="footer-link">
                 Our Story (Spoiler: It's Delicious)
@@ -38,11 +38,8 @@ export default function Footer() {
               <Link href="/blog" className="footer-link">
                 Blog & Recipes (Sip, Blend, Repeat)
               </Link>
-              <Link href="/faq" className="footer-link">
-                FAQs (For All Your Burning Questions)
-              </Link>
-              <Link href="/contact" className="footer-link">
-                Contact Us (We Don't Bite)
+              <Link href="/store-locator" className="footer-link">
+                Store Locator (Find Us Near You)
               </Link>
             </div>
           </div>
@@ -71,11 +68,29 @@ export default function Footer() {
               <Link href="/careers" className="footer-link">
                 Careers (Blend Your Talents Here)
               </Link>
+              <Link href="/ambassadors" className="footer-link">
+                Ambassadors & Affiliates (Spread the Crave)
+              </Link>
               <Link href="/refer" className="footer-link">
-                Spread the Love (Referral Program)
+                Referral Program
               </Link>
               <Link href="/student-discount" className="footer-link">
-                Student Perks (Because You Deserve It)
+                Student Perks
+              </Link>
+            </div>
+          </div>
+
+          <div className="footer-section">
+            <h4 className="footer-section-title">Support</h4>
+            <div className="footer-links">
+              <Link href="/faq" className="footer-link">
+                FAQs (We've Got Answers)
+              </Link>
+              <Link href="/contact" className="footer-link">
+                Contact Us (We're Here to Help)
+              </Link>
+              <Link href="/shipping" className="footer-link">
+                Shipping & Returns (No Stress, Just Smoothies)
               </Link>
             </div>
           </div>
