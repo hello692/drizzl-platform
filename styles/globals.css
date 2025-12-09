@@ -6073,7 +6073,7 @@ svg {
 .lv-hero-copy {
   position: absolute;
   left: 50%;
-  bottom: 12%;
+  top: 58%;
   transform: translateX(-50%);
   z-index: 2;
   display: flex;
@@ -6177,7 +6177,7 @@ svg {
 /* Desktop (>= 1024px) */
 @media (min-width: 1024px) {
   .lv-hero-copy {
-    bottom: 12%;
+    top: 58%;
   }
 
   .lv-hero-title {
@@ -6223,7 +6223,7 @@ svg {
   }
 
   .lv-hero-copy {
-    bottom: 10%;
+    top: 55%;
     gap: 0.4rem;
     padding: 0 1.25rem;
     max-width: 420px;
