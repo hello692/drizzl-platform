@@ -410,7 +410,7 @@ export default function Home() {
                 color: '#ffffff',
                 marginBottom: 'var(--space-after-h2)',
               }}>
-                We got tired of the lies.
+                We were over the fake promises.
               </h2>
               <p style={{
                 fontSize: 'var(--fs-body)',
@@ -419,9 +419,7 @@ export default function Home() {
                 color: 'var(--color-text-secondary)',
                 marginBottom: 'var(--space-after-p)',
               }}>
-                "Healthy" smoothies loaded with hidden sugars. Wellness brands that care more about margins than your body. 
-                Powder mixes that taste like regret. We started Drizzl because we couldn't find a single smoothie brand 
-                that actually gave a damn.
+                "Healthy" smoothies packed with hidden sugars. Wellness brands chasing profits over people. Powdered mixes that taste like regret. Drizzl was born because we couldn't find a single smoothie brand that actually cared.
               </p>
               <p style={{
                 fontSize: 'var(--fs-body)',
@@ -430,8 +428,7 @@ export default function Home() {
                 color: '#ffffff',
                 marginBottom: '24px',
               }}>
-                So we built one. Chef-crafted recipes. Real organic ingredients. Flash-frozen at peak nutrition. 
-                No compromises, no asterisks, no BS.
+                So, we made one. Chef-crafted recipes. Real, organic ingredients. Flash-frozen at their absolute peak. No shortcuts, no compromises, no BS.
               </p>
               <div style={{
                 display: 'grid',
