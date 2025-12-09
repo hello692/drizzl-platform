@@ -75,7 +75,7 @@ const BENEFITS = [
       </svg>
     ),
     title: 'Energy & Focus',
-    description: 'Sustained energy without the crash. Natural ingredients that fuel your mind and body throughout the day.'
+    description: 'Pure, sustained power—no crashes, no compromises. Every sip is a masterfully crafted blend of natural ingredients designed to fuel your body and sharpen your mind.'
   },
   {
     icon: (
@@ -91,7 +91,7 @@ const BENEFITS = [
       </svg>
     ),
     title: 'Immune Support',
-    description: 'Packed with vitamins, antioxidants, and superfoods that strengthen your body\'s natural defenses.'
+    description: 'A fortress for your health. Bursting with vitamins, antioxidants, and superfoods, our smoothies elevate your body\'s natural defenses to their peak.'
   },
   {
     icon: (
@@ -109,7 +109,7 @@ const BENEFITS = [
       </svg>
     ),
     title: 'Gut Health',
-    description: 'Fiber-rich blends with prebiotics that promote digestive wellness and a healthy microbiome.'
+    description: 'Wellness starts within. Our fiber-rich blends, infused with prebiotics, nurture your microbiome and keep your digestion running like a dream.'
   }
 ];
 
@@ -485,13 +485,13 @@ export default function Home() {
                 ...headingStyles,
                 marginBottom: 'var(--space-after-h2)',
               }}>
-                What's inside matters
+                What's Inside Matters
               </h2>
               <p style={{
                 ...subheadingStyles,
                 margin: '0 auto',
               }}>
-                Not all smoothies are created equal. Here's what makes ours hit different.
+                Not all smoothies are created equal. Ours? They're in a league of their own. Here's why they hit different:
               </p>
             </div>
           </AnimatedSection>
