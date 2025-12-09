@@ -57,8 +57,9 @@ export default function HomeHero() {
 
       <div className="lv-hero-copy">
         <h1 className="lv-hero-title">
-          <span className="lv-hero-line1">Smoothies you want to kiss</span>
-          <span className="lv-hero-line2">
+          Smoothies you want to kiss
+          <br />
+          <span className="lv-hero-title-line2">
             and feel{' '}
             <span 
               className={`lv-hero-dynamic-word ${isVisible ? 'visible' : ''}`}
