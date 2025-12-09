@@ -674,10 +674,10 @@ export default function Home() {
             Over 50K Five-Star Reviews
           </p>
           <h2 className="video-section-title">
-            Trusted by Experts
+            Trusted by Experts and Wellness Leaders
           </h2>
           <p className="video-section-subtitle">
-            Hear why healthcare professionals swear by us.
+            Discover why healthcare pros, fitness coaches, and wellness enthusiasts swear by us.
           </p>
 
           <div className="video-carousel-wrapper">
