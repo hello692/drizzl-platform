@@ -2,6 +2,7 @@ import { useRef, useState, useEffect } from 'react';
 import GlobalHeader from './GlobalHeader';
 
 const AFFIRMATIONS = [
+  'Fall in Love with Smoothies Again.',
   'I am strong',
   'I am nourished',
   'I am happy',
