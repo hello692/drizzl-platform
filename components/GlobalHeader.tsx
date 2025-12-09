@@ -82,19 +82,19 @@ export default function GlobalHeader({ variant = 'transparent' }: GlobalHeaderPr
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
-    padding: '28px clamp(40px, 6vw, 80px)',
+    padding: '20px clamp(16px, 4vw, 80px)',
     background: 'transparent',
-    minHeight: '80px',
+    minHeight: '60px',
   } : {
     position: 'relative',
     zIndex: 100,
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
-    padding: '28px clamp(40px, 6vw, 80px)',
+    padding: '20px clamp(16px, 4vw, 80px)',
     background: '#000000',
     borderBottom: '1px solid rgba(255,255,255,0.1)',
-    minHeight: '80px',
+    minHeight: '60px',
   };
 
   const textColor = '#ffffff';
@@ -103,9 +103,10 @@ export default function GlobalHeader({ variant = 'transparent' }: GlobalHeaderPr
   return (
     <>
       <header style={headerStyles}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '32px', minWidth: '200px' }}>
+        <div className="header-left-cluster" style={{ display: 'flex', alignItems: 'center', gap: '24px' }}>
           <button 
             onClick={() => setMenuOpen(true)}
+            className="header-menu-btn"
             style={{
               display: 'flex',
               alignItems: 'center',
@@ -123,10 +124,11 @@ export default function GlobalHeader({ variant = 'transparent' }: GlobalHeaderPr
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4">
               <path d="M4 6h16M4 12h16M4 18h16" strokeLinecap="round"/>
             </svg>
-            <span>Menu</span>
+            <span className="header-text-label">Menu</span>
           </button>
           <button 
             onClick={() => router.push('/products')}
+            className="header-search-btn"
             style={{
               display: 'flex',
               alignItems: 'center',
@@ -145,7 +147,7 @@ export default function GlobalHeader({ variant = 'transparent' }: GlobalHeaderPr
               <circle cx="11" cy="11" r="7"/>
               <path d="M21 21l-4.35-4.35" strokeLinecap="round"/>
             </svg>
-            <span>Search</span>
+            <span className="header-text-label">Search</span>
           </button>
         </div>
 
@@ -159,9 +161,10 @@ export default function GlobalHeader({ variant = 'transparent' }: GlobalHeaderPr
           </Link>
         </div>
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: '28px', minWidth: '200px', justifyContent: 'flex-end' }}>
+        <div className="header-right-cluster" style={{ display: 'flex', alignItems: 'center', gap: '20px', justifyContent: 'flex-end' }}>
           <Link 
             href="/auth?type=retail" 
+            className="header-wholesale-link"
             style={{
               color: textColor,
               textDecoration: 'none',
@@ -174,6 +177,7 @@ export default function GlobalHeader({ variant = 'transparent' }: GlobalHeaderPr
           </Link>
           <Link 
             href="/auth" 
+            className="header-account-link"
             style={{ color: textColor, display: 'flex', alignItems: 'center' }}
           >
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4">
@@ -183,6 +187,7 @@ export default function GlobalHeader({ variant = 'transparent' }: GlobalHeaderPr
           </Link>
           <Link 
             href="/cart" 
+            className="header-cart-link"
             style={{ color: textColor, display: 'flex', alignItems: 'center' }}
           >
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4">

@@ -6220,21 +6220,17 @@ svg {
   font-weight: 300 !important;
   letter-spacing: -0.02em !important;
   margin: 0 0 12px;
-  line-height: 1.1;
+  line-height: 1.15;
   color: #ffffff;
 }
 
-.lv-hero-title-line2 {
-  display: inline-flex;
-  align-items: baseline;
-  justify-content: center;
-  width: 100%;
-  font-family: var(--font-family-base) !important;
-  font-size: inherit !important;
-  font-weight: 300 !important;
-  letter-spacing: -0.02em !important;
+.lv-hero-line1 {
+  display: block;
+}
+
+.lv-hero-line2 {
+  display: block;
   margin-top: 0;
-  gap: 0.25em;
 }
 
 .lv-hero-dynamic-word {
@@ -6287,6 +6283,47 @@ svg {
 }
 
 /* ============================================
+   MOBILE HEADER RESPONSIVE SYSTEM
+   Hide secondary elements, keep hamburger + cart
+   ============================================ */
+
+@media (max-width: 768px) {
+  .header-text-label {
+    display: none !important;
+  }
+  
+  .header-search-btn {
+    display: none !important;
+  }
+  
+  .header-wholesale-link {
+    display: none !important;
+  }
+  
+  .header-account-link {
+    display: none !important;
+  }
+  
+  .header-left-cluster {
+    gap: 12px !important;
+    min-width: auto !important;
+  }
+  
+  .header-right-cluster {
+    gap: 12px !important;
+    min-width: auto !important;
+  }
+}
+
+@media (max-width: 430px) {
+  .header-menu-btn svg,
+  .header-cart-link svg {
+    width: 18px !important;
+    height: 18px !important;
+  }
+}
+
+/* ============================================
    DEVICE-SPECIFIC HERO RESPONSIVE SYSTEM
    Covering: iPhone SE, iPhone Air, iPhone 17/Pro/Pro Max,
    Pixel 10/Pro/Pro XL, Samsung Galaxy S25/S25+/S25 Ultra
@@ -6327,54 +6364,52 @@ svg {
   }
 
   .lv-hero-title {
-    font-size: 1.85rem !important;
-    line-height: 1.15;
+    font-size: 1.65rem !important;
+    line-height: 1.2;
   }
   
-  .lv-hero-title br {
-    display: none;
+  .lv-hero-line1,
+  .lv-hero-line2 {
+    display: inline;
   }
 
   .lv-hero-copy {
-    bottom: 10%;
-    max-width: 360px;
+    bottom: 8%;
+    max-width: 320px;
     padding: 0 16px;
   }
   
-  .lv-hero-title-line2 {
+  .lv-hero-dynamic-word {
+    min-width: 0;
     display: inline;
   }
   
-  .lv-hero-dynamic-word {
-    min-width: 140px;
-    text-align: center;
-  }
-  
   .lv-hero-sub {
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     margin-top: 10px;
   }
   
   .lv-hero-cta {
-    margin-top: 16px;
-    padding: 12px 28px;
-    font-size: 0.8rem;
+    margin-top: 14px;
+    padding: 11px 24px;
+    font-size: 0.78rem;
   }
 }
 
 /* IPHONE 17 PRO MAX / PIXEL XL / S25 ULTRA: 430-600px */
 @media (max-width: 600px) and (min-width: 431px) {
   .lv-hero-title {
-    font-size: 1.7rem !important;
+    font-size: 1.55rem !important;
   }
   
   .lv-hero-copy {
-    max-width: 340px;
-    bottom: 12%;
+    max-width: 300px;
+    bottom: 10%;
   }
   
   .lv-hero-dynamic-word {
-    min-width: 130px;
+    min-width: 0;
+    display: inline;
   }
 }
 
@@ -6389,28 +6424,29 @@ svg {
   }
   
   .lv-hero-title {
-    font-size: 1.55rem !important;
-    line-height: 1.2;
+    font-size: 1.45rem !important;
+    line-height: 1.22;
   }
   
   .lv-hero-copy {
-    max-width: 320px;
-    bottom: 14%;
+    max-width: 280px;
+    bottom: 10%;
     padding: 0 14px;
   }
   
   .lv-hero-dynamic-word {
-    min-width: 115px;
+    min-width: 0;
+    display: inline;
   }
   
   .lv-hero-sub {
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     margin-top: 8px;
   }
   
   .lv-hero-cta {
-    padding: 11px 26px;
-    font-size: 0.78rem;
+    padding: 10px 22px;
+    font-size: 0.75rem;
   }
 }
 
@@ -6425,27 +6461,28 @@ svg {
   }
   
   .lv-hero-title {
-    font-size: 1.45rem !important;
+    font-size: 1.35rem !important;
     line-height: 1.22;
   }
   
   .lv-hero-copy {
-    max-width: 300px;
-    bottom: 14%;
+    max-width: 260px;
+    bottom: 10%;
     padding: 0 12px;
   }
   
   .lv-hero-dynamic-word {
-    min-width: 105px;
+    min-width: 0;
+    display: inline;
   }
   
   .lv-hero-sub {
-    font-size: 0.78rem;
+    font-size: 0.72rem;
   }
   
   .lv-hero-cta {
-    padding: 10px 24px;
-    font-size: 0.75rem;
+    padding: 10px 22px;
+    font-size: 0.72rem;
   }
 }
 
@@ -6460,27 +6497,28 @@ svg {
   }
   
   .lv-hero-title {
-    font-size: 1.35rem !important;
+    font-size: 1.25rem !important;
     line-height: 1.25;
   }
   
   .lv-hero-copy {
-    max-width: 280px;
-    bottom: 14%;
+    max-width: 240px;
+    bottom: 10%;
     padding: 0 10px;
   }
   
   .lv-hero-dynamic-word {
-    min-width: 95px;
+    min-width: 0;
+    display: inline;
   }
   
   .lv-hero-sub {
-    font-size: 0.75rem;
+    font-size: 0.7rem;
   }
   
   .lv-hero-cta {
-    padding: 10px 22px;
-    font-size: 0.72rem;
+    padding: 9px 20px;
+    font-size: 0.7rem;
   }
 }
 
@@ -6495,28 +6533,29 @@ svg {
   }
   
   .lv-hero-title {
-    font-size: 1.25rem !important;
+    font-size: 1.15rem !important;
     line-height: 1.28;
   }
   
   .lv-hero-copy {
-    max-width: 260px;
-    bottom: 15%;
+    max-width: 220px;
+    bottom: 10%;
     padding: 0 8px;
   }
   
   .lv-hero-dynamic-word {
-    min-width: 85px;
+    min-width: 0;
+    display: inline;
   }
   
   .lv-hero-sub {
-    font-size: 0.72rem;
+    font-size: 0.68rem;
   }
   
   .lv-hero-cta {
-    padding: 9px 20px;
-    font-size: 0.7rem;
-    margin-top: 12px;
+    padding: 9px 18px;
+    font-size: 0.68rem;
+    margin-top: 10px;
   }
 }
 
@@ -6531,28 +6570,29 @@ svg {
   }
   
   .lv-hero-title {
-    font-size: 1.15rem !important;
+    font-size: 1.05rem !important;
     line-height: 1.3;
   }
   
   .lv-hero-copy {
-    max-width: 240px;
-    bottom: 16%;
+    max-width: 200px;
+    bottom: 10%;
     padding: 0 8px;
   }
   
   .lv-hero-dynamic-word {
-    min-width: 75px;
+    min-width: 0;
+    display: inline;
   }
   
   .lv-hero-sub {
-    font-size: 0.68rem;
+    font-size: 0.65rem;
   }
   
   .lv-hero-cta {
-    padding: 8px 18px;
-    font-size: 0.68rem;
-    margin-top: 10px;
+    padding: 8px 16px;
+    font-size: 0.65rem;
+    margin-top: 8px;
   }
 }
 
