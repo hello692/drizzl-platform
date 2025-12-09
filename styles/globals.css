@@ -6065,7 +6065,7 @@ svg {
 .lv-hero-title {
   font-family: var(--font-family-base);
   font-size: clamp(2.8rem, 5.5vw, 4.2rem);
-  font-weight: 500;
+  font-weight: 400;
   letter-spacing: -0.03em;
   margin: 0 0 20px;
   line-height: 1.05;
@@ -6073,22 +6073,25 @@ svg {
 }
 
 .lv-hero-title-line2 {
-  display: block;
+  display: inline-flex;
+  align-items: baseline;
+  justify-content: center;
+  width: 100%;
   font-size: 1em;
   font-weight: inherit;
   letter-spacing: inherit;
   margin-top: 0;
+  gap: 0.25em;
 }
 
 .lv-hero-dynamic-word {
-  display: inline-flex;
-  align-items: center;
+  display: inline-block;
   font-size: inherit;
-  font-weight: 600;
-  min-width: 180px;
+  font-weight: inherit;
+  min-width: 280px;
   text-align: left;
   opacity: 0;
-  transition: opacity 0.45s ease, color 0.45s ease, text-shadow 0.45s ease;
+  transition: opacity 0.4s ease, color 0.4s ease, text-shadow 0.4s ease;
 }
 
 .lv-hero-dynamic-word.visible {
