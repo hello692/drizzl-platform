@@ -37,7 +37,7 @@ function useRotatingWord(words: typeof DYNAMIC_WORDS, interval = 2000) {
 
 export default function HomeHero() {
   const videoRef = useRef<HTMLVideoElement | null>(null);
-  const { currentWord, currentColor, isVisible } = useRotatingWord(DYNAMIC_WORDS, 2000);
+  const { currentWord, currentColor, isVisible } = useRotatingWord(DYNAMIC_WORDS, 2500);
 
   return (
     <section className="lv-hero">
