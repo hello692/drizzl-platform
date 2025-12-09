@@ -129,42 +129,42 @@
   /* ============================================
      GLOBAL CARD DESIGN SYSTEM
      Unified sizing for all cards/panels site-wide
-     Based on product card reference layout
+     Divine Engineering - Compact but breathing
      ============================================ */
   
-  /* Card Dimensions - Compact Divine Engineering */
-  --card-width: clamp(160px, 16vw, 220px);
-  --card-height: clamp(220px, 22vw, 300px);
-  --card-min-height: 220px;
+  /* Card Dimensions - Tight Divine Engineering */
+  --card-width: clamp(140px, 14vw, 180px);
+  --card-height: clamp(180px, 18vw, 240px);
+  --card-min-height: 180px;
   
-  /* Card Radius - Refined corners */
-  --card-radius: 16px;
-  --card-radius-sm: 12px;
-  --card-radius-inner: 10px;
+  /* Card Radius - Refined compact corners */
+  --card-radius: 14px;
+  --card-radius-sm: 10px;
+  --card-radius-inner: 8px;
   
-  /* Card Padding - Tight purposeful */
-  --card-padding: clamp(12px, 1.5vw, 18px);
-  --card-padding-sm: clamp(10px, 1.2vw, 14px);
-  --card-padding-xs: clamp(6px, 0.8vw, 10px);
+  /* Card Padding - Dense purposeful */
+  --card-padding: clamp(10px, 1.2vw, 14px);
+  --card-padding-sm: clamp(8px, 1vw, 12px);
+  --card-padding-xs: clamp(5px, 0.7vw, 8px);
   
-  /* Card Gap - Close-knit grids */
-  --card-gap: clamp(12px, 1.5vw, 18px);
-  --card-gap-sm: clamp(8px, 1vw, 12px);
+  /* Card Gap - Tight-knit grids */
+  --card-gap: clamp(10px, 1.2vw, 14px);
+  --card-gap-sm: clamp(6px, 0.8vw, 10px);
   
   /* Card Shadows */
-  --card-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-  --card-shadow-hover: 0 8px 24px rgba(0, 0, 0, 0.08);
-  --card-shadow-dark: 0 4px 16px rgba(0, 0, 0, 0.3);
-  --card-shadow-dark-hover: 0 12px 32px rgba(0, 0, 0, 0.4);
+  --card-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+  --card-shadow-hover: 0 6px 20px rgba(0, 0, 0, 0.08);
+  --card-shadow-dark: 0 3px 12px rgba(0, 0, 0, 0.3);
+  --card-shadow-dark-hover: 0 10px 28px rgba(0, 0, 0, 0.4);
   
   /* Card Transitions */
-  --card-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --card-transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   
-  /* Card Typography - Consistent text sizing */
-  --card-title-size: clamp(16px, 2vw, 20px);
-  --card-subtitle-size: clamp(12px, 1.4vw, 14px);
-  --card-badge-size: clamp(9px, 1vw, 11px);
-  --card-body-size: clamp(13px, 1.5vw, 15px);
+  /* Card Typography - Compact text sizing */
+  --card-title-size: clamp(14px, 1.8vw, 18px);
+  --card-subtitle-size: clamp(11px, 1.2vw, 13px);
+  --card-badge-size: clamp(8px, 0.9vw, 10px);
+  --card-body-size: clamp(12px, 1.3vw, 14px);
 }
 
 /* ============================================
@@ -3426,12 +3426,12 @@ svg {
    Same dimensions for products, experts, customers
    ============================================ */
 
-/* Unified card width variable for consistency - 5 cards visible on desktop */
+/* Unified card width variable for consistency - compact divine engineering */
 :root {
-  --card-width: clamp(160px, 16vw, 220px);
-  --card-height: clamp(220px, 22vw, 300px);
-  --card-radius: clamp(16px, 2vw, 20px);
-  --card-gap: clamp(12px, 1.5vw, 20px);
+  --card-width: clamp(140px, 14vw, 190px);
+  --card-height: clamp(190px, 19vw, 260px);
+  --card-radius: clamp(12px, 1.5vw, 16px);
+  --card-gap: clamp(10px, 1.2vw, 16px);
 }
 
 /* ============================================
@@ -3530,10 +3530,10 @@ svg {
   line-height: 1.43;
 }
 
-/* Video Card Section (Experts & Customers) */
+/* Video Card Section (Experts & Customers) - Compact */
 .video-section {
   background: #000;
-  padding: clamp(56px, 8vw, 120px) 0;
+  padding: clamp(36px, 5vw, 64px) 0;
   width: 100%;
   overflow: hidden;
 }
