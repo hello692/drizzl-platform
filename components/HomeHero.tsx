@@ -45,7 +45,7 @@ export default function HomeHero() {
       <div className="home-hero__content">
         <p className="home-hero__kicker">DISCOVER</p>
         <h1 className="home-hero__title">The Smoothie Season with DRIZZL</h1>
-        <p className="home-hero__subtitle">Fresh. Frozen. Fantastic.</p>
+        <p className="home-hero__subtitle">Smoothies for people who want to feel their best.</p>
         <div className="home-hero__links">
           <Link href="/collections/smoothies" className="home-hero__primary">
             Shop Smoothies
