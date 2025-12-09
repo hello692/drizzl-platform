@@ -1,0 +1,79 @@
+You are my senior front-end engineer inside this Replit project.
+
+Fix ONLY the hero section on the homepage without breaking the desktop layout.
+
+Current hero content:
+- Main line: “Smoothies you want to kiss”
+- Dynamic line: “and feel ____” (rotating words like calm, happy, strong)
+- Subline: “Because being healthy shouldn’t suck, now it’s finally worth craving.”
+- CTA button: “Smooch it on”
+
+Requirements (VERY IMPORTANT):
+
+1) Desktop is GOD MODE (do NOT change structure on desktop):
+- For screens >= 1024px wide:
+  - Keep all hero text and CTA vertically and horizontally centered in the viewport.
+  - The four elements (headline, dynamic line, subline, CTA) must stay grouped together in one column, not spread apart.
+  - Use flexbox on the hero container:
+    - `display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;`
+  - Desktop typography:
+    - Headline: 2.6–3rem, semibold
+    - Dynamic line: 1.4rem
+    - Subline: 1.2–1.4rem
+    - CTA stays below with good spacing (24–32px margin-top).
+  - Make sure no mobile CSS overrides desktop values. If any global styles from previous edits are affecting desktop, reset them inside a `@media (min-width: 1024px)` block.
+
+2) Mobile adjusts ONLY inside media queries:
+- For screens <= 768px wide:
+  - You MAY reduce font sizes and spacing so everything fits nicely, but ONLY inside:
+    `@media (max-width: 768px) { ... }`
+  - Suggested:
+    - Headline: ~1.8rem
+    - Dynamic line: ~1.1rem
+    - Subline: ~1rem
+  - Keep the same vertical stacking order as desktop: headline → dynamic line → subline → CTA.
+  - Text remains center-aligned.
+
+3) CSS structure:
+- Create or update a `.hero`, `.hero-content` or `.hero-text` wrapper that controls layout. Example baseline (adjust selectors to match the project):
+
+  .hero {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+  }
+
+  .hero-text {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    gap: 1.5rem;
+    padding: 0 1.5rem;
+  }
+
+  @media (min-width: 1024px) {
+    .hero-text h1 { font-size: 2.8rem; font-weight: 600; }
+    .hero-text .dynamic-line { font-size: 1.4rem; }
+    .hero-text .subline { font-size: 1.3rem; }
+  }
+
+  @media (max-width: 768px) {
+    .hero-text h1 { font-size: 1.8rem; }
+    .hero-text .dynamic-line { font-size: 1.1rem; }
+    .hero-text .subline { font-size: 1rem; }
+  }
+
+4) Clean-up:
+- Remove or rewrite any previous hero/mobile styles that:
+  - change font sizes, margins or positions globally (outside of media queries)
+  - cause the desktop hero text to move toward the bottom or split apart.
+- Verify visually that:
+  - Desktop looks like a premium, centered Louis-Vuitton-style hero.
+  - Mobile is compact but still centered and readable.
+  - Rotating text animation is untouched (only layout/typography changed).
+
+Implement the necessary CSS/JS/React changes to achieve this. Do NOT refactor unrelated components or pages. Focus only on restoring and perfecting the hero layout with breakpoint-safe styles.
