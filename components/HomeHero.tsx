@@ -66,7 +66,7 @@ export default function HomeHero() {
           </span>
         </h1>
         <p className="lv-hero-sub">
-          Because being healthy shouldn't suck.
+          Healthy — finally worth craving
         </p>
         <a href="/products" className="lv-hero-cta">
           Smooch it on
