@@ -1,6 +1,5 @@
 import { useRef } from 'react';
 import GlobalHeader from './GlobalHeader';
-import HeroCopy from './HeroCopy';
 
 export default function HomeHero() {
   const videoRef = useRef<HTMLVideoElement | null>(null);
@@ -21,7 +20,15 @@ export default function HomeHero() {
       </video>
       <div className="lv-hero-overlay" />
 
-      <HeroCopy />
+      <div className="lv-hero-copy">
+        <h1 className="lv-hero-title">Fall in Love with Smoothies Again.</h1>
+        <p className="lv-hero-sub">
+          Because being healthy shouldn't suck.
+        </p>
+        <a href="/products" className="lv-hero-cta">
+          Kiss of health
+        </a>
+      </div>
     </section>
   );
 }
