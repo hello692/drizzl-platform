@@ -3526,13 +3526,13 @@ svg {
 
 /* Titles stay centered within max-width */
 .video-section-eyebrow {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  font-size: clamp(10px, 1.5vw, 12px);
-  font-weight: 500;
+  font-family: var(--font-family-base);
+  font-size: clamp(10px, 1.2vw, 11px);
+  font-weight: 400;
   color: #6e6e73;
   text-align: center;
   margin-bottom: clamp(8px, 1.5vw, 12px);
-  letter-spacing: 0.08em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   max-width: 1400px;
   margin-left: auto;
@@ -3542,11 +3542,11 @@ svg {
 }
 
 .video-section-title {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  font-size: var(--fs-h2);
-  font-weight: 600;
+  font-family: var(--font-family-base);
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  font-weight: 300;
   margin-bottom: var(--space-after-h2);
-  letter-spacing: -0.02em;
+  letter-spacing: -0.03em;
   text-align: center;
   color: var(--color-text-primary);
   line-height: 1.15;
@@ -3558,11 +3558,11 @@ svg {
 }
 
 .video-section-subtitle {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  font-size: var(--fs-body);
-  color: var(--color-text-secondary);
+  font-family: var(--font-family-base);
+  font-size: clamp(0.9rem, 1.4vw, 1rem);
+  color: rgba(255,255,255,0.65);
   text-align: center;
-  letter-spacing: 0;
+  letter-spacing: 0.01em;
   max-width: var(--text-max-width);
   margin: 0 auto clamp(32px, 5vw, 48px) auto;
   line-height: 1.6;
@@ -3628,9 +3628,9 @@ svg {
 }
 
 .video-card-name {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: var(--font-family-base);
   font-size: var(--card-title-size);
-  font-weight: 600;
+  font-weight: 500;
   color: #1d1d1f;
   margin: 0 0 4px 0;
   line-height: 1.2;
@@ -3638,8 +3638,9 @@ svg {
 }
 
 .video-card-quote {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: var(--font-family-base);
   font-size: var(--card-subtitle-size);
+  font-weight: 400;
   color: #86868b;
   margin: 0;
   line-height: 1.4;
@@ -6062,8 +6063,8 @@ svg {
 /* HERO TYPOGRAPHY - Clean Modern Minimal */
 
 .lv-hero-title {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  font-size: clamp(2.2rem, 5vw, 3.5rem);
+  font-family: var(--font-family-base);
+  font-size: clamp(2rem, 4.5vw, 3rem);
   font-weight: 300;
   letter-spacing: -0.03em;
   margin: 0 0 16px;
@@ -6072,10 +6073,10 @@ svg {
 }
 
 .lv-hero-sub {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  font-size: clamp(0.875rem, 1.4vw, 1rem);
+  font-family: var(--font-family-base);
+  font-size: clamp(0.85rem, 1.3vw, 0.95rem);
   line-height: 1.5;
-  opacity: 0.7;
+  opacity: 0.65;
   margin: 0;
   font-weight: 400;
   letter-spacing: 0.01em;

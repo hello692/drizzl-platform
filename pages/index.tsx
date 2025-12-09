@@ -225,21 +225,19 @@ export default function Home() {
   };
 
   const headingStyles = {
-    fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, sans-serif",
-    fontSize: 'var(--fs-h2)',
-    fontWeight: 600,
-    lineHeight: 1.15,
-    letterSpacing: '-0.02em',
+    fontSize: 'clamp(1.8rem, 4vw, 2.6rem)',
+    fontWeight: 300,
+    lineHeight: 1.1,
+    letterSpacing: '-0.03em',
     color: '#ffffff',
     marginBottom: 'var(--space-after-h2)',
   };
 
   const subheadingStyles = {
-    fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, sans-serif",
-    fontSize: 'var(--fs-body)',
+    fontSize: 'clamp(0.9rem, 1.4vw, 1rem)',
     fontWeight: 400,
     lineHeight: 1.6,
-    color: '#86868b',
+    color: 'rgba(255,255,255,0.65)',
     maxWidth: 'var(--text-max-width)',
   };
 
@@ -271,9 +269,8 @@ export default function Home() {
                 <span 
                   key={`${repeatIndex}-${idx}`}
                   style={{
-                    fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, sans-serif",
-                    fontSize: '12px',
-                    fontWeight: 500,
+                    fontSize: '11px',
+                    fontWeight: 400,
                     color: 'rgba(255,255,255,0.5)',
                     letterSpacing: '0.1em',
                     textTransform: 'uppercase',
@@ -408,11 +405,10 @@ export default function Home() {
                 WHY WE EXIST
               </span>
               <h2 style={{
-                fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, sans-serif",
-                fontSize: 'var(--fs-h2)',
-                fontWeight: 600,
-                lineHeight: 1.15,
-                letterSpacing: '-0.02em',
+                fontSize: 'clamp(1.8rem, 4vw, 2.6rem)',
+                fontWeight: 300,
+                lineHeight: 1.1,
+                letterSpacing: '-0.03em',
                 color: '#ffffff',
                 marginBottom: 'var(--space-after-h2)',
               }}>
