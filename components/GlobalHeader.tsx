@@ -1,5 +1,3 @@
-'use client';
-
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
@@ -43,10 +41,16 @@ const MENU_ITEMS = [
   },
 ];
 
-export default function Navbar() {
+interface GlobalHeaderProps {
+  variant?: 'transparent' | 'solid';
+}
+
+export default function GlobalHeader({ variant = 'transparent' }: GlobalHeaderProps) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [expandedMenu, setExpandedMenu] = useState<string | null>(null);
   const router = useRouter();
+
+  const isTransparent = variant === 'transparent';
 
   const toggleExpandedMenu = (title: string) => {
     setExpandedMenu(expandedMenu === title ? null : title);
@@ -69,18 +73,34 @@ export default function Navbar() {
     };
   }, [menuOpen]);
 
+  const headerStyles: React.CSSProperties = isTransparent ? {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    zIndex: 100,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    padding: '20px 40px',
+    background: 'transparent',
+  } : {
+    position: 'relative',
+    zIndex: 100,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    padding: '20px 40px',
+    background: '#000000',
+    borderBottom: '1px solid rgba(255,255,255,0.1)',
+  };
+
+  const textColor = '#ffffff';
+  const logoSrc = '/logo.gif';
+
   return (
     <>
-      <header style={{
-        position: 'relative',
-        zIndex: 100,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        padding: '20px 40px',
-        background: '#000000',
-        borderBottom: '1px solid rgba(255,255,255,0.1)',
-      }}>
+      <header style={headerStyles}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '24px' }}>
           <button 
             onClick={() => setMenuOpen(true)}
@@ -90,7 +110,7 @@ export default function Navbar() {
               gap: '8px',
               background: 'none',
               border: 'none',
-              color: '#ffffff',
+              color: textColor,
               cursor: 'pointer',
               padding: 0,
               fontSize: '0.875rem',
@@ -111,7 +131,7 @@ export default function Navbar() {
               gap: '8px',
               background: 'none',
               border: 'none',
-              color: '#ffffff',
+              color: textColor,
               cursor: 'pointer',
               padding: 0,
               fontSize: '0.875rem',
@@ -130,7 +150,7 @@ export default function Navbar() {
         <div style={{ position: 'absolute', left: '50%', transform: 'translateX(-50%)' }}>
           <Link href="/" style={{ display: 'block' }}>
             <img 
-              src="/images/drizzl-logo-white.gif"
+              src={logoSrc}
               alt="DRIZZL WELLNESS" 
               style={{ height: '28px', width: 'auto' }}
             />
@@ -141,7 +161,7 @@ export default function Navbar() {
           <Link 
             href="/auth?type=retail" 
             style={{
-              color: '#ffffff',
+              color: textColor,
               textDecoration: 'none',
               fontSize: '0.875rem',
               fontWeight: 400,
@@ -152,7 +172,7 @@ export default function Navbar() {
           </Link>
           <Link 
             href="/auth" 
-            style={{ color: '#ffffff', display: 'flex', alignItems: 'center' }}
+            style={{ color: textColor, display: 'flex', alignItems: 'center' }}
           >
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
               <circle cx="12" cy="8" r="4"/>
@@ -161,7 +181,7 @@ export default function Navbar() {
           </Link>
           <Link 
             href="/cart" 
-            style={{ color: '#ffffff', display: 'flex', alignItems: 'center' }}
+            style={{ color: textColor, display: 'flex', alignItems: 'center' }}
           >
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
               <path d="M6 6h-2l-2 12h18l-2-12h-2M6 6V5a4 4 0 018 0v1M6 6h8"/>
@@ -172,6 +192,7 @@ export default function Navbar() {
 
       {/* Full Screen Menu Overlay */}
       <div 
+        className={`navbar-menu-overlay ${menuOpen ? 'active' : ''}`}
         style={{
           position: 'fixed',
           inset: 0,
@@ -304,57 +325,6 @@ export default function Navbar() {
               </div>
             ))}
           </nav>
-          
-          <div style={{ marginTop: '40px', paddingTop: '20px', borderTop: '1px solid rgba(255,255,255,0.1)' }}>
-            <button
-              onClick={() => navigateTo('/offers')}
-              style={{
-                display: 'block',
-                width: '100%',
-                textAlign: 'left',
-                padding: '12px 0',
-                background: 'none',
-                border: 'none',
-                color: 'rgba(255,255,255,0.6)',
-                fontSize: '0.9rem',
-                cursor: 'pointer',
-              }}
-            >
-              Get $25 Off Your First Order
-            </button>
-            <button
-              onClick={() => navigateTo('/auth')}
-              style={{
-                display: 'block',
-                width: '100%',
-                textAlign: 'left',
-                padding: '12px 0',
-                background: 'none',
-                border: 'none',
-                color: 'rgba(255,255,255,0.6)',
-                fontSize: '0.9rem',
-                cursor: 'pointer',
-              }}
-            >
-              Sign In or Create Account
-            </button>
-            <button
-              onClick={() => navigateTo('/auth?type=retail')}
-              style={{
-                display: 'block',
-                width: '100%',
-                textAlign: 'left',
-                padding: '12px 0',
-                background: 'none',
-                border: 'none',
-                color: 'rgba(255,255,255,0.6)',
-                fontSize: '0.9rem',
-                cursor: 'pointer',
-              }}
-            >
-              Wholesale Partners
-            </button>
-          </div>
         </div>
       </div>
     </>

@@ -1,12 +1,12 @@
-import { useRef, useState } from 'react';
-import LVHeader from './LVHeader';
+import { useRef } from 'react';
+import GlobalHeader from './GlobalHeader';
 
 export default function HomeHero() {
   const videoRef = useRef<HTMLVideoElement | null>(null);
 
   return (
     <section className="lv-hero">
-      <LVHeader />
+      <GlobalHeader variant="transparent" />
       
       <video
         ref={videoRef}
