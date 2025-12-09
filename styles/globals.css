@@ -3999,11 +3999,11 @@ svg {
   color: #86868b;
 }
 
-/* Smoothie grid for /smoothies page */
+/* Smoothie grid for /smoothies page - Compact */
 .smoothie-grid {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  gap: var(--card-gap, 20px);
+  gap: var(--card-gap, 14px);
   width: 100%;
 }
 
@@ -4068,37 +4068,37 @@ svg {
   backdrop-filter: blur(4px);
 }
 
-/* CTA Section */
+/* CTA Section - Compact Divine Engineering */
 .cta-section {
   background: #000000;
-  padding: clamp(64px, 10vw, 180px) 0;
+  padding: clamp(40px, 6vw, 80px) 0;
   text-align: center;
   border-top: 1px solid rgba(255,255,255,0.06);
 }
 
 .cta-container {
-  max-width: 1400px;
+  max-width: 1100px;
   margin: 0 auto;
-  padding-left: clamp(16px, 4vw, 80px);
-  padding-right: clamp(16px, 4vw, 80px);
+  padding-left: clamp(16px, 3vw, 48px);
+  padding-right: clamp(16px, 3vw, 48px);
 }
 
 .cta-title {
-  font-size: clamp(24px, 5vw, 56px);
-  margin-bottom: clamp(16px, 3vw, 24px);
-  font-weight: 600;
-  letter-spacing: -0.022em;
+  font-size: clamp(22px, 4vw, 42px);
+  margin-bottom: clamp(12px, 2vw, 18px);
+  font-weight: 400;
+  letter-spacing: -0.02em;
   color: #f5f5f7;
-  line-height: 1.08;
+  line-height: 1.1;
 }
 
 .cta-subtitle {
-  font-size: clamp(14px, 2.5vw, 21px);
+  font-size: clamp(13px, 2vw, 17px);
   color: #86868b;
-  max-width: 520px;
-  margin: 0 auto clamp(32px, 5vw, 48px) auto;
+  max-width: 480px;
+  margin: 0 auto clamp(20px, 3vw, 32px) auto;
   line-height: 1.5;
-  letter-spacing: -0.016em;
+  letter-spacing: -0.01em;
 }
 
 .cta-btn {
@@ -4124,11 +4124,11 @@ svg {
   opacity: 1;
 }
 
-/* Responsive adjustments for homepage */
+/* Responsive adjustments for homepage - Compact Mobile */
 @media (max-width: 768px) {
   .hero-section {
-    min-height: clamp(450px, 75vh, 700px);
-    padding-top: clamp(90px, 15vh, 160px);
+    min-height: clamp(380px, 65vh, 550px);
+    padding-top: clamp(70px, 12vh, 120px);
   }
   
   .hero-btn {
@@ -4138,64 +4138,12 @@ svg {
   
   .category-grid {
     grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
   }
   
   /* Keep arrows visible but smaller on mobile */
   .carousel-arrow {
     display: flex;
-    width: 36px;
-    height: 36px;
-  }
-  
-  .carousel-arrow-left {
-    left: clamp(12px, 3vw, 28px);
-  }
-  
-  .carousel-arrow-right {
-    right: clamp(12px, 3vw, 28px);
-  }
-  
-  .carousel-wrapper,
-  .video-carousel-wrapper {
-    padding-left: clamp(48px, 10vw, 70px);
-    padding-right: clamp(48px, 10vw, 70px);
-  }
-  
-  /* Unified card sizing for 768px */
-  :root {
-    --card-width: clamp(180px, 28vw, 240px);
-    --card-height: clamp(250px, 38vw, 340px);
-    --card-gap: 18px;
-  }
-  
-  .cta-btn {
-    width: 100%;
-    max-width: 320px;
-  }
-}
-
-@media (max-width: 480px) {
-  .hero-section {
-    min-height: clamp(400px, 70vh, 600px);
-    padding-top: clamp(80px, 12vh, 140px);
-    padding-bottom: clamp(40px, 6vh, 80px);
-  }
-  
-  .hero-title {
-    font-size: clamp(28px, 9vw, 48px);
-  }
-  
-  .hero-subtitle {
-    font-size: clamp(14px, 3vw, 20px);
-  }
-  
-  .category-card {
-    padding: clamp(14px, 2.5vw, 20px) clamp(10px, 1.5vw, 16px);
-    border-radius: 50px;
-  }
-  
-  /* Smaller arrows on mobile but still visible */
-  .carousel-arrow {
     width: 32px;
     height: 32px;
   }
@@ -4208,21 +4156,74 @@ svg {
     right: clamp(10px, 2.5vw, 20px);
   }
   
+  .carousel-wrapper,
+  .video-carousel-wrapper {
+    padding-left: clamp(40px, 9vw, 56px);
+    padding-right: clamp(40px, 9vw, 56px);
+  }
+  
+  /* Unified card sizing for 768px - Compact */
+  :root {
+    --card-width: clamp(150px, 24vw, 200px);
+    --card-height: clamp(200px, 32vw, 280px);
+    --card-gap: 12px;
+  }
+  
+  .cta-btn {
+    width: 100%;
+    max-width: 280px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-section {
+    min-height: clamp(340px, 60vh, 480px);
+    padding-top: clamp(60px, 10vh, 100px);
+    padding-bottom: clamp(32px, 5vh, 60px);
+  }
+  
+  .hero-title {
+    font-size: clamp(24px, 8vw, 40px);
+  }
+  
+  .hero-subtitle {
+    font-size: clamp(13px, 2.8vw, 18px);
+  }
+  
+  .category-card {
+    padding: clamp(12px, 2.2vw, 16px) clamp(8px, 1.2vw, 12px);
+    border-radius: 40px;
+  }
+  
+  /* Smaller arrows on mobile but still visible */
+  .carousel-arrow {
+    width: 28px;
+    height: 28px;
+  }
+  
+  .carousel-arrow-left {
+    left: clamp(8px, 2vw, 16px);
+  }
+  
+  .carousel-arrow-right {
+    right: clamp(8px, 2vw, 16px);
+  }
+  
   .carousel-wrapper {
-    padding-left: clamp(44px, 12vw, 56px);
-    padding-right: clamp(44px, 12vw, 56px);
+    padding-left: clamp(36px, 10vw, 48px);
+    padding-right: clamp(36px, 10vw, 48px);
   }
   
   .video-carousel-wrapper {
-    padding-left: clamp(44px, 12vw, 56px);
-    padding-right: clamp(44px, 12vw, 56px);
+    padding-left: clamp(36px, 10vw, 48px);
+    padding-right: clamp(36px, 10vw, 48px);
   }
   
-  /* Unified card sizing for 480px */
+  /* Unified card sizing for 480px - Dense Compact */
   :root {
-    --card-width: clamp(160px, 42vw, 220px);
-    --card-height: clamp(220px, 55vw, 300px);
-    --card-gap: 14px;
+    --card-width: clamp(140px, 38vw, 190px);
+    --card-height: clamp(180px, 48vw, 250px);
+    --card-gap: 10px;
   }
   
   .video-card-video-container {
