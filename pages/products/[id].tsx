@@ -239,9 +239,9 @@ const PRODUCT_DATA: Record<string, ProductData> = {
       '/products/mushroom-coffee/DSC07787.png',
     ],
     lifestyleGallery: [
-      { src: '/lifestyle/Copy of 890A5779_out1 (1) COFFEE MUSHROOM LIFESTYLE 1.png', alt: 'Coffee Mushroom lifestyle 1' },
-      { src: '/lifestyle/Copy of 890A5779_out1 (1) COFFEE MUSHROOM LIFESTYLE 2.png', alt: 'Coffee Mushroom lifestyle 2' },
-      { src: '/lifestyle/DSC09048-1Coffee Mushroom.jpg', alt: 'Coffee Mushroom lifestyle 3' },
+      { src: '/lifestyle/coffee-lifestyle-1.png', alt: 'Coffee Mushroom lifestyle 1' },
+      { src: '/lifestyle/coffee-lifestyle-2.png', alt: 'Coffee Mushroom lifestyle 2' },
+      { src: '/lifestyle/coffee-lifestyle-3.jpg', alt: 'Coffee Mushroom lifestyle 3' },
     ],
     description: 'Your morning coffee just got a serious upgrade. Cold brew meets adaptogenic mushrooms for sustained energy without the crash. Lions mane for focus, chaga for immunity, and reishi for stress relief. Blended with creamy oat milk and a touch of maple.',
     ingredients: 'organic cold brew coffee, organic lions mane mushroom, organic chaga mushroom, organic reishi mushroom, organic oat milk, organic maple syrup, organic cacao',
