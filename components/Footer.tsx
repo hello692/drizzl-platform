@@ -72,6 +72,24 @@ export default function Footer() {
           </div>
 
           <div className="footer-section">
+            <h4 className="footer-section-title">Wholesale</h4>
+            <div className="footer-links">
+              <Link href="/auth?type=retail" className="footer-link">
+                Partner Portal
+              </Link>
+              <Link href="/wholesale/apply" className="footer-link">
+                Become a Partner
+              </Link>
+              <Link href="/wholesale/pricing" className="footer-link">
+                Wholesale Pricing
+              </Link>
+              <Link href="/wholesale/contact" className="footer-link">
+                B2B Contact
+              </Link>
+            </div>
+          </div>
+
+          <div className="footer-section">
             <h4 className="footer-section-title">Legal</h4>
             <div className="footer-links">
               <Link href="/privacy" className="footer-link">

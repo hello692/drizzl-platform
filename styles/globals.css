@@ -2529,22 +2529,22 @@ svg {
 
 .footer {
   border-top: 1px solid rgba(255, 255, 255, 0.08);
-  padding: clamp(32px, 6vw, 64px) 0 clamp(24px, 4vw, 40px) 0;
+  padding: clamp(24px, 4vw, 48px) 0 clamp(20px, 3vw, 32px) 0;
   background: #000;
 }
 
 .footer-container {
   max-width: 1400px;
   margin: 0 auto;
-  padding-left: clamp(16px, 5vw, 80px);
-  padding-right: clamp(16px, 5vw, 80px);
+  padding-left: clamp(16px, 5vw, 64px);
+  padding-right: clamp(16px, 5vw, 64px);
 }
 
 .footer-grid {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: clamp(24px, 4vw, 48px);
-  margin-bottom: clamp(32px, 5vw, 48px);
+  grid-template-columns: repeat(6, 1fr);
+  gap: clamp(16px, 3vw, 32px);
+  margin-bottom: clamp(24px, 4vw, 36px);
 }
 
 .footer-section {
@@ -2553,29 +2553,29 @@ svg {
 }
 
 .footer-section-title {
-  font-size: 12px;
-  font-weight: 600;
+  font-size: 11px;
+  font-weight: 500;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
-  margin-bottom: clamp(12px, 2vw, 16px);
-  color: #f5f5f7;
+  letter-spacing: 0.1em;
+  margin-bottom: clamp(8px, 1.5vw, 12px);
+  color: rgba(255, 255, 255, 0.5);
 }
 
 .footer-links {
   display: flex;
   flex-direction: column;
-  gap: clamp(8px, 1.5vw, 12px);
+  gap: 2px;
 }
 
 .footer-link {
-  font-size: clamp(13px, 2vw, 14px);
-  color: rgba(255, 255, 255, 0.6);
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.7);
   text-decoration: none;
   transition: color 0.3s ease;
-  min-height: 44px;
+  min-height: 28px;
   display: flex;
   align-items: center;
-  padding: 8px 0;
+  padding: 4px 0;
 }
 
 .footer-link:hover {
@@ -2697,26 +2697,26 @@ svg {
 /* Desktop (1024px+) - Multi-column layout */
 @media (min-width: 1024px) {
   .footer-grid {
-    grid-template-columns: repeat(5, 1fr);
-    gap: 48px;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 24px;
   }
   
   .footer-link {
     min-height: auto;
-    padding: 4px 0;
+    padding: 2px 0;
   }
   
   .footer-social-link {
     min-height: auto;
-    padding: 4px 0;
+    padding: 2px 0;
   }
 }
 
-/* Tablet (600px - 1023px) - 2-column grid */
+/* Tablet (600px - 1023px) - 3-column grid */
 @media (min-width: 600px) and (max-width: 1023px) {
   .footer-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: clamp(24px, 4vw, 32px) clamp(32px, 5vw, 48px);
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px 24px;
   }
   
   .footer-section:last-child {
@@ -2724,13 +2724,13 @@ svg {
   }
   
   .footer-link {
-    min-height: 48px;
-    padding: 10px 0;
+    min-height: 36px;
+    padding: 6px 0;
   }
   
   .footer-social-link {
-    min-height: 48px;
-    padding: 10px 0;
+    min-height: 36px;
+    padding: 6px 0;
   }
   
   .footer-newsletter-form {
@@ -2745,10 +2745,10 @@ svg {
   }
 }
 
-/* Mobile (under 600px) - Single column, stacked */
+/* Mobile (under 600px) - Two column grid */
 @media (max-width: 599px) {
   .footer {
-    padding: clamp(24px, 5vw, 40px) 0 clamp(20px, 4vw, 32px) 0;
+    padding: clamp(20px, 4vw, 32px) 0 clamp(16px, 3vw, 24px) 0;
   }
   
   .footer-container {
@@ -2757,8 +2757,8 @@ svg {
   }
   
   .footer-grid {
-    grid-template-columns: 1fr;
-    gap: clamp(24px, 5vw, 32px);
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px 20px;
   }
   
   .footer-section {
@@ -2766,18 +2766,18 @@ svg {
   }
   
   .footer-section-title {
-    font-size: 11px;
-    margin-bottom: 12px;
+    font-size: 10px;
+    margin-bottom: 8px;
   }
   
   .footer-links {
-    gap: 4px;
+    gap: 2px;
   }
   
   .footer-link {
-    font-size: 14px;
-    min-height: 48px;
-    padding: 12px 0;
+    font-size: 13px;
+    min-height: 32px;
+    padding: 6px 0;
     display: flex;
     align-items: center;
   }
