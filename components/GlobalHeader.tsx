@@ -82,17 +82,19 @@ export default function GlobalHeader({ variant = 'transparent' }: GlobalHeaderPr
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
-    padding: '20px 40px',
+    padding: '28px clamp(40px, 6vw, 80px)',
     background: 'transparent',
+    minHeight: '80px',
   } : {
     position: 'relative',
     zIndex: 100,
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
-    padding: '20px 40px',
+    padding: '28px clamp(40px, 6vw, 80px)',
     background: '#000000',
     borderBottom: '1px solid rgba(255,255,255,0.1)',
+    minHeight: '80px',
   };
 
   const textColor = '#ffffff';
@@ -101,7 +103,7 @@ export default function GlobalHeader({ variant = 'transparent' }: GlobalHeaderPr
   return (
     <>
       <header style={headerStyles}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '24px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '32px', minWidth: '200px' }}>
           <button 
             onClick={() => setMenuOpen(true)}
             style={{
@@ -157,7 +159,7 @@ export default function GlobalHeader({ variant = 'transparent' }: GlobalHeaderPr
           </Link>
         </div>
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '28px', minWidth: '200px', justifyContent: 'flex-end' }}>
           <Link 
             href="/auth?type=retail" 
             style={{

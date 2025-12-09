@@ -6064,11 +6064,11 @@ svg {
 
 .lv-hero-title {
   font-family: var(--font-family-base);
-  font-size: clamp(1.4rem, 3vw, 2.4rem);
-  font-weight: 300;
-  letter-spacing: -0.03em;
-  margin: 0 0 16px;
-  line-height: 1.2;
+  font-size: clamp(2rem, 4vw, 3.25rem);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  margin: 0 0 12px;
+  line-height: 1.1;
   color: #ffffff;
   white-space: nowrap;
 }
@@ -6089,33 +6089,35 @@ svg {
 
 .lv-hero-sub {
   font-family: var(--font-family-base);
-  font-size: clamp(0.95rem, 1.5vw, 1.1rem);
+  font-size: clamp(1rem, 1.6vw, 1.2rem);
   line-height: 1.5;
   color: #ffffff;
-  opacity: 1;
-  margin-top: 8px;
+  opacity: 0.9;
+  margin-top: 4px;
   font-weight: 400;
   letter-spacing: 0.01em;
 }
 
 .lv-hero-cta {
   display: inline-block;
-  margin-top: 20px;
-  padding: 14px 36px;
-  background: transparent;
-  color: #ffffff;
-  font-size: 0.875rem;
+  margin-top: 24px;
+  padding: 16px 40px;
+  background: #ffffff;
+  color: #000000;
+  font-size: 0.9rem;
   font-weight: 500;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.02em;
   text-decoration: none;
-  border: 1px solid rgba(255, 255, 255, 0.5);
+  border: none;
   border-radius: 100px;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
 }
 
 .lv-hero-cta:hover {
-  border-color: #ffffff;
-  background: rgba(255, 255, 255, 0.1);
+  transform: scale(1.02);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
+  background: #ffffff;
 }
 
 @media (max-width: 768px) {
@@ -6132,7 +6134,7 @@ svg {
   }
 
   .lv-hero-title {
-    font-size: 1.8rem;
+    font-size: 1.6rem;
   }
 
   .lv-hero-copy {
@@ -6141,7 +6143,7 @@ svg {
   }
   
   .lv-hero-sub {
-    font-size: 0.85rem;
+    font-size: 0.9rem;
   }
 }
 
