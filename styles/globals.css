@@ -4124,11 +4124,35 @@ svg {
   opacity: 1;
 }
 
-/* Responsive adjustments for homepage - Compact Mobile */
+/* ============================================
+   DEVICE-SPECIFIC SECTION RESPONSIVE SYSTEM
+   Matching hero device breakpoints
+   ============================================ */
+
+/* TABLET & SMALL DESKTOP: 768px - 1024px */
+@media (max-width: 1024px) and (min-width: 769px) {
+  :root {
+    --section-padding-y: clamp(36px, 5vw, 56px);
+    --section-padding-x: clamp(18px, 3vw, 40px);
+    --card-width: clamp(140px, 18vw, 180px);
+    --card-height: clamp(170px, 22vw, 220px);
+    --card-gap: 12px;
+  }
+}
+
+/* LARGE MOBILE / SMALL TABLET: 600-768px */
 @media (max-width: 768px) {
+  :root {
+    --section-padding-y: clamp(28px, 4vw, 44px);
+    --section-padding-x: clamp(14px, 3vw, 32px);
+    --card-width: clamp(130px, 22vw, 160px);
+    --card-height: clamp(160px, 28vw, 200px);
+    --card-gap: 10px;
+  }
+  
   .hero-section {
-    min-height: clamp(380px, 65vh, 550px);
-    padding-top: clamp(70px, 12vh, 120px);
+    min-height: clamp(340px, 60vh, 480px);
+    padding-top: clamp(60px, 10vh, 100px);
   }
   
   .hero-btn {
@@ -4141,145 +4165,254 @@ svg {
     gap: 8px;
   }
   
-  /* Keep arrows visible but smaller on mobile */
   .carousel-arrow {
     display: flex;
-    width: 32px;
-    height: 32px;
+    width: 30px;
+    height: 30px;
   }
   
   .carousel-arrow-left {
-    left: clamp(10px, 2.5vw, 20px);
+    left: clamp(8px, 2vw, 16px);
   }
   
   .carousel-arrow-right {
-    right: clamp(10px, 2.5vw, 20px);
+    right: clamp(8px, 2vw, 16px);
   }
   
   .carousel-wrapper,
   .video-carousel-wrapper {
-    padding-left: clamp(40px, 9vw, 56px);
-    padding-right: clamp(40px, 9vw, 56px);
-  }
-  
-  /* Unified card sizing for 768px - Tighter than desktop */
-  :root {
-    --card-width: clamp(130px, 20vw, 160px);
-    --card-height: clamp(160px, 24vw, 200px);
-    --card-gap: 10px;
+    padding-left: clamp(36px, 8vw, 48px);
+    padding-right: clamp(36px, 8vw, 48px);
   }
   
   .cta-btn {
     width: 100%;
-    max-width: 280px;
+    max-width: 260px;
+    padding: 12px 24px;
+    font-size: 0.85rem;
+    min-height: 44px;
+  }
+  
+  .cta-section {
+    padding: clamp(32px, 5vw, 56px) 0;
+  }
+  
+  .cta-title {
+    font-size: clamp(20px, 4vw, 32px);
+  }
+  
+  .cta-subtitle {
+    font-size: clamp(12px, 2vw, 15px);
   }
 }
 
-@media (max-width: 480px) {
-  .hero-section {
-    min-height: clamp(340px, 60vh, 480px);
-    padding-top: clamp(60px, 10vh, 100px);
-    padding-bottom: clamp(32px, 5vh, 60px);
-  }
-  
-  .hero-title {
-    font-size: clamp(24px, 8vw, 40px);
-  }
-  
-  .hero-subtitle {
-    font-size: clamp(13px, 2.8vw, 18px);
-  }
-  
-  .category-card {
-    padding: clamp(12px, 2.2vw, 16px) clamp(8px, 1.2vw, 12px);
-    border-radius: 40px;
-  }
-  
-  /* Smaller arrows on mobile but still visible */
-  .carousel-arrow {
-    width: 28px;
-    height: 28px;
-  }
-  
-  .carousel-arrow-left {
-    left: clamp(8px, 2vw, 16px);
-  }
-  
-  .carousel-arrow-right {
-    right: clamp(8px, 2vw, 16px);
-  }
-  
-  .carousel-wrapper {
-    padding-left: clamp(36px, 10vw, 48px);
-    padding-right: clamp(36px, 10vw, 48px);
-  }
-  
-  .video-carousel-wrapper {
-    padding-left: clamp(36px, 10vw, 48px);
-    padding-right: clamp(36px, 10vw, 48px);
-  }
-  
-  /* Unified card sizing for 480px - Densest mobile */
+/* IPHONE 17 PRO MAX / PIXEL XL / S25 ULTRA: 430-600px */
+@media (max-width: 600px) and (min-width: 431px) {
   :root {
-    --card-width: clamp(120px, 42vw, 150px);
-    --card-height: clamp(150px, 50vw, 190px);
+    --section-padding-y: clamp(24px, 4vw, 40px);
+    --section-padding-x: clamp(12px, 3vw, 28px);
+    --card-width: clamp(120px, 26vw, 150px);
+    --card-height: clamp(150px, 34vw, 190px);
     --card-gap: 8px;
   }
   
-  .video-card-video-container {
-    height: clamp(110px, 28vw, 140px);
-  }
-}
-
-@media (max-width: 360px) {
-  .hero-title {
-    font-size: clamp(24px, 8vw, 36px);
-  }
-  
-  .hero-subtitle {
-    font-size: clamp(13px, 2.8vw, 18px);
-  }
-  
-  .category-grid {
-    gap: 8px;
-  }
-  
-  .category-card-title {
-    font-size: clamp(11px, 2vw, 14px);
-  }
-  
-  /* Even smaller arrows but still visible on small phones */
   .carousel-arrow {
     width: 28px;
     height: 28px;
   }
   
-  .carousel-arrow-left {
-    left: clamp(8px, 2vw, 16px);
-  }
-  
-  .carousel-arrow-right {
-    right: clamp(8px, 2vw, 16px);
-  }
-  
-  .carousel-wrapper {
-    padding-left: clamp(40px, 14vw, 50px);
-    padding-right: clamp(40px, 14vw, 50px);
-  }
-  
+  .carousel-wrapper,
   .video-carousel-wrapper {
-    padding-left: clamp(40px, 14vw, 50px);
-    padding-right: clamp(40px, 14vw, 50px);
+    padding-left: clamp(32px, 8vw, 44px);
+    padding-right: clamp(32px, 8vw, 44px);
   }
   
-  /* Unified card sizing for 360px */
-  :root {
-    --card-width: clamp(140px, 44vw, 180px);
-    --card-height: clamp(200px, 52vw, 260px);
-    --card-gap: 12px;
+  .video-card-video-container {
+    height: clamp(100px, 26vw, 130px);
   }
 }
 
+/* PIXEL 10 / S25 ULTRA / IPHONE 17 PRO: 412-430px */
+@media (max-width: 430px) and (min-width: 413px) {
+  :root {
+    --section-padding-y: clamp(22px, 4vw, 36px);
+    --section-padding-x: clamp(10px, 2.5vw, 24px);
+    --card-width: clamp(110px, 30vw, 140px);
+    --card-height: clamp(140px, 38vw, 175px);
+    --card-gap: 8px;
+  }
+  
+  .category-card {
+    padding: clamp(10px, 2vw, 14px) clamp(6px, 1vw, 10px);
+    border-radius: 36px;
+  }
+  
+  .carousel-wrapper,
+  .video-carousel-wrapper {
+    padding-left: clamp(30px, 7vw, 40px);
+    padding-right: clamp(30px, 7vw, 40px);
+  }
+}
+
+/* IPHONE AIR / IPHONE 17: 390-412px */
+@media (max-width: 412px) and (min-width: 391px) {
+  :root {
+    --section-padding-y: clamp(20px, 3.5vw, 32px);
+    --section-padding-x: clamp(10px, 2.5vw, 22px);
+    --card-width: clamp(105px, 34vw, 135px);
+    --card-height: clamp(130px, 42vw, 165px);
+    --card-gap: 7px;
+  }
+  
+  .category-card {
+    padding: clamp(9px, 2vw, 12px) clamp(5px, 1vw, 8px);
+    border-radius: 32px;
+  }
+  
+  .carousel-wrapper,
+  .video-carousel-wrapper {
+    padding-left: clamp(28px, 7vw, 38px);
+    padding-right: clamp(28px, 7vw, 38px);
+  }
+  
+  .carousel-arrow {
+    width: 26px;
+    height: 26px;
+  }
+}
+
+/* SAMSUNG S25+ / IPHONE AIR RANGE: 376-390px */
+@media (max-width: 390px) and (min-width: 376px) {
+  :root {
+    --section-padding-y: clamp(18px, 3.5vw, 28px);
+    --section-padding-x: clamp(8px, 2vw, 18px);
+    --card-width: clamp(100px, 38vw, 130px);
+    --card-height: clamp(125px, 46vw, 160px);
+    --card-gap: 6px;
+  }
+  
+  .category-card {
+    padding: clamp(8px, 1.8vw, 11px) clamp(4px, 0.8vw, 7px);
+    border-radius: 28px;
+  }
+  
+  .carousel-wrapper,
+  .video-carousel-wrapper {
+    padding-left: clamp(26px, 6vw, 34px);
+    padding-right: clamp(26px, 6vw, 34px);
+  }
+  
+  .carousel-arrow {
+    width: 24px;
+    height: 24px;
+  }
+  
+  .cta-btn {
+    max-width: 220px;
+    padding: 10px 20px;
+    font-size: 0.78rem;
+    min-height: 40px;
+  }
+}
+
+/* IPHONE SE / STANDARD MOBILE: 361-375px */
+@media (max-width: 375px) and (min-width: 361px) {
+  :root {
+    --section-padding-y: clamp(16px, 3vw, 24px);
+    --section-padding-x: clamp(8px, 2vw, 16px);
+    --card-width: clamp(95px, 42vw, 125px);
+    --card-height: clamp(120px, 52vw, 155px);
+    --card-gap: 6px;
+  }
+  
+  .category-card {
+    padding: clamp(7px, 1.6vw, 10px) clamp(4px, 0.8vw, 6px);
+    border-radius: 24px;
+  }
+  
+  .category-card-title {
+    font-size: clamp(10px, 2vw, 13px);
+  }
+  
+  .carousel-wrapper,
+  .video-carousel-wrapper {
+    padding-left: clamp(24px, 6vw, 32px);
+    padding-right: clamp(24px, 6vw, 32px);
+  }
+  
+  .carousel-arrow {
+    width: 22px;
+    height: 22px;
+  }
+}
+
+/* SAMSUNG S25 / SMALL MOBILE: 360px and below */
+@media (max-width: 360px) {
+  :root {
+    --section-padding-y: clamp(14px, 3vw, 22px);
+    --section-padding-x: clamp(6px, 2vw, 14px);
+    --card-width: clamp(90px, 48vw, 120px);
+    --card-height: clamp(115px, 58vw, 150px);
+    --card-gap: 5px;
+  }
+  
+  .hero-title {
+    font-size: clamp(22px, 7vw, 32px);
+  }
+  
+  .hero-subtitle {
+    font-size: clamp(12px, 2.6vw, 16px);
+  }
+  
+  .category-grid {
+    gap: 6px;
+  }
+  
+  .category-card {
+    padding: clamp(6px, 1.4vw, 9px) clamp(3px, 0.7vw, 5px);
+    border-radius: 20px;
+  }
+  
+  .category-card-title {
+    font-size: clamp(9px, 1.8vw, 12px);
+  }
+  
+  .carousel-arrow {
+    width: 20px;
+    height: 20px;
+  }
+  
+  .carousel-arrow-left {
+    left: clamp(6px, 1.5vw, 12px);
+  }
+  
+  .carousel-arrow-right {
+    right: clamp(6px, 1.5vw, 12px);
+  }
+  
+  .carousel-wrapper,
+  .video-carousel-wrapper {
+    padding-left: clamp(22px, 6vw, 30px);
+    padding-right: clamp(22px, 6vw, 30px);
+  }
+  
+  .cta-btn {
+    max-width: 200px;
+    padding: 9px 18px;
+    font-size: 0.72rem;
+    min-height: 38px;
+  }
+  
+  .cta-title {
+    font-size: clamp(18px, 5vw, 26px);
+  }
+  
+  .cta-subtitle {
+    font-size: clamp(11px, 2vw, 14px);
+  }
+}
+
+/* EXTRA SMALL MOBILE / FOLD PHONES: 280px and below */
 @media (max-width: 280px) {
   .hero-section {
     min-height: clamp(350px, 65vh, 500px);
