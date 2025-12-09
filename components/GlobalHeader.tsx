@@ -152,7 +152,7 @@ export default function GlobalHeader({ variant = 'transparent' }: GlobalHeaderPr
             <img 
               src={logoSrc}
               alt="DRIZZL WELLNESS" 
-              style={{ height: '28px', width: 'auto' }}
+              style={{ height: '42px', width: 'auto' }}
             />
           </Link>
         </div>
