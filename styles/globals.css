@@ -6128,6 +6128,22 @@ svg {
   opacity: 1;
 }
 
+.lv-hero-rotating-phrase {
+  font-family: var(--font-family-base);
+  font-size: 2rem;
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  margin: 0.5rem 0 0 0;
+  text-align: center;
+  opacity: 0;
+  transition: opacity 0.6s ease, color 0.5s ease, text-shadow 0.5s ease;
+}
+
+.lv-hero-rotating-phrase.visible {
+  opacity: 1;
+}
+
 .lv-hero-sub {
   font-family: var(--font-family-base);
   font-size: 1.2rem;
@@ -6187,6 +6203,10 @@ svg {
 
 /* Tablet / smaller screens */
 @media (max-width: 1023px) {
+  .lv-hero-rotating-phrase {
+    font-size: 1.6rem;
+  }
+  
   .lv-hero-sub {
     font-size: 1rem;
     line-height: 1.45;
@@ -6221,6 +6241,11 @@ svg {
 
   .lv-hero-dynamic-word {
     min-width: 90px;
+  }
+  
+  .lv-hero-rotating-phrase {
+    font-size: 1.25rem;
+    margin: 0.3rem 0 0 0;
   }
   
   .lv-hero-sub {
