@@ -21,10 +21,9 @@ export default function HomeHero() {
       <div className="lv-hero-overlay" />
 
       <div className="lv-hero-copy">
-        <h1 className="lv-hero-title">The Smoothie Season with DRIZZL</h1>
+        <h1 className="lv-hero-title">Fall in Love with Smoothies Again.</h1>
         <p className="lv-hero-sub">
-          Be inspired by our selection of<br />
-          wellness smoothies this season.
+          Because being healthy shouldn't suck.
         </p>
       </div>
     </section>
