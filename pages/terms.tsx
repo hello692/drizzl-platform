@@ -20,7 +20,7 @@ export default function TermsOfService() {
             fontSize: '48px',
             fontWeight: '700',
             marginBottom: '16px',
-            fontFamily: "'DM Sans', sans-serif",
+            
             color: '#000',
           }}>
             Terms of Service
@@ -85,7 +85,7 @@ export default function TermsOfService() {
               fontSize: '24px',
               fontWeight: '600',
               marginBottom: '16px',
-              fontFamily: "'DM Sans', sans-serif",
+              
               color: '#000',
             }}>
               1. Legal Age, Capacity & Household Use
@@ -108,7 +108,7 @@ export default function TermsOfService() {
               fontSize: '24px',
               fontWeight: '600',
               marginBottom: '16px',
-              fontFamily: "'DM Sans', sans-serif",
+              
               color: '#000',
             }}>
               2. Age-Restricted Supplement Commerce (Mandatory)
@@ -154,7 +154,7 @@ export default function TermsOfService() {
               fontSize: '24px',
               fontWeight: '600',
               marginBottom: '16px',
-              fontFamily: "'DM Sans', sans-serif",
+              
               color: '#000',
             }}>
               3. Incorporated Policies
@@ -185,7 +185,7 @@ export default function TermsOfService() {
               fontSize: '24px',
               fontWeight: '600',
               marginBottom: '16px',
-              fontFamily: "'DM Sans', sans-serif",
+              
               color: '#000',
             }}>
               4. Binding Arbitration & Class Action Waiver (Global Standard)
@@ -218,7 +218,7 @@ export default function TermsOfService() {
               fontSize: '24px',
               fontWeight: '600',
               marginBottom: '16px',
-              fontFamily: "'DM Sans', sans-serif",
+              
               color: '#000',
             }}>
               5. Modifications
@@ -237,7 +237,7 @@ export default function TermsOfService() {
               fontSize: '24px',
               fontWeight: '600',
               marginBottom: '16px',
-              fontFamily: "'DM Sans', sans-serif",
+              
               color: '#000',
             }}>
               6. Description of Services
@@ -277,7 +277,7 @@ export default function TermsOfService() {
               fontSize: '24px',
               fontWeight: '600',
               marginBottom: '16px',
-              fontFamily: "'DM Sans', sans-serif",
+              
               color: '#000',
             }}>
               7. Account Responsibility & Security
@@ -307,7 +307,7 @@ export default function TermsOfService() {
               fontSize: '24px',
               fontWeight: '600',
               marginBottom: '16px',
-              fontFamily: "'DM Sans', sans-serif",
+              
               color: '#000',
             }}>
               8. Electronic & SMS Communications
@@ -346,7 +346,7 @@ export default function TermsOfService() {
               fontSize: '24px',
               fontWeight: '600',
               marginBottom: '16px',
-              fontFamily: "'DM Sans', sans-serif",
+              
               color: '#000',
             }}>
               9. Purchases, Subscriptions & Billing
@@ -369,7 +369,7 @@ export default function TermsOfService() {
               fontSize: '24px',
               fontWeight: '600',
               marginBottom: '16px',
-              fontFamily: "'DM Sans', sans-serif",
+              
               color: '#000',
             }}>
               10. Shipping, Delivery & Food Safety
@@ -394,7 +394,7 @@ export default function TermsOfService() {
               fontSize: '24px',
               fontWeight: '600',
               marginBottom: '16px',
-              fontFamily: "'DM Sans', sans-serif",
+              
               color: '#000',
             }}>
               11. No Resale
@@ -413,7 +413,7 @@ export default function TermsOfService() {
               fontSize: '24px',
               fontWeight: '600',
               marginBottom: '16px',
-              fontFamily: "'DM Sans', sans-serif",
+              
               color: '#000',
             }}>
               12. Returns & Accommodations
@@ -432,7 +432,7 @@ export default function TermsOfService() {
               fontSize: '24px',
               fontWeight: '600',
               marginBottom: '16px',
-              fontFamily: "'DM Sans', sans-serif",
+              
               color: '#000',
             }}>
               13. Intellectual Property
@@ -458,7 +458,7 @@ export default function TermsOfService() {
               fontSize: '24px',
               fontWeight: '600',
               marginBottom: '16px',
-              fontFamily: "'DM Sans', sans-serif",
+              
               color: '#000',
             }}>
               14. User Content & Feedback
@@ -477,7 +477,7 @@ export default function TermsOfService() {
               fontSize: '24px',
               fontWeight: '600',
               marginBottom: '16px',
-              fontFamily: "'DM Sans', sans-serif",
+              
               color: '#000',
             }}>
               15. Global Disclaimers (Food + Supplements)
@@ -522,7 +522,7 @@ export default function TermsOfService() {
               fontSize: '24px',
               fontWeight: '600',
               marginBottom: '16px',
-              fontFamily: "'DM Sans', sans-serif",
+              
               color: '#000',
             }}>
               16. Limitation of Liability
@@ -553,7 +553,7 @@ export default function TermsOfService() {
               fontSize: '24px',
               fontWeight: '600',
               marginBottom: '16px',
-              fontFamily: "'DM Sans', sans-serif",
+              
               color: '#000',
             }}>
               17. Indemnification
@@ -583,7 +583,7 @@ export default function TermsOfService() {
               fontSize: '24px',
               fontWeight: '600',
               marginBottom: '16px',
-              fontFamily: "'DM Sans', sans-serif",
+              
               color: '#000',
             }}>
               18. Governing Law & Venue
@@ -605,7 +605,7 @@ export default function TermsOfService() {
               fontSize: '28px',
               fontWeight: '600',
               marginBottom: '16px',
-              fontFamily: "'DM Sans', sans-serif",
+              
               color: '#000',
             }}>
               Cookie Policy (Global)
@@ -643,7 +643,7 @@ export default function TermsOfService() {
               fontSize: '24px',
               fontWeight: '600',
               marginBottom: '16px',
-              fontFamily: "'DM Sans', sans-serif",
+              
               color: '#000',
             }}>
               GDPR & CCPA Data Rights Compliance
@@ -693,7 +693,7 @@ export default function TermsOfService() {
               fontSize: '24px',
               fontWeight: '600',
               marginBottom: '16px',
-              fontFamily: "'DM Sans', sans-serif",
+              
               color: '#000',
             }}>
               19. Accessibility
@@ -712,7 +712,7 @@ export default function TermsOfService() {
               fontSize: '24px',
               fontWeight: '600',
               marginBottom: '16px',
-              fontFamily: "'DM Sans', sans-serif",
+              
               color: '#000',
             }}>
               20. Entire Agreement

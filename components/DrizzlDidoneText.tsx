@@ -79,7 +79,7 @@ export default function DrizzlDidoneText({
         className={className} 
         style={{ 
           fontSize: size, 
-          fontFamily: "'Bodoni Moda', 'Didot', Georgia, serif",
+          
           color 
         }}
       >

@@ -20,7 +20,7 @@ export default function SupplierCodeOfConduct() {
             fontSize: '48px',
             fontWeight: '700',
             marginBottom: '16px',
-            fontFamily: "'DM Sans', sans-serif",
+            
             color: '#000',
           }}>
             Supplier Code of Conduct
@@ -48,7 +48,7 @@ export default function SupplierCodeOfConduct() {
               fontSize: '24px',
               fontWeight: '600',
               marginBottom: '16px',
-              fontFamily: "'DM Sans', sans-serif",
+              
               color: '#000',
             }}>
               1. Our Commitment
@@ -92,7 +92,7 @@ export default function SupplierCodeOfConduct() {
               fontSize: '24px',
               fontWeight: '600',
               marginBottom: '16px',
-              fontFamily: "'DM Sans', sans-serif",
+              
               color: '#000',
             }}>
               2. Scope & Supplier Responsibility
@@ -143,7 +143,7 @@ export default function SupplierCodeOfConduct() {
               fontSize: '24px',
               fontWeight: '600',
               marginBottom: '16px',
-              fontFamily: "'DM Sans', sans-serif",
+              
               color: '#000',
             }}>
               3. Human Rights & Labor Standards
@@ -197,7 +197,7 @@ export default function SupplierCodeOfConduct() {
               fontSize: '24px',
               fontWeight: '600',
               marginBottom: '16px',
-              fontFamily: "'DM Sans', sans-serif",
+              
               color: '#000',
             }}>
               4. Environmental Protection
@@ -230,7 +230,7 @@ export default function SupplierCodeOfConduct() {
               fontSize: '24px',
               fontWeight: '600',
               marginBottom: '16px',
-              fontFamily: "'DM Sans', sans-serif",
+              
               color: '#000',
             }}>
               5. Ethical Business Conduct
@@ -266,7 +266,7 @@ export default function SupplierCodeOfConduct() {
               fontSize: '24px',
               fontWeight: '600',
               marginBottom: '16px',
-              fontFamily: "'DM Sans', sans-serif",
+              
               color: '#000',
             }}>
               6. Monitoring, Audits & Compliance
@@ -303,7 +303,7 @@ export default function SupplierCodeOfConduct() {
               fontSize: '24px',
               fontWeight: '600',
               marginBottom: '16px',
-              fontFamily: "'DM Sans', sans-serif",
+              
               color: '#000',
             }}>
               7. Continuous Improvement
@@ -334,7 +334,7 @@ export default function SupplierCodeOfConduct() {
               fontSize: '24px',
               fontWeight: '600',
               marginBottom: '16px',
-              fontFamily: "'DM Sans', sans-serif",
+              
               color: '#000',
             }}>
               Effective Governance

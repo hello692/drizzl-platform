@@ -20,7 +20,7 @@ export default function SupplyChainTransparency() {
             fontSize: '48px',
             fontWeight: '700',
             marginBottom: '16px',
-            fontFamily: "'DM Sans', sans-serif",
+            
             color: '#000',
           }}>
             Supply Chain Transparency
@@ -57,7 +57,7 @@ export default function SupplyChainTransparency() {
               fontSize: '24px',
               fontWeight: '600',
               marginBottom: '16px',
-              fontFamily: "'DM Sans', sans-serif",
+              
               color: '#000',
             }}>
               Our Commitment
@@ -77,7 +77,7 @@ export default function SupplyChainTransparency() {
               fontSize: '24px',
               fontWeight: '600',
               marginBottom: '16px',
-              fontFamily: "'DM Sans', sans-serif",
+              
               color: '#000',
             }}>
               Supplier Verification
@@ -97,7 +97,7 @@ export default function SupplyChainTransparency() {
               fontSize: '24px',
               fontWeight: '600',
               marginBottom: '16px',
-              fontFamily: "'DM Sans', sans-serif",
+              
               color: '#000',
             }}>
               Audits & Compliance
@@ -117,7 +117,7 @@ export default function SupplyChainTransparency() {
               fontSize: '24px',
               fontWeight: '600',
               marginBottom: '16px',
-              fontFamily: "'DM Sans', sans-serif",
+              
               color: '#000',
             }}>
               Training & Continuous Improvement

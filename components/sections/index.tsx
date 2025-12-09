@@ -132,7 +132,7 @@ export function FeatureGrid({
           </div>
           <h5 
             style={{
-              fontFamily: 'var(--font-display)',
+              
               fontSize: 'var(--h5-size)',
               fontWeight: 'var(--h-weight)',
               lineHeight: 1.25,
@@ -145,7 +145,7 @@ export function FeatureGrid({
           </h5>
           <p 
             style={{
-              fontFamily: 'var(--font-text)',
+              
               fontSize: 'var(--text-body-sm)',
               lineHeight: 1.5,
               color: 'var(--text-secondary)',
@@ -327,7 +327,7 @@ export function StepSection({ steps, className = '' }: StepSectionProps) {
           >
             <div 
               style={{
-                fontFamily: 'var(--font-display)',
+                
                 fontSize: 'clamp(48px, 8vw, 80px)',
                 fontWeight: 600,
                 color: 'var(--text-subtle)',
@@ -352,7 +352,7 @@ export function StepSection({ steps, className = '' }: StepSectionProps) {
             )}
             <h5 
               style={{
-                fontFamily: 'var(--font-display)',
+                
                 fontSize: 'var(--h5-size)',
                 fontWeight: 600,
                 color: 'var(--text-main)',
@@ -363,7 +363,7 @@ export function StepSection({ steps, className = '' }: StepSectionProps) {
             </h5>
             <p 
               style={{
-                fontFamily: 'var(--font-text)',
+                
                 fontSize: 'var(--text-body-sm)',
                 color: 'var(--text-secondary)',
                 lineHeight: 1.6,
@@ -448,7 +448,7 @@ export function ComparisonTable({
                   padding: 'var(--space-4) var(--space-6)',
                   textAlign: 'center',
                   borderBottom: '1px solid var(--border-default)',
-                  fontFamily: 'var(--font-display)',
+                  
                   fontSize: 'var(--text-body)',
                   fontWeight: 600,
                   color: 'var(--text-main)'
@@ -466,7 +466,7 @@ export function ComparisonTable({
                 style={{
                   padding: 'var(--space-4) var(--space-6)',
                   borderBottom: '1px solid var(--border-subtle)',
-                  fontFamily: 'var(--font-text)',
+                  
                   fontSize: 'var(--text-body-sm)',
                   color: 'var(--text-secondary)'
                 }}
@@ -489,7 +489,7 @@ export function ComparisonTable({
                     ) : (
                       <span 
                         style={{
-                          fontFamily: 'var(--font-text)',
+                          
                           fontSize: 'var(--text-body-sm)',
                           color: 'var(--text-main)'
                         }}

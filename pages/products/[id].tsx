@@ -1094,7 +1094,6 @@ export default function ProductPage() {
     <div style={{ 
       backgroundColor: apple.bgPrimary, 
       minHeight: '100vh',
-      fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", sans-serif',
     }}>
       <Navbar />
       

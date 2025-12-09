@@ -88,7 +88,7 @@ export default function AuthForm() {
           letterSpacing: '0.2px',
           color: '#1a1a1a',
           textAlign: 'center',
-          fontFamily: "'DM Sans', sans-serif",
+          
         }}>
           Welcome
         </h2>

@@ -593,11 +593,10 @@ export default function Home() {
                 <div style={{ textAlign: 'center' }}>
                   <div style={{
                     fontSize: '48px',
-                    fontWeight: 600,
+                    fontWeight: 300,
                     color: 'rgba(255,255,255,0.1)',
                     lineHeight: 1,
                     marginBottom: '24px',
-                    fontFamily: 'var(--font-display)',
                   }}>
                     {item.step}
                   </div>

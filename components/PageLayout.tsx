@@ -77,7 +77,7 @@ export function PageHero({
       
       <AnimatedSection animation="fadeUp" delay={badge ? 100 : 0}>
         <h1 className="tiktok-heading tiktok-heading-gradient" style={{
-          fontFamily: "'Space Mono', monospace",
+          
           textAlign: 'center',
         }}>
           {title}
