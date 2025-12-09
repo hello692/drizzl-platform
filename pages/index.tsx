@@ -744,9 +744,12 @@ export default function Home() {
       {/* Customer Reviews Section */}
       <section className="video-section">
         <div className="video-section-container">
-          <h2 className="video-section-title" style={{ marginBottom: 'clamp(32px, 5vw, 56px)' }}>
+          <h2 className="video-section-title">
             A Fan Favorite
           </h2>
+          <p className="video-section-subtitle">
+            Because being loved this much should be illegal.
+          </p>
 
           <div className="video-carousel-wrapper">
             <button
