@@ -73,7 +73,7 @@ export default function HomeHero() {
           .
         </h2>
         <p className="lv-hero-sub">
-          Because being healthy shouldn't suck—Drizzl Wellness makes it worth craving.
+          Close your eyes. Take a sip. Feel it. That rush of flavor, that moment of calm, that little voice saying "yes, this is exactly what I needed." This isn't just a smoothie — it's your moment. Your ritual. Your daily act of self-love.
         </p>
         <a href="/products" className="lv-hero-cta">
           Smooch it on
