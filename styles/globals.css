@@ -5671,15 +5671,17 @@ svg {
   min-height: 100vh;
   padding-top: 16px;
   margin-top: 0;
+  overflow-x: hidden;
 }
 
 .lv-product-main {
   display: grid;
-  grid-template-columns: 58% 42%;
-  gap: 24px;
-  max-width: 1500px;
-  margin: 0 auto;
+  grid-template-columns: 55% 45%;
+  gap: 0;
+  max-width: 100%;
+  margin: 0;
   align-items: flex-start;
+  background: #ffffff;
 }
 
 /* Left Column - Vertical Scrolling Image Gallery */
@@ -5738,48 +5740,54 @@ svg {
 /* Right Column - Sticky Product Info Panel */
 .lv-product-info {
   position: sticky;
-  top: 16px;
+  top: 0;
   align-self: flex-start;
-  height: calc(100vh - 16px);
+  height: 100vh;
   overflow-y: auto;
-  padding: 0 48px 48px 24px;
+  padding: 80px 60px 48px 48px;
   margin-top: 0;
   background: #ffffff;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.lv-product-info::-webkit-scrollbar {
+  display: none;
 }
 
 .lv-product-info-inner {
-  max-width: 400px;
+  max-width: 380px;
 }
 
 .lv-product-name {
-  font-size: 32px;
+  font-size: 36px;
   font-weight: 500;
   color: #111111;
-  margin: 0 0 8px 0;
-  letter-spacing: -0.01em;
-  line-height: 1.2;
+  margin: 0 0 6px 0;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
 }
 
 .lv-product-subtitle {
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 400;
   color: #666666;
-  margin: 0 0 20px 0;
+  margin: 0 0 18px 0;
   line-height: 1.5;
 }
 
 .lv-product-price {
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 500;
   color: #111111;
-  margin: 0 0 16px 0;
+  margin: 0 0 12px 0;
 }
 
 .lv-product-rating {
   display: flex;
   align-items: center;
-  gap: 8px;
-  margin-bottom: 28px;
+  gap: 6px;
+  margin-bottom: 24px;
 }
 
 .lv-stars {
@@ -5841,21 +5849,21 @@ svg {
 
 .lv-divider {
   height: 1px;
-  background: #e5e5e5;
-  margin: 24px 0;
+  background: #e8e8e8;
+  margin: 20px 0;
 }
 
 /* Accordion Styles */
 .lv-accordion {
-  margin-bottom: 24px;
+  margin-bottom: 20px;
 }
 
 .lv-accordion-item {
-  border-top: 1px solid #e5e5e5;
+  border-top: 1px solid #e8e8e8;
 }
 
 .lv-accordion-item:last-child {
-  border-bottom: 1px solid #e5e5e5;
+  border-bottom: 1px solid #e8e8e8;
 }
 
 .lv-accordion-header {
@@ -5863,7 +5871,7 @@ svg {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 16px 0;
+  padding: 14px 0;
   background: none;
   border: none;
   cursor: pointer;
@@ -5964,6 +5972,7 @@ svg {
 @media (max-width: 1024px) {
   .lv-product-main {
     grid-template-columns: 1fr;
+    gap: 0;
   }
   
   .lv-product-info {
@@ -5971,7 +5980,13 @@ svg {
     top: 0;
     height: auto;
     overflow: visible;
-    padding: 32px 24px 48px;
+    padding: 32px 32px 48px;
+    scrollbar-width: auto;
+    -ms-overflow-style: auto;
+  }
+  
+  .lv-product-info::-webkit-scrollbar {
+    display: block;
   }
   
   .lv-product-info-inner {
@@ -5980,6 +5995,14 @@ svg {
   
   .lv-gallery-image-wrapper {
     min-height: 400px;
+  }
+  
+  .lv-product-gallery {
+    margin-top: 0;
+  }
+  
+  .lv-gallery-image-wrapper:first-child .lv-gallery-image {
+    margin-top: 0;
   }
 }
 
@@ -5990,7 +6013,7 @@ svg {
   }
   
   .lv-product-info {
-    padding: 24px 16px 40px;
+    padding: 24px 20px 40px;
   }
   
   .lv-product-name {
