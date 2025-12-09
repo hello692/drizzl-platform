@@ -6229,8 +6229,11 @@ svg {
 }
 
 .lv-hero-line2 {
-  display: block;
-  margin-top: 0;
+  display: inline-flex;
+  align-items: baseline;
+  justify-content: center;
+  width: 100%;
+  gap: 0.25em;
 }
 
 .lv-hero-dynamic-word {

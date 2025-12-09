@@ -59,7 +59,7 @@ export default function HomeHero() {
         <h1 className="lv-hero-title">
           <span className="lv-hero-line1">Smoothies you want to kiss</span>
           <span className="lv-hero-line2">
-            {' '}and feel{' '}
+            and feel{' '}
             <span 
               className={`lv-hero-dynamic-word ${isVisible ? 'visible' : ''}`}
               style={{ 
