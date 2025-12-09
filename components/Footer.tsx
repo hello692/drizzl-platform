@@ -103,14 +103,16 @@ export default function Footer() {
         </div>
 
         <div className="footer-newsletter-section">
-          <h3 className="footer-newsletter-title">Stay in the Loop</h3>
-          <p className="footer-newsletter-text">
-            Get wellness updates and exclusive offers.
-          </p>
+          <div className="footer-newsletter-content">
+            <h3 className="footer-newsletter-title">Stay in the loop</h3>
+            <p className="footer-newsletter-text">
+              Wellness updates and exclusive offers.
+            </p>
+          </div>
           <div className="footer-newsletter-form">
             <input
               type="email"
-              placeholder="Email"
+              placeholder="Enter your email"
               className="footer-newsletter-input"
             />
             <button className="footer-newsletter-btn">
