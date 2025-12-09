@@ -3271,36 +3271,36 @@ svg {
 }
 
 .drizzl-kiss-title {
-  font-family: var(--font-family-base) !important;
-  font-size: clamp(28px, 5vw, 52px);
-  font-weight: var(--fw-semibold);
-  color: #ffffff;
-  letter-spacing: -0.02em;
-  line-height: var(--lh-tight);
+  font-family: var(--font-family-base);
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  font-weight: var(--fw-light);
+  color: var(--color-text-primary);
+  letter-spacing: -0.03em;
+  line-height: 1.1;
   margin-bottom: clamp(16px, 3vw, 24px);
 }
 
 .drizzl-kiss-subtitle,
 .drizzl-kiss-tagline {
-  font-family: var(--font-family-base) !important;
+  font-family: var(--font-family-base);
 }
 
 .drizzl-kiss-subtitle {
-  font-family: var(--font-family-base) !important;
-  font-size: clamp(15px, 2vw, 18px);
+  font-family: var(--font-family-base);
+  font-size: clamp(0.9rem, 1.4vw, 1rem);
   font-weight: var(--fw-regular);
-  color: rgba(255, 255, 255, 0.7);
-  line-height: var(--lh-relaxed);
-  letter-spacing: 0;
+  color: rgba(255, 255, 255, 0.65);
+  line-height: 1.6;
+  letter-spacing: 0.01em;
   margin-bottom: clamp(20px, 3vw, 32px);
 }
 
 .drizzl-kiss-tagline {
-  font-family: var(--font-family-base) !important;
-  font-size: clamp(16px, 2.5vw, 22px);
-  font-weight: var(--fw-medium);
+  font-family: var(--font-family-base);
+  font-size: clamp(0.95rem, 1.5vw, 1.1rem);
+  font-weight: var(--fw-regular);
   color: #E85A71;
-  letter-spacing: 0;
+  letter-spacing: 0.01em;
 }
 
 /* Carousel Section */
