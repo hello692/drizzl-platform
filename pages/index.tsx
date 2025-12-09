@@ -671,13 +671,13 @@ export default function Home() {
       <section className="video-section">
         <div className="video-section-container">
           <p className="video-section-eyebrow">
-            OVER 50K FIVE STAR REVIEWS
+            Over 50K Five-Star Reviews
           </p>
           <h2 className="video-section-title">
             Trusted by Experts
           </h2>
           <p className="video-section-subtitle">
-            See what healthcare professionals are saying.
+            Hear why healthcare professionals swear by us.
           </p>
 
           <div className="video-carousel-wrapper">
