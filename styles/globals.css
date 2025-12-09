@@ -6073,6 +6073,31 @@ svg {
   white-space: nowrap;
 }
 
+.lv-hero-affirmation {
+  font-family: var(--font-family-base);
+  font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+  font-weight: 300;
+  letter-spacing: -0.01em;
+  color: #ffffff;
+  margin: 0 0 16px;
+  min-height: 1.6em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lv-hero-cursor {
+  display: inline-block;
+  margin-left: 2px;
+  font-weight: 100;
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
 .lv-hero-sub {
   font-family: var(--font-family-base);
   font-size: clamp(0.85rem, 1.3vw, 0.95rem);
