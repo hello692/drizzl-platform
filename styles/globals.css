@@ -96,27 +96,26 @@
   --bp-ipad-pro: 1024px;
   --bp-nest-hub-max: 1280px;
   
-  /* Spacing Scale - Vertical Rhythm */
+  /* Spacing Scale - Divine Engineering Compact */
   --space-xs: 4px;
-  --space-sm: 8px;
-  --space-md: 16px;
-  --space-lg: 24px;
-  --space-xl: 32px;
-  --space-2xl: 48px;
-  --space-3xl: 64px;
-  --space-4xl: 80px;
-  --space-5xl: 120px;
+  --space-sm: 6px;
+  --space-md: 12px;
+  --space-lg: 18px;
+  --space-xl: 24px;
+  --space-2xl: 36px;
+  --space-3xl: 48px;
+  --space-4xl: 64px;
+  --space-5xl: 80px;
   
-  /* Section Padding - Responsive defaults */
-  --section-padding-y: clamp(80px, 10vw, 120px);
-  --section-padding-x: clamp(24px, 6vw, 100px);
+  /* Section Padding - Compact Divine Engineering */
+  --section-padding-y: clamp(40px, 5vw, 64px);
+  --section-padding-x: clamp(20px, 4vw, 48px);
   
-  /* Container - Unified System for Widescreen Alignment */
-  /* Generous edge spacing for Apple-level visual polish */
-  --container-max: 1400px;
-  --container-narrow: 1120px;
-  --container-padding: clamp(24px, 6vw, 100px);
-  --container-padding-tight: clamp(20px, 4vw, 60px);
+  /* Container - Tight Purposeful Alignment */
+  --container-max: 1200px;
+  --container-narrow: 960px;
+  --container-padding: clamp(20px, 4vw, 48px);
+  --container-padding-tight: clamp(16px, 3vw, 36px);
   
   /* Touch Target Minimum (WCAG 2.1 AA) */
   --touch-target-min: 48px;
@@ -133,24 +132,24 @@
      Based on product card reference layout
      ============================================ */
   
-  /* Card Dimensions - Reference: Product Cards */
-  --card-width: clamp(180px, 18vw, 240px);
-  --card-height: clamp(260px, 26vw, 340px);
-  --card-min-height: 260px;
+  /* Card Dimensions - Compact Divine Engineering */
+  --card-width: clamp(160px, 16vw, 220px);
+  --card-height: clamp(220px, 22vw, 300px);
+  --card-min-height: 220px;
   
-  /* Card Radius - Consistent rounded corners */
-  --card-radius: 20px;
-  --card-radius-sm: 14px;
-  --card-radius-inner: 12px;
+  /* Card Radius - Refined corners */
+  --card-radius: 16px;
+  --card-radius-sm: 12px;
+  --card-radius-inner: 10px;
   
-  /* Card Padding - Internal spacing */
-  --card-padding: clamp(16px, 2vw, 24px);
-  --card-padding-sm: clamp(12px, 1.5vw, 16px);
-  --card-padding-xs: clamp(8px, 1vw, 12px);
+  /* Card Padding - Tight purposeful */
+  --card-padding: clamp(12px, 1.5vw, 18px);
+  --card-padding-sm: clamp(10px, 1.2vw, 14px);
+  --card-padding-xs: clamp(6px, 0.8vw, 10px);
   
-  /* Card Gap - Space between cards in grids */
-  --card-gap: clamp(16px, 2vw, 24px);
-  --card-gap-sm: clamp(12px, 1.5vw, 16px);
+  /* Card Gap - Close-knit grids */
+  --card-gap: clamp(12px, 1.5vw, 18px);
+  --card-gap-sm: clamp(8px, 1vw, 12px);
   
   /* Card Shadows */
   --card-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
