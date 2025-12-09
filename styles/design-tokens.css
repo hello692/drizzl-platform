@@ -9,9 +9,9 @@
      TYPOGRAPHY
      ========================================== */
   
-  /* Font Families */
-  --font-display: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Inter', 'Segoe UI', Roboto, sans-serif;
-  --font-text: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Inter', 'Segoe UI', Roboto, sans-serif;
+  /* Font Families - ROOT AUTHORITY: Inter Only */
+  --font-display: "Inter", sans-serif;
+  --font-text: "Inter", sans-serif;
   
   /* Heading Sizes */
   --h1-size: clamp(40px, 8vw, 80px);

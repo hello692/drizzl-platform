@@ -6145,10 +6145,94 @@ nav, .navbar, .menu, .dropdown, .dropdown-menu,
 }
 
 /* ============================================
-   UNIVERSAL FONT OVERRIDE
-   Ensures ALL elements use Inter
+   ROOT AUTHORITY - MASTER TYPOGRAPHY LAW
+   ============================================
+   
+   THE ONLY TRUTH: "Inter", sans-serif
+   
+   This section is SELF-ENFORCING.
+   Nothing overrides it. Ever.
+   
    ============================================ */
 
-* {
-  font-family: var(--font-family-base) !important;
+/* LEVEL 1: Universal Selector Override */
+*,
+*::before,
+*::after {
+  font-family: "Inter", sans-serif !important;
 }
+
+/* LEVEL 2: All Element Types - Explicit Override */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center, dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend, table, caption,
+tbody, tfoot, thead, tr, th, td, article, aside,
+canvas, details, embed, figure, figcaption, footer,
+header, hgroup, menu, nav, output, ruby, section,
+summary, time, mark, audio, video, main {
+  font-family: "Inter", sans-serif !important;
+}
+
+/* LEVEL 3: Interactive Elements - Absolute */
+button, input, select, textarea, optgroup {
+  font-family: "Inter", sans-serif !important;
+}
+
+/* LEVEL 4: Framework Override - React/Next/Shadow DOM */
+[class*="MuiTypography"],
+[class*="chakra"],
+[class*="ant-"],
+[class*="rc-"],
+[class*="styled-"],
+[data-testid],
+[data-component] {
+  font-family: "Inter", sans-serif !important;
+}
+
+/* LEVEL 5: Attribute Selector Cleanup */
+[style*="font-family"] {
+  font-family: "Inter", sans-serif !important;
+}
+
+/* ============================================
+   TYPOGRAPHY HIERARCHY - The Law
+   ============================================ */
+
+/* HEADINGS: Light weight, tight tracking */
+h1, h2, h3 {
+  font-weight: 300 !important;
+  letter-spacing: -0.03em !important;
+  line-height: 1.1 !important;
+}
+
+h4, h5, h6 {
+  font-weight: 400 !important;
+  letter-spacing: -0.02em !important;
+  line-height: 1.2 !important;
+}
+
+/* BODY: Clean and readable */
+p, span, div, li, td, th, label {
+  font-weight: 400 !important;
+  line-height: 1.6 !important;
+}
+
+/* CTA + MENU: Consistent weight */
+button, a, nav, .menu, .nav-link {
+  font-weight: 500 !important;
+  letter-spacing: 0.02em !important;
+}
+
+/* Small text / labels */
+small, .label, .caption, figcaption {
+  font-weight: 400 !important;
+  letter-spacing: 0.01em !important;
+}
+
+/* ============================================
+   END ROOT AUTHORITY
+   ============================================ */
