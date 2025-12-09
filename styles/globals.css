@@ -5985,7 +5985,7 @@ svg {
 }
 
 .lv-header-logo {
-  height: 40px;
+  height: 48px;
   width: auto;
   filter: brightness(0) invert(1);
 }
@@ -6128,7 +6128,7 @@ svg {
   }
   
   .lv-header-logo {
-    height: 24px;
+    height: 32px;
   }
 
   .lv-hero-title {
