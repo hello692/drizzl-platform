@@ -219,26 +219,26 @@ export default function Home() {
   }, [currentWordIndex]);
 
   const sectionStyles = {
-    padding: 'var(--section-padding-y) var(--section-padding-x)',
-    maxWidth: '1280px',
+    padding: 'clamp(36px, 5vw, 56px) clamp(20px, 4vw, 40px)',
+    maxWidth: '1200px',
     margin: '0 auto',
   };
 
   const headingStyles = {
-    fontSize: 'clamp(1.8rem, 4vw, 2.6rem)',
+    fontSize: 'clamp(1.6rem, 3.5vw, 2.2rem)',
     fontWeight: 300,
-    lineHeight: 1.1,
-    letterSpacing: '-0.03em',
+    lineHeight: 1.12,
+    letterSpacing: '-0.025em',
     color: '#ffffff',
-    marginBottom: 'var(--space-after-h2)',
+    marginBottom: '12px',
   };
 
   const subheadingStyles = {
-    fontSize: 'clamp(0.9rem, 1.4vw, 1rem)',
+    fontSize: 'clamp(0.85rem, 1.3vw, 0.95rem)',
     fontWeight: 400,
-    lineHeight: 1.6,
-    color: 'rgba(255,255,255,0.65)',
-    maxWidth: 'var(--text-max-width)',
+    lineHeight: 1.55,
+    color: 'rgba(255,255,255,0.6)',
+    maxWidth: '560px',
   };
 
   return (
@@ -251,10 +251,10 @@ export default function Home() {
       {/* 2. Feature Banner - Scrolling Marquee */}
       <div style={{
         background: '#000000',
-        borderTop: '1px solid rgba(255,255,255,0.08)',
-        borderBottom: '1px solid rgba(255,255,255,0.08)',
+        borderTop: '1px solid rgba(255,255,255,0.06)',
+        borderBottom: '1px solid rgba(255,255,255,0.06)',
         overflow: 'hidden',
-        padding: '18px 0',
+        padding: '12px 0',
       }}>
         <div 
           style={{
@@ -289,8 +289,8 @@ export default function Home() {
       {/* Press Logos Marquee */}
       <div style={{
         background: '#000000',
-        padding: '24px 0',
-        borderBottom: '1px solid rgba(255,255,255,0.08)',
+        padding: '16px 0',
+        borderBottom: '1px solid rgba(255,255,255,0.06)',
         overflow: 'hidden',
       }}>
         <div 
@@ -362,14 +362,14 @@ export default function Home() {
       {/* 3. Why Drizzl Section */}
       <section style={{
         background: '#000000',
-        padding: 'clamp(80px, 12vw, 140px) clamp(24px, 6vw, 100px)',
+        padding: 'clamp(40px, 6vw, 64px) clamp(20px, 4vw, 48px)',
       }}>
         <div style={{
-          maxWidth: '1280px',
+          maxWidth: '1100px',
           margin: '0 auto',
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 480px), 1fr))',
-          gap: 'clamp(48px, 8vw, 80px)',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 420px), 1fr))',
+          gap: 'clamp(32px, 5vw, 48px)',
           alignItems: 'center',
         }}>
           <AnimatedSection animation="fadeUp">
@@ -481,11 +481,11 @@ export default function Home() {
       {/* 4. Benefits Grid */}
       <section style={{
         background: '#0a0a0a',
-        padding: 'var(--section-padding-y) var(--section-padding-x)',
+        padding: 'clamp(36px, 5vw, 56px) clamp(20px, 4vw, 40px)',
       }}>
-        <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
+        <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
           <AnimatedSection animation="fadeUp">
-            <div style={{ textAlign: 'center', marginBottom: 'clamp(48px, 6vw, 64px)' }}>
+            <div style={{ textAlign: 'center', marginBottom: 'clamp(28px, 4vw, 40px)' }}>
               <h2 style={{
                 ...headingStyles,
                 marginBottom: 'var(--space-after-h2)',
@@ -503,28 +503,28 @@ export default function Home() {
           
           <div style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))',
-            gap: '24px',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 260px), 1fr))',
+            gap: '16px',
             alignItems: 'stretch',
           }}>
             {BENEFITS.map((benefit, index) => (
-              <AnimatedSection key={index} animation="fadeUp" delay={index * 100} style={{ height: '100%' }}>
+              <AnimatedSection key={index} animation="fadeUp" delay={index * 80} style={{ height: '100%' }}>
                 <div style={{
                   background: 'transparent',
-                  border: '1px solid rgba(255,255,255,0.08)',
-                  borderRadius: '16px',
-                  padding: '32px 24px',
+                  border: '1px solid rgba(255,255,255,0.06)',
+                  borderRadius: '14px',
+                  padding: '24px 20px',
                   textAlign: 'center',
                   transition: 'all 0.2s ease',
                   height: '100%',
-                  minHeight: '280px',
+                  minHeight: '240px',
                   display: 'flex',
                   flexDirection: 'column',
                   alignItems: 'center',
                   boxSizing: 'border-box',
                 }}>
                   <div style={{
-                    width: '64px',
+                    width: '56px',
                     height: '64px',
                     background: 'rgba(255,255,255,0.05)',
                     borderRadius: '50%',

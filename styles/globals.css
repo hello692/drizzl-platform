@@ -3109,14 +3109,14 @@ svg {
    DRIZZL KISS SECTION - Brand Statement
    ============================================ */
 .drizzl-kiss-section {
-  padding: clamp(80px, 12vw, 160px) 0;
+  padding: clamp(48px, 7vw, 80px) 0;
   background: #000000;
   border-top: 1px solid rgba(255,255,255,0.06);
   overflow: hidden;
 }
 
 .drizzl-kiss-container {
-  max-width: 1400px;
+  max-width: 1100px;
   margin: 0 auto;
   padding: 0 var(--container-padding);
 }
@@ -3126,7 +3126,7 @@ svg {
   flex-direction: column;
   align-items: center;
   text-align: center;
-  gap: clamp(32px, 5vw, 48px);
+  gap: clamp(20px, 3vw, 32px);
 }
 
 .drizzl-kiss-gif-wrapper {
@@ -3135,9 +3135,9 @@ svg {
 }
 
 .drizzl-kiss-gif {
-  width: clamp(168px, 28vw, 280px);
+  width: clamp(140px, 22vw, 220px);
   height: auto;
-  filter: drop-shadow(0 0 60px rgba(232, 90, 113, 0.4));
+  filter: drop-shadow(0 0 48px rgba(232, 90, 113, 0.4));
   animation: kissFloat 4s ease-in-out infinite, kissShimmer 3s ease-in-out infinite;
   position: relative;
   z-index: 2;
@@ -3285,17 +3285,17 @@ svg {
 }
 
 .drizzl-kiss-text {
-  max-width: 680px;
+  max-width: 580px;
 }
 
 .drizzl-kiss-title {
   font-family: var(--font-family-base);
-  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  font-size: clamp(1.5rem, 3.5vw, 2.2rem);
   font-weight: var(--fw-light);
   color: var(--color-text-primary);
-  letter-spacing: -0.03em;
-  line-height: 1.1;
-  margin-bottom: clamp(16px, 3vw, 24px);
+  letter-spacing: -0.025em;
+  line-height: 1.12;
+  margin-bottom: clamp(10px, 2vw, 16px);
 }
 
 .drizzl-kiss-subtitle,
@@ -3305,56 +3305,56 @@ svg {
 
 .drizzl-kiss-subtitle {
   font-family: var(--font-family-base);
-  font-size: clamp(0.9rem, 1.4vw, 1rem);
+  font-size: clamp(0.85rem, 1.3vw, 0.95rem);
   font-weight: var(--fw-regular);
-  color: rgba(255, 255, 255, 0.65);
-  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.6);
+  line-height: 1.55;
   letter-spacing: 0.01em;
-  margin-bottom: clamp(20px, 3vw, 32px);
+  margin-bottom: clamp(12px, 2vw, 20px);
 }
 
 .drizzl-kiss-tagline {
   font-family: var(--font-family-base);
-  font-size: clamp(0.95rem, 1.5vw, 1.1rem);
+  font-size: clamp(0.9rem, 1.4vw, 1rem);
   font-weight: var(--fw-regular);
   color: #E85A71;
   letter-spacing: 0.01em;
 }
 
-/* Carousel Section */
+/* Carousel Section - Compact Divine Engineering */
 .carousel-section {
-  padding: clamp(56px, 8vw, 120px) 0;
+  padding: clamp(36px, 5vw, 64px) 0;
   background: #000000;
   border-top: 1px solid rgba(255,255,255,0.06);
 }
 
 .carousel-container {
-  max-width: 1400px;
+  max-width: 1100px;
   margin: 0 auto;
-  padding-left: clamp(16px, 4vw, 80px);
-  padding-right: clamp(16px, 4vw, 80px);
+  padding-left: clamp(16px, 3vw, 48px);
+  padding-right: clamp(16px, 3vw, 48px);
 }
 
 .carousel-header {
-  margin-bottom: clamp(32px, 5vw, 64px);
+  margin-bottom: clamp(20px, 3vw, 36px);
 }
 
 .carousel-title {
-  font-size: clamp(24px, 5vw, 48px);
-  font-weight: 600;
-  margin-bottom: clamp(12px, 2vw, 16px);
+  font-size: clamp(20px, 4vw, 36px);
+  font-weight: 400;
+  margin-bottom: clamp(8px, 1.5vw, 12px);
   color: #f5f5f7;
-  letter-spacing: -0.018em;
-  line-height: 1.08;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
 }
 
 .carousel-subtitle {
-  font-size: clamp(14px, 2.5vw, 21px);
+  font-size: clamp(13px, 2vw, 17px);
   color: #86868b;
   margin: 0;
-  max-width: 480px;
+  max-width: 420px;
   line-height: 1.5;
-  letter-spacing: -0.016em;
+  letter-spacing: -0.01em;
 }
 
 /* ============================================
