@@ -69,7 +69,7 @@ export default function HomeHero() {
           Because being healthy shouldn't suck.
         </p>
         <a href="/products" className="lv-hero-cta">
-          Kiss of health
+          Smooch it on
         </a>
       </div>
     </section>
