@@ -83,6 +83,7 @@ export default function Navbar() {
       }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '24px' }}>
           <button 
+            className="header-btn"
             onClick={() => setMenuOpen(true)}
             style={{
               display: 'flex',
@@ -104,6 +105,7 @@ export default function Navbar() {
             <span>Menu</span>
           </button>
           <button 
+            className="header-btn"
             onClick={() => router.push('/products')}
             style={{
               display: 'flex',
@@ -128,7 +130,7 @@ export default function Navbar() {
         </div>
 
         <div style={{ position: 'absolute', left: '50%', transform: 'translateX(-50%)' }}>
-          <Link href="/" style={{ display: 'block' }}>
+          <Link href="/" className="nav-logo" style={{ display: 'block' }}>
             <img 
               src="/images/drizzl-logo-white.gif"
               alt="DRIZZL WELLNESS" 
@@ -140,6 +142,7 @@ export default function Navbar() {
         <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
           <Link 
             href="/auth?type=retail" 
+            className="nav-link"
             style={{
               color: '#ffffff',
               textDecoration: 'none',
@@ -152,6 +155,7 @@ export default function Navbar() {
           </Link>
           <Link 
             href="/auth" 
+            className="nav-icon"
             style={{ color: '#ffffff', display: 'flex', alignItems: 'center' }}
           >
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
@@ -161,6 +165,7 @@ export default function Navbar() {
           </Link>
           <Link 
             href="/cart" 
+            className="nav-icon"
             style={{ color: '#ffffff', display: 'flex', alignItems: 'center' }}
           >
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
@@ -219,6 +224,7 @@ export default function Navbar() {
                 }}
               >
                 <button
+                  className="menu-item-title"
                   onClick={() => menuItem.items.length > 0 ? toggleExpandedMenu(menuItem.title) : navigateTo(menuItem.href)}
                   style={{
                     width: '100%',
@@ -279,6 +285,7 @@ export default function Navbar() {
                       {menuItem.items.map((item, subIdx) => (
                         <button
                           key={item}
+                          className="submenu-item"
                           onClick={() => navigateTo(menuItem.href)}
                           style={{
                             display: 'block',

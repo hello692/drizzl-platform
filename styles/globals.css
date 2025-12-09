@@ -6492,3 +6492,104 @@ a:focus-visible:active,
 [role="button"]:focus-visible:active {
   outline-offset: 0px;
 }
+
+/* ============================================
+   NAVIGATION HOVER STATES - Trillion Dollar
+   Premium underline draw + micro-interactions
+   ============================================ */
+
+/* Nav Link Base - Underline Draw Effect */
+.nav-link {
+  position: relative;
+  color: #ffffff;
+  text-decoration: none;
+  transition: opacity var(--timing-fast) var(--ease-out);
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: #ffffff;
+  transition: width var(--timing-medium) var(--ease-out);
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+.nav-link:hover {
+  opacity: 0.9;
+}
+
+/* Nav Icon Hover - Subtle Scale */
+.nav-icon {
+  transition: transform var(--timing-fast) var(--ease-out), 
+              opacity var(--timing-fast) var(--ease-out);
+}
+
+.nav-icon:hover {
+  transform: scale(1.1);
+  opacity: 0.85;
+}
+
+/* Header Button Hover - Menu/Search */
+.header-btn {
+  transition: opacity var(--timing-fast) var(--ease-out);
+}
+
+.header-btn:hover {
+  opacity: 0.75;
+}
+
+.header-btn:hover svg {
+  transform: scale(1.05);
+  transition: transform var(--timing-fast) var(--ease-out);
+}
+
+/* Full-Screen Menu Item Hover */
+.menu-item-title {
+  transition: color var(--timing-fast) var(--ease-out),
+              transform var(--timing-fast) var(--ease-out);
+}
+
+.menu-item-title:hover {
+  color: rgba(255, 255, 255, 0.85);
+  transform: translateX(4px);
+}
+
+/* Submenu Item Hover */
+.submenu-item {
+  transition: color var(--timing-fast) var(--ease-out),
+              padding-left var(--timing-fast) var(--ease-out);
+}
+
+.submenu-item:hover {
+  color: #ffffff;
+  padding-left: 28px;
+}
+
+/* Logo Hover - Subtle Glow */
+.nav-logo {
+  transition: opacity var(--timing-fast) var(--ease-out),
+              filter var(--timing-medium) var(--ease-out);
+}
+
+.nav-logo:hover {
+  opacity: 0.9;
+  filter: brightness(1.1);
+}
+
+/* CTA Button in Nav - Premium Lift */
+.nav-cta {
+  transition: transform var(--timing-fast) var(--ease-out),
+              box-shadow var(--timing-fast) var(--ease-out);
+}
+
+.nav-cta:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
+}
