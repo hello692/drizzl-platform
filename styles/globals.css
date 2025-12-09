@@ -6050,26 +6050,44 @@ svg {
   z-index: 2;
 }
 
-.lv-hero-title {
-  font-family: 'Cormorant Garamond', 'Bodoni Moda', 'Didot', Georgia, serif;
-  font-size: clamp(2.8rem, 7vw, 5rem);
-  font-weight: 400;
-  letter-spacing: -0.015em;
+/* ========================================
+   DRIZZL MAISON SERIF TYPE SYSTEM
+   Luxury editorial typography
+   ======================================== */
+
+/* DISPLAY - Section titles, hero headlines */
+.lv-hero-title,
+.dm-display {
+  font-family: 'Cormorant Garamond', 'Didot', Georgia, serif;
+  font-size: clamp(2.4rem, 6vw, 4.5rem);
+  font-weight: 500;
+  letter-spacing: -0.02em;
   margin: 0 0 20px;
   line-height: 0.95;
   color: #ffffff;
   text-transform: uppercase;
 }
 
-.lv-hero-sub {
+/* SUBTITLE - Under-title text, taglines */
+.lv-hero-sub,
+.dm-subtitle {
   font-family: 'Cormorant Garamond', Georgia, serif;
-  font-size: clamp(0.95rem, 1.8vw, 1.1rem);
-  line-height: 1.5;
-  opacity: 0.85;
+  font-size: clamp(0.9rem, 1.6vw, 1.1rem);
+  line-height: 1.45;
+  opacity: 0.9;
   margin: 0;
-  font-weight: 300;
-  letter-spacing: 0.04em;
+  font-weight: 400;
+  letter-spacing: 0em;
   text-transform: none;
+}
+
+/* TEXT - Body paragraphs */
+.dm-text {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(0.95rem, 1.4vw, 1.05rem);
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  line-height: 1.55;
 }
 
 @media (max-width: 768px) {
