@@ -6068,21 +6068,22 @@ svg {
   font-weight: 300;
   letter-spacing: -0.03em;
   margin: 0 0 16px;
-  line-height: 1.1;
+  line-height: 1.2;
   color: #ffffff;
-  min-height: 1.2em;
+  max-width: 800px;
 }
 
-.lv-hero-cursor {
+.lv-hero-dynamic-word {
   display: inline-block;
-  margin-left: 2px;
-  font-weight: 100;
-  animation: blink 1s infinite;
+  font-weight: 500;
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
 }
 
-@keyframes blink {
-  0%, 50% { opacity: 1; }
-  51%, 100% { opacity: 0; }
+.lv-hero-dynamic-word.visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .lv-hero-sub {

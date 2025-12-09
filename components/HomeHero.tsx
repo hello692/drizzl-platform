@@ -1,50 +1,39 @@
 import { useRef, useState, useEffect } from 'react';
 import GlobalHeader from './GlobalHeader';
 
-const AFFIRMATIONS = [
-  'Fall in Love with Smoothies Again.',
-  'I am strong',
-  'I am nourished',
-  'I am happy',
-  'I am energized',
-  'I am fueled',
-  'I am calm',
-  'I am focused',
+const DYNAMIC_WORDS = [
+  'nourished',
+  'happy',
+  'energized',
+  'fueled',
+  'calm',
+  'focused',
+  'strong',
 ];
+
+function useRotatingWord(words: string[], interval = 2000) {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isVisible, setIsVisible] = useState(true);
+
+  useEffect(() => {
+    const fadeOutTimer = setInterval(() => {
+      setIsVisible(false);
+      
+      setTimeout(() => {
+        setCurrentIndex((prev) => (prev + 1) % words.length);
+        setIsVisible(true);
+      }, 400);
+    }, interval);
+
+    return () => clearInterval(fadeOutTimer);
+  }, [words.length, interval]);
+
+  return { currentWord: words[currentIndex], isVisible };
+}
 
 export default function HomeHero() {
   const videoRef = useRef<HTMLVideoElement | null>(null);
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [displayText, setDisplayText] = useState('');
-  const [isDeleting, setIsDeleting] = useState(false);
-
-  useEffect(() => {
-    const currentPhrase = AFFIRMATIONS[currentIndex];
-    
-    const typeSpeed = isDeleting ? 40 : 80;
-    const pauseTime = isDeleting ? 100 : 2000;
-
-    if (!isDeleting && displayText === currentPhrase) {
-      const timeout = setTimeout(() => setIsDeleting(true), pauseTime);
-      return () => clearTimeout(timeout);
-    }
-
-    if (isDeleting && displayText === '') {
-      setIsDeleting(false);
-      setCurrentIndex((prev) => (prev + 1) % AFFIRMATIONS.length);
-      return;
-    }
-
-    const timeout = setTimeout(() => {
-      if (isDeleting) {
-        setDisplayText(currentPhrase.substring(0, displayText.length - 1));
-      } else {
-        setDisplayText(currentPhrase.substring(0, displayText.length + 1));
-      }
-    }, typeSpeed);
-
-    return () => clearTimeout(timeout);
-  }, [displayText, isDeleting, currentIndex]);
+  const { currentWord, isVisible } = useRotatingWord(DYNAMIC_WORDS, 2000);
 
   return (
     <section className="lv-hero">
@@ -64,8 +53,10 @@ export default function HomeHero() {
 
       <div className="lv-hero-copy">
         <h1 className="lv-hero-title">
-          {displayText}
-          <span className="lv-hero-cursor">|</span>
+          Smoothies you want to kiss and feel{' '}
+          <span className={`lv-hero-dynamic-word ${isVisible ? 'visible' : ''}`}>
+            {currentWord}
+          </span>
         </h1>
         <p className="lv-hero-sub">
           Because being healthy shouldn't suck.

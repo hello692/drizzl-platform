@@ -1,0 +1,60 @@
+You are my senior front-end engineer.
+
+Create a hero text component for the DRIZZL landing page with a dynamic last word.
+
+STATIC SENTENCE (everything except last word stays the same):
+“Smoothies you want to kiss and feel ____”
+
+The last word should change dynamically through this list:
+
+- nourished
+- happy
+- energized
+- fueled
+- calm
+- focused
+- strong
+
+Requirements:
+
+1) Tech
+- Use React.
+- Build a reusable component, e.g. `HeroKissText.tsx`.
+- Use a simple hook or small utility to rotate the last word.
+- Animation should feel smooth and premium (fade or type effect), not glitchy.
+
+2) Behavior
+- Render the static part: “Smoothies you want to kiss and feel ”
+- Dynamically inject the last word from the list.
+- Show one word at a time.
+- Hold each word for ~1.5–2 seconds.
+- Transition: fade out + fade in (or soft type/erase if you prefer).
+- Loop forever through the array in order.
+
+3) Layout & styling
+- Center the sentence in the hero area.
+- Use the global site font (Inter).
+- Make the last word visually slightly emphasized (e.g. `font-weight: 600` or subtle color shift), but still clean and classy.
+- The whole sentence should be on one or two lines max and look good on desktop & mobile.
+
+4) Code structure
+- Store the static phrase and the word list in the component or a small config.
+- Example pattern:
+
+  const baseText = "Smoothies you want to kiss and feel";
+  const words = ["nourished", "happy", "energized", "fueled", "calm", "focused", "strong"];
+
+  Then render:
+  `Smoothies you want to kiss and feel ` + `<span>{currentWord}</span>`
+
+- Encapsulate the interval/timeout logic in a hook like `useRotatingWord`.
+
+5) UX & polish
+- No harsh flashes or jumps.
+- Transitions should feel like a calm breathing rhythm.
+- Result should look like a billion-dollar wellness brand: seductive, smooth, and emotionally engaging.
+
+Deliver:
+- The React component.
+- The hook/logic for rotating the last word.
+- Minimal CSS to center and style the hero line (static part + dynamic word).
