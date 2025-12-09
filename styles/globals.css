@@ -2590,7 +2590,6 @@ svg {
   max-width: 100%;
   margin-bottom: 24px;
   padding-bottom: 24px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .footer-newsletter-content {
@@ -2673,9 +2672,20 @@ svg {
   justify-content: space-between;
   align-items: center;
   gap: clamp(16px, 3vw, 24px);
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
   padding-top: clamp(16px, 3vw, 24px);
   flex-wrap: wrap;
+  position: relative;
+}
+
+.footer-bottom::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100vw;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.08);
 }
 
 .footer-copyright {
