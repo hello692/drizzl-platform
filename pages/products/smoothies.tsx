@@ -9,7 +9,7 @@ const products = [
   { id: '10', name: 'Matcha', type: 'Smoothie', price: 9.49, reviews: 312, rating: 4.7, badge: 'NEW', image: '/products/matcha/gallery-1.jpg' },
   { id: '11', name: 'Mocha', type: 'Smoothie', price: 9.49, reviews: 245, rating: 4.8, badge: 'NEW', image: '/products/mocha/gallery-1.jpg' },
   { id: '12', name: 'Nutty Monkey', type: 'Smoothie', price: 8.99, reviews: 389, rating: 4.9, badge: 'BEST SELLER', image: '/products/nutty-monkey/gallery-1.jpg' },
-  { id: '13', name: 'Mango Jackfruit', type: 'Smoothie', price: 8.99, reviews: 156, rating: 4.8, badge: 'NEW', image: '/products/mango-jackfruit/gallery-1.jpg' },
+  { id: '13', name: 'Mango Jackfruit', type: 'Smoothie', price: 8.99, reviews: 156, rating: 4.8, badge: 'NEW', image: '/products/mango-jackfruit/Mango Jackfruit-1.png' },
   { id: '14', name: 'Coffee Mushroom', type: 'Smoothie', price: 9.99, reviews: 203, rating: 4.8, badge: 'NEW', image: '/products/coffee-mushroom/gallery-1.jpg' },
   { id: '15', name: 'Chocolate Berry', type: 'Smoothie', price: 8.99, reviews: 278, rating: 4.8, badge: 'NEW', image: '/products/chocolate-berry/gallery-1.jpg' },
   { id: '16', name: 'Almond', type: 'Smoothie', price: 8.99, reviews: 187, rating: 4.7, badge: 'NEW', image: '/products/almond/gallery-1.jpg' },

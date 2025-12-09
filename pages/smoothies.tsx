@@ -11,7 +11,7 @@ const SMOOTHIES = [
   { id: '10', name: 'Matcha', price: 9.49, image: '/products/matcha/gallery-1.jpg', hoverImage: '/products/matcha/gallery-2.jpg', category: 'Energy', rating: 4.8, reviews: 312 },
   { id: '11', name: 'Mocha', price: 9.49, image: '/products/mocha/gallery-1.jpg', hoverImage: '/products/mocha/gallery-2.jpg', category: 'Energy', rating: 4.6, reviews: 245 },
   { id: '12', name: 'Nutty Monkey', price: 8.99, image: '/products/nutty-monkey/gallery-1.jpg', hoverImage: '/products/nutty-monkey/gallery-2.jpg', category: 'Nutty', rating: 4.7, reviews: 389 },
-  { id: '13', name: 'Mango Jackfruit', price: 8.99, image: '/products/mango-jackfruit/gallery-1.jpg', hoverImage: '/products/mango-jackfruit/gallery-2.jpg', category: 'Tropical', rating: 4.8, reviews: 156 },
+  { id: '13', name: 'Mango Jackfruit', price: 8.99, image: '/products/mango-jackfruit/Mango Jackfruit-1.png', hoverImage: '/products/mango-jackfruit/Mango Jackfruit-2.png', category: 'Tropical', rating: 4.8, reviews: 156 },
   { id: '14', name: 'Coffee Mushroom', price: 9.99, image: '/products/coffee-mushroom/gallery-1.jpg', hoverImage: '/products/coffee-mushroom/gallery-2.jpg', category: 'Energy', rating: 4.8, reviews: 203 },
   { id: '15', name: 'Chocolate Berry', price: 8.99, image: '/products/chocolate-berry/gallery-1.jpg', hoverImage: '/products/chocolate-berry/gallery-2.jpg', category: 'Indulgent', rating: 4.8, reviews: 278 },
   { id: '16', name: 'Almond', price: 8.99, image: '/products/almond/gallery-1.jpg', hoverImage: '/products/almond/gallery-2.jpg', category: 'Nutty', rating: 4.7, reviews: 187 },
