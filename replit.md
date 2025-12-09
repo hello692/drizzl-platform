@@ -16,7 +16,12 @@ Drizzl Wellness is a full-stack e-commerce platform for a smoothie and wellness 
 
 ### UI/UX Decisions
 - **Admin Portal Aesthetic**: "Apple AI 2500 Dark" theme with deep black backgrounds, mesh gradients, animated elements, glassmorphism cards with subtle glow borders, and gradient text. Accent colors include purple, cyan, pink, and green.
-- **D2C Storefront Aesthetic**: Premium dark theme with pure black backgrounds and white text. Features include a refined color palette, Apple-style fully rounded pill buttons, and a Google AI-inspired typography system using the Inter font. Transitions are smooth 0.3s ease, and the layout is centered with a 1280px max-width, fully responsive.
+- **D2C Storefront Aesthetic**: Premium dark theme with pure black backgrounds and white text. Features include a refined color palette, Apple-style fully rounded pill buttons, and a Google AI-inspired typography system using the Inter font. Transitions are smooth 0.3s ease, and the layout is centered with a 1100px max-width, fully responsive.
+- **Divine Engineering Spacing Philosophy**: The site follows a "divine engineering" approach to spacing - compact but breathing, dense but effortless, precise spacing with no wasted space. This is the opposite of airy minimalism. Key spacing tokens:
+  - Section padding: 40-64px vertical, 20-48px horizontal (vs. traditional 80-140px)
+  - Card gaps: 10-14px (tight-knit grids)
+  - Container max-width: 1100-1200px
+  - Mobile spacing progressively tighter (768px and 480px breakpoints step down from desktop values)
 
 ### Technical Implementations
 - **Core Stack**: Next.js 15, React 19, Supabase (Auth + Database).
