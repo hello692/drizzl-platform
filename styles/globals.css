@@ -5980,7 +5980,12 @@ svg {
 }
 
 .home-hero__kicker {
-  display: none;
+  letter-spacing: 0.22em;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  opacity: 0.85;
+  font-weight: 400;
 }
 
 .home-hero__title {
@@ -5993,19 +5998,20 @@ svg {
 }
 
 .home-hero__subtitle {
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   font-weight: 300;
-  opacity: 0.9;
+  opacity: 0.85;
   margin-bottom: 0;
-  letter-spacing: 0.03em;
-  line-height: 1.7;
-  max-width: 480px;
-  margin-left: auto;
-  margin-right: auto;
+  letter-spacing: 0.02em;
+  line-height: 1.6;
 }
 
 .home-hero__links {
-  display: none;
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-top: 28px;
 }
 
 .home-hero__primary,
