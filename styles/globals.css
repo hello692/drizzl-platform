@@ -6074,16 +6074,15 @@ svg {
 }
 
 .lv-hero-dynamic-word {
-  display: inline-block;
+  display: inline;
+  font-size: inherit;
   font-weight: 500;
   opacity: 0;
-  transform: translateY(4px);
-  transition: opacity 0.4s ease, transform 0.4s ease;
+  transition: opacity 0.4s ease, color 0.4s ease;
 }
 
 .lv-hero-dynamic-word.visible {
   opacity: 1;
-  transform: translateY(0);
 }
 
 .lv-hero-sub {
