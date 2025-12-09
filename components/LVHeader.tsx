@@ -24,7 +24,7 @@ const MENU_ITEMS = [
   { 
     title: 'Wholesale', 
     subtitle: 'Partner with us',
-    href: '/retail',
+    href: '/auth?type=retail',
     items: ['Partner With Us', 'Wholesale Pricing', 'Retail Inquiries', 'Food Service'] 
   },
   { 
@@ -86,7 +86,7 @@ export default function LVHeader() {
         </div>
 
         <div className="lv-header-right">
-          <Link href="/retail" className="lv-header-link">
+          <Link href="/auth?type=retail" className="lv-header-link">
             <span>Wholesale</span>
           </Link>
           <Link href="/auth" className="lv-header-link">
