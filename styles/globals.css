@@ -6077,17 +6077,14 @@ svg {
   align-items: baseline;
   justify-content: center;
   width: 100%;
-  font-size: 1em;
-  font-weight: inherit;
-  letter-spacing: inherit;
+  font: inherit;
   margin-top: 0;
   gap: 0.25em;
 }
 
 .lv-hero-dynamic-word {
   display: inline-block;
-  font-size: inherit;
-  font-weight: inherit;
+  font: inherit;
   min-width: 280px;
   text-align: left;
   opacity: 0;
