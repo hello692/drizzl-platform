@@ -3272,13 +3272,18 @@ svg {
 }
 
 .drizzl-kiss-title {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif !important;
   font-size: clamp(28px, 5vw, 52px);
   font-weight: 600;
   color: #ffffff;
   letter-spacing: -0.02em;
   line-height: 1.15;
   margin-bottom: clamp(16px, 3vw, 24px);
+}
+
+.drizzl-kiss-subtitle,
+.drizzl-kiss-tagline {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif !important;
 }
 
 .drizzl-kiss-subtitle {

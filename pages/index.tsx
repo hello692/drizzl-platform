@@ -225,15 +225,17 @@ export default function Home() {
   };
 
   const headingStyles = {
+    fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, sans-serif",
     fontSize: 'var(--fs-h2)',
     fontWeight: 600,
     lineHeight: 1.15,
-    letterSpacing: '-0.015em',
+    letterSpacing: '-0.02em',
     color: '#ffffff',
     marginBottom: 'var(--space-after-h2)',
   };
 
   const subheadingStyles = {
+    fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, sans-serif",
     fontSize: 'var(--fs-body)',
     fontWeight: 400,
     lineHeight: 1.6,
