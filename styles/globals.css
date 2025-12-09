@@ -4162,11 +4162,11 @@ svg {
     padding-right: clamp(40px, 9vw, 56px);
   }
   
-  /* Unified card sizing for 768px - Compact */
+  /* Unified card sizing for 768px - Tighter than desktop */
   :root {
-    --card-width: clamp(150px, 24vw, 200px);
-    --card-height: clamp(200px, 32vw, 280px);
-    --card-gap: 12px;
+    --card-width: clamp(130px, 20vw, 160px);
+    --card-height: clamp(160px, 24vw, 200px);
+    --card-gap: 10px;
   }
   
   .cta-btn {
@@ -4219,11 +4219,11 @@ svg {
     padding-right: clamp(36px, 10vw, 48px);
   }
   
-  /* Unified card sizing for 480px - Dense Compact */
+  /* Unified card sizing for 480px - Densest mobile */
   :root {
-    --card-width: clamp(140px, 38vw, 190px);
-    --card-height: clamp(180px, 48vw, 250px);
-    --card-gap: 10px;
+    --card-width: clamp(120px, 42vw, 150px);
+    --card-height: clamp(150px, 50vw, 190px);
+    --card-gap: 8px;
   }
   
   .video-card-video-container {
