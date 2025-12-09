@@ -6104,10 +6104,10 @@ svg {
   justify-content: center;
   width: 100%;
   font-family: var(--font-family-base);
-  font-size: 1.6rem;
-  font-weight: 300;
-  letter-spacing: -0.01em;
-  margin-top: 0.25rem;
+  font-size: inherit;
+  font-weight: inherit;
+  letter-spacing: inherit;
+  margin-top: 0;
   gap: 0.25em;
 }
 
@@ -6173,11 +6173,6 @@ svg {
     font-weight: 300;
   }
 
-  .lv-hero-title-line2 {
-    font-size: 1.6rem;
-    font-weight: 300;
-  }
-
   .lv-hero-sub {
     font-size: 1.2rem;
     line-height: 1.5;
@@ -6191,10 +6186,6 @@ svg {
 
 /* Tablet / smaller screens */
 @media (max-width: 1023px) {
-  .lv-hero-title-line2 {
-    font-size: 1.3rem;
-  }
-
   .lv-hero-sub {
     font-size: 1rem;
     line-height: 1.45;
@@ -6225,11 +6216,6 @@ svg {
   .lv-hero-title {
     font-size: 1.6rem;
     font-weight: 300;
-  }
-
-  .lv-hero-title-line2 {
-    font-size: 1.15rem;
-    margin-top: 0.2rem;
   }
 
   .lv-hero-dynamic-word {
