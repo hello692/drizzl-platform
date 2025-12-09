@@ -78,7 +78,7 @@ export default function LVHeader() {
         <div className="lv-header-center">
           <Link href="/" className="lv-header-logo-link">
             <img 
-              src="/logo.gif" 
+              src="/images/drizzl-logo-white.gif" 
               alt="DRIZZL" 
               className="lv-header-logo"
             />

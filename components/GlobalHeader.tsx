@@ -96,7 +96,7 @@ export default function GlobalHeader({ variant = 'transparent' }: GlobalHeaderPr
   };
 
   const textColor = '#ffffff';
-  const logoSrc = '/logo.gif';
+  const logoSrc = '/images/drizzl-logo-white.gif';
 
   return (
     <>
