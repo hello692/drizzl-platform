@@ -6,40 +6,37 @@ export default function Footer() {
       <div className="footer-container">
         <div className="footer-grid">
           <div className="footer-section">
-            <h4 className="footer-section-title">Products</h4>
+            <h4 className="footer-section-title">Shop</h4>
             <div className="footer-links">
               <Link href="/collections/smoothies" className="footer-link">
                 Smoothies
               </Link>
               <Link href="/collections/high-protein" className="footer-link">
-                High Protein
+                High-Protein Heroes
               </Link>
               <Link href="/collections/best-sellers" className="footer-link">
-                Best Sellers
+                Fan Favorites
               </Link>
-            </div>
-          </div>
-
-          <div className="footer-section">
-            <h4 className="footer-section-title">Collections</h4>
-            <div className="footer-links">
+              <Link href="/collections" className="footer-link">
+                Curated Collections
+              </Link>
               <Link href="/collections/new-arrivals" className="footer-link">
-                New Arrivals
+                Fresh Finds (New Arrivals)
               </Link>
               <Link href="/collections/smoothie-boxes" className="footer-link">
-                Smoothie Boxes
+                Smoothie Bundles
               </Link>
               <Link href="/collections/gift-guide" className="footer-link">
-                Gift Guide
+                Gifting Made Easy
               </Link>
               <Link href="/shop-all" className="footer-link">
-                Shop All
+                Shop Everything
               </Link>
             </div>
           </div>
 
           <div className="footer-section">
-            <h4 className="footer-section-title">Learn</h4>
+            <h4 className="footer-section-title">Discover</h4>
             <div className="footer-links">
               <Link href="/our-story" className="footer-link">
                 Our Story
@@ -48,49 +45,40 @@ export default function Footer() {
                 Blog & Recipes
               </Link>
               <Link href="/contact" className="footer-link">
-                Contact
+                Get in Touch
               </Link>
               <Link href="/faq" className="footer-link">
-                FAQ
+                FAQs
               </Link>
             </div>
           </div>
 
           <div className="footer-section">
-            <h4 className="footer-section-title">Company</h4>
+            <h4 className="footer-section-title">Work With Us</h4>
             <div className="footer-links">
               <Link href="/careers" className="footer-link">
                 Careers
               </Link>
               <Link href="/refer" className="footer-link">
-                Referral Program
+                Spread the Love (Referral Program)
               </Link>
               <Link href="/student-discount" className="footer-link">
-                Student Discount
-              </Link>
-            </div>
-          </div>
-
-          <div className="footer-section">
-            <h4 className="footer-section-title">Wholesale</h4>
-            <div className="footer-links">
-              <Link href="/auth?type=retail" className="footer-link">
-                Partner Portal
+                Student Perks
               </Link>
               <Link href="/wholesale/apply" className="footer-link">
-                Become a Partner
+                Wholesale Opportunities
               </Link>
-              <Link href="/wholesale/pricing" className="footer-link">
-                Wholesale Pricing
+              <Link href="/auth?type=retail" className="footer-link">
+                Partner with Us
               </Link>
               <Link href="/wholesale/contact" className="footer-link">
-                B2B Contact
+                B2B Pricing & Contact
               </Link>
             </div>
           </div>
 
           <div className="footer-section">
-            <h4 className="footer-section-title">Legal</h4>
+            <h4 className="footer-section-title">The Fine Print</h4>
             <div className="footer-links">
               <Link href="/privacy" className="footer-link">
                 Privacy Policy
@@ -104,9 +92,9 @@ export default function Footer() {
 
         <div className="footer-newsletter-section">
           <div className="footer-newsletter-content">
-            <h3 className="footer-newsletter-title">Stay in the loop</h3>
+            <h3 className="footer-newsletter-title">Stay in the Loop</h3>
             <p className="footer-newsletter-text">
-              Wellness updates and exclusive offers.
+              Sip on wellness tips, exclusive deals, and a little smoothie inspiration—straight to your inbox.
             </p>
           </div>
           <div className="footer-newsletter-form">
