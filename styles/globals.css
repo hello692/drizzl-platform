@@ -6064,27 +6064,31 @@ svg {
 
 .lv-hero-title {
   font-family: var(--font-family-base);
-  font-size: clamp(2.2rem, 4.5vw, 3.5rem);
-  font-weight: 400;
-  letter-spacing: -0.025em;
-  margin: 0 0 16px;
-  line-height: 1.15;
+  font-size: clamp(2.8rem, 5.5vw, 4.2rem);
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  margin: 0 0 20px;
+  line-height: 1.05;
   color: #ffffff;
 }
 
 .lv-hero-title-line2 {
   display: block;
-  margin-top: 4px;
+  font-size: 1em;
+  font-weight: inherit;
+  letter-spacing: inherit;
+  margin-top: 0;
 }
 
 .lv-hero-dynamic-word {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
   font-size: inherit;
-  font-weight: 500;
+  font-weight: 600;
   min-width: 180px;
   text-align: left;
   opacity: 0;
-  transition: opacity 0.45s ease, color 0.4s ease, text-shadow 0.4s ease;
+  transition: opacity 0.45s ease, color 0.45s ease, text-shadow 0.45s ease;
 }
 
 .lv-hero-dynamic-word.visible {
