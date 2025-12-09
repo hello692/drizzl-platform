@@ -271,8 +271,9 @@ export default function Home() {
                 <span 
                   key={`${repeatIndex}-${idx}`}
                   style={{
+                    fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, sans-serif",
                     fontSize: '12px',
-                    fontWeight: 600,
+                    fontWeight: 500,
                     color: 'rgba(255,255,255,0.5)',
                     letterSpacing: '0.1em',
                     textTransform: 'uppercase',
@@ -407,10 +408,11 @@ export default function Home() {
                 WHY WE EXIST
               </span>
               <h2 style={{
+                fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, sans-serif",
                 fontSize: 'var(--fs-h2)',
                 fontWeight: 600,
                 lineHeight: 1.15,
-                letterSpacing: '-0.015em',
+                letterSpacing: '-0.02em',
                 color: '#ffffff',
                 marginBottom: 'var(--space-after-h2)',
               }}>
