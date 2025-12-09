@@ -5618,7 +5618,7 @@ svg {
 }
 
 .lv-gallery-image {
-  width: 100%;
+  width: 70%;
   height: auto;
   display: block;
   object-fit: contain;
@@ -5627,7 +5627,7 @@ svg {
   border: none;
   border-radius: 0;
   box-shadow: none;
-  margin-top: 0;
+  margin: 0 auto;
 }
 
 /* Fine-tune gallery alignment on large screens - aggressive pull-up */
