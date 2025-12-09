@@ -5972,9 +5972,9 @@ svg {
   position: absolute;
   z-index: 2;
   width: 100%;
-  max-width: 480px;
+  max-width: 600px;
   left: 50%;
-  bottom: clamp(48px, 8vh, 80px);
+  bottom: clamp(32px, 5vh, 56px);
   transform: translateX(-50%);
   text-align: center;
   padding: 0 24px;
@@ -5986,23 +5986,23 @@ svg {
 
 .home-hero__title {
   font-family: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
-  font-size: clamp(28px, 5vw, 42px);
-  line-height: 1.1;
-  font-weight: 500;
+  font-size: clamp(36px, 6vw, 72px);
+  line-height: 1.05;
+  font-weight: 400;
   font-style: normal;
-  margin-bottom: 16px;
-  letter-spacing: -0.01em;
+  margin-bottom: 20px;
+  letter-spacing: 0.02em;
   color: #ffffff;
 }
 
 .home-hero__subtitle {
   font-family: 'Inter', sans-serif;
-  font-size: clamp(12px, 1.4vw, 14px);
+  font-size: clamp(11px, 1.2vw, 13px);
   font-weight: 300;
-  opacity: 0.75;
+  opacity: 0.8;
   margin-bottom: 0;
-  letter-spacing: 0.04em;
-  line-height: 1.7;
+  letter-spacing: 0.06em;
+  line-height: 1.5;
   color: #f5f5f5;
 }
 
@@ -6047,15 +6047,15 @@ svg {
 
 @media (max-width: 768px) {
   .home-hero__content {
-    bottom: 48px;
-    max-width: 320px;
+    bottom: 32px;
+    max-width: 340px;
   }
   
   .home-hero__title {
-    font-size: 24px;
+    font-size: 28px;
   }
   
   .home-hero__subtitle {
-    font-size: 12px;
+    font-size: 11px;
   }
 }
