@@ -116,18 +116,18 @@ const BENEFITS = [
 const HOW_IT_WORKS = [
   {
     step: '01',
-    title: 'Pick your vibe',
-    description: 'Choose from 10+ chef-crafted flavors. Energy boost? Gut reset? We\'ve got you.'
+    title: 'Choose Your Moment',
+    description: 'Energy that lasts? A gut reset? Or just a flavor so good it feels like a cheat day? With 10+ chef-crafted blends, there\'s a Drizzl for every vibe.'
   },
   {
     step: '02',
-    title: 'Blend. Done.',
-    description: 'Add oat milk, almond milk, or just water. Blend 30 seconds. That\'s literally it.'
+    title: 'Pour. Blend. Elevate.',
+    description: 'Add oat milk, almond milk, or just water. Blend for 30 seconds. That\'s it—perfection in a glass, no effort required.'
   },
   {
     step: '03',
-    title: 'Sip. Smile. Repeat.',
-    description: 'Your new morning ritual starts now. No cleanup, no regrets, just good vibes.'
+    title: 'Sip. Savor. Shine.',
+    description: 'This isn\'t just a smoothie—it\'s your daily glow-up. No mess, no compromises, just pure, feel-good luxury on repeat.'
   }
 ];
 
@@ -567,13 +567,13 @@ export default function Home() {
                 ...headingStyles,
                 marginBottom: 'var(--space-after-h2)',
               }}>
-                How it works
+                How It Works
               </h2>
               <p style={{
                 ...subheadingStyles,
                 margin: '0 auto',
               }}>
-                From freezer to table in under a minute.
+                From freezer to flawless in under a minute.
               </p>
             </div>
           </AnimatedSection>
