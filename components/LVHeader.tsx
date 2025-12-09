@@ -1,96 +1,78 @@
 import Link from 'next/link';
-import { useState, useEffect, useRef } from 'react';
+import { useState } from 'react';
 import { useRouter } from 'next/router';
+
+const MENU_ITEMS = [
+  { 
+    title: 'Shop', 
+    subtitle: 'Explore our smoothie collection',
+    href: '/products',
+    items: ['Best Sellers', 'New Arrivals', 'Smoothie Boxes', 'Bundles', 'Gifts'] 
+  },
+  { 
+    title: 'About', 
+    subtitle: 'The Drizzl story',
+    href: '/about',
+    items: ['Our Story', 'Our Mission', 'Sustainability', 'Meet the Team'] 
+  },
+  { 
+    title: 'Locations', 
+    subtitle: 'Find us near you',
+    href: '/locations',
+    items: ['Store Locator', 'Delivery Areas', 'Pop-Up Events'] 
+  },
+  { 
+    title: 'Wholesale', 
+    subtitle: 'Partner with us',
+    href: '/retail',
+    items: ['Partner With Us', 'Wholesale Pricing', 'Retail Inquiries', 'Food Service'] 
+  },
+  { 
+    title: 'Ingredients', 
+    subtitle: 'What goes in every cup',
+    href: '/ingredients',
+    items: ['Ingredients', 'Nutrition Facts', 'Dietary Options', 'Sourcing'] 
+  },
+  { 
+    title: 'Membership', 
+    subtitle: 'Join the wellness club',
+    href: '/club',
+    items: ['Join the Club', 'Member Benefits', 'Rewards', 'Refer a Friend'] 
+  },
+];
 
 export default function LVHeader() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [searchOpen, setSearchOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState('');
-  const menuRef = useRef<HTMLDivElement>(null);
-  const searchRef = useRef<HTMLDivElement>(null);
+  const [expandedMenu, setExpandedMenu] = useState<string | null>(null);
   const router = useRouter();
 
-  useEffect(() => {
-    const handleClickOutside = (e: MouseEvent) => {
-      if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
-        setMenuOpen(false);
-      }
-      if (searchRef.current && !searchRef.current.contains(e.target as Node)) {
-        setSearchOpen(false);
-      }
-    };
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, []);
-
-  const handleSearch = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (searchQuery.trim()) {
-      router.push(`/products?search=${encodeURIComponent(searchQuery)}`);
-      setSearchOpen(false);
-      setSearchQuery('');
-    }
+  const toggleExpandedMenu = (title: string) => {
+    setExpandedMenu(expandedMenu === title ? null : title);
   };
 
-  const menuItems = [
-    { label: 'Shop All', href: '/products' },
-    { label: 'Smoothies', href: '/products?category=smoothie' },
-    { label: 'Juices', href: '/juices' },
-    { label: 'Our Story', href: '/our-story' },
-    { label: 'About', href: '/about' },
-    { label: 'Contact', href: '/contact' },
-  ];
+  const navigateTo = (href: string) => {
+    setMenuOpen(false);
+    setExpandedMenu(null);
+    router.push(href);
+  };
 
   return (
     <>
       <header className="lv-header">
-        <div className="lv-header-left" ref={menuRef}>
-          <button className="lv-header-link" onClick={() => { setMenuOpen(!menuOpen); setSearchOpen(false); }}>
+        <div className="lv-header-left">
+          <button className="lv-header-link" onClick={() => setMenuOpen(true)}>
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
               <path d="M4 6h16M4 12h16M4 18h16" strokeLinecap="round"/>
             </svg>
             <span>Menu</span>
           </button>
-          
-          {menuOpen && (
-            <div className="lv-menu-dropdown">
-              {menuItems.map((item) => (
-                <Link 
-                  key={item.href} 
-                  href={item.href} 
-                  className="lv-menu-item"
-                  onClick={() => setMenuOpen(false)}
-                >
-                  {item.label}
-                </Link>
-              ))}
-            </div>
-          )}
-          
-          <div ref={searchRef} style={{ position: 'relative' }}>
-            <button className="lv-header-link" onClick={() => { setSearchOpen(!searchOpen); setMenuOpen(false); }}>
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                <circle cx="11" cy="11" r="7"/>
-                <path d="M21 21l-4.35-4.35" strokeLinecap="round"/>
-              </svg>
-              <span>Search</span>
-            </button>
-            
-            {searchOpen && (
-              <div className="lv-search-dropdown">
-                <form onSubmit={handleSearch}>
-                  <input
-                    type="text"
-                    placeholder="Search products..."
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    className="lv-search-input"
-                    autoFocus
-                  />
-                </form>
-              </div>
-            )}
-          </div>
+          <button className="lv-header-link" onClick={() => router.push('/products?search=')}>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+              <circle cx="11" cy="11" r="7"/>
+              <path d="M21 21l-4.35-4.35" strokeLinecap="round"/>
+            </svg>
+            <span>Search</span>
+          </button>
         </div>
 
         <div className="lv-header-center">
@@ -121,69 +103,76 @@ export default function LVHeader() {
         </div>
       </header>
 
-      <style jsx>{`
-        .lv-menu-dropdown {
-          position: absolute;
-          top: 100%;
-          left: 0;
-          margin-top: 8px;
-          background: rgba(0, 0, 0, 0.95);
-          backdrop-filter: blur(20px);
-          border: 1px solid rgba(255, 255, 255, 0.1);
-          border-radius: 12px;
-          padding: 12px 0;
-          min-width: 200px;
-          z-index: 1000;
-        }
+      {/* Full Screen Dark Menu Overlay */}
+      <div className={`navbar-menu-overlay ${menuOpen ? 'active' : ''}`}>
+        <button 
+          onClick={() => setMenuOpen(false)}
+          className="navbar-menu-close"
+          aria-label="Close menu"
+        >
+          <svg className="navbar-menu-close-icon" viewBox="0 0 18 18" fill="none">
+            <path d="M1 1L17 17M17 1L1 17" stroke="#f5f5f7" strokeWidth="1.5" strokeLinecap="round"/>
+          </svg>
+        </button>
         
-        .lv-menu-dropdown :global(.lv-menu-item) {
-          display: block;
-          padding: 12px 24px;
-          color: #ffffff;
-          text-decoration: none;
-          font-size: 0.9rem;
-          font-weight: 400;
-          letter-spacing: 0.02em;
-          transition: background 0.2s;
-        }
-        
-        .lv-menu-dropdown :global(.lv-menu-item:hover) {
-          background: rgba(255, 255, 255, 0.08);
-        }
-        
-        .lv-search-dropdown {
-          position: absolute;
-          top: 100%;
-          left: 0;
-          margin-top: 8px;
-          background: rgba(0, 0, 0, 0.95);
-          backdrop-filter: blur(20px);
-          border: 1px solid rgba(255, 255, 255, 0.1);
-          border-radius: 12px;
-          padding: 12px;
-          min-width: 280px;
-          z-index: 1000;
-        }
-        
-        .lv-search-input {
-          width: 100%;
-          padding: 12px 16px;
-          background: rgba(255, 255, 255, 0.08);
-          border: 1px solid rgba(255, 255, 255, 0.15);
-          border-radius: 8px;
-          color: #ffffff;
-          font-size: 0.9rem;
-          outline: none;
-        }
-        
-        .lv-search-input::placeholder {
-          color: rgba(255, 255, 255, 0.5);
-        }
-        
-        .lv-search-input:focus {
-          border-color: rgba(255, 255, 255, 0.3);
-        }
-      `}</style>
+        <div className="navbar-menu-content">
+          <nav className="navbar-menu-nav">
+            {MENU_ITEMS.map((menuItem, index) => (
+              <div 
+                key={menuItem.title}
+                className="navbar-menu-item"
+                style={{
+                  transitionDelay: `${0.1 + index * 0.05}s`,
+                }}
+              >
+                <button
+                  onClick={() => menuItem.items.length > 0 ? toggleExpandedMenu(menuItem.title) : navigateTo(menuItem.href)}
+                  className="navbar-menu-btn"
+                >
+                  <div className="navbar-menu-title-group">
+                    <span className="navbar-menu-title">
+                      {menuItem.title}
+                    </span>
+                    {menuItem.subtitle && (
+                      <span className="navbar-menu-subtitle">
+                        {menuItem.subtitle}
+                      </span>
+                    )}
+                  </div>
+                  {menuItem.items.length > 0 && (
+                    <svg 
+                      className={`navbar-menu-expand-icon ${expandedMenu === menuItem.title ? 'expanded' : ''}`}
+                      viewBox="0 0 16 16" 
+                      fill="none"
+                    >
+                      <path d="M8 3v10M3 8h10" stroke="#86868b" strokeWidth="1.5" strokeLinecap="round"/>
+                    </svg>
+                  )}
+                </button>
+                
+                {menuItem.items.length > 0 && (
+                  <div className={`navbar-menu-submenu ${expandedMenu === menuItem.title ? 'expanded' : ''}`}>
+                    <div className="navbar-menu-submenu-inner">
+                      {menuItem.items.map((item, subIdx) => (
+                        <button
+                          key={item}
+                          onClick={() => navigateTo(menuItem.href)}
+                          className="navbar-menu-subitem"
+                          style={{
+                            transitionDelay: expandedMenu === menuItem.title ? `${subIdx * 0.03}s` : '0s',
+                          }}
+                        >
+                          {item}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+            ))}
+          </nav>
+        </div>
+      </div>
     </>
   );
 }
