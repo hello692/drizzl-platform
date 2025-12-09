@@ -6089,7 +6089,7 @@ svg {
 
 .lv-hero-sub {
   font-family: var(--font-family-base);
-  font-size: clamp(0.85rem, 1.3vw, 0.95rem);
+  font-size: clamp(1rem, 1.8vw, 1.25rem);
   line-height: 1.5;
   opacity: 0.65;
   margin: 0;
