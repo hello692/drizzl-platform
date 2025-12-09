@@ -25,6 +25,9 @@ export default function HomeHero() {
         <p className="lv-hero-sub">
           Because being healthy shouldn't suck.
         </p>
+        <a href="/products" className="lv-hero-cta">
+          Kiss of health
+        </a>
       </div>
     </section>
   );
