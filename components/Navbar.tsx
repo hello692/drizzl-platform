@@ -214,7 +214,8 @@ export default function Navbar() {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
-          padding: scrolled ? '14px 40px' : '20px 40px',
+          height: scrolled ? '56px' : '64px',
+          padding: '0 40px',
           background: bgStyle,
           backdropFilter: 'blur(20px)',
           WebkitBackdropFilter: 'blur(20px)',
@@ -222,64 +223,79 @@ export default function Navbar() {
           transition: 'all 0.3s ease-in-out',
         }}
       >
-        <div style={{ display: 'flex', alignItems: 'center', gap: '24px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '24px', height: '100%' }}>
           <button 
             className="header-btn"
             onClick={() => setMenuOpen(true)}
             style={{
-              display: 'flex',
+              display: 'inline-flex',
               alignItems: 'center',
-              gap: '8px',
+              justifyContent: 'center',
+              gap: '6px',
               background: 'none',
               border: 'none',
               color: textColor,
               cursor: 'pointer',
               padding: 0,
-              fontSize: '0.875rem',
+              fontSize: '14px',
               fontWeight: 400,
-              letterSpacing: '0.02em',
+              letterSpacing: '0.01em',
+              lineHeight: 1,
+              height: '20px',
               transition: 'color 0.3s ease',
             }}
           >
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" style={{ display: 'block' }}>
               <path d="M4 6h16M4 12h16M4 18h16" strokeLinecap="round"/>
             </svg>
-            <span className="header-btn-text">Menu</span>
+            <span className="header-btn-text" style={{ lineHeight: 1 }}>Menu</span>
           </button>
           <button 
             className="header-btn"
             onClick={() => router.push('/products')}
             style={{
-              display: 'flex',
+              display: 'inline-flex',
               alignItems: 'center',
-              gap: '8px',
+              justifyContent: 'center',
+              gap: '6px',
               background: 'none',
               border: 'none',
               color: textColor,
               cursor: 'pointer',
               padding: 0,
-              fontSize: '0.875rem',
+              fontSize: '14px',
               fontWeight: 400,
-              letterSpacing: '0.02em',
+              letterSpacing: '0.01em',
+              lineHeight: 1,
+              height: '20px',
               transition: 'color 0.3s ease',
             }}
           >
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" style={{ display: 'block' }}>
               <circle cx="11" cy="11" r="7"/>
               <path d="M21 21l-4.35-4.35" strokeLinecap="round"/>
             </svg>
-            <span className="header-btn-text">Search</span>
+            <span className="header-btn-text" style={{ lineHeight: 1 }}>Search</span>
           </button>
         </div>
 
-        <div style={{ position: 'absolute', left: '50%', transform: 'translateX(-50%)' }}>
-          <Link href="/" className="nav-logo" style={{ display: 'block' }}>
+        <div style={{ 
+          position: 'absolute', 
+          left: '50%', 
+          top: '50%',
+          transform: 'translate(-50%, -50%)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}>
+          <Link href="/" className="nav-logo" style={{ display: 'flex', alignItems: 'center' }}>
             <img 
               src="/images/drizzl-logo-white.gif"
               alt="DRIZZL WELLNESS" 
               style={{ 
-                height: '28px', 
+                height: '24px', 
                 width: 'auto', 
+                display: 'block',
                 filter: logoFilter, 
                 transition: 'filter 0.3s ease' 
               }}
@@ -287,16 +303,20 @@ export default function Navbar() {
           </Link>
         </div>
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '20px', height: '100%' }}>
           <Link 
             href="/wholesale" 
             className="nav-link wholesale-link"
             style={{
+              display: 'inline-flex',
+              alignItems: 'center',
               color: textColor,
               textDecoration: 'none',
-              fontSize: '0.875rem',
+              fontSize: '14px',
               fontWeight: 400,
-              letterSpacing: '0.02em',
+              letterSpacing: '0.01em',
+              lineHeight: 1,
+              height: '20px',
               transition: 'color 0.3s ease',
             }}
           >
@@ -305,9 +325,17 @@ export default function Navbar() {
           <Link 
             href="/auth" 
             className="nav-icon"
-            style={{ color: textColor, display: 'flex', alignItems: 'center', transition: 'color 0.3s ease' }}
+            style={{ 
+              color: textColor, 
+              display: 'inline-flex', 
+              alignItems: 'center', 
+              justifyContent: 'center',
+              width: '20px',
+              height: '20px',
+              transition: 'color 0.3s ease' 
+            }}
           >
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" style={{ display: 'block' }}>
               <circle cx="12" cy="8" r="4"/>
               <path d="M5 20c0-2.76 3.13-5 7-5s7 2.24 7 5" strokeLinecap="round"/>
             </svg>
@@ -315,9 +343,17 @@ export default function Navbar() {
           <Link 
             href="/cart" 
             className="nav-icon"
-            style={{ color: textColor, display: 'flex', alignItems: 'center', transition: 'color 0.3s ease' }}
+            style={{ 
+              color: textColor, 
+              display: 'inline-flex', 
+              alignItems: 'center', 
+              justifyContent: 'center',
+              width: '20px',
+              height: '20px',
+              transition: 'color 0.3s ease' 
+            }}
           >
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" style={{ display: 'block' }}>
               <path d="M6 6h-2l-2 12h18l-2-12h-2M6 6V5a4 4 0 018 0v1M6 6h8"/>
             </svg>
           </Link>
