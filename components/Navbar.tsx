@@ -194,12 +194,16 @@ export default function Navbar() {
     detectBackgroundBrightness();
   }, [router.pathname, detectBackgroundBrightness]);
 
+  const headerHeight = scrolled ? 72 : 78;
+  const iconSize = 22;
   const bgStyle = isDarkBg 
-    ? 'rgba(0, 0, 0, 0.3)' 
+    ? 'rgba(0, 0, 0, 0.4)' 
     : 'rgba(255, 255, 255, 0.95)';
   const textColor = isDarkBg ? '#ffffff' : '#000000';
+  const actionTextColor = isDarkBg ? 'rgba(255,255,255,0.75)' : 'rgba(0,0,0,0.75)';
   const borderColor = isDarkBg ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)';
   const logoFilter = isDarkBg ? 'none' : 'invert(1)';
+  const logoWidth = scrolled ? 160 : 180;
 
   return (
     <>
@@ -214,7 +218,7 @@ export default function Navbar() {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
-          height: scrolled ? '56px' : '64px',
+          height: `${headerHeight}px`,
           padding: '0 40px',
           background: bgStyle,
           backdropFilter: 'blur(20px)',
@@ -223,7 +227,7 @@ export default function Navbar() {
           transition: 'all 0.3s ease-in-out',
         }}
       >
-        <div style={{ display: 'flex', alignItems: 'center', gap: '24px', height: '100%' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '28px', height: '100%' }}>
           <button 
             className="header-btn"
             onClick={() => setMenuOpen(true)}
@@ -231,21 +235,21 @@ export default function Navbar() {
               display: 'inline-flex',
               alignItems: 'center',
               justifyContent: 'center',
-              gap: '6px',
+              gap: '8px',
               background: 'none',
               border: 'none',
-              color: textColor,
+              color: actionTextColor,
               cursor: 'pointer',
-              padding: 0,
+              padding: '8px 0',
               fontSize: '14px',
               fontWeight: 400,
               letterSpacing: '0.01em',
               lineHeight: 1,
-              height: '20px',
+              height: '100%',
               transition: 'color 0.3s ease',
             }}
           >
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" style={{ display: 'block' }}>
+            <svg width={iconSize} height={iconSize} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" style={{ display: 'block', flexShrink: 0 }}>
               <path d="M4 6h16M4 12h16M4 18h16" strokeLinecap="round"/>
             </svg>
             <span className="header-btn-text" style={{ lineHeight: 1 }}>Menu</span>
@@ -257,21 +261,21 @@ export default function Navbar() {
               display: 'inline-flex',
               alignItems: 'center',
               justifyContent: 'center',
-              gap: '6px',
+              gap: '8px',
               background: 'none',
               border: 'none',
-              color: textColor,
+              color: actionTextColor,
               cursor: 'pointer',
-              padding: 0,
+              padding: '8px 0',
               fontSize: '14px',
               fontWeight: 400,
               letterSpacing: '0.01em',
               lineHeight: 1,
-              height: '20px',
+              height: '100%',
               transition: 'color 0.3s ease',
             }}
           >
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" style={{ display: 'block' }}>
+            <svg width={iconSize} height={iconSize} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" style={{ display: 'block', flexShrink: 0 }}>
               <circle cx="11" cy="11" r="7"/>
               <path d="M21 21l-4.35-4.35" strokeLinecap="round"/>
             </svg>
@@ -293,17 +297,17 @@ export default function Navbar() {
               src="/images/drizzl-logo-white.gif"
               alt="DRIZZL WELLNESS" 
               style={{ 
-                height: '24px', 
-                width: 'auto', 
+                width: `${logoWidth}px`, 
+                height: 'auto', 
                 display: 'block',
                 filter: logoFilter, 
-                transition: 'filter 0.3s ease' 
+                transition: 'all 0.3s ease' 
               }}
             />
           </Link>
         </div>
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: '20px', height: '100%' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '24px', height: '100%' }}>
           <Link 
             href="/wholesale" 
             className="nav-link wholesale-link"
@@ -316,7 +320,8 @@ export default function Navbar() {
               fontWeight: 400,
               letterSpacing: '0.01em',
               lineHeight: 1,
-              height: '20px',
+              height: '100%',
+              padding: '8px 0',
               transition: 'color 0.3s ease',
             }}
           >
@@ -330,12 +335,12 @@ export default function Navbar() {
               display: 'inline-flex', 
               alignItems: 'center', 
               justifyContent: 'center',
-              width: '20px',
-              height: '20px',
+              height: '100%',
+              padding: '8px 0',
               transition: 'color 0.3s ease' 
             }}
           >
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" style={{ display: 'block' }}>
+            <svg width={iconSize} height={iconSize} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" style={{ display: 'block' }}>
               <circle cx="12" cy="8" r="4"/>
               <path d="M5 20c0-2.76 3.13-5 7-5s7 2.24 7 5" strokeLinecap="round"/>
             </svg>
@@ -348,12 +353,12 @@ export default function Navbar() {
               display: 'inline-flex', 
               alignItems: 'center', 
               justifyContent: 'center',
-              width: '20px',
-              height: '20px',
+              height: '100%',
+              padding: '8px 0',
               transition: 'color 0.3s ease' 
             }}
           >
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" style={{ display: 'block' }}>
+            <svg width={iconSize} height={iconSize} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" style={{ display: 'block' }}>
               <path d="M6 6h-2l-2 12h18l-2-12h-2M6 6V5a4 4 0 018 0v1M6 6h8"/>
             </svg>
           </Link>
