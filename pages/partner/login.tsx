@@ -144,11 +144,11 @@ export default function PartnerLogin() {
             </button>
 
             <div style={styles.helpSection}>
-              <Link href="/partner/support" style={styles.helpLink}>
+              <Link href="/partner/forgot-password" style={styles.helpLink}>
                 Forgot your password?
               </Link>
               <span style={styles.helpDivider}>|</span>
-              <Link href="/b2b/apply" style={styles.helpLink}>
+              <Link href="/partner/apply" style={styles.helpLink}>
                 Become a Partner
               </Link>
             </div>

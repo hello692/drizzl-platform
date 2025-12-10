@@ -1,0 +1,827 @@
+🚀 MASSIVE FEATURE ADD - COMPLETE PROMPT FOR REPLIT
+Copy and paste this ENTIRE prompt into Replit:
+
+HOLD ON - Before continuing with Phase 1, we need to add MAJOR missing features to both portals and admin.
+
+The system is incomplete. Here's what's missing and needs to be built:
+
+═══════════════════════════════════════════════════════════════════
+🏢 B2B PARTNER PORTAL - MISSING FEATURES
+═══════════════════════════════════════════════════════════════════
+
+BUILD THESE ADDITIONAL PAGES/FEATURES:
+
+1. COMPLETE SIGNUP FLOW (/partner/apply)
+   - Multi-step application form:
+     • Step 1: Business Information (name, type, address)
+     • Step 2: Contact Details (primary contact, email, phone)
+     • Step 3: Business Documents (tax ID, business license upload)
+     • Step 4: References (2-3 trade references)
+     • Step 5: Review & Submit
+   - After submit: Status = "pending", send to admin for approval
+   - Confirmation page: "Application received, we'll contact you within 48 hours"
+
+2. FORGOT PASSWORD (/partner/forgot-password)
+   - Email input
+   - [Send Reset Link] button
+   - Verification: Check if email exists in WholesalePartner table
+   - Send reset email (mock for now - show success message)
+   - Reset link goes to /partner/reset-password?token=xxx
+   - Reset password page: New password + Confirm password + [Reset] button
+
+3. ENHANCED ORDERING FLOW (/partner/orders/new)
+   Current state: Basic order form
+   Add:
+   - Product search with autocomplete
+   - Bulk CSV upload (upload CSV with: SKU, Quantity)
+   - Quick reorder templates (save frequent orders)
+   - Volume discount calculator (shows savings in real-time)
+   - Estimated delivery date calculator
+   - Special instructions textarea
+   - PO number input (for partner's internal tracking)
+
+4. ORDER TRACKING (/partner/orders/[id]/track)
+   - Visual tracking timeline:
+     • Order Placed ✅ (date/time)
+     • Payment Confirmed ✅ (date/time)
+     • In Production 🔄 (current status, X% complete)
+     • Quality Check ⏳ (pending)
+     • Shipped ⏳ (pending)
+     • Out for Delivery ⏳ (pending)
+     • Delivered ⏳ (pending)
+   - Real-time status updates
+   - Estimated dates for each stage
+   - Tracking number (when shipped)
+   - Carrier info (FedEx, UPS, etc.)
+   - [Track with Carrier] button (external link)
+   - Proof of delivery (signature, photo when delivered)
+
+5. POS TRACKING & INVENTORY (/partner/inventory)
+   For partners with physical stores - track what they have in stock:
+   - Dashboard showing inventory levels at partner locations
+   - Low stock alerts
+   - Reorder recommendations based on sales velocity
+   - [Auto-reorder] button (reorders when stock hits minimum)
+   - Sales data upload (partners upload daily/weekly sales)
+   - Analytics: Best selling products, turnover rate, days of supply
+
+6. EDUCATION & RESOURCES (/partner/resources)
+   - Product Training section:
+     • Video library (product demos, handling instructions)
+     • PDF downloads (spec sheets, nutrition facts, certifications)
+     • Quiz/certification (partners get certified on products)
+   - Marketing Materials:
+     • Product images (high-res download)
+     • POS materials (posters, shelf talkers, displays)
+     • Social media assets (Instagram/Facebook templates)
+     • Brand guidelines (logo usage, colors, fonts)
+   - Sales Resources:
+     • Pitch deck templates
+     • Comparison charts (vs competitors)
+     • Success stories / case studies
+     • ROI calculators
+   - Best Practices:
+     • How to display products
+     • Recommended shelf placement
+     • Seasonal promotions calendar
+     • FAQ for customer questions
+
+7. SUPPORT ENHANCEMENTS (/partner/support)
+   Current: Basic form
+   Add:
+   - Live chat widget (mock with chatbot)
+   - Ticket history (view all past tickets)
+   - Knowledge base with search
+   - Video tutorials library
+   - Account manager calendar (book meetings)
+   - Emergency contact (24/7 hotline for urgent issues)
+
+═══════════════════════════════════════════════════════════════════
+🛒 D2C CUSTOMER PORTAL - MISSING FEATURES
+═══════════════════════════════════════════════════════════════════
+
+BUILD THESE ADDITIONAL PAGES/FEATURES:
+
+1. WISHLIST / FAVORITES (/account/wishlist)
+   - Grid of saved products
+   - Product image, name, price
+   - [Add to Cart] [Remove] buttons
+   - [Share Wishlist] button → generates unique link
+   - Email wishlist to self or friend
+   - Move items from wishlist to cart (bulk)
+
+2. SEND TO FRIEND (/account/refer)
+   - "Give $10, Get $10" referral program
+   - Generate unique referral link
+   - Social sharing buttons (Email, Facebook, Twitter, SMS)
+   - Track referrals: Friends referred, Status, Rewards earned
+   - Referral leaderboard (gamification)
+
+3. ENHANCED SUBSCRIPTION DASHBOARD (/account/subscriptions/dashboard)
+   Current: Basic list
+   Add:
+   - Visual calendar showing next deliveries
+   - Subscription analytics:
+     • Total saved (vs buying individually)
+     • Deliveries received
+     • Favorite products
+   - Subscription recommendations (AI suggests products based on orders)
+   - [Add to Subscription] quick button from product pages
+
+4. PRODUCT USAGE GUIDES (/account/guides)
+   - How to use each product
+   - Recipe ideas (smoothie bowl recipes, etc.)
+   - Nutritional information
+   - Video tutorials
+   - Storage tips
+   - FAQs per product
+   - Print-friendly format
+
+5. AUTOMATED REORDERING (/account/settings/auto-reorder)
+   - Enable smart auto-reorder for favorite products
+   - AI predicts when you'll run out based on:
+     • Order history
+     • Order frequency
+     • Typical usage patterns
+   - Set preferences:
+     • Auto-reorder threshold (e.g., "reorder when 5 days supply left")
+     • Notification before auto-order
+     • Max auto-order amount
+   - View upcoming auto-orders
+   - [Cancel Auto-order] option
+
+6. DELIVERY TRACKING (/account/orders/[id]/track)
+   Same detailed tracking as B2B:
+   - Visual timeline
+   - Real-time updates
+   - SMS notifications (opt-in)
+   - Photo of package delivered
+   - [Report Problem] button
+
+7. ORDER AGAIN (enhanced)
+   - [Reorder] button on every past order
+   - "Buy again" carousel on dashboard (AI-powered)
+   - Subscribe to frequently ordered items (convert to subscription)
+
+8. FORGOT PASSWORD (/account/forgot-password)
+   - Email input
+   - [Send Reset Link] button
+   - Reset password page
+   - (Same as B2B)
+
+═══════════════════════════════════════════════════════════════════
+👨‍💼 ADMIN COMMAND CENTER - NEW TAB
+═══════════════════════════════════════════════════════════════════
+
+ADD NEW TAB: 🎯 LEADS MANAGEMENT (/admin/command-center/leads)
+
+This is a full B2B sales CRM for getting NEW wholesale partners.
+
+SECTIONS:
+
+1. LEADS DASHBOARD
+   - Total leads: count
+   - Qualified leads: count  
+   - Conversion rate: %
+   - Avg time to close: days
+   - Pipeline value: $
+   - This month: New leads, Closed deals
+
+2. LEAD CAPTURE
+   Multiple sources:
+   - Website form submissions (from /wholesale/apply)
+   - Manual entry (sales rep adds lead)
+   - CSV import (bulk upload leads)
+   - API integrations (Zapier, etc.)
+
+3. LEAD LIST (table)
+   Columns:
+   - Company name
+   - Contact name
+   - Email
+   - Phone
+   - Source (website, referral, cold outreach, trade show)
+   - Status (New, Contacted, Qualified, Demo Scheduled, Proposal Sent, Negotiation, Closed Won, Closed Lost)
+   - Assigned to (sales rep)
+   - Last activity
+   - Next action
+   - Score (1-100, AI-powered lead scoring)
+   
+   Filters:
+   - Status
+   - Assigned rep
+   - Date range
+   - Lead score (hot, warm, cold)
+   - Source
+
+4. LEAD DETAIL VIEW (click a lead)
+   
+   CONTACT INFO:
+   - Company details
+   - Primary contact
+   - Additional contacts
+   - [Add Contact] button
+   
+   ACTIVITY TIMELINE:
+   - All interactions chronologically:
+     • 📧 Email sent (subject, date)
+     • 📞 Phone call (duration, notes, date)
+     • 💻 Video call (platform, date, recording link)
+     • 🤝 Meeting (location, attendees, date, notes)
+     • 📄 Demo given (date, feedback)
+     • 📋 Proposal sent (date, amount)
+     • 💬 Note added (date, note)
+   - [Add Activity] button
+   
+   COMMUNICATION TOOLS:
+   - [Send Email] → Email composer
+   - [Log Call] → Call log form (duration, outcome, notes)
+   - [Schedule Video Call] → Calendar integration
+   - [Schedule Meeting] → Calendar integration
+   - [Send Proposal] → Generate proposal PDF
+   - [Add Note] → Quick note
+   
+   DEAL INFO:
+   - Estimated deal value
+   - Probability (%)
+   - Expected close date
+   - Competitors (who else are they talking to)
+   - Decision makers
+   - Budget confirmed? Y/N
+   - Authority confirmed? Y/N
+   - Need confirmed? Y/N
+   - Timeline confirmed? Y/N
+   (BANT qualification)
+   
+   DOCUMENTS:
+   - Proposal PDFs
+   - Contracts
+   - Business license (uploaded by prospect)
+   - Tax documents
+   - [Upload Document] button
+   
+   NEXT STEPS:
+   - Checklist of actions to close deal:
+     • ☐ Send welcome packet
+     • ☐ Schedule demo
+     • ☐ Send samples
+     • ☐ Send proposal
+     • ☐ Follow up on proposal
+     • ☐ Send contract
+     • ☐ Get signature
+     • ☐ Onboard new partner
+   - AI suggests next best action
+
+5. EMAIL COMPOSER (modal)
+   - To: (autofilled)
+   - Subject:
+   - Body: (WYSIWYG editor)
+   - Templates:
+     • Introduction email
+     • Follow-up email
+     • Demo request
+     • Proposal email
+     • Contract email
+     • Thank you email
+   - [Send] [Save Draft] [Schedule] buttons
+   - Email tracking: Opens, clicks
+
+6. CALL LOGGER (modal)
+   - Contact called
+   - Duration (auto-timer)
+   - Outcome (dropdown: No answer, Left voicemail, Spoke - interested, Spoke - not interested, Schedule callback)
+   - Notes (textarea)
+   - [Log Call] button
+   - Auto-updates activity timeline
+
+7. VIDEO CALL SCHEDULER (modal)
+   - Contact
+   - Date/time picker
+   - Duration (30 min, 1 hour, 2 hours)
+   - Platform (Zoom, Google Meet, Teams)
+   - Agenda (textarea)
+   - [Send Invitation] button
+   - Auto-generates meeting link
+   - Auto-sends calendar invite to contact
+
+8. DEMO TRACKER
+   - Demos scheduled
+   - Demos completed
+   - Demo feedback scores
+   - Common objections
+   - Demo-to-close conversion rate
+
+9. PROPOSAL GENERATOR
+   - Template-based proposal builder
+   - Auto-fills: Company name, products, pricing (based on tier), payment terms
+   - Editable sections:
+     • Executive summary
+     • Product offerings
+     • Pricing table
+     • Terms & conditions
+   - [Generate PDF] button
+   - [Send to Contact] button (email with PDF attached)
+
+10. LEAD SCORING (AI-powered)
+    Score leads 1-100 based on:
+    - Company size (larger = higher score)
+    - Industry fit
+    - Budget indicators
+    - Engagement level (opens emails, responds quickly)
+    - Website visits
+    - Time since last contact (recent = higher)
+    - Decision maker access
+    
+    Display score badge: 🔥 Hot (80-100), 🟡 Warm (50-79), ❄️ Cold (0-49)
+
+11. LEAD LIFECYCLE STAGES
+    Visual pipeline:
+    ```
+    New → Contacted → Qualified → Demo → Proposal → Negotiation → Closed Won
+                                                                  ↓
+                                                             Closed Lost
+    ```
+    Drag-and-drop to move leads between stages
+    Conversion rate between each stage
+    Time in each stage (avg)
+
+12. AUTOMATION RULES
+    - Auto-assign leads (round-robin, by territory, by rep availability)
+    - Auto-send email sequences (drip campaigns)
+    - Auto-create tasks (e.g., "Follow up if no response in 3 days")
+    - Auto-update lead score based on activity
+
+13. REPORTS & ANALYTICS
+    - Lead source performance (which sources convert best)
+    - Rep performance (leads assigned, conversion rate, avg deal size)
+    - Pipeline velocity (how fast deals close)
+    - Win/loss reasons
+    - Revenue forecast (based on pipeline)
+
+═══════════════════════════════════════════════════════════════════
+📱 ADMIN - SOCIAL MEDIA MANAGEMENT TAB
+═══════════════════════════════════════════════════════════════════
+
+ADD NEW TAB: 📱 SOCIAL MEDIA (/admin/command-center/social)
+
+SECTIONS:
+
+1. CONNECTED ACCOUNTS
+   - Facebook Page [Connect] / [Connected ✅]
+   - Instagram Business [Connect] / [Connected ✅]
+   - TikTok [Connect] / [Connected ✅]
+   - YouTube [Connect] / [Connected ✅]
+   - Twitter/X [Connect] / [Connected ✅]
+   - LinkedIn Company Page [Connect] / [Connected ✅]
+   
+   Connection status, last synced time
+   [Reconnect] button if expired
+
+2. UNIFIED FEED (real-time)
+   - Show posts from ALL connected accounts in one feed
+   - Sort by: Most recent, Most engagement, Platform
+   - Filter by: Platform, Date range
+   - Each post shows:
+     • Platform icon
+     • Post content (text, image/video thumbnail)
+     • Posted date
+     • Engagement metrics (likes, comments, shares, views)
+     • [View on Platform] button
+     • [Reply] [Share] [Delete] buttons
+
+3. ANALYTICS DASHBOARD
+   
+   OVERVIEW (all platforms combined):
+   - Total followers: sum across all platforms
+   - Total posts this month
+   - Total engagement (likes + comments + shares)
+   - Engagement rate: %
+   - Reach: unique users
+   - Growth: follower change % (this month)
+   
+   BY PLATFORM:
+   Facebook:
+   - Followers, Posts, Likes, Comments, Shares, Reach, Engagement rate
+   
+   Instagram:
+   - Followers, Posts, Likes, Comments, Saves, Reach, Engagement rate
+   - Story views, Story completion rate
+   
+   TikTok:
+   - Followers, Videos, Views, Likes, Comments, Shares, Avg watch time
+   
+   YouTube:
+   - Subscribers, Videos, Views, Likes, Comments, Watch time, Avg view duration
+   
+   Twitter/X:
+   - Followers, Tweets, Likes, Retweets, Replies, Impressions
+   
+   LinkedIn:
+   - Followers, Posts, Likes, Comments, Shares, Impressions
+
+4. TOP PERFORMING CONTENT
+   - Show top 10 posts by engagement across all platforms
+   - Display: Platform, Content preview, Engagement score, Date
+   - [View Details] for each post
+   - Insights: "Posts with images get 3x more engagement than text-only"
+
+5. AUDIENCE INSIGHTS
+   - Demographics: Age, Gender, Location
+   - Active times: When audience is most active (by hour, by day)
+   - Interests: What your audience likes
+   - Growth trends: Follower growth chart (last 90 days)
+
+6. POST COMPOSER (AI-POWERED)
+   
+   MANUAL POSTING:
+   - Textarea for post content
+   - Platform selectors: ☐ Facebook ☐ Instagram ☐ TikTok ☐ YouTube ☐ Twitter ☐ LinkedIn
+   - Media upload: Images, Videos (supports multiple)
+   - Post preview for each selected platform
+   - Hashtag suggestions (AI-powered based on content)
+   - Emoji picker
+   - Post now OR Schedule for later (date/time picker)
+   - [Post] [Save Draft] [Schedule] buttons
+   
+   AI CONTENT GENERATION:
+   - [Generate with AI] button
+   - AI prompts:
+     • "Create a post about our new Green Detox flavor"
+     • "Write a motivational Monday post"
+     • "Announce our holiday sale (20% off)"
+   - AI generates:
+     • Post text (optimized for each platform)
+     • Hashtag suggestions
+     • Best time to post
+     • Image suggestions (keywords for stock photos)
+   - [Use This] [Regenerate] buttons
+
+7. CONTENT CALENDAR
+   - Monthly calendar view
+   - Shows scheduled posts by date
+   - Color-coded by platform
+   - Drag-and-drop to reschedule
+   - Click date to add new post
+   - Filter by platform, status (draft, scheduled, published)
+
+8. AI AUTOMATED POSTING
+   
+   CONTENT SERIES (auto-generated & scheduled):
+   - "Product Spotlight" series (1 post per week featuring a product)
+   - "Customer Story" series (1 post per week with customer testimonial)
+   - "Wellness Tip" series (3 posts per week with health tips)
+   - "Behind the Scenes" series (1 post per week from factory/team)
+   
+   For each series:
+   - Enable/Disable toggle
+   - Frequency (daily, weekly, bi-weekly)
+   - Post time (best time or custom)
+   - Platforms to post on
+   - AI generates content automatically
+   - [Preview Next Post] button
+   - Queue of upcoming posts (edit before publishing)
+   
+   AUTO-RESPONSE:
+   - AI monitors comments/DMs
+   - Auto-replies to common questions:
+     • "Where can I buy?" → "Available at [link]"
+     • "Do you ship to [location]?" → "Yes! We ship to..."
+     • "What are ingredients?" → "Our products contain..."
+   - Flags urgent/negative comments for human review
+   - [Review & Approve] queue
+
+9. ENGAGEMENT MANAGEMENT
+   - Comments tab: All comments from all platforms in one place
+   - DMs tab: All direct messages in one inbox
+   - Mentions tab: When someone tags you
+   - For each:
+     • Platform icon
+     • User who commented/messaged
+     • Their message
+     • [Reply] button (reply directly from dashboard)
+     • [Like] [Delete] [Report] buttons
+     • Status: Unread, Read, Replied
+   - Filter by: Platform, Status, Date, Sentiment (positive, neutral, negative)
+
+10. HASHTAG TRACKER
+    - Track performance of specific hashtags
+    - Reach, Impressions, Engagement for each hashtag
+    - Trending hashtags in your niche
+    - Competitor hashtag analysis
+    - [Add to Favorites] for frequently used hashtags
+
+11. COMPETITOR MONITORING
+    - Add competitor accounts to watch
+    - See their recent posts
+    - Track their follower growth
+    - Benchmark your performance vs theirs
+    - Get alerts when they post
+
+12. REPORTS
+    - Weekly summary email (auto-sent to admin)
+    - Monthly performance report (PDF download)
+    - Custom reports: Select date range, metrics, platforms
+    - [Export to PDF] [Export to CSV] buttons
+
+═══════════════════════════════════════════════════════════════════
+📧 ADMIN - GOOGLE WORKSPACE INTEGRATION
+═══════════════════════════════════════════════════════════════════
+
+ADD TO SETTINGS OR NEW TAB: 📧 EMAIL (/admin/command-center/email)
+
+FEATURES:
+
+1. GMAIL INTEGRATION
+   - [Connect Google Workspace] button
+   - OAuth flow to connect admin@drizzlwellness.com
+   - After connection:
+     • Access inbox from admin dashboard
+     • Send emails from dashboard
+     • Track email opens/clicks
+     • Email templates
+     • Bulk email campaigns
+
+2. INBOX (inside admin dashboard)
+   - List of emails (like Gmail interface)
+   - Filters: Unread, Starred, Sent, Drafts, All Mail
+   - Search emails
+   - Preview pane
+   - [Compose] button
+
+3. EMAIL COMPOSER
+   - To: (with autocomplete from contacts)
+   - Cc, Bcc
+   - Subject
+   - Body (rich text editor)
+   - [Insert Template] dropdown
+   - [Insert Variable] (e.g., {{customer_name}}, {{order_number}})
+   - Attach files
+   - [Send] [Save Draft] [Schedule] buttons
+   - Track: Opens, Clicks
+
+4. EMAIL TEMPLATES
+   Library of pre-written templates:
+   - Welcome new customer
+   - Order confirmation
+   - Shipping notification
+   - Payment reminder
+   - Thank you for order
+   - Win-back email (inactive customers)
+   - B2B proposal
+   - B2B invoice reminder
+   - [Create New Template] button
+
+5. TEAM INBOX (shared)
+   - support@drizzlwellness.com (shared by team)
+   - Assign emails to team members
+   - Status: Open, In Progress, Resolved
+   - Internal notes (visible only to team)
+   - Response time tracking
+   - SLA alerts (if response time > 24 hours)
+
+6. EMAIL CAMPAIGNS
+   - Bulk send to customer segments
+   - Select audience:
+     • All customers
+     • VIP customers (>$500 spent)
+     • Inactive customers (no order in 90 days)
+     • B2B partners
+     • New signups (last 30 days)
+     • Custom segment
+   - Compose email
+   - Preview for desktop/mobile
+   - [Send Test] to yourself
+   - Schedule or send now
+   - Track: Sent, Delivered, Opens, Clicks, Unsubscribes
+
+7. CALENDAR INTEGRATION
+   - Sync Google Calendar
+   - View calendar in dashboard
+   - Schedule meetings from dashboard
+   - Send meeting invites via email
+
+8. CONTACT SYNC
+   - Auto-sync all customers/partners to Google Contacts
+   - Two-way sync (update in dashboard = updates in Google)
+
+═══════════════════════════════════════════════════════════════════
+DATABASE UPDATES NEEDED
+═══════════════════════════════════════════════════════════════════
+
+Add these new tables to Prisma schema:
+
+```prisma
+// Wishlist
+model WishlistItem {
+  id         String   @id @default(cuid())
+  customerId String
+  productId  String
+  createdAt  DateTime @default(now())
+  customer   Customer @relation(fields: [customerId], references: [id])
+  product    Product  @relation(fields: [productId], references: [id])
+}
+
+// Leads Management
+model Lead {
+  id              String   @id @default(cuid())
+  companyName     String
+  contactName     String
+  email           String
+  phone           String?
+  source          String   // "website", "referral", "cold_outreach", "trade_show"
+  status          String   @default("new") // "new", "contacted", "qualified", "demo", "proposal", "negotiation", "closed_won", "closed_lost"
+  assignedTo      String?  // admin user id
+  leadScore       Int      @default(50) // 1-100
+  estimatedValue  Float?
+  probability     Int?     // 0-100
+  expectedClose   DateTime?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  activities      LeadActivity[]
+  documents       LeadDocument[]
+}
+
+model LeadActivity {
+  id          String   @id @default(cuid())
+  leadId      String
+  type        String   // "email", "call", "meeting", "demo", "note"
+  description String
+  createdAt   DateTime @default(now())
+  createdBy   String   // admin user id
+  lead        Lead     @relation(fields: [leadId], references: [id])
+}
+
+model LeadDocument {
+  id          String   @id @default(cuid())
+  leadId      String
+  name        String
+  type        String   // "proposal", "contract", "license", "tax_doc"
+  url         String
+  uploadedAt  DateTime @default(now())
+  lead        Lead     @relation(fields: [leadId], references: [id])
+}
+
+// Social Media
+model SocialAccount {
+  id           String   @id @default(cuid())
+  platform     String   // "facebook", "instagram", "tiktok", "youtube", "twitter", "linkedin"
+  accountId    String   // platform's account ID
+  accountName  String
+  accessToken  String
+  refreshToken String?
+  expiresAt    DateTime?
+  isActive     Boolean  @default(true)
+  createdAt    DateTime @default(now())
+  posts        SocialPost[]
+}
+
+model SocialPost {
+  id          String   @id @default(cuid())
+  accountId   String
+  platform    String
+  postId      String?  // platform's post ID (null if draft)
+  content     String
+  mediaUrls   String[] // array of image/video URLs
+  scheduledAt DateTime?
+  publishedAt DateTime?
+  status      String   @default("draft") // "draft", "scheduled", "published", "failed"
+  metrics     Json?    // {likes, comments, shares, views, etc}
+  createdAt   DateTime @default(now())
+  account     SocialAccount @relation(fields: [accountId], references: [id])
+}
+
+// Auto-reorder
+model AutoReorder {
+  id          String   @id @default(cuid())
+  customerId  String
+  productId   String
+  enabled     Boolean  @default(true)
+  threshold   Int      @default(5) // days of supply before reorder
+  quantity    Int
+  nextOrder   DateTime?
+  customer    Customer @relation(fields: [customerId], references: [id])
+  product     Product  @relation(fields: [productId], references: [id])
+}
+
+// Email tracking
+model Email {
+  id          String   @id @default(cuid())
+  from        String
+  to          String
+  subject     String
+  body        String
+  status      String   @default("sent") // "sent", "delivered", "opened", "clicked", "bounced"
+  opens       Int      @default(0)
+  clicks      Int      @default(0)
+  sentAt      DateTime @default(now())
+  openedAt    DateTime?
+  clickedAt   DateTime?
+}
+
+═══════════════════════════════════════════════════════════════════ IMPLEMENTATION ORDER ═══════════════════════════════════════════════════════════════════
+This is A LOT. Build in this order:
+PRIORITY 1 (Most Important):
+B2B: Forgot password + Complete signup flow
+D2C: Forgot password + Wishlist
+Admin: Leads Management tab (full CRM)
+PRIORITY 2 (High Value): 4. B2B: Enhanced ordering + Tracking 5. D2C: Enhanced subscriptions + Auto-reorder 6. Admin: Social Media tab (basic connection + feed)
+PRIORITY 3 (Nice to Have): 7. B2B: POS tracking + Education resources 8. D2C: Product guides + Send to friend 9. Admin: Email integration (Gmail inbox)
+PRIORITY 4 (Advanced): 10. Admin: AI automated social posting 11. Admin: Social media analytics 12. B2B/D2C: Advanced tracking features
+═══════════════════════════════════════════════════════════════════ START NOW ═══════════════════════════════════════════════════════════════════
+Begin with PRIORITY 1, item #1: B2B Forgot Password + Complete Signup Flow
+Build:
+/partner/forgot-password page
+/partner/reset-password page
+/partner/apply (multi-step application)
+Application approval workflow in admin
+Show me when Priority 1 item #1 is complete, then we'll continue.
+Begin now! 🚀
+
+---
+
+## **🎯 WHAT THIS DOES:**
+
+This prompt adds **EVERY SINGLE FEATURE** you mentioned:
+
+### **B2B Portal:**
+✅ Forgot password
+✅ Complete signup flow
+✅ Enhanced ordering (CSV upload, templates)
+✅ Full order tracking (production → delivery)
+✅ POS inventory tracking
+✅ Educational content & resources
+✅ Support enhancements
+
+### **D2C Portal:**
+✅ Forgot password
+✅ Wishlist
+✅ Send to friend / referral
+✅ Enhanced subscription dashboard
+✅ Product usage guides
+✅ Automated reordering (AI-powered)
+✅ Full delivery tracking
+
+### **Admin Portal:**
+✅ **NEW TAB:** Leads Management (complete B2B CRM)
+  - Lead capture from all sources
+  - Activity tracking (calls, emails, meetings, demos)
+  - Email composer with templates
+  - Call logger
+  - Video call scheduler
+  - Demo tracker
+  - Proposal generator
+  - Lead scoring (AI)
+  - Pipeline visualization
+  - Automation rules
+  - Reports & analytics
+
+✅ **NEW TAB:** Social Media Management
+  - Connect Facebook, Instagram, TikTok, YouTube, Twitter, LinkedIn
+  - Unified feed (all posts in one place)
+  - Real-time analytics (followers, engagement, reach)
+  - AI-powered post composer
+  - Content calendar
+  - AI automated posting (content series)
+  - Auto-response to comments/DMs
+  - Hashtag tracker
+  - Competitor monitoring
+  - Scheduled posting
+
+✅ **NEW TAB:** Email / Gmail Integration
+  - Connect Google Workspace
+  - Inbox in dashboard
+  - Email composer with templates
+  - Team inbox (shared support@)
+  - Email campaigns
+  - Calendar integration
+  - Contact sync
+
+---
+
+## **📊 THIS TRANSFORMS YOUR SYSTEM INTO:**
+
+
+🚀 COMPLETE ENTERPRISE WELLNESS BRAND PLATFORM
+├── B2B PORTAL (Wholesale Partners) │ ✅ Full signup → approval → ordering → tracking cycle │ ✅ POS inventory management │ ✅ Education & training resources │ ├── D2C PORTAL (Individual Customers) │ ✅ Shopping → checkout → delivery → reorder cycle │ ✅ Subscriptions with AI auto-reorder │ ✅ Loyalty, wishlist, referrals │ └── ADMIN COMMAND CENTER ✅ Operations (all original 9 tabs) ✅ Lead Management (B2B sales CRM) ✅ Social Media (unified management + AI posting) ✅ Email (Gmail integration)
+= BILLION-DOLLAR COMPLETE SYSTEM 💎
+
+---
+
+## **⏰ TIMELINE:**
+
+- **Priority 1:** 4-6 hours
+- **Priority 2:** 6-8 hours
+- **Priority 3:** 4-6 hours
+- **Priority 4:** 6-8 hours
+
+**Total: 20-28 hours** to build ALL features
+
+---
+
+## **🚀 PASTE THIS MASSIVE PROMPT NOW!**
+
+Replit will start with Priority 1 (forgot password + signup flows + leads CRM).
+
+This is the **COMPLETE VISION** - nothing missing! 🔥💎
+
+

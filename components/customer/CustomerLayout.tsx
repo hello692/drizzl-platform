@@ -15,6 +15,7 @@ import {
   Menu,
   X,
   User,
+  Heart,
 } from 'lucide-react';
 
 interface CustomerLayoutProps {
@@ -30,6 +31,7 @@ const navItems = [
   { label: 'Dashboard', href: '/account/dashboard', icon: LayoutDashboard },
   { label: 'Orders', href: '/account/orders', icon: ShoppingBag },
   { label: 'Subscriptions', href: '/account/subscriptions', icon: RefreshCw },
+  { label: 'Wishlist', href: '/account/wishlist', icon: Heart },
   { label: 'Addresses', href: '/account/addresses', icon: MapPin },
   { label: 'Payment', href: '/account/payment', icon: CreditCard },
   { label: 'Rewards', href: '/account/rewards', icon: Gift },

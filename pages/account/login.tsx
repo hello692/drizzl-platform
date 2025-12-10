@@ -191,7 +191,7 @@ export default function CustomerLogin() {
             </div>
 
             <div style={styles.helpSection}>
-              <Link href="/forgot-password" style={styles.helpLink}>
+              <Link href="/account/forgot-password" style={styles.helpLink}>
                 Forgot your password?
               </Link>
             </div>
