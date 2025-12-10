@@ -834,8 +834,6 @@ export default function ProductPage() {
               View all smoothies →
             </Link>
 
-            <div className="lv-divider" />
-
             {/* Accordion Sections */}
             <div className="lv-accordion">
               {/* About this smoothie */}
