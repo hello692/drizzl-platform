@@ -1,0 +1,889 @@
+# DRIZZL WELLNESS - Complete The Site (SAFE MODE)
+
+## 🛡️ CRITICAL: DO NOT DELETE OR CHANGE EXISTING CODE
+
+**Your Mission:** Analyze the current DRIZZL WELLNESS website, identify all broken/missing links, and ADD the missing pages. Keep everything that's already working exactly as it is.
+
+---
+
+## GOLDEN RULES (NEVER VIOLATE):
+
+1. ✅ **KEEP** the existing homepage design exactly as is
+2. ✅ **KEEP** the existing header exactly as is
+3. ✅ **KEEP** the existing footer exactly as is
+4. ✅ **KEEP** any existing working pages
+5. ✅ **KEEP** all existing fonts, colors, spacing, layouts
+6. ✅ **ONLY ADD** pages that are missing
+7. ✅ **ONLY FIX** broken links
+8. ✅ **MATCH** the existing design style for all new pages
+9. ❌ **DO NOT** delete any existing files
+10. ❌ **DO NOT** overwrite working pages
+
+---
+
+## STEP 1: AUDIT THE CURRENT SITE
+
+Before making ANY changes, analyze:
+
+### Check The Menu Navigation
+Look at the menu sidebar - identify which links go nowhere:
+- Shop section links
+- About section links
+- Locations link
+- Wholesale link
+- Ingredients link
+- Membership link
+- Any other menu items
+
+### Check The Footer
+Look at the footer - identify which links are broken:
+- SHOP column links
+- DISCOVER column links
+- WHOLESALE & PARTNERSHIPS column links
+- JOIN THE SQUAD column links
+- SUPPORT column links
+- THE FINE PRINT column links
+
+### Check All Buttons
+Find all buttons on the site:
+- "Smooch it on" button on homepage
+- Any "Add to Cart" buttons
+- Any "Learn More" buttons
+- Search button
+- Account button
+- Cart button
+
+### Make a List
+Create a list of ONLY the missing/broken pages that need to be created.
+
+---
+
+## STEP 2: ANALYZE EXISTING DESIGN
+
+Study the current site carefully to understand:
+
+### Current Design Elements
+- What fonts are being used?
+- What spacing/padding system is in place?
+- What colors are being used?
+- What button styles exist?
+- What card designs are used?
+- What animation effects are present?
+- What is the mobile responsive behavior?
+
+### Current Brand Voice
+- Look at existing copy/text
+- Match the tone and style
+- Use similar language patterns
+- Keep the fun, witty personality
+
+### Current Technical Structure
+- What file structure exists?
+- What CSS framework/approach is used?
+- What JavaScript is already written?
+- How is navigation currently handled?
+
+---
+
+## STEP 3: CREATE MISSING PAGES ONLY
+
+For EACH missing page you identified, create it following these rules:
+
+### Design Matching Requirements
+Every new page MUST:
+- Use the EXACT SAME header (copy it exactly)
+- Use the EXACT SAME footer (copy it exactly)
+- Use the SAME fonts as existing pages
+- Use the SAME color scheme
+- Use the SAME spacing/padding system
+- Use the SAME button styles
+- Use the SAME card designs
+- Match the SAME overall aesthetic
+- Be responsive in the SAME way
+
+### Content Requirements
+Generate appropriate, realistic content for each page:
+
+#### For Product Pages:
+- Product name
+- Price ($7.99 - $9.99 range)
+- Product image placeholder or description
+- 100-150 word description (fun, benefit-focused)
+- Ingredients list (realistic smoothie ingredients)
+- Nutritional info (calories, protein, sugar - realistic numbers)
+- "Add to Cart" button (functional or links to cart)
+- Related products section
+
+#### For Information Pages:
+- Engaging headline matching brand voice
+- 200-400 words of relevant, useful content
+- Appropriate CTAs
+- Links back to shop or relevant pages
+- Images or visual elements matching site style
+
+#### For Forms:
+- All necessary form fields
+- Proper labels and placeholders
+- Submit button (even if just console.log for now)
+- Validation messages
+- Success/error states
+
+---
+
+## STEP 4: PAGES TO CREATE (Based on Current Menu/Footer)
+
+### SHOP SECTION
+If these don't exist, create:
+
+**Main Shop Page (`/shop` or `shop.html`)**
+- Product grid showing 12-16 smoothies
+- Filter/category options
+- Each product card with:
+  - Image
+  - Name
+  - Price
+  - "Add to Cart" or "View Details" button
+
+**Product Categories (if separate pages needed):**
+- Smoothies collection
+- Protein Power-Ups collection
+- Fan Favorites collection
+- Fresh Drops (New Arrivals) collection
+- Smoothie Kits collection
+- Gifts That Blend Joy collection
+
+**Individual Product Pages (create 12+ products):**
+
+Example smoothie products to create:
+1. Berry Blast - Mixed berries, banana, yogurt
+2. Green Machine - Spinach, kale, pineapple, mango
+3. Tropical Paradise - Mango, passion fruit, coconut
+4. Chocolate Peanut Butter - Banana, PB, cacao, protein
+5. Strawberry Sunrise - Strawberry, orange, vanilla
+6. Acai Energy - Acai, blueberry, granola
+7. Mango Tango - Mango, peach, turmeric
+8. Coffee Kick - Cold brew, banana, almond butter
+9. Dragon Fruit Dream - Dragon fruit, strawberry, chia
+10. Pineapple Express - Pineapple, coconut, lime
+11. Mint Chocolate Chip - Spinach, mint, cacao nibs
+12. Peach Perfect - Peach, mango, ginger
+
+Each product page template:
+- Large product image area
+- Product name and price
+- Description (100-150 words)
+- Ingredients list
+- Nutritional information
+- Quantity selector
+- "Add to Cart" button
+- Related products section
+
+---
+
+### DISCOVER SECTION
+
+**Our Story Page (`/our-story` or similar)**
+Content to include:
+- Headline: "Our Story (Spoiler: It's Delicious)"
+- Origin story (200-300 words)
+- Founder journey
+- Why DRIZZL exists
+- Mission and values
+- Photos/images
+- CTA to shop
+
+**Blog & Recipes Page (`/blog` or similar)**
+- Blog listing page with 6-8 articles
+- Each article card with:
+  - Featured image
+  - Title
+  - Excerpt
+  - "Read More" link
+
+Create 6-8 blog articles:
+1. "5 Morning Smoothie Rituals That Changed My Life"
+2. "How to Build the Perfect Post-Workout Smoothie"
+3. "The Truth About Sugar in Smoothies"
+4. "Smoothie Bowls: Instagram vs Reality"
+5. "Why We Source Organic (And Why It Matters)"
+6. "Batch Prep Your Smoothies Like a Pro"
+7. "Best Smoothie Combinations for Energy"
+8. "Smoothie Mistakes You're Probably Making"
+
+Each blog post page:
+- Featured image
+- Headline
+- 500-800 words of useful content
+- Related products
+- Social share buttons
+- Related articles
+
+**Store Locator Page (`/store-locator` or similar)**
+- Headline: "Find Us Near You"
+- Map placeholder or description
+- List of retail locations (5-10 examples):
+  - Los Angeles, CA - Whole Foods Market
+  - San Francisco, CA - Erewhon Market
+  - Austin, TX - Central Market
+  - New York, NY - The Vitamin Shoppe
+  - Miami, FL - Fresh Market
+  - Seattle, WA - PCC Community Markets
+  - Portland, OR - New Seasons Market
+  - Chicago, IL - Mariano's
+  - Boston, MA - Wegmans
+  - Denver, CO - Natural Grocers
+- CTA to wholesale page
+
+---
+
+### WHOLESALE & PARTNERSHIPS SECTION
+
+**Locations Page (`/locations`)**
+- Headline: "Find us near you"
+- Store locator or list of locations
+- Link to wholesale opportunities
+
+**Wholesale Page (`/wholesale`)**
+- Headline: "Partner with us" or "Big Ideas? Let's Collaborate"
+- Benefits of carrying DRIZZL products
+- Wholesale pricing information
+- Minimum order requirements
+- Contact form:
+  - Business name
+  - Contact person
+  - Email
+  - Phone
+  - Business type
+  - Number of locations
+  - Message
+  - Submit button
+- CTA and contact information
+
+**Wholesale Opportunities Page**
+- Detailed partnership benefits
+- Case studies or testimonials from partners
+- Application process
+- Contact information
+
+**Partner Portal Page**
+- Login form for existing partners
+- Username/email field
+- Password field
+- "Forgot password" link
+- Sign in button
+- Registration link for new partners
+
+**B2B Pricing Page**
+- Pricing tiers based on volume
+- Product catalog with wholesale prices
+- Ordering process
+- Payment terms
+- Contact for custom pricing
+
+---
+
+### INGREDIENTS PAGE
+
+**Ingredients Page (`/ingredients`)**
+- Headline: "What goes in every cup"
+- Philosophy on ingredients
+- Sourcing practices
+- List of key ingredients (10-15):
+  - Organic spinach - Source, benefits
+  - Wild blueberries - Source, benefits
+  - Grass-fed whey protein - Source, benefits
+  - Coconut water - Source, benefits
+  - Chia seeds - Source, benefits
+  - Organic mango - Source, benefits
+  - Almond butter - Source, benefits
+  - Acai berries - Source, benefits
+  - Cacao - Source, benefits
+  - Turmeric - Source, benefits
+- "No artificial anything" promise
+- Allergen information
+- Quality certifications
+
+---
+
+### MEMBERSHIP PAGE
+
+**Membership Page (`/membership`)**
+- Headline: "Join the wellness club"
+- Subheading explaining benefits
+- Membership benefits list:
+  - 15% off all orders
+  - Free shipping
+  - Early access to new flavors
+  - Exclusive recipes
+  - Monthly wellness tips
+  - Birthday surprise
+  - Members-only events
+- Pricing options:
+  - Monthly: $9.99/month
+  - Annual: $99/year (save 17%)
+- Sign up form
+- FAQ section about membership
+- Member testimonials
+
+---
+
+### JOIN THE SQUAD SECTION
+
+**Careers Page (`/careers`)**
+- Headline: "Careers (Blend Your Talents Here)"
+- Company culture description
+- Why work at DRIZZL
+- Current openings (3-5 example positions):
+  - Smoothie Innovation Specialist
+  - Brand Ambassador - [City]
+  - Operations Manager
+  - Customer Experience Coordinator
+  - Social Media Content Creator
+- Application form or "Apply Now" buttons
+- Employee benefits
+- Company values
+
+**Ambassadors & Affiliates Page (`/ambassadors`)**
+- Headline: "Ambassadors & Affiliates (Spread the Crave)"
+- Program description
+- Benefits:
+  - Commission on sales
+  - Free products
+  - Exclusive discount code
+  - Marketing materials
+  - Community support
+- Who should apply
+- Application form
+- Current ambassadors showcase
+- Success stories
+
+**Referral Program Page (`/referral`)**
+- Headline: "Refer a Friend, Get Rewarded"
+- How it works (3-step visual):
+  1. Share your unique link
+  2. Friend gets $10 off first order
+  3. You get $10 credit
+- Referral link generator (if logged in)
+- Terms and conditions
+- FAQ about referrals
+- Tracking your referrals
+
+**Student Perks Page (`/students`)**
+- Headline: "Student Perks"
+- Student discount offer (20% off)
+- How to verify student status
+- Campus ambassador program
+- Nutrition tips for students
+- Study snack smoothie recommendations
+- Application for campus ambassadors
+
+---
+
+### SUPPORT SECTION
+
+**FAQs Page (`/faqs`)**
+Create 20-25 common questions organized by category:
+
+**Ordering & Delivery:**
+- How do I place an order?
+- What payment methods do you accept?
+- Do you ship nationwide?
+- How long does shipping take?
+- Can I track my order?
+- What if my order arrives damaged?
+
+**Products & Ingredients:**
+- Are your smoothies gluten-free?
+- Do you use organic ingredients?
+- How long do smoothies stay fresh?
+- Are there any allergens?
+- Do you have sugar-free options?
+- Can I customize my smoothie?
+
+**Wholesale & Partnerships:**
+- What are the wholesale minimum orders?
+- How do I become a retail partner?
+- Do you offer private label?
+
+**Returns & Refunds:**
+- What is your return policy?
+- How do I initiate a return?
+- When will I get my refund?
+
+**Account & Membership:**
+- How do I create an account?
+- What are membership benefits?
+- Can I cancel my membership?
+
+**Contact Us Page (`/contact`)**
+- Headline: "Contact Us (We're Here to Help)"
+- Contact form:
+  - Name
+  - Email
+  - Phone (optional)
+  - Subject dropdown (Order inquiry, Product question, Wholesale, Partnership, Other)
+  - Message
+  - Submit button
+- Contact information:
+  - Email: hello@drizzlwellness.com
+  - Phone: 1-800-DRIZZL-1 (1-800-374-9951)
+  - Address: [Company headquarters address]
+- Customer service hours
+- Social media links
+- Live chat option (if applicable)
+- FAQ link
+
+**Shipping & Returns Page (`/shipping`)**
+- **Shipping Policy:**
+  - Shipping methods and costs
+  - Delivery timeframes by region
+  - International shipping (if applicable)
+  - Order processing time
+  - Tracking information
+- **Return Policy:**
+  - 30-day satisfaction guarantee
+  - What can be returned
+  - Return process steps
+  - Refund timeline
+  - Return shipping costs
+  - Damaged/defective items
+- **Exchange Policy:**
+  - How to exchange products
+  - Exchange process
+- Contact for shipping questions
+
+---
+
+### THE FINE PRINT SECTION
+
+**Privacy Policy Page (`/privacy`)**
+Standard privacy policy including:
+- Information we collect
+- How we use your information
+- Cookies and tracking
+- Third-party sharing
+- Data security measures
+- Your privacy rights
+- How to contact us about privacy
+- Last updated date
+
+**Terms of Service Page (`/terms`)**
+Standard terms including:
+- Acceptance of terms
+- Use of website
+- Product information
+- Pricing and payment
+- Order acceptance
+- Shipping and delivery
+- Returns and refunds
+- Intellectual property
+- Limitation of liability
+- Governing law
+- Changes to terms
+- Contact information
+- Last updated date
+
+---
+
+### E-COMMERCE FUNCTIONALITY PAGES
+
+**Shopping Cart Page (`/cart`)**
+If doesn't exist, create:
+- Cart items table/list:
+  - Product image
+  - Product name
+  - Price
+  - Quantity selector (+/- buttons)
+  - Remove item button
+  - Line total
+- Cart summary:
+  - Subtotal
+  - Shipping estimate
+  - Tax estimate (if applicable)
+  - Total
+- "Continue Shopping" button → Back to shop
+- "Proceed to Checkout" button → Go to checkout
+- Empty cart message (if no items)
+- Recommended products section
+
+**Checkout Page (`/checkout`)**
+If doesn't exist, create:
+
+**Step 1: Contact Information**
+- Email address
+- "Create account" checkbox option
+
+**Step 2: Shipping Address**
+- First name
+- Last name
+- Address line 1
+- Address line 2 (optional)
+- City
+- State/Province
+- ZIP/Postal code
+- Country
+- Phone number
+
+**Step 3: Shipping Method**
+- Standard Shipping (5-7 business days) - $5.99
+- Express Shipping (2-3 business days) - $12.99
+- Overnight Shipping (1 business day) - $24.99
+
+**Step 4: Payment**
+- Credit card fields (Stripe or PayPal integration ready)
+- Or "Pay with PayPal" button
+- Or "Apple Pay / Google Pay" buttons
+- Billing address (same as shipping checkbox)
+
+**Order Summary (Sidebar)**
+- Items in order
+- Subtotal
+- Shipping cost
+- Tax
+- Total
+- "Place Order" button
+
+**Order Confirmation Page (`/order-confirmation`)**
+If doesn't exist, create:
+- Thank you message
+- Order number
+- Order details summary
+- Estimated delivery date
+- Confirmation email sent notice
+- "Continue Shopping" button → Back to shop
+- Account creation prompt (if guest checkout)
+- Customer service contact info
+
+---
+
+### ACCOUNT PAGES
+
+**Login Page (`/login`)**
+- Headline: "Welcome Back"
+- Email field
+- Password field
+- "Remember me" checkbox
+- "Sign In" button
+- "Forgot password?" link → Password reset page
+- Divider
+- "Don't have an account?" text
+- "Create Account" button → Register page
+
+**Register Page (`/register`)**
+- Headline: "Join the DRIZZL Family"
+- First name
+- Last name
+- Email
+- Password
+- Confirm password
+- "Agree to terms" checkbox (links to terms page)
+- "Sign up for newsletter" checkbox
+- "Create Account" button
+- Divider
+- "Already have an account?" text
+- "Sign In" link → Login page
+
+**Account Dashboard (`/account`)**
+If user is logged in:
+- Welcome message with user name
+- Quick stats (orders, rewards points, etc.)
+- Navigation menu:
+  - Order History
+  - Account Details
+  - Addresses
+  - Payment Methods
+  - Membership (if applicable)
+  - Rewards/Referrals
+  - Log Out
+- Recent orders preview
+- Account actions
+
+**Order History Page (`/account/orders`)**
+- List of past orders
+- Each order showing:
+  - Order number
+  - Order date
+  - Total amount
+  - Status
+  - "View Details" button
+  - "Reorder" button
+- Filter/sort options (date, status)
+- Pagination if many orders
+
+**Password Reset Page (`/reset-password`)**
+- Headline: "Reset Your Password"
+- Email field
+- "Send Reset Link" button
+- Success message
+- Back to login link
+
+---
+
+## STEP 5: ENSURE ALL LINKS CONNECT
+
+After creating missing pages, verify:
+
+### Header Links
+- [ ] Menu button opens navigation
+- [ ] Search button opens search (or goes to search page)
+- [ ] Logo links to homepage
+- [ ] Wholesale links to wholesale page
+- [ ] Account icon links to account (or login if not logged in)
+- [ ] Cart icon links to cart page
+
+### Menu Sidebar Links
+Check EVERY link in the menu goes to correct page:
+- [ ] All Shop subcategory links work
+- [ ] All Discover section links work
+- [ ] All Wholesale section links work
+- [ ] All Join the Squad links work
+- [ ] All Support links work
+- [ ] All Fine Print links work
+
+### Footer Links
+Check EVERY footer link goes to correct page:
+- [ ] All column links work
+- [ ] Newsletter signup submits
+- [ ] Social media icons link out
+
+### Button Links
+- [ ] "Smooch it on" (homepage) → Goes to /shop
+- [ ] "Add to Cart" buttons → Add to cart or go to product page
+- [ ] "View Details" buttons → Go to individual product pages
+- [ ] "Checkout" button → Goes to checkout
+- [ ] "Submit" buttons → Submit forms (even if just console.log)
+
+### Product Page Links
+- [ ] Related products link to actual products
+- [ ] "Back to shop" links work
+- [ ] Category breadcrumbs work
+
+### Blog Links
+- [ ] "Read More" goes to full article
+- [ ] Related articles link to other blog posts
+- [ ] Blog navigation works
+
+---
+
+## STEP 6: MAINTAIN DESIGN CONSISTENCY
+
+For every new page created, verify:
+
+### Visual Consistency
+- [ ] Same header appears at top
+- [ ] Same footer appears at bottom
+- [ ] Same fonts used throughout
+- [ ] Same color scheme
+- [ ] Same spacing system
+- [ ] Same button styles
+- [ ] Same form field styles
+- [ ] Same card designs
+
+### Brand Voice Consistency
+- [ ] Headlines match existing style
+- [ ] Copy maintains fun, witty tone
+- [ ] CTAs use similar language
+- [ ] Product descriptions follow pattern
+
+### Technical Consistency
+- [ ] Same CSS file/framework used
+- [ ] Same JavaScript structure
+- [ ] Same responsive breakpoints
+- [ ] Same animation effects
+- [ ] Same image optimization
+
+---
+
+## STEP 7: ADD FUNCTIONAL BEHAVIOR
+
+For key interactions, add basic functionality:
+
+### Shopping Cart
+```javascript
+// Basic cart functionality (if not already present)
+let cart = [];
+
+function addToCart(product) {
+  cart.push(product);
+  updateCartCount();
+  // Show confirmation message
+}
+
+function updateCartCount() {
+  document.getElementById('cart-count').textContent = cart.length;
+}
+
+function removeFromCart(index) {
+  cart.splice(index, 1);
+  updateCartCount();
+  renderCart();
+}
+```
+
+### Forms
+```javascript
+// Basic form submission (if not already present)
+function submitForm(formData) {
+  console.log('Form submitted:', formData);
+  // Show success message
+  // In production, this would send to server
+}
+```
+
+### Mobile Menu
+```javascript
+// Basic menu toggle (if not already present)
+function toggleMenu() {
+  document.getElementById('mobile-menu').classList.toggle('open');
+}
+```
+
+### Search
+```javascript
+// Basic search functionality (if not already present)
+function searchProducts(query) {
+  // Filter products by query
+  // Display results
+}
+```
+
+---
+
+## STEP 8: MOBILE RESPONSIVENESS
+
+Ensure all NEW pages are mobile responsive:
+
+### Mobile (< 768px)
+- [ ] Single column layouts
+- [ ] Hamburger menu works
+- [ ] Touch-friendly buttons (min 44x44px)
+- [ ] Readable font sizes (min 16px)
+- [ ] No horizontal scrolling
+- [ ] Forms stack vertically
+- [ ] Cart is easy to manage
+
+### Tablet (768px - 1024px)
+- [ ] 2-column layouts where appropriate
+- [ ] Navigation adapts properly
+- [ ] Images scale correctly
+- [ ] Spacing adjusted
+
+### Desktop (> 1024px)
+- [ ] Multi-column layouts utilized
+- [ ] Full menu visible (or sidebar)
+- [ ] Hover states work
+- [ ] Optimal content width (not too wide)
+
+---
+
+## STEP 9: CONTENT QUALITY STANDARDS
+
+All content you generate must be:
+
+### Realistic
+- Product descriptions sound authentic
+- Ingredients lists are actual smoothie ingredients
+- Nutritional info is believable (300-500 calories typical)
+- Blog content is actually useful
+- FAQs answer real questions
+
+### Brand-Appropriate
+- Fun and witty tone like "Smooch it on"
+- Health-conscious but not preachy
+- Energetic and positive
+- Benefit-focused, not feature-focused
+
+### Professional
+- No placeholder text like "Lorem ipsum"
+- No "coming soon" messages
+- Complete sentences and proper grammar
+- All links work (no # placeholders)
+
+### SEO-Friendly
+- Descriptive page titles
+- Meta descriptions for each page
+- Proper heading hierarchy (H1, H2, H3)
+- Alt text for images
+- Clean, readable URLs
+
+---
+
+## STEP 10: FINAL QUALITY CHECK
+
+Before completing, verify:
+
+### Functionality
+- [ ] Clicked through EVERY link - all work
+- [ ] Tested EVERY button - all function
+- [ ] Added items to cart - works
+- [ ] Submitted forms - work (even if test)
+- [ ] Navigation flows logically
+- [ ] Search returns results
+- [ ] Mobile menu opens/closes
+
+### Content
+- [ ] No placeholder text anywhere
+- [ ] All product descriptions are unique
+- [ ] Blog posts are substantial (500+ words)
+- [ ] FAQs are helpful
+- [ ] Legal pages are complete
+
+### Design
+- [ ] Every page matches existing design
+- [ ] No broken layouts
+- [ ] All images load (or have placeholders)
+- [ ] Consistent spacing throughout
+- [ ] Mobile responsive on all pages
+- [ ] No design elements missing
+
+### Technical
+- [ ] No console errors
+- [ ] No broken links
+- [ ] Fast page loads
+- [ ] Smooth animations
+- [ ] Forms validate properly
+
+---
+
+## WHAT SUCCESS LOOKS LIKE
+
+When complete, the site should:
+
+✅ Have EVERY link from menu working
+✅ Have EVERY link from footer working
+✅ Have EVERY button doing something
+✅ Look consistent across all pages
+✅ Be fully mobile responsive
+✅ Have realistic, quality content
+✅ Be ready for a real launch
+✅ Have NO dead ends or broken links
+✅ Maintain the original design aesthetic
+✅ Keep all existing working features
+
+---
+
+## SUMMARY OF YOUR TASK
+
+1. **AUDIT** - Find all broken/missing links and pages
+2. **ANALYZE** - Study existing design to match it exactly
+3. **CREATE** - Build only the missing pages
+4. **CONNECT** - Ensure all links work
+5. **MATCH** - Keep design consistent with existing site
+6. **TEST** - Click everything to verify it works
+7. **DELIVER** - Complete, functional site with no broken links
+
+**Remember: You're COMPLETING the site, not rebuilding it. Keep what works, add what's missing, fix what's broken.**
+
+---
+
+## CRITICAL REMINDERS
+
+- 🛡️ DO NOT delete existing files
+- 🛡️ DO NOT overwrite working pages
+- 🛡️ DO NOT change existing design
+- ✅ DO match existing style exactly
+- ✅ DO create all missing pages
+- ✅ DO fix all broken links
+- ✅ DO maintain brand consistency
+
+**This is a COMPLETION project, not a REPLACEMENT project.**
