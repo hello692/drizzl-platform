@@ -324,8 +324,6 @@ export default function Navbar() {
         </div>
       </header>
 
-      <div style={{ height: '70px' }} />
-
       <div 
         style={{
           position: 'fixed',
