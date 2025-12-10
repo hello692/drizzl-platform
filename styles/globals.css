@@ -3609,10 +3609,10 @@ svg {
 
 .drizzl-kiss-tagline {
   font-family: var(--font-family-base);
-  font-size: clamp(0.9rem, 1.4vw, 1rem);
-  font-weight: var(--fw-regular);
+  font-size: clamp(1.5rem, 3.5vw, 2.2rem);
+  font-weight: var(--fw-light);
   color: #E85A71;
-  letter-spacing: 0.01em;
+  letter-spacing: -0.025em;
 }
 
 /* Carousel Section - Compact Divine Engineering */
