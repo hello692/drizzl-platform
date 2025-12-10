@@ -120,8 +120,8 @@
   --hero-to-section: clamp(120px, 15vw, 180px);
   
   /* Section Padding - Premium Luxury */
-  --section-padding-y: clamp(80px, 10vw, 120px);
-  --section-padding-x: clamp(24px, 6vw, 80px);
+  --section-padding-y: clamp(80px, 10vw, 100px);
+  --section-padding-x: clamp(24px, 5vw, 60px);
   
   /* Container - Premium Width */
   --container-max: 1320px;
@@ -227,6 +227,43 @@
   --hover-lift-sm: translateY(-2px);
   --hover-lift-md: translateY(-4px);
   --hover-lift-lg: translateY(-6px);
+
+  /* ============================================
+     LINEAR-STYLE BALANCED SPACING
+     ============================================ */
+  --linear-section-hero: clamp(100px, 12vw, 120px);
+  --linear-section-major: clamp(80px, 10vw, 100px);
+  --linear-section-sub: clamp(60px, 8vw, 80px);
+  --linear-content-block: clamp(40px, 5vw, 60px);
+
+  /* COMPONENT SPACING */
+  --linear-card-gap: clamp(24px, 3vw, 32px);
+  --linear-card-padding: clamp(24px, 3vw, 32px);
+  --linear-icon-text: clamp(16px, 2vw, 20px);
+  --linear-button-gap: clamp(16px, 2vw, 20px);
+
+  /* PARAGRAPH SPACING */
+  --linear-paragraph-gap: clamp(24px, 3vw, 32px);
+  --linear-heading-to-text: clamp(16px, 2vw, 20px);
+  --linear-list-item-gap: clamp(16px, 2vw, 20px);
+
+  /* ELEVATION SYSTEM (Dark Theme) */
+  --shadow-level-0: none;
+  --shadow-level-1: 0 1px 3px rgba(0, 0, 0, 0.3);
+  --shadow-level-2: 0 2px 8px rgba(0, 0, 0, 0.4);
+  --shadow-level-3: 0 8px 24px rgba(0, 0, 0, 0.5);
+  --shadow-level-4: 0 16px 48px rgba(0, 0, 0, 0.6);
+
+  /* BORDER SYSTEM (Dark Theme) */
+  --border-subtle: rgba(255, 255, 255, 0.06);
+  --border-light: rgba(255, 255, 255, 0.08);
+  --border-medium: rgba(255, 255, 255, 0.12);
+  --border-hover: rgba(255, 255, 255, 0.16);
+
+  /* TRANSITION TIMING */
+  --transition-fast: 0.15s ease;
+  --transition-normal: 0.2s ease;
+  --transition-smooth: 0.3s ease;
 }
 
 /* ============================================
@@ -255,6 +292,128 @@
   padding-left: var(--container-padding);
   padding-right: var(--container-padding);
   width: 100%;
+}
+
+/* ============================================
+   LINEAR CARD SYSTEM - Dark Theme
+   ============================================ */
+.linear-card {
+  border: 1px solid var(--border-light);
+  border-radius: 12px;
+  padding: var(--linear-card-padding);
+  background: rgba(255, 255, 255, 0.02);
+  box-shadow: var(--shadow-level-1);
+  transition: all var(--transition-normal);
+}
+
+.linear-card:hover {
+  border-color: var(--border-hover);
+  box-shadow: var(--shadow-level-2);
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+/* ============================================
+   LINEAR BUTTON INTERACTIONS
+   ============================================ */
+.linear-button {
+  position: relative;
+  box-shadow: var(--shadow-level-1);
+  transition: all var(--transition-fast);
+}
+
+.linear-button:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-level-2);
+}
+
+.linear-button:active {
+  transform: translateY(0);
+  box-shadow: var(--shadow-level-1);
+}
+
+button, .btn, [role="button"] {
+  transition: all var(--transition-fast);
+}
+
+button:hover, .btn:hover, [role="button"]:hover {
+  transform: translateY(-1px);
+}
+
+button:active, .btn:active, [role="button"]:active {
+  transform: translateY(0);
+}
+
+/* ============================================
+   LINEAR LINK INTERACTIONS
+   ============================================ */
+.linear-link {
+  position: relative;
+  transition: color var(--transition-fast);
+}
+
+.linear-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: currentColor;
+  transition: width var(--transition-normal);
+}
+
+.linear-link:hover::after {
+  width: 100%;
+}
+
+.linear-arrow-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all var(--transition-fast);
+}
+
+.linear-arrow-link svg,
+.linear-arrow-link .arrow {
+  transition: transform var(--transition-fast);
+}
+
+.linear-arrow-link:hover svg,
+.linear-arrow-link:hover .arrow {
+  transform: translateX(6px);
+}
+
+/* ============================================
+   LINEAR FORM INTERACTIONS
+   ============================================ */
+input, textarea, select {
+  transition: all var(--transition-fast);
+  border: 1px solid var(--border-light);
+}
+
+input:focus, textarea:focus, select:focus {
+  border-color: var(--border-hover);
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.05);
+  outline: none;
+}
+
+/* ============================================
+   ELEVATION UTILITIES
+   ============================================ */
+.elevation-0 { box-shadow: var(--shadow-level-0); }
+.elevation-1 { box-shadow: var(--shadow-level-1); }
+.elevation-2 { box-shadow: var(--shadow-level-2); }
+.elevation-3 { box-shadow: var(--shadow-level-3); }
+.elevation-4 { box-shadow: var(--shadow-level-4); }
+
+.elevation-hover {
+  transition: box-shadow var(--transition-normal), transform var(--transition-normal);
+}
+
+.elevation-hover:hover {
+  box-shadow: var(--shadow-level-2);
+  transform: translateY(-2px);
 }
 
 /* ============================================
@@ -3653,7 +3812,7 @@ svg {
 /* Video Card Section (Experts & Customers) - Compact */
 .video-section {
   background: #000;
-  padding: clamp(36px, 5vw, 64px) 0;
+  padding: var(--linear-section-sub) 0;
   width: 100%;
   overflow: hidden;
 }
@@ -7004,5 +7163,26 @@ a:focus-visible:active,
   
   .premium-card {
     padding: 20px;
+  }
+}
+
+/* ============================================
+   LINEAR RESPONSIVE SPACING SCALING
+   ============================================ */
+@media (max-width: 1279px) {
+  :root {
+    --linear-section-major: clamp(56px, 8vw, 70px);
+    --linear-section-sub: clamp(42px, 6vw, 56px);
+    --linear-content-block: clamp(28px, 4vw, 42px);
+  }
+}
+
+@media (max-width: 767px) {
+  :root {
+    --linear-section-major: clamp(40px, 6vw, 50px);
+    --linear-section-sub: clamp(30px, 5vw, 40px);
+    --linear-content-block: clamp(24px, 4vw, 30px);
+    --linear-card-gap: 16px;
+    --linear-card-padding: 16px;
   }
 }

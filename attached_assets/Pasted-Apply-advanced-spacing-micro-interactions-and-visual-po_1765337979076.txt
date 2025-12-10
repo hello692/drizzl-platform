@@ -1,0 +1,278 @@
+Apply advanced spacing, micro-interactions, and visual polish from Linear.app to elevate the site to a billion-dollar product feel. DO NOT change content or fonts - ONLY spacing, layout dynamics, and interactions.
+
+═══════════════════════════════════════════════════════════
+PART 1: SPACING SYSTEM (Balanced Approach)
+═══════════════════════════════════════════════════════════
+
+Use a BALANCED spacing system (between Anthropic's massive spacing and Linear's compact efficiency):
+
+SECTION SPACING:
+- Hero to first section: 100-120px
+- Between major sections: 80-100px
+- Between subsections: 60-80px
+- Between content blocks: 40-60px
+
+COMPONENT SPACING:
+- Card to card gap: 24-32px
+- Card internal padding: 24-32px
+- Icon to text: 16-20px
+- Button spacing: 16-20px between buttons
+
+PARAGRAPH SPACING:
+- Paragraph to paragraph: 24-32px
+- Heading to paragraph: 16-20px
+- List items: 16-20px apart
+
+CONTAINER PADDING:
+- Desktop: 80-100px top/bottom, 60px left/right
+- Tablet: 60px top/bottom, 40px left/right
+- Mobile: 40px top/bottom, 24px left/right
+
+═══════════════════════════════════════════════════════════
+PART 2: GRID SYSTEM (Linear's Precision)
+═══════════════════════════════════════════════════════════
+
+Use 12-16px BASE UNIT for mathematical precision:
+- All spacing in multiples of 12 or 16
+- Common values: 12, 16, 24, 32, 48, 64, 80, 96
+- This creates perfect visual rhythm
+
+GRID LAYOUT:
+- 12-column grid system
+- Column gap: 24-32px
+- Row gap: 24-32px
+
+═══════════════════════════════════════════════════════════
+PART 3: CARD DESIGN SYSTEM (New from Linear)
+═══════════════════════════════════════════════════════════
+
+Transform content blocks into cards:
+
+CARD STYLING:
+- Border: 1px solid rgba(0, 0, 0, 0.08)
+- Border radius: 8-12px
+- Padding: 24-32px
+- Background: #ffffff or subtle gradient
+- Box shadow: 0 1px 3px rgba(0, 0, 0, 0.04) (very subtle)
+
+CARD HOVER STATE:
+- Border color: rgba(0, 0, 0, 0.12)
+- Box shadow: 0 4px 12px rgba(0, 0, 0, 0.08)
+- Transform: translateY(-2px)
+- Transition: all 0.2s ease
+
+Example CSS:
+.card {
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 12px;
+  padding: 24px;
+  background: #ffffff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  transition: all 0.2s ease;
+}
+
+.card:hover {
+  border-color: rgba(0, 0, 0, 0.12);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transform: translateY(-2px);
+}
+
+═══════════════════════════════════════════════════════════
+PART 4: MICRO-INTERACTIONS (Linear's Secret Weapon)
+═══════════════════════════════════════════════════════════
+
+Add subtle animations to ALL interactive elements:
+
+BUTTONS:
+Normal state:
+- Box shadow: 0 1px 2px rgba(0, 0, 0, 0.05)
+
+Hover state:
+- Transform: translateY(-1px)
+- Box shadow: 0 4px 8px rgba(0, 0, 0, 0.12)
+- Transition: all 0.15s ease
+
+Active/Click state:
+- Transform: translateY(0px)
+- Box shadow: 0 1px 2px rgba(0, 0, 0, 0.05)
+
+LINKS:
+- Add underline on hover that slides in from left
+- Color transition: 0.15s ease
+- Arrow slides right 6px on hover
+
+INPUTS/FORMS:
+Focus state:
+- Border color change
+- Subtle glow/shadow
+- Smooth transition
+
+═══════════════════════════════════════════════════════════
+PART 5: ELEVATION & DEPTH (Layering System)
+═══════════════════════════════════════════════════════════
+
+Create visual hierarchy with subtle shadows:
+
+ELEVATION LEVELS:
+Level 0 (Flat):
+- box-shadow: none
+
+Level 1 (Subtle):
+- box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04)
+
+Level 2 (Cards):
+- box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08)
+
+Level 3 (Modals/Popovers):
+- box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12)
+
+Level 4 (Overlays):
+- box-shadow: 0 16px 48px rgba(0, 0, 0, 0.16)
+
+Use these consistently across the site.
+
+═══════════════════════════════════════════════════════════
+PART 6: BORDER STRATEGY
+═══════════════════════════════════════════════════════════
+
+Add subtle borders to create structure:
+
+BORDER COLORS:
+- Light borders: rgba(0, 0, 0, 0.08)
+- Medium borders: rgba(0, 0, 0, 0.12)
+- Accent borders: Use brand color at 20-30% opacity
+
+BORDER USAGE:
+- Cards: 1px border all around
+- Sections: 1px border-top or border-bottom to separate
+- Inputs: 1px border, thicker on focus
+- Tables: 1px border-bottom on rows
+
+═══════════════════════════════════════════════════════════
+PART 7: TYPOGRAPHY ADJUSTMENTS
+═══════════════════════════════════════════════════════════
+
+Mix tight and loose line-heights strategically:
+
+UI ELEMENTS (Navigation, buttons, labels):
+- Line height: 1.2-1.4 (tight, compact)
+
+CONTENT (Paragraphs, descriptions):
+- Line height: 1.6-1.7 (readable, comfortable)
+
+HEADLINES:
+- Line height: 1.1-1.3 (tight for impact)
+
+═══════════════════════════════════════════════════════════
+PART 8: HOVER STATE PATTERNS
+═══════════════════════════════════════════════════════════
+
+Consistent hover behavior across all elements:
+
+INTERACTIVE ELEMENTS:
+1. Color change (text or background)
+2. Subtle lift (translateY -1px to -2px)
+3. Shadow increase
+4. Border color change
+5. Arrow movement (if applicable)
+
+All transitions: 0.15-0.2s ease
+
+═══════════════════════════════════════════════════════════
+PART 9: VISUAL RHYTHM & ALIGNMENT
+═══════════════════════════════════════════════════════════
+
+Everything must align perfectly:
+
+HORIZONTAL ALIGNMENT:
+- Use CSS Grid or Flexbox
+- Align items to baseline where appropriate
+- Icons align with first line of text
+
+VERTICAL RHYTHM:
+- Maintain consistent spacing intervals
+- Use same values repeatedly (12, 16, 24, 32, 48, 64)
+- Avoid random spacing values
+
+═══════════════════════════════════════════════════════════
+PART 10: RESPONSIVE BEHAVIOR
+═══════════════════════════════════════════════════════════
+
+Scale spacing proportionally on smaller screens:
+
+DESKTOP (1280px+):
+- Use full spacing values
+
+TABLET (768-1279px):
+- Reduce spacing by ~30%
+- Example: 80px → 56px
+
+MOBILE (<768px):
+- Reduce spacing by ~50%
+- Example: 80px → 40px
+- Stack cards vertically
+- Single column layouts
+
+═══════════════════════════════════════════════════════════
+IMPLEMENTATION CHECKLIST
+═══════════════════════════════════════════════════════════
+
+Phase 1 - Structure:
+☐ Apply 12-16px grid system
+☐ Add section spacing (80-100px between major sections)
+☐ Constrain text width (640-680px max)
+☐ Add container padding (80-100px top/bottom)
+
+Phase 2 - Cards & Components:
+☐ Convert content blocks to cards with borders
+☐ Add subtle shadows (elevation system)
+☐ Apply consistent padding (24-32px inside cards)
+☐ Add 24-32px gaps between cards
+
+Phase 3 - Interactions:
+☐ Add hover states to all buttons
+☐ Add hover states to all links (with arrow animation)
+☐ Add hover states to all cards
+☐ Implement smooth transitions (0.15-0.2s)
+
+Phase 4 - Polish:
+☐ Add subtle borders to separate sections
+☐ Adjust line-heights (tight for UI, loose for content)
+☐ Ensure perfect alignment (use grid/flexbox)
+☐ Test responsive behavior on all screen sizes
+
+Phase 5 - Micro-interactions:
+☐ Add loading states where needed
+☐ Add focus states to form inputs
+☐ Add active/click states to buttons
+☐ Add smooth scrolling
+
+═══════════════════════════════════════════════════════════
+KEY PRINCIPLES TO REMEMBER
+═══════════════════════════════════════════════════════════
+
+1. **Balance** - Not too spacious (Anthropic), not too tight (Linear), just right
+2. **Consistency** - Use same spacing values throughout
+3. **Precision** - Align everything to 12-16px grid
+4. **Interaction** - Animate everything that's clickable
+5. **Elevation** - Use subtle shadows to create depth
+6. **Borders** - Light borders create structure without clutter
+7. **Rhythm** - Maintain mathematical spacing relationships
+8. **Quality** - Smooth transitions make everything feel premium
+
+═══════════════════════════════════════════════════════════
+RESULT
+═══════════════════════════════════════════════════════════
+
+Your site will have:
+✓ Professional card-based layout
+✓ Smooth micro-interactions on every element
+✓ Perfect visual alignment and rhythm
+✓ Subtle depth through shadows and elevation
+✓ Balanced spacing (not too loose, not too tight)
+✓ Premium product feel like Linear.app
+✓ Polished, intentional design throughout
+
+This combines the best of both worlds:
+- Anthropic's spacious, editorial elegance
+- Linear's precise, product-focused polish

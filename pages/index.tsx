@@ -219,7 +219,7 @@ export default function Home() {
   }, [currentWordIndex]);
 
   const sectionStyles = {
-    padding: 'clamp(80px, 10vw, 120px) clamp(24px, 6vw, 80px)',
+    padding: 'clamp(80px, 10vw, 100px) clamp(24px, 5vw, 60px)',
     maxWidth: '1320px',
     margin: '0 auto',
   };
@@ -360,7 +360,7 @@ export default function Home() {
       {/* 3. Why Drizzl Section */}
       <section style={{
         background: '#000000',
-        padding: 'clamp(40px, 6vw, 64px) clamp(20px, 4vw, 48px)',
+        padding: 'var(--linear-section-sub) clamp(20px, 4vw, 48px)',
       }}>
         <div style={{
           maxWidth: '1100px',
@@ -476,7 +476,7 @@ export default function Home() {
       {/* 4. Benefits Grid */}
       <section style={{
         background: '#0a0a0a',
-        padding: 'clamp(36px, 5vw, 56px) clamp(20px, 4vw, 40px)',
+        padding: 'var(--linear-section-sub) clamp(20px, 4vw, 40px)',
       }}>
         <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
           <AnimatedSection animation="fadeUp">
@@ -558,7 +558,7 @@ export default function Home() {
       {/* 5. How It Works */}
       <section style={{
         background: '#000000',
-        padding: 'var(--section-padding-y) var(--section-padding-x)',
+        padding: 'var(--linear-section-major) var(--section-padding-x)',
       }}>
         <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
           <AnimatedSection animation="fadeUp">
