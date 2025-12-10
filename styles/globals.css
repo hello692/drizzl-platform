@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap');
 @import './design-tokens.css';
 
 /* ============================================
@@ -8,11 +8,12 @@
 
 :root {
   /* PRIMARY FONT - Inter (Stripe / Notion / LV web voice) */
-  --font-family-base: "Inter", -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, "Segoe UI", sans-serif;
+  --font-family-base: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --font-primary: var(--font-family-base);
   --font-sans: var(--font-family-base);
   --font-display: var(--font-family-base);
   --font-text: var(--font-family-base);
+  --font-mono: "Space Mono", "Courier New", monospace;
 
   /* Type Scale */
   --font-size-xs: 0.75rem;
@@ -7506,4 +7507,79 @@ a:focus-visible:active,
     flex-wrap: wrap;
     gap: 10px;
   }
+}
+
+/* ============================================
+   ENHANCED TYPOGRAPHY - Inter + Space Mono
+   ============================================ */
+
+/* Apply Inter to everything */
+*, *::before, *::after {
+  font-family: var(--font-primary);
+}
+
+/* Font rendering for smooth anti-aliasing */
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Headlines - tighter letter-spacing for modern look */
+h1 {
+  font-family: var(--font-primary);
+  letter-spacing: -0.02em;
+}
+
+h2 {
+  font-family: var(--font-primary);
+  letter-spacing: -0.01em;
+}
+
+h3 {
+  font-family: var(--font-primary);
+  letter-spacing: -0.01em;
+}
+
+h4, h5, h6 {
+  font-family: var(--font-primary);
+  letter-spacing: -0.005em;
+}
+
+/* Body text - slightly tighter */
+p, li, span, div, a {
+  letter-spacing: -0.005em;
+}
+
+/* Buttons - slightly wider spacing */
+button, .button, .btn, input[type="button"], input[type="submit"] {
+  font-family: var(--font-primary);
+  letter-spacing: 0.01em;
+}
+
+/* Forms - prevent iOS zoom */
+input, textarea, select {
+  font-family: var(--font-primary);
+  font-size: 16px;
+}
+
+/* Navigation */
+nav, .nav, .menu, nav a, .nav-link {
+  font-family: var(--font-primary);
+}
+
+/* Footer */
+footer, .footer {
+  font-family: var(--font-primary);
+}
+
+/* Monospace for tech/stat elements */
+.mono, .tech, .code, .stat-number, .tech-label, .badge-mono {
+  font-family: var(--font-mono);
+  letter-spacing: 0;
+}
+
+/* Code blocks */
+code, pre, kbd {
+  font-family: var(--font-mono);
 }
