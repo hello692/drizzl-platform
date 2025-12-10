@@ -16,6 +16,7 @@ const navItems = [
   { label: 'Factory', href: '/admin/factory', icon: 'factory' },
   { label: 'Partners', href: '/admin/partners', icon: 'partners' },
   { label: 'Leads', href: '/admin/leads', icon: 'leads' },
+  { label: 'B2B Pipeline', href: '/admin/b2b-pipeline', icon: 'pipeline' },
   { label: 'Banking', href: '/admin/banking', icon: 'banking' },
   { label: 'Analytics', href: '/admin/analytics', icon: 'analytics' },
   { label: 'AI Assistant', href: '/admin/ai-assistant', icon: 'ai' },
@@ -115,6 +116,14 @@ function NavIcon({ type, active }: { type: string; active: boolean }) {
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="1.5">
         <rect x="2" y="4" width="20" height="16" rx="2" />
         <path d="M10 9l5 3-5 3V9z" fill={active ? 'rgba(102,126,234,0.5)' : 'none'} />
+      </svg>
+    ),
+    pipeline: (
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="1.5">
+        <rect x="2" y="3" width="4" height="18" rx="1" />
+        <rect x="8" y="6" width="4" height="15" rx="1" />
+        <rect x="14" y="10" width="4" height="11" rx="1" />
+        <rect x="20" y="14" width="2" height="7" rx="1" />
       </svg>
     ),
     security: (
