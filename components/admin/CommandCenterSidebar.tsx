@@ -16,11 +16,15 @@ import {
   LogOut,
   Menu,
   X,
+  PanelLeftClose,
+  PanelLeft,
 } from 'lucide-react';
 
 interface CommandCenterSidebarProps {
   isOpen: boolean;
+  isCollapsed: boolean;
   onToggle: () => void;
+  onCollapse: () => void;
 }
 
 const NEON_GREEN = '#00FF85';
@@ -43,7 +47,7 @@ const bottomNavItems = [
   { label: 'Exit', href: '/admin', icon: LogOut },
 ];
 
-export default function CommandCenterSidebar({ isOpen, onToggle }: CommandCenterSidebarProps) {
+export default function CommandCenterSidebar({ isOpen, isCollapsed, onToggle, onCollapse }: CommandCenterSidebarProps) {
   const router = useRouter();
 
   const isActive = (href: string) => {
@@ -52,6 +56,8 @@ export default function CommandCenterSidebar({ isOpen, onToggle }: CommandCenter
     }
     return router.pathname === href || router.pathname.startsWith(href + '/');
   };
+
+  const sidebarWidth = isCollapsed ? 64 : 240;
 
   return (
     <>
@@ -67,16 +73,30 @@ export default function CommandCenterSidebar({ isOpen, onToggle }: CommandCenter
 
       <aside style={{
         ...styles.sidebar,
+        width: sidebarWidth,
         transform: isOpen ? 'translateX(0)' : undefined,
       }}>
-        <div style={styles.logoContainer}>
-          <Link href="/admin/command-center" style={styles.logoLink}>
-            <img
-              src="/logo.gif"
-              alt="DRIZZL"
-              style={styles.logo}
-            />
-          </Link>
+        <div style={{
+          ...styles.logoContainer,
+          padding: isCollapsed ? '24px 12px' : '24px 16px',
+          justifyContent: isCollapsed ? 'center' : 'space-between',
+        }}>
+          {!isCollapsed && (
+            <Link href="/admin/command-center" style={styles.logoLink}>
+              <img
+                src="/logo.gif"
+                alt="DRIZZL"
+                style={styles.logo}
+              />
+            </Link>
+          )}
+          <button
+            onClick={onCollapse}
+            style={styles.collapseButton}
+            aria-label={isCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
+          >
+            {isCollapsed ? <PanelLeft size={18} /> : <PanelLeftClose size={18} />}
+          </button>
         </div>
 
         <nav style={styles.nav}>
@@ -91,13 +111,16 @@ export default function CommandCenterSidebar({ isOpen, onToggle }: CommandCenter
                   style={{
                     ...styles.navLink,
                     ...(active ? styles.navLinkActive : {}),
+                    justifyContent: isCollapsed ? 'center' : 'flex-start',
+                    padding: isCollapsed ? '10px' : '10px 16px',
                   }}
+                  title={isCollapsed ? item.label : undefined}
                   onClick={() => {
                     if (window.innerWidth < 768) onToggle();
                   }}
                 >
-                  <Icon size={18} style={{ color: active ? NEON_GREEN : '#999999' }} />
-                  <span>{item.label}</span>
+                  <Icon size={18} style={{ color: active ? NEON_GREEN : '#999999', flexShrink: 0 }} />
+                  {!isCollapsed && <span>{item.label}</span>}
                 </Link>
               );
             })}
@@ -116,13 +139,16 @@ export default function CommandCenterSidebar({ isOpen, onToggle }: CommandCenter
                   style={{
                     ...styles.navLink,
                     ...(active ? styles.navLinkActive : {}),
+                    justifyContent: isCollapsed ? 'center' : 'flex-start',
+                    padding: isCollapsed ? '10px' : '10px 16px',
                   }}
+                  title={isCollapsed ? item.label : undefined}
                   onClick={() => {
                     if (window.innerWidth < 768) onToggle();
                   }}
                 >
-                  <Icon size={18} style={{ color: active ? NEON_GREEN : '#999999' }} />
-                  <span>{item.label}</span>
+                  <Icon size={18} style={{ color: active ? NEON_GREEN : '#999999', flexShrink: 0 }} />
+                  {!isCollapsed && <span>{item.label}</span>}
                 </Link>
               );
             })}
@@ -147,16 +173,17 @@ const styles: Record<string, React.CSSProperties> = {
     left: 0,
     top: 0,
     bottom: 0,
-    width: 240,
     backgroundColor: '#000000',
     borderRight: '1px solid rgba(255, 255, 255, 0.08)',
     display: 'flex',
     flexDirection: 'column',
     zIndex: 1000,
-    transition: 'transform 0.3s ease',
+    transition: 'width 0.2s ease, transform 0.3s ease',
+    overflow: 'hidden',
   },
   logoContainer: {
-    padding: '24px 16px',
+    display: 'flex',
+    alignItems: 'center',
     borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
   },
   logoLink: {
@@ -169,12 +196,25 @@ const styles: Record<string, React.CSSProperties> = {
     objectFit: 'contain',
     filter: 'brightness(0) invert(1)',
   },
+  collapseButton: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'transparent',
+    border: 'none',
+    borderRadius: 6,
+    padding: 6,
+    cursor: 'pointer',
+    color: '#666666',
+    transition: 'color 0.2s, background-color 0.2s',
+  },
   nav: {
     flex: 1,
     display: 'flex',
     flexDirection: 'column',
-    padding: '16px 12px',
+    padding: '16px 8px',
     overflowY: 'auto',
+    overflowX: 'hidden',
   },
   navSection: {
     display: 'flex',
@@ -185,13 +225,13 @@ const styles: Record<string, React.CSSProperties> = {
     display: 'flex',
     alignItems: 'center',
     gap: 12,
-    padding: '10px 16px',
     borderRadius: 8,
     color: '#999999',
     textDecoration: 'none',
     fontSize: 14,
     fontWeight: 400,
     transition: 'all 0.2s',
+    whiteSpace: 'nowrap',
   },
   navLinkActive: {
     backgroundColor: 'rgba(0, 255, 133, 0.1)',
@@ -201,7 +241,7 @@ const styles: Record<string, React.CSSProperties> = {
   divider: {
     height: 1,
     backgroundColor: 'rgba(255, 255, 255, 0.08)',
-    margin: '16px 0',
+    margin: '16px 4px',
     flex: 0,
     marginTop: 'auto',
   },
@@ -228,20 +268,3 @@ const styles: Record<string, React.CSSProperties> = {
     zIndex: 999,
   },
 };
-
-if (typeof window !== 'undefined') {
-  const mobileStyles = document.createElement('style');
-  mobileStyles.textContent = `
-    @media (max-width: 767px) {
-      [data-sidebar] {
-        transform: translateX(-100%) !important;
-      }
-      [data-sidebar][data-open="true"] {
-        transform: translateX(0) !important;
-      }
-      [data-mobile-menu-btn] {
-        display: flex !important;
-      }
-    }
-  `;
-}

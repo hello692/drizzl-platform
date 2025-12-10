@@ -9,6 +9,7 @@ interface CommandCenterLayoutProps {
 
 export default function CommandCenterLayout({ children, title }: CommandCenterLayoutProps) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
@@ -20,9 +21,24 @@ export default function CommandCenterLayout({ children, title }: CommandCenterLa
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
+  useEffect(() => {
+    const savedState = localStorage.getItem('sidebarCollapsed');
+    if (savedState !== null) {
+      setSidebarCollapsed(JSON.parse(savedState));
+    }
+  }, []);
+
   const toggleSidebar = () => {
     setSidebarOpen(!sidebarOpen);
   };
+
+  const toggleCollapse = () => {
+    const newState = !sidebarCollapsed;
+    setSidebarCollapsed(newState);
+    localStorage.setItem('sidebarCollapsed', JSON.stringify(newState));
+  };
+
+  const sidebarWidth = isMobile ? 0 : (sidebarCollapsed ? 64 : 240);
 
   return (
     <>
@@ -31,11 +47,16 @@ export default function CommandCenterLayout({ children, title }: CommandCenterLa
       </Head>
 
       <div style={styles.container}>
-        <CommandCenterSidebar isOpen={sidebarOpen || !isMobile} onToggle={toggleSidebar} />
+        <CommandCenterSidebar 
+          isOpen={sidebarOpen || !isMobile} 
+          isCollapsed={sidebarCollapsed}
+          onToggle={toggleSidebar}
+          onCollapse={toggleCollapse}
+        />
         
         <main style={{
           ...styles.main,
-          marginLeft: isMobile ? 0 : 240,
+          marginLeft: sidebarWidth,
         }}>
           {children}
         </main>
@@ -76,6 +97,6 @@ const styles: Record<string, React.CSSProperties> = {
     minHeight: '100vh',
     padding: 32,
     backgroundColor: '#000000',
-    transition: 'margin-left 0.3s ease',
+    transition: 'margin-left 0.2s ease',
   },
 };
