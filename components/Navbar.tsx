@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { useRouter } from 'next/router';
 
 const MENU_ITEMS = [
@@ -43,14 +43,12 @@ const MENU_ITEMS = [
   },
 ];
 
-interface NavbarProps {
-  variant?: 'dark' | 'light' | 'dynamic';
-}
-
-export default function Navbar({ variant = 'dark' }: NavbarProps) {
+export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [expandedMenu, setExpandedMenu] = useState<string | null>(null);
+  const [isDarkBg, setIsDarkBg] = useState(true);
   const [scrolled, setScrolled] = useState(false);
+  const headerRef = useRef<HTMLElement>(null);
   const router = useRouter();
 
   const toggleExpandedMenu = (title: string) => {
@@ -62,6 +60,68 @@ export default function Navbar({ variant = 'dark' }: NavbarProps) {
     setExpandedMenu(null);
     router.push(href);
   };
+
+  const getBrightness = useCallback((color: string): number => {
+    if (!color || color === 'transparent' || color === 'rgba(0, 0, 0, 0)') {
+      return 255;
+    }
+    const match = color.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)/);
+    if (match) {
+      const r = parseInt(match[1]);
+      const g = parseInt(match[2]);
+      const b = parseInt(match[3]);
+      return (r * 299 + g * 587 + b * 114) / 1000;
+    }
+    return 255;
+  }, []);
+
+  const detectBackgroundBrightness = useCallback(() => {
+    if (!headerRef.current) return;
+    
+    const header = headerRef.current;
+    const rect = header.getBoundingClientRect();
+    const sampleY = rect.bottom + 5;
+    const sampleX = rect.left + rect.width / 2;
+    
+    header.style.pointerEvents = 'none';
+    const elementBehind = document.elementFromPoint(sampleX, sampleY);
+    header.style.pointerEvents = '';
+    
+    if (!elementBehind) {
+      setIsDarkBg(window.scrollY < 100);
+      return;
+    }
+
+    let currentElement: Element | null = elementBehind;
+    let brightness = 255;
+    
+    while (currentElement && currentElement !== document.body) {
+      const style = window.getComputedStyle(currentElement);
+      const bgColor = style.backgroundColor;
+      const bgImage = style.backgroundImage;
+      
+      if (bgImage && bgImage !== 'none') {
+        const isDarkSection = currentElement.classList.contains('dark-section') ||
+                             currentElement.classList.contains('hero') ||
+                             currentElement.classList.contains('lifestyle-section') ||
+                             currentElement.tagName === 'VIDEO' ||
+                             (currentElement as HTMLElement).dataset?.theme === 'dark';
+        if (isDarkSection) {
+          brightness = 50;
+          break;
+        }
+      }
+      
+      if (bgColor && bgColor !== 'transparent' && bgColor !== 'rgba(0, 0, 0, 0)') {
+        brightness = getBrightness(bgColor);
+        break;
+      }
+      
+      currentElement = currentElement.parentElement;
+    }
+    
+    setIsDarkBg(brightness < 128);
+  }, [getBrightness]);
 
   useEffect(() => {
     if (menuOpen) {
@@ -75,38 +135,62 @@ export default function Navbar({ variant = 'dark' }: NavbarProps) {
   }, [menuOpen]);
 
   useEffect(() => {
-    if (variant !== 'dynamic') return;
+    let ticking = false;
     
     const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          setScrolled(window.scrollY > 50);
+          detectBackgroundBrightness();
+          ticking = false;
+        });
+        ticking = true;
+      }
     };
     
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     handleScroll();
     
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [variant]);
+    const timer = setTimeout(detectBackgroundBrightness, 100);
+    
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      clearTimeout(timer);
+    };
+  }, [detectBackgroundBrightness]);
 
-  const isDark = variant === 'dark' || (variant === 'dynamic' && scrolled);
-  const bgColor = isDark ? '#000000' : '#ffffff';
-  const textColor = isDark ? '#ffffff' : '#000000';
-  const borderColor = isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)';
-  const logoFilter = isDark ? 'none' : 'invert(1)';
+  useEffect(() => {
+    detectBackgroundBrightness();
+  }, [router.pathname, detectBackgroundBrightness]);
+
+  const bgStyle = isDarkBg 
+    ? 'rgba(0, 0, 0, 0.3)' 
+    : 'rgba(255, 255, 255, 0.95)';
+  const textColor = isDarkBg ? '#ffffff' : '#000000';
+  const borderColor = isDarkBg ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)';
+  const logoFilter = isDarkBg ? 'none' : 'invert(1)';
 
   return (
     <>
-      <header style={{
-        position: 'sticky',
-        top: 0,
-        zIndex: 100,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        padding: '20px 40px',
-        background: bgColor,
-        borderBottom: `1px solid ${borderColor}`,
-        transition: 'background 0.3s ease, border-color 0.3s ease',
-      }}>
+      <header 
+        ref={headerRef}
+        style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          zIndex: 9999,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          padding: scrolled ? '14px 40px' : '20px 40px',
+          background: bgStyle,
+          backdropFilter: 'blur(20px)',
+          WebkitBackdropFilter: 'blur(20px)',
+          borderBottom: `1px solid ${borderColor}`,
+          transition: 'all 0.3s ease-in-out',
+        }}
+      >
         <div style={{ display: 'flex', alignItems: 'center', gap: '24px' }}>
           <button 
             className="header-btn"
@@ -129,7 +213,7 @@ export default function Navbar({ variant = 'dark' }: NavbarProps) {
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
               <path d="M4 6h16M4 12h16M4 18h16" strokeLinecap="round"/>
             </svg>
-            <span>Menu</span>
+            <span className="header-btn-text">Menu</span>
           </button>
           <button 
             className="header-btn"
@@ -153,7 +237,7 @@ export default function Navbar({ variant = 'dark' }: NavbarProps) {
               <circle cx="11" cy="11" r="7"/>
               <path d="M21 21l-4.35-4.35" strokeLinecap="round"/>
             </svg>
-            <span>Search</span>
+            <span className="header-btn-text">Search</span>
           </button>
         </div>
 
@@ -162,7 +246,12 @@ export default function Navbar({ variant = 'dark' }: NavbarProps) {
             <img 
               src="/images/drizzl-logo-white.gif"
               alt="DRIZZL WELLNESS" 
-              style={{ height: '28px', width: 'auto', filter: logoFilter, transition: 'filter 0.3s ease, opacity 0.3s ease' }}
+              style={{ 
+                height: '28px', 
+                width: 'auto', 
+                filter: logoFilter, 
+                transition: 'filter 0.3s ease' 
+              }}
             />
           </Link>
         </div>
@@ -170,7 +259,7 @@ export default function Navbar({ variant = 'dark' }: NavbarProps) {
         <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
           <Link 
             href="/auth?type=retail" 
-            className="nav-link"
+            className="nav-link wholesale-link"
             style={{
               color: textColor,
               textDecoration: 'none',
@@ -204,13 +293,16 @@ export default function Navbar({ variant = 'dark' }: NavbarProps) {
         </div>
       </header>
 
+      {/* Spacer for fixed header */}
+      <div style={{ height: '70px' }} />
+
       {/* Full Screen Menu Overlay */}
       <div 
         style={{
           position: 'fixed',
           inset: 0,
           background: '#000000',
-          zIndex: 9999,
+          zIndex: 10000,
           opacity: menuOpen ? 1 : 0,
           visibility: menuOpen ? 'visible' : 'hidden',
           transition: 'opacity 0.3s ease, visibility 0.3s ease',

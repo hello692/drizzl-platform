@@ -372,6 +372,23 @@
   }
 }
 
+/* ============================================
+   UNIVERSAL DYNAMIC HEADER - Responsive Styles
+   ============================================ */
+
+/* Hide button text labels on tablet and below */
+@media (max-width: 1024px) {
+  .wholesale-link {
+    display: none !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .header-btn-text {
+    display: none !important;
+  }
+}
+
 /* Card typography utilities */
 .card-badge {
   font-size: var(--card-badge-size);
