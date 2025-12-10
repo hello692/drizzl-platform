@@ -1,5 +1,5 @@
 import { useRef, useState, useEffect } from 'react';
-import GlobalHeader from './GlobalHeader';
+import Navbar from './Navbar';
 
 const DYNAMIC_WORDS = [
   { word: 'totally nourished', color: '#7CB342' },
@@ -41,7 +41,7 @@ export default function HomeHero() {
 
   return (
     <section className="lv-hero">
-      <GlobalHeader variant="transparent" />
+      <Navbar />
       
       <video
         ref={videoRef}
