@@ -5850,14 +5850,12 @@ svg {
 
 /* Accordion Styles */
 .lv-accordion {
+  margin-top: 24px;
   margin-bottom: 20px;
-}
-
-.lv-accordion-item {
   border-top: 1px solid #e8e8e8;
 }
 
-.lv-accordion-item:last-child {
+.lv-accordion-item {
   border-bottom: 1px solid #e8e8e8;
 }
 
