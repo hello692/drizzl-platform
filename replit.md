@@ -30,8 +30,24 @@ Drizzl Wellness is a full-stack e-commerce platform for a smoothie and wellness 
 - **Security Hardening**: Includes 2FA, session management, audit logging, and brute force protection.
 
 ### Feature Specifications
-- **D2C E-Commerce**: Standard e-commerce features including product browsing, cart, checkout, user authentication, and order history.
-- **B2B Retail Partner Portal**: Features a 4-step application, dashboard with wholesale catalog, order management, analytics, messaging, POS integration, AI-powered restocking, partner scoring, DocuSign integration, unique partner IDs, and QR codes.
+- **D2C Customer Portal** (`/account/*`): Complete customer account management with sidebar navigation:
+    - Login/Signup: Email/password auth with social login buttons (demo mode)
+    - Dashboard: Welcome message, 4 stat cards (orders, points, subscriptions, saved items)
+    - Orders: Card-based order history with search/filter, tracking, reorder
+    - Subscriptions: Manage recurring orders with pause/skip/cancel
+    - Addresses: CRUD for saved shipping addresses with default selection
+    - Payment: Mock credit card management with visual card display
+    - Rewards: Loyalty points (1,240 pts = $12.40), tier progress, redeemable rewards
+    - Settings: Personal info, password change, notification preferences
+- **B2B Partner Portal** (`/partner/*`): Complete wholesale partner portal with horizontal navigation:
+    - Login: Partner authentication (demo: any email + password "partner123")
+    - Dashboard: Welcome, tier/credit info, outstanding balance, recent orders, quick actions
+    - Orders: Order history table with view/reorder, status filtering
+    - New Order: Product catalog with wholesale pricing, cart, checkout flow
+    - Invoices: Invoice management with pay now functionality, status badges
+    - Pricing: Wholesale price list with tier discounts and volume discounts
+    - Account: Business info, contact info, shipping addresses, payment methods
+    - Support: Contact account manager, submit tickets, FAQ accordion
 - **Enterprise Admin Dashboard**: Comprises 11 intelligence modules:
     - **Admin Command Center** (`/admin/command-center`): Claude.ai-style sidebar navigation with 9 fully functional tabs:
         - Dashboard: Master summary with KPIs, alerts, AI recommendations, revenue chart, production pipeline
