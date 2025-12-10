@@ -86,17 +86,23 @@ Drizzl Wellness is a full-stack e-commerce platform for a smoothie and wellness 
 - **Navigation Sync (December 10, 2025)**: Navbar and Footer now share identical section structure:
   - **Shop**: Smoothies, Protein Power-Ups, Fan Favorites, Fresh Drops, Smoothie Kits, Gifts
   - **Discover**: Our Story, About Us, Blog & Recipes, Store Locator, Sustainability, Ingredients
-  - **Wholesale & Partnerships**: Big Ideas collaboration, Wholesale Pricing, Partner Portal
+  - **Wholesale & Partnerships**: Wholesale Overview, Wholesale Pricing, Apply for Wholesale, Partner Sign In
   - **Membership & Community**: Wellness Club, Referral Program, Ambassadors, Student Perks
   - **Careers**: Join the team
   - **Support**: FAQs, Contact Us, Shipping & Returns
   - **The Fine Print**: Privacy Policy, Terms of Service
+- **Wholesale Section Reorganization (December 10, 2025)**: Separate pages with distinct purposes and sticky navigation bar:
+  - `/wholesale` - Landing page with benefits overview, 6 benefit cards, CTAs, and contact info
+  - `/wholesale/pricing` - Pricing tiers (Starter 30%, Growth 35%, Enterprise 40%) with requirements
+  - `/wholesale/apply` - Multi-step application form (4 steps: Account, Business Info, Details, Review)
+  - `/wholesale/signin` - Partner login page for existing partners
+  - `/wholesale/dashboard` - Partner dashboard with Place Orders, View Invoices, Track Orders, Marketing Assets
+  - **Sticky Nav Bar**: Wholesale | Overview | Pricing | Apply (green CTA) | Sign In
+  - **User Journeys**: New partners: Learn → Price → Apply → Approved → Sign In → Dashboard; Existing partners: Sign In → Dashboard
 - **Pages Fixed/Created**:
   - `/about` - Rebuilt to match dark design system with identical header
   - `/sustainability` - "Coming Soon" page with dark design
   - `/locations` - Store locator with OpenStreetMap integration, search by zip/city
-  - `/wholesale` - B2B partnership page with inquiry form
-  - `/wholesale/pricing` - Wholesale pricing tiers with product catalog
   - `/ingredients` - Ingredient philosophy with 12 ingredients
   - `/membership` - Wellness club with monthly/annual plans, FAQ
   - `/ambassadors` - Ambassador/affiliate program with application form
