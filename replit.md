@@ -17,16 +17,19 @@ Drizzl Wellness is a full-stack e-commerce platform for a smoothie and wellness 
 ### UI/UX Decisions
 - **Admin Portal Aesthetic**: "Apple AI 2500 Dark" theme with deep black backgrounds, mesh gradients, animated elements, glassmorphism cards with subtle glow borders, and gradient text. Accent colors include purple, cyan, pink, and green.
 - **D2C Storefront Aesthetic**: Premium dark theme with pure black backgrounds and white text. Features include a refined color palette, Apple-style fully rounded pill buttons, and a Google AI-inspired typography system using the Inter font. Transitions are smooth 0.3s ease, and the layout is centered with a 1100px max-width, fully responsive.
-- **Premium Spacing Philosophy**: The site follows a premium luxury approach to spacing with generous breathing room. Key spacing tokens:
-  - Section spacing: 120-180px vertical padding for major sections
-  - Body text line-height: 1.7-1.8 for optimal readability
-  - Paragraph max-width: 640-680px for comfortable reading
-  - Container padding: 100-120px desktop, 60-80px tablet, 40-48px mobile
-  - Grid gaps: 40-60px between major content blocks
-  - 8px grid alignment throughout
-  - Footer padding: 80-100px top, 60-80px bottom
-  - Mobile spacing progressively tighter (1024px, 768px, 480px breakpoints)
-  - CTA links: Animated arrow that moves on hover (→ translation effect)
+- **Linear-Style Balanced Spacing Philosophy**: The site follows a Linear.app-inspired balanced approach - not too spacious, not too tight. Key design tokens:
+  - **Section spacing**: 80-100px between major sections (hero to section: 100-120px)
+  - **Subsection spacing**: 60-80px, content blocks: 40-60px
+  - **Component spacing**: Card gap 24-32px, card padding 24-32px, icon-to-text 16-20px
+  - **Body text line-height**: 1.6-1.7 for optimal readability
+  - **Paragraph max-width**: 640-680px, paragraph gap: 24-32px
+  - **Container padding**: 80-100px desktop, 60px tablet, 40px mobile
+  - **Elevation system**: 4 shadow levels (subtle to overlay) for visual depth
+  - **Border system**: Subtle borders (rgba(255,255,255,0.06-0.16)) for structure
+  - **Micro-interactions**: All buttons lift on hover (translateY -1px), links have sliding underlines, arrows slide right 6px on hover
+  - **Transitions**: Fast (0.15s), normal (0.2s), smooth (0.3s) timing
+  - **Responsive scaling**: Spacing reduces ~30% on tablet, ~50% on mobile
+  - **Grid system**: 16px base unit for mathematical precision (multiples: 16, 24, 32, 48, 64, 80, 96)
 
 ### Technical Implementations
 - **Core Stack**: Next.js 15, React 19, Supabase (Auth + Database).
