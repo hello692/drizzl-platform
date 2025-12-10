@@ -11,13 +11,15 @@ import {
   Package,
   Truck,
   CheckCircle,
+  Loader2,
 } from 'lucide-react';
+import { getCustomerById, getCustomerOrders, getCustomerSubscriptions } from '../../lib/api/customers';
 
 const NEON_GREEN = '#00FF85';
 const CARD_BG = 'rgba(255, 255, 255, 0.02)';
 const CARD_BORDER = 'rgba(255, 255, 255, 0.08)';
 
-const recentOrders = [
+const mockRecentOrders = [
   { 
     id: 'ORD-78542', 
     date: 'Dec 8, 2025', 
@@ -57,21 +59,75 @@ const quickActions = [
 
 const statusConfig: Record<string, { icon: any; color: string; bg: string }> = {
   Delivered: { icon: CheckCircle, color: NEON_GREEN, bg: 'rgba(0, 255, 133, 0.1)' },
+  delivered: { icon: CheckCircle, color: NEON_GREEN, bg: 'rgba(0, 255, 133, 0.1)' },
   Shipped: { icon: Truck, color: '#3B82F6', bg: 'rgba(59, 130, 246, 0.1)' },
+  shipped: { icon: Truck, color: '#3B82F6', bg: 'rgba(59, 130, 246, 0.1)' },
   Processing: { icon: Package, color: '#F59E0B', bg: 'rgba(245, 158, 11, 0.1)' },
+  processing: { icon: Package, color: '#F59E0B', bg: 'rgba(245, 158, 11, 0.1)' },
+  pending: { icon: Package, color: '#F59E0B', bg: 'rgba(245, 158, 11, 0.1)' },
 };
 
 export default function CustomerDashboard() {
   const router = useRouter();
   const [customer, setCustomer] = useState<CustomerSession | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [ordersCount, setOrdersCount] = useState(12);
+  const [subscriptionsCount, setSubscriptionsCount] = useState(2);
+  const [loyaltyPoints, setLoyaltyPoints] = useState(1240);
+  const [recentOrders, setRecentOrders] = useState(mockRecentOrders);
 
   useEffect(() => {
-    const session = localStorage.getItem('customerSession');
-    if (!session) {
-      router.push('/account/login');
-      return;
-    }
-    setCustomer(JSON.parse(session));
+    const loadData = async () => {
+      const session = localStorage.getItem('customerSession');
+      if (!session) {
+        router.push('/account/login');
+        return;
+      }
+      
+      const parsedSession = JSON.parse(session);
+      setCustomer(parsedSession);
+
+      try {
+        if (parsedSession.id && parsedSession.id !== 'demo-customer') {
+          const [customerData, orders, subscriptions] = await Promise.all([
+            getCustomerById(parsedSession.id),
+            getCustomerOrders(parsedSession.id),
+            getCustomerSubscriptions(parsedSession.id),
+          ]);
+
+          if (customerData) {
+            setLoyaltyPoints(customerData.loyalty_points || 1240);
+          }
+          
+          if (orders && orders.length > 0) {
+            setOrdersCount(orders.length);
+            const formattedOrders = orders.slice(0, 3).map(order => ({
+              id: order.order_number || order.id,
+              date: new Date(order.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
+              items: ((order as any).items as any[])?.map((item: any) => ({
+                name: item.product?.name || item.product_name || 'Product',
+                quantity: item.quantity || 1,
+                image: item.product?.hero_image_url || '/products/acai/Acai-1.png',
+              })) || [{ name: 'Product', quantity: 1, image: '/products/acai/Acai-1.png' }],
+              total: order.total / 100,
+              status: order.status?.charAt(0).toUpperCase() + order.status?.slice(1) || 'Processing',
+            }));
+            setRecentOrders(formattedOrders.length > 0 ? formattedOrders : mockRecentOrders);
+          }
+
+          if (subscriptions) {
+            const activeSubscriptions = subscriptions.filter(s => s.status === 'active');
+            setSubscriptionsCount(activeSubscriptions.length || 2);
+          }
+        }
+      } catch (error) {
+        console.error('Error loading dashboard data:', error);
+      }
+      
+      setLoading(false);
+    };
+
+    loadData();
   }, [router]);
 
   if (!customer) return null;
@@ -79,22 +135,22 @@ export default function CustomerDashboard() {
   const stats = [
     { 
       label: 'Total Orders', 
-      value: '12', 
+      value: ordersCount.toString(), 
       icon: ShoppingBag, 
       color: NEON_GREEN,
       bg: 'rgba(0, 255, 133, 0.1)',
     },
     { 
       label: 'Loyalty Points', 
-      value: '1,240 pts', 
-      subtext: '$12.40 value',
+      value: `${loyaltyPoints.toLocaleString()} pts`, 
+      subtext: `$${(loyaltyPoints / 100).toFixed(2)} value`,
       icon: Gift, 
       color: '#8B5CF6',
       bg: 'rgba(139, 92, 246, 0.1)',
     },
     { 
       label: 'Active Subscriptions', 
-      value: '2', 
+      value: subscriptionsCount.toString(), 
       icon: RefreshCw, 
       color: '#3B82F6',
       bg: 'rgba(59, 130, 246, 0.1)',
@@ -122,90 +178,105 @@ export default function CustomerDashboard() {
           </Link>
         </div>
 
-        <div style={styles.statsGrid}>
-          {stats.map((stat, index) => {
-            const Icon = stat.icon;
-            return (
-              <div key={index} style={styles.statCard}>
-                <div style={{ ...styles.statIcon, backgroundColor: stat.bg }}>
-                  <Icon size={20} color={stat.color} />
-                </div>
-                <div style={styles.statContent}>
-                  <span style={styles.statLabel}>{stat.label}</span>
-                  <span style={styles.statValue}>{stat.value}</span>
-                  {stat.subtext && (
-                    <span style={styles.statSubtext}>{stat.subtext}</span>
-                  )}
-                </div>
-              </div>
-            );
-          })}
-        </div>
-
-        <div style={styles.quickActionsSection}>
-          <h2 style={styles.sectionTitle}>Quick Actions</h2>
-          <div style={styles.quickActionsGrid}>
-            {quickActions.map((action, index) => {
-              const Icon = action.icon;
-              return (
-                <Link key={index} href={action.href} style={styles.quickAction}>
-                  <Icon size={20} color={NEON_GREEN} />
-                  <span>{action.label}</span>
-                  <ArrowRight size={16} style={{ marginLeft: 'auto', opacity: 0.5 }} />
-                </Link>
-              );
-            })}
+        {loading ? (
+          <div style={styles.loadingContainer}>
+            <Loader2 size={32} color={NEON_GREEN} style={{ animation: 'spin 1s linear infinite' }} />
+            <p style={styles.loadingText}>Loading your dashboard...</p>
           </div>
-        </div>
-
-        <div style={styles.ordersSection}>
-          <div style={styles.sectionHeader}>
-            <h2 style={styles.sectionTitle}>Recent Orders</h2>
-            <Link href="/account/orders" style={styles.viewAllLink}>
-              View All <ArrowRight size={14} />
-            </Link>
-          </div>
-          <div style={styles.ordersGrid}>
-            {recentOrders.map((order) => {
-              const statusInfo = statusConfig[order.status];
-              const StatusIcon = statusInfo.icon;
-              return (
-                <div key={order.id} style={styles.orderCard}>
-                  <div style={styles.orderHeader}>
-                    <div>
-                      <span style={styles.orderId}>{order.id}</span>
-                      <span style={styles.orderDate}>{order.date}</span>
+        ) : (
+          <>
+            <div style={styles.statsGrid}>
+              {stats.map((stat, index) => {
+                const Icon = stat.icon;
+                return (
+                  <div key={index} style={styles.statCard}>
+                    <div style={{ ...styles.statIcon, backgroundColor: stat.bg }}>
+                      <Icon size={20} color={stat.color} />
                     </div>
-                    <div style={{ ...styles.orderStatus, backgroundColor: statusInfo.bg }}>
-                      <StatusIcon size={14} color={statusInfo.color} />
-                      <span style={{ color: statusInfo.color }}>{order.status}</span>
+                    <div style={styles.statContent}>
+                      <span style={styles.statLabel}>{stat.label}</span>
+                      <span style={styles.statValue}>{stat.value}</span>
+                      {stat.subtext && (
+                        <span style={styles.statSubtext}>{stat.subtext}</span>
+                      )}
                     </div>
                   </div>
-                  <div style={styles.orderItems}>
-                    {order.items.map((item, idx) => (
-                      <div key={idx} style={styles.orderItem}>
-                        <div style={styles.itemImage}>
-                          <img src={item.image} alt={item.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                );
+              })}
+            </div>
+
+            <div style={styles.quickActionsSection}>
+              <h2 style={styles.sectionTitle}>Quick Actions</h2>
+              <div style={styles.quickActionsGrid}>
+                {quickActions.map((action, index) => {
+                  const Icon = action.icon;
+                  return (
+                    <Link key={index} href={action.href} style={styles.quickAction}>
+                      <Icon size={20} color={NEON_GREEN} />
+                      <span>{action.label}</span>
+                      <ArrowRight size={16} style={{ marginLeft: 'auto', opacity: 0.5 }} />
+                    </Link>
+                  );
+                })}
+              </div>
+            </div>
+
+            <div style={styles.ordersSection}>
+              <div style={styles.sectionHeader}>
+                <h2 style={styles.sectionTitle}>Recent Orders</h2>
+                <Link href="/account/orders" style={styles.viewAllLink}>
+                  View All <ArrowRight size={14} />
+                </Link>
+              </div>
+              <div style={styles.ordersGrid}>
+                {recentOrders.map((order) => {
+                  const statusInfo = statusConfig[order.status] || statusConfig['Processing'];
+                  const StatusIcon = statusInfo.icon;
+                  return (
+                    <div key={order.id} style={styles.orderCard}>
+                      <div style={styles.orderHeader}>
+                        <div>
+                          <span style={styles.orderId}>{order.id}</span>
+                          <span style={styles.orderDate}>{order.date}</span>
                         </div>
-                        <div style={styles.itemInfo}>
-                          <span style={styles.itemName}>{item.name}</span>
-                          <span style={styles.itemQty}>Qty: {item.quantity}</span>
+                        <div style={{ ...styles.orderStatus, backgroundColor: statusInfo.bg }}>
+                          <StatusIcon size={14} color={statusInfo.color} />
+                          <span style={{ color: statusInfo.color }}>{order.status}</span>
                         </div>
                       </div>
-                    ))}
-                  </div>
-                  <div style={styles.orderFooter}>
-                    <span style={styles.orderTotal}>${order.total.toFixed(2)}</span>
-                    <Link href={`/account/orders?id=${order.id}`} style={styles.viewOrderLink}>
-                      View Details
-                    </Link>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
+                      <div style={styles.orderItems}>
+                        {order.items.map((item, idx) => (
+                          <div key={idx} style={styles.orderItem}>
+                            <div style={styles.itemImage}>
+                              <img src={item.image} alt={item.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                            </div>
+                            <div style={styles.itemInfo}>
+                              <span style={styles.itemName}>{item.name}</span>
+                              <span style={styles.itemQty}>Qty: {item.quantity}</span>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                      <div style={styles.orderFooter}>
+                        <span style={styles.orderTotal}>${order.total.toFixed(2)}</span>
+                        <Link href={`/account/orders?id=${order.id}`} style={styles.viewOrderLink}>
+                          View Details
+                        </Link>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </>
+        )}
       </div>
+      <style jsx global>{`
+        @keyframes spin {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
+        }
+      `}</style>
     </CustomerLayout>
   );
 }
@@ -245,6 +316,18 @@ const styles: Record<string, React.CSSProperties> = {
     borderRadius: 8,
     fontSize: 14,
     fontWeight: 600,
+  },
+  loadingContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 64,
+    gap: 16,
+  },
+  loadingText: {
+    color: '#666666',
+    fontSize: 14,
   },
   statsGrid: {
     display: 'grid',

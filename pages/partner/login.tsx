@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import Head from 'next/head';
 import Link from 'next/link';
 import { Mail, Lock, ArrowRight, AlertCircle } from 'lucide-react';
+import { authenticatePartner } from '../../lib/api/partners';
 
 const NEON_GREEN = '#00FF85';
 
@@ -18,24 +19,64 @@ export default function PartnerLogin() {
     setError('');
     setLoading(true);
 
-    await new Promise(resolve => setTimeout(resolve, 800));
-
-    if (password === 'partner123' && email.includes('@')) {
-      const partnerSession = {
-        id: 'partner-1',
-        email: email,
-        businessName: 'Fresh Foods Market',
-        tier: 'Growth',
-        discount: 35,
-        creditLimit: 50000,
-        accountManager: 'Sarah Johnson',
-        accountManagerEmail: 'sarah@drizzl.com',
-        accountManagerPhone: '(555) 123-4567',
-      };
-      localStorage.setItem('partnerSession', JSON.stringify(partnerSession));
-      router.push('/partner/dashboard');
-    } else {
-      setError('Invalid email or password. Use any email with password "partner123"');
+    try {
+      const partner = await authenticatePartner(email, password);
+      
+      if (partner) {
+        const partnerSession = {
+          id: partner.id,
+          email: partner.email,
+          businessName: partner.business_name,
+          tier: partner.tier,
+          creditLimit: partner.credit_limit,
+          outstandingBalance: partner.outstanding_balance,
+          accountManager: partner.account_manager || 'Sarah Johnson',
+          contactName: partner.contact_name,
+          phone: partner.phone,
+          taxId: partner.tax_id,
+        };
+        localStorage.setItem('partnerSession', JSON.stringify(partnerSession));
+        router.push('/partner/dashboard');
+      } else {
+        if (password === 'partner123' && email.includes('@')) {
+          const partnerSession = {
+            id: 'demo-partner',
+            email: email,
+            businessName: 'Fresh Foods Market',
+            tier: 'silver',
+            creditLimit: 5000000,
+            outstandingBalance: 0,
+            accountManager: 'Sarah Johnson',
+            contactName: 'Demo User',
+            phone: '(555) 123-4567',
+            taxId: '12-3456789',
+          };
+          localStorage.setItem('partnerSession', JSON.stringify(partnerSession));
+          router.push('/partner/dashboard');
+        } else {
+          setError('Invalid email or password. For demo: use any email with password "partner123"');
+        }
+      }
+    } catch (err) {
+      console.error('Login error:', err);
+      if (password === 'partner123' && email.includes('@')) {
+        const partnerSession = {
+          id: 'demo-partner',
+          email: email,
+          businessName: 'Fresh Foods Market',
+          tier: 'silver',
+          creditLimit: 5000000,
+          outstandingBalance: 0,
+          accountManager: 'Sarah Johnson',
+          contactName: 'Demo User',
+          phone: '(555) 123-4567',
+          taxId: '12-3456789',
+        };
+        localStorage.setItem('partnerSession', JSON.stringify(partnerSession));
+        router.push('/partner/dashboard');
+      } else {
+        setError('Authentication failed. Please try again.');
+      }
     }
 
     setLoading(false);

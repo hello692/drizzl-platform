@@ -11,7 +11,9 @@ import {
   ChevronRight,
   AlertCircle,
   Check,
+  Loader2,
 } from 'lucide-react';
+import { getCustomerSubscriptions } from '../../lib/api/customers';
 
 const NEON_GREEN = '#00FF85';
 const CARD_BG = 'rgba(255, 255, 255, 0.02)';
@@ -31,7 +33,7 @@ interface Subscription {
   createdAt: string;
 }
 
-const initialSubscriptions: Subscription[] = [
+const mockSubscriptions: Subscription[] = [
   {
     id: 'SUB-1001',
     product: {
@@ -60,17 +62,64 @@ const initialSubscriptions: Subscription[] = [
   },
 ];
 
+const frequencyMap: Record<string, string> = {
+  weekly: 'Weekly',
+  biweekly: 'Every 2 weeks',
+  monthly: 'Monthly',
+  bimonthly: 'Every 2 months',
+};
+
 export default function CustomerSubscriptions() {
   const router = useRouter();
-  const [subscriptions, setSubscriptions] = useState(initialSubscriptions);
+  const [subscriptions, setSubscriptions] = useState<Subscription[]>(mockSubscriptions);
   const [confirmModal, setConfirmModal] = useState<{ id: string; action: string } | null>(null);
   const [toast, setToast] = useState('');
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const session = localStorage.getItem('customerSession');
-    if (!session) {
-      router.push('/account/login');
-    }
+    const loadSubscriptions = async () => {
+      const session = localStorage.getItem('customerSession');
+      if (!session) {
+        router.push('/account/login');
+        return;
+      }
+
+      const parsedSession = JSON.parse(session);
+
+      try {
+        if (parsedSession.id && parsedSession.id !== 'demo-customer') {
+          const dbSubscriptions = await getCustomerSubscriptions(parsedSession.id);
+          
+          if (dbSubscriptions && dbSubscriptions.length > 0) {
+            const formattedSubscriptions: Subscription[] = dbSubscriptions.map(sub => {
+              const nextDate = sub.next_billing_date ? new Date(sub.next_billing_date) : new Date();
+              nextDate.setDate(nextDate.getDate() + 14);
+              
+              return {
+                id: sub.id,
+                product: {
+                  name: (sub.items as any)?.[0]?.product_name || 'Smoothie Subscription',
+                  image: (sub.items as any)?.[0]?.image || '/products/acai/Acai-1.png',
+                  price: ((sub.items as any)?.[0]?.price_cents || 1499) / 100,
+                },
+                frequency: frequencyMap[sub.frequency] || sub.frequency || 'Monthly',
+                nextDelivery: nextDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
+                status: sub.status as 'active' | 'paused' | 'cancelled',
+                quantity: (sub.items as any)?.[0]?.quantity || 1,
+                createdAt: new Date(sub.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
+              };
+            });
+            setSubscriptions(formattedSubscriptions);
+          }
+        }
+      } catch (error) {
+        console.error('Error loading subscriptions:', error);
+      }
+      
+      setLoading(false);
+    };
+
+    loadSubscriptions();
   }, [router]);
 
   const showToast = (message: string) => {
@@ -164,103 +213,110 @@ export default function CustomerSubscriptions() {
           )}
         </div>
 
-        <div style={styles.subscriptionsGrid}>
-          {subscriptions.map((sub) => (
-            <div key={sub.id} style={styles.subscriptionCard}>
-              <div style={styles.cardHeader}>
-                <div style={styles.productImage}>
-                  <img src={sub.product.image} alt={sub.product.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                </div>
-                <div style={styles.productInfo}>
-                  <h3 style={styles.productName}>{sub.product.name}</h3>
-                  <p style={styles.productMeta}>Qty: {sub.quantity} × ${sub.product.price.toFixed(2)}</p>
-                  <div style={{
-                    ...styles.statusBadge,
-                    backgroundColor: sub.status === 'active' 
-                      ? 'rgba(0, 255, 133, 0.1)' 
-                      : sub.status === 'paused'
-                      ? 'rgba(245, 158, 11, 0.1)'
-                      : 'rgba(239, 68, 68, 0.1)',
-                    color: sub.status === 'active' 
-                      ? NEON_GREEN 
-                      : sub.status === 'paused'
-                      ? '#F59E0B'
-                      : '#EF4444',
-                  }}>
-                    {sub.status.charAt(0).toUpperCase() + sub.status.slice(1)}
+        {loading ? (
+          <div style={styles.loadingContainer}>
+            <Loader2 size={32} color={NEON_GREEN} style={{ animation: 'spin 1s linear infinite' }} />
+            <p style={styles.loadingText}>Loading your subscriptions...</p>
+          </div>
+        ) : (
+          <div style={styles.subscriptionsGrid}>
+            {subscriptions.map((sub) => (
+              <div key={sub.id} style={styles.subscriptionCard}>
+                <div style={styles.cardHeader}>
+                  <div style={styles.productImage}>
+                    <img src={sub.product.image} alt={sub.product.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                  </div>
+                  <div style={styles.productInfo}>
+                    <h3 style={styles.productName}>{sub.product.name}</h3>
+                    <p style={styles.productMeta}>Qty: {sub.quantity} × ${sub.product.price.toFixed(2)}</p>
+                    <div style={{
+                      ...styles.statusBadge,
+                      backgroundColor: sub.status === 'active' 
+                        ? 'rgba(0, 255, 133, 0.1)' 
+                        : sub.status === 'paused'
+                        ? 'rgba(245, 158, 11, 0.1)'
+                        : 'rgba(239, 68, 68, 0.1)',
+                      color: sub.status === 'active' 
+                        ? NEON_GREEN 
+                        : sub.status === 'paused'
+                        ? '#F59E0B'
+                        : '#EF4444',
+                    }}>
+                      {sub.status.charAt(0).toUpperCase() + sub.status.slice(1)}
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              <div style={styles.cardDetails}>
-                <div style={styles.detailRow}>
-                  <Calendar size={16} color="#666666" />
-                  <span style={styles.detailLabel}>Frequency:</span>
-                  <span style={styles.detailValue}>{sub.frequency}</span>
-                </div>
-                {sub.status !== 'cancelled' && (
+                <div style={styles.cardDetails}>
                   <div style={styles.detailRow}>
-                    <RefreshCw size={16} color="#666666" />
-                    <span style={styles.detailLabel}>Next delivery:</span>
-                    <span style={styles.detailValue}>{sub.nextDelivery}</span>
+                    <Calendar size={16} color="#666666" />
+                    <span style={styles.detailLabel}>Frequency:</span>
+                    <span style={styles.detailValue}>{sub.frequency}</span>
+                  </div>
+                  {sub.status !== 'cancelled' && (
+                    <div style={styles.detailRow}>
+                      <RefreshCw size={16} color="#666666" />
+                      <span style={styles.detailLabel}>Next delivery:</span>
+                      <span style={styles.detailValue}>{sub.nextDelivery}</span>
+                    </div>
+                  )}
+                  <div style={styles.detailRow}>
+                    <span style={styles.detailLabel}>Subtotal:</span>
+                    <span style={styles.detailPrice}>${(sub.quantity * sub.product.price).toFixed(2)}</span>
+                  </div>
+                </div>
+
+                {sub.status !== 'cancelled' && (
+                  <div style={styles.cardActions}>
+                    {sub.status === 'active' && (
+                      <>
+                        <button 
+                          onClick={() => handleAction(sub.id, 'skip')}
+                          style={styles.actionButton}
+                        >
+                          <Calendar size={16} />
+                          Skip Next
+                        </button>
+                        <button 
+                          onClick={() => setConfirmModal({ id: sub.id, action: 'pause' })}
+                          style={styles.actionButton}
+                        >
+                          <Pause size={16} />
+                          Pause
+                        </button>
+                      </>
+                    )}
+                    {sub.status === 'paused' && (
+                      <button 
+                        onClick={() => handleAction(sub.id, 'resume')}
+                        style={{ ...styles.actionButton, borderColor: NEON_GREEN, color: NEON_GREEN }}
+                      >
+                        <Play size={16} />
+                        Resume
+                      </button>
+                    )}
+                    <button 
+                      onClick={() => setConfirmModal({ id: sub.id, action: 'cancel' })}
+                      style={{ ...styles.actionButton, borderColor: '#EF4444', color: '#EF4444' }}
+                    >
+                      <X size={16} />
+                      Cancel
+                    </button>
                   </div>
                 )}
-                <div style={styles.detailRow}>
-                  <span style={styles.detailLabel}>Subtotal:</span>
-                  <span style={styles.detailPrice}>${(sub.quantity * sub.product.price).toFixed(2)}</span>
-                </div>
+
+                {sub.status === 'cancelled' && (
+                  <div style={styles.cancelledNote}>
+                    <AlertCircle size={16} />
+                    <span>This subscription has been cancelled</span>
+                  </div>
+                )}
               </div>
+            ))}
+          </div>
+        )}
 
-              {sub.status !== 'cancelled' && (
-                <div style={styles.cardActions}>
-                  {sub.status === 'active' && (
-                    <>
-                      <button 
-                        onClick={() => handleAction(sub.id, 'skip')}
-                        style={styles.actionButton}
-                      >
-                        <Calendar size={16} />
-                        Skip Next
-                      </button>
-                      <button 
-                        onClick={() => setConfirmModal({ id: sub.id, action: 'pause' })}
-                        style={styles.actionButton}
-                      >
-                        <Pause size={16} />
-                        Pause
-                      </button>
-                    </>
-                  )}
-                  {sub.status === 'paused' && (
-                    <button 
-                      onClick={() => handleAction(sub.id, 'resume')}
-                      style={{ ...styles.actionButton, borderColor: NEON_GREEN, color: NEON_GREEN }}
-                    >
-                      <Play size={16} />
-                      Resume
-                    </button>
-                  )}
-                  <button 
-                    onClick={() => setConfirmModal({ id: sub.id, action: 'cancel' })}
-                    style={{ ...styles.actionButton, borderColor: '#EF4444', color: '#EF4444' }}
-                  >
-                    <X size={16} />
-                    Cancel
-                  </button>
-                </div>
-              )}
-
-              {sub.status === 'cancelled' && (
-                <div style={styles.cancelledNote}>
-                  <AlertCircle size={16} />
-                  <span>This subscription has been cancelled</span>
-                </div>
-              )}
-            </div>
-          ))}
-        </div>
-
-        {subscriptions.length === 0 && (
+        {!loading && subscriptions.length === 0 && (
           <div style={styles.emptyState}>
             <RefreshCw size={48} color="#333333" />
             <h3 style={styles.emptyTitle}>No subscriptions yet</h3>
@@ -302,6 +358,12 @@ export default function CustomerSubscriptions() {
           </div>
         </div>
       </div>
+      <style jsx global>{`
+        @keyframes spin {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
+        }
+      `}</style>
     </CustomerLayout>
   );
 }
@@ -411,6 +473,18 @@ const styles: Record<string, React.CSSProperties> = {
     fontSize: 14,
     fontWeight: 500,
     color: NEON_GREEN,
+  },
+  loadingContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 64,
+    gap: 16,
+  },
+  loadingText: {
+    color: '#666666',
+    fontSize: 14,
   },
   subscriptionsGrid: {
     display: 'flex',

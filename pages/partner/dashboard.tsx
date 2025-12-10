@@ -14,8 +14,11 @@ import {
   User,
   CreditCard,
   AlertCircle,
+  Loader2,
 } from 'lucide-react';
 import Link from 'next/link';
+import { getPartnerById, getPartnerOrders, getPartnerInvoices } from '../../lib/api/partners';
+import type { B2BOrder, Invoice } from '../../types/database';
 
 const NEON_GREEN = '#00FF85';
 const CARD_BG = 'rgba(255, 255, 255, 0.02)';
@@ -26,14 +29,14 @@ interface PartnerSession {
   email: string;
   businessName: string;
   tier: string;
-  discount: number;
   creditLimit: number;
+  outstandingBalance: number;
   accountManager: string;
-  accountManagerEmail: string;
-  accountManagerPhone: string;
+  contactName?: string;
+  phone?: string;
 }
 
-const recentOrders = [
+const mockRecentOrders = [
   { id: 'ORD-2847', date: 'Dec 8, 2025', items: 12, total: 2450.00, status: 'Delivered' },
   { id: 'ORD-2831', date: 'Dec 5, 2025', items: 8, total: 1680.00, status: 'Shipped' },
   { id: 'ORD-2819', date: 'Dec 1, 2025', items: 15, total: 3120.00, status: 'Delivered' },
@@ -41,30 +44,111 @@ const recentOrders = [
   { id: 'ORD-2791', date: 'Nov 24, 2025', items: 10, total: 2080.00, status: 'Delivered' },
 ];
 
-const pendingInvoices = [
+const mockPendingInvoices = [
   { id: 'INV-1847', date: 'Dec 8, 2025', amount: 2450.00, due: 'Dec 22, 2025', status: 'Pending' },
   { id: 'INV-1831', date: 'Dec 5, 2025', amount: 1680.00, due: 'Dec 19, 2025', status: 'Pending' },
 ];
 
+function getTierDiscount(tier: string): number {
+  switch (tier.toLowerCase()) {
+    case 'platinum': return 40;
+    case 'gold': return 35;
+    case 'silver': return 25;
+    case 'bronze': return 15;
+    default: return 20;
+  }
+}
+
+function formatDate(dateStr: string): string {
+  return new Date(dateStr).toLocaleDateString('en-US', { 
+    month: 'short', 
+    day: 'numeric', 
+    year: 'numeric' 
+  });
+}
+
 export default function PartnerDashboard() {
   const router = useRouter();
   const [partner, setPartner] = useState<PartnerSession | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [orders, setOrders] = useState<B2BOrder[]>([]);
+  const [invoices, setInvoices] = useState<Invoice[]>([]);
 
   useEffect(() => {
-    const session = localStorage.getItem('partnerSession');
-    if (!session) {
-      router.push('/partner/login');
-      return;
-    }
-    setPartner(JSON.parse(session));
+    const loadData = async () => {
+      const session = localStorage.getItem('partnerSession');
+      if (!session) {
+        router.push('/partner/login');
+        return;
+      }
+      
+      const sessionData = JSON.parse(session);
+      setPartner(sessionData);
+
+      try {
+        if (sessionData.id && sessionData.id !== 'demo-partner') {
+          const freshPartner = await getPartnerById(sessionData.id);
+          if (freshPartner) {
+            const updatedSession = {
+              ...sessionData,
+              creditLimit: freshPartner.credit_limit,
+              outstandingBalance: freshPartner.outstanding_balance,
+              tier: freshPartner.tier,
+            };
+            setPartner(updatedSession);
+            localStorage.setItem('partnerSession', JSON.stringify(updatedSession));
+          }
+
+          const [ordersData, invoicesData] = await Promise.all([
+            getPartnerOrders(sessionData.id),
+            getPartnerInvoices(sessionData.id),
+          ]);
+          setOrders(ordersData);
+          setInvoices(invoicesData);
+        }
+      } catch (error) {
+        console.error('Error loading dashboard data:', error);
+      }
+      
+      setLoading(false);
+    };
+
+    loadData();
   }, [router]);
+
+  if (loading) {
+    return (
+      <PartnerLayout title="Dashboard" partnerName="Loading...">
+        <div style={styles.loadingPage}>
+          <Loader2 size={32} color={NEON_GREEN} style={{ animation: 'spin 1s linear infinite' }} />
+          <p style={styles.loadingText}>Loading dashboard...</p>
+        </div>
+      </PartnerLayout>
+    );
+  }
 
   if (!partner) {
     return null;
   }
 
-  const totalOutstanding = pendingInvoices.reduce((sum, inv) => sum + inv.amount, 0);
-  const availableCredit = partner.creditLimit - totalOutstanding;
+  const discount = getTierDiscount(partner.tier);
+  const displayOrders = orders.length > 0 ? orders.slice(0, 5) : null;
+  const displayInvoices = invoices.filter(inv => inv.status === 'pending' || inv.status === 'overdue');
+  const pendingInvoicesData = displayInvoices.length > 0 ? displayInvoices.slice(0, 3) : null;
+
+  const totalOutstanding = pendingInvoicesData 
+    ? pendingInvoicesData.reduce((sum, inv) => sum + inv.total, 0) / 100
+    : partner.outstandingBalance / 100 || mockPendingInvoices.reduce((sum, inv) => sum + inv.amount, 0);
+  
+  const creditLimit = partner.creditLimit / 100 || 50000;
+  const availableCredit = creditLimit - totalOutstanding;
+
+  const monthlyOrders = orders.filter(o => {
+    const orderDate = new Date(o.created_at);
+    const now = new Date();
+    return orderDate.getMonth() === now.getMonth() && orderDate.getFullYear() === now.getFullYear();
+  });
+  const monthlyTotal = monthlyOrders.reduce((sum, o) => sum + o.total, 0) / 100;
 
   return (
     <PartnerLayout title="Dashboard" partnerName={partner.businessName}>
@@ -72,7 +156,7 @@ export default function PartnerDashboard() {
         <div style={styles.header}>
           <div>
             <h1 style={styles.title}>Welcome back, {partner.businessName}</h1>
-            <p style={styles.subtitle}>{partner.tier} Partner • {partner.discount}% wholesale discount</p>
+            <p style={styles.subtitle}>{partner.tier.charAt(0).toUpperCase() + partner.tier.slice(1)} Partner • {discount}% wholesale discount</p>
           </div>
           <Link href="/partner/orders/new" style={styles.primaryButton}>
             <ShoppingCart size={18} />
@@ -87,8 +171,8 @@ export default function PartnerDashboard() {
             </div>
             <div style={styles.statContent}>
               <span style={styles.statLabel}>Account Status</span>
-              <span style={styles.statValue}>{partner.tier}</span>
-              <span style={styles.statMeta}>{partner.discount}% discount</span>
+              <span style={styles.statValue}>{partner.tier.charAt(0).toUpperCase() + partner.tier.slice(1)}</span>
+              <span style={styles.statMeta}>{discount}% discount</span>
             </div>
           </div>
 
@@ -98,7 +182,7 @@ export default function PartnerDashboard() {
             </div>
             <div style={styles.statContent}>
               <span style={styles.statLabel}>Credit Limit</span>
-              <span style={styles.statValue}>${partner.creditLimit.toLocaleString()}</span>
+              <span style={styles.statValue}>${creditLimit.toLocaleString()}</span>
               <span style={styles.statMeta}>${availableCredit.toLocaleString()} available</span>
             </div>
           </div>
@@ -110,7 +194,7 @@ export default function PartnerDashboard() {
             <div style={styles.statContent}>
               <span style={styles.statLabel}>Outstanding Balance</span>
               <span style={styles.statValue}>${totalOutstanding.toLocaleString()}</span>
-              <span style={styles.statMeta}>{pendingInvoices.length} pending invoices</span>
+              <span style={styles.statMeta}>{pendingInvoicesData?.length || mockPendingInvoices.length} pending invoices</span>
             </div>
           </div>
 
@@ -120,8 +204,8 @@ export default function PartnerDashboard() {
             </div>
             <div style={styles.statContent}>
               <span style={styles.statLabel}>Orders This Month</span>
-              <span style={styles.statValue}>5</span>
-              <span style={styles.statMeta}>$10,570 total</span>
+              <span style={styles.statValue}>{monthlyOrders.length || 5}</span>
+              <span style={styles.statMeta}>${(monthlyTotal || 10570).toLocaleString()} total</span>
             </div>
           </div>
         </div>
@@ -140,29 +224,27 @@ export default function PartnerDashboard() {
                   <tr>
                     <th style={styles.th}>Order ID</th>
                     <th style={styles.th}>Date</th>
-                    <th style={styles.th}>Items</th>
                     <th style={styles.th}>Total</th>
                     <th style={styles.th}>Status</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {recentOrders.map((order) => (
-                    <tr key={order.id}>
+                  {(displayOrders || mockRecentOrders).map((order: any) => (
+                    <tr key={order.id || order.order_number}>
                       <td style={styles.td}>
-                        <span style={styles.orderId}>{order.id}</span>
+                        <span style={styles.orderId}>{order.order_number || order.id}</span>
                       </td>
-                      <td style={styles.td}>{order.date}</td>
-                      <td style={styles.td}>{order.items} items</td>
-                      <td style={styles.td}>${order.total.toLocaleString()}</td>
+                      <td style={styles.td}>{order.created_at ? formatDate(order.created_at) : order.date}</td>
+                      <td style={styles.td}>${((order.total || 0) / 100 || order.total || 0).toLocaleString()}</td>
                       <td style={styles.td}>
                         <span style={{
                           ...styles.badge,
-                          backgroundColor: order.status === 'Delivered' 
+                          backgroundColor: (order.status === 'delivered' || order.status === 'Delivered')
                             ? 'rgba(0, 255, 133, 0.1)' 
                             : 'rgba(59, 130, 246, 0.1)',
-                          color: order.status === 'Delivered' ? NEON_GREEN : '#3B82F6',
+                          color: (order.status === 'delivered' || order.status === 'Delivered') ? NEON_GREEN : '#3B82F6',
                         }}>
-                          {order.status}
+                          {order.status?.charAt(0).toUpperCase() + order.status?.slice(1)}
                         </span>
                       </td>
                     </tr>
@@ -181,15 +263,17 @@ export default function PartnerDashboard() {
                 </Link>
               </div>
               <div style={styles.invoiceList}>
-                {pendingInvoices.map((invoice) => (
-                  <div key={invoice.id} style={styles.invoiceCard}>
+                {(pendingInvoicesData || mockPendingInvoices).map((invoice: any) => (
+                  <div key={invoice.id || invoice.invoice_number} style={styles.invoiceCard}>
                     <div style={styles.invoiceMain}>
-                      <div style={styles.invoiceId}>{invoice.id}</div>
-                      <div style={styles.invoiceAmount}>${invoice.amount.toLocaleString()}</div>
+                      <div style={styles.invoiceId}>{invoice.invoice_number || invoice.id}</div>
+                      <div style={styles.invoiceAmount}>${((invoice.total || 0) / 100 || invoice.amount).toLocaleString()}</div>
                     </div>
                     <div style={styles.invoiceMeta}>
-                      <span>Due: {invoice.due}</span>
-                      <span style={styles.pendingBadge}>Pending</span>
+                      <span>Due: {invoice.due_date ? formatDate(invoice.due_date) : invoice.due}</span>
+                      <span style={styles.pendingBadge}>
+                        {invoice.status === 'overdue' ? 'Overdue' : 'Pending'}
+                      </span>
                     </div>
                     <Link href="/partner/invoices" style={styles.payButton}>
                       Pay Now
@@ -206,17 +290,17 @@ export default function PartnerDashboard() {
                   <User size={24} color="#666666" />
                 </div>
                 <div style={styles.managerInfo}>
-                  <div style={styles.managerName}>{partner.accountManager}</div>
+                  <div style={styles.managerName}>{partner.accountManager || 'Sarah Johnson'}</div>
                   <div style={styles.managerRole}>Account Manager</div>
                 </div>
                 <div style={styles.managerContact}>
-                  <a href={`mailto:${partner.accountManagerEmail}`} style={styles.contactLink}>
+                  <a href="mailto:partners@drizzl.com" style={styles.contactLink}>
                     <Mail size={16} />
-                    <span>{partner.accountManagerEmail}</span>
+                    <span>partners@drizzl.com</span>
                   </a>
-                  <a href={`tel:${partner.accountManagerPhone}`} style={styles.contactLink}>
+                  <a href="tel:+15551234567" style={styles.contactLink}>
                     <Phone size={16} />
-                    <span>{partner.accountManagerPhone}</span>
+                    <span>(555) 123-4567</span>
                   </a>
                 </div>
               </div>
@@ -255,6 +339,18 @@ const styles: Record<string, React.CSSProperties> = {
     padding: 32,
     maxWidth: 1400,
     margin: '0 auto',
+  },
+  loadingPage: {
+    minHeight: '60vh',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 16,
+  },
+  loadingText: {
+    fontSize: 14,
+    color: '#666666',
   },
   header: {
     display: 'flex',

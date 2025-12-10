@@ -10,72 +10,131 @@ import {
   AlertTriangle,
   X,
   Eye,
+  Loader2,
 } from 'lucide-react';
+import { getPartnerInvoices } from '../../lib/api/partners';
+import type { Invoice as DBInvoice } from '../../types/database';
 
 const NEON_GREEN = '#00FF85';
 const CARD_BG = 'rgba(255, 255, 255, 0.02)';
 const CARD_BORDER = 'rgba(255, 255, 255, 0.08)';
 
-interface Invoice {
+interface DisplayInvoice {
   id: string;
-  orderId: string;
+  invoice_number: string;
+  order_id: string | null;
   date: string;
   dueDate: string;
   amount: number;
-  status: 'Paid' | 'Pending' | 'Overdue';
-  items: { name: string; quantity: number; price: number }[];
+  status: 'paid' | 'pending' | 'overdue';
 }
 
-const invoices: Invoice[] = [
-  { id: 'INV-1847', orderId: 'ORD-2847', date: 'Dec 8, 2025', dueDate: 'Dec 22, 2025', amount: 2450.00, status: 'Pending', items: [{ name: 'Strawberry Peach Smoothie', quantity: 48, price: 85.00 }, { name: 'Mango Jackfruit Blend', quantity: 36, price: 65.00 }] },
-  { id: 'INV-1831', orderId: 'ORD-2831', date: 'Dec 5, 2025', dueDate: 'Dec 19, 2025', amount: 1680.00, status: 'Pending', items: [{ name: 'Açai Berry Bowl Mix', quantity: 24, price: 70.00 }] },
-  { id: 'INV-1819', orderId: 'ORD-2819', date: 'Dec 1, 2025', dueDate: 'Dec 15, 2025', amount: 3120.00, status: 'Overdue', items: [{ name: 'Green Detox Blend', quantity: 60, price: 52.00 }] },
-  { id: 'INV-1805', orderId: 'ORD-2805', date: 'Nov 28, 2025', dueDate: 'Dec 12, 2025', amount: 1240.00, status: 'Paid', items: [{ name: 'Coffee Mushroom Blend', quantity: 20, price: 62.00 }] },
-  { id: 'INV-1791', orderId: 'ORD-2791', date: 'Nov 24, 2025', dueDate: 'Dec 8, 2025', amount: 2080.00, status: 'Paid', items: [{ name: 'Tropical Paradise Mix', quantity: 40, price: 52.00 }] },
-  { id: 'INV-1778', orderId: 'ORD-2778', date: 'Nov 20, 2025', dueDate: 'Dec 4, 2025', amount: 3060.00, status: 'Paid', items: [{ name: 'Strawberry Peach Smoothie', quantity: 36, price: 85.00 }] },
+const mockInvoices: DisplayInvoice[] = [
+  { id: 'inv-1', invoice_number: 'INV-1847', order_id: 'ORD-2847', date: 'Dec 8, 2025', dueDate: 'Dec 22, 2025', amount: 245000, status: 'pending' },
+  { id: 'inv-2', invoice_number: 'INV-1831', order_id: 'ORD-2831', date: 'Dec 5, 2025', dueDate: 'Dec 19, 2025', amount: 168000, status: 'pending' },
+  { id: 'inv-3', invoice_number: 'INV-1819', order_id: 'ORD-2819', date: 'Dec 1, 2025', dueDate: 'Dec 15, 2025', amount: 312000, status: 'overdue' },
+  { id: 'inv-4', invoice_number: 'INV-1805', order_id: 'ORD-2805', date: 'Nov 28, 2025', dueDate: 'Dec 12, 2025', amount: 124000, status: 'paid' },
+  { id: 'inv-5', invoice_number: 'INV-1791', order_id: 'ORD-2791', date: 'Nov 24, 2025', dueDate: 'Dec 8, 2025', amount: 208000, status: 'paid' },
+  { id: 'inv-6', invoice_number: 'INV-1778', order_id: 'ORD-2778', date: 'Nov 20, 2025', dueDate: 'Dec 4, 2025', amount: 306000, status: 'paid' },
 ];
 
 const statusConfig = {
-  Paid: { icon: CheckCircle, color: NEON_GREEN, bg: 'rgba(0, 255, 133, 0.1)' },
-  Pending: { icon: Clock, color: '#F59E0B', bg: 'rgba(245, 158, 11, 0.1)' },
-  Overdue: { icon: AlertTriangle, color: '#EF4444', bg: 'rgba(239, 68, 68, 0.1)' },
+  paid: { icon: CheckCircle, color: NEON_GREEN, bg: 'rgba(0, 255, 133, 0.1)' },
+  pending: { icon: Clock, color: '#F59E0B', bg: 'rgba(245, 158, 11, 0.1)' },
+  overdue: { icon: AlertTriangle, color: '#EF4444', bg: 'rgba(239, 68, 68, 0.1)' },
 };
+
+function formatDate(dateStr: string): string {
+  try {
+    return new Date(dateStr).toLocaleDateString('en-US', { 
+      month: 'short', 
+      day: 'numeric', 
+      year: 'numeric' 
+    });
+  } catch {
+    return dateStr;
+  }
+}
 
 export default function PartnerInvoices() {
   const router = useRouter();
   const [partnerName, setPartnerName] = useState('Partner');
+  const [partnerId, setPartnerId] = useState('');
   const [statusFilter, setStatusFilter] = useState('All');
-  const [selectedInvoice, setSelectedInvoice] = useState<Invoice | null>(null);
+  const [selectedInvoice, setSelectedInvoice] = useState<DisplayInvoice | null>(null);
   const [showPayModal, setShowPayModal] = useState(false);
-  const [invoiceList, setInvoiceList] = useState(invoices);
+  const [invoiceList, setInvoiceList] = useState<DisplayInvoice[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const session = localStorage.getItem('partnerSession');
-    if (!session) {
-      router.push('/partner/login');
-      return;
-    }
-    const data = JSON.parse(session);
-    setPartnerName(data.businessName);
+    const loadData = async () => {
+      const session = localStorage.getItem('partnerSession');
+      if (!session) {
+        router.push('/partner/login');
+        return;
+      }
+      const data = JSON.parse(session);
+      setPartnerName(data.businessName);
+      setPartnerId(data.id);
+
+      try {
+        if (data.id && data.id !== 'demo-partner') {
+          const invoicesData = await getPartnerInvoices(data.id);
+          if (invoicesData.length > 0) {
+            setInvoiceList(invoicesData.map(inv => ({
+              id: inv.id,
+              invoice_number: inv.invoice_number,
+              order_id: inv.order_id,
+              date: inv.created_at,
+              dueDate: inv.due_date,
+              amount: inv.total,
+              status: inv.status as 'paid' | 'pending' | 'overdue',
+            })));
+          } else {
+            setInvoiceList(mockInvoices);
+          }
+        } else {
+          setInvoiceList(mockInvoices);
+        }
+      } catch (error) {
+        console.error('Error loading invoices:', error);
+        setInvoiceList(mockInvoices);
+      }
+
+      setLoading(false);
+    };
+
+    loadData();
   }, [router]);
 
   const filteredInvoices = invoiceList.filter(inv => {
-    return statusFilter === 'All' || inv.status === statusFilter;
+    return statusFilter === 'All' || inv.status.toLowerCase() === statusFilter.toLowerCase();
   });
 
   const totalOutstanding = invoiceList
-    .filter(inv => inv.status !== 'Paid')
+    .filter(inv => inv.status !== 'paid')
     .reduce((sum, inv) => sum + inv.amount, 0);
 
-  const handlePayInvoice = (invoice: Invoice) => {
+  const handlePayInvoice = (invoice: DisplayInvoice) => {
     setInvoiceList(prev =>
       prev.map(inv =>
-        inv.id === invoice.id ? { ...inv, status: 'Paid' as const } : inv
+        inv.id === invoice.id ? { ...inv, status: 'paid' as const } : inv
       )
     );
     setShowPayModal(false);
     setSelectedInvoice(null);
   };
+
+  if (loading) {
+    return (
+      <PartnerLayout title="Invoices" partnerName={partnerName}>
+        <div style={styles.loadingPage}>
+          <Loader2 size={32} color={NEON_GREEN} style={{ animation: 'spin 1s linear infinite' }} />
+          <p style={styles.loadingText}>Loading invoices...</p>
+        </div>
+      </PartnerLayout>
+    );
+  }
 
   return (
     <PartnerLayout title="Invoices" partnerName={partnerName}>
@@ -87,12 +146,12 @@ export default function PartnerInvoices() {
           </div>
           <div style={styles.outstandingCard}>
             <span style={styles.outstandingLabel}>Outstanding Balance</span>
-            <span style={styles.outstandingValue}>${totalOutstanding.toLocaleString()}</span>
+            <span style={styles.outstandingValue}>${(totalOutstanding / 100).toLocaleString()}</span>
           </div>
         </div>
 
         <div style={styles.statusTabs}>
-          {['All', 'Pending', 'Overdue', 'Paid'].map(status => (
+          {['All', 'pending', 'overdue', 'paid'].map(status => (
             <button
               key={status}
               onClick={() => setStatusFilter(status)}
@@ -101,7 +160,7 @@ export default function PartnerInvoices() {
                 ...(statusFilter === status ? styles.statusTabActive : {}),
               }}
             >
-              {status}
+              {status === 'All' ? 'All' : status.charAt(0).toUpperCase() + status.slice(1)}
               <span style={styles.tabCount}>
                 {status === 'All'
                   ? invoiceList.length
@@ -130,13 +189,13 @@ export default function PartnerInvoices() {
                 return (
                   <tr key={invoice.id}>
                     <td style={styles.td}>
-                      <span style={styles.invoiceId}>{invoice.id}</span>
+                      <span style={styles.invoiceId}>{invoice.invoice_number}</span>
                     </td>
-                    <td style={styles.td}>{invoice.orderId}</td>
-                    <td style={styles.td}>{invoice.date}</td>
-                    <td style={styles.td}>{invoice.dueDate}</td>
+                    <td style={styles.td}>{invoice.order_id || '-'}</td>
+                    <td style={styles.td}>{formatDate(invoice.date)}</td>
+                    <td style={styles.td}>{formatDate(invoice.dueDate)}</td>
                     <td style={styles.td}>
-                      <span style={styles.amount}>${invoice.amount.toLocaleString()}</span>
+                      <span style={styles.amount}>${(invoice.amount / 100).toLocaleString()}</span>
                     </td>
                     <td style={styles.td}>
                       <span style={{
@@ -145,7 +204,7 @@ export default function PartnerInvoices() {
                         color: statusConfig[invoice.status].color,
                       }}>
                         <StatusIcon size={14} />
-                        {invoice.status}
+                        {invoice.status.charAt(0).toUpperCase() + invoice.status.slice(1)}
                       </span>
                     </td>
                     <td style={styles.td}>
@@ -160,7 +219,7 @@ export default function PartnerInvoices() {
                         <button style={styles.actionButton} title="Download">
                           <Download size={16} />
                         </button>
-                        {invoice.status !== 'Paid' && (
+                        {invoice.status !== 'paid' && (
                           <button
                             onClick={() => {
                               setSelectedInvoice(invoice);
@@ -184,7 +243,7 @@ export default function PartnerInvoices() {
           <div style={styles.modalOverlay} onClick={() => setSelectedInvoice(null)}>
             <div style={styles.modal} onClick={(e) => e.stopPropagation()}>
               <div style={styles.modalHeader}>
-                <h2 style={styles.modalTitle}>Invoice {selectedInvoice.id}</h2>
+                <h2 style={styles.modalTitle}>Invoice {selectedInvoice.invoice_number}</h2>
                 <button onClick={() => setSelectedInvoice(null)} style={styles.closeButton}>
                   <X size={20} />
                 </button>
@@ -193,15 +252,15 @@ export default function PartnerInvoices() {
                 <div style={styles.invoiceDetails}>
                   <div style={styles.detailRow}>
                     <span style={styles.detailLabel}>Order</span>
-                    <span style={styles.detailValue}>{selectedInvoice.orderId}</span>
+                    <span style={styles.detailValue}>{selectedInvoice.order_id || '-'}</span>
                   </div>
                   <div style={styles.detailRow}>
                     <span style={styles.detailLabel}>Invoice Date</span>
-                    <span style={styles.detailValue}>{selectedInvoice.date}</span>
+                    <span style={styles.detailValue}>{formatDate(selectedInvoice.date)}</span>
                   </div>
                   <div style={styles.detailRow}>
                     <span style={styles.detailLabel}>Due Date</span>
-                    <span style={styles.detailValue}>{selectedInvoice.dueDate}</span>
+                    <span style={styles.detailValue}>{formatDate(selectedInvoice.dueDate)}</span>
                   </div>
                   <div style={styles.detailRow}>
                     <span style={styles.detailLabel}>Status</span>
@@ -210,25 +269,14 @@ export default function PartnerInvoices() {
                       backgroundColor: statusConfig[selectedInvoice.status].bg,
                       color: statusConfig[selectedInvoice.status].color,
                     }}>
-                      {selectedInvoice.status}
+                      {selectedInvoice.status.charAt(0).toUpperCase() + selectedInvoice.status.slice(1)}
                     </span>
                   </div>
                 </div>
 
-                <h3 style={styles.itemsTitle}>Items</h3>
-                <div style={styles.itemsList}>
-                  {selectedInvoice.items.map((item, idx) => (
-                    <div key={idx} style={styles.itemRow}>
-                      <span style={styles.itemName}>{item.name}</span>
-                      <span style={styles.itemQty}>x{item.quantity}</span>
-                      <span style={styles.itemPrice}>${(item.price * item.quantity).toLocaleString()}</span>
-                    </div>
-                  ))}
-                </div>
-
                 <div style={styles.totalSection}>
                   <span>Total Amount</span>
-                  <span style={styles.totalAmount}>${selectedInvoice.amount.toLocaleString()}</span>
+                  <span style={styles.totalAmount}>${(selectedInvoice.amount / 100).toLocaleString()}</span>
                 </div>
               </div>
               <div style={styles.modalFooter}>
@@ -236,7 +284,7 @@ export default function PartnerInvoices() {
                   <Download size={16} />
                   Download PDF
                 </button>
-                {selectedInvoice.status !== 'Paid' && (
+                {selectedInvoice.status !== 'paid' && (
                   <button
                     onClick={() => setShowPayModal(true)}
                     style={styles.payNowButton}
@@ -261,8 +309,8 @@ export default function PartnerInvoices() {
               </div>
               <div style={styles.modalContent}>
                 <div style={styles.paymentSummary}>
-                  <p style={styles.paymentLabel}>Invoice: {selectedInvoice.id}</p>
-                  <p style={styles.paymentAmount}>${selectedInvoice.amount.toLocaleString()}</p>
+                  <p style={styles.paymentLabel}>Invoice: {selectedInvoice.invoice_number}</p>
+                  <p style={styles.paymentAmount}>${(selectedInvoice.amount / 100).toLocaleString()}</p>
                 </div>
 
                 <div style={styles.paymentMethod}>
@@ -306,6 +354,18 @@ const styles: Record<string, React.CSSProperties> = {
     padding: 32,
     maxWidth: 1400,
     margin: '0 auto',
+  },
+  loadingPage: {
+    minHeight: '60vh',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 16,
+  },
+  loadingText: {
+    fontSize: 14,
+    color: '#666666',
   },
   header: {
     display: 'flex',
@@ -508,41 +568,6 @@ const styles: Record<string, React.CSSProperties> = {
   },
   detailValue: {
     fontSize: 14,
-    color: '#FFFFFF',
-  },
-  itemsTitle: {
-    fontSize: 14,
-    fontWeight: 600,
-    color: '#FFFFFF',
-    margin: '0 0 12px 0',
-  },
-  itemsList: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: 10,
-    marginBottom: 20,
-  },
-  itemRow: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    padding: '10px 12px',
-    backgroundColor: 'rgba(255, 255, 255, 0.03)',
-    borderRadius: 8,
-  },
-  itemName: {
-    flex: 1,
-    fontSize: 14,
-    color: '#CCCCCC',
-  },
-  itemQty: {
-    fontSize: 13,
-    color: '#666666',
-    marginRight: 16,
-  },
-  itemPrice: {
-    fontSize: 14,
-    fontWeight: 500,
     color: '#FFFFFF',
   },
   totalSection: {

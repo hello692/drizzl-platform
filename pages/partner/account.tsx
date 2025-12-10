@@ -13,13 +13,17 @@ import {
   Plus,
   Trash2,
   CheckCircle,
+  Loader2,
 } from 'lucide-react';
+import { getPartnerById, getPartnerAddresses } from '../../lib/api/partners';
+import { supabase } from '../../lib/supabase';
+import type { PartnerAddress } from '../../types/database';
 
 const NEON_GREEN = '#00FF85';
 const CARD_BG = 'rgba(255, 255, 255, 0.02)';
 const CARD_BORDER = 'rgba(255, 255, 255, 0.08)';
 
-interface Address {
+interface DisplayAddress {
   id: string;
   label: string;
   street: string;
@@ -29,7 +33,7 @@ interface Address {
   isDefault: boolean;
 }
 
-const initialAddresses: Address[] = [
+const mockAddresses: DisplayAddress[] = [
   { id: '1', label: 'Main Store', street: '123 Business Ave', city: 'New York', state: 'NY', zip: '10001', isDefault: true },
   { id: '2', label: 'Warehouse', street: '456 Storage Lane', city: 'Brooklyn', state: 'NY', zip: '11201', isDefault: false },
 ];
@@ -37,15 +41,18 @@ const initialAddresses: Address[] = [
 export default function PartnerAccount() {
   const router = useRouter();
   const [partnerName, setPartnerName] = useState('Partner');
+  const [partnerId, setPartnerId] = useState('');
   const [saved, setSaved] = useState(false);
-  const [addresses, setAddresses] = useState(initialAddresses);
+  const [saving, setSaving] = useState(false);
+  const [addresses, setAddresses] = useState<DisplayAddress[]>([]);
+  const [loading, setLoading] = useState(true);
 
   const [formData, setFormData] = useState({
-    businessName: 'Fresh Foods Market',
-    contactName: 'John Smith',
-    email: 'john@freshfoodsmarket.com',
-    phone: '(555) 123-4567',
-    taxId: '12-3456789',
+    businessName: '',
+    contactName: '',
+    email: '',
+    phone: '',
+    taxId: '',
   });
 
   const [preferences, setPreferences] = useState({
@@ -57,30 +64,149 @@ export default function PartnerAccount() {
   });
 
   useEffect(() => {
-    const session = localStorage.getItem('partnerSession');
-    if (!session) {
-      router.push('/partner/login');
-      return;
-    }
-    const data = JSON.parse(session);
-    setPartnerName(data.businessName);
-    setFormData(prev => ({ ...prev, businessName: data.businessName, email: data.email }));
+    const loadData = async () => {
+      const session = localStorage.getItem('partnerSession');
+      if (!session) {
+        router.push('/partner/login');
+        return;
+      }
+      const data = JSON.parse(session);
+      setPartnerName(data.businessName);
+      setPartnerId(data.id);
+
+      setFormData({
+        businessName: data.businessName || 'Fresh Foods Market',
+        contactName: data.contactName || 'John Smith',
+        email: data.email || 'partner@company.com',
+        phone: data.phone || '(555) 123-4567',
+        taxId: data.taxId || '12-3456789',
+      });
+
+      try {
+        if (data.id && data.id !== 'demo-partner') {
+          const [partnerData, addressesData] = await Promise.all([
+            getPartnerById(data.id),
+            getPartnerAddresses(data.id),
+          ]);
+
+          if (partnerData) {
+            setFormData({
+              businessName: partnerData.business_name,
+              contactName: partnerData.contact_name,
+              email: partnerData.email,
+              phone: partnerData.phone,
+              taxId: partnerData.tax_id || '',
+            });
+          }
+
+          if (addressesData.length > 0) {
+            setAddresses(addressesData.map(addr => ({
+              id: addr.id,
+              label: addr.label,
+              street: addr.street_address,
+              city: addr.city,
+              state: addr.state,
+              zip: addr.zip_code,
+              isDefault: addr.is_default,
+            })));
+          } else {
+            setAddresses(mockAddresses);
+          }
+        } else {
+          setAddresses(mockAddresses);
+        }
+      } catch (error) {
+        console.error('Error loading account data:', error);
+        setAddresses(mockAddresses);
+      }
+
+      setLoading(false);
+    };
+
+    loadData();
   }, [router]);
 
-  const handleSave = () => {
+  const handleSave = async () => {
+    setSaving(true);
+
+    try {
+      if (partnerId && partnerId !== 'demo-partner') {
+        await supabase
+          .from('partners')
+          .update({
+            business_name: formData.businessName,
+            contact_name: formData.contactName,
+            phone: formData.phone,
+            tax_id: formData.taxId,
+          })
+          .eq('id', partnerId);
+
+        const session = localStorage.getItem('partnerSession');
+        if (session) {
+          const sessionData = JSON.parse(session);
+          sessionData.businessName = formData.businessName;
+          sessionData.contactName = formData.contactName;
+          sessionData.phone = formData.phone;
+          sessionData.taxId = formData.taxId;
+          localStorage.setItem('partnerSession', JSON.stringify(sessionData));
+        }
+      }
+    } catch (error) {
+      console.error('Error saving account:', error);
+    }
+
     setSaved(true);
+    setSaving(false);
     setTimeout(() => setSaved(false), 2000);
   };
 
-  const setDefaultAddress = (id: string) => {
+  const setDefaultAddress = async (id: string) => {
     setAddresses(prev =>
       prev.map(addr => ({ ...addr, isDefault: addr.id === id }))
     );
+
+    if (partnerId && partnerId !== 'demo-partner') {
+      try {
+        await supabase
+          .from('partner_addresses')
+          .update({ is_default: false })
+          .eq('partner_id', partnerId);
+
+        await supabase
+          .from('partner_addresses')
+          .update({ is_default: true })
+          .eq('id', id);
+      } catch (error) {
+        console.error('Error updating default address:', error);
+      }
+    }
   };
 
-  const deleteAddress = (id: string) => {
+  const deleteAddress = async (id: string) => {
     setAddresses(prev => prev.filter(addr => addr.id !== id));
+
+    if (partnerId && partnerId !== 'demo-partner') {
+      try {
+        await supabase
+          .from('partner_addresses')
+          .delete()
+          .eq('id', id);
+      } catch (error) {
+        console.error('Error deleting address:', error);
+      }
+    }
   };
+
+  if (loading) {
+    return (
+      <PartnerLayout title="Account" partnerName={partnerName}>
+        <div style={styles.loadingPage}>
+          <Loader2 size={32} color={NEON_GREEN} style={{ animation: 'spin 1s linear infinite' }} />
+          <p style={styles.loadingText}>Loading account...</p>
+        </div>
+      </PartnerLayout>
+    );
+  }
 
   return (
     <PartnerLayout title="Account" partnerName={partnerName}>
@@ -90,9 +216,15 @@ export default function PartnerAccount() {
             <h1 style={styles.title}>Account Settings</h1>
             <p style={styles.subtitle}>Manage your business information and preferences</p>
           </div>
-          <button onClick={handleSave} style={styles.saveButton}>
-            {saved ? <CheckCircle size={18} /> : <Save size={18} />}
-            {saved ? 'Saved!' : 'Save Changes'}
+          <button onClick={handleSave} style={styles.saveButton} disabled={saving}>
+            {saving ? (
+              <Loader2 size={18} style={{ animation: 'spin 1s linear infinite' }} />
+            ) : saved ? (
+              <CheckCircle size={18} />
+            ) : (
+              <Save size={18} />
+            )}
+            {saving ? 'Saving...' : saved ? 'Saved!' : 'Save Changes'}
           </button>
         </div>
 
@@ -149,6 +281,7 @@ export default function PartnerAccount() {
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                     style={styles.input}
+                    disabled
                   />
                 </div>
                 <div style={styles.formGroup}>
@@ -274,6 +407,18 @@ const styles: Record<string, React.CSSProperties> = {
     padding: 32,
     maxWidth: 1200,
     margin: '0 auto',
+  },
+  loadingPage: {
+    minHeight: '60vh',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 16,
+  },
+  loadingText: {
+    fontSize: 14,
+    color: '#666666',
   },
   header: {
     display: 'flex',

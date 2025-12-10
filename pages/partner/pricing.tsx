@@ -7,32 +7,36 @@ import {
   TrendingUp,
   Package,
   Search,
+  Loader2,
 } from 'lucide-react';
+import { getAllProducts, getB2BPrice, formatPrice } from '../../lib/api/products';
+import type { Product } from '../../types/database';
 
 const NEON_GREEN = '#00FF85';
 const CARD_BG = 'rgba(255, 255, 255, 0.02)';
 const CARD_BORDER = 'rgba(255, 255, 255, 0.08)';
 
-interface Product {
+interface DisplayProduct {
   id: string;
   name: string;
   category: string;
   retailPrice: number;
+  wholesalePrice: number;
   sku: string;
   image: string;
 }
 
-const products: Product[] = [
-  { id: '1', name: 'Strawberry Peach Smoothie', category: 'Smoothies', retailPrice: 8.99, sku: 'DRZZL-SPS-001', image: '🍓' },
-  { id: '2', name: 'Mango Jackfruit Blend', category: 'Smoothies', retailPrice: 8.99, sku: 'DRZZL-MJB-002', image: '🥭' },
-  { id: '3', name: 'Açai Berry Bowl Mix', category: 'Bowls', retailPrice: 11.99, sku: 'DRZZL-ABB-003', image: '🫐' },
-  { id: '4', name: 'Green Detox Blend', category: 'Smoothies', retailPrice: 7.99, sku: 'DRZZL-GDB-004', image: '🥬' },
-  { id: '5', name: 'Coffee Mushroom Blend', category: 'Specialty', retailPrice: 9.99, sku: 'DRZZL-CMB-005', image: '☕' },
-  { id: '6', name: 'Tropical Paradise Mix', category: 'Smoothies', retailPrice: 8.49, sku: 'DRZZL-TPM-006', image: '🍍' },
-  { id: '7', name: 'Protein Power Shake', category: 'Protein', retailPrice: 10.99, sku: 'DRZZL-PPS-007', image: '💪' },
-  { id: '8', name: 'Berry Blast Smoothie', category: 'Smoothies', retailPrice: 8.49, sku: 'DRZZL-BBS-008', image: '🍇' },
-  { id: '9', name: 'Immunity Boost Blend', category: 'Specialty', retailPrice: 9.49, sku: 'DRZZL-IBB-009', image: '🍊' },
-  { id: '10', name: 'Chocolate Peanut Butter', category: 'Protein', retailPrice: 10.49, sku: 'DRZZL-CPB-010', image: '🍫' },
+const mockProducts: DisplayProduct[] = [
+  { id: '1', name: 'Strawberry Peach Smoothie', category: 'Smoothies', retailPrice: 899, wholesalePrice: 584, sku: 'DRZZL-SPS-001', image: '🍓' },
+  { id: '2', name: 'Mango Jackfruit Blend', category: 'Smoothies', retailPrice: 899, wholesalePrice: 584, sku: 'DRZZL-MJB-002', image: '🥭' },
+  { id: '3', name: 'Açai Berry Bowl Mix', category: 'Bowls', retailPrice: 1199, wholesalePrice: 779, sku: 'DRZZL-ABB-003', image: '🫐' },
+  { id: '4', name: 'Green Detox Blend', category: 'Smoothies', retailPrice: 799, wholesalePrice: 519, sku: 'DRZZL-GDB-004', image: '🥬' },
+  { id: '5', name: 'Coffee Mushroom Blend', category: 'Specialty', retailPrice: 999, wholesalePrice: 649, sku: 'DRZZL-CMB-005', image: '☕' },
+  { id: '6', name: 'Tropical Paradise Mix', category: 'Smoothies', retailPrice: 849, wholesalePrice: 552, sku: 'DRZZL-TPM-006', image: '🍍' },
+  { id: '7', name: 'Protein Power Shake', category: 'Protein', retailPrice: 1099, wholesalePrice: 714, sku: 'DRZZL-PPS-007', image: '💪' },
+  { id: '8', name: 'Berry Blast Smoothie', category: 'Smoothies', retailPrice: 849, wholesalePrice: 552, sku: 'DRZZL-BBS-008', image: '🍇' },
+  { id: '9', name: 'Immunity Boost Blend', category: 'Specialty', retailPrice: 949, wholesalePrice: 617, sku: 'DRZZL-IBB-009', image: '🍊' },
+  { id: '10', name: 'Chocolate Peanut Butter', category: 'Protein', retailPrice: 1049, wholesalePrice: 682, sku: 'DRZZL-CPB-010', image: '🍫' },
 ];
 
 const volumeDiscounts = [
@@ -43,27 +47,82 @@ const volumeDiscounts = [
   { min: 1000, max: Infinity, discount: 15, label: 'Platinum' },
 ];
 
+function getProductEmoji(name: string): string {
+  const lower = name.toLowerCase();
+  if (lower.includes('strawberry')) return '🍓';
+  if (lower.includes('mango')) return '🥭';
+  if (lower.includes('açai') || lower.includes('acai')) return '🫐';
+  if (lower.includes('green') || lower.includes('detox')) return '🥬';
+  if (lower.includes('coffee') || lower.includes('mocha')) return '☕';
+  if (lower.includes('tropical') || lower.includes('pineapple')) return '🍍';
+  if (lower.includes('protein') || lower.includes('power')) return '💪';
+  if (lower.includes('berry') || lower.includes('blueberry')) return '🍇';
+  if (lower.includes('chocolate')) return '🍫';
+  if (lower.includes('immunity') || lower.includes('orange')) return '🍊';
+  if (lower.includes('mint')) return '🌿';
+  if (lower.includes('almond')) return '🌰';
+  return '🥤';
+}
+
+function getTierDiscount(tier: string): number {
+  switch (tier.toLowerCase()) {
+    case 'platinum': return 40;
+    case 'gold': return 35;
+    case 'silver': return 25;
+    case 'bronze': return 15;
+    default: return 20;
+  }
+}
+
 export default function PartnerPricing() {
   const router = useRouter();
   const [partnerName, setPartnerName] = useState('Partner');
-  const [discount, setDiscount] = useState(35);
-  const [tier, setTier] = useState('Growth');
+  const [tier, setTier] = useState<'bronze' | 'silver' | 'gold' | 'platinum'>('silver');
   const [searchQuery, setSearchQuery] = useState('');
   const [categoryFilter, setCategoryFilter] = useState('All');
+  const [products, setProducts] = useState<DisplayProduct[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const session = localStorage.getItem('partnerSession');
-    if (!session) {
-      router.push('/partner/login');
-      return;
-    }
-    const data = JSON.parse(session);
-    setPartnerName(data.businessName);
-    setDiscount(data.discount || 35);
-    setTier(data.tier || 'Growth');
+    const loadData = async () => {
+      const session = localStorage.getItem('partnerSession');
+      if (!session) {
+        router.push('/partner/login');
+        return;
+      }
+      const data = JSON.parse(session);
+      setPartnerName(data.businessName);
+      setTier(data.tier?.toLowerCase() as any || 'silver');
+
+      try {
+        const productsData = await getAllProducts();
+        if (productsData.length > 0) {
+          const mappedProducts = productsData.map(p => ({
+            id: p.id,
+            name: p.name,
+            category: p.category,
+            retailPrice: p.price_cents,
+            wholesalePrice: getB2BPrice(p, data.tier?.toLowerCase() || 'silver'),
+            sku: p.sku || `DRZZL-${p.id.slice(0, 3).toUpperCase()}`,
+            image: getProductEmoji(p.name),
+          }));
+          setProducts(mappedProducts);
+        } else {
+          setProducts(mockProducts);
+        }
+      } catch (error) {
+        console.error('Error loading products:', error);
+        setProducts(mockProducts);
+      }
+
+      setLoading(false);
+    };
+
+    loadData();
   }, [router]);
 
   const categories = ['All', ...Array.from(new Set(products.map(p => p.category)))];
+  const discount = getTierDiscount(tier);
 
   const filteredProducts = products.filter(product => {
     const matchesSearch = product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -72,9 +131,16 @@ export default function PartnerPricing() {
     return matchesSearch && matchesCategory;
   });
 
-  const calculateWholesalePrice = (retailPrice: number) => {
-    return retailPrice * (1 - discount / 100);
-  };
+  if (loading) {
+    return (
+      <PartnerLayout title="Pricing" partnerName={partnerName}>
+        <div style={styles.loadingPage}>
+          <Loader2 size={32} color={NEON_GREEN} style={{ animation: 'spin 1s linear infinite' }} />
+          <p style={styles.loadingText}>Loading pricing...</p>
+        </div>
+      </PartnerLayout>
+    );
+  }
 
   return (
     <PartnerLayout title="Pricing" partnerName={partnerName}>
@@ -94,7 +160,7 @@ export default function PartnerPricing() {
           <div style={styles.tierInfo}>
             <div style={styles.tierBadge}>
               <TrendingUp size={20} />
-              {tier} Tier
+              {tier.charAt(0).toUpperCase() + tier.slice(1)} Tier
             </div>
             <div style={styles.tierDiscount}>
               <span style={styles.discountValue}>{discount}%</span>
@@ -103,7 +169,7 @@ export default function PartnerPricing() {
           </div>
           <div style={styles.tierDetails}>
             <p style={styles.tierDescription}>
-              As a {tier} partner, you receive {discount}% off all retail prices.
+              As a {tier.charAt(0).toUpperCase() + tier.slice(1)} partner, you receive tier-based B2B pricing.
               Order more to unlock additional volume discounts!
             </p>
           </div>
@@ -118,16 +184,16 @@ export default function PartnerPricing() {
             Additional discounts based on order quantity (applied on top of your tier discount)
           </p>
           <div style={styles.volumeGrid}>
-            {volumeDiscounts.map((tier, idx) => (
+            {volumeDiscounts.map((volTier, idx) => (
               <div key={idx} style={styles.volumeCard}>
-                <div style={styles.volumeLabel}>{tier.label}</div>
+                <div style={styles.volumeLabel}>{volTier.label}</div>
                 <div style={styles.volumeRange}>
-                  {tier.max === Infinity
-                    ? `${tier.min}+ units`
-                    : `${tier.min}-${tier.max} units`}
+                  {volTier.max === Infinity
+                    ? `${volTier.min}+ units`
+                    : `${volTier.min}-${volTier.max} units`}
                 </div>
                 <div style={styles.volumeDiscount}>
-                  {tier.discount > 0 ? `+${tier.discount}%` : 'Base'}
+                  {volTier.discount > 0 ? `+${volTier.discount}%` : 'Base'}
                 </div>
               </div>
             ))}
@@ -181,8 +247,7 @@ export default function PartnerPricing() {
               </thead>
               <tbody>
                 {filteredProducts.map((product) => {
-                  const wholesalePrice = calculateWholesalePrice(product.retailPrice);
-                  const savings = product.retailPrice - wholesalePrice;
+                  const savings = product.retailPrice - product.wholesalePrice;
                   return (
                     <tr key={product.id}>
                       <td style={styles.td}>
@@ -196,13 +261,13 @@ export default function PartnerPricing() {
                       </td>
                       <td style={styles.td}>{product.category}</td>
                       <td style={styles.td}>
-                        <span style={styles.retailPrice}>${product.retailPrice.toFixed(2)}</span>
+                        <span style={styles.retailPrice}>${(product.retailPrice / 100).toFixed(2)}</span>
                       </td>
                       <td style={styles.td}>
-                        <span style={styles.wholesalePrice}>${wholesalePrice.toFixed(2)}</span>
+                        <span style={styles.wholesalePrice}>${(product.wholesalePrice / 100).toFixed(2)}</span>
                       </td>
                       <td style={styles.td}>
-                        <span style={styles.savings}>${savings.toFixed(2)}</span>
+                        <span style={styles.savings}>${(savings / 100).toFixed(2)}</span>
                       </td>
                     </tr>
                   );
@@ -221,6 +286,18 @@ const styles: Record<string, React.CSSProperties> = {
     padding: 32,
     maxWidth: 1400,
     margin: '0 auto',
+  },
+  loadingPage: {
+    minHeight: '60vh',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 16,
+  },
+  loadingText: {
+    fontSize: 14,
+    color: '#666666',
   },
   header: {
     display: 'flex',

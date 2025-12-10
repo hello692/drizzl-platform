@@ -12,62 +12,122 @@ import {
   ChevronDown,
   Calendar,
   X,
+  Loader2,
 } from 'lucide-react';
+import { getPartnerOrders } from '../../../lib/api/partners';
+import type { B2BOrder } from '../../../types/database';
 
 const NEON_GREEN = '#00FF85';
 const CARD_BG = 'rgba(255, 255, 255, 0.02)';
 const CARD_BORDER = 'rgba(255, 255, 255, 0.08)';
 
-interface Order {
+interface DisplayOrder {
   id: string;
+  order_number: string;
   date: string;
-  items: { name: string; quantity: number; price: number }[];
   total: number;
-  status: 'Pending' | 'Processing' | 'Shipped' | 'Delivered' | 'Cancelled';
+  status: string;
   tracking?: string;
 }
 
-const allOrders: Order[] = [
-  { id: 'ORD-2847', date: 'Dec 8, 2025', items: [{ name: 'Strawberry Peach Smoothie', quantity: 48, price: 85.00 }, { name: 'Mango Jackfruit Blend', quantity: 36, price: 65.00 }], total: 2450.00, status: 'Delivered', tracking: '1Z999AA10123456784' },
-  { id: 'ORD-2831', date: 'Dec 5, 2025', items: [{ name: 'Açai Berry Bowl Mix', quantity: 24, price: 70.00 }], total: 1680.00, status: 'Shipped', tracking: '1Z999AA10123456785' },
-  { id: 'ORD-2819', date: 'Dec 1, 2025', items: [{ name: 'Green Detox Blend', quantity: 60, price: 52.00 }], total: 3120.00, status: 'Delivered', tracking: '1Z999AA10123456786' },
-  { id: 'ORD-2805', date: 'Nov 28, 2025', items: [{ name: 'Coffee Mushroom Blend', quantity: 20, price: 62.00 }], total: 1240.00, status: 'Delivered', tracking: '1Z999AA10123456787' },
-  { id: 'ORD-2791', date: 'Nov 24, 2025', items: [{ name: 'Tropical Paradise Mix', quantity: 40, price: 52.00 }], total: 2080.00, status: 'Delivered', tracking: '1Z999AA10123456788' },
-  { id: 'ORD-2778', date: 'Nov 20, 2025', items: [{ name: 'Strawberry Peach Smoothie', quantity: 36, price: 85.00 }], total: 3060.00, status: 'Delivered', tracking: '1Z999AA10123456789' },
-  { id: 'ORD-2764', date: 'Nov 15, 2025', items: [{ name: 'Mango Jackfruit Blend', quantity: 24, price: 65.00 }], total: 1560.00, status: 'Delivered', tracking: '1Z999AA10123456790' },
-  { id: 'ORD-2750', date: 'Nov 10, 2025', items: [{ name: 'Açai Berry Bowl Mix', quantity: 48, price: 70.00 }], total: 3360.00, status: 'Delivered', tracking: '1Z999AA10123456791' },
+const mockOrders: DisplayOrder[] = [
+  { id: 'ORD-2847', order_number: 'ORD-2847', date: 'Dec 8, 2025', total: 245000, status: 'delivered', tracking: '1Z999AA10123456784' },
+  { id: 'ORD-2831', order_number: 'ORD-2831', date: 'Dec 5, 2025', total: 168000, status: 'shipped', tracking: '1Z999AA10123456785' },
+  { id: 'ORD-2819', order_number: 'ORD-2819', date: 'Dec 1, 2025', total: 312000, status: 'delivered', tracking: '1Z999AA10123456786' },
+  { id: 'ORD-2805', order_number: 'ORD-2805', date: 'Nov 28, 2025', total: 124000, status: 'delivered', tracking: '1Z999AA10123456787' },
+  { id: 'ORD-2791', order_number: 'ORD-2791', date: 'Nov 24, 2025', total: 208000, status: 'delivered', tracking: '1Z999AA10123456788' },
+  { id: 'ORD-2778', order_number: 'ORD-2778', date: 'Nov 20, 2025', total: 306000, status: 'delivered', tracking: '1Z999AA10123456789' },
+  { id: 'ORD-2764', order_number: 'ORD-2764', date: 'Nov 15, 2025', total: 156000, status: 'delivered', tracking: '1Z999AA10123456790' },
+  { id: 'ORD-2750', order_number: 'ORD-2750', date: 'Nov 10, 2025', total: 336000, status: 'delivered', tracking: '1Z999AA10123456791' },
 ];
 
 const statusColors: Record<string, { bg: string; text: string }> = {
-  Pending: { bg: 'rgba(245, 158, 11, 0.1)', text: '#F59E0B' },
-  Processing: { bg: 'rgba(59, 130, 246, 0.1)', text: '#3B82F6' },
-  Shipped: { bg: 'rgba(139, 92, 246, 0.1)', text: '#8B5CF6' },
-  Delivered: { bg: 'rgba(0, 255, 133, 0.1)', text: NEON_GREEN },
-  Cancelled: { bg: 'rgba(239, 68, 68, 0.1)', text: '#EF4444' },
+  pending: { bg: 'rgba(245, 158, 11, 0.1)', text: '#F59E0B' },
+  confirmed: { bg: 'rgba(59, 130, 246, 0.1)', text: '#3B82F6' },
+  processing: { bg: 'rgba(59, 130, 246, 0.1)', text: '#3B82F6' },
+  shipped: { bg: 'rgba(139, 92, 246, 0.1)', text: '#8B5CF6' },
+  delivered: { bg: 'rgba(0, 255, 133, 0.1)', text: NEON_GREEN },
+  cancelled: { bg: 'rgba(239, 68, 68, 0.1)', text: '#EF4444' },
 };
+
+function formatDate(dateStr: string): string {
+  try {
+    return new Date(dateStr).toLocaleDateString('en-US', { 
+      month: 'short', 
+      day: 'numeric', 
+      year: 'numeric' 
+    });
+  } catch {
+    return dateStr;
+  }
+}
 
 export default function PartnerOrders() {
   const router = useRouter();
   const [partnerName, setPartnerName] = useState('Partner');
+  const [partnerId, setPartnerId] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState('All');
-  const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
+  const [selectedOrder, setSelectedOrder] = useState<DisplayOrder | null>(null);
+  const [orders, setOrders] = useState<DisplayOrder[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const session = localStorage.getItem('partnerSession');
-    if (!session) {
-      router.push('/partner/login');
-      return;
-    }
-    const data = JSON.parse(session);
-    setPartnerName(data.businessName);
+    const loadData = async () => {
+      const session = localStorage.getItem('partnerSession');
+      if (!session) {
+        router.push('/partner/login');
+        return;
+      }
+      const data = JSON.parse(session);
+      setPartnerName(data.businessName);
+      setPartnerId(data.id);
+
+      try {
+        if (data.id && data.id !== 'demo-partner') {
+          const ordersData = await getPartnerOrders(data.id);
+          if (ordersData.length > 0) {
+            setOrders(ordersData.map(o => ({
+              id: o.id,
+              order_number: o.order_number,
+              date: o.created_at,
+              total: o.total,
+              status: o.status,
+              tracking: undefined,
+            })));
+          } else {
+            setOrders(mockOrders);
+          }
+        } else {
+          setOrders(mockOrders);
+        }
+      } catch (error) {
+        console.error('Error loading orders:', error);
+        setOrders(mockOrders);
+      }
+      
+      setLoading(false);
+    };
+
+    loadData();
   }, [router]);
 
-  const filteredOrders = allOrders.filter(order => {
-    const matchesSearch = order.id.toLowerCase().includes(searchQuery.toLowerCase());
-    const matchesStatus = statusFilter === 'All' || order.status === statusFilter;
+  const filteredOrders = orders.filter(order => {
+    const matchesSearch = order.order_number.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesStatus = statusFilter === 'All' || order.status.toLowerCase() === statusFilter.toLowerCase();
     return matchesSearch && matchesStatus;
   });
+
+  if (loading) {
+    return (
+      <PartnerLayout title="Orders" partnerName={partnerName}>
+        <div style={styles.loadingPage}>
+          <Loader2 size={32} color={NEON_GREEN} style={{ animation: 'spin 1s linear infinite' }} />
+          <p style={styles.loadingText}>Loading orders...</p>
+        </div>
+      </PartnerLayout>
+    );
+  }
 
   return (
     <PartnerLayout title="Orders" partnerName={partnerName}>
@@ -102,11 +162,11 @@ export default function PartnerOrders() {
               style={styles.select}
             >
               <option value="All">All Status</option>
-              <option value="Pending">Pending</option>
-              <option value="Processing">Processing</option>
-              <option value="Shipped">Shipped</option>
-              <option value="Delivered">Delivered</option>
-              <option value="Cancelled">Cancelled</option>
+              <option value="pending">Pending</option>
+              <option value="processing">Processing</option>
+              <option value="shipped">Shipped</option>
+              <option value="delivered">Delivered</option>
+              <option value="cancelled">Cancelled</option>
             </select>
           </div>
         </div>
@@ -117,7 +177,6 @@ export default function PartnerOrders() {
               <tr>
                 <th style={styles.th}>Order ID</th>
                 <th style={styles.th}>Date</th>
-                <th style={styles.th}>Products</th>
                 <th style={styles.th}>Total</th>
                 <th style={styles.th}>Status</th>
                 <th style={styles.th}>Actions</th>
@@ -127,28 +186,19 @@ export default function PartnerOrders() {
               {filteredOrders.map((order) => (
                 <tr key={order.id}>
                   <td style={styles.td}>
-                    <span style={styles.orderId}>{order.id}</span>
+                    <span style={styles.orderId}>{order.order_number}</span>
                   </td>
-                  <td style={styles.td}>{order.date}</td>
+                  <td style={styles.td}>{formatDate(order.date)}</td>
                   <td style={styles.td}>
-                    <div style={styles.productCell}>
-                      {order.items.map((item, idx) => (
-                        <span key={idx} style={styles.productName}>
-                          {item.name} x{item.quantity}
-                        </span>
-                      ))}
-                    </div>
-                  </td>
-                  <td style={styles.td}>
-                    <span style={styles.totalAmount}>${order.total.toLocaleString()}</span>
+                    <span style={styles.totalAmount}>${(order.total / 100).toLocaleString()}</span>
                   </td>
                   <td style={styles.td}>
                     <span style={{
                       ...styles.badge,
-                      backgroundColor: statusColors[order.status].bg,
-                      color: statusColors[order.status].text,
+                      backgroundColor: statusColors[order.status]?.bg || statusColors.pending.bg,
+                      color: statusColors[order.status]?.text || statusColors.pending.text,
                     }}>
-                      {order.status}
+                      {order.status.charAt(0).toUpperCase() + order.status.slice(1)}
                     </span>
                   </td>
                   <td style={styles.td}>
@@ -189,20 +239,20 @@ export default function PartnerOrders() {
                 <div style={styles.orderInfo}>
                   <div style={styles.infoRow}>
                     <span style={styles.infoLabel}>Order ID</span>
-                    <span style={styles.infoValue}>{selectedOrder.id}</span>
+                    <span style={styles.infoValue}>{selectedOrder.order_number}</span>
                   </div>
                   <div style={styles.infoRow}>
                     <span style={styles.infoLabel}>Date</span>
-                    <span style={styles.infoValue}>{selectedOrder.date}</span>
+                    <span style={styles.infoValue}>{formatDate(selectedOrder.date)}</span>
                   </div>
                   <div style={styles.infoRow}>
                     <span style={styles.infoLabel}>Status</span>
                     <span style={{
                       ...styles.badge,
-                      backgroundColor: statusColors[selectedOrder.status].bg,
-                      color: statusColors[selectedOrder.status].text,
+                      backgroundColor: statusColors[selectedOrder.status]?.bg || statusColors.pending.bg,
+                      color: statusColors[selectedOrder.status]?.text || statusColors.pending.text,
                     }}>
-                      {selectedOrder.status}
+                      {selectedOrder.status.charAt(0).toUpperCase() + selectedOrder.status.slice(1)}
                     </span>
                   </div>
                   {selectedOrder.tracking && (
@@ -213,20 +263,9 @@ export default function PartnerOrders() {
                   )}
                 </div>
 
-                <h3 style={styles.itemsTitle}>Items</h3>
-                <div style={styles.itemsList}>
-                  {selectedOrder.items.map((item, idx) => (
-                    <div key={idx} style={styles.itemRow}>
-                      <span style={styles.itemName}>{item.name}</span>
-                      <span style={styles.itemQty}>x{item.quantity}</span>
-                      <span style={styles.itemPrice}>${(item.price * item.quantity).toLocaleString()}</span>
-                    </div>
-                  ))}
-                </div>
-
                 <div style={styles.totalRow}>
                   <span>Total</span>
-                  <span style={styles.totalValue}>${selectedOrder.total.toLocaleString()}</span>
+                  <span style={styles.totalValue}>${(selectedOrder.total / 100).toLocaleString()}</span>
                 </div>
               </div>
 
@@ -255,6 +294,18 @@ const styles: Record<string, React.CSSProperties> = {
     padding: 32,
     maxWidth: 1400,
     margin: '0 auto',
+  },
+  loadingPage: {
+    minHeight: '60vh',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 16,
+  },
+  loadingText: {
+    fontSize: 14,
+    color: '#666666',
   },
   header: {
     display: 'flex',
@@ -361,14 +412,6 @@ const styles: Record<string, React.CSSProperties> = {
     color: NEON_GREEN,
     fontWeight: 500,
   },
-  productCell: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: 4,
-  },
-  productName: {
-    fontSize: 13,
-  },
   totalAmount: {
     fontWeight: 600,
     color: '#FFFFFF',
@@ -465,41 +508,6 @@ const styles: Record<string, React.CSSProperties> = {
     fontFamily: 'monospace',
     fontSize: 13,
     color: '#999999',
-  },
-  itemsTitle: {
-    fontSize: 14,
-    fontWeight: 600,
-    color: '#FFFFFF',
-    margin: '0 0 12px 0',
-  },
-  itemsList: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: 10,
-    marginBottom: 20,
-  },
-  itemRow: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    padding: '10px 12px',
-    backgroundColor: 'rgba(255, 255, 255, 0.03)',
-    borderRadius: 8,
-  },
-  itemName: {
-    flex: 1,
-    fontSize: 14,
-    color: '#CCCCCC',
-  },
-  itemQty: {
-    fontSize: 13,
-    color: '#666666',
-    marginRight: 16,
-  },
-  itemPrice: {
-    fontSize: 14,
-    fontWeight: 500,
-    color: '#FFFFFF',
   },
   totalRow: {
     display: 'flex',

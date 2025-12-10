@@ -10,7 +10,10 @@ import {
   X,
   Home,
   Building2,
+  Loader2,
 } from 'lucide-react';
+import { getCustomerAddresses } from '../../lib/api/customers';
+import { supabase } from '../../lib/supabase';
 
 const NEON_GREEN = '#00FF85';
 const CARD_BG = 'rgba(255, 255, 255, 0.02)';
@@ -31,7 +34,7 @@ interface Address {
   isDefault: boolean;
 }
 
-const initialAddresses: Address[] = [
+const mockAddresses: Address[] = [
   {
     id: 'addr-1',
     label: 'Home',
@@ -78,16 +81,54 @@ const emptyAddress: Omit<Address, 'id'> = {
 
 export default function CustomerAddresses() {
   const router = useRouter();
-  const [addresses, setAddresses] = useState(initialAddresses);
+  const [addresses, setAddresses] = useState<Address[]>(mockAddresses);
   const [editingAddress, setEditingAddress] = useState<Address | null>(null);
   const [isAdding, setIsAdding] = useState(false);
   const [toast, setToast] = useState('');
+  const [loading, setLoading] = useState(true);
+  const [customerId, setCustomerId] = useState<string | null>(null);
 
   useEffect(() => {
-    const session = localStorage.getItem('customerSession');
-    if (!session) {
-      router.push('/account/login');
-    }
+    const loadAddresses = async () => {
+      const session = localStorage.getItem('customerSession');
+      if (!session) {
+        router.push('/account/login');
+        return;
+      }
+
+      const parsedSession = JSON.parse(session);
+      setCustomerId(parsedSession.id);
+
+      try {
+        if (parsedSession.id && parsedSession.id !== 'demo-customer') {
+          const dbAddresses = await getCustomerAddresses(parsedSession.id);
+          
+          if (dbAddresses && dbAddresses.length > 0) {
+            const formattedAddresses: Address[] = dbAddresses.map(addr => ({
+              id: addr.id,
+              label: addr.label || 'Address',
+              type: addr.address_type as 'home' | 'work' | 'other',
+              firstName: addr.street_address?.split(' ')[0] || 'Customer',
+              lastName: addr.street_address?.split(' ')[1] || '',
+              street: addr.street_address,
+              apartment: addr.apartment || undefined,
+              city: addr.city,
+              state: addr.state,
+              zip: addr.zip_code,
+              phone: '',
+              isDefault: addr.is_default,
+            }));
+            setAddresses(formattedAddresses);
+          }
+        }
+      } catch (error) {
+        console.error('Error loading addresses:', error);
+      }
+      
+      setLoading(false);
+    };
+
+    loadAddresses();
   }, [router]);
 
   const showToast = (message: string) => {
@@ -95,27 +136,102 @@ export default function CustomerAddresses() {
     setTimeout(() => setToast(''), 3000);
   };
 
-  const handleSetDefault = (id: string) => {
+  const handleSetDefault = async (id: string) => {
     setAddresses(prev => prev.map(addr => ({
       ...addr,
       isDefault: addr.id === id,
     })));
+    
+    if (customerId && customerId !== 'demo-customer') {
+      try {
+        await supabase
+          .from('customer_addresses')
+          .update({ is_default: false })
+          .eq('customer_id', customerId);
+        
+        await supabase
+          .from('customer_addresses')
+          .update({ is_default: true })
+          .eq('id', id);
+      } catch (error) {
+        console.error('Error updating default address:', error);
+      }
+    }
+    
     showToast('Default address updated');
   };
 
-  const handleDelete = (id: string) => {
+  const handleDelete = async (id: string) => {
     setAddresses(prev => prev.filter(addr => addr.id !== id));
+    
+    if (customerId && customerId !== 'demo-customer') {
+      try {
+        await supabase
+          .from('customer_addresses')
+          .delete()
+          .eq('id', id);
+      } catch (error) {
+        console.error('Error deleting address:', error);
+      }
+    }
+    
     showToast('Address deleted');
   };
 
-  const handleSave = (address: Address) => {
+  const handleSave = async (address: Address) => {
+    const newId = address.id || `addr-${Date.now()}`;
+    
     if (editingAddress) {
       setAddresses(prev => prev.map(addr => 
         addr.id === address.id ? address : addr
       ));
+      
+      if (customerId && customerId !== 'demo-customer') {
+        try {
+          await supabase
+            .from('customer_addresses')
+            .update({
+              label: address.label,
+              address_type: address.type,
+              street_address: address.street,
+              apartment: address.apartment,
+              city: address.city,
+              state: address.state,
+              zip_code: address.zip,
+              is_default: address.isDefault,
+            })
+            .eq('id', address.id);
+        } catch (error) {
+          console.error('Error updating address:', error);
+        }
+      }
+      
       showToast('Address updated');
     } else {
-      setAddresses(prev => [...prev, { ...address, id: `addr-${Date.now()}` }]);
+      const newAddress = { ...address, id: newId };
+      setAddresses(prev => [...prev, newAddress]);
+      
+      if (customerId && customerId !== 'demo-customer') {
+        try {
+          await supabase
+            .from('customer_addresses')
+            .insert({
+              customer_id: customerId,
+              label: address.label,
+              address_type: address.type,
+              street_address: address.street,
+              apartment: address.apartment,
+              city: address.city,
+              state: address.state,
+              zip_code: address.zip,
+              country: 'USA',
+              is_default: address.isDefault || addresses.length === 0,
+            });
+        } catch (error) {
+          console.error('Error adding address:', error);
+        }
+      }
+      
       showToast('Address added');
     }
     setEditingAddress(null);
@@ -285,75 +401,82 @@ export default function CustomerAddresses() {
           />
         )}
 
-        <div style={styles.addressGrid}>
-          {addresses.map((address) => {
-            const TypeIcon = address.type === 'home' ? Home : Building2;
-            return (
-              <div 
-                key={address.id} 
-                style={{
-                  ...styles.addressCard,
-                  ...(address.isDefault ? styles.addressCardDefault : {}),
-                }}
-              >
-                <div style={styles.cardHeader}>
-                  <div style={styles.cardLabel}>
-                    <TypeIcon size={18} color={address.isDefault ? NEON_GREEN : '#666666'} />
-                    <span style={{ color: address.isDefault ? NEON_GREEN : '#FFFFFF' }}>
-                      {address.label}
-                    </span>
+        {loading ? (
+          <div style={styles.loadingContainer}>
+            <Loader2 size={32} color={NEON_GREEN} style={{ animation: 'spin 1s linear infinite' }} />
+            <p style={styles.loadingText}>Loading your addresses...</p>
+          </div>
+        ) : (
+          <div style={styles.addressGrid}>
+            {addresses.map((address) => {
+              const TypeIcon = address.type === 'home' ? Home : Building2;
+              return (
+                <div 
+                  key={address.id} 
+                  style={{
+                    ...styles.addressCard,
+                    ...(address.isDefault ? styles.addressCardDefault : {}),
+                  }}
+                >
+                  <div style={styles.cardHeader}>
+                    <div style={styles.cardLabel}>
+                      <TypeIcon size={18} color={address.isDefault ? NEON_GREEN : '#666666'} />
+                      <span style={{ color: address.isDefault ? NEON_GREEN : '#FFFFFF' }}>
+                        {address.label}
+                      </span>
+                    </div>
+                    {address.isDefault && (
+                      <span style={styles.defaultBadge}>Default</span>
+                    )}
                   </div>
-                  {address.isDefault && (
-                    <span style={styles.defaultBadge}>Default</span>
-                  )}
-                </div>
 
-                <div style={styles.cardContent}>
-                  <p style={styles.name}>
-                    {address.firstName} {address.lastName}
-                  </p>
-                  <p style={styles.addressLine}>{address.street}</p>
-                  {address.apartment && (
-                    <p style={styles.addressLine}>{address.apartment}</p>
-                  )}
-                  <p style={styles.addressLine}>
-                    {address.city}, {address.state} {address.zip}
-                  </p>
-                  <p style={styles.phone}>{address.phone}</p>
-                </div>
+                  <div style={styles.cardContent}>
+                    <p style={styles.name}>
+                      {address.firstName} {address.lastName}
+                    </p>
+                    <p style={styles.addressLine}>{address.street}</p>
+                    {address.apartment && (
+                      <p style={styles.addressLine}>{address.apartment}</p>
+                    )}
+                    <p style={styles.addressLine}>
+                      {address.city}, {address.state} {address.zip}
+                    </p>
+                    <p style={styles.phone}>{address.phone}</p>
+                  </div>
 
-                <div style={styles.cardActions}>
-                  <button 
-                    onClick={() => setEditingAddress(address)}
-                    style={styles.actionBtn}
-                  >
-                    <Edit3 size={16} />
-                    Edit
-                  </button>
-                  {!address.isDefault && (
-                    <>
-                      <button 
-                        onClick={() => handleSetDefault(address.id)}
-                        style={styles.actionBtn}
-                      >
-                        <MapPin size={16} />
-                        Set Default
-                      </button>
-                      <button 
-                        onClick={() => handleDelete(address.id)}
-                        style={{ ...styles.actionBtn, color: '#EF4444' }}
-                      >
-                        <Trash2 size={16} />
-                      </button>
-                    </>
-                  )}
+                  <div style={styles.cardActions}>
+                    <button 
+                      onClick={() => setEditingAddress(address)}
+                      style={styles.actionBtn}
+                    >
+                      <Edit3 size={16} />
+                      Edit
+                    </button>
+                    {!address.isDefault && (
+                      <>
+                        <button 
+                          onClick={() => handleSetDefault(address.id)}
+                          style={styles.actionBtn}
+                        >
+                          <MapPin size={16} />
+                          Set Default
+                        </button>
+                        <button 
+                          onClick={() => handleDelete(address.id)}
+                          style={{ ...styles.actionBtn, color: '#EF4444' }}
+                        >
+                          <Trash2 size={16} />
+                        </button>
+                      </>
+                    )}
+                  </div>
                 </div>
-              </div>
-            );
-          })}
-        </div>
+              );
+            })}
+          </div>
+        )}
 
-        {addresses.length === 0 && !isAdding && (
+        {!loading && addresses.length === 0 && !isAdding && (
           <div style={styles.emptyState}>
             <MapPin size={48} color="#333333" />
             <h3 style={styles.emptyTitle}>No saved addresses</h3>
@@ -368,6 +491,12 @@ export default function CustomerAddresses() {
           </div>
         )}
       </div>
+      <style jsx global>{`
+        @keyframes spin {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
+        }
+      `}</style>
     </CustomerLayout>
   );
 }
@@ -424,6 +553,18 @@ const styles: Record<string, React.CSSProperties> = {
     fontSize: 14,
     fontWeight: 600,
     cursor: 'pointer',
+  },
+  loadingContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 64,
+    gap: 16,
+  },
+  loadingText: {
+    color: '#666666',
+    fontSize: 14,
   },
   formCard: {
     backgroundColor: CARD_BG,

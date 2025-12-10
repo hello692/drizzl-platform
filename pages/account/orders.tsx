@@ -11,7 +11,9 @@ import {
   ChevronDown,
   MapPin,
   Calendar,
+  Loader2,
 } from 'lucide-react';
+import { getCustomerOrders } from '../../lib/api/customers';
 
 const NEON_GREEN = '#00FF85';
 const CARD_BG = 'rgba(255, 255, 255, 0.02)';
@@ -34,7 +36,7 @@ interface Order {
   address: string;
 }
 
-const orders: Order[] = [
+const mockOrders: Order[] = [
   { 
     id: 'ORD-78542', 
     date: 'Dec 8, 2025', 
@@ -92,34 +94,18 @@ const orders: Order[] = [
     tracking: '1Z999AA10123456788',
     address: '123 Main St, New York, NY 10001'
   },
-  { 
-    id: 'ORD-77892', 
-    date: 'Nov 8, 2025', 
-    items: [
-      { name: 'Pink Pitaya Bowl Mix', quantity: 3, price: 14.99, image: '/products/pink-piyata/Pink Piyata-1.png' },
-    ],
-    total: 44.97, 
-    status: 'Delivered',
-    tracking: '1Z999AA10123456789',
-    address: '123 Main St, New York, NY 10001'
-  },
-  { 
-    id: 'ORD-77756', 
-    date: 'Oct 30, 2025', 
-    items: [
-      { name: 'Nutty Monkey Blend', quantity: 2, price: 14.99, image: '/products/nutty-monkey/Nutty Monkey-1.png' },
-    ],
-    total: 29.98, 
-    status: 'Cancelled',
-    address: '123 Main St, New York, NY 10001'
-  },
 ];
 
 const statusConfig: Record<string, { icon: any; color: string; bg: string }> = {
   Processing: { icon: Clock, color: '#F59E0B', bg: 'rgba(245, 158, 11, 0.1)' },
+  processing: { icon: Clock, color: '#F59E0B', bg: 'rgba(245, 158, 11, 0.1)' },
+  pending: { icon: Clock, color: '#F59E0B', bg: 'rgba(245, 158, 11, 0.1)' },
   Shipped: { icon: Truck, color: '#3B82F6', bg: 'rgba(59, 130, 246, 0.1)' },
+  shipped: { icon: Truck, color: '#3B82F6', bg: 'rgba(59, 130, 246, 0.1)' },
   Delivered: { icon: CheckCircle, color: NEON_GREEN, bg: 'rgba(0, 255, 133, 0.1)' },
+  delivered: { icon: CheckCircle, color: NEON_GREEN, bg: 'rgba(0, 255, 133, 0.1)' },
   Cancelled: { icon: X, color: '#EF4444', bg: 'rgba(239, 68, 68, 0.1)' },
+  cancelled: { icon: X, color: '#EF4444', bg: 'rgba(239, 68, 68, 0.1)' },
 };
 
 export default function CustomerOrders() {
@@ -127,24 +113,72 @@ export default function CustomerOrders() {
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState('All');
   const [expandedOrder, setExpandedOrder] = useState<string | null>(null);
+  const [orders, setOrders] = useState<Order[]>(mockOrders);
+  const [loading, setLoading] = useState(true);
+  const [toast, setToast] = useState('');
 
   useEffect(() => {
-    const session = localStorage.getItem('customerSession');
-    if (!session) {
-      router.push('/account/login');
-    }
+    const loadOrders = async () => {
+      const session = localStorage.getItem('customerSession');
+      if (!session) {
+        router.push('/account/login');
+        return;
+      }
+
+      const parsedSession = JSON.parse(session);
+      
+      try {
+        if (parsedSession.id && parsedSession.id !== 'demo-customer') {
+          const dbOrders = await getCustomerOrders(parsedSession.id);
+          
+          if (dbOrders && dbOrders.length > 0) {
+            const formattedOrders: Order[] = dbOrders.map(order => ({
+              id: order.order_number || order.id,
+              date: new Date(order.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
+              items: (order.items as any[])?.map((item: any) => ({
+                name: item.product_name || item.name || 'Product',
+                quantity: item.quantity || 1,
+                price: (item.price_cents || item.price || 1499) / 100,
+                image: item.image || '/products/acai/Acai-1.png',
+              })) || [{ name: 'Product', quantity: 1, price: 14.99, image: '/products/acai/Acai-1.png' }],
+              total: (order.total_cents || 0) / 100,
+              status: (order.status?.charAt(0).toUpperCase() + order.status?.slice(1)) as any || 'Processing',
+              tracking: order.tracking_number || undefined,
+              address: order.shipping_address ? 
+                `${(order.shipping_address as any).street || ''}, ${(order.shipping_address as any).city || ''}, ${(order.shipping_address as any).state || ''} ${(order.shipping_address as any).zip || ''}` 
+                : '123 Main St, New York, NY 10001',
+            }));
+            setOrders(formattedOrders);
+          }
+        }
+      } catch (error) {
+        console.error('Error loading orders:', error);
+        setToast('Using demo data');
+        setTimeout(() => setToast(''), 3000);
+      }
+      
+      setLoading(false);
+    };
+
+    loadOrders();
   }, [router]);
 
   const filteredOrders = orders.filter(order => {
     const matchesSearch = order.id.toLowerCase().includes(searchQuery.toLowerCase()) ||
       order.items.some(item => item.name.toLowerCase().includes(searchQuery.toLowerCase()));
-    const matchesStatus = statusFilter === 'All' || order.status === statusFilter;
+    const matchesStatus = statusFilter === 'All' || order.status.toLowerCase() === statusFilter.toLowerCase();
     return matchesSearch && matchesStatus;
   });
 
   return (
     <CustomerLayout title="Orders">
       <div style={styles.page}>
+        {toast && (
+          <div style={styles.toast}>
+            <span>{toast}</span>
+          </div>
+        )}
+
         <div style={styles.header}>
           <div>
             <h1 style={styles.title}>Order History</h1>
@@ -177,100 +211,107 @@ export default function CustomerOrders() {
           </select>
         </div>
 
-        <div style={styles.ordersGrid}>
-          {filteredOrders.map((order) => {
-            const statusInfo = statusConfig[order.status];
-            const StatusIcon = statusInfo.icon;
-            const isExpanded = expandedOrder === order.id;
+        {loading ? (
+          <div style={styles.loadingContainer}>
+            <Loader2 size={32} color={NEON_GREEN} style={{ animation: 'spin 1s linear infinite' }} />
+            <p style={styles.loadingText}>Loading your orders...</p>
+          </div>
+        ) : (
+          <div style={styles.ordersGrid}>
+            {filteredOrders.map((order) => {
+              const statusInfo = statusConfig[order.status] || statusConfig['Processing'];
+              const StatusIcon = statusInfo.icon;
+              const isExpanded = expandedOrder === order.id;
 
-            return (
-              <div key={order.id} style={styles.orderCard}>
-                <div 
-                  style={styles.orderHeader}
-                  onClick={() => setExpandedOrder(isExpanded ? null : order.id)}
-                >
-                  <div style={styles.orderHeaderLeft}>
-                    <span style={styles.orderId}>{order.id}</span>
-                    <div style={styles.orderMeta}>
-                      <Calendar size={14} />
-                      <span>{order.date}</span>
+              return (
+                <div key={order.id} style={styles.orderCard}>
+                  <div 
+                    style={styles.orderHeader}
+                    onClick={() => setExpandedOrder(isExpanded ? null : order.id)}
+                  >
+                    <div style={styles.orderHeaderLeft}>
+                      <span style={styles.orderId}>{order.id}</span>
+                      <div style={styles.orderMeta}>
+                        <Calendar size={14} />
+                        <span>{order.date}</span>
+                      </div>
+                    </div>
+                    <div style={styles.orderHeaderRight}>
+                      <div style={{ ...styles.orderStatus, backgroundColor: statusInfo.bg }}>
+                        <StatusIcon size={14} color={statusInfo.color} />
+                        <span style={{ color: statusInfo.color }}>{order.status}</span>
+                      </div>
+                      <ChevronDown 
+                        size={20} 
+                        style={{ 
+                          color: '#666666',
+                          transform: isExpanded ? 'rotate(180deg)' : 'rotate(0deg)',
+                          transition: 'transform 0.2s'
+                        }} 
+                      />
                     </div>
                   </div>
-                  <div style={styles.orderHeaderRight}>
-                    <div style={{ ...styles.orderStatus, backgroundColor: statusInfo.bg }}>
-                      <StatusIcon size={14} color={statusInfo.color} />
-                      <span style={{ color: statusInfo.color }}>{order.status}</span>
-                    </div>
-                    <ChevronDown 
-                      size={20} 
-                      style={{ 
-                        color: '#666666',
-                        transform: isExpanded ? 'rotate(180deg)' : 'rotate(0deg)',
-                        transition: 'transform 0.2s'
-                      }} 
-                    />
-                  </div>
-                </div>
 
-                <div style={styles.orderItems}>
-                  {order.items.slice(0, isExpanded ? undefined : 2).map((item, idx) => (
-                    <div key={idx} style={styles.orderItem}>
-                      <div style={styles.itemImage}>
-                        <img src={item.image} alt={item.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                      </div>
-                      <div style={styles.itemInfo}>
-                        <span style={styles.itemName}>{item.name}</span>
-                        <span style={styles.itemDetails}>Qty: {item.quantity} × ${item.price.toFixed(2)}</span>
-                      </div>
-                      <span style={styles.itemTotal}>${(item.quantity * item.price).toFixed(2)}</span>
-                    </div>
-                  ))}
-                  {!isExpanded && order.items.length > 2 && (
-                    <span style={styles.moreItems}>+{order.items.length - 2} more items</span>
-                  )}
-                </div>
-
-                {isExpanded && (
-                  <div style={styles.orderDetails}>
-                    <div style={styles.detailRow}>
-                      <MapPin size={16} color="#666666" />
-                      <div>
-                        <span style={styles.detailLabel}>Shipping Address</span>
-                        <span style={styles.detailValue}>{order.address}</span>
-                      </div>
-                    </div>
-                    {order.tracking && (
-                      <div style={styles.detailRow}>
-                        <Package size={16} color="#666666" />
-                        <div>
-                          <span style={styles.detailLabel}>Tracking Number</span>
-                          <span style={styles.detailValue}>{order.tracking}</span>
+                  <div style={styles.orderItems}>
+                    {order.items.slice(0, isExpanded ? undefined : 2).map((item, idx) => (
+                      <div key={idx} style={styles.orderItem}>
+                        <div style={styles.itemImage}>
+                          <img src={item.image} alt={item.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                         </div>
+                        <div style={styles.itemInfo}>
+                          <span style={styles.itemName}>{item.name}</span>
+                          <span style={styles.itemDetails}>Qty: {item.quantity} × ${item.price.toFixed(2)}</span>
+                        </div>
+                        <span style={styles.itemTotal}>${(item.quantity * item.price).toFixed(2)}</span>
                       </div>
+                    ))}
+                    {!isExpanded && order.items.length > 2 && (
+                      <span style={styles.moreItems}>+{order.items.length - 2} more items</span>
                     )}
                   </div>
-                )}
 
-                <div style={styles.orderFooter}>
-                  <span style={styles.orderTotal}>Total: ${order.total.toFixed(2)}</span>
-                  {order.status === 'Shipped' && order.tracking && (
-                    <button style={styles.trackButton}>
-                      <Truck size={16} />
-                      Track Package
-                    </button>
+                  {isExpanded && (
+                    <div style={styles.orderDetails}>
+                      <div style={styles.detailRow}>
+                        <MapPin size={16} color="#666666" />
+                        <div>
+                          <span style={styles.detailLabel}>Shipping Address</span>
+                          <span style={styles.detailValue}>{order.address}</span>
+                        </div>
+                      </div>
+                      {order.tracking && (
+                        <div style={styles.detailRow}>
+                          <Package size={16} color="#666666" />
+                          <div>
+                            <span style={styles.detailLabel}>Tracking Number</span>
+                            <span style={styles.detailValue}>{order.tracking}</span>
+                          </div>
+                        </div>
+                      )}
+                    </div>
                   )}
-                  {order.status === 'Delivered' && (
-                    <button style={styles.reorderButton}>
-                      Reorder
-                    </button>
-                  )}
+
+                  <div style={styles.orderFooter}>
+                    <span style={styles.orderTotal}>Total: ${order.total.toFixed(2)}</span>
+                    {order.status === 'Shipped' && order.tracking && (
+                      <button style={styles.trackButton}>
+                        <Truck size={16} />
+                        Track Package
+                      </button>
+                    )}
+                    {order.status === 'Delivered' && (
+                      <button style={styles.reorderButton}>
+                        Reorder
+                      </button>
+                    )}
+                  </div>
                 </div>
-              </div>
-            );
-          })}
-        </div>
+              );
+            })}
+          </div>
+        )}
 
-        {filteredOrders.length === 0 && (
+        {!loading && filteredOrders.length === 0 && (
           <div style={styles.emptyState}>
             <Package size={48} color="#333333" />
             <h3 style={styles.emptyTitle}>No orders found</h3>
@@ -278,6 +319,12 @@ export default function CustomerOrders() {
           </div>
         )}
       </div>
+      <style jsx global>{`
+        @keyframes spin {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
+        }
+      `}</style>
     </CustomerLayout>
   );
 }
@@ -286,6 +333,22 @@ const styles: Record<string, React.CSSProperties> = {
   page: {
     maxWidth: 900,
     margin: '0 auto',
+  },
+  toast: {
+    position: 'fixed',
+    top: 24,
+    right: 24,
+    display: 'flex',
+    alignItems: 'center',
+    gap: 10,
+    padding: '12px 20px',
+    backgroundColor: '#111111',
+    border: `1px solid ${CARD_BORDER}`,
+    borderRadius: 8,
+    color: '#FFFFFF',
+    fontSize: 14,
+    zIndex: 1000,
+    boxShadow: '0 8px 32px rgba(0, 0, 0, 0.4)',
   },
   header: {
     marginBottom: 24,
@@ -339,6 +402,18 @@ const styles: Record<string, React.CSSProperties> = {
     outline: 'none',
     cursor: 'pointer',
     minWidth: 140,
+  },
+  loadingContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 64,
+    gap: 16,
+  },
+  loadingText: {
+    color: '#666666',
+    fontSize: 14,
   },
   ordersGrid: {
     display: 'flex',

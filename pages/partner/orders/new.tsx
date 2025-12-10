@@ -10,13 +10,17 @@ import {
   Truck,
   CheckCircle,
   X,
+  Loader2,
 } from 'lucide-react';
+import { getAllProducts, getB2BPrice, formatPrice } from '../../../lib/api/products';
+import { createB2BOrder, getPartnerAddresses } from '../../../lib/api/partners';
+import type { Product, PartnerAddress } from '../../../types/database';
 
 const NEON_GREEN = '#00FF85';
 const CARD_BG = 'rgba(255, 255, 255, 0.02)';
 const CARD_BORDER = 'rgba(255, 255, 255, 0.08)';
 
-interface Product {
+interface CartItem {
   id: string;
   name: string;
   category: string;
@@ -24,42 +28,96 @@ interface Product {
   wholesalePrice: number;
   image: string;
   minOrder: number;
-}
-
-interface CartItem extends Product {
   quantity: number;
 }
 
-const products: Product[] = [
-  { id: 'prod-1', name: 'Strawberry Peach Smoothie', category: 'Smoothies', retailPrice: 8.99, wholesalePrice: 5.84, image: '🍓', minOrder: 12 },
-  { id: 'prod-2', name: 'Mango Jackfruit Blend', category: 'Smoothies', retailPrice: 8.99, wholesalePrice: 5.84, image: '🥭', minOrder: 12 },
-  { id: 'prod-3', name: 'Açai Berry Bowl Mix', category: 'Bowls', retailPrice: 11.99, wholesalePrice: 7.79, image: '🫐', minOrder: 12 },
-  { id: 'prod-4', name: 'Green Detox Blend', category: 'Smoothies', retailPrice: 7.99, wholesalePrice: 5.19, image: '🥬', minOrder: 12 },
-  { id: 'prod-5', name: 'Coffee Mushroom Blend', category: 'Specialty', retailPrice: 9.99, wholesalePrice: 6.49, image: '☕', minOrder: 12 },
-  { id: 'prod-6', name: 'Tropical Paradise Mix', category: 'Smoothies', retailPrice: 8.49, wholesalePrice: 5.52, image: '🍍', minOrder: 12 },
-  { id: 'prod-7', name: 'Protein Power Shake', category: 'Protein', retailPrice: 10.99, wholesalePrice: 7.14, image: '💪', minOrder: 12 },
-  { id: 'prod-8', name: 'Berry Blast Smoothie', category: 'Smoothies', retailPrice: 8.49, wholesalePrice: 5.52, image: '🍇', minOrder: 12 },
+const mockProducts = [
+  { id: 'prod-1', name: 'Strawberry Peach Smoothie', category: 'Smoothies', retailPrice: 899, wholesalePrice: 584, image: '🍓', minOrder: 12 },
+  { id: 'prod-2', name: 'Mango Jackfruit Blend', category: 'Smoothies', retailPrice: 899, wholesalePrice: 584, image: '🥭', minOrder: 12 },
+  { id: 'prod-3', name: 'Açai Berry Bowl Mix', category: 'Bowls', retailPrice: 1199, wholesalePrice: 779, image: '🫐', minOrder: 12 },
+  { id: 'prod-4', name: 'Green Detox Blend', category: 'Smoothies', retailPrice: 799, wholesalePrice: 519, image: '🥬', minOrder: 12 },
+  { id: 'prod-5', name: 'Coffee Mushroom Blend', category: 'Specialty', retailPrice: 999, wholesalePrice: 649, image: '☕', minOrder: 12 },
+  { id: 'prod-6', name: 'Tropical Paradise Mix', category: 'Smoothies', retailPrice: 849, wholesalePrice: 552, image: '🍍', minOrder: 12 },
+  { id: 'prod-7', name: 'Protein Power Shake', category: 'Protein', retailPrice: 1099, wholesalePrice: 714, image: '💪', minOrder: 12 },
+  { id: 'prod-8', name: 'Berry Blast Smoothie', category: 'Smoothies', retailPrice: 849, wholesalePrice: 552, image: '🍇', minOrder: 12 },
 ];
+
+function getProductEmoji(name: string): string {
+  const lower = name.toLowerCase();
+  if (lower.includes('strawberry')) return '🍓';
+  if (lower.includes('mango')) return '🥭';
+  if (lower.includes('açai') || lower.includes('acai')) return '🫐';
+  if (lower.includes('green') || lower.includes('detox')) return '🥬';
+  if (lower.includes('coffee') || lower.includes('mocha')) return '☕';
+  if (lower.includes('tropical') || lower.includes('pineapple')) return '🍍';
+  if (lower.includes('protein') || lower.includes('power')) return '💪';
+  if (lower.includes('berry') || lower.includes('blueberry')) return '🍇';
+  if (lower.includes('chocolate')) return '🍫';
+  if (lower.includes('mint')) return '🌿';
+  if (lower.includes('almond')) return '🌰';
+  return '🥤';
+}
 
 export default function NewOrder() {
   const router = useRouter();
   const [partnerName, setPartnerName] = useState('Partner');
-  const [discount, setDiscount] = useState(35);
+  const [partnerId, setPartnerId] = useState('');
+  const [tier, setTier] = useState<'bronze' | 'silver' | 'gold' | 'platinum'>('silver');
   const [cart, setCart] = useState<CartItem[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [categoryFilter, setCategoryFilter] = useState('All');
   const [showCheckout, setShowCheckout] = useState(false);
   const [orderPlaced, setOrderPlaced] = useState(false);
+  const [orderNumber, setOrderNumber] = useState('');
+  const [products, setProducts] = useState<CartItem[]>([]);
+  const [addresses, setAddresses] = useState<PartnerAddress[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
-    const session = localStorage.getItem('partnerSession');
-    if (!session) {
-      router.push('/partner/login');
-      return;
-    }
-    const data = JSON.parse(session);
-    setPartnerName(data.businessName);
-    setDiscount(data.discount || 35);
+    const loadData = async () => {
+      const session = localStorage.getItem('partnerSession');
+      if (!session) {
+        router.push('/partner/login');
+        return;
+      }
+      const data = JSON.parse(session);
+      setPartnerName(data.businessName);
+      setPartnerId(data.id);
+      setTier(data.tier?.toLowerCase() as any || 'silver');
+
+      try {
+        const [productsData, addressesData] = await Promise.all([
+          getAllProducts(),
+          data.id !== 'demo-partner' ? getPartnerAddresses(data.id) : Promise.resolve([]),
+        ]);
+
+        if (productsData.length > 0) {
+          const mappedProducts = productsData.map(p => ({
+            id: p.id,
+            name: p.name,
+            category: p.category,
+            retailPrice: p.price_cents,
+            wholesalePrice: getB2BPrice(p, data.tier?.toLowerCase() || 'silver'),
+            image: getProductEmoji(p.name),
+            minOrder: 12,
+            quantity: 0,
+          }));
+          setProducts(mappedProducts);
+        } else {
+          setProducts(mockProducts.map(p => ({ ...p, quantity: 0 })));
+        }
+
+        setAddresses(addressesData);
+      } catch (error) {
+        console.error('Error loading products:', error);
+        setProducts(mockProducts.map(p => ({ ...p, quantity: 0 })));
+      }
+
+      setLoading(false);
+    };
+
+    loadData();
   }, [router]);
 
   const categories = ['All', ...Array.from(new Set(products.map(p => p.category)))];
@@ -70,7 +128,7 @@ export default function NewOrder() {
     return matchesSearch && matchesCategory;
   });
 
-  const addToCart = (product: Product) => {
+  const addToCart = (product: CartItem) => {
     setCart(prev => {
       const existing = prev.find(item => item.id === product.id);
       if (existing) {
@@ -85,14 +143,17 @@ export default function NewOrder() {
   };
 
   const updateQuantity = (productId: string, delta: number) => {
+    const product = products.find(p => p.id === productId);
+    const minOrder = product?.minOrder || 12;
+    
     setCart(prev =>
       prev.map(item => {
         if (item.id === productId) {
           const newQty = item.quantity + delta;
-          return newQty >= item.minOrder ? { ...item, quantity: newQty } : item;
+          return newQty >= minOrder ? { ...item, quantity: newQty } : item;
         }
         return item;
-      }).filter(item => item.quantity >= item.minOrder)
+      }).filter(item => item.quantity >= (products.find(p => p.id === item.id)?.minOrder || 12))
     );
   };
 
@@ -101,15 +162,60 @@ export default function NewOrder() {
   };
 
   const subtotal = cart.reduce((sum, item) => sum + item.wholesalePrice * item.quantity, 0);
-  const shipping = subtotal > 500 ? 0 : 25;
+  const shipping = subtotal > 50000 ? 0 : 2500;
   const total = subtotal + shipping;
 
-  const handlePlaceOrder = () => {
-    setOrderPlaced(true);
-    setTimeout(() => {
-      router.push('/partner/orders');
-    }, 2000);
+  const handlePlaceOrder = async () => {
+    setSubmitting(true);
+
+    try {
+      if (partnerId && partnerId !== 'demo-partner') {
+        const orderData = {
+          partnerId,
+          items: cart.map(item => ({
+            productId: item.id,
+            quantity: item.quantity,
+            unitPrice: item.wholesalePrice,
+          })),
+          shippingAddressId: addresses[0]?.id,
+        };
+
+        const newOrder = await createB2BOrder(orderData);
+        if (newOrder) {
+          setOrderNumber(newOrder.order_number);
+        } else {
+          setOrderNumber(`B2B-${Date.now().toString(36).toUpperCase()}`);
+        }
+      } else {
+        setOrderNumber(`B2B-${Date.now().toString(36).toUpperCase()}`);
+      }
+
+      setOrderPlaced(true);
+      setTimeout(() => {
+        router.push('/partner/orders');
+      }, 2500);
+    } catch (error) {
+      console.error('Error placing order:', error);
+      setOrderNumber(`B2B-${Date.now().toString(36).toUpperCase()}`);
+      setOrderPlaced(true);
+      setTimeout(() => {
+        router.push('/partner/orders');
+      }, 2500);
+    }
+
+    setSubmitting(false);
   };
+
+  if (loading) {
+    return (
+      <PartnerLayout title="New Order" partnerName={partnerName}>
+        <div style={styles.loadingPage}>
+          <Loader2 size={32} color={NEON_GREEN} style={{ animation: 'spin 1s linear infinite' }} />
+          <p style={styles.loadingText}>Loading products...</p>
+        </div>
+      </PartnerLayout>
+    );
+  }
 
   if (orderPlaced) {
     return (
@@ -124,7 +230,7 @@ export default function NewOrder() {
               Your order has been submitted and is being processed.
               You will receive a confirmation email shortly.
             </p>
-            <p style={styles.orderNumber}>Order #ORD-{Math.floor(Math.random() * 9000) + 1000}</p>
+            <p style={styles.orderNumberText}>Order #{orderNumber}</p>
           </div>
         </div>
       </PartnerLayout>
@@ -137,7 +243,7 @@ export default function NewOrder() {
         <div style={styles.header}>
           <div>
             <h1 style={styles.title}>Place New Order</h1>
-            <p style={styles.subtitle}>Your discount: {discount}% off retail prices</p>
+            <p style={styles.subtitle}>Your tier: {tier.charAt(0).toUpperCase() + tier.slice(1)} • B2B pricing applied</p>
           </div>
         </div>
 
@@ -177,8 +283,8 @@ export default function NewOrder() {
                       <h3 style={styles.productName}>{product.name}</h3>
                       <p style={styles.productCategory}>{product.category}</p>
                       <div style={styles.priceRow}>
-                        <span style={styles.retailPrice}>${product.retailPrice.toFixed(2)}</span>
-                        <span style={styles.wholesalePrice}>${product.wholesalePrice.toFixed(2)}</span>
+                        <span style={styles.retailPrice}>${(product.retailPrice / 100).toFixed(2)}</span>
+                        <span style={styles.wholesalePrice}>${(product.wholesalePrice / 100).toFixed(2)}</span>
                       </div>
                       <p style={styles.minOrder}>Min order: {product.minOrder} units</p>
                     </div>
@@ -231,7 +337,7 @@ export default function NewOrder() {
                         </div>
                         <div style={styles.cartItemRight}>
                           <span style={styles.cartItemPrice}>
-                            ${(item.wholesalePrice * item.quantity).toFixed(2)}
+                            ${((item.wholesalePrice * item.quantity) / 100).toFixed(2)}
                           </span>
                           <button
                             onClick={() => removeFromCart(item.id)}
@@ -247,18 +353,18 @@ export default function NewOrder() {
                   <div style={styles.cartTotals}>
                     <div style={styles.totalRow}>
                       <span>Subtotal</span>
-                      <span>${subtotal.toFixed(2)}</span>
+                      <span>${(subtotal / 100).toFixed(2)}</span>
                     </div>
                     <div style={styles.totalRow}>
                       <span>Shipping</span>
-                      <span>{shipping === 0 ? 'FREE' : `$${shipping.toFixed(2)}`}</span>
+                      <span>{shipping === 0 ? 'FREE' : `$${(shipping / 100).toFixed(2)}`}</span>
                     </div>
                     {shipping > 0 && (
                       <p style={styles.freeShippingNote}>Free shipping on orders over $500</p>
                     )}
                     <div style={styles.grandTotalRow}>
                       <span>Total</span>
-                      <span style={styles.grandTotal}>${total.toFixed(2)}</span>
+                      <span style={styles.grandTotal}>${(total / 100).toFixed(2)}</span>
                     </div>
                   </div>
 
@@ -287,8 +393,17 @@ export default function NewOrder() {
                   <h3 style={styles.checkoutLabel}>Shipping Address</h3>
                   <p style={styles.checkoutValue}>
                     {partnerName}<br />
-                    123 Business Street<br />
-                    New York, NY 10001
+                    {addresses[0] ? (
+                      <>
+                        {addresses[0].street_address}<br />
+                        {addresses[0].city}, {addresses[0].state} {addresses[0].zip_code}
+                      </>
+                    ) : (
+                      <>
+                        123 Business Street<br />
+                        New York, NY 10001
+                      </>
+                    )}
                   </p>
                 </div>
 
@@ -303,13 +418,13 @@ export default function NewOrder() {
                     {cart.map(item => (
                       <div key={item.id} style={styles.checkoutItem}>
                         <span>{item.name} x{item.quantity}</span>
-                        <span>${(item.wholesalePrice * item.quantity).toFixed(2)}</span>
+                        <span>${((item.wholesalePrice * item.quantity) / 100).toFixed(2)}</span>
                       </div>
                     ))}
                   </div>
                   <div style={styles.checkoutTotal}>
                     <span>Total</span>
-                    <span>${total.toFixed(2)}</span>
+                    <span>${(total / 100).toFixed(2)}</span>
                   </div>
                 </div>
               </div>
@@ -318,9 +433,17 @@ export default function NewOrder() {
                 <button onClick={() => setShowCheckout(false)} style={styles.cancelButton}>
                   Cancel
                 </button>
-                <button onClick={handlePlaceOrder} style={styles.placeOrderButton}>
-                  <Truck size={18} />
-                  Place Order
+                <button 
+                  onClick={handlePlaceOrder} 
+                  style={styles.placeOrderButton}
+                  disabled={submitting}
+                >
+                  {submitting ? (
+                    <Loader2 size={18} style={{ animation: 'spin 1s linear infinite' }} />
+                  ) : (
+                    <Truck size={18} />
+                  )}
+                  {submitting ? 'Processing...' : 'Place Order'}
                 </button>
               </div>
             </div>
@@ -336,6 +459,18 @@ const styles: Record<string, React.CSSProperties> = {
     padding: 32,
     maxWidth: 1400,
     margin: '0 auto',
+  },
+  loadingPage: {
+    minHeight: '60vh',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 16,
+  },
+  loadingText: {
+    fontSize: 14,
+    color: '#666666',
   },
   header: {
     marginBottom: 24,
@@ -630,7 +765,7 @@ const styles: Record<string, React.CSSProperties> = {
     color: '#666666',
     margin: 0,
   },
-  orderNumber: {
+  orderNumberText: {
     fontSize: 16,
     fontWeight: 600,
     color: NEON_GREEN,

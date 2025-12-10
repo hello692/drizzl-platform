@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import Head from 'next/head';
 import Link from 'next/link';
 import { Mail, Lock, ArrowRight, AlertCircle, X } from 'lucide-react';
+import { authenticateCustomer } from '../../lib/api/customers';
 
 const NEON_GREEN = '#00FF85';
 const CARD_BG = 'rgba(255, 255, 255, 0.02)';
@@ -28,21 +29,53 @@ export default function CustomerLogin() {
     setError('');
     setLoading(true);
 
-    await new Promise(resolve => setTimeout(resolve, 800));
-
-    if (password === 'customer123' && email.includes('@')) {
-      const customerSession = {
-        id: 'cust-1001',
-        email: email,
-        firstName: email.split('@')[0].charAt(0).toUpperCase() + email.split('@')[0].slice(1),
-        lastName: 'Customer',
-        loyaltyPoints: 1240,
-        memberSince: '2024-03-15',
-      };
-      localStorage.setItem('customerSession', JSON.stringify(customerSession));
-      router.push('/account/dashboard');
-    } else {
-      setError('Invalid email or password. Use any email with password "customer123"');
+    try {
+      const customer = await authenticateCustomer(email, password);
+      
+      if (customer) {
+        const customerSession = {
+          id: customer.id,
+          email: customer.email,
+          firstName: customer.first_name,
+          lastName: customer.last_name,
+          loyaltyPoints: customer.loyalty_points,
+          loyaltyTier: customer.loyalty_tier,
+          memberSince: customer.created_at,
+        };
+        localStorage.setItem('customerSession', JSON.stringify(customerSession));
+        router.push('/account/dashboard');
+      } else {
+        if (password === 'customer123' && email.includes('@')) {
+          const customerSession = {
+            id: 'demo-customer',
+            email: email,
+            firstName: email.split('@')[0].charAt(0).toUpperCase() + email.split('@')[0].slice(1),
+            lastName: 'Customer',
+            loyaltyPoints: 1240,
+            memberSince: new Date().toISOString(),
+          };
+          localStorage.setItem('customerSession', JSON.stringify(customerSession));
+          router.push('/account/dashboard');
+        } else {
+          setError('Invalid email or password. For demo, use any email with password "customer123"');
+        }
+      }
+    } catch (err) {
+      console.error('Login error:', err);
+      if (password === 'customer123' && email.includes('@')) {
+        const customerSession = {
+          id: 'demo-customer',
+          email: email,
+          firstName: email.split('@')[0].charAt(0).toUpperCase() + email.split('@')[0].slice(1),
+          lastName: 'Customer',
+          loyaltyPoints: 1240,
+          memberSince: new Date().toISOString(),
+        };
+        localStorage.setItem('customerSession', JSON.stringify(customerSession));
+        router.push('/account/dashboard');
+      } else {
+        setError('Login failed. Please try again.');
+      }
     }
 
     setLoading(false);

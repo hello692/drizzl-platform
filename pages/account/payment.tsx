@@ -8,7 +8,10 @@ import {
   Check,
   Shield,
   Star,
+  Loader2,
 } from 'lucide-react';
+import { getCustomerPaymentMethods } from '../../lib/api/customers';
+import { supabase } from '../../lib/supabase';
 
 const NEON_GREEN = '#00FF85';
 const CARD_BG = 'rgba(255, 255, 255, 0.02)';
@@ -23,7 +26,7 @@ interface PaymentMethod {
   isDefault: boolean;
 }
 
-const initialPaymentMethods: PaymentMethod[] = [
+const mockPaymentMethods: PaymentMethod[] = [
   {
     id: 'card-1',
     type: 'visa',
@@ -50,15 +53,47 @@ const cardBrandColors = {
 
 export default function CustomerPayment() {
   const router = useRouter();
-  const [paymentMethods, setPaymentMethods] = useState(initialPaymentMethods);
+  const [paymentMethods, setPaymentMethods] = useState<PaymentMethod[]>(mockPaymentMethods);
   const [isAdding, setIsAdding] = useState(false);
   const [toast, setToast] = useState('');
+  const [loading, setLoading] = useState(true);
+  const [customerId, setCustomerId] = useState<string | null>(null);
 
   useEffect(() => {
-    const session = localStorage.getItem('customerSession');
-    if (!session) {
-      router.push('/account/login');
-    }
+    const loadPaymentMethods = async () => {
+      const session = localStorage.getItem('customerSession');
+      if (!session) {
+        router.push('/account/login');
+        return;
+      }
+
+      const parsedSession = JSON.parse(session);
+      setCustomerId(parsedSession.id);
+
+      try {
+        if (parsedSession.id && parsedSession.id !== 'demo-customer') {
+          const dbPaymentMethods = await getCustomerPaymentMethods(parsedSession.id);
+          
+          if (dbPaymentMethods && dbPaymentMethods.length > 0) {
+            const formattedPaymentMethods: PaymentMethod[] = dbPaymentMethods.map(pm => ({
+              id: pm.id,
+              type: (pm.card_type?.toLowerCase() || 'visa') as 'visa' | 'mastercard' | 'amex',
+              last4: pm.last_four,
+              expiry: `${String(pm.expiry_month).padStart(2, '0')}/${String(pm.expiry_year).slice(-2)}`,
+              name: pm.cardholder_name,
+              isDefault: pm.is_default,
+            }));
+            setPaymentMethods(formattedPaymentMethods);
+          }
+        }
+      } catch (error) {
+        console.error('Error loading payment methods:', error);
+      }
+      
+      setLoading(false);
+    };
+
+    loadPaymentMethods();
   }, [router]);
 
   const showToast = (message: string) => {
@@ -66,20 +101,49 @@ export default function CustomerPayment() {
     setTimeout(() => setToast(''), 3000);
   };
 
-  const handleSetDefault = (id: string) => {
+  const handleSetDefault = async (id: string) => {
     setPaymentMethods(prev => prev.map(pm => ({
       ...pm,
       isDefault: pm.id === id,
     })));
+    
+    if (customerId && customerId !== 'demo-customer') {
+      try {
+        await supabase
+          .from('customer_payment_methods')
+          .update({ is_default: false })
+          .eq('customer_id', customerId);
+        
+        await supabase
+          .from('customer_payment_methods')
+          .update({ is_default: true })
+          .eq('id', id);
+      } catch (error) {
+        console.error('Error updating default payment method:', error);
+      }
+    }
+    
     showToast('Default payment method updated');
   };
 
-  const handleDelete = (id: string) => {
+  const handleDelete = async (id: string) => {
     setPaymentMethods(prev => prev.filter(pm => pm.id !== id));
+    
+    if (customerId && customerId !== 'demo-customer') {
+      try {
+        await supabase
+          .from('customer_payment_methods')
+          .delete()
+          .eq('id', id);
+      } catch (error) {
+        console.error('Error deleting payment method:', error);
+      }
+    }
+    
     showToast('Payment method removed');
   };
 
-  const handleAddCard = (e: React.FormEvent) => {
+  const handleAddCard = async (e: React.FormEvent) => {
     e.preventDefault();
     const newCard: PaymentMethod = {
       id: `card-${Date.now()}`,
@@ -181,63 +245,70 @@ export default function CustomerPayment() {
           </div>
         )}
 
-        <div style={styles.cardsGrid}>
-          {paymentMethods.map((card) => {
-            const brandStyle = cardBrandColors[card.type];
-            return (
-              <div key={card.id} style={styles.cardWrapper}>
-                <div style={{ ...styles.creditCard, background: brandStyle.bg }}>
-                  <div style={styles.cardChip}>
-                    <div style={styles.chipLines} />
+        {loading ? (
+          <div style={styles.loadingContainer}>
+            <Loader2 size={32} color={NEON_GREEN} style={{ animation: 'spin 1s linear infinite' }} />
+            <p style={styles.loadingText}>Loading your payment methods...</p>
+          </div>
+        ) : (
+          <div style={styles.cardsGrid}>
+            {paymentMethods.map((card) => {
+              const brandStyle = cardBrandColors[card.type] || cardBrandColors.visa;
+              return (
+                <div key={card.id} style={styles.cardWrapper}>
+                  <div style={{ ...styles.creditCard, background: brandStyle.bg }}>
+                    <div style={styles.cardChip}>
+                      <div style={styles.chipLines} />
+                    </div>
+                    <div style={styles.cardNumber}>
+                      •••• •••• •••• {card.last4}
+                    </div>
+                    <div style={styles.cardBottom}>
+                      <div>
+                        <div style={styles.cardLabel}>CARDHOLDER</div>
+                        <div style={styles.cardValue}>{card.name.toUpperCase()}</div>
+                      </div>
+                      <div>
+                        <div style={styles.cardLabel}>EXPIRES</div>
+                        <div style={styles.cardValue}>{card.expiry}</div>
+                      </div>
+                      <div style={styles.cardBrand}>
+                        {card.type.toUpperCase()}
+                      </div>
+                    </div>
+                    {card.isDefault && (
+                      <div style={styles.defaultIndicator}>
+                        <Star size={14} fill={NEON_GREEN} color={NEON_GREEN} />
+                      </div>
+                    )}
                   </div>
-                  <div style={styles.cardNumber}>
-                    •••• •••• •••• {card.last4}
+                  <div style={styles.cardActions}>
+                    {card.isDefault ? (
+                      <span style={styles.defaultText}>Default Card</span>
+                    ) : (
+                      <button 
+                        onClick={() => handleSetDefault(card.id)}
+                        style={styles.actionBtn}
+                      >
+                        Set as Default
+                      </button>
+                    )}
+                    {!card.isDefault && (
+                      <button 
+                        onClick={() => handleDelete(card.id)}
+                        style={{ ...styles.actionBtn, color: '#EF4444' }}
+                      >
+                        <Trash2 size={16} />
+                      </button>
+                    )}
                   </div>
-                  <div style={styles.cardBottom}>
-                    <div>
-                      <div style={styles.cardLabel}>CARDHOLDER</div>
-                      <div style={styles.cardValue}>{card.name.toUpperCase()}</div>
-                    </div>
-                    <div>
-                      <div style={styles.cardLabel}>EXPIRES</div>
-                      <div style={styles.cardValue}>{card.expiry}</div>
-                    </div>
-                    <div style={styles.cardBrand}>
-                      {card.type.toUpperCase()}
-                    </div>
-                  </div>
-                  {card.isDefault && (
-                    <div style={styles.defaultIndicator}>
-                      <Star size={14} fill={NEON_GREEN} color={NEON_GREEN} />
-                    </div>
-                  )}
                 </div>
-                <div style={styles.cardActions}>
-                  {card.isDefault ? (
-                    <span style={styles.defaultText}>Default Card</span>
-                  ) : (
-                    <button 
-                      onClick={() => handleSetDefault(card.id)}
-                      style={styles.actionBtn}
-                    >
-                      Set as Default
-                    </button>
-                  )}
-                  {!card.isDefault && (
-                    <button 
-                      onClick={() => handleDelete(card.id)}
-                      style={{ ...styles.actionBtn, color: '#EF4444' }}
-                    >
-                      <Trash2 size={16} />
-                    </button>
-                  )}
-                </div>
-              </div>
-            );
-          })}
-        </div>
+              );
+            })}
+          </div>
+        )}
 
-        {paymentMethods.length === 0 && !isAdding && (
+        {!loading && paymentMethods.length === 0 && !isAdding && (
           <div style={styles.emptyState}>
             <CreditCard size={48} color="#333333" />
             <h3 style={styles.emptyTitle}>No payment methods</h3>
@@ -263,6 +334,12 @@ export default function CustomerPayment() {
           </div>
         </div>
       </div>
+      <style jsx global>{`
+        @keyframes spin {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
+        }
+      `}</style>
     </CustomerLayout>
   );
 }
@@ -319,6 +396,18 @@ const styles: Record<string, React.CSSProperties> = {
     fontSize: 14,
     fontWeight: 600,
     cursor: 'pointer',
+  },
+  loadingContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 64,
+    gap: 16,
+  },
+  loadingText: {
+    color: '#666666',
+    fontSize: 14,
   },
   formCard: {
     backgroundColor: CARD_BG,
