@@ -584,7 +584,7 @@ export default function ProductPage() {
   if (!product || !productData) {
     return (
       <div style={{ backgroundColor: apple.bgPrimary, minHeight: '100vh' }}>
-        <Navbar />
+        <Navbar variant="dynamic" />
         <div style={{ padding: '200px 24px', textAlign: 'center' }}>
           <h1 style={{ fontSize: '48px', fontWeight: '600', color: apple.textPrimary, marginBottom: '24px' }}>
             Product not found
@@ -1095,7 +1095,7 @@ export default function ProductPage() {
       backgroundColor: apple.bgPrimary, 
       minHeight: '100vh',
     }}>
-      <Navbar />
+      <Navbar variant="dynamic" />
       
       <main>
         {renderDefaultLayout()}

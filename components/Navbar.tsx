@@ -43,9 +43,14 @@ const MENU_ITEMS = [
   },
 ];
 
-export default function Navbar() {
+interface NavbarProps {
+  variant?: 'dark' | 'light' | 'dynamic';
+}
+
+export default function Navbar({ variant = 'dark' }: NavbarProps) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [expandedMenu, setExpandedMenu] = useState<string | null>(null);
+  const [scrolled, setScrolled] = useState(false);
   const router = useRouter();
 
   const toggleExpandedMenu = (title: string) => {
@@ -69,17 +74,38 @@ export default function Navbar() {
     };
   }, [menuOpen]);
 
+  useEffect(() => {
+    if (variant !== 'dynamic') return;
+    
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50);
+    };
+    
+    window.addEventListener('scroll', handleScroll);
+    handleScroll();
+    
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [variant]);
+
+  const isDark = variant === 'dark' || (variant === 'dynamic' && scrolled);
+  const bgColor = isDark ? '#000000' : '#ffffff';
+  const textColor = isDark ? '#ffffff' : '#000000';
+  const borderColor = isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)';
+  const logoFilter = isDark ? 'none' : 'invert(1)';
+
   return (
     <>
       <header style={{
-        position: 'relative',
+        position: 'sticky',
+        top: 0,
         zIndex: 100,
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
         padding: '20px 40px',
-        background: '#000000',
-        borderBottom: '1px solid rgba(255,255,255,0.1)',
+        background: bgColor,
+        borderBottom: `1px solid ${borderColor}`,
+        transition: 'background 0.3s ease, border-color 0.3s ease',
       }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '24px' }}>
           <button 
@@ -91,12 +117,13 @@ export default function Navbar() {
               gap: '8px',
               background: 'none',
               border: 'none',
-              color: '#ffffff',
+              color: textColor,
               cursor: 'pointer',
               padding: 0,
               fontSize: '0.875rem',
               fontWeight: 400,
               letterSpacing: '0.02em',
+              transition: 'color 0.3s ease',
             }}
           >
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
@@ -113,12 +140,13 @@ export default function Navbar() {
               gap: '8px',
               background: 'none',
               border: 'none',
-              color: '#ffffff',
+              color: textColor,
               cursor: 'pointer',
               padding: 0,
               fontSize: '0.875rem',
               fontWeight: 400,
               letterSpacing: '0.02em',
+              transition: 'color 0.3s ease',
             }}
           >
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
@@ -134,7 +162,7 @@ export default function Navbar() {
             <img 
               src="/images/drizzl-logo-white.gif"
               alt="DRIZZL WELLNESS" 
-              style={{ height: '28px', width: 'auto' }}
+              style={{ height: '28px', width: 'auto', filter: logoFilter, transition: 'filter 0.3s ease, opacity 0.3s ease' }}
             />
           </Link>
         </div>
@@ -144,11 +172,12 @@ export default function Navbar() {
             href="/auth?type=retail" 
             className="nav-link"
             style={{
-              color: '#ffffff',
+              color: textColor,
               textDecoration: 'none',
               fontSize: '0.875rem',
               fontWeight: 400,
               letterSpacing: '0.02em',
+              transition: 'color 0.3s ease',
             }}
           >
             Wholesale
@@ -156,7 +185,7 @@ export default function Navbar() {
           <Link 
             href="/auth" 
             className="nav-icon"
-            style={{ color: '#ffffff', display: 'flex', alignItems: 'center' }}
+            style={{ color: textColor, display: 'flex', alignItems: 'center', transition: 'color 0.3s ease' }}
           >
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
               <circle cx="12" cy="8" r="4"/>
@@ -166,7 +195,7 @@ export default function Navbar() {
           <Link 
             href="/cart" 
             className="nav-icon"
-            style={{ color: '#ffffff', display: 'flex', alignItems: 'center' }}
+            style={{ color: textColor, display: 'flex', alignItems: 'center', transition: 'color 0.3s ease' }}
           >
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
               <path d="M6 6h-2l-2 12h18l-2-12h-2M6 6V5a4 4 0 018 0v1M6 6h8"/>
