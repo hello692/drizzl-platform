@@ -134,71 +134,106 @@ export default function Checkout() {
               </div>
 
               {step === 1 && (
-                <form onSubmit={handleShippingSubmit} className="checkout-form">
+                <form onSubmit={handleShippingSubmit} className="checkout-form" noValidate>
                   <h2 className="checkout-form-title">Shipping Address</h2>
 
                   <div className="checkout-input-row">
+                    <div className="checkout-field">
+                      <label htmlFor="firstName" className="checkout-label">First Name</label>
+                      <input
+                        id="firstName"
+                        type="text"
+                        placeholder="First Name"
+                        value={shippingData.firstName}
+                        onChange={(e) => setShippingData({ ...shippingData, firstName: e.target.value })}
+                        required
+                        className="checkout-input"
+                        aria-required="true"
+                      />
+                    </div>
+                    <div className="checkout-field">
+                      <label htmlFor="lastName" className="checkout-label">Last Name</label>
+                      <input
+                        id="lastName"
+                        type="text"
+                        placeholder="Last Name"
+                        value={shippingData.lastName}
+                        onChange={(e) => setShippingData({ ...shippingData, lastName: e.target.value })}
+                        required
+                        className="checkout-input"
+                        aria-required="true"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="checkout-field">
+                    <label htmlFor="email" className="checkout-label">Email</label>
                     <input
-                      type="text"
-                      placeholder="First Name"
-                      value={shippingData.firstName}
-                      onChange={(e) => setShippingData({ ...shippingData, firstName: e.target.value })}
+                      id="email"
+                      type="email"
+                      placeholder="Email"
+                      value={shippingData.email}
+                      onChange={(e) => setShippingData({ ...shippingData, email: e.target.value })}
                       required
                       className="checkout-input"
-                    />
-                    <input
-                      type="text"
-                      placeholder="Last Name"
-                      value={shippingData.lastName}
-                      onChange={(e) => setShippingData({ ...shippingData, lastName: e.target.value })}
-                      required
-                      className="checkout-input"
+                      aria-required="true"
                     />
                   </div>
 
-                  <input
-                    type="email"
-                    placeholder="Email"
-                    value={shippingData.email}
-                    onChange={(e) => setShippingData({ ...shippingData, email: e.target.value })}
-                    required
-                    className="checkout-input"
-                  />
-
-                  <input
-                    type="text"
-                    placeholder="Street Address"
-                    value={shippingData.address}
-                    onChange={(e) => setShippingData({ ...shippingData, address: e.target.value })}
-                    required
-                    className="checkout-input"
-                  />
+                  <div className="checkout-field">
+                    <label htmlFor="address" className="checkout-label">Street Address</label>
+                    <input
+                      id="address"
+                      type="text"
+                      placeholder="Street Address"
+                      value={shippingData.address}
+                      onChange={(e) => setShippingData({ ...shippingData, address: e.target.value })}
+                      required
+                      className="checkout-input"
+                      aria-required="true"
+                    />
+                  </div>
 
                   <div className="checkout-input-row-3">
-                    <input
-                      type="text"
-                      placeholder="City"
-                      value={shippingData.city}
-                      onChange={(e) => setShippingData({ ...shippingData, city: e.target.value })}
-                      required
-                      className="checkout-input"
-                    />
-                    <input
-                      type="text"
-                      placeholder="State"
-                      value={shippingData.state}
-                      onChange={(e) => setShippingData({ ...shippingData, state: e.target.value })}
-                      required
-                      className="checkout-input"
-                    />
-                    <input
-                      type="text"
-                      placeholder="ZIP"
-                      value={shippingData.zip}
-                      onChange={(e) => setShippingData({ ...shippingData, zip: e.target.value })}
-                      required
-                      className="checkout-input"
-                    />
+                    <div className="checkout-field checkout-field-city">
+                      <label htmlFor="city" className="checkout-label">City</label>
+                      <input
+                        id="city"
+                        type="text"
+                        placeholder="City"
+                        value={shippingData.city}
+                        onChange={(e) => setShippingData({ ...shippingData, city: e.target.value })}
+                        required
+                        className="checkout-input"
+                        aria-required="true"
+                      />
+                    </div>
+                    <div className="checkout-field checkout-field-state">
+                      <label htmlFor="state" className="checkout-label">State</label>
+                      <input
+                        id="state"
+                        type="text"
+                        placeholder="State"
+                        value={shippingData.state}
+                        onChange={(e) => setShippingData({ ...shippingData, state: e.target.value })}
+                        required
+                        className="checkout-input"
+                        aria-required="true"
+                      />
+                    </div>
+                    <div className="checkout-field checkout-field-zip">
+                      <label htmlFor="zip" className="checkout-label">ZIP</label>
+                      <input
+                        id="zip"
+                        type="text"
+                        placeholder="ZIP"
+                        value={shippingData.zip}
+                        onChange={(e) => setShippingData({ ...shippingData, zip: e.target.value })}
+                        required
+                        className="checkout-input"
+                        aria-required="true"
+                      />
+                    </div>
                   </div>
 
                   <button type="submit" className="checkout-btn">
@@ -214,26 +249,44 @@ export default function Checkout() {
                     Stripe integration coming in Phase 2. For now, this is a demo checkout - orders will be saved to the database.
                   </p>
 
-                  <input
-                    type="text"
-                    placeholder="Card Number"
-                    defaultValue="4242 4242 4242 4242"
-                    className="checkout-input"
-                  />
+                  <div className="checkout-field">
+                    <label htmlFor="cardNumber" className="checkout-label">Card Number</label>
+                    <input
+                      id="cardNumber"
+                      type="text"
+                      placeholder="Card Number"
+                      defaultValue="4242 4242 4242 4242"
+                      className="checkout-input"
+                      inputMode="numeric"
+                      autoComplete="cc-number"
+                    />
+                  </div>
 
                   <div className="checkout-input-row">
-                    <input
-                      type="text"
-                      placeholder="MM/YY"
-                      defaultValue="12/25"
-                      className="checkout-input"
-                    />
-                    <input
-                      type="text"
-                      placeholder="CVC"
-                      defaultValue="123"
-                      className="checkout-input"
-                    />
+                    <div className="checkout-field">
+                      <label htmlFor="cardExpiry" className="checkout-label">Expiry Date</label>
+                      <input
+                        id="cardExpiry"
+                        type="text"
+                        placeholder="MM/YY"
+                        defaultValue="12/25"
+                        className="checkout-input"
+                        inputMode="numeric"
+                        autoComplete="cc-exp"
+                      />
+                    </div>
+                    <div className="checkout-field">
+                      <label htmlFor="cardCvc" className="checkout-label">CVC</label>
+                      <input
+                        id="cardCvc"
+                        type="text"
+                        placeholder="CVC"
+                        defaultValue="123"
+                        className="checkout-input"
+                        inputMode="numeric"
+                        autoComplete="cc-csc"
+                      />
+                    </div>
                   </div>
 
                   <div className="checkout-btn-group">

@@ -2846,9 +2846,9 @@ svg {
 
 .footer-grid {
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  gap: 48px 32px;
-  margin-bottom: 48px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: clamp(32px, 5vw, 48px) clamp(24px, 3vw, 32px);
+  margin-bottom: clamp(32px, 5vw, 48px);
   align-items: start;
 }
 
@@ -2859,11 +2859,11 @@ svg {
 }
 
 .footer-section-title {
-  font-size: 11px;
+  font-size: clamp(10px, 1.2vw, 12px);
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  margin-bottom: 20px;
+  margin-bottom: clamp(14px, 2vw, 20px);
   color: rgba(255, 255, 255, 0.5);
   line-height: 1.2;
   white-space: nowrap;
@@ -2872,16 +2872,20 @@ svg {
 .footer-links {
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: clamp(12px, 1.5vw, 16px);
 }
 
 .footer-link {
-  font-size: 14px;
+  font-size: clamp(13px, 1.4vw, 15px);
   font-weight: 400;
   color: rgba(255, 255, 255, 0.8);
   text-decoration: none;
   transition: color 0.2s ease, opacity 0.2s ease;
   line-height: 1.5;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  padding: 4px 0;
 }
 
 .footer-link:hover {
@@ -3032,7 +3036,7 @@ svg {
 
 .footer-social {
   display: flex;
-  gap: 16px;
+  gap: clamp(12px, 2vw, 20px);
   align-items: center;
 }
 
@@ -3042,31 +3046,55 @@ svg {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 4px;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 10px;
+  border-radius: 50%;
 }
 
 .footer-social-link:hover {
   color: #ffffff;
   transform: translateY(-1px);
+  background: rgba(255, 255, 255, 0.05);
 }
 
 .footer-social-link svg {
-  width: 20px;
-  height: 20px;
+  width: 24px;
+  height: 24px;
 }
 
-/* Desktop (1024px+) - 6-column layout */
+.footer-newsletter-message {
+  position: absolute;
+  left: 0;
+  bottom: -24px;
+  font-size: clamp(11px, 1.2vw, 13px);
+  white-space: nowrap;
+}
+
+.footer-newsletter-success {
+  color: #22c55e;
+}
+
+.footer-newsletter-error {
+  color: #ef4444;
+}
+
+/* Desktop (1024px+) - 4-column layout */
 @media (min-width: 1024px) {
   .footer-grid {
-    grid-template-columns: repeat(6, 1fr);
-    gap: 48px 24px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 48px 32px;
+  }
+  
+  .footer-section:nth-child(5) {
+    grid-column: span 1;
   }
 }
 
-/* Tablet (600px - 1023px) - 3-column grid */
+/* Tablet (600px - 1023px) - 2-column grid */
 @media (min-width: 600px) and (max-width: 1023px) {
   .footer-grid {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: 32px 24px;
   }
   
@@ -3079,27 +3107,32 @@ svg {
   .footer-bottom {
     flex-direction: row;
     text-align: left;
+    flex-wrap: wrap;
   }
   
   .footer-legal-links {
     order: 2;
   }
+  
+  .footer-link {
+    min-height: 44px;
+  }
 }
 
-/* Mobile (under 600px) - Two column grid */
+/* Mobile (under 600px) - Single column stacked */
 @media (max-width: 599px) {
   .footer {
-    padding: 32px 0 24px 0;
+    padding: clamp(32px, 6vw, 48px) 0 clamp(24px, 4vw, 32px) 0;
   }
   
   .footer-container {
-    padding-left: 20px;
-    padding-right: 20px;
+    padding-left: clamp(16px, 4vw, 24px);
+    padding-right: clamp(16px, 4vw, 24px);
   }
   
   .footer-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 24px 16px;
+    grid-template-columns: 1fr;
+    gap: 28px;
   }
   
   .footer-section {
@@ -3107,24 +3140,27 @@ svg {
   }
   
   .footer-section-title {
-    font-size: 10px;
-    margin-bottom: 12px;
+    font-size: 11px;
+    margin-bottom: 14px;
   }
   
   .footer-links {
-    gap: 10px;
+    gap: 8px;
   }
   
   .footer-link {
-    font-size: 13px;
+    font-size: 14px;
     line-height: 1.4;
+    min-height: 44px;
+    padding: 8px 0;
   }
   
   .footer-newsletter-section {
     flex-direction: column;
     align-items: flex-start;
-    gap: 12px;
+    gap: 16px;
     text-align: left;
+    padding-bottom: 32px;
   }
   
   .footer-newsletter-form {
@@ -3134,8 +3170,9 @@ svg {
   
   .footer-newsletter-input {
     width: 100%;
-    height: 44px;
-    padding: 10px 100px 10px 16px;
+    height: 48px;
+    padding: 12px 110px 12px 16px;
+    font-size: 16px;
   }
   
   .footer-newsletter-btn {
@@ -3144,35 +3181,56 @@ svg {
     top: 50%;
     transform: translateY(-50%);
     width: auto;
-    height: 36px;
-    padding: 8px 16px;
+    height: 40px;
+    padding: 10px 18px;
+    font-size: 13px;
+  }
+  
+  .footer-newsletter-message {
+    bottom: -20px;
   }
   
   .footer-bottom {
     flex-direction: column;
     align-items: center;
     text-align: center;
-    gap: 16px;
+    gap: 20px;
   }
   
   .footer-legal-links {
     order: 2;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .footer-legal-link {
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    padding: 8px 4px;
   }
   
   .footer-copyright {
     order: 3;
     text-align: center;
+    font-size: clamp(11px, 1.2vw, 13px);
   }
   
   .footer-social {
     order: 1;
     justify-content: center;
-    gap: 20px;
+    gap: 16px;
   }
   
   .footer-social-link {
+    min-width: 48px;
     min-height: 48px;
-    padding: 12px 4px;
+    padding: 12px;
+  }
+  
+  .footer-social-link svg {
+    width: 24px;
+    height: 24px;
   }
 }
 
@@ -4949,6 +5007,42 @@ svg {
   color: #999999;
 }
 
+.checkout-field {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(4px, 0.5vw, 6px);
+}
+
+.checkout-label {
+  font-size: clamp(13px, 1.5vw, 14px);
+  font-weight: 500;
+  color: #333333;
+  letter-spacing: 0.01em;
+}
+
+.checkout-input:invalid:not(:placeholder-shown) {
+  border-color: #dc2626;
+}
+
+.checkout-input:valid:not(:placeholder-shown) {
+  border-color: #16a34a;
+}
+
+.checkout-input:invalid:not(:placeholder-shown):focus {
+  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.15);
+}
+
+.checkout-error {
+  font-size: clamp(12px, 1.5vw, 13px);
+  color: #dc2626;
+  margin-top: 4px;
+  display: none;
+}
+
+.checkout-input:invalid:not(:placeholder-shown) + .checkout-error {
+  display: block;
+}
+
 /* Checkout Buttons */
 .checkout-btn {
   padding: clamp(14px, 2vw, 16px) clamp(20px, 3vw, 24px);
@@ -5216,6 +5310,7 @@ svg {
   display: inline-flex;
   align-items: center;
   gap: 12px;
+  min-height: var(--touch-target-min);
   padding: 18px 40px;
   background: #FFFFFF;
   color: #000000;
@@ -5296,8 +5391,20 @@ svg {
 
 .cart-grid {
   display: grid;
-  grid-template-columns: 1fr 300px;
+  grid-template-columns: 1fr clamp(280px, 30vw, 340px);
   gap: clamp(20px, 4vw, 32px);
+}
+
+/* Tablet - 2 column with narrower summary */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .cart-grid {
+    grid-template-columns: 1fr 260px;
+    gap: clamp(16px, 3vw, 24px);
+  }
+  
+  .cart-summary {
+    top: 80px;
+  }
 }
 
 .cart-items {
@@ -5584,28 +5691,45 @@ svg {
   }
   
   .checkout-input-row-3 {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr 1fr;
+  }
+  
+  .checkout-input-row-3 .checkout-field-city {
+    grid-column: 1 / -1;
+  }
+  
+  .checkout-input-row-3 .checkout-field-state,
+  .checkout-input-row-3 .checkout-field-zip {
+    grid-column: span 1;
   }
   
   .cart-item {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .cart-item-content {
+    width: 100%;
+    align-items: center;
   }
   
   .cart-item-image {
-    width: 100%;
-    max-width: 120px;
-    height: auto;
+    width: clamp(80px, 25vw, 120px);
+    height: clamp(80px, 25vw, 120px);
+    max-width: none;
     aspect-ratio: 1;
+    align-self: center;
   }
   
   .cart-item-controls {
     width: 100%;
-    justify-content: flex-start;
+    justify-content: center;
+    flex-wrap: wrap;
   }
   
   .cart-remove-btn {
-    margin-left: auto;
+    margin-left: 8px;
   }
 }
 
@@ -5623,6 +5747,16 @@ svg {
     padding: 10px 12px;
     font-size: 12px;
     min-width: 70px;
+  }
+  
+  .checkout-input-row-3 {
+    grid-template-columns: 1fr;
+  }
+  
+  .checkout-input-row-3 .checkout-field-city,
+  .checkout-input-row-3 .checkout-field-state,
+  .checkout-input-row-3 .checkout-field-zip {
+    grid-column: 1 / -1;
   }
   
   .cart-container {
