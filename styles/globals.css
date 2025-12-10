@@ -5671,23 +5671,21 @@ svg {
   min-height: 100vh;
   padding-top: 0;
   margin-top: 0;
+  overflow: clip;
 }
 
 .lv-product-main {
-  display: grid;
-  grid-template-columns: 58% 42%;
-  gap: 0;
+  display: flex;
   max-width: 1500px;
   margin: 0 auto;
-  align-items: start;
   background: #ffffff;
 }
 
 /* Left Column - Vertical Scrolling Image Gallery */
 .lv-product-gallery {
+  flex: 0 0 58%;
   padding: 0;
   margin: 0;
-  width: 100%;
   background: transparent;
 }
 
@@ -5736,20 +5734,18 @@ svg {
   }
 }
 
-/* Right Column - Fixed Product Info Panel */
+/* Right Column - Sticky Product Info Panel */
 .lv-product-info {
-  position: fixed;
+  flex: 0 0 42%;
+  position: sticky;
   top: 80px;
-  right: 0;
-  width: 42%;
-  max-width: 630px;
-  height: calc(100vh - 80px);
+  align-self: flex-start;
+  max-height: calc(100vh - 80px);
   overflow-y: auto;
   padding: 0 48px 48px 32px;
   background: #ffffff;
   scrollbar-width: none;
   -ms-overflow-style: none;
-  z-index: 10;
 }
 
 .lv-product-info::-webkit-scrollbar {
@@ -5972,17 +5968,19 @@ svg {
 /* Responsive - Tablet */
 @media (max-width: 1024px) {
   .lv-product-main {
-    grid-template-columns: 1fr;
-    gap: 0;
+    flex-direction: column;
+  }
+  
+  .lv-product-gallery {
+    flex: 1 1 auto;
+    margin-top: 0;
   }
   
   .lv-product-info {
+    flex: 1 1 auto;
     position: relative;
     top: 0;
-    right: auto;
-    width: 100%;
-    max-width: 100%;
-    height: auto;
+    max-height: none;
     overflow: visible;
     padding: 32px 32px 48px;
     scrollbar-width: auto;
@@ -5999,10 +5997,6 @@ svg {
   
   .lv-gallery-image-wrapper {
     min-height: 400px;
-  }
-  
-  .lv-product-gallery {
-    margin-top: 0;
   }
   
   .lv-gallery-image-wrapper:first-child .lv-gallery-image {
