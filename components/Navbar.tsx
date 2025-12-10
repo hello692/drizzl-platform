@@ -18,68 +18,55 @@ const MENU_SECTIONS = [
     ]
   },
   {
-    title: 'About',
-    subtitle: 'The Drizzl story',
+    title: 'Discover',
+    subtitle: 'Learn about Drizzl',
     items: [
-      { name: 'Our Story', href: '/our-story' },
+      { name: 'Our Story (Spoiler: It\'s Delicious)', href: '/our-story' },
       { name: 'About Us', href: '/about' },
+      { name: 'Blog & Recipes (Sip, Blend, Repeat)', href: '/blog' },
+      { name: 'Store Locator (Find Us Near You)', href: '/locations' },
       { name: 'Sustainability', href: '/sustainability' },
+      { name: 'Ingredients', href: '/ingredients' },
     ]
   },
   {
-    title: 'Locations',
-    subtitle: 'Find us near you',
-    items: [
-      { name: 'Store Locator', href: '/locations' },
-    ]
-  },
-  {
-    title: 'Wholesale',
+    title: 'Wholesale & Partnerships',
     subtitle: 'Partner with us',
     items: [
       { name: 'Big Ideas? Let\'s Collaborate', href: '/wholesale' },
-      { name: 'Wholesale Opportunities', href: '/wholesale' },
+      { name: 'Wholesale Pricing', href: '/wholesale/pricing' },
       { name: 'Partner Portal', href: '/auth?type=retail' },
-      { name: 'B2B Pricing', href: '/wholesale/pricing' },
     ]
   },
   {
-    title: 'Ingredients',
-    subtitle: 'What goes in every cup',
+    title: 'Membership & Community',
+    subtitle: 'Join the wellness movement',
     items: [
-      { name: 'Our Ingredients', href: '/ingredients' },
-    ]
-  },
-  {
-    title: 'Membership',
-    subtitle: 'Join the wellness club',
-    items: [
-      { name: 'Join the Club', href: '/membership' },
-      { name: 'Refer a Friend', href: '/refer' },
-    ]
-  },
-];
-
-const FOOTER_LINKS = [
-  {
-    title: 'Join the Squad',
-    items: [
-      { name: 'Careers (Blend Your Talents Here)', href: '/careers' },
-      { name: 'Ambassadors & Affiliates', href: '/ambassadors' },
+      { name: 'Join the Wellness Club', href: '/membership' },
       { name: 'Referral Program', href: '/refer' },
+      { name: 'Ambassadors & Affiliates (Spread the Crave)', href: '/ambassadors' },
       { name: 'Student Perks', href: '/student-discount' },
     ]
   },
   {
+    title: 'Careers',
+    subtitle: 'Join our team',
+    items: [
+      { name: 'Careers (Blend Your Talents Here)', href: '/careers' },
+    ]
+  },
+  {
     title: 'Support',
+    subtitle: 'We\'re here to help',
     items: [
       { name: 'FAQs (We\'ve Got Answers)', href: '/faq' },
       { name: 'Contact Us (We\'re Here to Help)', href: '/contact' },
-      { name: 'Shipping & Returns', href: '/shipping' },
+      { name: 'Shipping & Returns (No Stress, Just Smoothies)', href: '/shipping' },
     ]
   },
   {
     title: 'The Fine Print',
+    subtitle: 'Legal stuff',
     items: [
       { name: 'Privacy Policy', href: '/privacy' },
       { name: 'Terms of Service', href: '/terms' },
@@ -302,7 +289,7 @@ export default function Navbar() {
 
         <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
           <Link 
-            href="/auth?type=retail" 
+            href="/wholesale" 
             className="nav-link wholesale-link"
             style={{
               color: textColor,
@@ -337,10 +324,8 @@ export default function Navbar() {
         </div>
       </header>
 
-      {/* Spacer for fixed header */}
       <div style={{ height: '70px' }} />
 
-      {/* Full Screen Menu Overlay */}
       <div 
         style={{
           position: 'fixed',
@@ -475,114 +460,9 @@ export default function Navbar() {
                 )}
               </div>
             ))}
-            
-            {/* Additional menu sections */}
-            {FOOTER_LINKS.map((section, index) => (
-              <div 
-                key={section.title}
-                style={{
-                  borderBottom: '1px solid rgba(255,255,255,0.1)',
-                  opacity: menuOpen ? 1 : 0,
-                  transform: menuOpen ? 'translateY(0)' : 'translateY(20px)',
-                  transition: `opacity 0.4s ease ${0.1 + (MENU_SECTIONS.length + index) * 0.05}s, transform 0.4s ease ${0.1 + (MENU_SECTIONS.length + index) * 0.05}s`,
-                }}
-              >
-                <button
-                  className="menu-item-title"
-                  onClick={() => section.items.length > 0 ? toggleExpandedMenu(section.title) : navigateTo(section.items[0]?.href || '/')}
-                  style={{
-                    width: '100%',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                    padding: '28px 0',
-                    background: 'none',
-                    border: 'none',
-                    cursor: 'pointer',
-                    textAlign: 'left',
-                  }}
-                >
-                  <div>
-                    <span style={{
-                      display: 'block',
-                      fontSize: '1.75rem',
-                      fontWeight: 300,
-                      color: '#ffffff',
-                      letterSpacing: '-0.02em',
-                    }}>
-                      {section.title}
-                    </span>
-                  </div>
-                  {section.items.length > 0 && (
-                    <svg 
-                      width="16" 
-                      height="16" 
-                      viewBox="0 0 16 16" 
-                      fill="none"
-                      style={{
-                        transform: expandedMenu === section.title ? 'rotate(45deg)' : 'rotate(0deg)',
-                        transition: 'transform 0.3s ease',
-                      }}
-                    >
-                      <path d="M8 3v10M3 8h10" stroke="#86868b" strokeWidth="1.5" strokeLinecap="round"/>
-                    </svg>
-                  )}
-                </button>
-                
-                {section.items.length > 0 && (
-                  <div style={{
-                    maxHeight: expandedMenu === section.title ? '400px' : '0',
-                    overflow: 'hidden',
-                    transition: 'max-height 0.4s ease',
-                  }}>
-                    <div style={{ paddingBottom: '20px' }}>
-                      {section.items.map((item, subIdx) => (
-                        <button
-                          key={item.name}
-                          className="submenu-item"
-                          onClick={() => navigateTo(item.href)}
-                          style={{
-                            display: 'block',
-                            width: '100%',
-                            textAlign: 'left',
-                            padding: '12px 0 12px 20px',
-                            background: 'none',
-                            border: 'none',
-                            color: 'rgba(255,255,255,0.7)',
-                            fontSize: '1rem',
-                            cursor: 'pointer',
-                            opacity: expandedMenu === section.title ? 1 : 0,
-                            transform: expandedMenu === section.title ? 'translateX(0)' : 'translateX(-10px)',
-                            transition: `opacity 0.3s ease ${subIdx * 0.03}s, transform 0.3s ease ${subIdx * 0.03}s`,
-                          }}
-                        >
-                          {item.name}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-                )}
-              </div>
-            ))}
           </nav>
           
           <div style={{ marginTop: '40px', paddingTop: '20px', borderTop: '1px solid rgba(255,255,255,0.1)' }}>
-            <button
-              onClick={() => navigateTo('/offers')}
-              style={{
-                display: 'block',
-                width: '100%',
-                textAlign: 'left',
-                padding: '12px 0',
-                background: 'none',
-                border: 'none',
-                color: 'rgba(255,255,255,0.6)',
-                fontSize: '0.9rem',
-                cursor: 'pointer',
-              }}
-            >
-              Get $25 Off Your First Order
-            </button>
             <button
               onClick={() => navigateTo('/auth')}
               style={{

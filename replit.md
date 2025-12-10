@@ -75,6 +75,14 @@ Drizzl Wellness is a full-stack e-commerce platform for a smoothie and wellness 
   - White text with opacity variants (rgba(255,255,255,0.6))
   - Minimal borders (rgba(255,255,255,0.06))
   - Inter font, light/regular weights
+- **Navigation Sync (December 10, 2025)**: Navbar and Footer now share identical section structure:
+  - **Shop**: Smoothies, Protein Power-Ups, Fan Favorites, Fresh Drops, Smoothie Kits, Gifts
+  - **Discover**: Our Story, About Us, Blog & Recipes, Store Locator, Sustainability, Ingredients
+  - **Wholesale & Partnerships**: Big Ideas collaboration, Wholesale Pricing, Partner Portal
+  - **Membership & Community**: Wellness Club, Referral Program, Ambassadors, Student Perks
+  - **Careers**: Join the team
+  - **Support**: FAQs, Contact Us, Shipping & Returns
+  - **The Fine Print**: Privacy Policy, Terms of Service
 - **Pages Fixed/Created**:
   - `/about` - Rebuilt to match dark design system with identical header
   - `/sustainability` - "Coming Soon" page with dark design
@@ -85,4 +93,13 @@ Drizzl Wellness is a full-stack e-commerce platform for a smoothie and wellness 
   - `/membership` - Wellness club with monthly/annual plans, FAQ
   - `/ambassadors` - Ambassador/affiliate program with application form
   - `/store-locator` - Redirects to /locations
+  - `/our-story` - Rebuilt with dark design, story content
+  - `/blog` - Blog grid with dark design, article cards
+  - `/careers` - Open positions listing with values section
+  - `/contact` - Contact form with dark design
+  - `/faq` - Accordion FAQ with categories
+  - `/privacy` - Privacy policy with dark design
+  - `/refer` - Referral program with 3-step process
+  - `/shipping` - Shipping options and returns policy
+  - `/student-discount` - Student perks with verification
 - **Navigation**: ONE header, ONE footer across entire site - no variations

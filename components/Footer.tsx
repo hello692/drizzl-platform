@@ -35,11 +35,20 @@ export default function Footer() {
               <Link href="/our-story" className="footer-link">
                 Our Story (Spoiler: It's Delicious)
               </Link>
+              <Link href="/about" className="footer-link">
+                About Us
+              </Link>
               <Link href="/blog" className="footer-link">
                 Blog & Recipes (Sip, Blend, Repeat)
               </Link>
-              <Link href="/store-locator" className="footer-link">
+              <Link href="/locations" className="footer-link">
                 Store Locator (Find Us Near You)
+              </Link>
+              <Link href="/sustainability" className="footer-link">
+                Sustainability
+              </Link>
+              <Link href="/ingredients" className="footer-link">
+                Ingredients
               </Link>
             </div>
           </div>
@@ -47,35 +56,41 @@ export default function Footer() {
           <div className="footer-section">
             <h4 className="footer-section-title">Wholesale & Partnerships</h4>
             <div className="footer-links">
-              <Link href="/wholesale/apply" className="footer-link">
+              <Link href="/wholesale" className="footer-link">
                 Big Ideas? Let's Collaborate
               </Link>
               <Link href="/wholesale/pricing" className="footer-link">
-                Wholesale Opportunities
+                Wholesale Pricing
               </Link>
               <Link href="/auth?type=retail" className="footer-link">
                 Partner Portal
-              </Link>
-              <Link href="/wholesale/contact" className="footer-link">
-                B2B Pricing
               </Link>
             </div>
           </div>
 
           <div className="footer-section">
-            <h4 className="footer-section-title">Join the Squad</h4>
+            <h4 className="footer-section-title">Membership & Community</h4>
             <div className="footer-links">
-              <Link href="/careers" className="footer-link">
-                Careers (Blend Your Talents Here)
-              </Link>
-              <Link href="/ambassadors" className="footer-link">
-                Ambassadors & Affiliates (Spread the Crave)
+              <Link href="/membership" className="footer-link">
+                Join the Wellness Club
               </Link>
               <Link href="/refer" className="footer-link">
                 Referral Program
               </Link>
+              <Link href="/ambassadors" className="footer-link">
+                Ambassadors & Affiliates (Spread the Crave)
+              </Link>
               <Link href="/student-discount" className="footer-link">
                 Student Perks
+              </Link>
+            </div>
+          </div>
+
+          <div className="footer-section">
+            <h4 className="footer-section-title">Careers</h4>
+            <div className="footer-links">
+              <Link href="/careers" className="footer-link">
+                Careers (Blend Your Talents Here)
               </Link>
             </div>
           </div>
@@ -132,13 +147,13 @@ export default function Footer() {
             © 2025 Drizzl Wellness. All rights reserved.
           </p>
           <div className="footer-social">
-            <Link href="#" className="footer-social-link">
+            <Link href="https://facebook.com/drizzlwellness" className="footer-social-link" target="_blank">
               Facebook
             </Link>
-            <Link href="#" className="footer-social-link">
+            <Link href="https://instagram.com/drizzlwellness" className="footer-social-link" target="_blank">
               Instagram
             </Link>
-            <Link href="#" className="footer-social-link">
+            <Link href="https://twitter.com/drizzlwellness" className="footer-social-link" target="_blank">
               Twitter
             </Link>
           </div>
