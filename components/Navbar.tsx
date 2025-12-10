@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { useRouter } from 'next/router';
+import SearchModal from './SearchModal';
 
 const MENU_SECTIONS = [
   {
@@ -76,11 +77,23 @@ const MENU_SECTIONS = [
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
   const [expandedMenu, setExpandedMenu] = useState<string | null>(null);
   const [isDarkBg, setIsDarkBg] = useState(true);
   const [scrolled, setScrolled] = useState(false);
   const headerRef = useRef<HTMLElement>(null);
   const router = useRouter();
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault();
+        setSearchOpen(true);
+      }
+    };
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, []);
 
   const toggleExpandedMenu = (title: string) => {
     setExpandedMenu(expandedMenu === title ? null : title);
@@ -262,7 +275,7 @@ export default function Navbar() {
           </button>
           <button 
             className="header-btn"
-            onClick={() => router.push('/products')}
+            onClick={() => setSearchOpen(true)}
             style={{
               display: 'inline-flex',
               alignItems: 'center',
@@ -543,6 +556,8 @@ export default function Navbar() {
           </div>
         </div>
       </div>
+
+      <SearchModal isOpen={searchOpen} onClose={() => setSearchOpen(false)} />
     </>
   );
 }
