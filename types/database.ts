@@ -13,29 +13,28 @@ export interface Database {
         Row: {
           id: string;
           name: string;
+          slug: string;
           description: string | null;
           category: string;
-          price_d2c: number;
-          price_b2b_tier1: number;
-          price_b2b_tier2: number;
-          price_b2b_tier3: number;
-          cost: number;
-          sku: string;
-          barcode: string | null;
-          image_url: string | null;
+          price_cents: number;
+          wholesale_price_cents: number | null;
+          hero_image_url: string | null;
           is_active: boolean;
-          is_subscription_eligible: boolean;
           stock_quantity: number;
+          product_type: string;
+          sku: string | null;
+          barcode: string | null;
+          price_b2b_tier1_cents: number | null;
+          price_b2b_tier2_cents: number | null;
+          price_b2b_tier3_cents: number | null;
+          cost_cents: number | null;
+          is_subscription_eligible: boolean;
           low_stock_threshold: number;
           created_at: string;
           updated_at: string;
         };
-        Insert: Omit<Database['public']['Tables']['products']['Row'], 'id' | 'created_at' | 'updated_at'> & {
-          id?: string;
-          created_at?: string;
-          updated_at?: string;
-        };
-        Update: Partial<Database['public']['Tables']['products']['Insert']>;
+        Insert: Partial<Database['public']['Tables']['products']['Row']>;
+        Update: Partial<Database['public']['Tables']['products']['Row']>;
       };
       customers: {
         Row: {
@@ -52,14 +51,8 @@ export interface Database {
           created_at: string;
           updated_at: string;
         };
-        Insert: Omit<Database['public']['Tables']['customers']['Row'], 'id' | 'created_at' | 'updated_at' | 'loyalty_points' | 'loyalty_tier'> & {
-          id?: string;
-          created_at?: string;
-          updated_at?: string;
-          loyalty_points?: number;
-          loyalty_tier?: 'bronze' | 'silver' | 'gold' | 'platinum';
-        };
-        Update: Partial<Database['public']['Tables']['customers']['Insert']>;
+        Insert: Partial<Database['public']['Tables']['customers']['Row']>;
+        Update: Partial<Database['public']['Tables']['customers']['Row']>;
       };
       customer_addresses: {
         Row: {
@@ -77,8 +70,8 @@ export interface Database {
           created_at: string;
           updated_at: string;
         };
-        Insert: Omit<Database['public']['Tables']['customer_addresses']['Row'], 'id' | 'created_at' | 'updated_at'>;
-        Update: Partial<Database['public']['Tables']['customer_addresses']['Insert']>;
+        Insert: Partial<Database['public']['Tables']['customer_addresses']['Row']>;
+        Update: Partial<Database['public']['Tables']['customer_addresses']['Row']>;
       };
       customer_payment_methods: {
         Row: {
@@ -93,8 +86,8 @@ export interface Database {
           stripe_payment_method_id: string | null;
           created_at: string;
         };
-        Insert: Omit<Database['public']['Tables']['customer_payment_methods']['Row'], 'id' | 'created_at'>;
-        Update: Partial<Database['public']['Tables']['customer_payment_methods']['Insert']>;
+        Insert: Partial<Database['public']['Tables']['customer_payment_methods']['Row']>;
+        Update: Partial<Database['public']['Tables']['customer_payment_methods']['Row']>;
       };
       partners: {
         Row: {
@@ -116,8 +109,8 @@ export interface Database {
           created_at: string;
           updated_at: string;
         };
-        Insert: Omit<Database['public']['Tables']['partners']['Row'], 'id' | 'created_at' | 'updated_at' | 'outstanding_balance'>;
-        Update: Partial<Database['public']['Tables']['partners']['Insert']>;
+        Insert: Partial<Database['public']['Tables']['partners']['Row']>;
+        Update: Partial<Database['public']['Tables']['partners']['Row']>;
       };
       partner_addresses: {
         Row: {
@@ -133,8 +126,8 @@ export interface Database {
           is_default: boolean;
           created_at: string;
         };
-        Insert: Omit<Database['public']['Tables']['partner_addresses']['Row'], 'id' | 'created_at'>;
-        Update: Partial<Database['public']['Tables']['partner_addresses']['Insert']>;
+        Insert: Partial<Database['public']['Tables']['partner_addresses']['Row']>;
+        Update: Partial<Database['public']['Tables']['partner_addresses']['Row']>;
       };
       d2c_orders: {
         Row: {
@@ -155,8 +148,8 @@ export interface Database {
           created_at: string;
           updated_at: string;
         };
-        Insert: Omit<Database['public']['Tables']['d2c_orders']['Row'], 'id' | 'created_at' | 'updated_at'>;
-        Update: Partial<Database['public']['Tables']['d2c_orders']['Insert']>;
+        Insert: Partial<Database['public']['Tables']['d2c_orders']['Row']>;
+        Update: Partial<Database['public']['Tables']['d2c_orders']['Row']>;
       };
       d2c_order_items: {
         Row: {
@@ -168,8 +161,8 @@ export interface Database {
           total_price: number;
           created_at: string;
         };
-        Insert: Omit<Database['public']['Tables']['d2c_order_items']['Row'], 'id' | 'created_at'>;
-        Update: Partial<Database['public']['Tables']['d2c_order_items']['Insert']>;
+        Insert: Partial<Database['public']['Tables']['d2c_order_items']['Row']>;
+        Update: Partial<Database['public']['Tables']['d2c_order_items']['Row']>;
       };
       subscriptions: {
         Row: {
@@ -186,8 +179,8 @@ export interface Database {
           created_at: string;
           updated_at: string;
         };
-        Insert: Omit<Database['public']['Tables']['subscriptions']['Row'], 'id' | 'created_at' | 'updated_at'>;
-        Update: Partial<Database['public']['Tables']['subscriptions']['Insert']>;
+        Insert: Partial<Database['public']['Tables']['subscriptions']['Row']>;
+        Update: Partial<Database['public']['Tables']['subscriptions']['Row']>;
       };
       b2b_orders: {
         Row: {
@@ -206,8 +199,8 @@ export interface Database {
           created_at: string;
           updated_at: string;
         };
-        Insert: Omit<Database['public']['Tables']['b2b_orders']['Row'], 'id' | 'created_at' | 'updated_at'>;
-        Update: Partial<Database['public']['Tables']['b2b_orders']['Insert']>;
+        Insert: Partial<Database['public']['Tables']['b2b_orders']['Row']>;
+        Update: Partial<Database['public']['Tables']['b2b_orders']['Row']>;
       };
       b2b_order_items: {
         Row: {
@@ -219,8 +212,8 @@ export interface Database {
           total_price: number;
           created_at: string;
         };
-        Insert: Omit<Database['public']['Tables']['b2b_order_items']['Row'], 'id' | 'created_at'>;
-        Update: Partial<Database['public']['Tables']['b2b_order_items']['Insert']>;
+        Insert: Partial<Database['public']['Tables']['b2b_order_items']['Row']>;
+        Update: Partial<Database['public']['Tables']['b2b_order_items']['Row']>;
       };
       invoices: {
         Row: {
@@ -239,8 +232,8 @@ export interface Database {
           created_at: string;
           updated_at: string;
         };
-        Insert: Omit<Database['public']['Tables']['invoices']['Row'], 'id' | 'created_at' | 'updated_at'>;
-        Update: Partial<Database['public']['Tables']['invoices']['Insert']>;
+        Insert: Partial<Database['public']['Tables']['invoices']['Row']>;
+        Update: Partial<Database['public']['Tables']['invoices']['Row']>;
       };
       loyalty_transactions: {
         Row: {
@@ -252,8 +245,8 @@ export interface Database {
           reference_id: string | null;
           created_at: string;
         };
-        Insert: Omit<Database['public']['Tables']['loyalty_transactions']['Row'], 'id' | 'created_at'>;
-        Update: Partial<Database['public']['Tables']['loyalty_transactions']['Insert']>;
+        Insert: Partial<Database['public']['Tables']['loyalty_transactions']['Row']>;
+        Update: Partial<Database['public']['Tables']['loyalty_transactions']['Row']>;
       };
       admin_users: {
         Row: {
@@ -267,8 +260,8 @@ export interface Database {
           created_at: string;
           updated_at: string;
         };
-        Insert: Omit<Database['public']['Tables']['admin_users']['Row'], 'id' | 'created_at' | 'updated_at'>;
-        Update: Partial<Database['public']['Tables']['admin_users']['Insert']>;
+        Insert: Partial<Database['public']['Tables']['admin_users']['Row']>;
+        Update: Partial<Database['public']['Tables']['admin_users']['Row']>;
       };
     };
     Views: {};
