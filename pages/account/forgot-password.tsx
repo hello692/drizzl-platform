@@ -9,12 +9,12 @@ const CARD_BG = 'rgba(255, 255, 255, 0.02)';
 const CARD_BORDER = 'rgba(255, 255, 255, 0.08)';
 
 function generateResetToken(): string {
-  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-  let token = '';
-  for (let i = 0; i < 64; i++) {
-    token += chars.charAt(Math.floor(Math.random() * chars.length));
+  if (typeof crypto !== 'undefined' && crypto.randomUUID) {
+    return crypto.randomUUID() + '-' + crypto.randomUUID();
   }
-  return token;
+  const array = new Uint8Array(32);
+  crypto.getRandomValues(array);
+  return Array.from(array, byte => byte.toString(16).padStart(2, '0')).join('');
 }
 
 export default function ForgotPassword() {
@@ -42,10 +42,10 @@ export default function ForgotPassword() {
         expiresAt.setHours(expiresAt.getHours() + 1);
 
         await supabase.from('password_reset_tokens').insert({
-          customer_id: customer.id,
+          email: customer.email,
           token,
+          user_type: 'customer',
           expires_at: expiresAt.toISOString(),
-          used: false,
         });
       }
 

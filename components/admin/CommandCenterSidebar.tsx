@@ -18,6 +18,7 @@ import {
   X,
   PanelLeftClose,
   PanelLeft,
+  Users,
 } from 'lucide-react';
 
 interface CommandCenterSidebarProps {
@@ -31,6 +32,7 @@ const NEON_GREEN = '#00FF85';
 
 const navItems = [
   { label: 'Dashboard', href: '/admin/command-center', icon: LayoutDashboard },
+  { label: 'Leads', href: '/admin/command-center/leads', icon: Users },
   { label: 'Finance', href: '/admin/command-center/finance', icon: DollarSign },
   { label: 'Production', href: '/admin/command-center/production', icon: Factory },
   { label: 'Supply Chain', href: '/admin/command-center/supply-chain', icon: Package },

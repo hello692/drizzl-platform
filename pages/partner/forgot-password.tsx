@@ -38,13 +38,11 @@ export default function ForgotPassword() {
         await supabase
           .from('password_reset_tokens')
           .insert({
-            partner_id: partner.id,
+            email: partner.email,
             token,
+            user_type: 'partner',
             expires_at: expiresAt.toISOString(),
-            used: false,
           });
-
-        console.log('Reset token created:', token);
       }
 
       setSuccess(true);
