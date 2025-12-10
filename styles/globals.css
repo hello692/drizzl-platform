@@ -2809,45 +2809,47 @@ svg {
 
 .footer-grid {
   display: grid;
-  grid-template-columns: repeat(6, minmax(0, 1fr));
-  gap: clamp(32px, 5vw, 60px);
-  margin-bottom: clamp(40px, 6vw, 60px);
+  grid-template-columns: repeat(6, 1fr);
+  gap: 48px 32px;
+  margin-bottom: 48px;
+  align-items: start;
 }
 
 .footer-section {
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
 }
 
 .footer-section-title {
   font-size: 11px;
-  font-weight: 500;
+  font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
-  margin-bottom: clamp(16px, 2vw, 24px);
+  letter-spacing: 0.08em;
+  margin-bottom: 20px;
   color: rgba(255, 255, 255, 0.5);
+  line-height: 1.2;
+  white-space: nowrap;
 }
 
 .footer-links {
   display: flex;
   flex-direction: column;
-  gap: clamp(8px, 1.5vw, 16px);
+  gap: 14px;
 }
 
 .footer-link {
-  font-size: 13px;
-  color: rgba(255, 255, 255, 0.7);
+  font-size: 14px;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.8);
   text-decoration: none;
-  transition: color 0.3s ease;
-  min-height: 28px;
-  display: flex;
-  align-items: center;
-  padding: 4px 0;
+  transition: color 0.2s ease, opacity 0.2s ease;
+  line-height: 1.5;
 }
 
 .footer-link:hover {
-  color: #fff;
-  opacity: 1;
+  color: #ffffff;
+  opacity: 0.7;
 }
 
 .footer-newsletter-section {
@@ -2939,8 +2941,8 @@ svg {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  gap: clamp(16px, 3vw, 24px);
-  padding-top: clamp(16px, 3vw, 24px);
+  gap: 24px;
+  padding-top: 24px;
   flex-wrap: wrap;
   position: relative;
 }
@@ -2957,49 +2959,63 @@ svg {
 }
 
 .footer-copyright {
-  font-size: clamp(11px, 2vw, 13px);
+  font-size: 13px;
   color: rgba(255, 255, 255, 0.5);
   letter-spacing: -0.2px;
 }
 
+.footer-legal-links {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.footer-legal-link {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.5);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.footer-legal-link:hover {
+  color: #ffffff;
+}
+
+.footer-legal-separator {
+  color: rgba(255, 255, 255, 0.3);
+  font-size: 13px;
+}
+
 .footer-social {
   display: flex;
-  gap: clamp(16px, 4vw, 24px);
-  flex-wrap: wrap;
-  justify-content: flex-end;
+  gap: 16px;
+  align-items: center;
 }
 
 .footer-social-link {
-  font-size: clamp(11px, 2vw, 13px);
   color: rgba(255, 255, 255, 0.5);
-  transition: color 0.3s ease;
-  min-height: 44px;
+  transition: color 0.2s ease, transform 0.2s ease;
   display: flex;
   align-items: center;
-  padding: 8px 0;
+  justify-content: center;
+  padding: 4px;
 }
 
 .footer-social-link:hover {
-  color: #fff;
-  opacity: 1;
+  color: #ffffff;
+  transform: translateY(-1px);
 }
 
-/* Desktop (1024px+) - Multi-column layout */
+.footer-social-link svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* Desktop (1024px+) - 6-column layout */
 @media (min-width: 1024px) {
   .footer-grid {
-    grid-template-columns: repeat(6, minmax(0, 1fr));
-    gap: 16px;
-  }
-  
-  .footer-link {
-    min-height: auto;
-    padding: 2px 0;
-    font-size: 12px;
-  }
-  
-  .footer-social-link {
-    min-height: auto;
-    padding: 2px 0;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 48px 24px;
   }
 }
 
@@ -3007,21 +3023,7 @@ svg {
 @media (min-width: 600px) and (max-width: 1023px) {
   .footer-grid {
     grid-template-columns: repeat(3, 1fr);
-    gap: 20px 24px;
-  }
-  
-  .footer-section:last-child {
-    grid-column: span 1;
-  }
-  
-  .footer-link {
-    min-height: 36px;
-    padding: 6px 0;
-  }
-  
-  .footer-social-link {
-    min-height: 36px;
-    padding: 6px 0;
+    gap: 32px 24px;
   }
   
   .footer-newsletter-form {
@@ -3034,22 +3036,26 @@ svg {
     flex-direction: row;
     text-align: left;
   }
+  
+  .footer-legal-links {
+    order: 2;
+  }
 }
 
 /* Mobile (under 600px) - Two column grid */
 @media (max-width: 599px) {
   .footer {
-    padding: clamp(20px, 4vw, 32px) 0 clamp(16px, 3vw, 24px) 0;
+    padding: 32px 0 24px 0;
   }
   
   .footer-container {
-    padding-left: clamp(16px, 4vw, 24px);
-    padding-right: clamp(16px, 4vw, 24px);
+    padding-left: 20px;
+    padding-right: 20px;
   }
   
   .footer-grid {
     grid-template-columns: repeat(2, 1fr);
-    gap: 16px 20px;
+    gap: 24px 16px;
   }
   
   .footer-section {
@@ -3058,19 +3064,16 @@ svg {
   
   .footer-section-title {
     font-size: 10px;
-    margin-bottom: 8px;
+    margin-bottom: 12px;
   }
   
   .footer-links {
-    gap: 2px;
+    gap: 10px;
   }
   
   .footer-link {
     font-size: 13px;
-    min-height: 32px;
-    padding: 6px 0;
-    display: flex;
-    align-items: center;
+    line-height: 1.4;
   }
   
   .footer-newsletter-section {
@@ -3108,8 +3111,12 @@ svg {
     gap: 16px;
   }
   
-  .footer-copyright {
+  .footer-legal-links {
     order: 2;
+  }
+  
+  .footer-copyright {
+    order: 3;
     text-align: center;
   }
   
