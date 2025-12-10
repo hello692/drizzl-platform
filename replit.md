@@ -124,3 +124,9 @@ Drizzl Wellness is a full-stack e-commerce platform for a smoothie and wellness 
   - **Design System**: Black background (#000000), neon green accent (#00FF85), glassmorphism cards (rgba(255,255,255,0.03) bg, rgba(255,255,255,0.08) border, 16px radius)
   - **Mock Data Services**: `lib/integrations/` contains dashboardService.ts, mercuryService.ts, b2bService.ts, mockData.ts for demo mode
   - **Demo Mode**: All admin tabs use deterministic mock data, ready for real API integration later
+- **Admin Command Center Phase 2 (December 10, 2025)**: Operations management expansion:
+  - `/admin/production` - Factory Operations with 8 sections: Production Overview (5 KPIs), Active Production Lines (4 lines with status), Production Schedule (today's batches), Quality Control Dashboard (recent tests + defect chart), Equipment Status (6 machines), Shift Management (3 shifts), Production Analytics (efficiency charts), Environmental Monitoring
+  - `/admin/supply-chain` - Inventory & Procurement with 8 sections: Inventory Overview (5 KPIs), Ingredient Inventory (12 items with reorder alerts), Packaging Inventory (8 items), Active Purchase Orders (4 orders), Supplier Management (5 suppliers with ratings), Lot Tracking & Traceability (recent lots), Procurement Analytics (charts), Reorder Alerts (critical items)
+  - `/admin/tasks` - Operations Workflow with 6 sections: Task Overview (5 KPIs), Kanban Board (4 columns: To Do, In Progress, Review, Done), Team Workload (5 team members), Upcoming Deadlines (5 tasks), Task Categories (breakdown), Recent Activity Timeline
+  - **Admin Navigation Cleanup**: Streamlined from 11+ tabs to 7 core tabs (Command Center, Finance, B2B Pipeline, Production, Supply Chain, Tasks, AI Assistant)
+  - **Deleted Old Pages**: Removed 13 unused admin pages (content, crm, inventory, orders, partners, products, settings, social-media, analytics, factory, leads, marketing, ai-assistant placeholder)
