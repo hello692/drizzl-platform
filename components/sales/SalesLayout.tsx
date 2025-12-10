@@ -3,56 +3,38 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import {
-  LayoutDashboard,
-  ShoppingCart,
-  FileText,
+  Home,
+  Target,
+  Phone,
   DollarSign,
   User,
-  HelpCircle,
   ChevronDown,
   LogOut,
   Menu,
   X,
-  BarChart3,
-  Palette,
-  CreditCard,
-  PlayCircle,
-  Plug,
-  MapPin,
   Bell,
   MessageSquare,
   PanelLeftClose,
   PanelLeft,
 } from 'lucide-react';
 
-interface PartnerLayoutProps {
+interface SalesLayoutProps {
   children: React.ReactNode;
   title?: string;
-  partnerName?: string;
+  repName?: string;
 }
 
 const NEON_GREEN = '#00FF85';
 
 const navItems = [
-  { label: 'Dashboard', href: '/partner/dashboard', icon: LayoutDashboard },
-  { label: 'Orders', href: '/partner/orders', icon: ShoppingCart },
-  { label: 'Invoices', href: '/partner/invoices', icon: FileText },
-  { label: 'Pricing', href: '/partner/pricing', icon: DollarSign },
-  { label: 'Analytics', href: '/partner/analytics', icon: BarChart3 },
-  { label: 'Marketing Hub', href: '/partner/marketing-hub', icon: Palette },
-  { label: 'Financing', href: '/partner/financing', icon: CreditCard },
-  { label: 'How-To Guide', href: '/partner/how-to-guide', icon: PlayCircle },
-  { label: 'Integrations', href: '/partner/integrations', icon: Plug },
-  { label: 'Track Orders', href: '/partner/track-orders', icon: MapPin },
+  { label: 'Dashboard', href: '/sales/dashboard', icon: Home },
+  { label: 'Leads', href: '/sales/leads', icon: Target },
+  { label: 'Activity', href: '/sales/activity', icon: Phone },
+  { label: 'Commission', href: '/sales/commission', icon: DollarSign },
+  { label: 'Profile', href: '/sales/profile', icon: User },
 ];
 
-const bottomNavItems = [
-  { label: 'Account', href: '/partner/account', icon: User },
-  { label: 'Messages', href: '/partner/messages', icon: MessageSquare },
-  { label: 'Support', href: '/partner/support', icon: HelpCircle },
-];
-
-export default function PartnerLayout({ children, title, partnerName = 'Partner' }: PartnerLayoutProps) {
+export default function SalesLayout({ children, title, repName = 'Sales Rep' }: SalesLayoutProps) {
   const router = useRouter();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [userMenuOpen, setUserMenuOpen] = useState(false);
@@ -69,7 +51,7 @@ export default function PartnerLayout({ children, title, partnerName = 'Partner'
   }, []);
 
   useEffect(() => {
-    const savedState = localStorage.getItem('partnerSidebarCollapsed');
+    const savedState = localStorage.getItem('salesSidebarCollapsed');
     if (savedState !== null) {
       setSidebarCollapsed(JSON.parse(savedState));
     }
@@ -78,19 +60,19 @@ export default function PartnerLayout({ children, title, partnerName = 'Partner'
   const toggleCollapse = () => {
     const newState = !sidebarCollapsed;
     setSidebarCollapsed(newState);
-    localStorage.setItem('partnerSidebarCollapsed', JSON.stringify(newState));
+    localStorage.setItem('salesSidebarCollapsed', JSON.stringify(newState));
   };
 
   const isActive = (href: string) => {
-    if (href === '/partner/dashboard') {
-      return router.pathname === '/partner/dashboard' || router.pathname === '/partner';
+    if (href === '/sales/dashboard') {
+      return router.pathname === '/sales/dashboard' || router.pathname === '/sales';
     }
     return router.pathname.startsWith(href);
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('partnerSession');
-    router.push('/partner/login');
+    localStorage.removeItem('salesSession');
+    router.push('/sales/login');
   };
 
   const sidebarWidth = isMobile ? 0 : (sidebarCollapsed ? 64 : 240);
@@ -98,139 +80,100 @@ export default function PartnerLayout({ children, title, partnerName = 'Partner'
   return (
     <>
       <Head>
-        <title>{title ? `${title} | DRIZZL Partner Portal` : 'DRIZZL Partner Portal'}</title>
+        <title>{title ? `${title} | DRIZZL Sales Portal` : 'DRIZZL Sales Portal'}</title>
       </Head>
 
       <div style={styles.container}>
-        <button
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          style={styles.mobileMenuButton}
-          className="mobile-menu-btn"
-          aria-label="Toggle menu"
-        >
-          {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
-
-        {mobileMenuOpen && isMobile && (
-          <div style={styles.overlay} onClick={() => setMobileMenuOpen(false)} />
-        )}
-
-        <aside
-          style={{
-            ...styles.sidebar,
-            width: isMobile ? 240 : sidebarWidth,
-            transform: isMobile ? (mobileMenuOpen ? 'translateX(0)' : 'translateX(-100%)') : 'translateX(0)',
-          }}
-        >
-          <div style={{
-            ...styles.logoContainer,
-            height: 80,
-            padding: sidebarCollapsed && !isMobile ? '0 12px' : '0 20px',
-            justifyContent: sidebarCollapsed && !isMobile ? 'center' : 'flex-start',
-          }}>
-            {(!sidebarCollapsed || isMobile) && (
-              <Link href="/partner/dashboard" style={styles.logoLink}>
-                <img
-                  src="/logo.gif"
-                  alt="DRIZZL"
-                  style={styles.logo}
-                />
-              </Link>
+        {!isMobile && (
+          <>
+            {mobileMenuOpen && (
+              <div style={styles.overlay} onClick={() => setMobileMenuOpen(false)} />
             )}
-          </div>
 
-          <nav style={styles.nav}>
-            <div style={styles.navSection}>
-              {navItems.map((item) => {
-                const active = isActive(item.href);
-                const Icon = item.icon;
-                return (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    className="partner-nav-link"
-                    style={{
-                      ...styles.navLink,
-                      ...(active ? styles.navLinkActive : {}),
-                      height: 48,
-                      justifyContent: sidebarCollapsed && !isMobile ? 'center' : 'flex-start',
-                      padding: sidebarCollapsed && !isMobile ? '0 12px' : '0 20px',
-                      borderLeft: active ? `3px solid ${NEON_GREEN}` : '3px solid transparent',
-                    }}
-                    title={sidebarCollapsed && !isMobile ? item.label : undefined}
-                    onClick={() => {
-                      if (isMobile) setMobileMenuOpen(false);
-                    }}
-                  >
-                    <Icon size={20} style={{ color: active ? NEON_GREEN : 'rgba(255,255,255,0.7)', flexShrink: 0 }} />
-                    {(!sidebarCollapsed || isMobile) && <span>{item.label}</span>}
+            <aside
+              style={{
+                ...styles.sidebar,
+                width: sidebarWidth,
+              }}
+            >
+              <div style={{
+                ...styles.logoContainer,
+                height: 80,
+                padding: sidebarCollapsed ? '0 12px' : '0 20px',
+                justifyContent: sidebarCollapsed ? 'center' : 'flex-start',
+              }}>
+                {!sidebarCollapsed && (
+                  <Link href="/sales/dashboard" style={styles.logoLink}>
+                    <img
+                      src="/logo.gif"
+                      alt="DRIZZL"
+                      style={styles.logo}
+                    />
                   </Link>
-                );
-              })}
-            </div>
+                )}
+              </div>
 
-            <div style={styles.divider} />
+              <nav style={styles.nav}>
+                <div style={styles.navSection}>
+                  {navItems.map((item) => {
+                    const active = isActive(item.href);
+                    const Icon = item.icon;
+                    return (
+                      <Link
+                        key={item.href}
+                        href={item.href}
+                        className="sales-nav-link"
+                        style={{
+                          ...styles.navLink,
+                          ...(active ? styles.navLinkActive : {}),
+                          height: 48,
+                          justifyContent: sidebarCollapsed ? 'center' : 'flex-start',
+                          padding: sidebarCollapsed ? '0 12px' : '0 20px',
+                          borderLeft: active ? `3px solid ${NEON_GREEN}` : '3px solid transparent',
+                        }}
+                        title={sidebarCollapsed ? item.label : undefined}
+                      >
+                        <Icon size={20} style={{ color: active ? NEON_GREEN : 'rgba(255,255,255,0.7)', flexShrink: 0 }} />
+                        {!sidebarCollapsed && <span>{item.label}</span>}
+                      </Link>
+                    );
+                  })}
+                </div>
 
-            <div style={styles.navSection}>
-              {bottomNavItems.map((item) => {
-                const active = isActive(item.href);
-                const Icon = item.icon;
-                return (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    className="partner-nav-link"
+                <div style={styles.collapseSection}>
+                  <button
+                    onClick={toggleCollapse}
                     style={{
-                      ...styles.navLink,
-                      ...(active ? styles.navLinkActive : {}),
-                      height: 48,
-                      justifyContent: sidebarCollapsed && !isMobile ? 'center' : 'flex-start',
-                      padding: sidebarCollapsed && !isMobile ? '0 12px' : '0 20px',
-                      borderLeft: active ? `3px solid ${NEON_GREEN}` : '3px solid transparent',
+                      ...styles.collapseButton,
+                      justifyContent: sidebarCollapsed ? 'center' : 'flex-start',
+                      padding: sidebarCollapsed ? '0 12px' : '0 20px',
                     }}
-                    title={sidebarCollapsed && !isMobile ? item.label : undefined}
-                    onClick={() => {
-                      if (isMobile) setMobileMenuOpen(false);
-                    }}
+                    aria-label={sidebarCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
+                    className="sales-collapse-btn"
                   >
-                    <Icon size={20} style={{ color: active ? NEON_GREEN : 'rgba(255,255,255,0.7)', flexShrink: 0 }} />
-                    {(!sidebarCollapsed || isMobile) && <span>{item.label}</span>}
-                  </Link>
-                );
-              })}
-            </div>
-
-            <div style={styles.collapseSection}>
-              <button
-                onClick={toggleCollapse}
-                style={{
-                  ...styles.collapseButton,
-                  justifyContent: sidebarCollapsed && !isMobile ? 'center' : 'flex-start',
-                  padding: sidebarCollapsed && !isMobile ? '0 12px' : '0 20px',
-                }}
-                aria-label={sidebarCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
-                className="collapse-btn partner-collapse-btn"
-              >
-                {sidebarCollapsed ? <PanelLeft size={20} /> : <PanelLeftClose size={20} />}
-                {(!sidebarCollapsed || isMobile) && <span>Collapse</span>}
-              </button>
-            </div>
-          </nav>
-        </aside>
+                    {sidebarCollapsed ? <PanelLeft size={20} /> : <PanelLeftClose size={20} />}
+                    {!sidebarCollapsed && <span>Collapse</span>}
+                  </button>
+                </div>
+              </nav>
+            </aside>
+          </>
+        )}
 
         <div style={{
           ...styles.mainWrapper,
           marginLeft: sidebarWidth,
+          paddingBottom: isMobile ? 72 : 0,
         }}>
           <header style={styles.header}>
             <div style={styles.headerLeft}>
               {title && <h1 style={styles.headerTitle}>{title}</h1>}
             </div>
             <div style={styles.headerRight}>
-              <button style={styles.headerIconButton} className="partner-header-icon" aria-label="Notifications">
+              <button style={styles.headerIconButton} className="sales-header-icon" aria-label="Notifications">
                 <Bell size={20} />
               </button>
-              <button style={styles.headerIconButton} className="partner-header-icon" aria-label="Messages">
+              <button style={styles.headerIconButton} className="sales-header-icon" aria-label="Messages">
                 <MessageSquare size={20} />
               </button>
               
@@ -242,7 +185,7 @@ export default function PartnerLayout({ children, title, partnerName = 'Partner'
                   <div style={styles.userAvatar}>
                     <User size={18} />
                   </div>
-                  <span style={styles.userName}>{partnerName}</span>
+                  <span style={styles.userName}>{repName}</span>
                   <ChevronDown size={16} style={{ 
                     transform: userMenuOpen ? 'rotate(180deg)' : 'rotate(0deg)',
                     transition: 'transform 0.2s',
@@ -253,11 +196,11 @@ export default function PartnerLayout({ children, title, partnerName = 'Partner'
                   <>
                     <div style={styles.menuOverlay} onClick={() => setUserMenuOpen(false)} />
                     <div style={styles.userMenu}>
-                      <Link href="/partner/account" style={styles.menuItem} className="partner-menu-item" onClick={() => setUserMenuOpen(false)}>
+                      <Link href="/sales/profile" style={styles.menuItem} className="sales-menu-item" onClick={() => setUserMenuOpen(false)}>
                         <User size={16} />
-                        <span>Account Settings</span>
+                        <span>Profile Settings</span>
                       </Link>
-                      <button onClick={handleLogout} style={styles.menuItem} className="partner-menu-item">
+                      <button onClick={handleLogout} style={styles.menuItem} className="sales-menu-item">
                         <LogOut size={16} />
                         <span>Sign Out</span>
                       </button>
@@ -272,38 +215,46 @@ export default function PartnerLayout({ children, title, partnerName = 'Partner'
             {children}
           </main>
         </div>
+
+        {isMobile && (
+          <nav style={styles.bottomNav}>
+            {navItems.map((item) => {
+              const active = isActive(item.href);
+              const Icon = item.icon;
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  style={{
+                    ...styles.bottomNavItem,
+                    color: active ? NEON_GREEN : 'rgba(255,255,255,0.5)',
+                  }}
+                >
+                  <Icon size={24} />
+                  <span style={styles.bottomNavLabel}>{item.label}</span>
+                </Link>
+              );
+            })}
+          </nav>
+        )}
       </div>
 
       <style jsx global>{`
-        @media (max-width: 767px) {
-          .mobile-menu-btn {
-            display: flex !important;
-          }
-          .collapse-btn {
-            display: none !important;
-          }
-        }
-        @media (min-width: 768px) {
-          .mobile-menu-btn {
-            display: none !important;
-          }
-        }
-        
-        .partner-nav-link:hover {
+        .sales-nav-link:hover {
           background-color: rgba(255, 255, 255, 0.05) !important;
         }
         
-        .partner-header-icon:hover {
+        .sales-header-icon:hover {
           background-color: rgba(255, 255, 255, 0.05);
           color: #FFFFFF;
         }
         
-        .partner-collapse-btn:hover {
+        .sales-collapse-btn:hover {
           background-color: rgba(255, 255, 255, 0.05);
           color: rgba(255, 255, 255, 0.7);
         }
         
-        .partner-menu-item:hover {
+        .sales-menu-item:hover {
           background-color: rgba(255, 255, 255, 0.05);
         }
         
@@ -329,21 +280,7 @@ const styles: Record<string, React.CSSProperties> = {
   container: {
     minHeight: '100vh',
     backgroundColor: '#000000',
-  },
-  mobileMenuButton: {
-    position: 'fixed',
-    top: 20,
-    left: 16,
-    zIndex: 1001,
-    backgroundColor: 'rgba(255, 255, 255, 0.05)',
-    border: '1px solid rgba(255, 255, 255, 0.1)',
-    borderRadius: 8,
-    padding: 8,
-    cursor: 'pointer',
-    color: '#FFFFFF',
-    display: 'none',
-    alignItems: 'center',
-    justifyContent: 'center',
+    fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
   },
   overlay: {
     position: 'fixed',
@@ -364,7 +301,7 @@ const styles: Record<string, React.CSSProperties> = {
     display: 'flex',
     flexDirection: 'column',
     zIndex: 1000,
-    transition: 'width 0.2s ease, transform 0.3s ease',
+    transition: 'width 0.2s ease',
     overflow: 'hidden',
   },
   logoContainer: {
@@ -411,14 +348,10 @@ const styles: Record<string, React.CSSProperties> = {
     backgroundColor: 'rgba(0, 255, 133, 0.1)',
     color: NEON_GREEN,
   },
-  divider: {
-    height: 1,
-    backgroundColor: 'rgba(255, 255, 255, 0.08)',
-    margin: '16px 12px',
-    marginTop: 'auto',
-  },
   collapseSection: {
+    marginTop: 'auto',
     padding: '8px 0 16px 0',
+    borderTop: '1px solid rgba(255, 255, 255, 0.08)',
   },
   collapseButton: {
     display: 'flex',
@@ -448,7 +381,7 @@ const styles: Record<string, React.CSSProperties> = {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
-    padding: '0 32px',
+    padding: '0 24px',
     position: 'sticky',
     top: 0,
     zIndex: 100,
@@ -473,8 +406,8 @@ const styles: Record<string, React.CSSProperties> = {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    width: 40,
-    height: 40,
+    width: 44,
+    height: 44,
     backgroundColor: 'transparent',
     border: '1px solid rgba(255, 255, 255, 0.1)',
     borderRadius: 8,
@@ -496,6 +429,7 @@ const styles: Record<string, React.CSSProperties> = {
     color: '#FFFFFF',
     cursor: 'pointer',
     fontSize: 14,
+    minHeight: 44,
   },
   userAvatar: {
     width: 32,
@@ -525,18 +459,19 @@ const styles: Record<string, React.CSSProperties> = {
     position: 'absolute',
     top: 'calc(100% + 8px)',
     right: 0,
-    backgroundColor: '#111111',
-    border: '1px solid rgba(255, 255, 255, 0.1)',
+    backgroundColor: 'rgba(255, 255, 255, 0.02)',
+    border: '1px solid rgba(255, 255, 255, 0.08)',
     borderRadius: 8,
     padding: 8,
     minWidth: 180,
     zIndex: 100,
+    backdropFilter: 'blur(20px)',
   },
   menuItem: {
     display: 'flex',
     alignItems: 'center',
     gap: 12,
-    padding: '10px 12px',
+    padding: '12px 12px',
     borderRadius: 6,
     color: '#CCCCCC',
     textDecoration: 'none',
@@ -546,10 +481,43 @@ const styles: Record<string, React.CSSProperties> = {
     width: '100%',
     cursor: 'pointer',
     transition: 'background-color 0.2s',
+    minHeight: 44,
   },
   main: {
     flex: 1,
-    padding: 32,
+    padding: 24,
     backgroundColor: '#000000',
+  },
+  bottomNav: {
+    position: 'fixed',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    height: 72,
+    backgroundColor: 'rgba(0, 0, 0, 0.95)',
+    borderTop: '1px solid rgba(255, 255, 255, 0.08)',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    padding: '0 8px',
+    paddingBottom: 'env(safe-area-inset-bottom)',
+    zIndex: 1000,
+    backdropFilter: 'blur(20px)',
+  },
+  bottomNavItem: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 4,
+    padding: '8px 12px',
+    textDecoration: 'none',
+    transition: 'color 0.2s',
+    minWidth: 60,
+    minHeight: 44,
+  },
+  bottomNavLabel: {
+    fontSize: 10,
+    fontWeight: 500,
   },
 };

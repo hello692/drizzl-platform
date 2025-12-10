@@ -1,0 +1,352 @@
+import React, { useState } from 'react';
+import { useRouter } from 'next/router';
+import Head from 'next/head';
+import Link from 'next/link';
+import { Mail, Lock, ArrowRight, AlertCircle, Eye, EyeOff } from 'lucide-react';
+
+const NEON_GREEN = '#00FF85';
+
+export default function SalesLogin() {
+  const router = useRouter();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError('');
+    setLoading(true);
+
+    try {
+      if (password === 'sales123' && email.includes('@')) {
+        const salesSession = {
+          id: 'demo-sales-rep',
+          email: email,
+          name: 'Demo Sales Rep',
+          territory: 'Northeast Region',
+          tier: 'senior',
+          commissionRate: 0.08,
+          monthlyTarget: 50000,
+          currentSales: 0,
+        };
+        localStorage.setItem('salesSession', JSON.stringify(salesSession));
+        router.push('/sales/dashboard');
+      } else {
+        setError('Invalid email or password. For demo: use any email with password "sales123"');
+      }
+    } catch (err) {
+      console.error('Login error:', err);
+      setError('Authentication failed. Please try again.');
+    }
+
+    setLoading(false);
+  };
+
+  return (
+    <>
+      <Head>
+        <title>Sales Rep Login | DRIZZL</title>
+      </Head>
+
+      <div style={styles.container}>
+        <div style={styles.formContainer}>
+          <div style={styles.logoSection}>
+            <img
+              src="/logo.gif"
+              alt="DRIZZL"
+              style={styles.logo}
+            />
+            <h1 style={styles.title}>Sales Rep Portal</h1>
+            <p style={styles.subtitle}>Sign in to access your sales dashboard</p>
+          </div>
+
+          <form onSubmit={handleSubmit} style={styles.form}>
+            {error && (
+              <div style={styles.errorBox}>
+                <AlertCircle size={18} />
+                <span>{error}</span>
+              </div>
+            )}
+
+            <div style={styles.inputGroup}>
+              <label style={styles.label}>Email Address</label>
+              <div style={styles.inputWrapper}>
+                <Mail size={18} style={styles.inputIcon} />
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="sales@drizzl.com"
+                  style={styles.input}
+                  required
+                />
+              </div>
+            </div>
+
+            <div style={styles.inputGroup}>
+              <label style={styles.label}>Password</label>
+              <div style={styles.inputWrapper}>
+                <Lock size={18} style={styles.inputIcon} />
+                <input
+                  type={showPassword ? 'text' : 'password'}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="Enter your password"
+                  style={{...styles.input, paddingRight: 44}}
+                  required
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  style={styles.togglePassword}
+                  aria-label={showPassword ? 'Hide password' : 'Show password'}
+                >
+                  {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                </button>
+              </div>
+            </div>
+
+            <button type="submit" style={styles.submitButton} disabled={loading}>
+              {loading ? 'Signing in...' : 'Sign In'}
+              {!loading && <ArrowRight size={18} />}
+            </button>
+
+            <div style={styles.helpSection}>
+              <Link href="/sales/forgot-password" style={styles.helpLink}>
+                Forgot your password?
+              </Link>
+            </div>
+          </form>
+
+          <div style={styles.demoNotice}>
+            <strong>Demo Mode:</strong> Use any email with password "sales123"
+          </div>
+        </div>
+
+        <div style={styles.infoSection}>
+          <h2 style={styles.infoTitle}>Sales Rep Benefits</h2>
+          <div style={styles.benefits}>
+            <div style={styles.benefit}>
+              <div style={styles.benefitIcon}>📊</div>
+              <div>
+                <h3 style={styles.benefitTitle}>Real-time Dashboard</h3>
+                <p style={styles.benefitText}>Track your performance instantly</p>
+              </div>
+            </div>
+            <div style={styles.benefit}>
+              <div style={styles.benefitIcon}>🎯</div>
+              <div>
+                <h3 style={styles.benefitTitle}>Lead Management</h3>
+                <p style={styles.benefitText}>Manage and convert leads efficiently</p>
+              </div>
+            </div>
+            <div style={styles.benefit}>
+              <div style={styles.benefitIcon}>💰</div>
+              <div>
+                <h3 style={styles.benefitTitle}>Commission Tracking</h3>
+                <p style={styles.benefitText}>See your earnings in real-time</p>
+              </div>
+            </div>
+            <div style={styles.benefit}>
+              <div style={styles.benefitIcon}>📱</div>
+              <div>
+                <h3 style={styles.benefitTitle}>Mobile-First</h3>
+                <p style={styles.benefitText}>Work from anywhere on any device</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <style jsx global>{`
+        @media (min-width: 1024px) {
+          .sales-info-section {
+            display: block !important;
+          }
+        }
+      `}</style>
+    </>
+  );
+}
+
+const styles: Record<string, React.CSSProperties> = {
+  container: {
+    minHeight: '100vh',
+    backgroundColor: '#000000',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 24,
+    gap: 64,
+    fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+  },
+  formContainer: {
+    width: '100%',
+    maxWidth: 420,
+    backgroundColor: 'rgba(255, 255, 255, 0.02)',
+    border: '1px solid rgba(255, 255, 255, 0.08)',
+    borderRadius: 16,
+    padding: 40,
+    backdropFilter: 'blur(20px)',
+  },
+  logoSection: {
+    textAlign: 'center',
+    marginBottom: 32,
+  },
+  logo: {
+    height: 40,
+    marginBottom: 16,
+    filter: 'brightness(0) invert(1)',
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: 600,
+    color: '#FFFFFF',
+    margin: 0,
+  },
+  subtitle: {
+    fontSize: 14,
+    color: '#666666',
+    marginTop: 8,
+  },
+  form: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 20,
+  },
+  errorBox: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 10,
+    padding: '12px 16px',
+    backgroundColor: 'rgba(239, 68, 68, 0.1)',
+    border: '1px solid rgba(239, 68, 68, 0.2)',
+    borderRadius: 8,
+    color: '#EF4444',
+    fontSize: 14,
+  },
+  inputGroup: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 8,
+  },
+  label: {
+    fontSize: 14,
+    fontWeight: 500,
+    color: '#FFFFFF',
+  },
+  inputWrapper: {
+    position: 'relative',
+    display: 'flex',
+    alignItems: 'center',
+  },
+  inputIcon: {
+    position: 'absolute',
+    left: 14,
+    color: '#666666',
+    pointerEvents: 'none',
+  },
+  input: {
+    width: '100%',
+    padding: '14px 14px 14px 44px',
+    backgroundColor: 'rgba(255, 255, 255, 0.05)',
+    border: '1px solid rgba(255, 255, 255, 0.1)',
+    borderRadius: 8,
+    color: '#FFFFFF',
+    fontSize: 14,
+    outline: 'none',
+    transition: 'border-color 0.2s',
+    minHeight: 44,
+  },
+  togglePassword: {
+    position: 'absolute',
+    right: 8,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 36,
+    height: 36,
+    backgroundColor: 'transparent',
+    border: 'none',
+    color: '#666666',
+    cursor: 'pointer',
+    borderRadius: 6,
+    transition: 'color 0.2s',
+  },
+  submitButton: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 8,
+    padding: '14px 24px',
+    backgroundColor: NEON_GREEN,
+    color: '#000000',
+    border: 'none',
+    borderRadius: 8,
+    fontSize: 14,
+    fontWeight: 600,
+    cursor: 'pointer',
+    transition: 'opacity 0.2s',
+    marginTop: 8,
+    minHeight: 48,
+  },
+  helpSection: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 12,
+    marginTop: 8,
+  },
+  helpLink: {
+    color: '#666666',
+    fontSize: 13,
+    textDecoration: 'none',
+    transition: 'color 0.2s',
+  },
+  demoNotice: {
+    marginTop: 24,
+    padding: '12px 16px',
+    backgroundColor: 'rgba(0, 255, 133, 0.1)',
+    border: '1px solid rgba(0, 255, 133, 0.2)',
+    borderRadius: 8,
+    color: NEON_GREEN,
+    fontSize: 13,
+    textAlign: 'center',
+  },
+  infoSection: {
+    display: 'none',
+    maxWidth: 360,
+  },
+  infoTitle: {
+    fontSize: 20,
+    fontWeight: 600,
+    color: '#FFFFFF',
+    marginBottom: 24,
+  },
+  benefits: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 20,
+  },
+  benefit: {
+    display: 'flex',
+    alignItems: 'flex-start',
+    gap: 16,
+  },
+  benefitIcon: {
+    fontSize: 28,
+  },
+  benefitTitle: {
+    fontSize: 15,
+    fontWeight: 600,
+    color: '#FFFFFF',
+    margin: 0,
+  },
+  benefitText: {
+    fontSize: 13,
+    color: '#666666',
+    margin: '4px 0 0 0',
+  },
+};

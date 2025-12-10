@@ -1,0 +1,1931 @@
+🚀 COMPLETE SALES REP PORTAL + B2B ECOSYSTEM REWRITE
+This is the ULTIMATE prompt covering all three B2B portals:
+
+MISSION: Build a complete B2B ecosystem for a billion-dollar frozen wellness food brand with THREE interconnected portals:
+
+1. B2B PARTNER PORTAL - For wholesale customers (Walmart, Target, etc.)
+2. SALES REP PORTAL - For field sales team who acquire new B2B partners
+3. ADMIN COMMAND CENTER - For internal management (already built)
+
+All three portals must communicate seamlessly and share data in real-time.
+
+═══════════════════════════════════════════════════════════════════
+🎯 SYSTEM ARCHITECTURE OVERVIEW
+═══════════════════════════════════════════════════════════════════
+
+THREE USER TYPES:
+
+1. ADMIN (Internal Management)
+   - Route: /admin/command-center
+   - Can see EVERYTHING
+   - Manages products, operations, sales team, partners
+
+2. SALES REPS (Field Sales Team)
+   - Route: /sales
+   - Can see their leads, deals, partners, commission
+   - Mobile-first design (they're in the field)
+   - CRM focused
+
+3. B2B PARTNERS (Wholesale Customers)
+   - Route: /partner
+   - Can order products, view invoices, track orders
+   - Desktop-focused (office use)
+
+DATA FLOW:
+Sales Rep → Acquires Lead → Converts to Partner → Partner Orders → Admin Manages
+
+═══════════════════════════════════════════════════════════════════
+DATABASE SCHEMA - COMPLETE B2B ECOSYSTEM
+═══════════════════════════════════════════════════════════════════
+```prisma
+// ============================================================================
+// USER MANAGEMENT
+// ============================================================================
+
+model Admin {
+  id            String   @id @default(cuid())
+  email         String   @unique
+  password      String   // hashed
+  firstName     String
+  lastName      String
+  role          String   @default("admin") // "admin", "super_admin", "manager"
+  permissions   String[] // array of permission strings
+  avatar        String?
+  phone         String?
+  isActive      Boolean  @default(true)
+  lastLogin     DateTime?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model SalesRep {
+  id            String   @id @default(cuid())
+  email         String   @unique
+  password      String   // hashed
+  firstName     String
+  lastName      String
+  phone         String
+  avatar        String?
+  
+  // Employment info
+  employeeId    String   @unique
+  department    String   @default("sales")
+  title         String   // "Sales Rep", "Senior Sales Rep", "Regional Manager"
+  territory     String?  // "West Coast", "Northeast", "Midwest", etc.
+  managerId     String?  // reports to this sales manager
+  manager       SalesRep? @relation("ManagerToReps", fields: [managerId], references: [id])
+  teamMembers   SalesRep[] @relation("ManagerToReps")
+  
+  // Compensation
+  baseSalary    Float?
+  commissionRate Float  @default(5.0) // percentage
+  
+  // Performance
+  quota         Float?   // monthly/quarterly quota
+  totalSales    Float    @default(0)
+  totalDeals    Int      @default(0)
+  
+  // Status
+  isActive      Boolean  @default(true)
+  hireDate      DateTime @default(now())
+  lastLogin     DateTime?
+  
+  // Relations
+  leads         Lead[]
+  deals         Deal[]
+  partners      WholesalePartner[]
+  activities    SalesActivity[]
+  commissions   Commission[]
+  
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model WholesalePartner {
+  id              String   @id @default(cuid())
+  email           String   @unique
+  password        String   // hashed
+  
+  // Business Info
+  businessName    String
+  businessType    String   // "grocery", "cafe", "restaurant", "gym", "convenience"
+  taxId           String?  // EIN
+  
+  // Contact Info
+  contactName     String
+  phone           String
+  website         String?
+  
+  // Address
+  address         String
+  city            String
+  state           String
+  zipCode         String
+  country         String   @default("USA")
+  
+  // Account Details
+  tier            String   @default("starter") // "starter", "growth", "enterprise"
+  creditLimit     Float    @default(10000)
+  availableCredit Float    @default(10000)
+  paymentTerms    String   @default("NET30") // "NET30", "NET60", "prepaid"
+  
+  // Discounts (based on tier)
+  discountPercent Float    @default(25) // 25%, 35%, 40%
+  
+  // Status
+  status          String   @default("pending") // "pending", "active", "suspended", "closed"
+  approvedBy      String?  // admin ID who approved
+  approvedAt      DateTime?
+  
+  // Sales Info
+  salesRepId      String?
+  salesRep        SalesRep? @relation(fields: [salesRepId], references: [id])
+  accountManagerId String?  // internal account manager (admin)
+  
+  // Performance
+  lifetimeValue   Float    @default(0)
+  totalOrders     Int      @default(0)
+  avgOrderValue   Float    @default(0)
+  lastOrderDate   DateTime?
+  
+  // Relations
+  orders          Order[]
+  invoices        Invoice[]
+  integrations    PartnerIntegration[]
+  shippingAddresses ShippingAddress[]
+  notes           PartnerNote[]
+  
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+// ============================================================================
+// LEADS & SALES PIPELINE
+// ============================================================================
+
+model Lead {
+  id              String   @id @default(cuid())
+  
+  // Company Info
+  companyName     String
+  businessType    String?
+  industry        String?
+  
+  // Contact Info
+  contactName     String
+  contactTitle    String?  // "Buyer", "Owner", "Manager"
+  email           String
+  phone           String?
+  website         String?
+  
+  // Address
+  address         String?
+  city            String?
+  state           String?
+  zipCode         String?
+  
+  // Lead Source
+  source          String   // "website", "referral", "cold_call", "trade_show", "linkedin", "email_campaign"
+  sourceDetails   String?  // Additional context
+  
+  // Assignment
+  salesRepId      String
+  salesRep        SalesRep @relation(fields: [salesRepId], references: [id])
+  
+  // Lead Status
+  status          String   @default("new") 
+  // "new" → "contacted" → "qualified" → "demo_scheduled" → "demo_completed" 
+  // → "proposal_sent" → "negotiation" → "closed_won" → "closed_lost"
+  
+  // Lead Scoring (AI-powered)
+  leadScore       Int      @default(50) // 0-100
+  scoreFactors    Json?    // {company_size: 20, budget: 30, authority: 25, need: 25}
+  
+  // Deal Info
+  estimatedValue  Float?   // potential annual value
+  estimatedUnits  Int?     // units per month
+  probability     Int      @default(50) // 0-100% chance of closing
+  expectedCloseDate DateTime?
+  
+  // BANT Qualification
+  budget          String?  // "confirmed", "estimated", "unknown"
+  authority       String?  // "decision_maker", "influencer", "gatekeeper"
+  need            String?  // "urgent", "medium", "exploring"
+  timeline        String?  // "immediate", "30_days", "90_days", "long_term"
+  
+  // Competitors
+  competitors     String[] // Other suppliers they're considering
+  
+  // Next Steps
+  nextAction      String?  // "Call back on X date", "Send proposal", etc.
+  nextActionDate  DateTime?
+  
+  // Conversion
+  convertedToPartnerId String? // If won, link to partner account
+  convertedAt     DateTime?
+  lostReason      String?  // If lost, why?
+  lostDetails     String?
+  
+  // Relations
+  activities      SalesActivity[]
+  notes           LeadNote[]
+  documents       LeadDocument[]
+  dealId          String?  @unique
+  deal            Deal?    @relation(fields: [dealId], references: [id])
+  
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+model Deal {
+  id              String   @id @default(cuid())
+  
+  // Deal Info
+  name            String   // "Walmart - Q1 2024 Partnership"
+  value           Float    // Estimated annual contract value
+  stage           String   @default("qualification")
+  // "qualification" → "needs_analysis" → "proposal" → "negotiation" → "closed_won" → "closed_lost"
+  
+  probability     Int      @default(50) // 0-100
+  expectedCloseDate DateTime
+  actualCloseDate DateTime?
+  
+  // Assignment
+  salesRepId      String
+  salesRep        SalesRep @relation(fields: [salesRepId], references: [id])
+  
+  // Lead connection
+  leadId          String?  @unique
+  lead            Lead?
+  
+  // Products interested in
+  productsInterested String[] // Product IDs or names
+  estimatedMonthlyOrder Float?
+  
+  // Deal stages
+  isQualified     Boolean  @default(false)
+  isDemoCompleted Boolean  @default(false)
+  isProposalSent  Boolean  @default(false)
+  
+  // Close info
+  wonReason       String?  // Why they chose us
+  lostReason      String?  // Why we lost
+  
+  // Commission
+  commissionAmount Float?
+  commissionPaid  Boolean  @default(false)
+  
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+model SalesActivity {
+  id              String   @id @default(cuid())
+  
+  // What happened
+  type            String   // "call", "email", "meeting", "demo", "proposal", "note", "task"
+  subject         String
+  description     String?
+  outcome         String?  // "positive", "neutral", "negative", "no_answer"
+  
+  // Who
+  salesRepId      String
+  salesRep        SalesRep @relation(fields: [salesRepId], references: [id])
+  
+  // Related to
+  leadId          String?
+  lead            Lead?    @relation(fields: [leadId], references: [id])
+  partnerId       String?
+  partner         WholesalePartner? @relation(fields: [partnerId], references: [id])
+  
+  // When
+  scheduledAt     DateTime?
+  completedAt     DateTime?
+  duration        Int?     // minutes
+  
+  // Follow-up
+  followUpRequired Boolean  @default(false)
+  followUpDate    DateTime?
+  followUpNote    String?
+  
+  // Location (for in-person meetings)
+  location        String?
+  
+  // Attachments
+  attachments     String[] // URLs to files
+  
+  // Email tracking (if type = "email")
+  emailSent       Boolean  @default(false)
+  emailOpened     Boolean  @default(false)
+  emailClicked    Boolean  @default(false)
+  
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+model LeadNote {
+  id              String   @id @default(cuid())
+  leadId          String
+  lead            Lead     @relation(fields: [leadId], references: [id])
+  salesRepId      String
+  note            String
+  isPrivate       Boolean  @default(false) // Only visible to sales rep
+  createdAt       DateTime @default(now())
+}
+
+model PartnerNote {
+  id              String   @id @default(cuid())
+  partnerId       String
+  partner         WholesalePartner @relation(fields: [partnerId], references: [id])
+  authorId        String   // Sales rep or admin ID
+  authorType      String   // "sales_rep" or "admin"
+  note            String
+  isPrivate       Boolean  @default(false)
+  createdAt       DateTime @default(now())
+}
+
+model LeadDocument {
+  id              String   @id @default(cuid())
+  leadId          String
+  lead            Lead     @relation(fields: [leadId], references: [id])
+  name            String
+  type            String   // "proposal", "contract", "presentation", "license", "other"
+  fileUrl         String
+  fileSize        Int?     // bytes
+  uploadedBy      String   // Sales rep ID
+  uploadedAt      DateTime @default(now())
+}
+
+model Commission {
+  id              String   @id @default(cuid())
+  salesRepId      String
+  salesRep        SalesRep @relation(fields: [salesRepId], references: [id])
+  
+  // What earned it
+  type            String   // "new_partner", "order", "renewal", "upsell"
+  referenceId     String?  // Order ID or Partner ID
+  
+  // Amount
+  amount          Float
+  rate            Float    // Commission rate used
+  baseValue       Float    // What the commission was calculated on
+  
+  // Status
+  status          String   @default("pending") // "pending", "approved", "paid"
+  approvedBy      String?  // Admin ID
+  approvedAt      DateTime?
+  paidAt          DateTime?
+  
+  // Period
+  periodStart     DateTime
+  periodEnd       DateTime
+  
+  createdAt       DateTime @default(now())
+}
+
+// ============================================================================
+// PRODUCTS & CATALOG
+// ============================================================================
+
+model Product {
+  id              String   @id @default(cuid())
+  name            String
+  sku             String   @unique
+  
+  // Category
+  category        String   // "smoothie", "ice_cream", "popsicle", "frozen_meal", "protein_bar"
+  subcategory     String?  // "detox", "protein", "immunity", "dessert", "dinner"
+  
+  // Pricing
+  msrp            Float    // Manufacturer Suggested Retail Price
+  retailPrice     Float    // Your suggested retail
+  wholesalePrice  Float    // Base wholesale (before tier discount)
+  costPerUnit     Float    // Your cost to produce
+  
+  // Pricing tiers (for partners)
+  starterPrice    Float    // 25% off MSRP
+  growthPrice     Float    // 35% off MSRP
+  enterprisePrice Float    // 40% off MSRP
+  
+  // Product Details
+  description     String?  @db.Text
+  shortDesc       String?  // One-liner
+  benefits        String[] // ["High Protein", "Organic", "Vegan"]
+  ingredients     String[] @db.Text
+  allergens       String[] // ["Contains: Nuts", "Dairy-Free"]
+  
+  // Nutrition
+  nutrition       Json?    // Complete nutrition facts
+  servingSize     String?  // "12 oz"
+  servingsPerUnit Int      @default(1)
+  calories        Int?
+  protein         Float?   // grams
+  carbs           Float?
+  fat             Float?
+  sugar           Float?
+  
+  // Certifications
+  certifications  String[] // ["USDA Organic", "Non-GMO", "Kosher", "Halal"]
+  
+  // Media
+  imageUrl        String?
+  imageUrls       String[] // Gallery
+  thumbnailUrl    String?
+  videoUrl        String?  // Demo video
+  
+  // Packaging & Logistics
+  weight          Float?   // pounds per unit
+  dimensions      String?  // "8x4x10 inches"
+  casePackSize    Int      @default(12) // Units per case
+  caseDimensions  String?
+  caseWeight      Float?
+  unitsPerPallet  Int?
+  
+  // Storage
+  storageTemp     String?  // "-10°F to 0°F"
+  shelfLifeDays   Int      @default(365)
+  
+  // Inventory
+  stock           Int      @default(0)
+  reorderPoint    Int      @default(100)
+  leadTimeDays    Int      @default(5)
+  minOrderQty     Int      @default(100) // Minimum order
+  
+  // Marketing
+  badges          String[] // ["bestseller", "new", "featured", "limited"]
+  isFeatured      Boolean  @default(false)
+  isActive        Boolean  @default(true)
+  launchDate      DateTime?
+  
+  // Sales Data
+  totalSold       Int      @default(0)
+  revenue         Float    @default(0)
+  
+  // Reviews
+  reviewCount     Int      @default(0)
+  avgRating       Float    @default(4.5)
+  
+  // Relations
+  orderItems      OrderItem[]
+  marketingAssets MarketingAsset[]
+  
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+// ============================================================================
+// ORDERS & FULFILLMENT
+// ============================================================================
+
+model Order {
+  id              String   @id @default(cuid())
+  orderNumber     String   @unique // "ORD-10145"
+  
+  // Customer
+  type            String   // "B2B" or "D2C"
+  partnerId       String?
+  partner         WholesalePartner? @relation(fields: [partnerId], references: [id])
+  customerId      String?  // If D2C
+  
+  // Order Details
+  items           OrderItem[]
+  subtotal        Float
+  discount        Float    @default(0)
+  discountPercent Float?   // If tier discount applied
+  tax             Float
+  shipping        Float
+  total           Float
+  
+  // Payment
+  paymentStatus   String   @default("pending") // "pending", "paid", "failed", "refunded"
+  paymentMethod   String?  // "credit_card", "NET30", "afterpay", etc.
+  paymentTerms    String?  // "NET30", "NET60"
+  paidAt          DateTime?
+  
+  // Fulfillment
+  status          String   @default("pending")
+  // "pending" → "confirmed" → "production" → "quality_check" → "shipped" → "delivered" → "cancelled"
+  
+  // Production
+  productionBatchId String?
+  estimatedProductionDate DateTime?
+  actualProductionDate DateTime?
+  
+  // Shipping
+  shippingAddressId String?
+  shippingAddress ShippingAddress? @relation(fields: [shippingAddressId], references: [id])
+  estimatedDelivery DateTime?
+  actualDelivery  DateTime?
+  
+  // Tracking
+  shipments       Shipment[]
+  
+  // Special Instructions
+  poNumber        String?  // Customer's PO number
+  specialInstructions String? @db.Text
+  
+  // Relations
+  invoice         Invoice?
+  
+  // Sales Attribution
+  salesRepId      String?
+  
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+model OrderItem {
+  id              String   @id @default(cuid())
+  orderId         String
+  order           Order    @relation(fields: [orderId], references: [id])
+  productId       String
+  product         Product  @relation(fields: [productId], references: [id])
+  
+  quantity        Int
+  unitPrice       Float    // Price at time of order
+  discount        Float    @default(0)
+  subtotal        Float
+  
+  createdAt       DateTime @default(now())
+}
+
+model ShippingAddress {
+  id              String   @id @default(cuid())
+  partnerId       String
+  partner         WholesalePartner @relation(fields: [partnerId], references: [id])
+  
+  label           String   // "Main Store", "Warehouse", etc.
+  recipientName   String
+  company         String?
+  address1        String
+  address2        String?
+  city            String
+  state           String
+  zipCode         String
+  country         String   @default("USA")
+  phone           String?
+  
+  isDefault       Boolean  @default(false)
+  
+  // Loading dock info
+  dockInstructions String?
+  dockHours       String?  // "Mon-Fri 8AM-5PM"
+  requiresAppointment Boolean @default(false)
+  
+  orders          Order[]
+  
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+model Invoice {
+  id              String   @id @default(cuid())
+  invoiceNumber   String   @unique // "INV-10284"
+  
+  // Customer
+  partnerId       String
+  partner         WholesalePartner @relation(fields: [partnerId], references: [id])
+  
+  // Order
+  orderId         String   @unique
+  order           Order    @relation(fields: [orderId], references: [id])
+  
+  // Amounts
+  subtotal        Float
+  tax             Float
+  shipping        Float
+  total           Float
+  amountPaid      Float    @default(0)
+  amountDue       Float
+  
+  // Payment
+  status          String   @default("pending") // "pending", "paid", "overdue", "cancelled"
+  paymentTerms    String   // "NET30", "Due on receipt"
+  dueDate         DateTime
+  paidAt          DateTime?
+  
+  // Late fees
+  lateFeeApplied  Boolean  @default(false)
+  lateFeeAmount   Float    @default(0)
+  
+  // PDF
+  pdfUrl          String?
+  
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+model Shipment {
+  id              String   @id @default(cuid())
+  orderId         String
+  order           Order    @relation(fields: [orderId], references: [id])
+  
+  // Tracking
+  trackingNumber  String
+  carrier         String   // "fedex", "ups", "usps", "xpo"
+  carrierService  String?  // "Ground", "2-Day", "Overnight"
+  
+  // Status
+  status          String   @default("pending")
+  // "pending" → "picked_up" → "in_transit" → "out_for_delivery" → "delivered" → "exception"
+  
+  // Location tracking
+  currentLocation String?
+  currentLat      Float?
+  currentLng      Float?
+  
+  // Delivery
+  estimatedDelivery DateTime?
+  actualDelivery  DateTime?
+  deliverySignature String?  // URL to signature image
+  deliveryPhoto   String?    // URL to photo
+  deliveredTo     String?    // Name of person who signed
+  
+  // Temperature (for frozen goods)
+  isTemperatureControlled Boolean @default(true)
+  targetTemp      Float    @default(-10.0) // °F
+  temperatureLog  Json?    // Array of readings
+  
+  // Packaging
+  packageCount    Int      @default(1)
+  palletCount     Int?
+  totalWeight     Float?   // pounds
+  
+  // Tracking events
+  trackingEvents  TrackingEvent[]
+  
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+model TrackingEvent {
+  id              String   @id @default(cuid())
+  shipmentId      String
+  shipment        Shipment @relation(fields: [shipmentId], references: [id])
+  
+  status          String
+  location        String
+  description     String?
+  latitude        Float?
+  longitude       Float?
+  timestamp       DateTime
+  
+  createdAt       DateTime @default(now())
+}
+
+// ============================================================================
+// MARKETING & RESOURCES
+// ============================================================================
+
+model MarketingAsset {
+  id              String   @id @default(cuid())
+  name            String
+  description     String?
+  
+  // Categorization
+  category        String   // "product_image", "poster", "social_media", "video", "menu", "email"
+  subcategory     String?  // "instagram", "facebook", "24x36_poster"
+  
+  // File info
+  fileUrl         String
+  thumbnailUrl    String?
+  fileType        String   // "pdf", "jpg", "png", "mp4", "psd"
+  fileSize        Int?     // bytes
+  dimensions      String?  // "1080x1080" or "24x36 inches"
+  
+  // Product relation
+  productId       String?
+  product         Product? @relation(fields: [productId], references: [id])
+  
+  // For templates
+  isTemplate      Boolean  @default(false)
+  isCustomizable  Boolean  @default(false)
+  
+  // Usage
+  downloads       Int      @default(0)
+  
+  // Access
+  isPublic        Boolean  @default(true) // All partners can access
+  tierRequired    String?  // "growth", "enterprise" - if restricted
+  
+  // Relations
+  downloadLogs    AssetDownload[]
+  
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+model AssetDownload {
+  id              String   @id @default(cuid())
+  assetId         String
+  asset           MarketingAsset @relation(fields: [assetId], references: [id])
+  partnerId       String
+  downloadedAt    DateTime @default(now())
+}
+
+model VideoGuide {
+  id              String   @id @default(cuid())
+  title           String
+  description     String?  @db.Text
+  
+  // Categorization
+  category        String   // "getting_started", "product_knowledge", "merchandising", "sales", "operations"
+  difficulty      String   @default("beginner") // "beginner", "intermediate", "advanced"
+  
+  // Video
+  videoUrl        String   // YouTube or hosted
+  thumbnailUrl    String
+  duration        Int      // seconds
+  transcriptUrl   String?  // PDF transcript
+  
+  // Companion materials
+  pdfGuideUrl     String?
+  checklistUrl    String?
+  
+  // Ordering
+  sortOrder       Int      @default(0)
+  
+  // Series
+  seriesName      String?  // "Product Knowledge Series"
+  episodeNumber   Int?
+  
+  // Engagement
+  views           Int      @default(0)
+  avgRating       Float    @default(0)
+  completionRate  Float    @default(0) // % who watched full video
+  
+  // Access
+  isPublic        Boolean  @default(true)
+  
+  // Relations
+  viewLogs        VideoView[]
+  
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+model VideoView {
+  id              String   @id @default(cuid())
+  videoId         String
+  video           VideoGuide @relation(fields: [videoId], references: [id])
+  
+  // Viewer
+  viewerType      String   // "partner" or "sales_rep"
+  viewerId        String   // Partner ID or Sales Rep ID
+  
+  // Engagement
+  watchedSeconds  Int      @default(0)
+  completed       Boolean  @default(false)
+  rating          Int?     // 1-5 stars
+  
+  viewedAt        DateTime @default(now())
+}
+
+// ============================================================================
+// INTEGRATIONS
+// ============================================================================
+
+model PartnerIntegration {
+  id              String   @id @default(cuid())
+  partnerId       String
+  partner         WholesalePartner @relation(fields: [partnerId], references: [id])
+  
+  platform        String   // "square", "clover", "quickbooks", "shopify", etc.
+  platformName    String   // Display name
+  
+  // Auth
+  status          String   @default("connected") // "connected", "disconnected", "error"
+  accessToken     String?  // Encrypted
+  refreshToken    String?  // Encrypted
+  expiresAt       DateTime?
+  
+  // Sync settings
+  syncEnabled     Boolean  @default(true)
+  syncFrequency   String   @default("hourly") // "realtime", "hourly", "daily"
+  lastSync        DateTime?
+  nextSync        DateTime?
+  
+  // What to sync
+  syncSales       Boolean  @default(true)
+  syncInventory   Boolean  @default(true)
+  syncProducts    Boolean  @default(true)
+  syncCustomers   Boolean  @default(false)
+  
+  // Config
+  settings        Json?    // Platform-specific settings
+  
+  // Relations
+  syncLogs        IntegrationSyncLog[]
+  
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+model IntegrationSyncLog {
+  id              String   @id @default(cuid())
+  integrationId   String
+  integration     PartnerIntegration @relation(fields: [integrationId], references: [id])
+  
+  syncType        String   // "sales", "inventory", "products"
+  status          String   // "success", "error", "partial"
+  recordsSynced   Int      @default(0)
+  recordsFailed   Int      @default(0)
+  errorMessage    String?  @db.Text
+  
+  // Performance
+  durationMs      Int?     // How long sync took
+  
+  syncedAt        DateTime @default(now())
+}
+
+// ============================================================================
+// COMMUNICATION & NOTIFICATIONS
+// ============================================================================
+
+model Conversation {
+  id              String   @id @default(cuid())
+  
+  // Participants
+  participantType1 String  // "admin", "sales_rep", "partner"
+  participantId1  String
+  participantType2 String
+  participantId2  String
+  
+  // Related to
+  relatedType     String?  // "lead", "deal", "order", "partner"
+  relatedId       String?
+  
+  // Status
+  status          String   @default("active") // "active", "archived"
+  
+  // Metadata
+  subject         String?
+  lastMessageAt   DateTime @default(now())
+  unreadCount1    Int      @default(0)
+  unreadCount2    Int      @default(0)
+  
+  // Relations
+  messages        Message[]
+  
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  
+  @@unique([participantType1, participantId1, participantType2, participantId2])
+}
+
+model Message {
+  id              String   @id @default(cuid())
+  conversationId  String
+  conversation    Conversation @relation(fields: [conversationId], references: [id])
+  
+  // Sender
+  senderType      String   // "admin", "sales_rep", "partner"
+  senderId        String
+  senderName      String
+  
+  // Content
+  message         String   @db.Text
+  attachments     String[] // URLs
+  
+  // Status
+  isRead          Boolean  @default(false)
+  readAt          DateTime?
+  
+  // Type
+  messageType     String   @default("text") // "text", "system", "notification"
+  
+  createdAt       DateTime @default(now())
+}
+
+model Notification {
+  id              String   @id @default(cuid())
+  
+  // Recipient
+  recipientType   String   // "admin", "sales_rep", "partner"
+  recipientId     String
+  
+  // Content
+  type            String   // "order_placed", "lead_assigned", "message_received", etc.
+  title           String
+  message         String
+  actionUrl       String?  // Where to go when clicked
+  
+  // Related to
+  relatedType     String?
+  relatedId       String?
+  
+  // Status
+  isRead          Boolean  @default(false)
+  readAt          DateTime?
+  
+  // Delivery
+  sentVia         String[] // ["in_app", "email", "sms"]
+  emailSent       Boolean  @default(false)
+  smsSent         Boolean  @default(false)
+  
+  createdAt       DateTime @default(now())
+}
+```
+
+═══════════════════════════════════════════════════════════════════
+🎨 PART 1: B2B PARTNER PORTAL (SIDEBAR NAVIGATION)
+═══════════════════════════════════════════════════════════════════
+
+Route: /partner/*
+
+NAVIGATION STRUCTURE (Left Sidebar - Same style as Admin):
+
+┌───────────┬──────────────────────────────────────────────────────┐
+│           │                                                       │
+│  [LOGO]   │  Header: 🔔 Notifications | 💬 Messages | User ▼    │
+│           │                                                       │
+├───────────┼──────────────────────────────────────────────────────┤
+│           │                                                       │
+│ 🏠 Dashboard                                                     │
+│           │                                                       │
+│ 📦 Orders  │          Main Content Area                          │
+│           │                                                       │
+│ 💳 Invoices│                                                     │
+│           │                                                       │
+│ 💰 Pricing │                                                     │
+│           │                                                       │
+│ 📊 Analytics│                                                    │
+│           │                                                       │
+│ 🎨 Marketing│                                                    │
+│   Hub      │                                                     │
+│           │                                                       │
+│ 💳 Financing│                                                    │
+│           │                                                       │
+│ 📚 How-To  │                                                     │
+│   Guide    │                                                     │
+│           │                                                       │
+│ 🔌 Integrations                                                  │
+│           │                                                       │
+│ 📍 Track   │                                                     │
+│   Orders   │                                                     │
+│           │                                                       │
+│───────────│                                                       │
+│           │                                                       │
+│ ⚙️ Account │                                                     │
+│           │                                                       │
+│ 💬 Messages│                                                     │
+│           │                                                       │
+│ 📞 Support │                                                     │
+│           │                                                       │
+│ [Collapse]│                                                       │
+│           │                                                       │
+└───────────┴──────────────────────────────────────────────────────┘
+
+SIDEBAR SPECS:
+- Width: 240px fixed
+- Background: #000000
+- Position: Fixed (scrollable if needed)
+- Logo height: 80px
+- Nav item height: 48px
+- Active state: rgba(0,255,133,0.1) bg + left border 3px #00FF85
+- Inactive: rgba(255,255,255,0.7) text
+- Hover: rgba(255,255,255,0.05) bg
+- Icons: Lucide React icons
+- Collapse button at bottom (state persists in localStorage)
+
+HEADER BAR (to right of sidebar):
+- Height: 80px
+- Background: rgba(255,255,255,0.02)
+- Border bottom: 1px solid rgba(255,255,255,0.08)
+- Contents:
+  • 🔔 Notifications (badge if unread)
+  • 💬 Messages (badge if unread) ← NEW
+  • User dropdown:
+    - Company name
+    - Email
+    - ─────
+    - 👤 Account
+    - 📊 Analytics
+    - 💬 Messages
+    - 📞 Support
+    - ─────
+    - 🚪 Sign Out
+
+PAGES (follow previous specs but with sidebar layout):
+1. Dashboard - Welcome, account overview, recent orders, featured products
+2. Orders - Order history with visual cards, place new order
+3. Invoices - All invoices, pay now, download PDF
+4. Pricing - Product catalog with images, MSRP, wholesale prices, margins
+5. Analytics - Sales trends, product performance, profitability
+6. Marketing Hub - Downloadable assets (posters, social, videos, etc.)
+7. Financing - Payment options (NET terms, Afterpay, Klarna, loans)
+8. How-To Guide - Video training library
+9. Integrations - Connect POS, accounting, inventory systems
+10. Track Orders - GPS tracking, delivery status, temperature monitoring
+11. Account - Business info, addresses, payment methods, preferences
+12. Messages - Communicate with sales rep and admin (NEW - see below)
+13. Support - Contact account manager, submit tickets, FAQ
+
+MESSAGES TAB (/partner/messages) - NEW:
+
+┌──────────────────────────────────────────────────────────────────┐
+│ Messages                                              [Compose]   │
+├────────────┬─────────────────────────────────────────────────────┤
+│            │                                                      │
+│ INBOX      │  Conversation with Sarah Johnson (Sales Rep)        │
+│            │  ────────────────────────────────────────────────   │
+│ Sarah J.   │                                                      │
+│ Sales Rep  │  [Sarah's Avatar] Sarah Johnson                     │
+│ 2 new msgs │  Yesterday at 3:45 PM                               │
+│            │                                                      │
+│ Support    │  "Hey! Just wanted to check in on your last order.  │
+│ Team       │   Everything arrive okay?"                          │
+│ 1 new msg  │                                                      │
+│            │  ────────────────────────────────────────────────   │
+│ [+ New]    │                                                      │
+│            │  [Your Avatar] You                                   │
+│            │  Today at 9:15 AM                                   │
+│            │                                                      │
+│            │  "Yes! Everything was perfect. We're already        │
+│            │   seeing great sales on the Green Detox."           │
+│            │                                                      │
+│            │  ────────────────────────────────────────────────   │
+│            │                                                      │
+│            │  [Sarah's Avatar] Sarah Johnson                     │
+│            │  Today at 10:30 AM                                  │
+│            │                                                      │
+│            │  "That's awesome! 🎉 Ready to place another order?" │
+│            │                                                      │
+│            │  ────────────────────────────────────────────────   │
+│            │                                                      │
+│            │  [Type your message...]              [Send]         │
+│            │  [📎 Attach] [😊 Emoji]                            │
+│            │                                                      │
+└────────────┴─────────────────────────────────────────────────────┘
+
+Features:
+- List of conversations on left (sales rep, support team, admin)
+- Real-time messaging (WebSocket or polling)
+- Unread count badges
+- File attachments
+- Emoji picker
+- Message read receipts
+- Typing indicators
+- Search conversations
+- Archive conversations
+
+═══════════════════════════════════════════════════════════════════
+👔 PART 2: SALES REP PORTAL (MOBILE-FIRST DESIGN)
+═══════════════════════════════════════════════════════════════════
+
+Route: /sales/*
+
+PURPOSE: Mobile-first CRM for field sales team to manage leads, close deals, and communicate with partners.
+
+AUTHENTICATION:
+
+/sales/login - Login page
+/sales/signup - NOT PUBLIC (admin creates accounts)
+/sales/forgot-password - Password reset
+
+Login Page:
+┌────────────────────────────────┐
+│                                 │
+│         [DRIZZL LOGO]          │
+│                                 │
+│     Sales Rep Portal           │
+│                                 │
+│  ┌──────────────────────────┐ │
+│  │ Email                    │ │
+│  └──────────────────────────┘ │
+│                                 │
+│  ┌──────────────────────────┐ │
+│  │ Password                 │ │
+│  └──────────────────────────┘ │
+│                                 │
+│  [Sign In]                     │
+│                                 │
+│  Forgot password?              │
+│                                 │
+└────────────────────────────────┘
+
+NAVIGATION (Bottom Tab Bar - Mobile First):
+
+┌────────────────────────────────────────────────────────────────┐
+│                                                                 │
+│                    Main Content Area                           │
+│                  (Changes based on tab)                        │
+│                                                                 │
+│                                                                 │
+│                                                                 │
+│                                                                 │
+│                                                                 │
+│                                                                 │
+└────────────────────────────────────────────────────────────────┘
+┌──────────┬──────────┬──────────┬──────────┬──────────┐
+│  🏠      │  🎯      │  📞      │  💰      │  👤     │
+│ Dashboard│  Leads   │ Activity │Commission│ Profile  │
+└──────────┴──────────┴──────────┴──────────┴──────────┘
+
+(On desktop, show sidebar like admin/partner but with mobile-first design that works well on both)
+
+TAB 1: DASHBOARD (/sales/dashboard)
+
+TODAY'S SNAPSHOT (cards):
+┌─────────────┐ ┌─────────────┐ ┌─────────────┐
+│ Leads       │ │ Calls       │ │ Deals       │
+│ 12 active   │ │ 8 today     │ │ 5 closing   │
+└─────────────┘ └─────────────┘ └─────────────┘
+
+QUOTA PROGRESS:
+Monthly Quota: $50,000
+Current: $38,450 (77%)
+[████████████████░░░░]
+Days left: 8 days
+On track to: $49,800 (99.6%) 🔥
+
+NEXT ACTIONS (urgent tasks):
+⚠️ HIGH PRIORITY
+
+Call Whole Foods - Demo scheduled today 2PM
+Follow up Trader Joe's - Proposal sent 3 days ago
+Send contract to Sprouts - Verbally agreed
+
+📅 SCHEDULED TODAY
+
+10:00 AM - Call with Target buyer
+2:00 PM - Demo at Whole Foods (123 Main St)
+4:30 PM - Check-in call with Kroger
+
+🎯 THIS WEEK
+
+Close Walmart deal ($120K annual)
+Send 5 proposals
+Make 50 calls
+
+
+LEADERBOARD (gamification):
+This Month's Top Reps:
+🥇 Mike Chen - $145K (290% of quota)
+🥈 Sarah Johnson - $128K (256% of quota)
+🥉 You - $38K (77% of quota)
+You're rank #8 of 15 reps
+
+HOT LEADS (high score, needs immediate attention):
+🔥 Costco - Score: 95 - Demo tomorrow
+🔥 Safeway - Score: 88 - Proposal stage
+⭐ Natural Grocers - Score: 82 - Needs follow-up
+
+TAB 2: LEADS (/sales/leads)
+
+FILTERS (top):
+[All] [My Leads] [New] [Hot 🔥] [Closing Soon]
+Sort: [Lead Score ▼] 🔍 Search
+
+LEAD CARDS (swipeable on mobile):
+┌──────────────────────────────────────────────────┐
+│ 🔥 WHOLE FOODS MARKET            Score: 92      │
+├──────────────────────────────────────────────────┤
+│ Contact: Jennifer Smith (Buyer)                 │
+│ 📧 jsmith@wholefoods.com  📞 (555) 123-4567    │
+│                                                  │
+│ Status: Demo Scheduled                          │
+│ Value: $85K annual                              │
+│ Close Date: Dec 28                              │
+│                                                  │
+│ Next Action: Demo today at 2PM                  │
+│ 📍 123 Main St, LA                              │
+│                                                  │
+│ ─────────────────────────────────────────────   │
+│ [📞 Call] [✉️ Email] [📅 Schedule] [👁️ View]  │
+└──────────────────────────────────────────────────┘
+Swipe left: [📧 Email] [🗑️ Lost]
+Swipe right: [✅ Won] [📝 Note]
+
+[+ ADD NEW LEAD] (floating action button)
+
+LEAD DETAIL VIEW (/sales/leads/[id]):
+┌──────────────────────────────────────────────────┐
+│ ← Back              Whole Foods Market     [︙]  │
+├──────────────────────────────────────────────────┤
+│                                                  │
+│ 🔥 Score: 92 (Hot Lead!)                        │
+│ Status: Demo Scheduled                          │
+│                                                  │
+│ CONTACT INFO                                     │
+│ Jennifer Smith - Buyer                          │
+│ 📧 jsmith@wholefoods.com                        │
+│ 📞 (555) 123-4567                               │
+│ 🏢 Whole Foods Market                           │
+│ 📍 Los Angeles, CA                              │
+│                                                  │
+│ DEAL INFO                                        │
+│ Value: $85,000/year                             │
+│ Probability: 75%                                │
+│ Expected Close: Dec 28, 2024                    │
+│ Products: All smoothies, 500 units/month        │
+│                                                  │
+│ BANT QUALIFICATION                               │
+│ ✅ Budget: Confirmed ($100K)                    │
+│ ✅ Authority: Decision maker                    │
+│ ✅ Need: Urgent (launching wellness section)    │
+│ ✅ Timeline: 30 days                            │
+│                                                  │
+│ NEXT ACTION                                      │
+│ 📅 Product demo - Today 2:00 PM                 │
+│    At their office: 123 Main St, LA            │
+│    [Get Directions] [Start Navigation]          │
+│                                                  │
+│ QUICK ACTIONS                                    │
+│ [📞 Call Now] [✉️ Send Email] [📝 Add Note]    │
+│ [📅 Schedule Meeting] [📄 Send Proposal]        │
+│                                                  │
+├──────────────────────────────────────────────────┤
+│                                                  │
+│ ACTIVITY TIMELINE                                │
+│                                                  │
+│ [All] [Calls] [Emails] [Meetings] [Notes]      │
+│                                                  │
+│ ✅ Today 9:15 AM                                │
+│ Sent confirmation email for demo                │
+│ "Looking forward to showing you our products!"  │
+│                                                  │
+│ 📞 Yesterday 3:30 PM                            │
+│ Phone call - 12 minutes                         │
+│ Outcome: Scheduled demo for Dec 19             │
+│ Notes: "Very interested in Green Detox and      │
+│ Protein Power. Asked about bulk pricing..."     │
+│                                                  │
+│ ✉️ Dec 15, 2:00 PM                              │
+│ Sent product information                        │
+│ ✅ Opened ✅ Clicked (3 links)                  │
+│                                                  │
+│ 📞 Dec 14, 10:00 AM                             │
+│ First call - 8 minutes                          │
+│ Outcome: Interested, requested more info        │
+│                                                  │
+│ 🎯 Dec 13                                       │
+│ Lead created from website form                  │
+│ Source: Website inquiry                         │
+│                                                  │
+│ [Load More Activity]                            │
+│                                                  │
+├──────────────────────────────────────────────────┤
+│                                                  │
+│ NOTES (Private)                                  │
+│                                                  │
+│ "Jennifer mentioned they're launching a new     │
+│ wellness section in Q1. Perfect timing for our  │
+│ products. She has final authority on vendor     │
+│ selection. Competitors: Athletic Greens,        │
+│ Orgain. Our differentiator: Better pricing,     │
+│ frozen format (longer shelf life)."             │
+│                                                  │
+│ [Add Note]                                       │
+│                                                  │
+├──────────────────────────────────────────────────┤
+│                                                  │
+│ DOCUMENTS                                        │
+│ 📄 Product Catalog.pdf                          │
+│ 📄 Pricing Sheet - Growth Tier.pdf             │
+│ 📄 Whole Foods Proposal.pdf (Draft)            │
+│                                                  │
+│ [Upload Document]                                │
+│                                                  │
+└──────────────────────────────────────────────────┘
+
+QUICK ACTIONS (from lead detail):
+
+[📞 CALL NOW] → Opens phone dialer + auto-starts call timer
+┌────────────────────────────────┐
+│ Calling Jennifer Smith...      │
+│ 📞 (555) 123-4567              │
+│                                 │
+│        [End Call]              │
+│                                 │
+│ ⏱️ 00:00 (timer running)       │
+│                                 │
+│ After call, log outcome:       │
+│ ○ No answer                    │
+│ ○ Left voicemail               │
+│ ○ Spoke - positive             │
+│ ○ Spoke - neutral              │
+│ ○ Spoke - negative             │
+│ ○ Schedule callback            │
+│                                 │
+│ Notes:                          │
+│ [____________]                  │
+│                                 │
+│ [Save Call Log]                │
+└────────────────────────────────┘
+
+[✉️ SEND EMAIL] → Email composer with templates
+┌────────────────────────────────┐
+│ Send Email                      │
+│                                 │
+│ To: jsmith@wholefoods.com      │
+│                                 │
+│ Template: [Choose template ▼]  │
+│ • Follow-up after call         │
+│ • Demo confirmation            │
+│ • Send proposal                │
+│ • Check-in                     │
+│ • Product information          │
+│ • Custom                        │
+│                                 │
+│ Subject:                        │
+│ []      │
+│                                 │
+│ Message:                        │
+│ []      │
+│ []      │
+│ []      │
+│                                 │
+│ Attachments:                    │
+│ • Product Catalog.pdf          │
+│ • Pricing Sheet.pdf            │
+│ [+ Add Attachment]             │
+│                                 │
+│ [Send Now] [Schedule] [Save]   │
+└────────────────────────────────┘
+Email templates auto-fill with:
+
+Lead's name
+Company name
+Relevant product info
+Your signature
+
+
+[📅 SCHEDULE MEETING] → Calendar booking
+┌────────────────────────────────┐
+│ Schedule Meeting                │
+│                                 │
+│ With: Jennifer Smith           │
+│                                 │
+│ Meeting Type:                   │
+│ ○ Phone call                   │
+│ ● In-person meeting            │
+│ ○ Video call (Zoom)            │
+│                                 │
+│ Date: [Dec 19, 2024 ▼]        │
+│ Time: [2:00 PM ▼]              │
+│ Duration: [1 hour ▼]           │
+│                                 │
+│ Location:                       │
+│ 123 Main St, Los Angeles       │
+│ [Get Directions]               │
+│                                 │
+│ Agenda:                         │
+│ • Product demo                 │
+│ • Taste testing                │
+│ • Pricing discussion           │
+│                                 │
+│ [Send Calendar Invite]         │
+└────────────────────────────────┘
+Auto-sends:
+
+Calendar invite to contact
+Adds to YOUR calendar
+Sets reminder (1 hour before)
+Creates activity in timeline
+
+
+[📄 SEND PROPOSAL] → Generate + send proposal
+┌────────────────────────────────┐
+│ Generate Proposal               │
+│                                 │
+│ Customer: Whole Foods Market   │
+│                                 │
+│ Products to include:            │
+│ ☑ Green Detox Smoothie         │
+│ ☑ Berry Blast Smoothie         │
+│ ☑ Protein Power Smoothie       │
+│ ☐ Immune Boost Smoothie        │
+│ ☐ Chocolate Dream Smoothie     │
+│                                 │
+│ Pricing Tier: [Growth ▼]       │
+│ Discount: 35% off MSRP         │
+│                                 │
+│ Estimated Monthly Order:        │
+│ [500] units                     │
+│                                 │
+│ Contract Length:                │
+│ ○ 6 months                     │
+│ ● 12 months                     │
+│ ○ 24 months                     │
+│                                 │
+│ Payment Terms: [NET 30 ▼]     │
+│                                 │
+│ Special Terms:                  │
+│ [Free freezer after $50K]      │
+│                                 │
+│ [Preview Proposal]             │
+│ [Generate & Send]              │
+└────────────────────────────────┘
+Generates professional PDF with:
+
+Company letterhead
+Products + pricing
+Volume discounts
+Payment terms
+Contract length
+Signature page
+Auto-emails to contact
+
+
+TAB 3: ACTIVITY (/sales/activity)
+
+MY SCHEDULE (calendar view):
+┌────────────────────────────────┐
+│ Today - Thursday, Dec 19       │
+├────────────────────────────────┤
+│                                 │
+│ 9:00 AM                        │
+│ ├─ Team standup (30 min)       │
+│                                 │
+│ 10:00 AM                        │
+│ ├─ 📞 Call: Target buyer       │
+│ │  (555) 234-5678              │
+│ │  [Join Call]                 │
+│                                 │
+│ 12:00 PM                        │
+│                                 │
+│ 2:00 PM                         │
+│ ├─ 🤝 Demo: Whole Foods        │
+│ │  Jennifer Smith              │
+│ │  📍 123 Main St, LA          │
+│ │  [Navigate] [Check In]       │
+│                                 │
+│ 4:30 PM                         │
+│ ├─ 📞 Follow-up: Kroger        │
+│                                 │
+│ 6:00 PM                         │
+│                                 │
+├────────────────────────────────┤
+│ [+ Add Activity]               │
+└────────────────────────────────┘
+Swipe left/right to change days
+Tap activity to see details
+
+QUICK LOG (for field reps):
+Just finished a call/meeting?
+Log it in 10 seconds:
+┌────────────────────────────────┐
+│ Quick Log                       │
+│                                 │
+│ Who: [Whole Foods - Jennifer ▼]│
+│                                 │
+│ What: [Phone Call ▼]           │
+│                                 │
+│ Outcome: [Positive ▼]          │
+│                                 │
+│ Next Step: [Send Proposal ▼]   │
+│                                 │
+│ Quick Note:                     │
+│ [Very interested, wants to     │
+│  see pricing for 1000 units]   │
+│                                 │
+│ [Log Activity]                 │
+└────────────────────────────────┘
+
+LOCATION CHECK-IN (for in-person meetings):
+Arrived at customer location?
+Check in:
+┌────────────────────────────────┐
+│ Check In                        │
+│                                 │
+│ 📍 123 Main St, Los Angeles    │
+│ 🏢 Whole Foods Market          │
+│                                 │
+│ Meeting with: Jennifer Smith   │
+│ Scheduled: 2:00 PM             │
+│ Arrived: 1:55 PM ✅            │
+│                                 │
+│ [Check In]                     │
+│                                 │
+│ (Logs GPS location + timestamp)│
+└────────────────────────────────┘
+
+ACTIVITY HEATMAP:
+Your Activity This Month
+Calls:  ████████████░░░ 68 (goal: 100)
+Emails: ███████████████ 45 (goal: 50)
+Meets:  ████████░░░░░░░ 12 (goal: 20)
+Demos:  ██████░░░░░░░░░  8 (goal: 15)
+Proposals: ████░░░░░░░░  6 (goal: 10)
+Most active: Mon, Wed, Thu
+Least active: Fri (catch up day?)
+
+TAB 4: COMMISSION (/sales/commission)
+
+EARNINGS OVERVIEW:
+┌────────────────────────────────┐
+│ Your Earnings                   │
+├────────────────────────────────┤
+│ This Month                      │
+│ $3,845.00                      │
+│ (Commission on $38,450 sales)  │
+│                                 │
+│ Status: Pending                 │
+│ Payout Date: Jan 5, 2025      │
+├────────────────────────────────┤
+│ Year to Date                    │
+│ $48,250.00                     │
+│ (11 months)                     │
+├────────────────────────────────┤
+│ Commission Rate: 10%            │
+│ (5% base + 5% bonus for quota) │
+└────────────────────────────────┘
+
+COMMISSION BREAKDOWN:
+This Month's Commission
+New Partners (3)
+
+Whole Foods:    $850.00 (bonus)
+Trader Joe's:   $620.00 (bonus)
+Sprouts:        $420.00 (bonus)
+Subtotal:        $1,890.00
+
+Partner Orders (8 orders)
+
+Walmart:        $385.00 (order)
+Target:         $290.00 (order)
+Kroger:         $450.00 (order)
+[5 more...]     $830.00
+Subtotal:        $1,955.00
+
+Total:           $3,845.00
+
+PAYOUT HISTORY:
+Nov 2024:  $4,120.00 ✅ Paid
+Oct 2024:  $3,850.00 ✅ Paid
+Sep 2024:  $4,990.00 ✅ Paid
+Aug 2024:  $3,200.00 ✅ Paid
+[View All]
+
+TAB 5: PROFILE (/sales/profile)
+
+YOUR INFO:
+[Avatar Photo]
+Sarah Johnson
+Senior Sales Rep
+📧 sjohnson@drizzlwellness.com
+📞 (555) 987-6543
+Territory: West Coast
+Manager: Mike Chen
+Team: Sales Team Alpha
+[Edit Profile]
+
+PERFORMANCE STATS:
+All-Time Stats
+🎯 Deals Closed: 47
+💰 Total Sales: $2.4M
+⭐ Avg Rating: 4.9/5.0
+🏆 Awards: Top Rep Q3 2024
+This Year
+🎯 Deals: 32
+💰 Sales: $1.8M
+📈 Growth: +42% YoY
+
+QUICK SETTINGS:
+⚙️ Settings
+
+Notifications
+Availability hours
+Auto-responses
+Email signature
+Calendar sync
+Goal settings
+
+📚 Resources
+
+Sales playbook
+Product training
+Pricing calculator
+Contract templates
+
+🚪 Sign Out
+
+═══════════════════════════════════════════════════════════════════
+SALES REP - ADDITIONAL FEATURES
+═══════════════════════════════════════════════════════════════════
+
+AI SALES ASSISTANT:
+💡 AI Suggestions
+Based on your pipeline:
+
+Whole Foods deal is stalling - send follow-up today
+Trader Joe's opened your email 3x - call now!
+You haven't contacted Sprouts in 5 days - check in
+
+Your best time to call: 10-11 AM (67% connect rate)
+Template suggestion for Whole Foods:
+"Hi Jennifer! Following up on our demo last week.
+I'd love to discuss the pricing you requested..."
+[Use This Template]
+
+VOICE NOTES (for field reps on the go):
+🎤 Just finished a meeting?
+Record a voice note
+[🔴 Record]
+(After recording)
+AI transcribes + creates:
+
+Activity log with summary
+Follow-up tasks
+Adds notes to lead
+
+
+OFFLINE MODE:
+📵 No internet? No problem.
+
+View lead details
+Log activities
+Take notes
+Record calls
+
+Everything syncs when back online
+
+ROUTE PLANNER (for field reps):
+📍 Today's Route
+Optimize your drive:
+
+Whole Foods (10 AM) - 5 mi
+Trader Joe's (12 PM) - 3 mi
+Sprouts (2 PM) - 7 mi
+Natural Grocers (4 PM) - 4 mi
+
+Total: 19 miles, 35 min driving
+Save $12 vs unoptimized route
+[Start Navigation]
+
+═══════════════════════════════════════════════════════════════════
+🔗 PART 3: COMMUNICATION INTEGRATION (ALL PORTALS)
+═══════════════════════════════════════════════════════════════════
+
+ADMIN ↔ SALES REP ↔ PARTNER
+
+All three user types can communicate:
+
+IN ADMIN PORTAL:
+Add MESSAGES tab to sidebar
+
+/admin/command-center/messages
+
+Features:
+- See all conversations (sales reps + partners)
+- Filter by: Unread, Sales Reps, Partners, Urgent
+- Assign conversations to team members
+- View sales rep ↔ partner conversations (for oversight)
+- Jump into any conversation
+- Send broadcasts to all partners or all sales reps
+
+IN SALES REP PORTAL:
+Messages in bottom nav bar (badge for unread)
+
+/sales/messages
+
+Features:
+- Message leads/partners directly
+- Message admin team
+- Group chats (e.g., "Sales Team Alpha")
+- Share documents in chat
+- Voice messages (for field reps)
+- Quick replies (templates)
+
+IN PARTNER PORTAL:
+Messages in sidebar
+
+/partner/messages
+
+Features:
+- Message assigned sales rep
+- Message support team
+- Message account manager
+- View order-related messages
+- Request samples, materials, etc.
+
+MESSAGE FEATURES (all portals):
+
+Real-time (WebSocket):
+- Instant delivery
+- Typing indicators
+- Read receipts
+- Online/offline status
+
+Rich content:
+- Text messages
+- File attachments (PDFs, images, contracts)
+- Voice messages (audio)
+- Links with previews
+- Emoji reactions
+
+Notifications:
+- In-app notifications
+- Email notifications (if not online)
+- SMS notifications (optional, for urgent)
+- Push notifications (mobile app)
+
+Search & Archive:
+- Search all messages
+- Archive old conversations
+- Star important messages
+- Filter by participant, date, keyword
+
+═══════════════════════════════════════════════════════════════════
+📱 PART 4: NOTIFICATION SYSTEM (ALL PORTALS)
+═══════════════════════════════════════════════════════════════════
+
+NOTIFICATION TYPES:
+
+FOR ADMIN:
+- New lead created (by sales rep)
+- New partner application (needs approval)
+- Large order placed (>$10K)
+- Partner payment overdue
+- Low inventory alert
+- Sales rep needs assistance
+- System alerts
+
+FOR SALES REP:
+- New lead assigned to you
+- Lead opened your email
+- Lead visited pricing page
+- Meeting reminder (1 hour before)
+- Partner placed order (earn commission)
+- Manager message
+- Quota updates
+
+FOR PARTNER:
+- Order confirmed
+- Order shipped
+- Order delivered
+- Invoice due soon (3 days before)
+- Invoice overdue
+- New product launched
+- Price changes
+- Message from sales rep
+
+NOTIFICATION DELIVERY:
+
+In-App:
+- Badge count on 🔔 icon
+- Dropdown list of recent
+- Mark as read
+- Click to navigate to related item
+
+Email:
+- Digest option (daily summary)
+- Or real-time (each notification)
+- Unsubscribe options
+
+SMS:
+- Opt-in only
+- For urgent notifications
+- Order shipped, delivered
+- Payment reminders
+
+═══════════════════════════════════════════════════════════════════
+🎨 STYLING - ALL THREE PORTALS
+═══════════════════════════════════════════════════════════════════
+
+CONSISTENT DESIGN SYSTEM:
+
+Colors:
+- Black: #000000 (background)
+- White: #FFFFFF (text)
+- Neon Green: #00FF85 (primary action, active state)
+- Cyan: #00D9FF (secondary)
+- Gray: rgba(255,255,255,0.1) (borders, dividers)
+
+Sidebar (Admin + Partner + Sales Rep desktop):
+- Width: 240px
+- Background: #000000
+- Active: rgba(0,255,133,0.1) bg + 3px left border
+- Hover: rgba(255,255,255,0.05)
+
+Cards:
+- Background: rgba(255,255,255,0.03)
+- Border: 1px solid rgba(255,255,255,0.08)
+- Border radius: 16px
+- Padding: 24px
+- Hover: slight glow effect
+
+Buttons:
+- Primary: bg-[#00FF85] text-black font-semibold
+- Secondary: bg-white/5 border-white/10 text-white
+- Danger: bg-red-500/10 text-red-500 border-red-500/30
+- Ghost: transparent hover:bg-white/5
+
+Status Badges:
+- Success: bg-green-500/10 text-green-500 border-green-500/30
+- Warning: bg-yellow-500/10 text-yellow-500
+- Error: bg-red-500/10 text-red-500
+- Info: bg-blue-500/10 text-blue-500
+- Neutral: bg-gray-500/10 text-gray-400
+
+Typography:
+- Font: Inter
+- Headings: font-bold tracking-tight
+- Body: font-normal leading-relaxed
+
+Mobile (Sales Rep):
+- Bottom tab bar: 72px height
+- Large touch targets (min 44px)
+- Swipe gestures
+- Pull to refresh
+- Floating action buttons
+
+═══════════════════════════════════════════════════════════════════
+IMPLEMENTATION ORDER
+═══════════════════════════════════════════════════════════════════
+
+PHASE 1 - Foundation (4-6 hours):
+1. Update database schema (add all new tables)
+2. Run migrations
+3. Create seed data for sales reps, leads, deals
+4. Update existing partner model with salesRepId
+
+PHASE 2 - Partner Portal Updates (3-4 hours):
+5. Change navigation from horizontal to sidebar
+6. Add Messages tab
+7. Add all visual product improvements (images, MSRP, margins)
+8. Add Marketing Hub, Financing, How-To, Integrations, Track Orders tabs
+
+PHASE 3 - Sales Rep Portal (8-10 hours):
+9. Create sales rep auth (login, forgot password)
+10. Build dashboard (quota, leaderboard, hot leads)
+11. Build leads list + detail pages
+12. Build activity/schedule tab
+13. Build commission tab
+14. Build profile tab
+15. Add quick action modals (call, email, schedule, proposal)
+
+PHASE 4 - Communication System (4-6 hours):
+16. Build messaging infrastructure (WebSocket or polling)
+17. Add Messages to all three portals
+18. Add notifications system
+19. Real-time updates
+
+PHASE 5 - Admin Updates (3-4 hours):
+20. Add ability to create/manage sales rep accounts
+21. Add ability to view all sales rep activity
+22. Add sales rep performance dashboard
+23. Add commission approval workflow
+24. Add Messages tab to admin
+
+PHASE 6 - Polish & Testing (4-6 hours):
+25. Mobile optimization for sales rep portal
+26. Offline mode for sales rep
+27. AI suggestions for sales rep
+28. Voice notes feature
+29. Route planner for field reps
+30. Complete testing across all three portals
+
+TOTAL ESTIMATED TIME: 26-36 hours
+
+═══════════════════════════════════════════════════════════════════
+START NOW
+═══════════════════════════════════════════════════════════════════
+
+Begin with PHASE 1:
+1. Update Prisma schema with all new models
+2. Generate migrations
+3. Create seed script for:
+   - 5 sales reps
+   - 20 leads (various stages)
+   - 10 deals (various stages)
+   - Link existing partners to sales reps
+   - Sample activities, notes, commissions
+   - Sample conversations and messages
+
+Run migrations and show me the results.
+
+Then move to PHASE 2:
+4. Update Partner Portal to sidebar navigation
+5. Add Messages tab
+
+Start now! 🚀
+
+🎯 THIS IS THE COMPLETE B2B ECOSYSTEM:
+THREE INTERCONNECTED PORTALS:
+
+1. 👔 SALES REP PORTAL (Mobile-First CRM)
+   - Manage leads & close deals
+   - Activity tracking & calendar
+   - Commission tracking
+   - Real-time messaging
+   - Field rep tools (GPS, voice notes, offline mode)
+
+2. 🏢 B2B PARTNER PORTAL (Wholesale Ordering)
+   - Visual product catalog with MSRP
+   - Order management & tracking
+   - Marketing assets library
+   - Financing options
+   - Training videos
+   - POS integrations
+   - Real-time messaging with sales rep
+
+3. 👨‍💼 ADMIN COMMAND CENTER (Full Management)
+   - Manage products & operations
+   - Oversee sales team & partners
+   - View all communications
+   - Approve commissions
+   - Business intelligence
+
+ALL THREE COMMUNICATE IN REAL-TIME! 💬
