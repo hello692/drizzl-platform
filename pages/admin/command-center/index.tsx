@@ -30,6 +30,7 @@ import {
   Activity,
   MessageSquare,
   ArrowRight,
+  Bell,
 } from 'lucide-react';
 import {
   AreaChart,
@@ -673,6 +674,30 @@ export default function CommandCenterDashboard() {
                 </div>
               ))}
             </div>
+          </div>
+        </div>
+
+        {/* Email Integration Widget */}
+        <div style={styles.card}>
+          <div style={styles.cardHeader}>
+            <Mail size={18} color="#60A5FA" />
+            <h2 style={styles.cardTitle}>Recent Emails (Gmail)</h2>
+            <span style={styles.comingSoonBadge}>Coming Soon</span>
+          </div>
+          <div style={styles.emailContent}>
+            <div style={styles.emailIcon}>
+              <Mail size={48} color="rgba(96, 165, 250, 0.3)" />
+            </div>
+            <p style={styles.emailDescription}>
+              Gmail integration is coming soon. You'll be able to view and manage emails directly from your admin dashboard.
+            </p>
+            <button
+              style={styles.notifyButton}
+              onClick={() => alert('You will be notified when Gmail integration is available!')}
+            >
+              <Bell size={16} />
+              Notify Me When Available
+            </button>
           </div>
         </div>
 
@@ -1338,5 +1363,48 @@ const styles: Record<string, React.CSSProperties> = {
   },
   recommendationContent: {
     flex: 1,
+  },
+  comingSoonBadge: {
+    marginLeft: 'auto',
+    fontSize: 11,
+    fontWeight: 600,
+    padding: '4px 10px',
+    borderRadius: 12,
+    backgroundColor: 'rgba(251, 191, 36, 0.15)',
+    color: '#FBBF24',
+    textTransform: 'uppercase' as const,
+    letterSpacing: '0.03em',
+  },
+  emailContent: {
+    display: 'flex',
+    flexDirection: 'column' as const,
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: '32px 24px',
+    textAlign: 'center' as const,
+  },
+  emailIcon: {
+    marginBottom: 16,
+  },
+  emailDescription: {
+    fontSize: 14,
+    color: 'rgba(255,255,255,0.5)',
+    margin: '0 0 24px 0',
+    maxWidth: 400,
+    lineHeight: 1.6,
+  },
+  notifyButton: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 8,
+    padding: '12px 24px',
+    backgroundColor: 'rgba(0, 255, 133, 0.1)',
+    border: `1px solid ${NEON_GREEN}`,
+    borderRadius: 12,
+    color: NEON_GREEN,
+    fontSize: 14,
+    fontWeight: 600,
+    cursor: 'pointer',
+    transition: 'all 0.2s ease',
   },
 };
