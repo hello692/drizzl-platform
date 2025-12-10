@@ -52,7 +52,7 @@ export default function Wholesale() {
 
   return (
     <>
-      <Navbar hideCart hideSearch />
+      <Navbar />
       
       <main style={{ background: '#000000', minHeight: '100vh', paddingTop: '120px' }}>
         <section style={{

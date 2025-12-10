@@ -28,7 +28,7 @@ const PRICING_TIERS = [
 export default function WholesalePricing() {
   return (
     <>
-      <Navbar hideCart hideSearch />
+      <Navbar />
       
       <main style={{ background: '#000000', minHeight: '100vh', paddingTop: '120px' }}>
         <section style={{
