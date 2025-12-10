@@ -1,765 +1,1177 @@
-import React, { useState, useEffect } from 'react';
-import { useRequireAdmin } from '../../hooks/useRole';
+import React from 'react';
 import AdminLayout from '../../components/AdminLayout';
+import {
+  DollarSign,
+  ShoppingCart,
+  CreditCard,
+  UserPlus,
+  Heart,
+  TrendingUp,
+  TrendingDown,
+  Users,
+  Package,
+  MapPin,
+  Clock,
+  Calendar,
+  BarChart3,
+  PieChart,
+  AlertCircle,
+  ArrowUpRight,
+  ArrowDownRight,
+  Sparkles,
+  Target,
+  Filter,
+  Zap,
+  Sun,
+  Moon,
+} from 'lucide-react';
+import {
+  BarChart,
+  Bar,
+  LineChart,
+  Line,
+  PieChart as RechartsPieChart,
+  Pie,
+  Cell,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+  Legend,
+  AreaChart,
+  Area,
+} from 'recharts';
 
-const TrendUpIcon = () => (
-  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <defs>
-      <linearGradient id="trendUp" x1="0%" y1="100%" x2="100%" y2="0%">
-        <stop offset="0%" stopColor="#43e97b" />
-        <stop offset="100%" stopColor="#38f9d7" />
-      </linearGradient>
-    </defs>
-    <path d="M7 17L17 7M17 7H7M17 7V17" stroke="url(#trendUp)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-  </svg>
-);
+const isDemoMode = true;
 
-const OrdersIcon = () => (
-  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <defs>
-      <linearGradient id="orders" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stopColor="#667eea" />
-        <stop offset="100%" stopColor="#764ba2" />
-      </linearGradient>
-    </defs>
-    <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" stroke="url(#orders)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-  </svg>
-);
+const NEON_GREEN = '#00FF85';
+const CARD_BG = 'rgba(255,255,255,0.03)';
+const CARD_BORDER = 'rgba(255,255,255,0.08)';
 
-const RevenueIcon = () => (
-  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <defs>
-      <linearGradient id="revenue" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stopColor="#43e97b" />
-        <stop offset="100%" stopColor="#38f9d7" />
-      </linearGradient>
-    </defs>
-    <path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6" stroke="url(#revenue)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-  </svg>
-);
+const kpiData = [
+  { id: 'revenue', label: 'Total Revenue (MTD)', value: '$487,392', change: '+18.5%', changeType: 'up', icon: <DollarSign size={20} /> },
+  { id: 'orders', label: 'Orders (MTD)', value: '1,247', change: '+12.3%', changeType: 'up', icon: <ShoppingCart size={20} /> },
+  { id: 'aov', label: 'Avg Order Value', value: '$391', change: '+5.2%', changeType: 'up', icon: <CreditCard size={20} /> },
+  { id: 'cac', label: 'Customer Acquisition Cost', value: '$42', change: '-8.4%', changeType: 'down', icon: <UserPlus size={20} /> },
+  { id: 'clv', label: 'Customer Lifetime Value', value: '$847', change: '+15.7%', changeType: 'up', icon: <Heart size={20} /> },
+];
 
-const D2CIcon = () => (
-  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <defs>
-      <linearGradient id="d2c" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stopColor="#4facfe" />
-        <stop offset="100%" stopColor="#00f2fe" />
-      </linearGradient>
-    </defs>
-    <path d="M16 21v-2a4 4 0 00-4-4H6a4 4 0 00-4 4v2M12 11a4 4 0 100-8 4 4 0 000 8zM22 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" stroke="url(#d2c)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-  </svg>
-);
+const revenueByChannel = [
+  { channel: 'D2C', revenue: 298450, percentage: 61 },
+  { channel: 'B2B', revenue: 188942, percentage: 39 },
+];
 
-const B2BIcon = () => (
-  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <defs>
-      <linearGradient id="b2b" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stopColor="#f093fb" />
-        <stop offset="100%" stopColor="#f5576c" />
-      </linearGradient>
-    </defs>
-    <path d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16M3 21h18M9 7h.01M9 11h.01M9 15h.01M15 7h.01M15 11h.01M15 15h.01" stroke="url(#b2b)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-  </svg>
-);
+const revenueTrend30Days = [
+  { date: 'Nov 11', revenue: 12500, d2c: 7800, b2b: 4700 },
+  { date: 'Nov 12', revenue: 14200, d2c: 8900, b2b: 5300 },
+  { date: 'Nov 13', revenue: 11800, d2c: 7200, b2b: 4600 },
+  { date: 'Nov 14', revenue: 15600, d2c: 9500, b2b: 6100 },
+  { date: 'Nov 15', revenue: 16800, d2c: 10200, b2b: 6600 },
+  { date: 'Nov 16', revenue: 18200, d2c: 11100, b2b: 7100 },
+  { date: 'Nov 17', revenue: 14500, d2c: 8800, b2b: 5700 },
+  { date: 'Nov 18', revenue: 13200, d2c: 8000, b2b: 5200 },
+  { date: 'Nov 19', revenue: 15800, d2c: 9600, b2b: 6200 },
+  { date: 'Nov 20', revenue: 17400, d2c: 10600, b2b: 6800 },
+  { date: 'Nov 21', revenue: 19200, d2c: 11700, b2b: 7500 },
+  { date: 'Nov 22', revenue: 21500, d2c: 13100, b2b: 8400 },
+  { date: 'Nov 23', revenue: 23800, d2c: 14500, b2b: 9300 },
+  { date: 'Nov 24', revenue: 20100, d2c: 12300, b2b: 7800 },
+  { date: 'Nov 25', revenue: 18600, d2c: 11300, b2b: 7300 },
+  { date: 'Nov 26', revenue: 16400, d2c: 10000, b2b: 6400 },
+  { date: 'Nov 27', revenue: 14800, d2c: 9000, b2b: 5800 },
+  { date: 'Nov 28', revenue: 22500, d2c: 13700, b2b: 8800 },
+  { date: 'Nov 29', revenue: 28400, d2c: 17300, b2b: 11100 },
+  { date: 'Nov 30', revenue: 24200, d2c: 14800, b2b: 9400 },
+  { date: 'Dec 1', revenue: 19800, d2c: 12100, b2b: 7700 },
+  { date: 'Dec 2', revenue: 17600, d2c: 10700, b2b: 6900 },
+  { date: 'Dec 3', revenue: 16200, d2c: 9900, b2b: 6300 },
+  { date: 'Dec 4', revenue: 18400, d2c: 11200, b2b: 7200 },
+  { date: 'Dec 5', revenue: 20800, d2c: 12700, b2b: 8100 },
+  { date: 'Dec 6', revenue: 22400, d2c: 13600, b2b: 8800 },
+  { date: 'Dec 7', revenue: 19600, d2c: 11900, b2b: 7700 },
+  { date: 'Dec 8', revenue: 17200, d2c: 10500, b2b: 6700 },
+  { date: 'Dec 9', revenue: 15800, d2c: 9600, b2b: 6200 },
+  { date: 'Dec 10', revenue: 18900, d2c: 11500, b2b: 7400 },
+];
 
-const ChartIcon = () => (
-  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <defs>
-      <linearGradient id="chart" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stopColor="#fa709a" />
-        <stop offset="100%" stopColor="#fee140" />
-      </linearGradient>
-    </defs>
-    <path d="M18 20V10M12 20V4M6 20v-6" stroke="url(#chart)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-  </svg>
-);
+const revenueByCategory = [
+  { category: 'Smoothie Boxes', revenue: 156800, units: 412 },
+  { category: 'Individual Smoothies', revenue: 98400, units: 1847 },
+  { category: 'High Protein', revenue: 87200, units: 298 },
+  { category: 'Gift Sets', revenue: 72500, units: 189 },
+  { category: 'Subscriptions', revenue: 48200, units: 127 },
+  { category: 'Accessories', revenue: 24292, units: 374 },
+];
 
-const EventIcon = () => (
-  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <defs>
-      <linearGradient id="event" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stopColor="#a8edea" />
-        <stop offset="100%" stopColor="#fed6e3" />
-      </linearGradient>
-    </defs>
-    <circle cx="12" cy="12" r="10" stroke="url(#event)" strokeWidth="2"/>
-    <path d="M12 6v6l4 2" stroke="url(#event)" strokeWidth="2" strokeLinecap="round"/>
-  </svg>
-);
+const customerNewVsReturning = [
+  { name: 'New Customers', value: 542, color: NEON_GREEN },
+  { name: 'Returning Customers', value: 705, color: '#8B5CF6' },
+];
 
-const ProductIcon = () => (
-  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <defs>
-      <linearGradient id="product" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stopColor="#c471f5" />
-        <stop offset="100%" stopColor="#fa71cd" />
-      </linearGradient>
-    </defs>
-    <path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z" stroke="url(#product)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-    <path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12" stroke="url(#product)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-  </svg>
-);
+const acquisitionFunnel = [
+  { stage: 'Website Visitors', count: 45200, percentage: 100 },
+  { stage: 'Product Views', count: 18400, percentage: 40.7 },
+  { stage: 'Add to Cart', count: 4850, percentage: 10.7 },
+  { stage: 'Checkout Started', count: 2180, percentage: 4.8 },
+  { stage: 'Purchase Completed', count: 1247, percentage: 2.8 },
+];
 
-export default function AdminAnalytics() {
-  const { loading, authorized } = useRequireAdmin();
-  const [stats, setStats] = useState<any>(null);
-  const [revenue, setRevenue] = useState<any>(null);
-  const [topProducts, setTopProducts] = useState<any[]>([]);
-  const [recentEvents, setRecentEvents] = useState<any[]>([]);
-  const [loadingData, setLoadingData] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+const topCustomerSegments = [
+  { segment: 'Health Enthusiasts', customers: 3842, revenue: 189400, avgOrder: 412 },
+  { segment: 'Fitness Professionals', customers: 2156, revenue: 142800, avgOrder: 478 },
+  { segment: 'Busy Parents', customers: 1847, revenue: 98200, avgOrder: 289 },
+  { segment: 'Corporate Wellness', customers: 892, revenue: 87400, avgOrder: 645 },
+  { segment: 'Students', customers: 1245, revenue: 42100, avgOrder: 186 },
+];
 
-  useEffect(() => {
-    if (authorized) {
-      loadAnalytics();
-    }
-  }, [authorized]);
+const bestSellers = [
+  { rank: 1, product: 'Strawberry Peach Smoothie', unitsSold: 2847, revenue: 42705 },
+  { rank: 2, product: 'Mango Jackfruit Blend', unitsSold: 2156, revenue: 32340 },
+  { rank: 3, product: 'Açaí Power Bowl', unitsSold: 1892, revenue: 28380 },
+  { rank: 4, product: 'Coffee Mushroom Boost', unitsSold: 1654, revenue: 24810 },
+  { rank: 5, product: 'Chocolate Berry Fusion', unitsSold: 1423, revenue: 21345 },
+];
 
-  async function loadAnalytics() {
-    try {
-      const response = await fetch('/api/admin/analytics');
-      const data = await response.json();
-      
-      setStats(data.stats || {
-        ordersLast7Days: 0,
-        d2cOrders: 0,
-        b2bOrders: 0,
-      });
-      setRevenue(data.revenue || {
-        totalRevenue: 0,
-        d2cRevenue: 0,
-        b2bRevenue: 0,
-      });
-      setTopProducts(data.topProducts || []);
-      setRecentEvents(data.recentEvents || []);
-      setError(null);
-    } catch (err) {
-      console.error('Error loading analytics:', err);
-      setError('Unable to load analytics data');
-      setStats({
-        ordersLast7Days: 0,
-        d2cOrders: 0,
-        b2bOrders: 0,
-      });
-      setRevenue({
-        totalRevenue: 0,
-        d2cRevenue: 0,
-        b2bRevenue: 0,
-      });
-      setTopProducts([]);
-      setRecentEvents([]);
-    } finally {
-      setLoadingData(false);
-    }
-  }
+const lowPerformers = [
+  { product: 'Mint Cacao Smoothie', unitsSold: 127, revenue: 1905, trend: -23 },
+  { product: 'Pink Piyata Special', unitsSold: 189, revenue: 2835, trend: -18 },
+  { product: 'Almond Butter Blend', unitsSold: 234, revenue: 3510, trend: -12 },
+];
 
-  if (loading) {
+const productCategoryBreakdown = [
+  { category: 'Fruit Blends', percentage: 42, revenue: 204500 },
+  { category: 'Protein Smoothies', percentage: 28, revenue: 136400 },
+  { category: 'Coffee & Energy', percentage: 18, revenue: 87700 },
+  { category: 'Specialty Bowls', percentage: 12, revenue: 58400 },
+];
+
+const salesByRegion = [
+  { rank: 1, state: 'California', orders: 312, revenue: 124800, percentage: 25.6 },
+  { rank: 2, state: 'Texas', orders: 198, revenue: 79200, percentage: 16.3 },
+  { rank: 3, state: 'New York', orders: 167, revenue: 66800, percentage: 13.7 },
+  { rank: 4, state: 'Florida', orders: 143, revenue: 57200, percentage: 11.7 },
+  { rank: 5, state: 'Washington', orders: 89, revenue: 35600, percentage: 7.3 },
+  { rank: 6, state: 'Colorado', orders: 76, revenue: 30400, percentage: 6.2 },
+  { rank: 7, state: 'Arizona', orders: 64, revenue: 25600, percentage: 5.3 },
+  { rank: 8, state: 'Oregon', orders: 52, revenue: 20800, percentage: 4.3 },
+  { rank: 9, state: 'Nevada', orders: 41, revenue: 16400, percentage: 3.4 },
+  { rank: 10, state: 'Illinois', orders: 38, revenue: 15200, percentage: 3.1 },
+];
+
+const shippingDestinations = [
+  { zone: 'West Coast', states: 'CA, OR, WA, NV', orders: 492, avgShipDays: 2.1 },
+  { zone: 'Southwest', states: 'AZ, NM, TX', orders: 287, avgShipDays: 2.8 },
+  { zone: 'Mountain', states: 'CO, UT, ID, MT', orders: 156, avgShipDays: 3.2 },
+  { zone: 'Midwest', states: 'IL, OH, MI, WI', orders: 134, avgShipDays: 3.8 },
+  { zone: 'Southeast', states: 'FL, GA, NC, SC', orders: 178, avgShipDays: 4.1 },
+  { zone: 'Northeast', states: 'NY, NJ, PA, MA', orders: 198, avgShipDays: 4.5 },
+];
+
+const salesByDayOfWeek = [
+  { day: 'Monday', orders: 178, revenue: 71200 },
+  { day: 'Tuesday', orders: 156, revenue: 62400 },
+  { day: 'Wednesday', orders: 189, revenue: 75600 },
+  { day: 'Thursday', orders: 201, revenue: 80400 },
+  { day: 'Friday', orders: 234, revenue: 93600 },
+  { day: 'Saturday', orders: 167, revenue: 66800 },
+  { day: 'Sunday', orders: 122, revenue: 48800 },
+];
+
+const salesByHour = [
+  { hour: '6am', orders: 23 },
+  { hour: '7am', orders: 45 },
+  { hour: '8am', orders: 89 },
+  { hour: '9am', orders: 112 },
+  { hour: '10am', orders: 98 },
+  { hour: '11am', orders: 134 },
+  { hour: '12pm', orders: 156 },
+  { hour: '1pm', orders: 143 },
+  { hour: '2pm', orders: 121 },
+  { hour: '3pm', orders: 98 },
+  { hour: '4pm', orders: 87 },
+  { hour: '5pm', orders: 112 },
+  { hour: '6pm', orders: 134 },
+  { hour: '7pm', orders: 145 },
+  { hour: '8pm', orders: 167 },
+  { hour: '9pm', orders: 123 },
+  { hour: '10pm', orders: 78 },
+  { hour: '11pm', orders: 34 },
+];
+
+const seasonalTrends = [
+  { month: 'Jan', revenue: 312000, yoy: 12 },
+  { month: 'Feb', revenue: 298000, yoy: 8 },
+  { month: 'Mar', revenue: 345000, yoy: 15 },
+  { month: 'Apr', revenue: 378000, yoy: 18 },
+  { month: 'May', revenue: 412000, yoy: 22 },
+  { month: 'Jun', revenue: 456000, yoy: 28 },
+  { month: 'Jul', revenue: 489000, yoy: 32 },
+  { month: 'Aug', revenue: 467000, yoy: 25 },
+  { month: 'Sep', revenue: 423000, yoy: 20 },
+  { month: 'Oct', revenue: 398000, yoy: 16 },
+  { month: 'Nov', revenue: 445000, yoy: 24 },
+  { month: 'Dec', revenue: 487000, yoy: 28 },
+];
+
+function formatCurrency(amount: number): string {
+  return new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0,
+  }).format(amount);
+}
+
+function CustomTooltip({ active, payload, label }: any) {
+  if (active && payload && payload.length) {
     return (
-      <div style={styles.loadingContainer}>
-        <div style={styles.loadingOrb} />
-        <p style={styles.loadingText}>Initializing</p>
+      <div style={styles.tooltip}>
+        <p style={styles.tooltipLabel}>{label}</p>
+        {payload.map((entry: any, index: number) => (
+          <div key={index} style={styles.tooltipRow}>
+            <span style={{ color: entry.color }}>{entry.name}:</span>
+            <span style={{ marginLeft: 8 }}>
+              {typeof entry.value === 'number' && entry.name?.toLowerCase().includes('revenue')
+                ? formatCurrency(entry.value)
+                : entry.value.toLocaleString()}
+            </span>
+          </div>
+        ))}
       </div>
     );
   }
+  return null;
+}
 
-  if (!authorized) {
-    return (
-      <div style={styles.loadingContainer}>
-        <div style={styles.loadingOrb} />
-        <p style={styles.loadingText}>Authenticating</p>
-      </div>
-    );
-  }
-
-  const maxProductQuantity = topProducts.reduce((max, p) => Math.max(max, p.quantity || 0), 1);
+export default function AnalyticsPage() {
+  const maxCategoryRevenue = revenueByCategory.reduce((max, c) => Math.max(max, c.revenue), 0);
+  const peakHourOrders = salesByHour.reduce((max, h) => Math.max(max, h.orders), 0);
 
   return (
-    <AdminLayout title="Analytics" subtitle="Performance Metrics">
-      {error && (
-        <div style={styles.errorBanner}>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <circle cx="12" cy="12" r="10"/>
-            <path d="M12 8v4M12 16h.01"/>
-          </svg>
-          <p style={styles.errorText}>{error}</p>
+    <AdminLayout title="Analytics" subtitle="Business Intelligence & Performance Metrics">
+      {isDemoMode && (
+        <div style={styles.demoBanner}>
+          <AlertCircle size={16} />
+          <span>Demo Mode - Displaying sample analytics data</span>
         </div>
       )}
 
-      <section style={styles.statsGrid}>
-        <StatCard 
-          label="Orders (7 days)" 
-          value={stats?.ordersLast7Days || 0} 
-          loading={loadingData} 
-          accent="#667eea"
-          gradient="linear-gradient(135deg, #667eea 0%, #764ba2 100%)"
-          icon={<OrdersIcon />}
-        />
-        <StatCard 
-          label="D2C Orders" 
-          value={stats?.d2cOrders || 0} 
-          loading={loadingData} 
-          accent="#4facfe"
-          gradient="linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)"
-          icon={<D2CIcon />}
-        />
-        <StatCard 
-          label="B2B Orders" 
-          value={stats?.b2bOrders || 0} 
-          loading={loadingData} 
-          accent="#f093fb"
-          gradient="linear-gradient(135deg, #f093fb 0%, #f5576c 100%)"
-          icon={<B2BIcon />}
-        />
-        <StatCard 
-          label="Revenue (30 days)" 
-          value={`$${((revenue?.totalRevenue || 0) / 100).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`} 
-          loading={loadingData} 
-          accent="#43e97b"
-          gradient="linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)"
-          icon={<RevenueIcon />}
-        />
-        <StatCard 
-          label="D2C Revenue" 
-          value={`$${((revenue?.d2cRevenue || 0) / 100).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`} 
-          loading={loadingData} 
-          accent="#4facfe"
-          gradient="linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)"
-          icon={<TrendUpIcon />}
-        />
-        <StatCard 
-          label="B2B Revenue" 
-          value={`$${((revenue?.b2bRevenue || 0) / 100).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`} 
-          loading={loadingData} 
-          accent="#f093fb"
-          gradient="linear-gradient(135deg, #f093fb 0%, #f5576c 100%)"
-          icon={<ChartIcon />}
-        />
+      <section style={styles.section}>
+        <h2 style={styles.sectionTitle}>
+          <BarChart3 size={18} color={NEON_GREEN} />
+          Analytics Overview
+        </h2>
+        <div style={styles.kpiGrid}>
+          {kpiData.map((kpi) => (
+            <div key={kpi.id} style={styles.kpiCard}>
+              <div style={styles.kpiIcon}>{kpi.icon}</div>
+              <div style={styles.kpiContent}>
+                <span style={styles.kpiLabel}>{kpi.label}</span>
+                <div style={styles.kpiValueRow}>
+                  <span style={styles.kpiValue}>{kpi.value}</span>
+                  <span style={{
+                    ...styles.kpiChange,
+                    color: kpi.changeType === 'up' ? NEON_GREEN : '#FF6B6B',
+                  }}>
+                    {kpi.changeType === 'up' ? <ArrowUpRight size={14} /> : <ArrowDownRight size={14} />}
+                    {kpi.change}
+                  </span>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
       </section>
 
-      <div style={styles.cardsGrid}>
-        <div style={styles.glassCard}>
-          <div style={styles.cardHeader}>
-            <div style={styles.cardIconWrapper}>
-              <ProductIcon />
+      <section style={styles.section}>
+        <h2 style={styles.sectionTitle}>
+          <DollarSign size={18} color={NEON_GREEN} />
+          Revenue Analytics
+        </h2>
+        <div style={styles.chartsGrid}>
+          <div style={styles.glassCard}>
+            <h3 style={styles.cardTitle}>Revenue by Channel</h3>
+            <div style={styles.chartContainer}>
+              <ResponsiveContainer width="100%" height={250}>
+                <BarChart data={revenueByChannel} layout="vertical">
+                  <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" />
+                  <XAxis type="number" tickFormatter={(v) => `$${(v / 1000).toFixed(0)}K`} stroke="rgba(255,255,255,0.3)" tick={{ fill: 'rgba(255,255,255,0.5)', fontSize: 11 }} />
+                  <YAxis type="category" dataKey="channel" stroke="rgba(255,255,255,0.3)" tick={{ fill: 'rgba(255,255,255,0.7)', fontSize: 12 }} width={50} />
+                  <Tooltip content={<CustomTooltip />} />
+                  <Bar dataKey="revenue" name="Revenue" radius={[0, 8, 8, 0]}>
+                    <Cell fill={NEON_GREEN} />
+                    <Cell fill="#8B5CF6" />
+                  </Bar>
+                </BarChart>
+              </ResponsiveContainer>
             </div>
-            <h2 style={styles.cardTitle}>Top Products</h2>
+            <div style={styles.channelLegend}>
+              <div style={styles.legendItem}>
+                <span style={{ ...styles.legendDot, background: NEON_GREEN }} />
+                <span>D2C: {formatCurrency(revenueByChannel[0].revenue)} ({revenueByChannel[0].percentage}%)</span>
+              </div>
+              <div style={styles.legendItem}>
+                <span style={{ ...styles.legendDot, background: '#8B5CF6' }} />
+                <span>B2B: {formatCurrency(revenueByChannel[1].revenue)} ({revenueByChannel[1].percentage}%)</span>
+              </div>
+            </div>
           </div>
-          {loadingData ? (
-            <div style={styles.loadingContent}>
-              {[1, 2, 3].map((i) => (
-                <div key={i} style={styles.skeletonRow} />
-              ))}
+
+          <div style={styles.glassCard}>
+            <h3 style={styles.cardTitle}>Revenue Trend (30 Days)</h3>
+            <div style={styles.chartContainer}>
+              <ResponsiveContainer width="100%" height={280}>
+                <AreaChart data={revenueTrend30Days}>
+                  <defs>
+                    <linearGradient id="colorRevenue" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="5%" stopColor={NEON_GREEN} stopOpacity={0.3} />
+                      <stop offset="95%" stopColor={NEON_GREEN} stopOpacity={0} />
+                    </linearGradient>
+                  </defs>
+                  <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" />
+                  <XAxis dataKey="date" stroke="rgba(255,255,255,0.3)" tick={{ fill: 'rgba(255,255,255,0.5)', fontSize: 10 }} tickLine={false} interval={4} />
+                  <YAxis stroke="rgba(255,255,255,0.3)" tick={{ fill: 'rgba(255,255,255,0.5)', fontSize: 11 }} tickFormatter={(v) => `$${(v / 1000).toFixed(0)}K`} tickLine={false} />
+                  <Tooltip content={<CustomTooltip />} />
+                  <Area type="monotone" dataKey="revenue" name="Revenue" stroke={NEON_GREEN} strokeWidth={2} fill="url(#colorRevenue)" />
+                </AreaChart>
+              </ResponsiveContainer>
             </div>
-          ) : topProducts.length === 0 ? (
-            <div style={styles.emptyState}>
-              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.2)" strokeWidth="1">
-                <path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/>
-              </svg>
-              <p style={styles.emptyText}>No product data yet</p>
-            </div>
-          ) : (
-            <div style={styles.productList}>
-              {topProducts.map((item, i) => (
-                <div key={i} style={styles.productItem}>
-                  <div style={styles.productInfo}>
-                    <span style={styles.productRank}>#{i + 1}</span>
-                    <span style={styles.productName}>{item.products?.name || 'Unknown'}</span>
+          </div>
+
+          <div style={{ ...styles.glassCard, gridColumn: 'span 2' }}>
+            <h3 style={styles.cardTitle}>Revenue by Product Category</h3>
+            <div style={styles.horizontalBarList}>
+              {revenueByCategory.map((cat, index) => (
+                <div key={cat.category} style={styles.horizontalBarItem}>
+                  <div style={styles.horizontalBarLabel}>
+                    <span style={styles.horizontalBarRank}>#{index + 1}</span>
+                    <span style={styles.horizontalBarName}>{cat.category}</span>
+                    <span style={styles.horizontalBarValue}>{formatCurrency(cat.revenue)}</span>
                   </div>
-                  <div style={styles.productBarWrapper}>
-                    <div 
+                  <div style={styles.horizontalBarTrack}>
+                    <div
                       style={{
-                        ...styles.productBar,
-                        width: `${(item.quantity / maxProductQuantity) * 100}%`,
+                        ...styles.horizontalBarFill,
+                        width: `${(cat.revenue / maxCategoryRevenue) * 100}%`,
+                        background: `linear-gradient(90deg, ${NEON_GREEN} 0%, ${NEON_GREEN}80 100%)`,
                       }}
                     />
                   </div>
-                  <span style={styles.productQuantity}>{item.quantity} sold</span>
+                  <span style={styles.horizontalBarUnits}>{cat.units.toLocaleString()} units</span>
                 </div>
               ))}
             </div>
-          )}
-        </div>
-
-        <div style={styles.glassCard}>
-          <div style={styles.cardHeader}>
-            <div style={styles.cardIconWrapper}>
-              <EventIcon />
-            </div>
-            <h2 style={styles.cardTitle}>Recent Events</h2>
           </div>
-          {loadingData ? (
-            <div style={styles.loadingContent}>
-              {[1, 2, 3, 4, 5].map((i) => (
-                <div key={i} style={styles.skeletonRow} />
+        </div>
+      </section>
+
+      <section style={styles.section}>
+        <h2 style={styles.sectionTitle}>
+          <Users size={18} color={NEON_GREEN} />
+          Customer Analytics
+        </h2>
+        <div style={styles.customerGrid}>
+          <div style={styles.glassCard}>
+            <h3 style={styles.cardTitle}>New vs Returning Customers</h3>
+            <div style={styles.chartContainer}>
+              <ResponsiveContainer width="100%" height={220}>
+                <RechartsPieChart>
+                  <Pie
+                    data={customerNewVsReturning}
+                    cx="50%"
+                    cy="50%"
+                    innerRadius={60}
+                    outerRadius={90}
+                    paddingAngle={5}
+                    dataKey="value"
+                    nameKey="name"
+                  >
+                    {customerNewVsReturning.map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={entry.color} />
+                    ))}
+                  </Pie>
+                  <Tooltip content={<CustomTooltip />} />
+                </RechartsPieChart>
+              </ResponsiveContainer>
+            </div>
+            <div style={styles.pieLegend}>
+              {customerNewVsReturning.map((item) => (
+                <div key={item.name} style={styles.legendItem}>
+                  <span style={{ ...styles.legendDot, background: item.color }} />
+                  <span>{item.name}: {item.value.toLocaleString()}</span>
+                </div>
               ))}
             </div>
-          ) : recentEvents.length === 0 ? (
-            <div style={styles.emptyState}>
-              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.2)" strokeWidth="1">
-                <circle cx="12" cy="12" r="10"/>
-                <path d="M12 6v6l4 2"/>
-              </svg>
-              <p style={styles.emptyText}>No events yet</p>
-            </div>
-          ) : (
-            <div style={styles.eventTable}>
-              <div style={styles.eventTableHeader}>
-                <span style={styles.eventTableHeaderCell}>Event Type</span>
-                <span style={styles.eventTableHeaderCell}>Timestamp</span>
-              </div>
-              <div style={styles.eventTableBody}>
-                {recentEvents.map((event) => (
-                  <div key={event.id} style={styles.eventRow}>
-                    <span style={styles.eventType}>
-                      <span style={styles.eventDot} />
-                      {event.event_type}
-                    </span>
-                    <span style={styles.eventTime}>{new Date(event.created_at).toLocaleString()}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-        </div>
-      </div>
+          </div>
 
-      <div style={styles.chartSection}>
-        <div style={styles.glassCard}>
-          <div style={styles.cardHeader}>
-            <div style={styles.cardIconWrapper}>
-              <ChartIcon />
+          <div style={styles.glassCard}>
+            <h3 style={styles.cardTitle}>Customer Acquisition Funnel</h3>
+            <div style={styles.funnelContainer}>
+              {acquisitionFunnel.map((stage, index) => (
+                <div key={stage.stage} style={styles.funnelStage}>
+                  <div style={styles.funnelLabel}>
+                    <span style={styles.funnelStageName}>{stage.stage}</span>
+                    <span style={styles.funnelPercentage}>{stage.percentage}%</span>
+                  </div>
+                  <div style={styles.funnelBarTrack}>
+                    <div
+                      style={{
+                        ...styles.funnelBarFill,
+                        width: `${stage.percentage}%`,
+                        background: `linear-gradient(90deg, ${NEON_GREEN} 0%, ${NEON_GREEN}${Math.round((1 - index * 0.15) * 255).toString(16).padStart(2, '0')} 100%)`,
+                      }}
+                    />
+                  </div>
+                  <span style={styles.funnelCount}>{stage.count.toLocaleString()}</span>
+                </div>
+              ))}
             </div>
-            <h2 style={styles.cardTitle}>Revenue Distribution</h2>
           </div>
-          <div style={styles.chartContainer}>
-            <div style={styles.chartBars}>
-              <ChartBar 
-                label="D2C" 
-                value={revenue?.d2cRevenue || 0} 
-                maxValue={Math.max(revenue?.d2cRevenue || 0, revenue?.b2bRevenue || 0, 1)} 
-                gradient="linear-gradient(180deg, #4facfe 0%, #00f2fe 100%)"
-              />
-              <ChartBar 
-                label="B2B" 
-                value={revenue?.b2bRevenue || 0} 
-                maxValue={Math.max(revenue?.d2cRevenue || 0, revenue?.b2bRevenue || 0, 1)} 
-                gradient="linear-gradient(180deg, #f093fb 0%, #f5576c 100%)"
-              />
+
+          <div style={{ ...styles.glassCard, gridColumn: 'span 2' }}>
+            <h3 style={styles.cardTitle}>Top Customer Segments</h3>
+            <div style={styles.tableContainer}>
+              <table style={styles.table}>
+                <thead>
+                  <tr>
+                    <th style={styles.tableHeader}>Segment</th>
+                    <th style={styles.tableHeader}>Customers</th>
+                    <th style={styles.tableHeader}>Revenue</th>
+                    <th style={styles.tableHeader}>Avg Order</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {topCustomerSegments.map((segment) => (
+                    <tr key={segment.segment} style={styles.tableRow}>
+                      <td style={styles.tableCell}>
+                        <span style={styles.segmentName}>{segment.segment}</span>
+                      </td>
+                      <td style={styles.tableCell}>{segment.customers.toLocaleString()}</td>
+                      <td style={styles.tableCell}>{formatCurrency(segment.revenue)}</td>
+                      <td style={styles.tableCell}>{formatCurrency(segment.avgOrder)}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
-            <div style={styles.chartLegend}>
-              <div style={styles.legendItem}>
-                <span style={{ ...styles.legendDot, background: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)' }} />
-                <span style={styles.legendLabel}>D2C Revenue</span>
+          </div>
+        </div>
+      </section>
+
+      <section style={styles.section}>
+        <h2 style={styles.sectionTitle}>
+          <Package size={18} color={NEON_GREEN} />
+          Product Performance
+        </h2>
+        <div style={styles.productGrid}>
+          <div style={styles.glassCard}>
+            <h3 style={styles.cardTitle}>
+              <TrendingUp size={16} color={NEON_GREEN} style={{ marginRight: 8 }} />
+              Best Sellers
+            </h3>
+            <div style={styles.tableContainer}>
+              <table style={styles.table}>
+                <thead>
+                  <tr>
+                    <th style={styles.tableHeader}>#</th>
+                    <th style={styles.tableHeader}>Product</th>
+                    <th style={styles.tableHeader}>Units Sold</th>
+                    <th style={styles.tableHeader}>Revenue</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {bestSellers.map((product) => (
+                    <tr key={product.rank} style={styles.tableRow}>
+                      <td style={styles.tableCell}>
+                        <span style={styles.rankBadge}>{product.rank}</span>
+                      </td>
+                      <td style={styles.tableCell}>{product.product}</td>
+                      <td style={styles.tableCell}>{product.unitsSold.toLocaleString()}</td>
+                      <td style={{ ...styles.tableCell, color: NEON_GREEN }}>{formatCurrency(product.revenue)}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div style={styles.glassCard}>
+            <h3 style={styles.cardTitle}>
+              <TrendingDown size={16} color="#FF6B6B" style={{ marginRight: 8 }} />
+              Low Performers (Needs Attention)
+            </h3>
+            <div style={styles.lowPerformersList}>
+              {lowPerformers.map((product) => (
+                <div key={product.product} style={styles.lowPerformerItem}>
+                  <div style={styles.lowPerformerInfo}>
+                    <span style={styles.lowPerformerName}>{product.product}</span>
+                    <span style={styles.lowPerformerStats}>
+                      {product.unitsSold} units | {formatCurrency(product.revenue)}
+                    </span>
+                  </div>
+                  <span style={styles.lowPerformerTrend}>
+                    <TrendingDown size={14} />
+                    {product.trend}%
+                  </span>
+                </div>
+              ))}
+            </div>
+
+            <h3 style={{ ...styles.cardTitle, marginTop: 24 }}>Product Category Breakdown</h3>
+            <div style={styles.categoryBreakdown}>
+              {productCategoryBreakdown.map((cat) => (
+                <div key={cat.category} style={styles.categoryItem}>
+                  <div style={styles.categoryInfo}>
+                    <span style={styles.categoryName}>{cat.category}</span>
+                    <span style={styles.categoryRevenue}>{formatCurrency(cat.revenue)}</span>
+                  </div>
+                  <div style={styles.categoryBarTrack}>
+                    <div
+                      style={{
+                        ...styles.categoryBarFill,
+                        width: `${cat.percentage}%`,
+                      }}
+                    />
+                  </div>
+                  <span style={styles.categoryPercentage}>{cat.percentage}%</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section style={styles.section}>
+        <h2 style={styles.sectionTitle}>
+          <MapPin size={18} color={NEON_GREEN} />
+          Geographic Distribution
+        </h2>
+        <div style={styles.geoGrid}>
+          <div style={styles.glassCard}>
+            <h3 style={styles.cardTitle}>Sales by State (Top 10)</h3>
+            <div style={styles.tableContainer}>
+              <table style={styles.table}>
+                <thead>
+                  <tr>
+                    <th style={styles.tableHeader}>#</th>
+                    <th style={styles.tableHeader}>State</th>
+                    <th style={styles.tableHeader}>Orders</th>
+                    <th style={styles.tableHeader}>Revenue</th>
+                    <th style={styles.tableHeader}>%</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {salesByRegion.map((region) => (
+                    <tr key={region.state} style={styles.tableRow}>
+                      <td style={styles.tableCell}>
+                        <span style={styles.rankBadge}>{region.rank}</span>
+                      </td>
+                      <td style={styles.tableCell}>{region.state}</td>
+                      <td style={styles.tableCell}>{region.orders.toLocaleString()}</td>
+                      <td style={{ ...styles.tableCell, color: NEON_GREEN }}>{formatCurrency(region.revenue)}</td>
+                      <td style={styles.tableCell}>{region.percentage}%</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div style={styles.glassCard}>
+            <h3 style={styles.cardTitle}>Shipping Zones Performance</h3>
+            <div style={styles.tableContainer}>
+              <table style={styles.table}>
+                <thead>
+                  <tr>
+                    <th style={styles.tableHeader}>Zone</th>
+                    <th style={styles.tableHeader}>States</th>
+                    <th style={styles.tableHeader}>Orders</th>
+                    <th style={styles.tableHeader}>Avg Ship Days</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {shippingDestinations.map((zone) => (
+                    <tr key={zone.zone} style={styles.tableRow}>
+                      <td style={styles.tableCell}>
+                        <span style={styles.zoneBadge}>{zone.zone}</span>
+                      </td>
+                      <td style={{ ...styles.tableCell, color: 'rgba(255,255,255,0.5)', fontSize: 12 }}>{zone.states}</td>
+                      <td style={styles.tableCell}>{zone.orders.toLocaleString()}</td>
+                      <td style={styles.tableCell}>
+                        <span style={{
+                          color: zone.avgShipDays <= 3 ? NEON_GREEN : zone.avgShipDays <= 4 ? '#FBBF24' : '#FF6B6B',
+                        }}>
+                          {zone.avgShipDays} days
+                        </span>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section style={styles.section}>
+        <h2 style={styles.sectionTitle}>
+          <Clock size={18} color={NEON_GREEN} />
+          Time-Based Analysis
+        </h2>
+        <div style={styles.timeGrid}>
+          <div style={styles.glassCard}>
+            <h3 style={styles.cardTitle}>Sales by Day of Week</h3>
+            <div style={styles.chartContainer}>
+              <ResponsiveContainer width="100%" height={250}>
+                <BarChart data={salesByDayOfWeek}>
+                  <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" />
+                  <XAxis dataKey="day" stroke="rgba(255,255,255,0.3)" tick={{ fill: 'rgba(255,255,255,0.5)', fontSize: 11 }} tickLine={false} />
+                  <YAxis stroke="rgba(255,255,255,0.3)" tick={{ fill: 'rgba(255,255,255,0.5)', fontSize: 11 }} tickLine={false} />
+                  <Tooltip content={<CustomTooltip />} />
+                  <Bar dataKey="orders" name="Orders" fill={NEON_GREEN} radius={[4, 4, 0, 0]} />
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+            <div style={styles.dayInsight}>
+              <Sparkles size={14} color={NEON_GREEN} />
+              <span>Peak day: <strong>Friday</strong> with 234 orders ({formatCurrency(93600)} revenue)</span>
+            </div>
+          </div>
+
+          <div style={styles.glassCard}>
+            <h3 style={styles.cardTitle}>Sales by Hour (Peak Times)</h3>
+            <div style={styles.hourGrid}>
+              {salesByHour.map((hour) => (
+                <div key={hour.hour} style={styles.hourItem}>
+                  <span style={styles.hourLabel}>{hour.hour}</span>
+                  <div style={styles.hourBarTrack}>
+                    <div
+                      style={{
+                        ...styles.hourBarFill,
+                        height: `${(hour.orders / peakHourOrders) * 100}%`,
+                        background: hour.orders === peakHourOrders ? NEON_GREEN : `${NEON_GREEN}80`,
+                      }}
+                    />
+                  </div>
+                  <span style={styles.hourValue}>{hour.orders}</span>
+                </div>
+              ))}
+            </div>
+            <div style={styles.hourInsight}>
+              <div style={styles.peakIndicator}>
+                <Sun size={14} color="#FBBF24" />
+                <span>Morning Peak: 9am</span>
               </div>
-              <div style={styles.legendItem}>
-                <span style={{ ...styles.legendDot, background: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)' }} />
-                <span style={styles.legendLabel}>B2B Revenue</span>
+              <div style={styles.peakIndicator}>
+                <Moon size={14} color="#8B5CF6" />
+                <span>Evening Peak: 8pm</span>
+              </div>
+            </div>
+          </div>
+
+          <div style={{ ...styles.glassCard, gridColumn: 'span 2' }}>
+            <h3 style={styles.cardTitle}>Seasonal Revenue Trends (Year Over Year)</h3>
+            <div style={styles.chartContainer}>
+              <ResponsiveContainer width="100%" height={280}>
+                <LineChart data={seasonalTrends}>
+                  <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" />
+                  <XAxis dataKey="month" stroke="rgba(255,255,255,0.3)" tick={{ fill: 'rgba(255,255,255,0.5)', fontSize: 11 }} tickLine={false} />
+                  <YAxis stroke="rgba(255,255,255,0.3)" tick={{ fill: 'rgba(255,255,255,0.5)', fontSize: 11 }} tickFormatter={(v) => `$${(v / 1000).toFixed(0)}K`} tickLine={false} />
+                  <Tooltip content={<CustomTooltip />} />
+                  <Line type="monotone" dataKey="revenue" name="Revenue" stroke={NEON_GREEN} strokeWidth={2} dot={{ fill: NEON_GREEN, r: 4 }} activeDot={{ r: 6 }} />
+                </LineChart>
+              </ResponsiveContainer>
+            </div>
+            <div style={styles.seasonalInsights}>
+              <div style={styles.seasonalItem}>
+                <span style={styles.seasonalLabel}>Peak Season</span>
+                <span style={styles.seasonalValue}>July ({formatCurrency(489000)})</span>
+              </div>
+              <div style={styles.seasonalItem}>
+                <span style={styles.seasonalLabel}>Avg YoY Growth</span>
+                <span style={{ ...styles.seasonalValue, color: NEON_GREEN }}>+20.7%</span>
+              </div>
+              <div style={styles.seasonalItem}>
+                <span style={styles.seasonalLabel}>Best Growth Month</span>
+                <span style={styles.seasonalValue}>July (+32% YoY)</span>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      </section>
 
       <style jsx global>{`
-        @keyframes pulse {
-          0%, 100% { opacity: 0.4; }
-          50% { opacity: 0.8; }
-        }
         @keyframes shimmer {
           0% { background-position: -200% 0; }
           100% { background-position: 200% 0; }
-        }
-        @keyframes glow {
-          0%, 100% { box-shadow: 0 0 20px rgba(102, 126, 234, 0.3); }
-          50% { box-shadow: 0 0 40px rgba(102, 126, 234, 0.6); }
-        }
-        @keyframes barGrow {
-          from { transform: scaleY(0); }
-          to { transform: scaleY(1); }
         }
       `}</style>
     </AdminLayout>
   );
 }
 
-function StatCard({ label, value, loading, accent, gradient, icon }: { 
-  label: string; 
-  value: string | number; 
-  loading: boolean; 
-  accent: string;
-  gradient: string;
-  icon: React.ReactNode;
-}) {
-  const [hovered, setHovered] = useState(false);
-  
-  return (
-    <div 
-      style={{ 
-        ...styles.statCard, 
-        borderColor: hovered ? `${accent}40` : `${accent}20`,
-        boxShadow: hovered ? `0 0 30px ${accent}20, 0 8px 32px rgba(0,0,0,0.3)` : '0 4px 20px rgba(0,0,0,0.2)',
-        transform: hovered ? 'translateY(-2px)' : 'translateY(0)',
-      }}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-    >
-      <div style={{ ...styles.statAccent, background: gradient }} />
-      <div style={styles.statIconWrapper}>{icon}</div>
-      <p style={styles.statLabel}>{label}</p>
-      <p style={styles.statValue}>
-        {loading ? <span style={styles.skeleton} /> : value}
-      </p>
-      <div style={{ ...styles.statGlow, background: `radial-gradient(ellipse at bottom, ${accent}15 0%, transparent 70%)` }} />
-    </div>
-  );
-}
-
-function ChartBar({ label, value, maxValue, gradient }: { 
-  label: string; 
-  value: number; 
-  maxValue: number; 
-  gradient: string;
-}) {
-  const heightPercent = maxValue > 0 ? (value / maxValue) * 100 : 0;
-  
-  return (
-    <div style={styles.chartBarContainer}>
-      <div style={styles.chartBarTrack}>
-        <div 
-          style={{
-            ...styles.chartBarFill,
-            height: `${Math.max(heightPercent, 5)}%`,
-            background: gradient,
-          }}
-        />
-      </div>
-      <span style={styles.chartBarLabel}>{label}</span>
-      <span style={styles.chartBarValue}>${(value / 100).toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 })}</span>
-    </div>
-  );
-}
-
 const styles: { [key: string]: React.CSSProperties } = {
-  loadingContainer: {
-    minHeight: '100vh',
+  demoBanner: {
     display: 'flex',
-    flexDirection: 'column',
+    alignItems: 'center',
+    gap: 8,
+    background: 'rgba(0, 255, 133, 0.1)',
+    border: `1px solid ${NEON_GREEN}30`,
+    borderRadius: 12,
+    padding: '12px 20px',
+    marginBottom: 32,
+    color: NEON_GREEN,
+    fontSize: 14,
+  },
+  section: {
+    marginBottom: 48,
+  },
+  sectionTitle: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 10,
+    fontSize: 18,
+    fontWeight: 600,
+    color: '#fff',
+    marginBottom: 24,
+  },
+  kpiGrid: {
+    display: 'grid',
+    gridTemplateColumns: 'repeat(5, 1fr)',
+    gap: 16,
+  },
+  kpiCard: {
+    background: CARD_BG,
+    border: `1px solid ${CARD_BORDER}`,
+    borderRadius: 16,
+    padding: 20,
+    display: 'flex',
+    alignItems: 'flex-start',
+    gap: 12,
+    transition: 'all 0.2s ease',
+  },
+  kpiIcon: {
+    width: 40,
+    height: 40,
+    borderRadius: 10,
+    background: `${NEON_GREEN}15`,
+    display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    background: '#050505',
-    gap: '24px',
+    color: NEON_GREEN,
+    flexShrink: 0,
   },
-  loadingOrb: {
-    width: '60px',
-    height: '60px',
-    borderRadius: '50%',
-    background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-    animation: 'pulse 2s ease-in-out infinite, glow 2s ease-in-out infinite',
+  kpiContent: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 4,
   },
-  loadingText: {
-    color: 'rgba(255,255,255,0.6)',
-    fontSize: '14px',
-    letterSpacing: '3px',
-    textTransform: 'uppercase',
+  kpiLabel: {
+    fontSize: 12,
+    color: 'rgba(255,255,255,0.5)',
   },
-  errorBanner: {
+  kpiValueRow: {
     display: 'flex',
     alignItems: 'center',
-    gap: '12px',
-    background: 'rgba(245, 87, 108, 0.1)',
-    border: '1px solid rgba(245, 87, 108, 0.3)',
-    borderRadius: '12px',
-    padding: '16px 20px',
-    marginBottom: '24px',
-    color: '#f5576c',
+    gap: 8,
   },
-  errorText: {
-    fontSize: '14px',
-    margin: 0,
+  kpiValue: {
+    fontSize: 22,
+    fontWeight: 600,
+    color: '#fff',
   },
-  statsGrid: {
+  kpiChange: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 2,
+    fontSize: 12,
+    fontWeight: 500,
+  },
+  chartsGrid: {
     display: 'grid',
-    gridTemplateColumns: 'repeat(6, 1fr)',
-    gap: '16px',
-    marginBottom: '40px',
-  },
-  statCard: {
-    position: 'relative',
-    background: 'rgba(255,255,255,0.03)',
-    borderRadius: '16px',
-    padding: '24px',
-    border: '1px solid rgba(255,255,255,0.06)',
-    overflow: 'hidden',
-    backdropFilter: 'blur(10px)',
-    transition: 'all 0.3s ease',
-    cursor: 'default',
-  },
-  statAccent: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    width: '3px',
-    height: '100%',
-  },
-  statIconWrapper: {
-    marginBottom: '16px',
-  },
-  statLabel: {
-    fontSize: '11px',
-    color: 'rgba(255,255,255,0.5)',
-    textTransform: 'uppercase',
-    letterSpacing: '1px',
-    marginBottom: '8px',
-  },
-  statValue: {
-    fontSize: '24px',
-    fontWeight: '600',
-    letterSpacing: '-0.5px',
-  },
-  statGlow: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
-    height: '60px',
-    pointerEvents: 'none',
-  },
-  skeleton: {
-    display: 'inline-block',
-    width: '60px',
-    height: '24px',
-    background: 'linear-gradient(90deg, rgba(255,255,255,0.05) 25%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0.05) 75%)',
-    backgroundSize: '200% 100%',
-    animation: 'shimmer 1.5s infinite',
-    borderRadius: '4px',
-  },
-  cardsGrid: {
-    display: 'grid',
-    gridTemplateColumns: '1fr 1fr',
-    gap: '24px',
-    marginBottom: '24px',
+    gridTemplateColumns: 'repeat(2, 1fr)',
+    gap: 24,
   },
   glassCard: {
-    background: 'rgba(255,255,255,0.03)',
-    borderRadius: '20px',
-    padding: '28px',
-    border: '1px solid rgba(255,255,255,0.06)',
-    backdropFilter: 'blur(10px)',
-  },
-  cardHeader: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: '12px',
-    marginBottom: '24px',
-  },
-  cardIconWrapper: {
-    width: '40px',
-    height: '40px',
-    borderRadius: '12px',
-    background: 'rgba(255,255,255,0.05)',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
+    background: CARD_BG,
+    border: `1px solid ${CARD_BORDER}`,
+    borderRadius: 16,
+    padding: 24,
   },
   cardTitle: {
-    fontSize: '16px',
-    fontWeight: '600',
-    letterSpacing: '-0.3px',
-  },
-  loadingContent: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '12px',
-  },
-  skeletonRow: {
-    height: '44px',
-    background: 'linear-gradient(90deg, rgba(255,255,255,0.03) 25%, rgba(255,255,255,0.06) 50%, rgba(255,255,255,0.03) 75%)',
-    backgroundSize: '200% 100%',
-    animation: 'shimmer 1.5s infinite',
-    borderRadius: '8px',
-  },
-  emptyState: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: '40px',
-    gap: '16px',
-  },
-  emptyText: {
-    color: 'rgba(255,255,255,0.4)',
-    fontSize: '14px',
-  },
-  productList: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '12px',
-  },
-  productItem: {
-    display: 'grid',
-    gridTemplateColumns: '1fr 2fr auto',
-    alignItems: 'center',
-    gap: '16px',
-    padding: '12px 16px',
-    background: 'rgba(255,255,255,0.02)',
-    borderRadius: '12px',
-    border: '1px solid rgba(255,255,255,0.04)',
-  },
-  productInfo: {
     display: 'flex',
     alignItems: 'center',
-    gap: '12px',
-  },
-  productRank: {
-    fontSize: '12px',
-    color: 'rgba(255,255,255,0.3)',
-    fontWeight: '500',
-  },
-  productName: {
-    fontSize: '14px',
-    fontWeight: '500',
-    color: 'rgba(255,255,255,0.9)',
-  },
-  productBarWrapper: {
-    height: '6px',
-    background: 'rgba(255,255,255,0.05)',
-    borderRadius: '3px',
-    overflow: 'hidden',
-  },
-  productBar: {
-    height: '100%',
-    background: 'linear-gradient(90deg, #c471f5 0%, #fa71cd 100%)',
-    borderRadius: '3px',
-    transition: 'width 0.5s ease',
-  },
-  productQuantity: {
-    fontSize: '13px',
-    color: 'rgba(255,255,255,0.5)',
-    fontWeight: '500',
-    whiteSpace: 'nowrap',
-  },
-  eventTable: {
-    display: 'flex',
-    flexDirection: 'column',
-    maxHeight: '320px',
-    overflowY: 'auto',
-  },
-  eventTableHeader: {
-    display: 'grid',
-    gridTemplateColumns: '1fr 1fr',
-    padding: '12px 16px',
-    borderBottom: '1px solid rgba(255,255,255,0.06)',
-    position: 'sticky',
-    top: 0,
-    background: 'rgba(5, 5, 5, 0.9)',
-    backdropFilter: 'blur(10px)',
-  },
-  eventTableHeaderCell: {
-    fontSize: '11px',
-    color: 'rgba(255,255,255,0.4)',
-    textTransform: 'uppercase',
-    letterSpacing: '1px',
-    fontWeight: '500',
-  },
-  eventTableBody: {
-    display: 'flex',
-    flexDirection: 'column',
-  },
-  eventRow: {
-    display: 'grid',
-    gridTemplateColumns: '1fr 1fr',
-    padding: '12px 16px',
-    borderBottom: '1px solid rgba(255,255,255,0.03)',
-    transition: 'background 0.2s',
-  },
-  eventType: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: '10px',
-    fontSize: '13px',
-    fontWeight: '500',
-    color: 'rgba(255,255,255,0.8)',
-  },
-  eventDot: {
-    width: '6px',
-    height: '6px',
-    borderRadius: '50%',
-    background: 'linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)',
-  },
-  eventTime: {
-    fontSize: '12px',
-    color: 'rgba(255,255,255,0.4)',
-  },
-  chartSection: {
-    marginBottom: '40px',
+    fontSize: 15,
+    fontWeight: 600,
+    color: '#fff',
+    marginBottom: 20,
   },
   chartContainer: {
-    display: 'flex',
-    alignItems: 'flex-end',
-    justifyContent: 'space-between',
-    gap: '40px',
-  },
-  chartBars: {
-    display: 'flex',
-    alignItems: 'flex-end',
-    gap: '60px',
-    flex: 1,
-    justifyContent: 'center',
-    padding: '20px 0',
-  },
-  chartBarContainer: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    gap: '12px',
-  },
-  chartBarTrack: {
-    width: '80px',
-    height: '200px',
-    background: 'rgba(255,255,255,0.03)',
-    borderRadius: '8px',
-    overflow: 'hidden',
-    display: 'flex',
-    alignItems: 'flex-end',
-  },
-  chartBarFill: {
     width: '100%',
-    borderRadius: '8px 8px 0 0',
-    transition: 'height 0.8s ease',
-    transformOrigin: 'bottom',
-    animation: 'barGrow 0.8s ease forwards',
   },
-  chartBarLabel: {
-    fontSize: '13px',
-    fontWeight: '600',
-    color: 'rgba(255,255,255,0.7)',
-    letterSpacing: '0.5px',
-  },
-  chartBarValue: {
-    fontSize: '14px',
-    fontWeight: '500',
-    color: 'rgba(255,255,255,0.5)',
-  },
-  chartLegend: {
+  channelLegend: {
     display: 'flex',
-    flexDirection: 'column',
-    gap: '12px',
-    padding: '20px',
-    background: 'rgba(255,255,255,0.02)',
-    borderRadius: '12px',
+    justifyContent: 'center',
+    gap: 24,
+    marginTop: 16,
   },
   legendItem: {
     display: 'flex',
     alignItems: 'center',
-    gap: '10px',
+    gap: 8,
+    fontSize: 13,
+    color: 'rgba(255,255,255,0.7)',
   },
   legendDot: {
-    width: '12px',
-    height: '12px',
-    borderRadius: '4px',
+    width: 10,
+    height: 10,
+    borderRadius: '50%',
   },
-  legendLabel: {
-    fontSize: '13px',
+  horizontalBarList: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 16,
+  },
+  horizontalBarItem: {
+    display: 'grid',
+    gridTemplateColumns: '200px 1fr 80px',
+    alignItems: 'center',
+    gap: 16,
+  },
+  horizontalBarLabel: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 12,
+  },
+  horizontalBarRank: {
+    fontSize: 11,
+    color: 'rgba(255,255,255,0.4)',
+    width: 24,
+  },
+  horizontalBarName: {
+    fontSize: 14,
+    color: 'rgba(255,255,255,0.9)',
+    flex: 1,
+  },
+  horizontalBarValue: {
+    fontSize: 13,
+    color: NEON_GREEN,
+    fontWeight: 500,
+  },
+  horizontalBarTrack: {
+    height: 8,
+    background: 'rgba(255,255,255,0.05)',
+    borderRadius: 4,
+    overflow: 'hidden',
+  },
+  horizontalBarFill: {
+    height: '100%',
+    borderRadius: 4,
+    transition: 'width 0.5s ease',
+  },
+  horizontalBarUnits: {
+    fontSize: 12,
+    color: 'rgba(255,255,255,0.5)',
+    textAlign: 'right',
+  },
+  customerGrid: {
+    display: 'grid',
+    gridTemplateColumns: 'repeat(2, 1fr)',
+    gap: 24,
+  },
+  pieLegend: {
+    display: 'flex',
+    justifyContent: 'center',
+    gap: 24,
+    marginTop: 16,
+  },
+  funnelContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 12,
+  },
+  funnelStage: {
+    display: 'grid',
+    gridTemplateColumns: '180px 1fr 80px',
+    alignItems: 'center',
+    gap: 16,
+  },
+  funnelLabel: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  funnelStageName: {
+    fontSize: 13,
+    color: 'rgba(255,255,255,0.8)',
+  },
+  funnelPercentage: {
+    fontSize: 11,
+    color: NEON_GREEN,
+    fontWeight: 500,
+  },
+  funnelBarTrack: {
+    height: 6,
+    background: 'rgba(255,255,255,0.05)',
+    borderRadius: 3,
+    overflow: 'hidden',
+  },
+  funnelBarFill: {
+    height: '100%',
+    borderRadius: 3,
+    transition: 'width 0.5s ease',
+  },
+  funnelCount: {
+    fontSize: 12,
     color: 'rgba(255,255,255,0.6)',
+    textAlign: 'right',
+  },
+  tableContainer: {
+    overflowX: 'auto',
+  },
+  table: {
+    width: '100%',
+    borderCollapse: 'collapse',
+  },
+  tableHeader: {
+    fontSize: 11,
+    color: 'rgba(255,255,255,0.4)',
+    textTransform: 'uppercase',
+    letterSpacing: '0.5px',
+    fontWeight: 500,
+    textAlign: 'left',
+    padding: '12px 16px',
+    borderBottom: '1px solid rgba(255,255,255,0.06)',
+  },
+  tableRow: {
+    borderBottom: '1px solid rgba(255,255,255,0.03)',
+  },
+  tableCell: {
+    fontSize: 13,
+    color: 'rgba(255,255,255,0.8)',
+    padding: '12px 16px',
+  },
+  segmentName: {
+    fontWeight: 500,
+  },
+  productGrid: {
+    display: 'grid',
+    gridTemplateColumns: '1fr 1fr',
+    gap: 24,
+  },
+  rankBadge: {
+    display: 'inline-flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 24,
+    height: 24,
+    background: `${NEON_GREEN}15`,
+    color: NEON_GREEN,
+    borderRadius: 6,
+    fontSize: 12,
+    fontWeight: 600,
+  },
+  lowPerformersList: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 12,
+  },
+  lowPerformerItem: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    padding: '12px 16px',
+    background: 'rgba(255,107,107,0.05)',
+    border: '1px solid rgba(255,107,107,0.1)',
+    borderRadius: 10,
+  },
+  lowPerformerInfo: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 4,
+  },
+  lowPerformerName: {
+    fontSize: 14,
+    color: 'rgba(255,255,255,0.9)',
+    fontWeight: 500,
+  },
+  lowPerformerStats: {
+    fontSize: 12,
+    color: 'rgba(255,255,255,0.5)',
+  },
+  lowPerformerTrend: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 4,
+    color: '#FF6B6B',
+    fontSize: 13,
+    fontWeight: 500,
+  },
+  categoryBreakdown: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 12,
+  },
+  categoryItem: {
+    display: 'grid',
+    gridTemplateColumns: '150px 1fr 50px',
+    alignItems: 'center',
+    gap: 12,
+  },
+  categoryInfo: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 2,
+  },
+  categoryName: {
+    fontSize: 13,
+    color: 'rgba(255,255,255,0.8)',
+  },
+  categoryRevenue: {
+    fontSize: 11,
+    color: NEON_GREEN,
+  },
+  categoryBarTrack: {
+    height: 6,
+    background: 'rgba(255,255,255,0.05)',
+    borderRadius: 3,
+    overflow: 'hidden',
+  },
+  categoryBarFill: {
+    height: '100%',
+    background: `linear-gradient(90deg, ${NEON_GREEN} 0%, #8B5CF6 100%)`,
+    borderRadius: 3,
+  },
+  categoryPercentage: {
+    fontSize: 12,
+    color: 'rgba(255,255,255,0.6)',
+    textAlign: 'right',
+  },
+  geoGrid: {
+    display: 'grid',
+    gridTemplateColumns: '1fr 1fr',
+    gap: 24,
+  },
+  zoneBadge: {
+    display: 'inline-block',
+    padding: '4px 8px',
+    background: `${NEON_GREEN}15`,
+    color: NEON_GREEN,
+    borderRadius: 6,
+    fontSize: 12,
+    fontWeight: 500,
+  },
+  timeGrid: {
+    display: 'grid',
+    gridTemplateColumns: 'repeat(2, 1fr)',
+    gap: 24,
+  },
+  dayInsight: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 8,
+    marginTop: 16,
+    padding: '12px 16px',
+    background: `${NEON_GREEN}08`,
+    borderRadius: 8,
+    fontSize: 13,
+    color: 'rgba(255,255,255,0.7)',
+  },
+  hourGrid: {
+    display: 'flex',
+    gap: 4,
+    height: 150,
+    alignItems: 'flex-end',
+    padding: '0 8px',
+  },
+  hourItem: {
+    flex: 1,
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    gap: 4,
+  },
+  hourLabel: {
+    fontSize: 9,
+    color: 'rgba(255,255,255,0.4)',
+    writingMode: 'vertical-rl',
+    transform: 'rotate(180deg)',
+  },
+  hourBarTrack: {
+    flex: 1,
+    width: '100%',
+    background: 'rgba(255,255,255,0.05)',
+    borderRadius: 3,
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'flex-end',
+    minHeight: 80,
+  },
+  hourBarFill: {
+    width: '100%',
+    borderRadius: 3,
+    transition: 'height 0.3s ease',
+  },
+  hourValue: {
+    fontSize: 9,
+    color: 'rgba(255,255,255,0.5)',
+  },
+  hourInsight: {
+    display: 'flex',
+    justifyContent: 'center',
+    gap: 24,
+    marginTop: 16,
+  },
+  peakIndicator: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 6,
+    fontSize: 12,
+    color: 'rgba(255,255,255,0.7)',
+  },
+  seasonalInsights: {
+    display: 'flex',
+    justifyContent: 'center',
+    gap: 40,
+    marginTop: 20,
+    paddingTop: 20,
+    borderTop: '1px solid rgba(255,255,255,0.06)',
+  },
+  seasonalItem: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    gap: 4,
+  },
+  seasonalLabel: {
+    fontSize: 11,
+    color: 'rgba(255,255,255,0.4)',
+    textTransform: 'uppercase',
+    letterSpacing: '0.5px',
+  },
+  seasonalValue: {
+    fontSize: 14,
+    color: 'rgba(255,255,255,0.9)',
+    fontWeight: 500,
+  },
+  tooltip: {
+    background: 'rgba(0,0,0,0.9)',
+    border: '1px solid rgba(255,255,255,0.1)',
+    borderRadius: 8,
+    padding: '12px 16px',
+    boxShadow: '0 4px 20px rgba(0,0,0,0.3)',
+  },
+  tooltipLabel: {
+    fontSize: 12,
+    color: 'rgba(255,255,255,0.5)',
+    marginBottom: 8,
+  },
+  tooltipRow: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    fontSize: 13,
+    color: '#fff',
+    marginBottom: 4,
   },
 };

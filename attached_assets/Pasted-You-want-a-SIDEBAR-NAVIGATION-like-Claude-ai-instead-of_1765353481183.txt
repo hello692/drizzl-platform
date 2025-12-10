@@ -1,0 +1,174 @@
+You want a SIDEBAR NAVIGATION (like Claude.ai) instead of top horizontal tabs!
+Here's the exact prompt for Replit Agent:
+
+IMPORTANT: I already have an admin interface. I want to ADD a new section to it, not replace it.
+
+ADD A NEW ROUTE: /admin/command-center
+
+This will be the billion-dollar admin dashboard with sidebar navigation (like Claude.ai).
+
+DESIGN REQUIREMENTS:
+
+1. SIDEBAR NAVIGATION (LEFT SIDE, LIKE CLAUDE.AI):
+   - Fixed sidebar, always visible
+   - Width: 240px
+   - Background: #000000 (pure black)
+   - Border-right: 1px solid rgba(255, 255, 255, 0.08)
+   
+   SIDEBAR STRUCTURE:
+┌─────────────────────────┐
+│ 🏠 DRIZZL              │ ← Logo at top
+│ ─────────────────────── │
+│ 📊 Dashboard           │ ← Active: bg rgba(0,255,133,0.1)
+│ 💰 Finance             │
+│ 🏭 Production          │
+│ 📦 Supply Chain        │
+│ 🤖 AI Assistant        │
+│ 📈 Analytics           │
+│ 🎯 Marketing           │
+│ 🤝 B2B Pipeline        │
+│ ✅ Tasks               │
+│                        │
+│ ───────────────────    │ ← Divider
+│ ⚙️  Settings           │
+│ 👤 Profile             │
+│ 🚪 Exit                │
+└─────────────────────────┘
+
+2. MAIN CONTENT AREA (RIGHT SIDE):
+   - margin-left: 240px (to account for sidebar)
+   - Full height
+   - Background: #000000
+   - padding: 32px
+   
+3. DASHBOARD TAB (Master Summary):
+   When you click "Dashboard" in sidebar, show:
+   
+   ┌─────────────────────────────────────────────────────────┐
+   │ MASTER COMMAND CENTER                    Wed, Dec 10    │
+   ├─────────────────────────────────────────────────────────┤
+   │                                                          │
+   │ ┌──────────┐ ┌──────────┐ ┌──────────┐ ┌──────────┐  │
+   │ │ Revenue  │ │ Orders   │ │ Cash     │ │ Deals    │  │
+   │ │ $47.3K   │ │ 127      │ │ $284K    │ │ $1.2M    │  │
+   │ └──────────┘ └──────────┘ └──────────┘ └──────────┘  │
+   │                                                          │
+   │ ┌───────────────────────┐ ┌────────────────────────┐  │
+   │ │ 🔴 CRITICAL ALERTS    │ │ 📊 QUICK STATS        │  │
+   │ │ • Acai stock: 3.5d    │ │ Revenue: ↑ 18%        │  │
+   │ │ • Payroll due: Friday │ │ Orders: ↑ 16%         │  │
+   │ │ • Whole Foods contract│ │ Margin: 52% 🟢       │  │
+   │ └───────────────────────┘ └────────────────────────┘  │
+   │                                                          │
+   │ ┌──────────────────────────────────────────────────┐   │
+   │ │ 🤖 AI RECOMMENDATIONS                            │   │
+   │ │ 1. Scale Immune Boost production +40%            │   │
+   │ │ 2. Follow up with Walmart buyer (hot deal)       │   │
+   │ │ 3. Chase 3 overdue invoices ($34K)               │   │
+   │ └──────────────────────────────────────────────────┘   │
+   │                                                          │
+   │ ┌──────────────────────────────────────────────────┐   │
+   │ │ 📈 REVENUE TREND (30 Days)                       │   │
+   │ │ [Line chart showing revenue growth]              │   │
+   │ └──────────────────────────────────────────────────┘   │
+   │                                                          │
+   └─────────────────────────────────────────────────────────┘
+
+4. OTHER TABS:
+   When you click each sidebar item, show that tab's content in the main area.
+   
+   Each tab should have:
+   - Tab title at top
+   - Breadcrumb (Dashboard > Finance)
+   - Tab-specific content
+   - Consistent styling
+
+5. STYLING (MATCH CLAUDE.AI):
+   
+   Sidebar Links:
+```css
+   .sidebar-link {
+     display: flex;
+     align-items: center;
+     gap: 12px;
+     padding: 10px 16px;
+     border-radius: 8px;
+     color: #999999;
+     transition: all 0.2s;
+   }
+   
+   .sidebar-link:hover {
+     background: rgba(255, 255, 255, 0.05);
+     color: #FFFFFF;
+   }
+   
+   .sidebar-link.active {
+     background: rgba(0, 255, 133, 0.1);
+     color: #00FF85;
+     font-weight: 600;
+   }
+```
+   
+   Main Content:
+```css
+   - Background: #000000
+   - Text: #FFFFFF
+   - Cards: rgba(255, 255, 255, 0.03) with 1px solid rgba(255, 255, 255, 0.08) border
+   - Accent color: #00FF85 (neon green)
+   - Border radius: 12-16px on cards
+   - Spacing: 24-32px between sections
+```
+
+6. LOGO CLICK BEHAVIOR:
+   When user clicks the DRIZZL logo in sidebar:
+   - Navigate to Dashboard tab (the master summary)
+   - This is the "home" view
+   
+7. RESPONSIVE:
+   On mobile (<768px):
+   - Sidebar becomes a slide-out menu
+   - Hamburger menu button in top-left
+   - Main content takes full width
+
+START WITH:
+Step 1: Create the layout structure (/admin/command-center/layout.tsx)
+Step 2: Build the sidebar component (components/admin/Sidebar.tsx)
+Step 3: Create Dashboard tab with master summary
+Step 4: Show me the result
+
+DO NOT touch my existing admin. This is a NEW addition at /admin/command-center
+
+Begin now!
+
+🎯 WHAT THIS DOES:
+
+✅ Doesn't touch your existing admin - Builds at new route
+✅ Sidebar navigation - Exactly like Claude.ai
+✅ Logo click goes to Dashboard - Master summary of everything
+✅ Same styling - Black, white, neon green
+✅ All 9 tabs accessible - From sidebar
+✅ Mobile responsive - Sidebar collapses to hamburger menu
+
+
+📊 VISUAL STRUCTURE:
+┌──────────┬────────────────────────────────────────────┐
+│          │                                            │
+│  LOGO    │  MASTER COMMAND CENTER        Wed, Dec 10 │
+│          │                                            │
+│ ──────── │ ─────────────────────────────────────────  │
+│          │                                            │
+│ Dashboard│  [4 metric cards: Revenue, Orders, etc.]  │
+│ Finance  │                                            │
+│ Prod.    │  [Critical Alerts]  [Quick Stats]         │
+│ Supply   │                                            │
+│ AI       │  [AI Recommendations]                      │
+│ Analytics│                                            │
+│ Marketing│  [Revenue Chart]                           │
+│ B2B      │                                            │
+│ Tasks    │  [Production Pipeline]                     │
+│          │                                            │
+│ ──────── │                                            │
+│ Settings │                                            │
+│ Exit     │                                            │
+│          │                                            │
+└──────────┴────────────────────────────────────────────┘

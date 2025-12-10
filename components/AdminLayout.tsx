@@ -12,6 +12,7 @@ const navItems = [
   { label: 'Command Center', href: '/admin/command-center', icon: 'command' },
   { label: 'Finance', href: '/admin/banking', icon: 'banking' },
   { label: 'B2B Pipeline', href: '/admin/b2b-pipeline', icon: 'pipeline' },
+  { label: 'Marketing', href: '/admin/marketing', icon: 'marketing' },
   { label: 'Production', href: '/admin/production', icon: 'factory' },
   { label: 'Supply Chain', href: '/admin/supply-chain', icon: 'inventory' },
   { label: 'Tasks', href: '/admin/tasks', icon: 'projects' },
@@ -103,6 +104,12 @@ function NavIcon({ type, active }: { type: string; active: boolean }) {
         <circle cx="6" cy="12" r="3" />
         <circle cx="18" cy="19" r="3" />
         <path d="M8.59 13.51l6.83 3.98M15.41 6.51l-6.82 3.98" />
+      </svg>
+    ),
+    marketing: (
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="1.5">
+        <path d="M3 11l18-5v12L3 13v-2z" />
+        <path d="M11.6 16.8a3 3 0 11-5.8-1.6" />
       </svg>
     ),
     videos: (
