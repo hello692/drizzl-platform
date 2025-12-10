@@ -41,7 +41,7 @@ Drizzl Wellness is a full-stack e-commerce platform for a smoothie and wellness 
     - Settings: Personal info, password change, notification preferences
     - Wishlist: Save favorite products with share functionality
     - Forgot/Reset Password: Secure password recovery flow with crypto-safe tokens
-- **B2B Partner Portal** (`/partner/*`): Complete wholesale partner portal with horizontal navigation (12 tabs):
+- **B2B Partner Portal** (`/partner/*`): Complete wholesale partner portal with LEFT SIDEBAR navigation (Claude.ai style):
     - Login: Partner authentication (demo: any email + password "partner123")
     - Dashboard: Welcome, tier/credit info, outstanding balance, recent orders, quick actions
     - Orders: Order history table with view/reorder, status filtering
@@ -55,9 +55,19 @@ Drizzl Wellness is a full-stack e-commerce platform for a smoothie and wellness 
     - Integrations: POS connections (Square, Clover, Toast, Shopify POS, Lightspeed), accounting (QuickBooks, Xero), CRM (HubSpot, Mailchimp), Custom API with key generation
     - Track Orders: Real-time GPS tracking with visual timeline (Order Placed → Production → QC → Shipped → Delivered), carrier tracking links, delivery history
     - Account: Business info, contact info, shipping addresses, payment methods
+    - Messages: Real-time messaging with sales rep and support team, conversation list, file attachments, emoji support
     - Support: Contact account manager, submit tickets, FAQ accordion
     - Partner Application: 5-step wizard (Business Info, Contact, Documents, References, Review)
     - Forgot/Reset Password: Secure password recovery flow with crypto-safe tokens
+- **Sales Rep Portal** (`/sales/*`): Mobile-first CRM portal for field sales team with bottom tab navigation:
+    - Login: Sales rep authentication (demo: any email + password "sales123")
+    - Dashboard: Today's snapshot (leads, calls, deals), quota progress with visual bar, next actions, leaderboard, hot leads
+    - Leads: Lead list with filters (All, My Leads, New, Hot, Closing Soon), search, lead score badges, quick actions (call, email, schedule)
+    - Lead Detail: Full profile with contact info, BANT qualification, deal info, activity timeline, notes, documents
+    - Activity: Calendar view, today's schedule, quick log for calls/meetings, activity heatmap showing monthly progress
+    - Commission: Earnings overview (monthly, YTD), commission breakdown by new partners and orders, payout history, annual earnings chart
+    - Profile: Personal info, performance stats (all-time and this year), quick settings, resources, sign out
+    - Forgot/Reset Password: Secure password recovery flow
 - **Enterprise Admin Dashboard**: Comprises 11 intelligence modules:
     - **Admin Command Center** (`/admin/command-center`): Claude.ai-style sidebar navigation with 9 fully functional tabs:
         - Dashboard: Master summary with KPIs, alerts, AI recommendations, revenue chart, production pipeline
