@@ -15,6 +15,7 @@ import {
   CreditCard,
   AlertCircle,
   Loader2,
+  MessageSquare,
 } from 'lucide-react';
 import Link from 'next/link';
 import { getPartnerById, getPartnerOrders, getPartnerInvoices } from '../../lib/api/partners';
@@ -47,6 +48,12 @@ const mockRecentOrders = [
 const mockPendingInvoices = [
   { id: 'INV-1847', date: 'Dec 8, 2025', amount: 2450.00, due: 'Dec 22, 2025', status: 'Pending' },
   { id: 'INV-1831', date: 'Dec 5, 2025', amount: 1680.00, due: 'Dec 19, 2025', status: 'Pending' },
+];
+
+const mockRecentMessages = [
+  { id: '1', initials: 'SJ', name: 'Sarah Johnson', role: 'Sales Rep', timestamp: '2m ago', preview: 'Just checking in on your order...', unreadCount: 2 },
+  { id: '2', initials: 'ST', name: 'Support Team', role: 'Support', timestamp: '1h ago', preview: 'Your ticket has been resolved!', unreadCount: 1 },
+  { id: '3', initials: 'MT', name: 'Mike Thompson', role: 'Account Mgr', timestamp: '3h ago', preview: 'Your credit limit increased', unreadCount: 0 },
 ];
 
 function getTierDiscount(tier: string): number {
@@ -280,6 +287,71 @@ export default function PartnerDashboard() {
                     </Link>
                   </div>
                 ))}
+              </div>
+            </div>
+
+            <div style={styles.section}>
+              <div style={styles.sectionHeader}>
+                <h2 style={styles.sectionTitle}>
+                  <span style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                    <MessageSquare size={18} color={NEON_GREEN} />
+                    Recent Messages
+                  </span>
+                </h2>
+                <Link href="/partner/messages" style={styles.viewAllLink}>
+                  View All <ArrowRight size={14} />
+                </Link>
+              </div>
+              <div style={styles.messagesList}>
+                {mockRecentMessages.map((message) => (
+                  <Link 
+                    key={message.id} 
+                    href="/partner/messages" 
+                    style={styles.messageRow}
+                  >
+                    <div style={styles.messageAvatar}>
+                      {message.initials}
+                    </div>
+                    <div style={styles.messageContent}>
+                      <div style={styles.messageHeader}>
+                        <div style={styles.messageSenderInfo}>
+                          <span style={styles.messageSenderName}>{message.name}</span>
+                          <span style={styles.messageSenderRole}>({message.role})</span>
+                        </div>
+                        <div style={styles.messageMetaRight}>
+                          <span style={styles.messageTimestamp}>{message.timestamp}</span>
+                          {message.unreadCount > 0 && (
+                            <span style={styles.unreadBadge}>{message.unreadCount}</span>
+                          )}
+                        </div>
+                      </div>
+                      <div style={styles.messagePreview}>"{message.preview}"</div>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </div>
+
+            <div style={styles.section}>
+              <div style={styles.sectionHeader}>
+                <h2 style={styles.sectionTitle}>
+                  <span style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                    <Mail size={18} color={NEON_GREEN} />
+                    Email Integration
+                  </span>
+                </h2>
+                <span style={styles.comingSoonBadge}>Coming Soon</span>
+              </div>
+              <div style={styles.emailIntegrationCard}>
+                <p style={styles.emailIntegrationText}>
+                  Gmail integration is coming soon. You'll be able to view and manage emails directly from your dashboard.
+                </p>
+                <button 
+                  onClick={() => alert('Thanks! We\'ll notify you when Gmail integration is available.')}
+                  style={styles.notifyButton}
+                >
+                  🔔 Notify Me When Available
+                </button>
               </div>
             </div>
 
@@ -614,5 +686,133 @@ const styles: Record<string, React.CSSProperties> = {
     fontSize: 13,
     textDecoration: 'none',
     transition: 'background-color 0.2s',
+  },
+  messagesList: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 0,
+    backgroundColor: CARD_BG,
+    border: `1px solid ${CARD_BORDER}`,
+    borderRadius: 12,
+    overflow: 'hidden',
+  },
+  messageRow: {
+    display: 'flex',
+    alignItems: 'flex-start',
+    gap: 12,
+    padding: '14px 16px',
+    textDecoration: 'none',
+    borderBottom: `1px solid ${CARD_BORDER}`,
+    transition: 'background-color 0.2s',
+    cursor: 'pointer',
+  },
+  messageAvatar: {
+    width: 40,
+    height: 40,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'rgba(0, 255, 133, 0.1)',
+    border: `1px solid rgba(0, 255, 133, 0.2)`,
+    borderRadius: 10,
+    fontSize: 13,
+    fontWeight: 600,
+    color: NEON_GREEN,
+    flexShrink: 0,
+  },
+  messageContent: {
+    flex: 1,
+    minWidth: 0,
+  },
+  messageHeader: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'flex-start',
+    gap: 8,
+    marginBottom: 4,
+  },
+  messageSenderInfo: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 6,
+    flexWrap: 'wrap',
+  },
+  messageSenderName: {
+    fontSize: 14,
+    fontWeight: 500,
+    color: '#FFFFFF',
+  },
+  messageSenderRole: {
+    fontSize: 12,
+    color: '#666666',
+  },
+  messageMetaRight: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 8,
+    flexShrink: 0,
+  },
+  messageTimestamp: {
+    fontSize: 12,
+    color: '#666666',
+    whiteSpace: 'nowrap',
+  },
+  unreadBadge: {
+    minWidth: 20,
+    height: 20,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: NEON_GREEN,
+    color: '#000000',
+    borderRadius: 10,
+    fontSize: 11,
+    fontWeight: 600,
+    padding: '0 6px',
+  },
+  messagePreview: {
+    fontSize: 13,
+    color: '#888888',
+    fontStyle: 'italic',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
+  },
+  comingSoonBadge: {
+    padding: '4px 10px',
+    backgroundColor: 'rgba(139, 92, 246, 0.1)',
+    color: '#8B5CF6',
+    borderRadius: 12,
+    fontSize: 11,
+    fontWeight: 600,
+    textTransform: 'uppercase',
+    letterSpacing: '0.5px',
+  },
+  emailIntegrationCard: {
+    padding: 24,
+    backgroundColor: CARD_BG,
+    border: `1px solid ${CARD_BORDER}`,
+    borderRadius: 12,
+    textAlign: 'center',
+  },
+  emailIntegrationText: {
+    fontSize: 14,
+    color: '#888888',
+    lineHeight: 1.6,
+    margin: '0 0 20px 0',
+  },
+  notifyButton: {
+    display: 'inline-flex',
+    alignItems: 'center',
+    gap: 8,
+    padding: '12px 20px',
+    backgroundColor: 'rgba(0, 255, 133, 0.1)',
+    color: NEON_GREEN,
+    border: `1px solid rgba(0, 255, 133, 0.2)`,
+    borderRadius: 8,
+    fontSize: 13,
+    fontWeight: 500,
+    cursor: 'pointer',
+    transition: 'all 0.2s',
   },
 };

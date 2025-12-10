@@ -28,6 +28,8 @@ import {
   Building2,
   Target,
   Activity,
+  MessageSquare,
+  ArrowRight,
 } from 'lucide-react';
 import {
   AreaChart,
@@ -105,6 +107,16 @@ interface ActivityItem {
   title: string;
   description: string;
   time: string;
+}
+
+interface RecentMessage {
+  id: string;
+  initials: string;
+  name: string;
+  role: 'Sales' | 'Partner' | 'Support';
+  message: string;
+  timestamp: string;
+  unreadCount: number;
 }
 
 const kpiCards: KPICard[] = [
@@ -403,6 +415,49 @@ const recentActivity: ActivityItem[] = [
   },
 ];
 
+const recentMessages: RecentMessage[] = [
+  {
+    id: '1',
+    initials: 'SJ',
+    name: 'Sarah Johnson',
+    role: 'Sales',
+    message: 'Closed the Whole Foods deal!',
+    timestamp: '2m ago',
+    unreadCount: 2,
+  },
+  {
+    id: '2',
+    initials: 'WF',
+    name: 'Whole Foods',
+    role: 'Partner',
+    message: 'Question about net terms...',
+    timestamp: '1h ago',
+    unreadCount: 1,
+  },
+  {
+    id: '3',
+    initials: 'TK',
+    name: 'Support Tickets',
+    role: 'Support',
+    message: '3 new tickets need review',
+    timestamp: '3h ago',
+    unreadCount: 3,
+  },
+];
+
+function getMessageRoleColor(role: string): { bg: string; color: string } {
+  switch (role) {
+    case 'Sales':
+      return { bg: 'rgba(139, 92, 246, 0.15)', color: '#A78BFA' };
+    case 'Partner':
+      return { bg: 'rgba(59, 130, 246, 0.15)', color: '#60A5FA' };
+    case 'Support':
+      return { bg: 'rgba(249, 115, 22, 0.15)', color: '#FB923C' };
+    default:
+      return { bg: 'rgba(255, 255, 255, 0.1)', color: '#FFFFFF' };
+  }
+}
+
 function formatDate(): string {
   const now = new Date();
   return now.toLocaleDateString('en-US', {
@@ -561,19 +616,63 @@ export default function CommandCenterDashboard() {
           </div>
         </div>
 
-        <div style={styles.card}>
-          <div style={styles.cardHeader}>
-            <Lightbulb size={18} color="#FFB800" />
-            <h2 style={styles.cardTitle}>AI Recommendations</h2>
+        <div style={styles.twoColumnSection}>
+          <div style={styles.card}>
+            <div style={styles.cardHeader}>
+              <MessageSquare size={18} color="#60A5FA" />
+              <h2 style={styles.cardTitle}>Messages</h2>
+              <a href="/admin/command-center/messages" style={styles.viewAllLink}>
+                View All <ArrowRight size={14} />
+              </a>
+            </div>
+            <div style={styles.messagesList}>
+              {recentMessages.map((msg) => (
+                <a
+                  key={msg.id}
+                  href="/admin/command-center/messages"
+                  style={styles.messageItem}
+                >
+                  <div style={styles.messageAvatar}>
+                    <span style={styles.messageInitials}>{msg.initials}</span>
+                  </div>
+                  <div style={styles.messageContent}>
+                    <div style={styles.messageHeader}>
+                      <span style={styles.messageName}>{msg.name}</span>
+                      <span style={{
+                        ...styles.messageRoleBadge,
+                        backgroundColor: getMessageRoleColor(msg.role).bg,
+                        color: getMessageRoleColor(msg.role).color,
+                      }}>
+                        {msg.role}
+                      </span>
+                      <span style={styles.messageTime}>{msg.timestamp}</span>
+                      {msg.unreadCount > 0 && (
+                        <span style={styles.messageUnreadBadge}>{msg.unreadCount}</span>
+                      )}
+                    </div>
+                    <p style={styles.messagePreview}>"{msg.message}"</p>
+                  </div>
+                </a>
+              ))}
+            </div>
           </div>
-          <div style={styles.recommendationGrid}>
-            {aiRecommendations.map((rec) => (
-              <div key={rec.id} style={styles.recommendationCard}>
-                <span style={styles.recommendationEmoji}>{rec.emoji}</span>
-                <h3 style={styles.recommendationTitle}>{rec.title}</h3>
-                <p style={styles.recommendationDescription}>{rec.description}</p>
-              </div>
-            ))}
+
+          <div style={styles.card}>
+            <div style={styles.cardHeader}>
+              <Lightbulb size={18} color="#FFB800" />
+              <h2 style={styles.cardTitle}>AI Recommendations</h2>
+            </div>
+            <div style={styles.recommendationList}>
+              {aiRecommendations.map((rec) => (
+                <div key={rec.id} style={styles.recommendationItem}>
+                  <span style={styles.recommendationEmoji}>{rec.emoji}</span>
+                  <div style={styles.recommendationContent}>
+                    <h3 style={styles.recommendationTitle}>{rec.title}</h3>
+                    <p style={styles.recommendationDescription}>{rec.description}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
 
@@ -1133,5 +1232,111 @@ const styles: Record<string, React.CSSProperties> = {
     color: 'rgba(255,255,255,0.4)',
     flexShrink: 0,
     paddingTop: 2,
+  },
+  viewAllLink: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 4,
+    marginLeft: 'auto',
+    fontSize: 13,
+    fontWeight: 500,
+    color: '#60A5FA',
+    textDecoration: 'none',
+    transition: 'color 0.2s ease',
+  },
+  messagesList: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 12,
+  },
+  messageItem: {
+    display: 'flex',
+    alignItems: 'flex-start',
+    gap: 12,
+    padding: 14,
+    backgroundColor: 'rgba(255,255,255,0.02)',
+    borderRadius: 12,
+    textDecoration: 'none',
+    transition: 'background 0.2s ease',
+    cursor: 'pointer',
+  },
+  messageAvatar: {
+    width: 40,
+    height: 40,
+    borderRadius: '50%',
+    backgroundColor: 'rgba(96, 165, 250, 0.15)',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexShrink: 0,
+  },
+  messageInitials: {
+    fontSize: 14,
+    fontWeight: 600,
+    color: '#60A5FA',
+  },
+  messageContent: {
+    flex: 1,
+    minWidth: 0,
+  },
+  messageHeader: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 8,
+    marginBottom: 4,
+    flexWrap: 'wrap',
+  },
+  messageName: {
+    fontSize: 14,
+    fontWeight: 600,
+    color: '#FFFFFF',
+  },
+  messageRoleBadge: {
+    fontSize: 10,
+    fontWeight: 500,
+    padding: '2px 8px',
+    borderRadius: 10,
+  },
+  messageTime: {
+    fontSize: 11,
+    color: 'rgba(255,255,255,0.4)',
+    marginLeft: 'auto',
+  },
+  messageUnreadBadge: {
+    minWidth: 18,
+    height: 18,
+    borderRadius: 9,
+    backgroundColor: NEON_GREEN,
+    color: '#000000',
+    fontSize: 10,
+    fontWeight: 700,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  messagePreview: {
+    fontSize: 13,
+    color: 'rgba(255,255,255,0.5)',
+    margin: 0,
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
+    fontStyle: 'italic',
+  },
+  recommendationList: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 12,
+  },
+  recommendationItem: {
+    display: 'flex',
+    alignItems: 'flex-start',
+    gap: 12,
+    padding: 14,
+    backgroundColor: 'rgba(255,255,255,0.02)',
+    borderRadius: 12,
+  },
+  recommendationContent: {
+    flex: 1,
   },
 };

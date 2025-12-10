@@ -11,6 +11,9 @@ import {
   ChevronRight,
   Flame,
   Building2,
+  MessageSquare,
+  Mail,
+  Bell,
 } from 'lucide-react';
 
 const NEON_GREEN = '#00FF85';
@@ -53,6 +56,12 @@ const hotLeads = [
   { id: 'lead-1', company: 'Whole Foods Market', score: 94, stage: 'Negotiation', value: 180000 },
   { id: 'lead-2', company: 'Target Corporation', score: 87, stage: 'Proposal', value: 320000 },
   { id: 'lead-3', company: 'Costco Wholesale', score: 82, stage: 'Discovery', value: 425000 },
+];
+
+const recentMessages = [
+  { id: 1, initials: 'MK', name: 'Mike Chen', role: 'Manager', time: '2m ago', message: 'Great work on the Target deal! 🎉', unreadCount: 0 },
+  { id: 2, initials: 'WF', name: 'Whole Foods Team', role: 'Partner', time: '1h ago', message: 'Quick question about next month...', unreadCount: 2 },
+  { id: 3, initials: 'ST', name: 'Support Team', role: 'Support', time: '3h ago', message: 'Your expense report approved', unreadCount: 0 },
 ];
 
 function getGreeting(): string {
@@ -248,6 +257,66 @@ export default function SalesDashboard() {
                 </div>
               </Link>
             ))}
+          </div>
+        </section>
+
+        <section style={styles.section}>
+          <div style={styles.messagesCard}>
+            <div style={styles.messagesHeader}>
+              <div style={styles.messagesTitle}>
+                <MessageSquare size={18} color={NEON_GREEN} />
+                <span>Recent Messages</span>
+              </div>
+              <Link href="/sales/messages" style={styles.viewAllLink}>
+                View All <ChevronRight size={14} />
+              </Link>
+            </div>
+            <div style={styles.messagesList}>
+              {recentMessages.map((msg) => (
+                <Link key={msg.id} href="/sales/messages" style={styles.messageItem}>
+                  <div style={styles.messageAvatar}>
+                    <span>{msg.initials}</span>
+                  </div>
+                  <div style={styles.messageContent}>
+                    <div style={styles.messageTopRow}>
+                      <span style={styles.messageName}>{msg.name}</span>
+                      <span style={styles.messageRole}>({msg.role})</span>
+                      <div style={styles.messageTimeContainer}>
+                        <span style={styles.messageTime}>{msg.time}</span>
+                        {msg.unreadCount > 0 && (
+                          <span style={styles.unreadBadge}>●{msg.unreadCount}</span>
+                        )}
+                      </div>
+                    </div>
+                    <div style={styles.messagePreview}>"{msg.message}"</div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section style={styles.section}>
+          <div style={styles.emailCard}>
+            <div style={styles.emailHeader}>
+              <div style={styles.emailTitle}>
+                <Mail size={18} color={NEON_GREEN} />
+                <span>Email Integration</span>
+              </div>
+              <span style={styles.comingSoonBadge}>Coming Soon</span>
+            </div>
+            <div style={styles.emailContent}>
+              <p style={styles.emailDescription}>
+                Gmail integration is coming soon. You'll be able to view and send emails directly from your dashboard.
+              </p>
+              <button
+                style={styles.notifyButton}
+                onClick={() => alert('Thanks! We\'ll notify you when Gmail integration is available.')}
+              >
+                <Bell size={16} />
+                <span>Notify Me When Available</span>
+              </button>
+            </div>
           </div>
         </section>
       </div>
@@ -628,5 +697,162 @@ const styles: Record<string, React.CSSProperties> = {
     fontSize: 13,
     color: NEON_GREEN,
     fontWeight: 500,
+  },
+  messagesCard: {
+    backgroundColor: CARD_BG,
+    border: `1px solid ${CARD_BORDER}`,
+    borderRadius: 16,
+    overflow: 'hidden',
+  },
+  messagesHeader: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: '16px 20px',
+    borderBottom: `1px solid ${CARD_BORDER}`,
+  },
+  messagesTitle: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 8,
+    fontSize: 16,
+    fontWeight: 600,
+    color: '#FFFFFF',
+  },
+  viewAllLink: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 4,
+    fontSize: 13,
+    color: NEON_GREEN,
+    fontWeight: 500,
+    textDecoration: 'none',
+  },
+  messagesList: {
+    padding: 8,
+  },
+  messageItem: {
+    display: 'flex',
+    alignItems: 'flex-start',
+    gap: 12,
+    padding: 12,
+    borderRadius: 8,
+    textDecoration: 'none',
+    transition: 'background-color 0.2s',
+  },
+  messageAvatar: {
+    width: 40,
+    height: 40,
+    borderRadius: 10,
+    backgroundColor: `${NEON_GREEN}15`,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    fontSize: 13,
+    fontWeight: 600,
+    color: NEON_GREEN,
+    flexShrink: 0,
+  },
+  messageContent: {
+    flex: 1,
+    minWidth: 0,
+  },
+  messageTopRow: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 6,
+    marginBottom: 4,
+    flexWrap: 'wrap',
+  },
+  messageName: {
+    fontSize: 14,
+    fontWeight: 600,
+    color: '#FFFFFF',
+  },
+  messageRole: {
+    fontSize: 12,
+    color: 'rgba(255,255,255,0.5)',
+  },
+  messageTimeContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 8,
+    marginLeft: 'auto',
+  },
+  messageTime: {
+    fontSize: 12,
+    color: 'rgba(255,255,255,0.4)',
+  },
+  unreadBadge: {
+    fontSize: 12,
+    fontWeight: 600,
+    color: NEON_GREEN,
+  },
+  messagePreview: {
+    fontSize: 13,
+    color: 'rgba(255,255,255,0.6)',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
+  },
+  emailCard: {
+    backgroundColor: CARD_BG,
+    border: `1px solid ${CARD_BORDER}`,
+    borderRadius: 16,
+    overflow: 'hidden',
+  },
+  emailHeader: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: '16px 20px',
+    borderBottom: `1px solid ${CARD_BORDER}`,
+  },
+  emailTitle: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 8,
+    fontSize: 16,
+    fontWeight: 600,
+    color: '#FFFFFF',
+  },
+  comingSoonBadge: {
+    fontSize: 11,
+    fontWeight: 600,
+    color: '#F59E0B',
+    backgroundColor: 'rgba(245, 158, 11, 0.15)',
+    padding: '4px 10px',
+    borderRadius: 6,
+    textTransform: 'uppercase',
+    letterSpacing: 0.5,
+  },
+  emailContent: {
+    padding: 24,
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    textAlign: 'center',
+  },
+  emailDescription: {
+    fontSize: 14,
+    color: 'rgba(255,255,255,0.6)',
+    lineHeight: 1.6,
+    margin: 0,
+    marginBottom: 20,
+    maxWidth: 320,
+  },
+  notifyButton: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 8,
+    backgroundColor: `${NEON_GREEN}15`,
+    border: `1px solid ${NEON_GREEN}40`,
+    borderRadius: 10,
+    padding: '12px 20px',
+    fontSize: 14,
+    fontWeight: 600,
+    color: NEON_GREEN,
+    cursor: 'pointer',
+    transition: 'background-color 0.2s, transform 0.1s',
   },
 };
