@@ -33,7 +33,16 @@ Drizzl Wellness is a full-stack e-commerce platform for a smoothie and wellness 
 - **D2C E-Commerce**: Standard e-commerce features including product browsing, cart, checkout, user authentication, and order history.
 - **B2B Retail Partner Portal**: Features a 4-step application, dashboard with wholesale catalog, order management, analytics, messaging, POS integration, AI-powered restocking, partner scoring, DocuSign integration, unique partner IDs, and QR codes.
 - **Enterprise Admin Dashboard**: Comprises 11 intelligence modules:
-    - **Command Center**: Real-time business intelligence.
+    - **Admin Command Center** (`/admin/command-center`): Claude.ai-style sidebar navigation with 9 fully functional tabs:
+        - Dashboard: Master summary with KPIs, alerts, AI recommendations, revenue chart, production pipeline
+        - Finance: Mercury banking integration, transactions, cash flow forecast, AR/AP, P&L summary
+        - Production: Factory operations, active production lines, QC dashboard, equipment status
+        - Supply Chain: Inventory management (ingredients/packaging), purchase orders, suppliers, lot tracking
+        - AI Assistant: Chat interface with conversation history, quick insights, usage stats
+        - Analytics: Revenue analytics, customer insights, product performance, geographic distribution
+        - Marketing: Campaign management, channel performance, email marketing, social media
+        - B2B Pipeline: Kanban sales funnel, hot deals, contact database, activity timeline
+        - Tasks: Kanban board with 4 columns, team workload, upcoming deadlines
     - **AI Command Assistant**: ChatGPT-like interface for business queries.
     - **Product Intelligence**: SKU management, cost tracking, AI optimization.
     - **Inventory Management**: Tracking for ingredients, packaging, finished goods, alerts, lot tracking.
