@@ -5527,6 +5527,8 @@ svg {
 .lifestyle-section {
   background: #000;
   padding: 3rem 0;
+  position: relative;
+  z-index: 1;
 }
 
 .lifestyle-header {
@@ -5679,6 +5681,8 @@ svg {
   max-width: 1500px;
   margin: 0 auto;
   background: #ffffff;
+  position: relative;
+  z-index: 20;
 }
 
 /* Left Column - Vertical Scrolling Image Gallery */
