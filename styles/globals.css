@@ -587,7 +587,8 @@ input:focus, textarea:focus, select:focus {
 
 /* Hide button text labels on tablet and below */
 @media (max-width: 1024px) {
-  .wholesale-link {
+  .wholesale-link,
+  .sales-rep-link {
     display: none !important;
   }
 }
@@ -596,12 +597,47 @@ input:focus, textarea:focus, select:focus {
   .header-btn-text {
     display: none !important;
   }
+  
+  /* Mobile touch target improvements - 44px minimum */
+  .header-btn,
+  .nav-icon {
+    min-height: 44px;
+    min-width: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  /* Mobile menu touch targets */
+  .menu-item-title {
+    min-height: 56px;
+    padding: 16px 0 !important;
+  }
+  
+  .submenu-item {
+    min-height: 44px;
+    padding: 12px 0 12px 20px !important;
+  }
+  
+  /* Mobile menu close button */
+  .menu-close-btn {
+    min-width: 44px;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 }
 
 /* Mobile header adjustments */
 @media (max-width: 480px) {
   header {
-    padding: 0 20px !important;
+    padding: 0 16px !important;
+  }
+  
+  /* Ensure nav icons have proper touch targets on small screens */
+  .nav-icon {
+    padding: 10px !important;
   }
 }
 
@@ -3673,8 +3709,10 @@ svg {
   transform: translateY(-50%);
   background: #ffffff;
   border: none;
-  width: clamp(40px, 5vw, 48px);
-  height: clamp(40px, 5vw, 48px);
+  width: clamp(44px, 5vw, 48px);
+  height: clamp(44px, 5vw, 48px);
+  min-width: 44px;
+  min-height: 44px;
   border-radius: 50%;
   color: #1d1d1f;
   cursor: pointer;
@@ -3707,6 +3745,36 @@ svg {
   gap: var(--card-gap);
   padding: 8px 0;
   width: 100%;
+}
+
+/* Responsive carousel grid - collapse columns on smaller screens */
+@media (max-width: 1024px) {
+  .carousel-track,
+  .video-carousel-track {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .carousel-track,
+  .video-carousel-track {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 540px) {
+  .carousel-track,
+  .video-carousel-track {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 380px) {
+  .carousel-track,
+  .video-carousel-track {
+    grid-template-columns: repeat(2, 1fr);
+    gap: clamp(6px, 2vw, 10px);
+  }
 }
 
 /* Hide scrollbar (kept for compatibility) */
@@ -4186,10 +4254,10 @@ svg {
 .smoothie-card-dh-button {
   display: block;
   width: 100%;
-  padding: 14px 20px;
+  padding: clamp(12px, 3vw, 14px) clamp(16px, 4vw, 20px);
   background: #1a1a1a;
   color: #ffffff;
-  font-size: 13px;
+  font-size: clamp(11px, 2.5vw, 13px);
   font-weight: 500;
   letter-spacing: 0.01em;
   text-transform: none;
@@ -4200,6 +4268,7 @@ svg {
   cursor: pointer;
   transition: all 0.25s ease;
   margin-top: auto;
+  min-height: 44px;
 }
 
 .smoothie-card-dh-button:hover {
@@ -4435,19 +4504,21 @@ svg {
     gap: 8px;
   }
   
-  /* Keep arrows visible but smaller on mobile */
+  /* Keep arrows visible and touch-friendly on mobile (min 44px per WCAG 2.1 AA) */
   .carousel-arrow {
     display: flex;
-    width: 32px;
-    height: 32px;
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    min-height: 44px;
   }
   
   .carousel-arrow-left {
-    left: clamp(10px, 2.5vw, 20px);
+    left: clamp(4px, 2vw, 16px);
   }
   
   .carousel-arrow-right {
-    right: clamp(10px, 2.5vw, 20px);
+    right: clamp(4px, 2vw, 16px);
   }
   
   .carousel-wrapper,
@@ -4489,18 +4560,20 @@ svg {
     border-radius: 40px;
   }
   
-  /* Smaller arrows on mobile but still visible */
+  /* Touch-friendly arrows on mobile (min 44px per WCAG 2.1 AA) */
   .carousel-arrow {
-    width: 28px;
-    height: 28px;
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    min-height: 44px;
   }
   
   .carousel-arrow-left {
-    left: clamp(8px, 2vw, 16px);
+    left: clamp(2px, 1.5vw, 12px);
   }
   
   .carousel-arrow-right {
-    right: clamp(8px, 2vw, 16px);
+    right: clamp(2px, 1.5vw, 12px);
   }
   
   .carousel-wrapper {
@@ -4542,18 +4615,20 @@ svg {
     font-size: clamp(11px, 2vw, 14px);
   }
   
-  /* Even smaller arrows but still visible on small phones */
+  /* Touch-friendly arrows on small phones (min 44px per WCAG 2.1 AA) */
   .carousel-arrow {
-    width: 28px;
-    height: 28px;
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    min-height: 44px;
   }
   
   .carousel-arrow-left {
-    left: clamp(8px, 2vw, 16px);
+    left: 0;
   }
   
   .carousel-arrow-right {
-    right: clamp(8px, 2vw, 16px);
+    right: 0;
   }
   
   .carousel-wrapper {
@@ -4613,18 +4688,20 @@ svg {
     font-size: 10px;
   }
   
-  /* Smallest arrows for fold phones */
+  /* Touch-friendly arrows for fold phones (min 44px per WCAG 2.1 AA) */
   .carousel-arrow {
-    width: 24px;
-    height: 24px;
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    min-height: 44px;
   }
   
   .carousel-arrow-left {
-    left: 6px;
+    left: 0;
   }
   
   .carousel-arrow-right {
-    right: 6px;
+    right: 0;
   }
   
   .carousel-wrapper,
@@ -6591,24 +6668,27 @@ svg {
 
 .lv-hero-sub {
   font-family: var(--font-family-base);
-  font-size: 1.2rem;
+  font-size: clamp(0.9rem, 2.5vw, 1.2rem);
   line-height: 1.5;
   color: rgba(255, 255, 255, 0.7);
   margin: 0.5rem 0 0.6rem 0;
   font-weight: 400;
   letter-spacing: 0.01em;
-  max-width: none;
+  max-width: 90%;
   text-align: center;
-  white-space: nowrap;
+  white-space: normal;
+  word-wrap: break-word;
 }
 
 .lv-hero-cta {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   margin-top: 8px;
-  padding: 14px 36px;
+  padding: clamp(12px, 3vw, 14px) clamp(28px, 6vw, 36px);
   background: #ffffff;
   color: #000000;
-  font-size: 0.875rem;
+  font-size: clamp(0.8rem, 2vw, 0.875rem);
   font-weight: 500;
   letter-spacing: 0em;
   text-decoration: none;
@@ -6616,6 +6696,7 @@ svg {
   border-radius: 100px;
   transition: all 0.18s ease;
   box-shadow: 0 12px 36px rgba(0, 0, 0, 0.3);
+  min-height: 44px;
 }
 
 .lv-hero-cta:hover {

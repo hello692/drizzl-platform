@@ -426,16 +426,22 @@ export default function Navbar({ hideCart = false, hideSearch = false }: NavbarP
         }}
       >
         <button 
+          className="menu-close-btn"
           onClick={() => setMenuOpen(false)}
           style={{
             position: 'absolute',
-            top: '24px',
-            right: '40px',
+            top: '20px',
+            right: '20px',
             background: 'none',
             border: 'none',
             cursor: 'pointer',
-            padding: '8px',
+            padding: '10px',
             zIndex: 10,
+            minWidth: '44px',
+            minHeight: '44px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
           }}
           aria-label="Close menu"
         >
@@ -444,11 +450,14 @@ export default function Navbar({ hideCart = false, hideSearch = false }: NavbarP
           </svg>
         </button>
         
-        <div style={{
-          maxWidth: '800px',
-          margin: '0 auto',
-          padding: '100px 40px 60px',
-        }}>
+        <div 
+          className="mobile-menu-content"
+          style={{
+            maxWidth: '800px',
+            margin: '0 auto',
+            padding: '80px 24px 60px',
+          }}
+        >
           <nav>
             {MENU_SECTIONS.map((section, index) => (
               <div 
@@ -551,12 +560,14 @@ export default function Navbar({ hideCart = false, hideSearch = false }: NavbarP
           
           <div style={{ marginTop: '40px', paddingTop: '20px', borderTop: '1px solid rgba(255,255,255,0.1)' }}>
             <button
+              className="submenu-item"
               onClick={() => navigateTo('/auth')}
               style={{
                 display: 'block',
                 width: '100%',
                 textAlign: 'left',
-                padding: '12px 0',
+                padding: '14px 0',
+                minHeight: '44px',
                 background: 'none',
                 border: 'none',
                 color: 'rgba(255,255,255,0.6)',
@@ -567,12 +578,14 @@ export default function Navbar({ hideCart = false, hideSearch = false }: NavbarP
               Sign In or Create Account
             </button>
             <button
+              className="submenu-item"
               onClick={() => navigateTo('/auth?type=retail')}
               style={{
                 display: 'block',
                 width: '100%',
                 textAlign: 'left',
-                padding: '12px 0',
+                padding: '14px 0',
+                minHeight: '44px',
                 background: 'none',
                 border: 'none',
                 color: 'rgba(255,255,255,0.6)',
