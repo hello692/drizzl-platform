@@ -239,35 +239,47 @@ export default function PartnerPricing() {
                 <tr>
                   <th style={styles.th}>Product</th>
                   <th style={styles.th}>SKU</th>
-                  <th style={styles.th}>Category</th>
-                  <th style={styles.th}>Retail Price</th>
-                  <th style={styles.th}>Your Price</th>
-                  <th style={styles.th}>Savings</th>
+                  <th style={styles.th}>MSRP</th>
+                  <th style={styles.th}>Your Cost</th>
+                  <th style={styles.th}>Your Margin</th>
+                  <th style={styles.th}>Profit/Unit</th>
                 </tr>
               </thead>
               <tbody>
                 {filteredProducts.map((product) => {
-                  const savings = product.retailPrice - product.wholesalePrice;
+                  const msrp = product.retailPrice;
+                  const yourCost = product.wholesalePrice;
+                  const profitPerUnit = msrp - yourCost;
+                  const marginPercent = ((profitPerUnit / msrp) * 100).toFixed(0);
                   return (
                     <tr key={product.id}>
                       <td style={styles.td}>
                         <div style={styles.productCell}>
                           <span style={styles.productImage}>{product.image}</span>
-                          <span style={styles.productName}>{product.name}</span>
+                          <div style={{ display: 'flex', flexDirection: 'column' }}>
+                            <span style={styles.productName}>{product.name}</span>
+                            <span style={{ fontSize: 11, color: '#666' }}>{product.category}</span>
+                          </div>
                         </div>
                       </td>
                       <td style={styles.td}>
                         <span style={styles.sku}>{product.sku}</span>
                       </td>
-                      <td style={styles.td}>{product.category}</td>
                       <td style={styles.td}>
-                        <span style={styles.retailPrice}>${(product.retailPrice / 100).toFixed(2)}</span>
+                        <span style={styles.retailPrice}>${(msrp / 100).toFixed(2)}</span>
                       </td>
                       <td style={styles.td}>
-                        <span style={styles.wholesalePrice}>${(product.wholesalePrice / 100).toFixed(2)}</span>
+                        <span style={styles.wholesalePrice}>${(yourCost / 100).toFixed(2)}</span>
                       </td>
                       <td style={styles.td}>
-                        <span style={styles.savings}>${(savings / 100).toFixed(2)}</span>
+                        <span style={{
+                          ...styles.marginBadge,
+                          backgroundColor: Number(marginPercent) >= 35 ? 'rgba(0, 255, 133, 0.15)' : 'rgba(255, 193, 7, 0.15)',
+                          color: Number(marginPercent) >= 35 ? NEON_GREEN : '#FFC107',
+                        }}>{marginPercent}%</span>
+                      </td>
+                      <td style={styles.td}>
+                        <span style={styles.savings}>${(profitPerUnit / 100).toFixed(2)}</span>
                       </td>
                     </tr>
                   );
@@ -514,7 +526,14 @@ const styles: Record<string, React.CSSProperties> = {
     color: NEON_GREEN,
   },
   savings: {
-    color: '#F59E0B',
-    fontWeight: 500,
+    color: NEON_GREEN,
+    fontWeight: 600,
+  },
+  marginBadge: {
+    display: 'inline-block',
+    padding: '4px 10px',
+    borderRadius: 12,
+    fontSize: 12,
+    fontWeight: 600,
   },
 };

@@ -13,6 +13,12 @@ import {
   LogOut,
   Menu,
   X,
+  BarChart3,
+  Palette,
+  CreditCard,
+  PlayCircle,
+  Plug,
+  MapPin,
 } from 'lucide-react';
 
 interface PartnerLayoutProps {
@@ -28,6 +34,12 @@ const navItems = [
   { label: 'Orders', href: '/partner/orders', icon: ShoppingCart },
   { label: 'Invoices', href: '/partner/invoices', icon: FileText },
   { label: 'Pricing', href: '/partner/pricing', icon: DollarSign },
+  { label: 'Analytics', href: '/partner/analytics', icon: BarChart3 },
+  { label: 'Marketing', href: '/partner/marketing-hub', icon: Palette },
+  { label: 'Financing', href: '/partner/financing', icon: CreditCard },
+  { label: 'How-To', href: '/partner/how-to-guide', icon: PlayCircle },
+  { label: 'Integrations', href: '/partner/integrations', icon: Plug },
+  { label: 'Track Orders', href: '/partner/track-orders', icon: MapPin },
   { label: 'Account', href: '/partner/account', icon: User },
   { label: 'Support', href: '/partner/support', icon: HelpCircle },
 ];
