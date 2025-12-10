@@ -5669,9 +5669,8 @@ svg {
 .lv-product-page {
   background: #ffffff;
   min-height: 100vh;
-  padding-top: 16px;
+  padding-top: 0;
   margin-top: 0;
-  overflow-x: hidden;
 }
 
 .lv-product-main {
@@ -5680,8 +5679,7 @@ svg {
   gap: 0;
   max-width: 1500px;
   margin: 0 auto;
-  padding-right: 0;
-  align-items: flex-start;
+  align-items: start;
   background: #ffffff;
 }
 
@@ -5741,12 +5739,11 @@ svg {
 /* Right Column - Sticky Product Info Panel */
 .lv-product-info {
   position: sticky;
-  top: 16px;
-  align-self: flex-start;
-  height: calc(100vh - 16px);
+  top: 80px;
+  align-self: start;
+  max-height: calc(100vh - 100px);
   overflow-y: auto;
-  padding: 80px 48px 48px 32px;
-  margin-top: 0;
+  padding: 0 48px 48px 32px;
   background: #ffffff;
   scrollbar-width: none;
   -ms-overflow-style: none;
