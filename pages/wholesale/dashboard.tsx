@@ -7,6 +7,7 @@ import { AnimatedSection } from '../../components/ScrollAnimations';
 const NAV_ITEMS = [
   { id: 'overview', label: 'Overview', href: '/wholesale' },
   { id: 'pricing', label: 'Pricing', href: '/wholesale/pricing' },
+  { id: 'apply', label: 'Apply', href: '/wholesale/apply', isCta: true },
   { id: 'dashboard', label: 'Dashboard', href: '/wholesale/dashboard' },
 ];
 
@@ -117,7 +118,17 @@ export default function WholesaleDashboard() {
                 <Link
                   key={item.id}
                   href={item.href}
-                  style={{
+                  style={item.isCta ? {
+                    background: '#00FF85',
+                    color: '#000000',
+                    padding: '10px 20px',
+                    borderRadius: '6px',
+                    fontSize: 'var(--fs-small)',
+                    fontWeight: 600,
+                    textDecoration: 'none',
+                    whiteSpace: 'nowrap',
+                    transition: 'all 0.2s ease',
+                  } : {
                     background: 'none',
                     padding: '16px 16px',
                     fontSize: 'var(--fs-small)',

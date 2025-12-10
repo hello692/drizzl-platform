@@ -34,9 +34,10 @@ const MENU_SECTIONS = [
     title: 'Wholesale & Partnerships',
     subtitle: 'Partner with us',
     items: [
-      { name: 'Big Ideas? Let\'s Collaborate', href: '/wholesale' },
-      { name: 'Wholesale Pricing', href: '/wholesale#wholesale-pricing' },
-      { name: 'Partner Portal', href: '/wholesale#partner-portal' },
+      { name: 'Wholesale Overview', href: '/wholesale' },
+      { name: 'Wholesale Pricing', href: '/wholesale/pricing' },
+      { name: 'Apply for Wholesale', href: '/wholesale/apply' },
+      { name: 'Partner Sign In', href: '/wholesale/signin' },
     ]
   },
   {
