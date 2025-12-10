@@ -68,13 +68,21 @@ Drizzl Wellness is a full-stack e-commerce platform for a smoothie and wellness 
 - **Resend**: Email notifications.
 
 ## Recent Changes (December 2025)
-- **Site Completion**: Added all missing pages following SAFE MODE principles (no existing code modified):
-  - `/locations` - Store locator with 10 retail partner locations and map links
+- **Design System Unification**: All D2C pages now use identical dark luxury minimal design:
+  - Same Navbar component on every page (Menu | Search | DRIZZL logo | Wholesale | User | Cart)
+  - Same Footer component on every page
+  - Black backgrounds (#000000, #0a0a0a)
+  - White text with opacity variants (rgba(255,255,255,0.6))
+  - Minimal borders (rgba(255,255,255,0.06))
+  - Inter font, light/regular weights
+- **Pages Fixed/Created**:
+  - `/about` - Rebuilt to match dark design system with identical header
+  - `/sustainability` - "Coming Soon" page with dark design
+  - `/locations` - Store locator with OpenStreetMap integration, search by zip/city
   - `/wholesale` - B2B partnership page with inquiry form
-  - `/wholesale/pricing` - Wholesale pricing tiers (Starter, Growth, Enterprise) with product catalog
-  - `/ingredients` - Ingredient philosophy with 12 key ingredients and allergen information
-  - `/membership` - Wellness club with monthly ($9.99) and annual ($99) plans, benefits, FAQ
+  - `/wholesale/pricing` - Wholesale pricing tiers with product catalog
+  - `/ingredients` - Ingredient philosophy with 12 ingredients
+  - `/membership` - Wellness club with monthly/annual plans, FAQ
   - `/ambassadors` - Ambassador/affiliate program with application form
   - `/store-locator` - Redirects to /locations
-- **Navigation**: Updated Navbar MENU_SECTIONS with all page links, eliminating dead ends
-- **Design Consistency**: All new pages use PageLayout, PageHero, PageSection, AnimatedSection components
+- **Navigation**: ONE header, ONE footer across entire site - no variations
