@@ -17,11 +17,16 @@ Drizzl Wellness is a full-stack e-commerce platform for a smoothie and wellness 
 ### UI/UX Decisions
 - **Admin Portal Aesthetic**: "Apple AI 2500 Dark" theme with deep black backgrounds, mesh gradients, animated elements, glassmorphism cards with subtle glow borders, and gradient text. Accent colors include purple, cyan, pink, and green.
 - **D2C Storefront Aesthetic**: Premium dark theme with pure black backgrounds and white text. Features include a refined color palette, Apple-style fully rounded pill buttons, and a Google AI-inspired typography system using the Inter font. Transitions are smooth 0.3s ease, and the layout is centered with a 1100px max-width, fully responsive.
-- **Divine Engineering Spacing Philosophy**: The site follows a "divine engineering" approach to spacing - compact but breathing, dense but effortless, precise spacing with no wasted space. This is the opposite of airy minimalism. Key spacing tokens:
-  - Section padding: 40-64px vertical, 20-48px horizontal (vs. traditional 80-140px)
-  - Card gaps: 10-14px (tight-knit grids)
-  - Container max-width: 1100-1200px
-  - Mobile spacing progressively tighter (768px and 480px breakpoints step down from desktop values)
+- **Premium Spacing Philosophy**: The site follows a premium luxury approach to spacing with generous breathing room. Key spacing tokens:
+  - Section spacing: 120-180px vertical padding for major sections
+  - Body text line-height: 1.7-1.8 for optimal readability
+  - Paragraph max-width: 640-680px for comfortable reading
+  - Container padding: 100-120px desktop, 60-80px tablet, 40-48px mobile
+  - Grid gaps: 40-60px between major content blocks
+  - 8px grid alignment throughout
+  - Footer padding: 80-100px top, 60-80px bottom
+  - Mobile spacing progressively tighter (1024px, 768px, 480px breakpoints)
+  - CTA links: Animated arrow that moves on hover (→ translation effect)
 
 ### Technical Implementations
 - **Core Stack**: Next.js 15, React 19, Supabase (Auth + Database).
