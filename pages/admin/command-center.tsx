@@ -164,17 +164,38 @@ const mockMetrics: TodayMetric[] = [
   },
 ];
 
-const mockRevenueTrend: RevenueTrendPoint[] = Array.from({ length: 30 }, (_, i) => {
-  const date = new Date();
-  date.setDate(date.getDate() - (29 - i));
-  const baseD2C = 25000 + Math.random() * 15000;
-  const baseB2B = 12000 + Math.random() * 10000;
-  return {
-    date: date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
-    d2c: Math.round(baseD2C),
-    b2b: Math.round(baseB2B),
-  };
-});
+const mockRevenueTrend: RevenueTrendPoint[] = [
+  { date: 'Nov 11', d2c: 28500, b2b: 15200 },
+  { date: 'Nov 12', d2c: 31200, b2b: 14800 },
+  { date: 'Nov 13', d2c: 29800, b2b: 16300 },
+  { date: 'Nov 14', d2c: 33500, b2b: 18200 },
+  { date: 'Nov 15', d2c: 35200, b2b: 17500 },
+  { date: 'Nov 16', d2c: 38900, b2b: 19800 },
+  { date: 'Nov 17', d2c: 36400, b2b: 16900 },
+  { date: 'Nov 18', d2c: 32100, b2b: 15400 },
+  { date: 'Nov 19', d2c: 29600, b2b: 14200 },
+  { date: 'Nov 20', d2c: 31800, b2b: 16800 },
+  { date: 'Nov 21', d2c: 34500, b2b: 18100 },
+  { date: 'Nov 22', d2c: 37200, b2b: 19500 },
+  { date: 'Nov 23', d2c: 39800, b2b: 21200 },
+  { date: 'Nov 24', d2c: 42500, b2b: 22800 },
+  { date: 'Nov 25', d2c: 38600, b2b: 20100 },
+  { date: 'Nov 26', d2c: 35400, b2b: 18400 },
+  { date: 'Nov 27', d2c: 33200, b2b: 17200 },
+  { date: 'Nov 28', d2c: 36800, b2b: 19600 },
+  { date: 'Nov 29', d2c: 41200, b2b: 21800 },
+  { date: 'Nov 30', d2c: 44500, b2b: 23500 },
+  { date: 'Dec 1', d2c: 42800, b2b: 22100 },
+  { date: 'Dec 2', d2c: 39600, b2b: 20400 },
+  { date: 'Dec 3', d2c: 37200, b2b: 18800 },
+  { date: 'Dec 4', d2c: 35800, b2b: 17500 },
+  { date: 'Dec 5', d2c: 38400, b2b: 19200 },
+  { date: 'Dec 6', d2c: 41600, b2b: 21400 },
+  { date: 'Dec 7', d2c: 43900, b2b: 22800 },
+  { date: 'Dec 8', d2c: 45200, b2b: 23600 },
+  { date: 'Dec 9', d2c: 47800, b2b: 24500 },
+  { date: 'Dec 10', d2c: 48500, b2b: 25200 },
+];
 
 const mockProductionPipeline: ProductionBatch[] = [
   { id: '1', batchNumber: '#2847', units: 5000, stage: 'Bottling', progress: 89, status: 'green' },
@@ -439,18 +460,13 @@ function InsightCard({ insight }: { insight: AIInsight }) {
   );
 }
 
+const isDemoMode = true;
+
 export default function CommandCenter() {
   const { loading, authorized } = useRequireAdmin();
-  const [dataLoading, setDataLoading] = useState(true);
+  const [dataLoading, setDataLoading] = useState(false);
 
-  useEffect(() => {
-    if (authorized) {
-      const timer = setTimeout(() => setDataLoading(false), 800);
-      return () => clearTimeout(timer);
-    }
-  }, [authorized]);
-
-  if (loading) {
+  if (!isDemoMode && loading) {
     return (
       <div style={styles.loadingContainer}>
         <div style={styles.loadingOrb} />
@@ -459,7 +475,7 @@ export default function CommandCenter() {
     );
   }
 
-  if (!authorized) {
+  if (!isDemoMode && !authorized) {
     return (
       <div style={styles.loadingContainer}>
         <div style={styles.loadingOrb} />
