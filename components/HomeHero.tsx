@@ -1,17 +1,16 @@
 import { useRef, useState, useEffect } from 'react';
 import Navbar from './Navbar';
+import Link from 'next/link';
 
 const DYNAMIC_WORDS = [
-  { word: 'totally nourished', color: '#7CB342' },
-  { word: 'over-the-moon happy', color: '#FFB300' },
-  { word: 'buzzing with energy', color: '#FF7043' },
-  { word: 'fueled for anything', color: '#E91E63' },
-  { word: 'cool, calm, and collected', color: '#26A69A' },
-  { word: 'sharp as a tack', color: '#AB47BC' },
-  { word: 'strong like a boss', color: '#EF5350' },
+  { word: 'buzzing with energy', gradient: true },
+  { word: 'totally nourished', gradient: true },
+  { word: 'fueled for anything', gradient: true },
+  { word: 'sharp as a tack', gradient: true },
+  { word: 'strong like a boss', gradient: true },
 ];
 
-function useRotatingWord(words: typeof DYNAMIC_WORDS, interval = 2000) {
+function useRotatingWord(words: typeof DYNAMIC_WORDS, interval = 2500) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isVisible, setIsVisible] = useState(true);
 
@@ -30,22 +29,21 @@ function useRotatingWord(words: typeof DYNAMIC_WORDS, interval = 2000) {
 
   return { 
     currentWord: words[currentIndex].word, 
-    currentColor: words[currentIndex].color,
     isVisible 
   };
 }
 
 export default function HomeHero() {
   const videoRef = useRef<HTMLVideoElement | null>(null);
-  const { currentWord, currentColor, isVisible } = useRotatingWord(DYNAMIC_WORDS, 2500);
+  const { currentWord, isVisible } = useRotatingWord(DYNAMIC_WORDS, 2800);
 
   return (
-    <section className="lv-hero">
+    <section className="hero-futuristic">
       <Navbar />
       
       <video
         ref={videoRef}
-        className="lv-hero-video"
+        className="hero-futuristic-video"
         autoPlay
         muted
         loop
@@ -53,31 +51,55 @@ export default function HomeHero() {
       >
         <source src="/videos/hero-video.mp4" type="video/mp4" />
       </video>
-      <div className="lv-hero-overlay" />
+      
+      <div className="hero-futuristic-overlay" />
+      <div className="hero-futuristic-glow" />
 
-      <div className="lv-hero-copy">
-        <h1 className="lv-hero-title">
+      <div className="hero-futuristic-content">
+        <div className="ai-badge">
+          <span className="ai-badge-dot" />
+          AI-POWERED NUTRITION
+        </div>
+        
+        <h1 className="hero-futuristic-title">
           Smoothies You'll Want to Kiss
         </h1>
-        <h2 className="lv-hero-title lv-hero-title-line2">
+        
+        <h2 className="hero-futuristic-subtitle">
           And feel{' '}
-          <span 
-            className={`lv-hero-dynamic-word ${isVisible ? 'visible' : ''}`}
-            style={{ 
-              color: currentColor,
-              textShadow: `0 4px 24px ${currentColor}40`
-            }}
-          >
+          <span className={`gradient-text-animated ${isVisible ? 'visible' : ''}`}>
             {currentWord}
           </span>
           .
         </h2>
-        <p className="lv-hero-sub">
+        
+        <p className="hero-futuristic-description">
           Because being healthy shouldn't suck—Drizzl Wellness makes it worth craving.
         </p>
-        <a href="/products" className="lv-hero-cta">
-          Smooch it on
-        </a>
+        
+        <Link href="/products" className="cta-button-futuristic">
+          <span>Smooch it on</span>
+          <svg className="cta-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <path d="M5 12h14M12 5l7 7-7 7" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+        </Link>
+
+        <div className="tech-stats">
+          <div className="stat">
+            <span className="stat-number">100%</span>
+            <span className="stat-label">ORGANIC</span>
+          </div>
+          <div className="stat-divider" />
+          <div className="stat">
+            <span className="stat-number">0g</span>
+            <span className="stat-label">ADDED SUGAR</span>
+          </div>
+          <div className="stat-divider" />
+          <div className="stat">
+            <span className="stat-number">AI</span>
+            <span className="stat-label">OPTIMIZED</span>
+          </div>
+        </div>
       </div>
     </section>
   );
