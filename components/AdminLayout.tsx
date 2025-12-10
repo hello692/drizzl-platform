@@ -10,20 +10,13 @@ interface AdminLayoutProps {
 
 const navItems = [
   { label: 'Command Center', href: '/admin/command-center', icon: 'command' },
-  { label: 'Orders', href: '/admin/orders', icon: 'orders' },
-  { label: 'Products', href: '/admin/products', icon: 'products' },
-  { label: 'Inventory', href: '/admin/inventory', icon: 'inventory' },
-  { label: 'Factory', href: '/admin/factory', icon: 'factory' },
-  { label: 'Partners', href: '/admin/partners', icon: 'partners' },
-  { label: 'Leads', href: '/admin/leads', icon: 'leads' },
+  { label: 'Finance', href: '/admin/banking', icon: 'banking' },
   { label: 'B2B Pipeline', href: '/admin/b2b-pipeline', icon: 'pipeline' },
-  { label: 'Banking', href: '/admin/banking', icon: 'banking' },
-  { label: 'Analytics', href: '/admin/analytics', icon: 'analytics' },
+  { label: 'Production', href: '/admin/production', icon: 'factory' },
+  { label: 'Supply Chain', href: '/admin/supply-chain', icon: 'inventory' },
+  { label: 'Tasks', href: '/admin/tasks', icon: 'projects' },
   { label: 'AI Assistant', href: '/admin/ai-assistant', icon: 'ai' },
-  { label: 'Projects', href: '/admin/projects', icon: 'projects' },
-  { label: 'Social', href: '/admin/social', icon: 'social' },
-  { label: 'Content', href: '/admin/video-manager', icon: 'videos' },
-  { label: 'Security', href: '/admin/security', icon: 'security' },
+  { label: 'Analytics', href: '/admin/analytics', icon: 'analytics' },
   { label: 'Settings', href: '/admin/settings', icon: 'settings' },
 ];
 
