@@ -41,7 +41,7 @@ export default function About() {
                 marginBottom: '12px',
                 display: 'block',
               }}>
-                OUR STORY
+                ABOUT US
               </span>
               <h1 style={{
                 fontSize: 'clamp(2rem, 5vw, 3rem)',
@@ -97,14 +97,14 @@ export default function About() {
                   lineHeight: 1.8,
                   marginBottom: '20px',
                 }}>
-                  In 2020, we set out to prove that you can have it all: vibrant flavors, clean ingredients, and real convenience. No more choosing between what's good for you and what tastes good.
+                  In 2020, our founder was tired of choosing between convenience and nutrition. Every morning was the same struggle—grab something quick that tasted good but wasn't great for you, or spend an hour prepping something healthy that... well, let's just say it was an acquired taste.
                 </p>
                 <p style={{
                   fontSize: 'var(--fs-body)',
                   color: 'var(--color-text-secondary)',
                   lineHeight: 1.8,
                 }}>
-                  Today, we're proud to serve thousands of happy customers who've discovered that wellness can be delicious.
+                  There had to be a better way. And that's when Drizzl was born.
                 </p>
               </div>
             </AnimatedSection>
@@ -136,7 +136,7 @@ export default function About() {
                 gap: '24px',
                 textAlign: 'center',
               }}>
-                {STATS.map((stat, index) => (
+                {STATS.map((stat) => (
                   <div key={stat.label}>
                     <p style={{
                       fontSize: 'clamp(2rem, 4vw, 3rem)',
@@ -162,6 +162,67 @@ export default function About() {
 
         <section style={{
           background: '#000000',
+          padding: 'clamp(40px, 6vw, 64px) clamp(20px, 4vw, 48px)',
+        }}>
+          <div style={{ maxWidth: '900px', margin: '0 auto' }}>
+            <AnimatedSection animation="fadeUp">
+              <div style={{
+                background: 'rgba(255,255,255,0.02)',
+                borderRadius: '14px',
+                padding: '32px',
+                marginBottom: '48px',
+                border: '1px solid rgba(255,255,255,0.06)',
+              }}>
+                <h2 style={{
+                  fontSize: 'var(--fs-h3)',
+                  fontWeight: 500,
+                  color: '#ffffff',
+                  marginBottom: '16px',
+                }}>
+                  The Mission
+                </h2>
+                <p style={{
+                  fontSize: 'var(--fs-body)',
+                  color: 'var(--color-text-secondary)',
+                  lineHeight: 1.8,
+                }}>
+                  We set out to create smoothies that you'd actually crave. Not tolerate. Not choke down because they're "good for you." Actually look forward to drinking. We source the freshest organic ingredients, partner with local farms, and obsess over every flavor profile until it's absolutely perfect.
+                </p>
+              </div>
+            </AnimatedSection>
+
+            <AnimatedSection animation="fadeUp" delay={100}>
+              <div style={{ marginBottom: '48px' }}>
+                <h2 style={{
+                  fontSize: 'var(--fs-h3)',
+                  fontWeight: 500,
+                  color: '#ffffff',
+                  marginBottom: '16px',
+                }}>
+                  Where We Are Today
+                </h2>
+                <p style={{
+                  fontSize: 'var(--fs-body)',
+                  color: 'var(--color-text-secondary)',
+                  lineHeight: 1.8,
+                  marginBottom: '24px',
+                }}>
+                  Today, we serve thousands of happy customers across the country. Our smoothies are in gyms, offices, and refrigerators from coast to coast. But we're still that same team of flavor fanatics who refuse to compromise on taste or quality.
+                </p>
+                <p style={{
+                  fontSize: 'var(--fs-body)',
+                  color: 'var(--color-text-secondary)',
+                  lineHeight: 1.8,
+                }}>
+                  Every smoothie we make is still crafted with the same love and attention as day one. Because being healthy shouldn't suck. And neither should your smoothie.
+                </p>
+              </div>
+            </AnimatedSection>
+          </div>
+        </section>
+
+        <section style={{
+          background: '#0a0a0a',
           padding: 'clamp(40px, 6vw, 64px) clamp(20px, 4vw, 48px)',
         }}>
           <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
@@ -221,7 +282,7 @@ export default function About() {
         </section>
 
         <section style={{
-          background: '#0a0a0a',
+          background: '#000000',
           padding: 'clamp(40px, 6vw, 64px) clamp(20px, 4vw, 48px)',
         }}>
           <div style={{ maxWidth: '600px', margin: '0 auto', textAlign: 'center' }}>
@@ -255,7 +316,7 @@ export default function About() {
                   textDecoration: 'none',
                 }}
               >
-                Shop Smoothies
+                Taste the Difference
               </Link>
             </AnimatedSection>
           </div>
