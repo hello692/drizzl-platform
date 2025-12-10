@@ -5746,6 +5746,7 @@ svg {
   background: #ffffff;
   scrollbar-width: none;
   -ms-overflow-style: none;
+  z-index: 10;
 }
 
 .lv-product-info::-webkit-scrollbar {
