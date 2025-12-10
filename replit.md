@@ -41,13 +41,19 @@ Drizzl Wellness is a full-stack e-commerce platform for a smoothie and wellness 
     - Settings: Personal info, password change, notification preferences
     - Wishlist: Save favorite products with share functionality
     - Forgot/Reset Password: Secure password recovery flow with crypto-safe tokens
-- **B2B Partner Portal** (`/partner/*`): Complete wholesale partner portal with horizontal navigation:
+- **B2B Partner Portal** (`/partner/*`): Complete wholesale partner portal with horizontal navigation (12 tabs):
     - Login: Partner authentication (demo: any email + password "partner123")
     - Dashboard: Welcome, tier/credit info, outstanding balance, recent orders, quick actions
     - Orders: Order history table with view/reorder, status filtering
     - New Order: Product catalog with wholesale pricing, cart, checkout flow
     - Invoices: Invoice management with pay now functionality, status badges
-    - Pricing: Wholesale price list with tier discounts and volume discounts
+    - Pricing: Enhanced wholesale price list with MSRP, Your Cost, Margin %, and Profit/Unit columns
+    - Analytics: Sales insights with overview cards, purchasing trends charts (recharts), product performance tables, and AI recommendations
+    - Marketing Hub: Downloadable marketing assets with category filters, search, asset grid, seasonal campaign downloads
+    - Financing: NET terms display, credit limit, BNPL options (Afterpay/Klarna), business loans, equipment financing, invoice factoring
+    - How-To Guide: Video training library with 18+ videos, sidebar categories, progress tracking, downloadable PDFs, live webinars
+    - Integrations: POS connections (Square, Clover, Toast, Shopify POS, Lightspeed), accounting (QuickBooks, Xero), CRM (HubSpot, Mailchimp), Custom API with key generation
+    - Track Orders: Real-time GPS tracking with visual timeline (Order Placed → Production → QC → Shipped → Delivered), carrier tracking links, delivery history
     - Account: Business info, contact info, shipping addresses, payment methods
     - Support: Contact account manager, submit tickets, FAQ accordion
     - Partner Application: 5-step wizard (Business Info, Contact, Documents, References, Review)
