@@ -117,3 +117,10 @@ Drizzl Wellness is a full-stack e-commerce platform for a smoothie and wellness 
   - `/shipping` - Shipping options and returns policy
   - `/student-discount` - Student perks with verification
 - **Navigation**: ONE header, ONE footer across entire site - no variations
+- **Admin Command Center Phase 1 (December 10, 2025)**: Enterprise-grade admin dashboard with:
+  - `/admin/command-center` - Dashboard with 6 sections: Today's Metrics (10 KPIs), 30-Day Revenue Trend Chart, Production Pipeline, Critical Alerts (Urgent + Warning), AI Insights & Recommendations, Quick Actions
+  - `/admin/banking` - Finance Tab with Mercury Banking integration: 3 accounts overview, Recent Transactions, 90-Day Cash Flow Forecast, Accounts Payable/Receivable, P&L Summary, Quick Actions
+  - `/admin/b2b-pipeline` - B2B Sales Pipeline with Kanban-style columns: Pipeline Overview (5 metrics), Visual Pipeline Stages (5 stages), Hot Deals, Contact Database, Deal Details View, Target Accounts, Sales Analytics
+  - **Design System**: Black background (#000000), neon green accent (#00FF85), glassmorphism cards (rgba(255,255,255,0.03) bg, rgba(255,255,255,0.08) border, 16px radius)
+  - **Mock Data Services**: `lib/integrations/` contains dashboardService.ts, mercuryService.ts, b2bService.ts, mockData.ts for demo mode
+  - **Demo Mode**: All admin tabs use deterministic mock data, ready for real API integration later
