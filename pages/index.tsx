@@ -219,26 +219,26 @@ export default function Home() {
   }, [currentWordIndex]);
 
   const sectionStyles = {
-    padding: 'clamp(36px, 5vw, 56px) clamp(20px, 4vw, 40px)',
-    maxWidth: '1200px',
+    padding: 'clamp(80px, 10vw, 120px) clamp(24px, 6vw, 80px)',
+    maxWidth: '1320px',
     margin: '0 auto',
   };
 
   const headingStyles = {
     fontSize: 'clamp(1.6rem, 3.5vw, 2.2rem)',
     fontWeight: 300,
-    lineHeight: 1.12,
+    lineHeight: 1.15,
     letterSpacing: '-0.025em',
     color: '#ffffff',
-    marginBottom: '12px',
+    marginBottom: 'clamp(16px, 2vw, 24px)',
   };
 
   const subheadingStyles = {
-    fontSize: 'clamp(0.85rem, 1.3vw, 0.95rem)',
+    fontSize: 'clamp(0.9rem, 1.3vw, 1rem)',
     fontWeight: 400,
-    lineHeight: 1.55,
+    lineHeight: 1.75,
     color: 'rgba(255,255,255,0.6)',
-    maxWidth: '560px',
+    maxWidth: '660px',
   };
 
   return (
