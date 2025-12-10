@@ -1,0 +1,299 @@
+The cart page is stuck on "Loading..." and not displaying content. Debug and fix the cart functionality.
+
+═══════════════════════════════════════════════════════════
+CART PAGE DEBUG & FIX
+═══════════════════════════════════════════════════════════
+
+ISSUE: Cart page shows only "Loading..." text on black screen
+GOAL: Make cart page load properly and display cart contents
+
+═══════════════════════════════════════════════════════════
+STEP 1: CHECK FOR JAVASCRIPT ERRORS
+═══════════════════════════════════════════════════════════
+
+Open browser console (F12 or right-click → Inspect → Console)
+Look for error messages and fix them.
+
+Common errors:
+- "Cannot read property of undefined"
+- "fetch is not defined"
+- "localStorage is not available"
+- API connection errors
+
+═══════════════════════════════════════════════════════════
+STEP 2: VERIFY CART DATA SOURCE
+═══════════════════════════════════════════════════════════
+
+Check where cart data is coming from:
+
+Option A - localStorage:
+const cartItems = JSON.parse(localStorage.getItem('cart')) || [];
+
+Option B - State management:
+const cartItems = useCart(); // React context or Redux
+
+Option C - API call:
+const cartItems = await fetch('/api/cart').then(r => r.json());
+
+Ensure the data source is working correctly.
+
+═══════════════════════════════════════════════════════════
+STEP 3: FIX LOADING STATE
+═══════════════════════════════════════════════════════════
+
+The "Loading..." should change to actual cart content.
+
+Check your cart component logic:
+
+BEFORE (Broken):
+function Cart() {
+  const [loading, setLoading] = useState(true);
+  
+  // Missing: Code to set loading to false
+  
+  return loading ? <div>Loading...</div> : <CartContent />;
+}
+
+AFTER (Fixed):
+function Cart() {
+  const [loading, setLoading] = useState(true);
+  const [cartItems, setCartItems] = useState([]);
+  
+  useEffect(() => {
+    // Load cart data
+    const loadCart = async () => {
+      try {
+        const items = JSON.parse(localStorage.getItem('cart')) || [];
+        setCartItems(items);
+        setLoading(false); // IMPORTANT: Turn off loading
+      } catch (error) {
+        console.error('Cart error:', error);
+        setLoading(false); // Turn off loading even on error
+      }
+    };
+    
+    loadCart();
+  }, []);
+  
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+  
+  return <CartContent items={cartItems} />;
+}
+
+═══════════════════════════════════════════════════════════
+STEP 4: ADD TIMEOUT FOR LOADING STATE
+═══════════════════════════════════════════════════════════
+
+Prevent infinite loading:
+
+useEffect(() => {
+  const loadCart = async () => {
+    try {
+      // Your cart loading logic
+      const items = JSON.parse(localStorage.getItem('cart')) || [];
+      setCartItems(items);
+    } catch (error) {
+      console.error('Cart error:', error);
+    } finally {
+      setLoading(false); // Always turn off loading
+    }
+  };
+  
+  loadCart();
+  
+  // Fallback: Force loading off after 3 seconds
+  const timeout = setTimeout(() => {
+    setLoading(false);
+  }, 3000);
+  
+  return () => clearTimeout(timeout);
+}, []);
+
+═══════════════════════════════════════════════════════════
+STEP 5: COMPLETE CART COMPONENT EXAMPLE
+═══════════════════════════════════════════════════════════
+
+Here's a working cart page component:
+
+import React, { useState, useEffect } from 'react';
+
+function CartPage() {
+  const [loading, setLoading] = useState(true);
+  const [cartItems, setCartItems] = useState([]);
+  
+  useEffect(() => {
+    const loadCart = () => {
+      try {
+        // Get cart from localStorage
+        const savedCart = localStorage.getItem('cart');
+        const items = savedCart ? JSON.parse(savedCart) : [];
+        setCartItems(items);
+      } catch (error) {
+        console.error('Error loading cart:', error);
+        setCartItems([]); // Empty cart on error
+      } finally {
+        setLoading(false); // Turn off loading
+      }
+    };
+    
+    loadCart();
+  }, []);
+  
+  // Show loading state
+  if (loading) {
+    return (
+      <div style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        minHeight: '100vh',
+        backgroundColor: '#000',
+        color: '#fff'
+      }}>
+        <div>Loading cart...</div>
+      </div>
+    );
+  }
+  
+  // Show empty cart
+  if (cartItems.length === 0) {
+    return (
+      <div style={{
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        minHeight: '100vh',
+        backgroundColor: '#000',
+        color: '#fff'
+      }}>
+        <h2>Your cart is empty</h2>
+        <p>Add some items to get started!</p>
+        <a href="/" style={{ color: '#00FF85', marginTop: '20px' }}>
+          Continue Shopping →
+        </a>
+      </div>
+    );
+  }
+  
+  // Show cart with items
+  return (
+    <div style={{
+      minHeight: '100vh',
+      backgroundColor: '#000',
+      color: '#fff',
+      padding: '80px 24px'
+    }}>
+      <h1>Your Cart</h1>
+      
+      {cartItems.map((item, index) => (
+        <div key={index} style={{
+          padding: '20px',
+          borderBottom: '1px solid rgba(255,255,255,0.1)',
+          marginBottom: '20px'
+        }}>
+          <h3>{item.name}</h3>
+          <p>Quantity: {item.quantity}</p>
+          <p>Price: ${item.price}</p>
+        </div>
+      ))}
+      
+      <div style={{ marginTop: '40px' }}>
+        <button style={{
+          padding: '16px 32px',
+          backgroundColor: '#00FF85',
+          color: '#000',
+          border: 'none',
+          borderRadius: '8px',
+          cursor: 'pointer',
+          fontSize: '16px',
+          fontWeight: '600'
+        }}>
+          Checkout
+        </button>
+      </div>
+    </div>
+  );
+}
+
+export default CartPage;
+
+═══════════════════════════════════════════════════════════
+STEP 6: CHECK ROUTING
+═══════════════════════════════════════════════════════════
+
+Ensure /cart route is properly configured:
+
+For React Router:
+<Route path="/cart" element={<CartPage />} />
+
+For Next.js:
+Create file: pages/cart.js or app/cart/page.js
+
+Verify the route is accessible and component is imported correctly.
+
+═══════════════════════════════════════════════════════════
+STEP 7: DEBUGGING CHECKLIST
+═══════════════════════════════════════════════════════════
+
+☐ Open browser console and check for errors
+☐ Verify cart data source (localStorage, API, state)
+☐ Ensure setLoading(false) is called
+☐ Add try-catch around cart loading logic
+☐ Add timeout fallback (3 seconds max)
+☐ Test with empty cart
+☐ Test with items in cart
+☐ Verify route is properly configured
+☐ Check if component is exported/imported correctly
+☐ Clear browser cache and reload
+
+═══════════════════════════════════════════════════════════
+STEP 8: TEMPORARY FIX (QUICK TEST)
+═══════════════════════════════════════════════════════════
+
+If you need to test immediately, add this to your cart component:
+
+// Force loading to stop after mount
+useEffect(() => {
+  setLoading(false);
+}, []);
+
+This will at least show SOMETHING instead of infinite loading.
+
+═══════════════════════════════════════════════════════════
+COMMON ISSUES & SOLUTIONS
+═══════════════════════════════════════════════════════════
+
+ISSUE 1: localStorage not defined
+SOLUTION: Check if running server-side (Next.js)
+if (typeof window !== 'undefined') {
+  const cart = localStorage.getItem('cart');
+}
+
+ISSUE 2: Infinite loading loop
+SOLUTION: Add dependency array to useEffect
+useEffect(() => { ... }, []); // Empty array = run once
+
+ISSUE 3: Data not updating
+SOLUTION: Refresh cart data on mount
+useEffect(() => {
+  loadCart();
+}, []); // Runs on component mount
+
+ISSUE 4: Black screen with no errors
+SOLUTION: Component not rendering
+Check if Cart component is exported and imported correctly
+
+═══════════════════════════════════════════════════════════
+RESULT
+═══════════════════════════════════════════════════════════
+
+After applying these fixes:
+✓ Cart page loads properly
+✓ Shows empty cart message if no items
+✓ Displays cart items if present
+✓ No infinite loading state
+✓ Proper error handling
+✓ Works on all devices

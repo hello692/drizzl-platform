@@ -3,15 +3,20 @@ import Link from 'next/link';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { useCart } from '../hooks/useCart';
-import { useRequireAuth } from '../hooks/useAuth';
+import { useAuth } from '../hooks/useAuth';
 
 export default function Cart() {
-  const { user, loading: authLoading } = useRequireAuth();
-  const { items, total, removeItem, updateQuantity, clear } = useCart(user?.id);
+  const { user } = useAuth();
+  const { items, total, loading, removeItem, updateQuantity, clear } = useCart(user?.id);
   const [isCheckingOut, setIsCheckingOut] = useState(false);
 
   const handleCheckout = async () => {
     if (items.length === 0) return;
+
+    if (!user) {
+      window.location.href = '/auth?redirect=/cart';
+      return;
+    }
 
     setIsCheckingOut(true);
     try {
@@ -39,7 +44,7 @@ export default function Cart() {
     }
   };
 
-  if (authLoading) return (
+  if (loading) return (
     <div style={{ 
       background: '#000000', 
       minHeight: '100vh', 
@@ -48,7 +53,23 @@ export default function Cart() {
       justifyContent: 'center',
       color: '#ffffff'
     }}>
-      Loading...
+      <div style={{ textAlign: 'center' }}>
+        <div style={{ 
+          width: '40px', 
+          height: '40px', 
+          border: '2px solid rgba(255,255,255,0.1)', 
+          borderTopColor: '#ffffff',
+          borderRadius: '50%',
+          animation: 'spin 1s linear infinite',
+          margin: '0 auto 16px'
+        }} />
+        <p style={{ opacity: 0.6 }}>Loading cart...</p>
+      </div>
+      <style jsx>{`
+        @keyframes spin {
+          to { transform: rotate(360deg); }
+        }
+      `}</style>
     </div>
   );
 
@@ -123,7 +144,7 @@ export default function Cart() {
                 disabled={isCheckingOut}
                 className="cart-checkout-btn"
               >
-                {isCheckingOut ? 'Processing...' : 'Checkout'}
+                {isCheckingOut ? 'Processing...' : user ? 'Checkout' : 'Sign in to Checkout'}
               </button>
               <button
                 onClick={() => clear()}
