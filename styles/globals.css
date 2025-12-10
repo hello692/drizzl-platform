@@ -2940,7 +2940,7 @@ svg {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  align-items: center;
+  align-items: baseline;
   gap: 24px;
   padding-top: 24px;
   flex-wrap: wrap;
@@ -2960,8 +2960,10 @@ svg {
 
 .footer-copyright {
   font-size: 13px;
+  font-weight: 400;
   color: rgba(255, 255, 255, 0.5);
-  letter-spacing: -0.2px;
+  letter-spacing: 0;
+  line-height: 1.5;
 }
 
 .footer-legal-links {
@@ -2972,9 +2974,12 @@ svg {
 
 .footer-legal-link {
   font-size: 13px;
+  font-weight: 400;
   color: rgba(255, 255, 255, 0.5);
   text-decoration: none;
   transition: color 0.2s ease;
+  letter-spacing: 0;
+  line-height: 1.5;
 }
 
 .footer-legal-link:hover {
@@ -2982,8 +2987,10 @@ svg {
 }
 
 .footer-legal-separator {
-  color: rgba(255, 255, 255, 0.3);
   font-size: 13px;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.3);
+  line-height: 1.5;
 }
 
 .footer-social {
