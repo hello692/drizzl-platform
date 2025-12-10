@@ -47,6 +47,9 @@ export default function Footer() {
               <Link href="/ingredients" className="footer-link">
                 Ingredients
               </Link>
+              <Link href="/careers" className="footer-link">
+                Join Our Team
+              </Link>
             </div>
           </div>
 
@@ -79,15 +82,6 @@ export default function Footer() {
               </Link>
               <Link href="/student-discount" className="footer-link">
                 Student Perks
-              </Link>
-            </div>
-          </div>
-
-          <div className="footer-section">
-            <h4 className="footer-section-title">Careers</h4>
-            <div className="footer-links">
-              <Link href="/careers" className="footer-link">
-                Join Our Team
               </Link>
             </div>
           </div>
