@@ -194,16 +194,16 @@ export default function Navbar() {
     detectBackgroundBrightness();
   }, [router.pathname, detectBackgroundBrightness]);
 
-  const headerHeight = scrolled ? 72 : 78;
-  const iconSize = 22;
+  const headerHeight = scrolled ? 70 : 76;
+  const iconSize = 24;
   const bgStyle = isDarkBg 
-    ? 'rgba(0, 0, 0, 0.4)' 
+    ? 'rgba(0, 0, 0, 0.5)' 
     : 'rgba(255, 255, 255, 0.95)';
   const textColor = isDarkBg ? '#ffffff' : '#000000';
-  const actionTextColor = isDarkBg ? 'rgba(255,255,255,0.75)' : 'rgba(0,0,0,0.75)';
-  const borderColor = isDarkBg ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)';
+  const actionTextColor = isDarkBg ? 'rgba(255,255,255,0.8)' : 'rgba(0,0,0,0.8)';
+  const borderColor = isDarkBg ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.08)';
   const logoFilter = isDarkBg ? 'none' : 'invert(1)';
-  const logoWidth = scrolled ? 160 : 180;
+  const logoWidth = scrolled ? 180 : 200;
 
   return (
     <>

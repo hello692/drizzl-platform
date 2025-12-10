@@ -376,6 +376,28 @@
    UNIVERSAL DYNAMIC HEADER - Responsive Styles
    ============================================ */
 
+/* Header hover effects */
+.header-btn:hover,
+.nav-icon:hover,
+.nav-link:hover {
+  opacity: 0.7;
+}
+
+.header-btn:hover svg,
+.nav-icon:hover svg {
+  transform: scale(1.08);
+}
+
+.nav-logo:hover img {
+  opacity: 0.85;
+}
+
+/* Smooth transitions for all header elements */
+.header-btn svg,
+.nav-icon svg {
+  transition: transform 0.2s ease;
+}
+
 /* Hide button text labels on tablet and below */
 @media (max-width: 1024px) {
   .wholesale-link {
@@ -386,6 +408,13 @@
 @media (max-width: 768px) {
   .header-btn-text {
     display: none !important;
+  }
+}
+
+/* Mobile header adjustments */
+@media (max-width: 480px) {
+  header {
+    padding: 0 20px !important;
   }
 }
 
