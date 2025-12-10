@@ -75,7 +75,12 @@ const MENU_SECTIONS = [
   },
 ];
 
-export default function Navbar() {
+interface NavbarProps {
+  hideCart?: boolean;
+  hideSearch?: boolean;
+}
+
+export default function Navbar({ hideCart = false, hideSearch = false }: NavbarProps) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [expandedMenu, setExpandedMenu] = useState<string | null>(null);
@@ -273,33 +278,35 @@ export default function Navbar() {
             </svg>
             <span className="header-btn-text" style={{ lineHeight: 1 }}>Menu</span>
           </button>
-          <button 
-            className="header-btn"
-            onClick={() => setSearchOpen(true)}
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              gap: '8px',
-              background: 'none',
-              border: 'none',
-              color: actionTextColor,
-              cursor: 'pointer',
-              padding: '8px 0',
-              fontSize: '14px',
-              fontWeight: 400,
-              letterSpacing: '0.01em',
-              lineHeight: 1,
-              height: '100%',
-              transition: 'color 0.3s ease',
-            }}
-          >
-            <svg width={iconSize} height={iconSize} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" style={{ display: 'block', flexShrink: 0 }}>
-              <circle cx="11" cy="11" r="7"/>
-              <path d="M21 21l-4.35-4.35" strokeLinecap="round"/>
-            </svg>
-            <span className="header-btn-text" style={{ lineHeight: 1 }}>Search</span>
-          </button>
+          {!hideSearch && (
+            <button 
+              className="header-btn"
+              onClick={() => setSearchOpen(true)}
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '8px',
+                background: 'none',
+                border: 'none',
+                color: actionTextColor,
+                cursor: 'pointer',
+                padding: '8px 0',
+                fontSize: '14px',
+                fontWeight: 400,
+                letterSpacing: '0.01em',
+                lineHeight: 1,
+                height: '100%',
+                transition: 'color 0.3s ease',
+              }}
+            >
+              <svg width={iconSize} height={iconSize} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" style={{ display: 'block', flexShrink: 0 }}>
+                <circle cx="11" cy="11" r="7"/>
+                <path d="M21 21l-4.35-4.35" strokeLinecap="round"/>
+              </svg>
+              <span className="header-btn-text" style={{ lineHeight: 1 }}>Search</span>
+            </button>
+          )}
         </div>
 
         <div style={{ 
@@ -364,23 +371,25 @@ export default function Navbar() {
               <path d="M5 20c0-2.76 3.13-5 7-5s7 2.24 7 5" strokeLinecap="round"/>
             </svg>
           </Link>
-          <Link 
-            href="/cart" 
-            className="nav-icon"
-            style={{ 
-              color: textColor, 
-              display: 'inline-flex', 
-              alignItems: 'center', 
-              justifyContent: 'center',
-              height: '100%',
-              padding: '8px 0',
-              transition: 'color 0.3s ease' 
-            }}
-          >
-            <svg width={iconSize} height={iconSize} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" style={{ display: 'block' }}>
-              <path d="M6 6h-2l-2 12h18l-2-12h-2M6 6V5a4 4 0 018 0v1M6 6h8"/>
-            </svg>
-          </Link>
+          {!hideCart && (
+            <Link 
+              href="/cart" 
+              className="nav-icon"
+              style={{ 
+                color: textColor, 
+                display: 'inline-flex', 
+                alignItems: 'center', 
+                justifyContent: 'center',
+                height: '100%',
+                padding: '8px 0',
+                transition: 'color 0.3s ease' 
+              }}
+            >
+              <svg width={iconSize} height={iconSize} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" style={{ display: 'block' }}>
+                <path d="M6 6h-2l-2 12h18l-2-12h-2M6 6V5a4 4 0 018 0v1M6 6h8"/>
+              </svg>
+            </Link>
+          )}
         </div>
       </header>
 
