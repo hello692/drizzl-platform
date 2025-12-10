@@ -1,140 +1,460 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import AdminLayout from '../../components/AdminLayout';
 import { useRequireAdmin } from '../../hooks/useRole';
+import {
+  DollarSign,
+  ShoppingCart,
+  Users,
+  TrendingUp,
+  Wallet,
+  Clock,
+  Factory,
+  AlertTriangle,
+  Briefcase,
+  ArrowUpRight,
+  ArrowDownRight,
+  Activity,
+  AlertCircle,
+  Lightbulb,
+  Rocket,
+  Target,
+  Zap,
+  BarChart3,
+  Package,
+  Megaphone,
+  Headphones,
+  Sparkles,
+  ChevronRight,
+  CheckCircle2,
+  XCircle,
+  Info,
+} from 'lucide-react';
+import {
+  AreaChart,
+  Area,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+  Legend,
+} from 'recharts';
 
-type TimeFilter = 'today' | '7days' | '30days' | '90days' | 'year';
+const NEON_GREEN = '#00FF85';
+const CARD_BG = 'rgba(255,255,255,0.03)';
+const CARD_BORDER = 'rgba(255,255,255,0.08)';
 
-interface TopProduct {
+interface TodayMetric {
   id: string;
-  name: string;
-  sku: string;
-  quantity: number;
-  revenue: number;
+  label: string;
+  value: string;
+  change?: string;
+  changeType?: 'up' | 'down';
+  subtitle?: string;
+  icon: React.ReactNode;
+  live?: boolean;
+}
+
+interface ProductionBatch {
+  id: string;
+  batchNumber: string;
+  units: number;
+  stage: string;
+  progress: number;
+  status: 'green' | 'yellow' | 'blue';
+  timeNote?: string;
+}
+
+interface Alert {
+  id: string;
+  title: string;
+  description: string;
+  type: 'urgent' | 'warning';
+  action: string;
+}
+
+interface AIInsight {
+  id: string;
+  emoji: string;
+  title: string;
+  description: string;
+  actions: { label: string; primary?: boolean }[];
 }
 
 interface RevenueTrendPoint {
   date: string;
-  revenue: number;
-  orders: number;
+  d2c: number;
+  b2b: number;
 }
 
-interface ChannelBreakdown {
-  channel: 'd2c' | 'b2b';
-  orders: number;
-  revenue: number;
-  percentage: number;
+const mockMetrics: TodayMetric[] = [
+  {
+    id: 'revenue',
+    label: 'Revenue Today',
+    value: '$47,382',
+    change: '23%',
+    changeType: 'up',
+    icon: <DollarSign size={20} />,
+  },
+  {
+    id: 'orders',
+    label: 'Orders Placed',
+    value: '127',
+    change: '18%',
+    changeType: 'up',
+    icon: <ShoppingCart size={20} />,
+  },
+  {
+    id: 'visitors',
+    label: 'Active Visitors',
+    value: '43',
+    live: true,
+    icon: <Users size={20} />,
+  },
+  {
+    id: 'conversion',
+    label: 'Conversion Rate',
+    value: '3.8%',
+    change: '0.4%',
+    changeType: 'up',
+    icon: <TrendingUp size={20} />,
+  },
+  {
+    id: 'aov',
+    label: 'Average Order Value',
+    value: '$373',
+    change: '$21',
+    changeType: 'up',
+    icon: <Wallet size={20} />,
+  },
+  {
+    id: 'cash',
+    label: 'Cash Balance',
+    value: '$284,392',
+    subtitle: 'Mercury',
+    icon: <DollarSign size={20} />,
+  },
+  {
+    id: 'payables',
+    label: 'Pending Payables',
+    value: '$82,104',
+    subtitle: '8 days',
+    icon: <Clock size={20} />,
+  },
+  {
+    id: 'manufacturing',
+    label: 'Manufacturing Status',
+    value: '78%',
+    subtitle: 'capacity',
+    icon: <Factory size={20} />,
+  },
+  {
+    id: 'inventory',
+    label: 'Inventory Alerts',
+    value: '3',
+    subtitle: 'items',
+    icon: <AlertTriangle size={20} />,
+  },
+  {
+    id: 'b2b',
+    label: 'B2B Pipeline',
+    value: '$1.2M',
+    subtitle: '14 deals',
+    icon: <Briefcase size={20} />,
+  },
+];
+
+const mockRevenueTrend: RevenueTrendPoint[] = Array.from({ length: 30 }, (_, i) => {
+  const date = new Date();
+  date.setDate(date.getDate() - (29 - i));
+  const baseD2C = 25000 + Math.random() * 15000;
+  const baseB2B = 12000 + Math.random() * 10000;
+  return {
+    date: date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
+    d2c: Math.round(baseD2C),
+    b2b: Math.round(baseB2B),
+  };
+});
+
+const mockProductionPipeline: ProductionBatch[] = [
+  { id: '1', batchNumber: '#2847', units: 5000, stage: 'Bottling', progress: 89, status: 'green' },
+  { id: '2', batchNumber: '#2848', units: 3200, stage: 'Mixing', progress: 45, status: 'yellow' },
+  { id: '3', batchNumber: '#2849', units: 8000, stage: 'Scheduled', progress: 0, status: 'blue', timeNote: 'Starts in 6hrs' },
+  { id: '4', batchNumber: '#2850', units: 4500, stage: 'Quality Testing', progress: 100, status: 'green' },
+];
+
+const mockAlerts: Alert[] = [
+  { id: '1', title: 'Low Stock: Strawberry Base', description: 'Only 12 units remaining. Reorder needed.', type: 'urgent', action: 'Reorder Now' },
+  { id: '2', title: 'Payment Overdue: Whole Foods', description: 'Invoice #4521 - $24,500 (5 days overdue)', type: 'urgent', action: 'Send Reminder' },
+  { id: '3', title: 'Shipping Delay: Batch #2845', description: 'Carrier reported 2-day delay', type: 'urgent', action: 'Contact Carrier' },
+  { id: '4', title: 'Inventory approaching reorder point', description: 'Mango base at 85 units (threshold: 100)', type: 'warning', action: 'Review' },
+  { id: '5', title: 'New B2B inquiry pending', description: 'Sprouts Farmers Market - bulk order request', type: 'warning', action: 'View Request' },
+  { id: '6', title: 'Equipment maintenance due', description: 'Mixer #3 scheduled for service', type: 'warning', action: 'Schedule' },
+  { id: '7', title: 'Certificate expiring soon', description: 'Organic certification expires in 30 days', type: 'warning', action: 'Renew' },
+  { id: '8', title: 'Customer feedback spike', description: '15 new reviews today (avg: 5)', type: 'warning', action: 'View' },
+  { id: '9', title: 'Supplier price change', description: 'Açaí supplier increasing prices 5%', type: 'warning', action: 'Negotiate' },
+  { id: '10', title: 'Social mention trending', description: 'TikTok video gaining traction', type: 'warning', action: 'Engage' },
+];
+
+const mockInsights: AIInsight[] = [
+  {
+    id: '1',
+    emoji: '🚀',
+    title: 'Production Opportunity',
+    description: 'Based on current demand trends, increasing Strawberry Peach production by 20% could capture $45K additional revenue this month.',
+    actions: [{ label: 'Increase Production', primary: true }, { label: 'View Analysis' }],
+  },
+  {
+    id: '2',
+    emoji: '💰',
+    title: 'Cash Flow Warning',
+    description: 'Projected cash position in 14 days: $142K. Consider accelerating receivables collection or delaying non-critical expenses.',
+    actions: [{ label: 'View Cash Flow', primary: true }, { label: 'Dismiss' }],
+  },
+  {
+    id: '3',
+    emoji: '📈',
+    title: 'Marketing Scale-Up',
+    description: 'Meta ads ROAS increased 35% this week. Consider increasing daily budget from $500 to $800 for optimal returns.',
+    actions: [{ label: 'Adjust Budget', primary: true }, { label: 'View Performance' }],
+  },
+  {
+    id: '4',
+    emoji: '🎯',
+    title: 'Customer Retention Alert',
+    description: '47 high-value customers haven\'t reordered in 45+ days. Personalized win-back campaign could recover $28K in revenue.',
+    actions: [{ label: 'Launch Campaign', primary: true }, { label: 'View Customers' }],
+  },
+  {
+    id: '5',
+    emoji: '🏪',
+    title: 'B2B Expansion Opportunity',
+    description: 'Regional grocery chain "Fresh Market" matches your ideal customer profile. They\'re actively seeking new wellness brands.',
+    actions: [{ label: 'Create Proposal', primary: true }, { label: 'Research' }],
+  },
+];
+
+const quickActions = [
+  { label: 'View Cash Flow', icon: <DollarSign size={16} /> },
+  { label: 'Check Inventory', icon: <Package size={16} /> },
+  { label: 'B2B Deals', icon: <Briefcase size={16} /> },
+  { label: 'Production', icon: <Factory size={16} /> },
+  { label: 'Marketing Performance', icon: <Megaphone size={16} /> },
+  { label: 'Customer Tickets', icon: <Headphones size={16} /> },
+  { label: 'Ask AI', icon: <Sparkles size={16} />, primary: true },
+];
+
+function Skeleton({ height = 20, width = '100%' }: { height?: number; width?: string | number }) {
+  return (
+    <div
+      style={{
+        height,
+        width,
+        background: 'linear-gradient(90deg, rgba(255,255,255,0.03) 25%, rgba(255,255,255,0.08) 50%, rgba(255,255,255,0.03) 75%)',
+        backgroundSize: '200% 100%',
+        animation: 'shimmer 1.5s infinite',
+        borderRadius: 8,
+      }}
+    />
+  );
 }
 
-interface ConversionMetrics {
-  visits: number;
-  addedToCart: number;
-  checkout: number;
-  purchased: number;
-  visitToCartRate: number;
-  cartToCheckoutRate: number;
-  checkoutToPurchaseRate: number;
+function MetricCard({ metric, loading }: { metric: TodayMetric; loading: boolean }) {
+  return (
+    <div style={styles.metricCard}>
+      <div style={styles.metricIcon}>{metric.icon}</div>
+      <div style={styles.metricContent}>
+        <span style={styles.metricLabel}>{metric.label}</span>
+        {loading ? (
+          <Skeleton height={28} width={80} />
+        ) : (
+          <div style={styles.metricValueRow}>
+            <span style={styles.metricValue}>{metric.value}</span>
+            {metric.live && (
+              <span style={styles.liveIndicator}>
+                <span style={styles.liveDot} />
+                LIVE
+              </span>
+            )}
+            {metric.change && (
+              <span style={{ ...styles.metricChange, color: metric.changeType === 'up' ? NEON_GREEN : '#FF6B6B' }}>
+                {metric.changeType === 'up' ? <ArrowUpRight size={14} /> : <ArrowDownRight size={14} />}
+                {metric.change}
+              </span>
+            )}
+          </div>
+        )}
+        {metric.subtitle && <span style={styles.metricSubtitle}>{metric.subtitle}</span>}
+      </div>
+    </div>
+  );
 }
 
-interface CommandCenterStats {
-  ordersToday: number;
-  ordersThisWeek: number;
-  ordersThisMonth: number;
-  d2cOrders: number;
-  d2cRevenue: number;
-  b2bOrders: number;
-  b2bRevenue: number;
-  totalRevenue: number;
-  netMargin: number;
-  averageOrderValue: number;
-  topProducts: TopProduct[];
-  revenueTrend: RevenueTrendPoint[];
-  channelBreakdown: ChannelBreakdown[];
-  conversionMetrics: ConversionMetrics;
-  isDemo: boolean;
+function RevenueTrendChart({ data, loading }: { data: RevenueTrendPoint[]; loading: boolean }) {
+  if (loading) {
+    return <Skeleton height={300} />;
+  }
+
+  const totalD2C = data.reduce((sum, d) => sum + d.d2c, 0);
+  const totalB2B = data.reduce((sum, d) => sum + d.b2b, 0);
+  const total = totalD2C + totalB2B;
+  const d2cPercent = Math.round((totalD2C / total) * 100);
+  const b2bPercent = 100 - d2cPercent;
+
+  return (
+    <div>
+      <div style={styles.chartLegend}>
+        <div style={styles.legendItem}>
+          <span style={{ ...styles.legendDot, background: NEON_GREEN }} />
+          <span>D2C ${(totalD2C / 1000).toFixed(0)}K ({d2cPercent}%)</span>
+        </div>
+        <div style={styles.legendItem}>
+          <span style={{ ...styles.legendDot, background: '#8B5CF6' }} />
+          <span>B2B ${(totalB2B / 1000).toFixed(0)}K ({b2bPercent}%)</span>
+        </div>
+        <div style={{ ...styles.legendItem, marginLeft: 'auto' }}>
+          <span style={{ color: '#fff', fontWeight: 600 }}>Total: ${(total / 1000).toFixed(0)}K</span>
+        </div>
+      </div>
+      <ResponsiveContainer width="100%" height={280}>
+        <AreaChart data={data} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
+          <defs>
+            <linearGradient id="colorD2C" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="5%" stopColor={NEON_GREEN} stopOpacity={0.3} />
+              <stop offset="95%" stopColor={NEON_GREEN} stopOpacity={0} />
+            </linearGradient>
+            <linearGradient id="colorB2B" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="5%" stopColor="#8B5CF6" stopOpacity={0.3} />
+              <stop offset="95%" stopColor="#8B5CF6" stopOpacity={0} />
+            </linearGradient>
+          </defs>
+          <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" />
+          <XAxis
+            dataKey="date"
+            stroke="rgba(255,255,255,0.3)"
+            tick={{ fill: 'rgba(255,255,255,0.5)', fontSize: 11 }}
+            tickLine={false}
+            interval={4}
+          />
+          <YAxis
+            stroke="rgba(255,255,255,0.3)"
+            tick={{ fill: 'rgba(255,255,255,0.5)', fontSize: 11 }}
+            tickLine={false}
+            tickFormatter={(value) => `$${(value / 1000).toFixed(0)}K`}
+          />
+          <Tooltip
+            contentStyle={{
+              background: 'rgba(0,0,0,0.9)',
+              border: '1px solid rgba(255,255,255,0.1)',
+              borderRadius: 8,
+              color: '#fff',
+            }}
+            formatter={(value: number) => [`$${value.toLocaleString()}`, '']}
+          />
+          <Area
+            type="monotone"
+            dataKey="d2c"
+            stroke={NEON_GREEN}
+            strokeWidth={2}
+            fillOpacity={1}
+            fill="url(#colorD2C)"
+            name="D2C"
+          />
+          <Area
+            type="monotone"
+            dataKey="b2b"
+            stroke="#8B5CF6"
+            strokeWidth={2}
+            fillOpacity={1}
+            fill="url(#colorB2B)"
+            name="B2B"
+          />
+        </AreaChart>
+      </ResponsiveContainer>
+    </div>
+  );
 }
 
-function formatCurrency(cents: number): string {
-  return new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD',
-    minimumFractionDigits: 0,
-    maximumFractionDigits: 0,
-  }).format(cents / 100);
+function ProductionCard({ batch }: { batch: ProductionBatch }) {
+  const statusColors = {
+    green: NEON_GREEN,
+    yellow: '#FBBF24',
+    blue: '#3B82F6',
+  };
+  const color = statusColors[batch.status];
+
+  return (
+    <div style={styles.productionCard}>
+      <div style={styles.productionHeader}>
+        <span style={styles.batchNumber}>Batch {batch.batchNumber}</span>
+        <span style={{ color: 'rgba(255,255,255,0.5)', fontSize: 13 }}>{batch.units.toLocaleString()} units</span>
+      </div>
+      <div style={styles.productionStage}>
+        <span style={{ color }}>{batch.stage}</span>
+        {batch.timeNote && <span style={{ color: 'rgba(255,255,255,0.4)', fontSize: 12 }}>{batch.timeNote}</span>}
+      </div>
+      <div style={styles.progressBar}>
+        <div style={{ ...styles.progressFill, width: `${batch.progress}%`, background: color }} />
+      </div>
+      <span style={{ fontSize: 12, color: 'rgba(255,255,255,0.5)' }}>{batch.progress}% complete</span>
+    </div>
+  );
 }
 
-function formatNumber(num: number): string {
-  return new Intl.NumberFormat('en-US').format(num);
+function AlertItem({ alert }: { alert: Alert }) {
+  const isUrgent = alert.type === 'urgent';
+  return (
+    <div style={{ ...styles.alertItem, borderLeftColor: isUrgent ? '#EF4444' : '#FBBF24' }}>
+      <div style={styles.alertContent}>
+        {isUrgent ? <AlertCircle size={16} color="#EF4444" /> : <Info size={16} color="#FBBF24" />}
+        <div>
+          <p style={styles.alertTitle}>{alert.title}</p>
+          <p style={styles.alertDesc}>{alert.description}</p>
+        </div>
+      </div>
+      <button style={styles.alertAction}>{alert.action}</button>
+    </div>
+  );
 }
 
-const gradientAccents = {
-  purple: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-  pink: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
-  cyan: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
-  green: 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)',
-  orange: 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)',
-  teal: 'linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)',
-};
-
-const accentColors = {
-  purple: '#667eea',
-  pink: '#f093fb',
-  cyan: '#4facfe',
-  green: '#43e97b',
-  orange: '#fa709a',
-  teal: '#a8edea',
-};
+function InsightCard({ insight }: { insight: AIInsight }) {
+  return (
+    <div style={styles.insightCard}>
+      <div style={styles.insightEmoji}>{insight.emoji}</div>
+      <div style={styles.insightContent}>
+        <h4 style={styles.insightTitle}>{insight.title}</h4>
+        <p style={styles.insightDesc}>{insight.description}</p>
+        <div style={styles.insightActions}>
+          {insight.actions.map((action, i) => (
+            <button
+              key={i}
+              style={action.primary ? styles.primaryButton : styles.secondaryButton}
+            >
+              {action.label}
+            </button>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export default function CommandCenter() {
   const { loading, authorized } = useRequireAdmin();
-  const [stats, setStats] = useState<CommandCenterStats | null>(null);
-  const [loadingStats, setLoadingStats] = useState(true);
-  const [filter, setFilter] = useState<TimeFilter>('30days');
-  const [exporting, setExporting] = useState(false);
-
-  const fetchStats = useCallback(async () => {
-    setLoadingStats(true);
-    try {
-      const response = await fetch(`/api/admin/command-center?filter=${filter}`);
-      const data = await response.json();
-      setStats(data);
-    } catch (error) {
-      console.error('Error fetching command center data:', error);
-    } finally {
-      setLoadingStats(false);
-    }
-  }, [filter]);
+  const [dataLoading, setDataLoading] = useState(true);
 
   useEffect(() => {
     if (authorized) {
-      fetchStats();
+      const timer = setTimeout(() => setDataLoading(false), 800);
+      return () => clearTimeout(timer);
     }
-  }, [authorized, fetchStats]);
-
-  const handleExport = async () => {
-    setExporting(true);
-    try {
-      const response = await fetch(`/api/admin/command-center?filter=${filter}&format=csv`);
-      const blob = await response.blob();
-      const url = window.URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = `command-center-${filter}-${new Date().toISOString().split('T')[0]}.csv`;
-      document.body.appendChild(a);
-      a.click();
-      window.URL.revokeObjectURL(url);
-      document.body.removeChild(a);
-    } catch (error) {
-      console.error('Export failed:', error);
-    } finally {
-      setExporting(false);
-    }
-  };
+  }, [authorized]);
 
   if (loading) {
     return (
       <div style={styles.loadingContainer}>
         <div style={styles.loadingOrb} />
-        <p style={styles.loadingText}>Initializing</p>
+        <p style={styles.loadingText}>Initializing Command Center...</p>
       </div>
     );
   }
@@ -143,859 +463,514 @@ export default function CommandCenter() {
     return (
       <div style={styles.loadingContainer}>
         <div style={styles.loadingOrb} />
-        <p style={styles.loadingText}>Authenticating</p>
+        <p style={styles.loadingText}>Authenticating...</p>
       </div>
     );
   }
 
+  const urgentAlerts = mockAlerts.filter((a) => a.type === 'urgent');
+  const warningAlerts = mockAlerts.filter((a) => a.type === 'warning');
+
   return (
-    <AdminLayout title="Command Center" subtitle="Intelligence Hub">
-      <div style={styles.controlsRow}>
-        {stats?.isDemo && (
-          <div style={styles.demoBadge}>
-            <div style={styles.demoDot} />
-            <span style={styles.demoText}>Demo Mode</span>
+    <AdminLayout title="Command Center" subtitle="Real-time Business Intelligence">
+      <div style={styles.container}>
+        {/* Today's Metrics */}
+        <section style={styles.section}>
+          <h2 style={styles.sectionTitle}>
+            <Activity size={18} color={NEON_GREEN} />
+            Today's Metrics
+          </h2>
+          <div style={styles.metricsGrid}>
+            {mockMetrics.map((metric) => (
+              <MetricCard key={metric.id} metric={metric} loading={dataLoading} />
+            ))}
           </div>
-        )}
-        <TimeFilterButtons filter={filter} setFilter={setFilter} />
-        <button
-          onClick={handleExport}
-          disabled={exporting}
-          style={{
-            ...styles.exportButton,
-            opacity: exporting ? 0.6 : 1,
-            cursor: exporting ? 'not-allowed' : 'pointer',
-          }}
-        >
-          <ExportIcon />
-          {exporting ? 'Exporting...' : 'Export CSV'}
-        </button>
-      </div>
+        </section>
 
-      <section style={styles.statsGrid}>
-        <StatCard 
-          label="Orders Today" 
-          value={stats?.ordersToday || 0} 
-          loading={loadingStats} 
-          accent={accentColors.purple}
-          gradient={gradientAccents.purple}
-        />
-        <StatCard 
-          label="Orders This Week" 
-          value={stats?.ordersThisWeek || 0} 
-          loading={loadingStats} 
-          accent={accentColors.cyan}
-          gradient={gradientAccents.cyan}
-        />
-        <StatCard 
-          label="Orders This Month" 
-          value={stats?.ordersThisMonth || 0} 
-          loading={loadingStats} 
-          accent={accentColors.green}
-          gradient={gradientAccents.green}
-        />
-        <StatCard 
-          label="Total Revenue" 
-          value={formatCurrency(stats?.totalRevenue || 0)} 
-          loading={loadingStats} 
-          accent={accentColors.pink}
-          gradient={gradientAccents.pink}
-          highlight
-        />
-        <StatCard 
-          label="Net Margin" 
-          value={formatCurrency(stats?.netMargin || 0)} 
-          loading={loadingStats} 
-          accent={accentColors.orange}
-          gradient={gradientAccents.orange}
-        />
-        <StatCard 
-          label="Avg Order Value" 
-          value={formatCurrency(stats?.averageOrderValue || 0)} 
-          loading={loadingStats} 
-          accent={accentColors.teal}
-          gradient={gradientAccents.teal}
-        />
-      </section>
+        {/* Revenue Trend Chart */}
+        <section style={styles.section}>
+          <h2 style={styles.sectionTitle}>
+            <BarChart3 size={18} color={NEON_GREEN} />
+            30-Day Revenue Trend
+          </h2>
+          <div style={styles.card}>
+            <RevenueTrendChart data={mockRevenueTrend} loading={dataLoading} />
+          </div>
+        </section>
 
-      <div style={styles.channelGrid}>
-        <GlassCard title="D2C Orders" icon={<D2CIcon />} gradient={gradientAccents.cyan}>
-          {loadingStats ? <Skeleton height={80} /> : (
-            <div style={styles.channelContent}>
-              <div>
-                <p style={styles.channelValue}>{formatNumber(stats?.d2cOrders || 0)}</p>
-                <p style={styles.channelLabel}>orders</p>
+        {/* Production Pipeline */}
+        <section style={styles.section}>
+          <h2 style={styles.sectionTitle}>
+            <Factory size={18} color={NEON_GREEN} />
+            Production Pipeline
+          </h2>
+          <div style={styles.productionGrid}>
+            {dataLoading
+              ? Array.from({ length: 4 }).map((_, i) => (
+                  <div key={i} style={styles.productionCard}>
+                    <Skeleton height={120} />
+                  </div>
+                ))
+              : mockProductionPipeline.map((batch) => <ProductionCard key={batch.id} batch={batch} />)}
+          </div>
+        </section>
+
+        {/* Critical Alerts */}
+        <section style={styles.section}>
+          <h2 style={styles.sectionTitle}>
+            <AlertTriangle size={18} color={NEON_GREEN} />
+            Critical Alerts
+          </h2>
+          <div style={styles.alertsGrid}>
+            <div style={styles.alertSection}>
+              <div style={styles.alertHeader}>
+                <span style={styles.urgentBadge}>
+                  <XCircle size={14} />
+                  URGENT
+                </span>
+                <span style={styles.alertCount}>{urgentAlerts.length} items</span>
               </div>
-              <div style={{ textAlign: 'right' }}>
-                <p style={styles.channelRevenue}>{formatCurrency(stats?.d2cRevenue || 0)}</p>
-                <p style={styles.channelLabel}>revenue</p>
+              {dataLoading ? (
+                <Skeleton height={200} />
+              ) : (
+                urgentAlerts.map((alert) => <AlertItem key={alert.id} alert={alert} />)
+              )}
+            </div>
+            <div style={styles.alertSection}>
+              <div style={styles.alertHeader}>
+                <span style={styles.warningBadge}>
+                  <AlertTriangle size={14} />
+                  WARNING
+                </span>
+                <span style={styles.alertCount}>{warningAlerts.length} items</span>
               </div>
-            </div>
-          )}
-        </GlassCard>
-        <GlassCard title="B2B Orders" icon={<B2BIcon />} gradient={gradientAccents.purple}>
-          {loadingStats ? <Skeleton height={80} /> : (
-            <div style={styles.channelContent}>
-              <div>
-                <p style={styles.channelValue}>{formatNumber(stats?.b2bOrders || 0)}</p>
-                <p style={styles.channelLabel}>orders</p>
-              </div>
-              <div style={{ textAlign: 'right' }}>
-                <p style={styles.channelRevenue}>{formatCurrency(stats?.b2bRevenue || 0)}</p>
-                <p style={styles.channelLabel}>revenue</p>
-              </div>
-            </div>
-          )}
-        </GlassCard>
-      </div>
-
-      <div style={styles.chartsGrid}>
-        <GlassCard title="Revenue Trend" icon={<ChartIcon />} gradient={gradientAccents.green}>
-          {loadingStats ? <Skeleton height={200} /> : (
-            <RevenueChart data={stats?.revenueTrend || []} />
-          )}
-        </GlassCard>
-        <GlassCard title="Channel Distribution" icon={<PieIcon />} gradient={gradientAccents.pink}>
-          {loadingStats ? <Skeleton height={200} /> : (
-            <ChannelPieChart data={stats?.channelBreakdown || []} />
-          )}
-        </GlassCard>
-      </div>
-
-      <div style={styles.bottomGrid}>
-        <GlassCard title="Top 5 Best-Selling SKUs" icon={<TrophyIcon />} gradient={gradientAccents.orange}>
-          {loadingStats ? (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-              {[...Array(5)].map((_, i) => <Skeleton key={i} height={56} />)}
-            </div>
-          ) : (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-              {(stats?.topProducts || []).map((product, i) => (
-                <ProductRow key={product.id} product={product} rank={i + 1} />
-              ))}
-            </div>
-          )}
-        </GlassCard>
-        <GlassCard title="Conversion Funnel" icon={<FunnelIcon />} gradient={gradientAccents.teal}>
-          {loadingStats ? <Skeleton height={200} /> : (
-            <ConversionFunnel metrics={stats?.conversionMetrics} />
-          )}
-        </GlassCard>
-      </div>
-
-      <GlassCard title="AI Insights" icon={<AIIcon />} gradient={gradientAccents.purple}>
-        <div style={styles.aiInsightsContent}>
-          <div style={styles.aiIconContainer}>
-            <div style={styles.aiIconInner}>
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="url(#aiGradient)" strokeWidth="1.5">
-                <defs>
-                  <linearGradient id="aiGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stopColor="#667eea" />
-                    <stop offset="100%" stopColor="#f093fb" />
-                  </linearGradient>
-                </defs>
-                <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" />
-              </svg>
+              {dataLoading ? (
+                <Skeleton height={200} />
+              ) : (
+                warningAlerts.slice(0, 7).map((alert) => <AlertItem key={alert.id} alert={alert} />)
+              )}
             </div>
           </div>
-          <p style={styles.aiTitle}>AI-Powered Insights Coming Soon</p>
-          <p style={styles.aiDescription}>
-            Get intelligent recommendations, anomaly detection, and predictive analytics powered by machine learning.
-          </p>
-        </div>
-      </GlassCard>
+        </section>
+
+        {/* AI Insights */}
+        <section style={styles.section}>
+          <h2 style={styles.sectionTitle}>
+            <Lightbulb size={18} color={NEON_GREEN} />
+            AI Insights & Recommendations
+          </h2>
+          <div style={styles.insightsGrid}>
+            {dataLoading
+              ? Array.from({ length: 5 }).map((_, i) => (
+                  <div key={i} style={styles.insightCard}>
+                    <Skeleton height={140} />
+                  </div>
+                ))
+              : mockInsights.map((insight) => <InsightCard key={insight.id} insight={insight} />)}
+          </div>
+        </section>
+
+        {/* Quick Actions */}
+        <section style={styles.section}>
+          <h2 style={styles.sectionTitle}>
+            <Zap size={18} color={NEON_GREEN} />
+            Quick Actions
+          </h2>
+          <div style={styles.quickActionsRow}>
+            {quickActions.map((action, i) => (
+              <button
+                key={i}
+                style={action.primary ? styles.quickActionPrimary : styles.quickAction}
+              >
+                {action.icon}
+                {action.label}
+                <ChevronRight size={14} />
+              </button>
+            ))}
+          </div>
+        </section>
+      </div>
 
       <style jsx global>{`
         @keyframes shimmer {
           0% { background-position: -200% 0; }
           100% { background-position: 200% 0; }
         }
-        @keyframes glow {
-          0%, 100% { box-shadow: 0 0 20px rgba(102, 126, 234, 0.3); }
-          50% { box-shadow: 0 0 40px rgba(102, 126, 234, 0.6); }
-        }
-        @keyframes glowPulse {
-          0%, 100% { filter: drop-shadow(0 0 3px currentColor); }
-          50% { filter: drop-shadow(0 0 8px currentColor); }
-        }
         @keyframes pulse {
-          0%, 100% { opacity: 0.4; }
-          50% { opacity: 0.8; }
+          0%, 100% { opacity: 0.4; transform: scale(1); }
+          50% { opacity: 0.8; transform: scale(1.05); }
+        }
+        @keyframes glow {
+          0%, 100% { box-shadow: 0 0 20px rgba(0, 255, 133, 0.3); }
+          50% { box-shadow: 0 0 40px rgba(0, 255, 133, 0.6); }
+        }
+        @keyframes livePulse {
+          0%, 100% { opacity: 1; }
+          50% { opacity: 0.4; }
         }
       `}</style>
     </AdminLayout>
   );
 }
 
-function ExportIcon() {
-  return (
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-      <polyline points="7,10 12,15 17,10" />
-      <line x1="12" y1="15" x2="12" y2="3" />
-    </svg>
-  );
-}
-
-function D2CIcon() {
-  return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-      <circle cx="9" cy="21" r="1" />
-      <circle cx="20" cy="21" r="1" />
-      <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
-    </svg>
-  );
-}
-
-function B2BIcon() {
-  return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-      <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
-      <polyline points="9,22 9,12 15,12 15,22" />
-    </svg>
-  );
-}
-
-function ChartIcon() {
-  return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-      <line x1="18" y1="20" x2="18" y2="10" />
-      <line x1="12" y1="20" x2="12" y2="4" />
-      <line x1="6" y1="20" x2="6" y2="14" />
-    </svg>
-  );
-}
-
-function PieIcon() {
-  return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-      <path d="M21.21 15.89A10 10 0 1 1 8 2.83" />
-      <path d="M22 12A10 10 0 0 0 12 2v10z" />
-    </svg>
-  );
-}
-
-function TrophyIcon() {
-  return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-      <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6" />
-      <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18" />
-      <path d="M4 22h16" />
-      <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22" />
-      <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22" />
-      <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z" />
-    </svg>
-  );
-}
-
-function FunnelIcon() {
-  return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-      <polygon points="22,3 2,3 10,12.46 10,19 14,21 14,12.46 22,3" />
-    </svg>
-  );
-}
-
-function AIIcon() {
-  return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-      <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" />
-    </svg>
-  );
-}
-
-function TimeFilterButtons({ filter, setFilter }: { filter: TimeFilter; setFilter: (f: TimeFilter) => void }) {
-  const filters: { value: TimeFilter; label: string }[] = [
-    { value: 'today', label: 'Today' },
-    { value: '7days', label: '7 Days' },
-    { value: '30days', label: '30 Days' },
-    { value: '90days', label: '90 Days' },
-    { value: 'year', label: 'Year' },
-  ];
-
-  return (
-    <div style={styles.filterContainer}>
-      {filters.map(({ value, label }) => (
-        <button
-          key={value}
-          onClick={() => setFilter(value)}
-          style={{
-            ...styles.filterButton,
-            background: filter === value ? 'rgba(255,255,255,0.1)' : 'transparent',
-            color: filter === value ? '#fff' : 'rgba(255,255,255,0.5)',
-            fontWeight: filter === value ? '600' : '400',
-          }}
-        >
-          {label}
-        </button>
-      ))}
-    </div>
-  );
-}
-
-function StatCard({ label, value, loading, accent, gradient, highlight }: { 
-  label: string; 
-  value: string | number; 
-  loading: boolean; 
-  accent: string;
-  gradient: string;
-  highlight?: boolean;
-}) {
-  const [hovered, setHovered] = useState(false);
-
-  return (
-    <div 
-      style={{
-        ...styles.statCard,
-        borderColor: hovered ? `${accent}40` : 'rgba(255,255,255,0.06)',
-        transform: hovered ? 'translateY(-4px)' : 'translateY(0)',
-        boxShadow: hovered ? `0 20px 40px rgba(0,0,0,0.4), 0 0 20px ${accent}20` : '0 4px 20px rgba(0,0,0,0.2)',
-      }}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-    >
-      <div style={{ ...styles.statAccent, background: gradient }} />
-      <div style={{ ...styles.statGlow, background: `radial-gradient(ellipse at top left, ${accent}15 0%, transparent 50%)`, opacity: hovered ? 1 : 0.5 }} />
-      <p style={styles.statLabel}>{label}</p>
-      {loading ? (
-        <Skeleton height={36} />
-      ) : (
-        <p style={{
-          ...styles.statValue,
-          background: highlight ? gradient : undefined,
-          WebkitBackgroundClip: highlight ? 'text' : undefined,
-          WebkitTextFillColor: highlight ? 'transparent' : undefined,
-        }}>{value}</p>
-      )}
-    </div>
-  );
-}
-
-function GlassCard({ title, children, icon, gradient }: { title: string; children: React.ReactNode; icon?: React.ReactNode; gradient?: string }) {
-  const [hovered, setHovered] = useState(false);
-
-  return (
-    <div 
-      style={{
-        ...styles.glassCard,
-        transform: hovered ? 'translateY(-2px)' : 'translateY(0)',
-        boxShadow: hovered ? '0 20px 40px rgba(0,0,0,0.4)' : '0 4px 20px rgba(0,0,0,0.2)',
-      }}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-    >
-      <div style={{ ...styles.cardGradientOverlay, background: gradient, opacity: hovered ? 0.08 : 0.04 }} />
-      <div style={styles.cardHeader}>
-        {icon && (
-          <div style={{ ...styles.cardIcon, background: gradient }}>
-            {icon}
-          </div>
-        )}
-        <h3 style={styles.cardTitle}>{title}</h3>
-      </div>
-      {children}
-    </div>
-  );
-}
-
-function Skeleton({ height }: { height: number }) {
-  return (
-    <div style={{
-      height: `${height}px`,
-      background: 'linear-gradient(90deg, rgba(255,255,255,0.03) 25%, rgba(255,255,255,0.08) 50%, rgba(255,255,255,0.03) 75%)',
-      backgroundSize: '200% 100%',
-      animation: 'shimmer 1.5s infinite',
-      borderRadius: '8px',
-    }} />
-  );
-}
-
-function ProductRow({ product, rank }: { product: TopProduct; rank: number }) {
-  const [hovered, setHovered] = useState(false);
-  const rankGradients = [
-    gradientAccents.purple,
-    gradientAccents.cyan,
-    gradientAccents.green,
-    gradientAccents.pink,
-    gradientAccents.orange,
-  ];
-
-  return (
-    <div 
-      style={{
-        ...styles.productRow,
-        background: hovered ? 'rgba(255,255,255,0.06)' : 'rgba(255,255,255,0.03)',
-        borderColor: hovered ? 'rgba(255,255,255,0.1)' : 'rgba(255,255,255,0.04)',
-      }}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-    >
-      <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-        <span style={{ ...styles.productRank, background: rankGradients[rank - 1] }}>{rank}</span>
-        <div>
-          <p style={styles.productName}>{product.name}</p>
-          <p style={styles.productSku}>{product.sku}</p>
-        </div>
-      </div>
-      <div style={{ textAlign: 'right' }}>
-        <p style={styles.productQuantity}>{formatNumber(product.quantity)} sold</p>
-        <p style={styles.productRevenue}>{formatCurrency(product.revenue)}</p>
-      </div>
-    </div>
-  );
-}
-
-function RevenueChart({ data }: { data: RevenueTrendPoint[] }) {
-  if (!data || data.length === 0) {
-    return <p style={styles.noData}>No data available</p>;
-  }
-
-  const maxRevenue = Math.max(...data.map(d => d.revenue));
-  const minRevenue = Math.min(...data.map(d => d.revenue));
-  const range = maxRevenue - minRevenue || 1;
-
-  return (
-    <div style={{ height: '200px', display: 'flex', flexDirection: 'column' }}>
-      <div style={{ flex: 1, display: 'flex', alignItems: 'flex-end', gap: '3px', paddingBottom: '24px' }}>
-        {data.map((point, i) => {
-          const height = ((point.revenue - minRevenue) / range) * 100;
-          return (
-            <ChartBar 
-              key={i} 
-              height={height} 
-              point={point} 
-              index={i} 
-              total={data.length} 
-            />
-          );
-        })}
-      </div>
-      <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '10px', color: 'rgba(255,255,255,0.4)' }}>
-        <span>{data[0]?.date?.split('-').slice(1).join('/')}</span>
-        <span>{data[data.length - 1]?.date?.split('-').slice(1).join('/')}</span>
-      </div>
-    </div>
-  );
-}
-
-function ChartBar({ height, point, index, total }: { height: number; point: RevenueTrendPoint; index: number; total: number }) {
-  const [hovered, setHovered] = useState(false);
-  const hue = 250 + (index / total) * 60;
-
-  return (
-    <div
-      style={{
-        flex: 1,
-        height: `${Math.max(height, 5)}%`,
-        background: hovered 
-          ? `linear-gradient(180deg, hsl(${hue}, 70%, 70%) 0%, hsl(${hue}, 60%, 50%) 100%)`
-          : `linear-gradient(180deg, hsl(${hue}, 60%, 55%) 0%, hsl(${hue}, 50%, 35%) 100%)`,
-        borderRadius: '4px 4px 0 0',
-        transition: 'all 0.3s ease',
-        cursor: 'pointer',
-        position: 'relative',
-        boxShadow: hovered ? `0 0 15px hsla(${hue}, 70%, 60%, 0.5)` : 'none',
-      }}
-      title={`${point.date}: ${formatCurrency(point.revenue)}`}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-    >
-      {hovered && (
-        <div style={styles.chartTooltip}>
-          <span style={{ fontWeight: '600' }}>{formatCurrency(point.revenue)}</span>
-          <span style={{ fontSize: '10px', opacity: 0.7 }}>{point.orders} orders</span>
-        </div>
-      )}
-    </div>
-  );
-}
-
-function ChannelPieChart({ data }: { data: ChannelBreakdown[] }) {
-  if (!data || data.length === 0) {
-    return <p style={styles.noData}>No data available</p>;
-  }
-
-  const d2c = data.find(d => d.channel === 'd2c');
-  const b2b = data.find(d => d.channel === 'b2b');
-  const d2cPercent = d2c?.percentage || 0;
-
-  return (
-    <div style={{ display: 'flex', alignItems: 'center', gap: '32px' }}>
-      <div style={{ 
-        width: '140px', 
-        height: '140px', 
-        borderRadius: '50%',
-        background: `conic-gradient(#4facfe 0% ${d2cPercent}%, #667eea ${d2cPercent}% 100%)`,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        boxShadow: '0 0 30px rgba(79, 172, 254, 0.3)',
-      }}>
-        <div style={{ 
-          width: '80px', 
-          height: '80px', 
-          borderRadius: '50%', 
-          background: '#0a0a0a',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          flexDirection: 'column',
-        }}>
-          <span style={{ fontSize: '20px', fontWeight: '700', color: '#fff' }}>{d2cPercent}%</span>
-          <span style={{ fontSize: '10px', color: 'rgba(255,255,255,0.5)' }}>D2C</span>
-        </div>
-      </div>
-      <div style={{ flex: 1 }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
-          <div style={{ width: '12px', height: '12px', borderRadius: '3px', background: gradientAccents.cyan }} />
-          <div>
-            <p style={{ fontSize: '13px', fontWeight: '500', color: '#fff' }}>D2C</p>
-            <p style={{ fontSize: '12px', color: 'rgba(255,255,255,0.5)' }}>{formatNumber(d2c?.orders || 0)} orders</p>
-          </div>
-        </div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-          <div style={{ width: '12px', height: '12px', borderRadius: '3px', background: gradientAccents.purple }} />
-          <div>
-            <p style={{ fontSize: '13px', fontWeight: '500', color: '#fff' }}>B2B</p>
-            <p style={{ fontSize: '12px', color: 'rgba(255,255,255,0.5)' }}>{formatNumber(b2b?.orders || 0)} orders</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function ConversionFunnel({ metrics }: { metrics?: ConversionMetrics }) {
-  if (!metrics) {
-    return <p style={styles.noData}>No data available</p>;
-  }
-
-  const stages = [
-    { label: 'Visits', value: metrics.visits, rate: 100, color: '#667eea' },
-    { label: 'Added to Cart', value: metrics.addedToCart, rate: metrics.visitToCartRate, color: '#4facfe' },
-    { label: 'Checkout', value: metrics.checkout, rate: metrics.cartToCheckoutRate, color: '#43e97b' },
-    { label: 'Purchased', value: metrics.purchased, rate: metrics.checkoutToPurchaseRate, color: '#f093fb' },
-  ];
-
-  return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-      {stages.map((stage, i) => (
-        <div key={stage.label} style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-          <div style={{ width: '100px', fontSize: '12px', color: 'rgba(255,255,255,0.6)' }}>{stage.label}</div>
-          <div style={{ flex: 1, height: '32px', background: 'rgba(255,255,255,0.05)', borderRadius: '8px', overflow: 'hidden', position: 'relative' }}>
-            <div style={{ 
-              height: '100%', 
-              width: `${(stage.value / (metrics.visits || 1)) * 100}%`,
-              background: `linear-gradient(90deg, ${stage.color} 0%, ${stage.color}80 100%)`,
-              borderRadius: '8px',
-              transition: 'width 0.5s ease',
-              minWidth: stage.value > 0 ? '20px' : '0',
-              boxShadow: `0 0 15px ${stage.color}40`,
-            }} />
-          </div>
-          <div style={{ width: '80px', textAlign: 'right' }}>
-            <span style={{ fontSize: '13px', fontWeight: '600', color: '#fff' }}>{formatNumber(stage.value)}</span>
-            <span style={{ fontSize: '11px', color: 'rgba(255,255,255,0.4)', marginLeft: '6px' }}>{stage.rate.toFixed(1)}%</span>
-          </div>
-        </div>
-      ))}
-    </div>
-  );
-}
-
 const styles: { [key: string]: React.CSSProperties } = {
+  container: {
+    fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, sans-serif',
+  },
   loadingContainer: {
     minHeight: '100vh',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
-    background: '#050505',
-    gap: '24px',
+    background: '#000',
+    gap: 24,
   },
   loadingOrb: {
-    width: '60px',
-    height: '60px',
+    width: 60,
+    height: 60,
     borderRadius: '50%',
-    background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+    background: `linear-gradient(135deg, ${NEON_GREEN} 0%, #00CC6A 100%)`,
     animation: 'pulse 2s ease-in-out infinite, glow 2s ease-in-out infinite',
   },
   loadingText: {
     color: 'rgba(255,255,255,0.6)',
-    fontSize: '14px',
-    letterSpacing: '3px',
+    fontSize: 14,
+    letterSpacing: 2,
+  },
+  section: {
+    marginBottom: 32,
+  },
+  sectionTitle: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 10,
+    fontSize: 16,
+    fontWeight: 600,
+    color: '#fff',
+    marginBottom: 20,
     textTransform: 'uppercase',
+    letterSpacing: 0.5,
   },
-  controlsRow: {
+  card: {
+    background: CARD_BG,
+    border: `1px solid ${CARD_BORDER}`,
+    borderRadius: 16,
+    padding: 24,
+  },
+  metricsGrid: {
+    display: 'grid',
+    gridTemplateColumns: 'repeat(5, 1fr)',
+    gap: 16,
+  },
+  metricCard: {
+    background: CARD_BG,
+    border: `1px solid ${CARD_BORDER}`,
+    borderRadius: 16,
+    padding: 20,
     display: 'flex',
-    justifyContent: 'flex-end',
-    alignItems: 'center',
-    gap: '16px',
-    marginBottom: '32px',
-  },
-  demoBadge: {
-    background: 'rgba(255,255,255,0.05)',
-    border: '1px solid rgba(255,255,255,0.1)',
-    borderRadius: '8px',
-    padding: '8px 16px',
-    display: 'flex',
-    alignItems: 'center',
-    gap: '8px',
-  },
-  demoDot: {
-    width: '6px',
-    height: '6px',
-    borderRadius: '50%',
-    background: 'rgba(255,255,255,0.4)',
-  },
-  demoText: {
-    fontSize: '12px',
-    color: 'rgba(255,255,255,0.5)',
-  },
-  filterContainer: {
-    display: 'flex',
-    background: 'rgba(255,255,255,0.05)',
-    borderRadius: '10px',
-    padding: '4px',
-    border: '1px solid rgba(255,255,255,0.06)',
-  },
-  filterButton: {
-    background: 'transparent',
-    border: 'none',
-    borderRadius: '8px',
-    padding: '8px 16px',
-    fontSize: '12px',
-    cursor: 'pointer',
+    alignItems: 'flex-start',
+    gap: 14,
     transition: 'all 0.2s ease',
   },
-  exportButton: {
-    background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-    color: '#fff',
-    border: 'none',
-    borderRadius: '10px',
-    padding: '10px 20px',
-    fontSize: '13px',
-    fontWeight: '500',
-    display: 'flex',
-    alignItems: 'center',
-    gap: '8px',
-    transition: 'all 0.2s ease',
-  },
-  statsGrid: {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(6, 1fr)',
-    gap: '16px',
-    marginBottom: '24px',
-  },
-  statCard: {
-    position: 'relative',
-    background: 'rgba(255,255,255,0.03)',
-    borderRadius: '16px',
-    padding: '24px',
-    border: '1px solid rgba(255,255,255,0.06)',
-    overflow: 'hidden',
-    backdropFilter: 'blur(10px)',
-    transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-  },
-  statAccent: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    width: '3px',
-    height: '100%',
-  },
-  statGlow: {
-    position: 'absolute',
-    inset: 0,
-    transition: 'opacity 0.3s',
-  },
-  statLabel: {
-    fontSize: '11px',
-    color: 'rgba(255,255,255,0.5)',
-    textTransform: 'uppercase',
-    letterSpacing: '1px',
-    marginBottom: '12px',
-    position: 'relative',
-  },
-  statValue: {
-    fontSize: '28px',
-    fontWeight: '600',
-    letterSpacing: '-1px',
-    color: '#fff',
-    position: 'relative',
-  },
-  channelGrid: {
-    display: 'grid',
-    gridTemplateColumns: '1fr 1fr',
-    gap: '20px',
-    marginBottom: '24px',
-  },
-  channelContent: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'flex-end',
-  },
-  channelValue: {
-    fontSize: '42px',
-    fontWeight: '700',
-    letterSpacing: '-2px',
-    marginBottom: '4px',
-    color: '#fff',
-  },
-  channelLabel: {
-    fontSize: '13px',
-    color: 'rgba(255,255,255,0.5)',
-  },
-  channelRevenue: {
-    fontSize: '24px',
-    fontWeight: '600',
-    letterSpacing: '-1px',
-    color: '#fff',
-  },
-  chartsGrid: {
-    display: 'grid',
-    gridTemplateColumns: '2fr 1fr',
-    gap: '20px',
-    marginBottom: '24px',
-  },
-  bottomGrid: {
-    display: 'grid',
-    gridTemplateColumns: '1fr 1fr',
-    gap: '20px',
-    marginBottom: '24px',
-  },
-  glassCard: {
-    position: 'relative',
-    background: 'rgba(255,255,255,0.03)',
-    backdropFilter: 'blur(20px)',
-    WebkitBackdropFilter: 'blur(20px)',
-    borderRadius: '20px',
-    padding: '28px',
-    border: '1px solid rgba(255,255,255,0.06)',
-    overflow: 'hidden',
-    transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-  },
-  cardGradientOverlay: {
-    position: 'absolute',
-    inset: 0,
-    transition: 'opacity 0.3s',
-  },
-  cardHeader: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: '12px',
-    marginBottom: '24px',
-    position: 'relative',
-  },
-  cardIcon: {
-    width: '32px',
-    height: '32px',
-    borderRadius: '8px',
+  metricIcon: {
+    width: 40,
+    height: 40,
+    borderRadius: 10,
+    background: 'rgba(0, 255, 133, 0.1)',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    color: '#fff',
+    color: NEON_GREEN,
+    flexShrink: 0,
   },
-  cardTitle: {
-    fontSize: '13px',
-    fontWeight: '600',
-    textTransform: 'uppercase',
-    letterSpacing: '0.5px',
+  metricContent: {
+    flex: 1,
+    minWidth: 0,
+  },
+  metricLabel: {
+    fontSize: 12,
+    color: 'rgba(255,255,255,0.5)',
+    display: 'block',
+    marginBottom: 6,
+  },
+  metricValueRow: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 8,
+    flexWrap: 'wrap',
+  },
+  metricValue: {
+    fontSize: 22,
+    fontWeight: 700,
+    color: '#fff',
+    letterSpacing: -0.5,
+  },
+  metricChange: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 2,
+    fontSize: 13,
+    fontWeight: 500,
+  },
+  metricSubtitle: {
+    fontSize: 11,
+    color: 'rgba(255,255,255,0.4)',
+    display: 'block',
+    marginTop: 4,
+  },
+  liveIndicator: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 6,
+    fontSize: 10,
+    fontWeight: 600,
+    color: NEON_GREEN,
+    letterSpacing: 1,
+  },
+  liveDot: {
+    width: 6,
+    height: 6,
+    borderRadius: '50%',
+    background: NEON_GREEN,
+    animation: 'livePulse 1.5s ease-in-out infinite',
+  },
+  chartLegend: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 24,
+    marginBottom: 16,
+    paddingBottom: 16,
+    borderBottom: '1px solid rgba(255,255,255,0.05)',
+  },
+  legendItem: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 8,
+    fontSize: 13,
     color: 'rgba(255,255,255,0.7)',
   },
-  productRow: {
+  legendDot: {
+    width: 10,
+    height: 10,
+    borderRadius: 3,
+  },
+  productionGrid: {
+    display: 'grid',
+    gridTemplateColumns: 'repeat(4, 1fr)',
+    gap: 16,
+  },
+  productionCard: {
+    background: CARD_BG,
+    border: `1px solid ${CARD_BORDER}`,
+    borderRadius: 16,
+    padding: 20,
+  },
+  productionHeader: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 12,
+  },
+  batchNumber: {
+    fontSize: 15,
+    fontWeight: 600,
+    color: '#fff',
+  },
+  productionStage: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 12,
+    fontSize: 14,
+    fontWeight: 500,
+  },
+  progressBar: {
+    height: 6,
+    background: 'rgba(255,255,255,0.1)',
+    borderRadius: 3,
+    overflow: 'hidden',
+    marginBottom: 8,
+  },
+  progressFill: {
+    height: '100%',
+    borderRadius: 3,
+    transition: 'width 0.5s ease',
+  },
+  alertsGrid: {
+    display: 'grid',
+    gridTemplateColumns: '1fr 1fr',
+    gap: 20,
+  },
+  alertSection: {
+    background: CARD_BG,
+    border: `1px solid ${CARD_BORDER}`,
+    borderRadius: 16,
+    padding: 20,
+  },
+  alertHeader: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 16,
+    paddingBottom: 12,
+    borderBottom: '1px solid rgba(255,255,255,0.05)',
+  },
+  urgentBadge: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 6,
+    padding: '6px 12px',
+    background: 'rgba(239, 68, 68, 0.15)',
+    color: '#EF4444',
+    borderRadius: 6,
+    fontSize: 12,
+    fontWeight: 600,
+    letterSpacing: 0.5,
+  },
+  warningBadge: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 6,
+    padding: '6px 12px',
+    background: 'rgba(251, 191, 36, 0.15)',
+    color: '#FBBF24',
+    borderRadius: 6,
+    fontSize: 12,
+    fontWeight: 600,
+    letterSpacing: 0.5,
+  },
+  alertCount: {
+    fontSize: 13,
+    color: 'rgba(255,255,255,0.5)',
+  },
+  alertItem: {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
     padding: '14px 16px',
-    borderRadius: '12px',
-    border: '1px solid rgba(255,255,255,0.04)',
-    transition: 'all 0.2s ease',
+    background: 'rgba(255,255,255,0.02)',
+    borderRadius: 10,
+    marginBottom: 10,
+    borderLeft: '3px solid',
   },
-  productRank: {
-    width: '28px',
-    height: '28px',
-    borderRadius: '50%',
+  alertContent: {
     display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    fontSize: '12px',
-    fontWeight: '600',
+    alignItems: 'flex-start',
+    gap: 12,
+    flex: 1,
+  },
+  alertTitle: {
+    fontSize: 14,
+    fontWeight: 500,
     color: '#fff',
+    marginBottom: 4,
   },
-  productName: {
-    fontSize: '14px',
-    fontWeight: '500',
-    marginBottom: '2px',
-    color: '#fff',
-  },
-  productSku: {
-    fontSize: '11px',
-    color: 'rgba(255,255,255,0.4)',
-  },
-  productQuantity: {
-    fontSize: '14px',
-    fontWeight: '600',
-    color: '#fff',
-  },
-  productRevenue: {
-    fontSize: '12px',
+  alertDesc: {
+    fontSize: 12,
     color: 'rgba(255,255,255,0.5)',
   },
-  chartTooltip: {
-    position: 'absolute',
-    bottom: '100%',
-    left: '50%',
-    transform: 'translateX(-50%)',
-    background: 'rgba(0,0,0,0.9)',
-    padding: '8px 12px',
-    borderRadius: '8px',
-    fontSize: '12px',
+  alertAction: {
+    background: 'rgba(255,255,255,0.08)',
+    border: 'none',
+    borderRadius: 6,
+    padding: '8px 14px',
+    fontSize: 12,
+    fontWeight: 500,
+    color: '#fff',
+    cursor: 'pointer',
+    transition: 'all 0.2s ease',
     whiteSpace: 'nowrap',
+  },
+  insightsGrid: {
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'center',
-    gap: '2px',
-    marginBottom: '8px',
-    border: '1px solid rgba(255,255,255,0.1)',
+    gap: 16,
   },
-  noData: {
-    color: 'rgba(255,255,255,0.4)',
-    fontSize: '14px',
-    textAlign: 'center',
-    padding: '40px',
+  insightCard: {
+    display: 'flex',
+    gap: 20,
+    background: CARD_BG,
+    border: `1px solid ${CARD_BORDER}`,
+    borderRadius: 16,
+    padding: 24,
   },
-  aiInsightsContent: {
-    background: 'linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(240, 147, 251, 0.05) 100%)',
-    borderRadius: '16px',
-    padding: '40px',
-    textAlign: 'center',
-    border: '1px dashed rgba(255,255,255,0.1)',
+  insightEmoji: {
+    fontSize: 32,
+    flexShrink: 0,
   },
-  aiIconContainer: {
-    width: '56px',
-    height: '56px',
-    borderRadius: '16px',
-    background: 'linear-gradient(135deg, rgba(102, 126, 234, 0.2) 0%, rgba(240, 147, 251, 0.2) 100%)',
+  insightContent: {
+    flex: 1,
+  },
+  insightTitle: {
+    fontSize: 16,
+    fontWeight: 600,
+    color: '#fff',
+    marginBottom: 8,
+  },
+  insightDesc: {
+    fontSize: 14,
+    color: 'rgba(255,255,255,0.6)',
+    lineHeight: 1.5,
+    marginBottom: 16,
+  },
+  insightActions: {
+    display: 'flex',
+    gap: 10,
+  },
+  primaryButton: {
+    background: NEON_GREEN,
+    color: '#000',
+    border: 'none',
+    borderRadius: 8,
+    padding: '10px 18px',
+    fontSize: 13,
+    fontWeight: 600,
+    cursor: 'pointer',
+    transition: 'all 0.2s ease',
+  },
+  secondaryButton: {
+    background: 'rgba(255,255,255,0.08)',
+    color: '#fff',
+    border: 'none',
+    borderRadius: 8,
+    padding: '10px 18px',
+    fontSize: 13,
+    fontWeight: 500,
+    cursor: 'pointer',
+    transition: 'all 0.2s ease',
+  },
+  quickActionsRow: {
+    display: 'flex',
+    gap: 12,
+    flexWrap: 'wrap',
+  },
+  quickAction: {
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'center',
-    margin: '0 auto 20px',
-  },
-  aiIconInner: {
-    animation: 'glowPulse 2s ease-in-out infinite',
-  },
-  aiTitle: {
-    fontSize: '16px',
-    fontWeight: '600',
-    marginBottom: '8px',
+    gap: 8,
+    background: CARD_BG,
+    border: `1px solid ${CARD_BORDER}`,
+    borderRadius: 10,
+    padding: '12px 18px',
+    fontSize: 13,
+    fontWeight: 500,
     color: '#fff',
+    cursor: 'pointer',
+    transition: 'all 0.2s ease',
   },
-  aiDescription: {
-    fontSize: '13px',
-    color: 'rgba(255,255,255,0.5)',
-    maxWidth: '400px',
-    margin: '0 auto',
-    lineHeight: '1.6',
+  quickActionPrimary: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 8,
+    background: NEON_GREEN,
+    border: 'none',
+    borderRadius: 10,
+    padding: '12px 18px',
+    fontSize: 13,
+    fontWeight: 600,
+    color: '#000',
+    cursor: 'pointer',
+    transition: 'all 0.2s ease',
   },
 };
