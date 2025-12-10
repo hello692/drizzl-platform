@@ -25,15 +25,6 @@ const PRICING_TIERS = [
   },
 ];
 
-const PRODUCTS = [
-  { name: 'Berry Blast', retail: 7.99, wholesale: 4.79 },
-  { name: 'Green Machine', retail: 8.49, wholesale: 5.09 },
-  { name: 'Tropical Paradise', retail: 8.99, wholesale: 5.39 },
-  { name: 'Chocolate Peanut Butter', retail: 9.49, wholesale: 5.69 },
-  { name: 'Acai Energy', retail: 9.99, wholesale: 5.99 },
-  { name: 'Coffee Kick', retail: 9.99, wholesale: 5.99 },
-];
-
 export default function WholesalePricing() {
   return (
     <>
@@ -175,70 +166,6 @@ export default function WholesalePricing() {
                 </div>
               </AnimatedSection>
             ))}
-          </div>
-        </section>
-
-        <section style={{
-          background: '#0a0a0a',
-          padding: 'clamp(40px, 6vw, 64px) clamp(20px, 4vw, 48px)',
-        }}>
-          <div style={{ maxWidth: '600px', margin: '0 auto' }}>
-            <AnimatedSection animation="fadeUp">
-              <div style={{ textAlign: 'center', marginBottom: '32px' }}>
-                <h2 style={{
-                  fontSize: 'clamp(1.5rem, 3vw, 2rem)',
-                  fontWeight: 300,
-                  color: '#ffffff',
-                  marginBottom: '12px',
-                }}>
-                  Sample Product Pricing
-                </h2>
-                <p style={{
-                  fontSize: 'var(--fs-small)',
-                  color: 'var(--color-text-tertiary)',
-                }}>
-                  Wholesale prices for Growth tier partners
-                </p>
-              </div>
-            </AnimatedSection>
-            
-            <AnimatedSection animation="fadeUp" delay={100}>
-              <div style={{
-                border: '1px solid rgba(255,255,255,0.06)',
-                borderRadius: '14px',
-                overflow: 'hidden',
-              }}>
-                <div style={{
-                  display: 'grid',
-                  gridTemplateColumns: '2fr 1fr 1fr',
-                  padding: '16px 24px',
-                  borderBottom: '1px solid rgba(255,255,255,0.06)',
-                }}>
-                  <span style={{ fontSize: 'var(--fs-small)', color: 'var(--color-text-tertiary)' }}>Product</span>
-                  <span style={{ fontSize: 'var(--fs-small)', color: 'var(--color-text-tertiary)', textAlign: 'center' }}>Retail</span>
-                  <span style={{ fontSize: 'var(--fs-small)', color: 'var(--color-text-tertiary)', textAlign: 'center' }}>Wholesale</span>
-                </div>
-                {PRODUCTS.map((product, index) => (
-                  <div 
-                    key={product.name}
-                    style={{
-                      display: 'grid',
-                      gridTemplateColumns: '2fr 1fr 1fr',
-                      padding: '16px 24px',
-                      borderBottom: index < PRODUCTS.length - 1 ? '1px solid rgba(255,255,255,0.06)' : 'none',
-                      alignItems: 'center',
-                    }}
-                  >
-                    <span style={{ fontWeight: 500, color: '#ffffff' }}>{product.name}</span>
-                    <span style={{ textAlign: 'center', color: 'var(--color-text-tertiary)' }}>${product.retail.toFixed(2)}</span>
-                    <span style={{ textAlign: 'center', fontWeight: 500, color: '#ffffff' }}>${product.wholesale.toFixed(2)}</span>
-                  </div>
-                ))}
-              </div>
-              <p style={{ textAlign: 'center', color: 'var(--color-text-tertiary)', marginTop: '16px', fontSize: 'var(--fs-small)' }}>
-                Prices shown for Growth tier. Contact us for Enterprise pricing.
-              </p>
-            </AnimatedSection>
           </div>
         </section>
 
