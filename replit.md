@@ -39,6 +39,8 @@ Drizzl Wellness is a full-stack e-commerce platform for a smoothie and wellness 
     - Payment: Mock credit card management with visual card display
     - Rewards: Loyalty points (1,240 pts = $12.40), tier progress, redeemable rewards
     - Settings: Personal info, password change, notification preferences
+    - Wishlist: Save favorite products with share functionality
+    - Forgot/Reset Password: Secure password recovery flow with crypto-safe tokens
 - **B2B Partner Portal** (`/partner/*`): Complete wholesale partner portal with horizontal navigation:
     - Login: Partner authentication (demo: any email + password "partner123")
     - Dashboard: Welcome, tier/credit info, outstanding balance, recent orders, quick actions
@@ -48,6 +50,8 @@ Drizzl Wellness is a full-stack e-commerce platform for a smoothie and wellness 
     - Pricing: Wholesale price list with tier discounts and volume discounts
     - Account: Business info, contact info, shipping addresses, payment methods
     - Support: Contact account manager, submit tickets, FAQ accordion
+    - Partner Application: 5-step wizard (Business Info, Contact, Documents, References, Review)
+    - Forgot/Reset Password: Secure password recovery flow with crypto-safe tokens
 - **Enterprise Admin Dashboard**: Comprises 11 intelligence modules:
     - **Admin Command Center** (`/admin/command-center`): Claude.ai-style sidebar navigation with 9 fully functional tabs:
         - Dashboard: Master summary with KPIs, alerts, AI recommendations, revenue chart, production pipeline
@@ -69,7 +73,14 @@ Drizzl Wellness is a full-stack e-commerce platform for a smoothie and wellness 
     - **Banking Intelligence**: Financial overview, income/expenses, burn rate, cash runway.
     - **Project Management**: Kanban board for tasks.
     - **Settings**: General settings, notifications, team & roles, integrations, billing, security.
-- **Lead Pipeline / CRM**: Kanban board with 7 stages, lead cards, activity timeline, and Google Calendar integration.
+- **Lead Pipeline / CRM**: Full-featured CRM accessible via Command Center Leads tab:
+    - Dashboard stats: Total leads, qualified leads, conversion rate, pipeline value
+    - Lead capture: Add lead modal with company, contact, source, estimated value
+    - Leads table: Filterable/searchable with status badges, quick actions
+    - Lead detail: Full profile with activity timeline, notes, documents
+    - Pipeline kanban: Visual funnel with drag-and-drop (New → Qualified → Proposal → Negotiation → Won/Lost)
+    - Activity logging: Log calls, emails, notes with timestamps
+    - Lead scoring: Automated scoring based on engagement and value
 
 ### System Design Choices
 - **Database**: Supabase for authentication and database.
