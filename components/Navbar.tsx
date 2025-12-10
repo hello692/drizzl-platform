@@ -355,6 +355,25 @@ export default function Navbar({ hideCart = false, hideSearch = false }: NavbarP
             Wholesale
           </Link>
           <Link 
+            href="/sales/login" 
+            className="nav-link sales-rep-link"
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              color: textColor,
+              textDecoration: 'none',
+              fontSize: '14px',
+              fontWeight: 400,
+              letterSpacing: '0.01em',
+              lineHeight: 1,
+              height: '100%',
+              padding: '8px 0',
+              transition: 'color 0.3s ease',
+            }}
+          >
+            For Sales Reps
+          </Link>
+          <Link 
             href="/auth" 
             className="nav-icon"
             style={{ 
