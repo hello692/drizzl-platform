@@ -80,11 +80,25 @@ export default function Cart() {
         <h2 className="cart-title">Shopping Cart</h2>
 
         {items.length === 0 ? (
-          <div className="cart-empty">
-            <p className="cart-empty-text">Your cart is empty</p>
-            <Link href="/products" className="cart-empty-btn">
-              Shop Now
-            </Link>
+          <div className="empty-cart-container">
+            <div className="empty-cart-glow" />
+            <div className="empty-cart-content">
+              <div className="empty-cart-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                </svg>
+              </div>
+              <h1 className="empty-cart-title">Your cart is empty</h1>
+              <p className="empty-cart-tagline">
+                Your <span className="highlight">wellness love affair</span> starts with <span className="highlight">one irresistible sip</span>.
+              </p>
+              <Link href="/products" className="empty-cart-btn">
+                <span>Start Shopping</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+              </Link>
+            </div>
           </div>
         ) : (
           <div className="cart-grid">
