@@ -54,10 +54,13 @@ export default function CommandCenterLayout({ children, title }: CommandCenterLa
           onCollapse={toggleCollapse}
         />
         
-        <main style={{
-          ...styles.main,
-          marginLeft: sidebarWidth,
-        }}>
+        <main 
+          className="command-center-main"
+          style={{
+            ...styles.main,
+            marginLeft: sidebarWidth,
+          }}
+        >
           {children}
         </main>
       </div>
@@ -66,6 +69,13 @@ export default function CommandCenterLayout({ children, title }: CommandCenterLa
         @media (max-width: 767px) {
           .command-center-main {
             margin-left: 0 !important;
+            padding: 16px !important;
+            padding-top: 72px !important;
+          }
+        }
+        @media (min-width: 768px) and (max-width: 1023px) {
+          .command-center-main {
+            padding: 24px !important;
           }
         }
         

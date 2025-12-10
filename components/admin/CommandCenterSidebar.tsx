@@ -64,6 +64,7 @@ export default function CommandCenterSidebar({ isOpen, isCollapsed, onToggle, on
   return (
     <>
       <button
+        className="mobile-menu-btn"
         onClick={onToggle}
         style={styles.mobileMenuButton}
         aria-label="Toggle menu"
@@ -73,11 +74,13 @@ export default function CommandCenterSidebar({ isOpen, isCollapsed, onToggle, on
 
       {isOpen && <div style={styles.overlay} onClick={onToggle} />}
 
-      <aside style={{
-        ...styles.sidebar,
-        width: sidebarWidth,
-        transform: isOpen ? 'translateX(0)' : undefined,
-      }}>
+      <aside 
+        className={`command-center-sidebar${isOpen ? ' open' : ''}`}
+        style={{
+          ...styles.sidebar,
+          width: sidebarWidth,
+        }}
+      >
         <div style={{
           ...styles.logoContainer,
           padding: isCollapsed ? '24px 12px' : '24px 16px',
@@ -162,6 +165,13 @@ export default function CommandCenterSidebar({ isOpen, isCollapsed, onToggle, on
         @media (max-width: 767px) {
           .command-center-sidebar {
             transform: translateX(-100%);
+            width: 280px !important;
+          }
+          .command-center-sidebar.open {
+            transform: translateX(0);
+          }
+          .mobile-menu-btn {
+            display: flex !important;
           }
         }
       `}</style>
@@ -205,7 +215,9 @@ const styles: Record<string, React.CSSProperties> = {
     backgroundColor: 'transparent',
     border: 'none',
     borderRadius: 6,
-    padding: 6,
+    padding: 8,
+    minWidth: 44,
+    minHeight: 44,
     cursor: 'pointer',
     color: '#666666',
     transition: 'color 0.2s, background-color 0.2s',
@@ -234,6 +246,7 @@ const styles: Record<string, React.CSSProperties> = {
     fontWeight: 400,
     transition: 'all 0.2s',
     whiteSpace: 'nowrap',
+    minHeight: 44,
   },
   navLinkActive: {
     backgroundColor: 'rgba(0, 255, 133, 0.1)',
@@ -255,10 +268,14 @@ const styles: Record<string, React.CSSProperties> = {
     backgroundColor: 'rgba(255, 255, 255, 0.05)',
     border: '1px solid rgba(255, 255, 255, 0.1)',
     borderRadius: 8,
-    padding: 8,
+    padding: 10,
+    minWidth: 44,
+    minHeight: 44,
     cursor: 'pointer',
     color: '#FFFFFF',
     display: 'none',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   overlay: {
     position: 'fixed',

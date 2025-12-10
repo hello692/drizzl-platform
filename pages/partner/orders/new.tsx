@@ -247,7 +247,7 @@ export default function NewOrder() {
           </div>
         </div>
 
-        <div style={styles.layout}>
+        <div style={styles.layout} className="partner-order-layout">
           <div style={styles.productsSection}>
             <div style={styles.filters}>
               <input
@@ -316,7 +316,7 @@ export default function NewOrder() {
             </div>
           </div>
 
-          <div style={styles.cartSection}>
+          <div style={styles.cartSection} className="partner-cart-section">
             <div style={styles.cartCard}>
               <h2 style={styles.cartTitle}>
                 <ShoppingCart size={20} />
@@ -450,13 +450,29 @@ export default function NewOrder() {
           </div>
         )}
       </div>
+
+      <style jsx global>{`
+        @media (max-width: 900px) {
+          .partner-order-layout {
+            grid-template-columns: 1fr !important;
+          }
+          .partner-cart-section {
+            position: relative !important;
+            top: 0 !important;
+          }
+        }
+        @keyframes spin {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
+        }
+      `}</style>
     </PartnerLayout>
   );
 }
 
 const styles: Record<string, React.CSSProperties> = {
   page: {
-    padding: 32,
+    padding: 'clamp(16px, 4vw, 32px)',
     maxWidth: 1400,
     margin: '0 auto',
   },
@@ -476,7 +492,7 @@ const styles: Record<string, React.CSSProperties> = {
     marginBottom: 24,
   },
   title: {
-    fontSize: 28,
+    fontSize: 'clamp(22px, 5vw, 28px)',
     fontWeight: 600,
     color: '#FFFFFF',
     margin: 0,
@@ -498,6 +514,7 @@ const styles: Record<string, React.CSSProperties> = {
   searchInput: {
     width: '100%',
     padding: '12px 16px',
+    minHeight: 44,
     backgroundColor: CARD_BG,
     border: `1px solid ${CARD_BORDER}`,
     borderRadius: 8,
@@ -505,6 +522,7 @@ const styles: Record<string, React.CSSProperties> = {
     fontSize: 14,
     marginBottom: 12,
     outline: 'none',
+    boxSizing: 'border-box',
   },
   categoryTabs: {
     display: 'flex',
@@ -512,13 +530,17 @@ const styles: Record<string, React.CSSProperties> = {
     flexWrap: 'wrap',
   },
   categoryTab: {
-    padding: '8px 16px',
+    padding: '10px 16px',
+    minHeight: 44,
     backgroundColor: CARD_BG,
     border: `1px solid ${CARD_BORDER}`,
-    borderRadius: 20,
+    borderRadius: 22,
     color: '#999999',
     fontSize: 13,
     cursor: 'pointer',
+    display: 'flex',
+    alignItems: 'center',
+    boxSizing: 'border-box',
   },
   categoryTabActive: {
     backgroundColor: 'rgba(0, 255, 133, 0.1)',
@@ -583,6 +605,7 @@ const styles: Record<string, React.CSSProperties> = {
     gap: 6,
     width: '100%',
     padding: '10px',
+    minHeight: 44,
     backgroundColor: 'rgba(0, 255, 133, 0.1)',
     border: `1px solid rgba(0, 255, 133, 0.2)`,
     borderRadius: 8,
@@ -601,11 +624,11 @@ const styles: Record<string, React.CSSProperties> = {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    width: 32,
-    height: 32,
+    width: 44,
+    height: 44,
     backgroundColor: 'rgba(255, 255, 255, 0.1)',
     border: 'none',
-    borderRadius: 6,
+    borderRadius: 8,
     color: '#FFFFFF',
     cursor: 'pointer',
   },
@@ -809,6 +832,8 @@ const styles: Record<string, React.CSSProperties> = {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
+    width: 44,
+    height: 44,
     backgroundColor: 'transparent',
     border: 'none',
     color: '#666666',
@@ -863,6 +888,7 @@ const styles: Record<string, React.CSSProperties> = {
   cancelButton: {
     flex: 1,
     padding: '12px',
+    minHeight: 44,
     backgroundColor: 'transparent',
     border: `1px solid ${CARD_BORDER}`,
     borderRadius: 8,
@@ -877,6 +903,7 @@ const styles: Record<string, React.CSSProperties> = {
     justifyContent: 'center',
     gap: 8,
     padding: '12px',
+    minHeight: 44,
     backgroundColor: NEON_GREEN,
     color: '#000000',
     border: 'none',

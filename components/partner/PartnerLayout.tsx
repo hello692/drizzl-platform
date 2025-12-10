@@ -223,8 +223,8 @@ export default function PartnerLayout({ children, title, partnerName = 'Partner'
           marginLeft: sidebarWidth,
         }}>
           <header style={styles.header}>
-            <div style={styles.headerLeft}>
-              {title && <h1 style={styles.headerTitle}>{title}</h1>}
+            <div style={styles.headerLeft} className="partner-header-left">
+              {title && <h1 style={styles.headerTitle} className="partner-header-title">{title}</h1>}
             </div>
             <div style={styles.headerRight}>
               <button style={styles.headerIconButton} className="partner-header-icon" aria-label="Notifications">
@@ -242,7 +242,7 @@ export default function PartnerLayout({ children, title, partnerName = 'Partner'
                   <div style={styles.userAvatar}>
                     <User size={18} />
                   </div>
-                  <span style={styles.userName}>{partnerName}</span>
+                  <span style={styles.userName} className="partner-user-name">{partnerName}</span>
                   <ChevronDown size={16} style={{ 
                     transform: userMenuOpen ? 'rotate(180deg)' : 'rotate(0deg)',
                     transition: 'transform 0.2s',
@@ -280,6 +280,15 @@ export default function PartnerLayout({ children, title, partnerName = 'Partner'
             display: flex !important;
           }
           .collapse-btn {
+            display: none !important;
+          }
+          .partner-header-left {
+            padding-left: 52px !important;
+          }
+          .partner-header-title {
+            font-size: clamp(16px, 4vw, 20px) !important;
+          }
+          .partner-user-name {
             display: none !important;
           }
         }
@@ -332,13 +341,15 @@ const styles: Record<string, React.CSSProperties> = {
   },
   mobileMenuButton: {
     position: 'fixed',
-    top: 20,
+    top: 16,
     left: 16,
     zIndex: 1001,
     backgroundColor: 'rgba(255, 255, 255, 0.05)',
     border: '1px solid rgba(255, 255, 255, 0.1)',
     borderRadius: 8,
-    padding: 8,
+    width: 44,
+    height: 44,
+    padding: 0,
     cursor: 'pointer',
     color: '#FFFFFF',
     display: 'none',
@@ -448,7 +459,7 @@ const styles: Record<string, React.CSSProperties> = {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
-    padding: '0 32px',
+    padding: '0 clamp(16px, 4vw, 32px)',
     position: 'sticky',
     top: 0,
     zIndex: 100,
@@ -473,8 +484,8 @@ const styles: Record<string, React.CSSProperties> = {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    width: 40,
-    height: 40,
+    width: 44,
+    height: 44,
     backgroundColor: 'transparent',
     border: '1px solid rgba(255, 255, 255, 0.1)',
     borderRadius: 8,
@@ -549,7 +560,7 @@ const styles: Record<string, React.CSSProperties> = {
   },
   main: {
     flex: 1,
-    padding: 32,
+    padding: 'clamp(16px, 4vw, 32px)',
     backgroundColor: '#000000',
   },
 };

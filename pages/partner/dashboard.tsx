@@ -171,7 +171,7 @@ export default function PartnerDashboard() {
           </Link>
         </div>
 
-        <div style={styles.statsGrid}>
+        <div style={styles.statsGrid} className="partner-dashboard-stats">
           <div style={styles.statCard}>
             <div style={styles.statIcon}>
               <TrendingUp size={20} color={NEON_GREEN} />
@@ -217,7 +217,7 @@ export default function PartnerDashboard() {
           </div>
         </div>
 
-        <div style={styles.contentGrid}>
+        <div style={styles.contentGrid} className="partner-dashboard-grid">
           <div style={styles.section}>
             <div style={styles.sectionHeader}>
               <h2 style={styles.sectionTitle}>Recent Orders</h2>
@@ -380,7 +380,7 @@ export default function PartnerDashboard() {
 
             <div style={styles.section}>
               <h2 style={styles.sectionTitle}>Quick Actions</h2>
-              <div style={styles.quickActions}>
+              <div style={styles.quickActions} className="partner-quick-actions">
                 <Link href="/partner/orders/new" style={styles.quickAction}>
                   <ShoppingCart size={18} />
                   <span>New Order</span>
@@ -402,13 +402,29 @@ export default function PartnerDashboard() {
           </div>
         </div>
       </div>
+
+      <style jsx global>{`
+        @media (max-width: 1024px) {
+          .partner-dashboard-grid {
+            grid-template-columns: 1fr !important;
+          }
+        }
+        @media (max-width: 480px) {
+          .partner-dashboard-stats {
+            grid-template-columns: 1fr !important;
+          }
+          .partner-quick-actions {
+            grid-template-columns: 1fr !important;
+          }
+        }
+      `}</style>
     </PartnerLayout>
   );
 }
 
 const styles: Record<string, React.CSSProperties> = {
   page: {
-    padding: 32,
+    padding: 'clamp(16px, 4vw, 32px)',
     maxWidth: 1400,
     margin: '0 auto',
   },
@@ -433,7 +449,7 @@ const styles: Record<string, React.CSSProperties> = {
     gap: 16,
   },
   title: {
-    fontSize: 28,
+    fontSize: 'clamp(22px, 5vw, 28px)',
     fontWeight: 600,
     color: '#FFFFFF',
     margin: 0,
@@ -679,6 +695,7 @@ const styles: Record<string, React.CSSProperties> = {
     alignItems: 'center',
     gap: 10,
     padding: '14px 16px',
+    minHeight: 44,
     backgroundColor: CARD_BG,
     border: `1px solid ${CARD_BORDER}`,
     borderRadius: 8,

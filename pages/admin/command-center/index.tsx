@@ -539,9 +539,9 @@ export default function CommandCenterDashboard() {
   return (
     <CommandCenterLayout title="Dashboard">
       <div style={styles.container}>
-        <header style={styles.header}>
+        <header className="cc-header" style={styles.header}>
           <div>
-            <h1 style={styles.title}>MASTER COMMAND CENTER</h1>
+            <h1 className="cc-title" style={styles.title}>MASTER COMMAND CENTER</h1>
             <p style={styles.date}>{formatDate()}</p>
           </div>
           <div style={styles.liveIndicator}>
@@ -550,14 +550,14 @@ export default function CommandCenterDashboard() {
           </div>
         </header>
 
-        <section style={styles.kpiSection}>
+        <section className="cc-kpi-section" style={styles.kpiSection}>
           {kpiCards.map((card) => (
-            <div key={card.id} style={styles.kpiCard}>
+            <div key={card.id} className="cc-kpi-card" style={styles.kpiCard}>
               <div style={styles.kpiIcon}>{card.icon}</div>
               <div style={styles.kpiContent}>
                 <span style={styles.kpiLabel}>{card.label}</span>
                 <div style={styles.kpiValueRow}>
-                  <span style={styles.kpiValue}>{card.value}</span>
+                  <span className="cc-kpi-value" style={styles.kpiValue}>{card.value}</span>
                   {card.change && (
                     <span style={{
                       ...styles.kpiChange,
@@ -577,11 +577,11 @@ export default function CommandCenterDashboard() {
           ))}
         </section>
 
-        <div style={styles.twoColumnSection}>
-          <div style={styles.card}>
+        <div className="cc-two-column" style={styles.twoColumnSection}>
+          <div className="cc-card" style={styles.card}>
             <div style={styles.cardHeader}>
               <AlertTriangle size={18} color="#FF6B6B" />
-              <h2 style={styles.cardTitle}>Critical Alerts</h2>
+              <h2 className="cc-card-title" style={styles.cardTitle}>Critical Alerts</h2>
               <span style={styles.badge}>{criticalAlerts.length}</span>
             </div>
             <div style={styles.alertList}>
@@ -600,10 +600,10 @@ export default function CommandCenterDashboard() {
             </div>
           </div>
 
-          <div style={styles.card}>
+          <div className="cc-card" style={styles.card}>
             <div style={styles.cardHeader}>
               <Zap size={18} color={NEON_GREEN} />
-              <h2 style={styles.cardTitle}>Quick Stats</h2>
+              <h2 className="cc-card-title" style={styles.cardTitle}>Quick Stats</h2>
             </div>
             <div style={styles.statList}>
               {quickStats.map((stat) => (
@@ -617,11 +617,11 @@ export default function CommandCenterDashboard() {
           </div>
         </div>
 
-        <div style={styles.twoColumnSection}>
-          <div style={styles.card}>
+        <div className="cc-two-column" style={styles.twoColumnSection}>
+          <div className="cc-card" style={styles.card}>
             <div style={styles.cardHeader}>
               <MessageSquare size={18} color="#60A5FA" />
-              <h2 style={styles.cardTitle}>Messages</h2>
+              <h2 className="cc-card-title" style={styles.cardTitle}>Messages</h2>
               <a href="/admin/command-center/messages" style={styles.viewAllLink}>
                 View All <ArrowRight size={14} />
               </a>
@@ -658,10 +658,10 @@ export default function CommandCenterDashboard() {
             </div>
           </div>
 
-          <div style={styles.card}>
+          <div className="cc-card" style={styles.card}>
             <div style={styles.cardHeader}>
               <Lightbulb size={18} color="#FFB800" />
-              <h2 style={styles.cardTitle}>AI Recommendations</h2>
+              <h2 className="cc-card-title" style={styles.cardTitle}>AI Recommendations</h2>
             </div>
             <div style={styles.recommendationList}>
               {aiRecommendations.map((rec) => (
@@ -678,10 +678,10 @@ export default function CommandCenterDashboard() {
         </div>
 
         {/* Email Integration Widget */}
-        <div style={styles.card}>
+        <div className="cc-card" style={styles.card}>
           <div style={styles.cardHeader}>
             <Mail size={18} color="#60A5FA" />
-            <h2 style={styles.cardTitle}>Recent Emails (Gmail)</h2>
+            <h2 className="cc-card-title" style={styles.cardTitle}>Recent Emails (Gmail)</h2>
             <span style={styles.comingSoonBadge}>Coming Soon</span>
           </div>
           <div style={styles.emailContent}>
@@ -701,12 +701,12 @@ export default function CommandCenterDashboard() {
           </div>
         </div>
 
-        <div style={styles.card}>
+        <div className="cc-card" style={styles.card}>
           <div style={styles.cardHeader}>
             <TrendingUp size={18} color={NEON_GREEN} />
-            <h2 style={styles.cardTitle}>Revenue Trend (30 Days)</h2>
+            <h2 className="cc-card-title" style={styles.cardTitle}>Revenue Trend (30 Days)</h2>
           </div>
-          <div style={styles.chartContainer}>
+          <div className="cc-chart-container" style={styles.chartContainer}>
             <ResponsiveContainer width="100%" height={300}>
               <AreaChart data={revenueTrendData} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
                 <defs>
@@ -754,11 +754,11 @@ export default function CommandCenterDashboard() {
           </div>
         </div>
 
-        <div style={styles.twoColumnSection}>
-          <div style={styles.card}>
+        <div className="cc-two-column" style={styles.twoColumnSection}>
+          <div className="cc-card" style={styles.card}>
             <div style={styles.cardHeader}>
               <Factory size={18} color="#A78BFA" />
-              <h2 style={styles.cardTitle}>Production Pipeline</h2>
+              <h2 className="cc-card-title" style={styles.cardTitle}>Production Pipeline</h2>
             </div>
             <div style={styles.pipelineList}>
               {productionPipeline.map((batch) => (
@@ -790,10 +790,10 @@ export default function CommandCenterDashboard() {
             </div>
           </div>
 
-          <div style={styles.card}>
+          <div className="cc-card" style={styles.card}>
             <div style={styles.cardHeader}>
               <Briefcase size={18} color="#60A5FA" />
-              <h2 style={styles.cardTitle}>Top B2B Deals</h2>
+              <h2 className="cc-card-title" style={styles.cardTitle}>Top B2B Deals</h2>
             </div>
             <div style={styles.dealsList}>
               {topB2BDeals.map((deal) => (
@@ -817,10 +817,10 @@ export default function CommandCenterDashboard() {
           </div>
         </div>
 
-        <div style={styles.card}>
+        <div className="cc-card" style={styles.card}>
           <div style={styles.cardHeader}>
             <Clock size={18} color="rgba(255,255,255,0.6)" />
-            <h2 style={styles.cardTitle}>Recent Activity</h2>
+            <h2 className="cc-card-title" style={styles.cardTitle}>Recent Activity</h2>
           </div>
           <div style={styles.activityTimeline}>
             {recentActivity.map((item, index) => (
@@ -855,6 +855,90 @@ export default function CommandCenterDashboard() {
           }
           50% {
             opacity: 0.5;
+          }
+        }
+
+        .cc-header {
+          flex-wrap: wrap;
+          gap: 16px;
+        }
+
+        .cc-title {
+          font-size: clamp(20px, 5vw, 28px) !important;
+        }
+
+        .cc-kpi-section {
+          gap: clamp(12px, 2vw, 20px);
+          margin-bottom: clamp(16px, 4vw, 32px);
+        }
+
+        .cc-kpi-value {
+          font-size: clamp(18px, 4vw, 22px) !important;
+        }
+
+        .cc-two-column {
+          gap: clamp(16px, 3vw, 24px);
+          margin-bottom: clamp(16px, 3vw, 24px);
+        }
+
+        .cc-card {
+          padding: clamp(16px, 3vw, 24px);
+        }
+
+        .cc-card-title {
+          font-size: clamp(14px, 2vw, 16px) !important;
+        }
+
+        .cc-chart-container {
+          overflow-x: auto;
+          -webkit-overflow-scrolling: touch;
+        }
+
+        @media (max-width: 767px) {
+          .cc-header {
+            flex-direction: column;
+            align-items: flex-start;
+          }
+          
+          .cc-kpi-section {
+            grid-template-columns: 1fr !important;
+          }
+          
+          .cc-two-column {
+            grid-template-columns: 1fr !important;
+          }
+          
+          .cc-kpi-card {
+            padding: 16px !important;
+          }
+          
+          .cc-card {
+            padding: 16px !important;
+            margin-bottom: 16px !important;
+          }
+
+          .cc-chart-container {
+            min-width: 500px;
+          }
+        }
+
+        @media (min-width: 768px) and (max-width: 1023px) {
+          .cc-kpi-section {
+            grid-template-columns: repeat(2, 1fr) !important;
+          }
+          
+          .cc-two-column {
+            grid-template-columns: 1fr !important;
+          }
+        }
+
+        @media (min-width: 1024px) {
+          .cc-kpi-section {
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)) !important;
+          }
+          
+          .cc-two-column {
+            grid-template-columns: repeat(2, 1fr) !important;
           }
         }
       `}</style>
@@ -1396,8 +1480,10 @@ const styles: Record<string, React.CSSProperties> = {
   notifyButton: {
     display: 'flex',
     alignItems: 'center',
+    justifyContent: 'center',
     gap: 8,
     padding: '12px 24px',
+    minHeight: 44,
     backgroundColor: 'rgba(0, 255, 133, 0.1)',
     border: `1px solid ${NEON_GREEN}`,
     borderRadius: 12,
