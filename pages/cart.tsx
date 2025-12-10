@@ -92,7 +92,7 @@ export default function Cart() {
               <p className="empty-cart-tagline">
                 Your <span className="highlight">wellness love affair</span> starts with <span className="highlight">one irresistible sip</span>.
               </p>
-              <Link href="/products" className="empty-cart-btn">
+              <Link href="/smoothies" className="empty-cart-btn">
                 <span>Start Shopping</span>
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M5 12h14M12 5l7 7-7 7" />
