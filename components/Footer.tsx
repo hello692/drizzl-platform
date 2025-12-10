@@ -59,10 +59,10 @@ export default function Footer() {
               <Link href="/wholesale" className="footer-link">
                 Partner With Us
               </Link>
-              <Link href="/wholesale/pricing" className="footer-link">
+              <Link href="/wholesale#wholesale-pricing" className="footer-link">
                 Wholesale Pricing
               </Link>
-              <Link href="/auth?type=retail" className="footer-link">
+              <Link href="/wholesale#partner-portal" className="footer-link">
                 Partner Portal
               </Link>
             </div>

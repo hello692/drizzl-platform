@@ -35,8 +35,8 @@ const MENU_SECTIONS = [
     subtitle: 'Partner with us',
     items: [
       { name: 'Big Ideas? Let\'s Collaborate', href: '/wholesale' },
-      { name: 'Wholesale Pricing', href: '/wholesale/pricing' },
-      { name: 'Partner Portal', href: '/auth?type=retail' },
+      { name: 'Wholesale Pricing', href: '/wholesale#wholesale-pricing' },
+      { name: 'Partner Portal', href: '/wholesale#partner-portal' },
     ]
   },
   {
