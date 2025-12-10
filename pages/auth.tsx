@@ -477,6 +477,22 @@ export default function AuthPage() {
                     : (userType === 'customer' ? 'Create Account' : 'Create Partner Account')
                   )}
             </button>
+
+            {mode === 'signin' && (
+              <div style={{ textAlign: 'center', marginTop: '16px' }}>
+                <Link 
+                  href={userType === 'customer' ? '/account/forgot-password' : '/partner/forgot-password'}
+                  style={{ 
+                    fontSize: '14px', 
+                    color: 'rgba(255,255,255,0.6)', 
+                    textDecoration: 'none',
+                    transition: 'color 0.2s ease',
+                  }}
+                >
+                  Forgot your password?
+                </Link>
+              </div>
+            )}
           </form>
 
           <div style={{
