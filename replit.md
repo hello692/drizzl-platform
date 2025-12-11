@@ -111,4 +111,27 @@ Drizzl Wellness is a full-stack e-commerce platform for a smoothie and wellness 
 - **POS Integrations**: Square, Clover, Toast, Lightspeed, Shopify.
 - **DocuSign**: Agreement management for B2B partners.
 - **Google Calendar**: Meeting scheduling in the CRM.
-- **Resend**: Email notifications.
+- **Resend**: Email notifications (order confirmation, welcome, password reset, shipping updates).
+- **Stripe**: Payment processing via Stripe Checkout Sessions.
+
+## Production Deployment (December 11, 2025)
+
+### Completed Production Enhancements
+1. **Stripe Payment Integration**: Stripe Checkout Sessions with webhook handling, success/cancel pages
+2. **Resend Email System**: Transactional emails with beautiful branded templates
+3. **Admin Product CRUD**: Full product management at `/admin/products` (list, add, edit, delete)
+4. **Shop Database Connection**: `/shop-all` and collection pages fetch from Supabase with graceful fallbacks
+5. **Vercel Configuration**: Production-ready `next.config.ts` and `vercel.json` with security headers
+
+### Demo Credentials
+- Customer Portal: any email + password "customer123"
+- B2B Partner Portal: any email + password "partner123"  
+- Sales Rep Portal: any email + password "sales123"
+- Admin Portal: any email + password "admin123"
+
+### Required Vercel Environment Variables
+For Vercel deployment, add these secrets in Vercel project settings:
+- `NEXT_PUBLIC_SUPABASE_URL` - Supabase project URL
+- `NEXT_PUBLIC_SUPABASE_ANON_KEY` - Supabase anonymous key
+- `RESEND_API_KEY` - Resend API key for transactional emails
+- `RESEND_FROM_EMAIL` - Verified sender email for Resend

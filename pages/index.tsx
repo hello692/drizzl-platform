@@ -160,7 +160,8 @@ export default function Home() {
         const response = await fetch('/api/products?category=smoothie');
         if (response.ok) {
           const data = await response.json();
-          setFeaturedProducts(data.slice(0, 3));
+          const products = Array.isArray(data) ? data : (data?.products || []);
+          setFeaturedProducts(products.slice(0, 3));
         }
       } catch (err) {
         console.error('Error fetching products:', err);
