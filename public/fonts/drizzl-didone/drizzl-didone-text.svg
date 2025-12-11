@@ -1,0 +1,425 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  DRIZZL DIDONE TEXT
+  Optical size: 14-24px
+  Contrast ratio: 6:1 (thick:thin)
+  Purpose: Subtitles, paragraphs, body copy
+-->
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+  <defs>
+    <!-- Metrics: 1000 UPM, Cap height 700, x-height 420, Ascender 780, Descender -220 -->
+    <!-- Reduced contrast, softer serifs, wider letterspacing -->
+    
+    <!-- A - Softer apex, gentle brackets -->
+    <symbol id="ddt-A" viewBox="0 0 700 1000">
+      <path d="M350 100 
+        Q355 100 358 108
+        L620 780
+        Q625 792 630 800
+        L680 800
+        Q700 800 700 815
+        L680 830
+        Q650 830 620 830
+        L580 830
+        Q560 830 560 815
+        L480 560 L220 560 L140 815
+        Q140 830 120 830
+        L80 830
+        Q50 830 20 830
+        L0 815
+        Q0 800 20 800
+        L70 800
+        Q75 792 80 780
+        L342 108
+        Q345 100 350 100 Z
+        M240 520 L460 520 L350 200 L240 520 Z" fill="currentColor"/>
+    </symbol>
+    
+    <!-- B - Balanced bowls -->
+    <symbol id="ddt-B" viewBox="0 0 580 1000">
+      <path d="M80 100 L80 100
+        L320 100
+        Q440 100 500 155
+        Q560 210 560 280
+        Q560 350 520 400
+        Q490 440 440 460
+        Q510 485 550 540
+        Q590 600 590 670
+        Q590 750 530 800
+        Q470 850 350 850
+        L80 850 L80 100 Z
+        M150 140 L150 430 L300 430
+        Q390 430 440 390
+        Q490 350 490 290
+        Q490 230 445 190
+        Q400 150 310 150
+        L150 150 L150 140 Z
+        M150 470 L150 810 L340 810
+        Q450 810 495 765
+        Q520 740 520 680
+        Q520 620 480 575
+        Q440 530 340 520
+        L150 520 L150 470 Z" fill="currentColor"/>
+    </symbol>
+    
+    <!-- C - Open curve, softer terminals -->
+    <symbol id="ddt-C" viewBox="0 0 620 1000">
+      <path d="M540 230
+        Q500 155 430 115
+        Q360 75 290 75
+        Q170 75 105 165
+        Q40 255 40 450
+        Q40 645 105 735
+        Q170 825 290 825
+        Q375 825 450 775
+        Q525 725 560 635
+        L610 660
+        Q570 765 485 825
+        Q400 885 290 885
+        Q135 885 60 775
+        Q-15 665 -15 450
+        Q-15 235 60 125
+        Q135 15 290 15
+        Q395 15 480 70
+        Q560 120 600 220
+        L540 230 Z" fill="currentColor"/>
+    </symbol>
+    
+    <!-- D - Balanced bowl -->
+    <symbol id="ddt-D" viewBox="0 0 660 1000">
+      <path d="M80 100 L80 100
+        L300 100
+        Q500 100 590 210
+        Q680 320 680 460
+        Q680 600 590 710
+        Q500 820 300 850
+        L80 850 L80 100 Z
+        M150 140 L150 810 L285 810
+        Q445 810 520 715
+        Q595 620 595 460
+        Q595 300 520 205
+        Q445 110 285 110
+        L150 140 Z" fill="currentColor"/>
+    </symbol>
+    
+    <!-- E - Three bars, softer corners -->
+    <symbol id="ddt-E" viewBox="0 0 540 1000">
+      <path d="M80 100 L80 100
+        L500 100 L500 160
+        L150 160 L150 430
+        L440 430 L440 490
+        L150 490 L150 790
+        L510 790 L510 850
+        L80 850 L80 100 Z" fill="currentColor"/>
+    </symbol>
+    
+    <!-- F - E without bottom bar -->
+    <symbol id="ddt-F" viewBox="0 0 520 1000">
+      <path d="M80 100 L80 100
+        L480 100 L480 160
+        L150 160 L150 430
+        L420 430 L420 490
+        L150 490 L150 850
+        L80 850 L80 100 Z" fill="currentColor"/>
+    </symbol>
+    
+    <!-- G - C with spur -->
+    <symbol id="ddt-G" viewBox="0 0 680 1000">
+      <path d="M560 230
+        Q520 155 450 115
+        Q380 75 310 75
+        Q190 75 115 165
+        Q40 255 40 450
+        Q40 645 115 735
+        Q190 825 310 825
+        Q420 825 490 775
+        Q540 740 560 670
+        L560 530 L400 530 L400 470
+        L630 470 L630 700
+        Q590 790 500 840
+        Q410 890 310 890
+        Q155 890 75 780
+        Q-15 670 -15 450
+        Q-15 230 75 120
+        Q155 10 310 10
+        Q420 10 510 65
+        Q580 105 620 190
+        L560 230 Z" fill="currentColor"/>
+    </symbol>
+    
+    <!-- H - Two stems -->
+    <symbol id="ddt-H" viewBox="0 0 660 1000">
+      <path d="M80 100 L80 100
+        L150 100 L150 430
+        L510 430 L510 100
+        L580 100 L580 850
+        L510 850 L510 490
+        L150 490 L150 850
+        L80 850 L80 100 Z" fill="currentColor"/>
+    </symbol>
+    
+    <!-- I - Single stem -->
+    <symbol id="ddt-I" viewBox="0 0 260 1000">
+      <path d="M95 100 L95 100
+        L165 100 L165 850
+        L95 850 L95 100 Z
+        M30 100 L230 100 L230 145
+        L30 145 L30 100 Z
+        M30 850 L230 850 L230 805
+        L30 805 L30 850 Z" fill="currentColor"/>
+    </symbol>
+    
+    <!-- J - Descending hook -->
+    <symbol id="ddt-J" viewBox="0 0 380 1000">
+      <path d="M230 100 L230 100
+        L300 100 L300 650
+        Q300 755 250 810
+        Q200 865 135 865
+        Q85 865 50 840
+        Q15 815 15 775
+        L70 775
+        Q70 805 95 825
+        Q120 845 150 845
+        Q195 845 225 805
+        Q250 770 250 680
+        L250 100 L230 100 Z
+        M170 100 L360 100 L360 145
+        L170 145 L170 100 Z" fill="currentColor"/>
+    </symbol>
+    
+    <!-- K - Stem with diagonals -->
+    <symbol id="ddt-K" viewBox="0 0 640 1000">
+      <path d="M80 100 L80 100
+        L150 100 L150 420
+        L440 100 L530 100
+        L270 400 L560 780
+        Q565 790 575 800
+        L610 800 L610 850
+        L530 850
+        L250 470 L150 580
+        L150 850 L80 850
+        L80 100 Z" fill="currentColor"/>
+    </symbol>
+    
+    <!-- L - Stem with baseline -->
+    <symbol id="ddt-L" viewBox="0 0 500 1000">
+      <path d="M80 100 L80 100
+        L150 100 L150 790
+        L480 790 L480 850
+        L80 850 L80 100 Z" fill="currentColor"/>
+    </symbol>
+    
+    <!-- M - Double apex -->
+    <symbol id="ddt-M" viewBox="0 0 820 1000">
+      <path d="M80 100 L80 100
+        L175 100 L410 680 L645 100
+        L740 100 L740 850
+        L670 850 L670 200
+        L430 800 L390 800 L150 200
+        L150 850 L80 850
+        L80 100 Z" fill="currentColor"/>
+    </symbol>
+    
+    <!-- N - Diagonal stem -->
+    <symbol id="ddt-N" viewBox="0 0 660 1000">
+      <path d="M80 100 L80 100
+        L175 100 L510 720 L510 100
+        L580 100 L580 850
+        L485 850 L150 230 L150 850
+        L80 850 L80 100 Z" fill="currentColor"/>
+    </symbol>
+    
+    <!-- O - Oval with vertical stress -->
+    <symbol id="ddt-O" viewBox="0 0 700 1000">
+      <path d="M350 15
+        Q515 15 600 125
+        Q685 235 685 450
+        Q685 665 600 775
+        Q515 885 350 885
+        Q185 885 100 775
+        Q15 665 15 450
+        Q15 235 100 125
+        Q185 15 350 15 Z
+        M350 75
+        Q220 75 150 170
+        Q80 265 80 450
+        Q80 635 150 730
+        Q220 825 350 825
+        Q480 825 550 730
+        Q620 635 620 450
+        Q620 265 550 170
+        Q480 75 350 75 Z" fill="currentColor"/>
+    </symbol>
+    
+    <!-- P - Bowl with stem -->
+    <symbol id="ddt-P" viewBox="0 0 580 1000">
+      <path d="M80 100 L80 100
+        L320 100
+        Q465 100 530 170
+        Q595 240 595 340
+        Q595 440 530 510
+        Q465 580 320 600
+        L150 600 L150 850
+        L80 850 L80 100 Z
+        M150 140 L150 560 L305 560
+        Q415 560 470 505
+        Q525 450 525 350
+        Q525 250 470 195
+        Q415 140 305 140
+        L150 140 Z" fill="currentColor"/>
+    </symbol>
+    
+    <!-- Q - O with tail -->
+    <symbol id="ddt-Q" viewBox="0 0 720 1000">
+      <path d="M350 15
+        Q515 15 600 125
+        Q685 235 685 450
+        Q685 620 630 720
+        L710 850 L640 890
+        L560 760
+        Q490 825 350 825
+        Q185 825 100 715
+        Q15 605 15 400
+        Q15 195 100 105
+        Q185 15 350 15 Z
+        M350 75
+        Q220 75 150 155
+        Q80 235 80 410
+        Q80 585 150 665
+        Q220 765 350 765
+        Q450 765 510 710
+        L450 620 L490 580 L570 690
+        Q620 610 620 440
+        Q620 255 550 165
+        Q480 75 350 75 Z" fill="currentColor"/>
+    </symbol>
+    
+    <!-- R - P with leg -->
+    <symbol id="ddt-R" viewBox="0 0 620 1000">
+      <path d="M80 100 L80 100
+        L320 100
+        Q460 100 520 165
+        Q580 230 580 320
+        Q580 410 535 475
+        Q500 520 440 555
+        L590 800
+        Q600 815 620 820
+        L620 850 L540 850
+        L375 585 L150 585 L150 850
+        L80 850 L80 100 Z
+        M150 140 L150 545 L305 545
+        Q410 545 460 495
+        Q510 445 510 345
+        Q510 255 465 205
+        Q420 155 315 145
+        L150 145 L150 140 Z" fill="currentColor"/>
+    </symbol>
+    
+    <!-- S - Double curve -->
+    <symbol id="ddt-S" viewBox="0 0 540 1000">
+      <path d="M460 195
+        Q425 125 355 85
+        Q285 45 215 75
+        Q145 105 110 160
+        Q75 215 75 290
+        Q75 365 130 420
+        Q185 475 295 515
+        L365 540
+        Q455 570 495 625
+        Q535 680 535 760
+        Q535 850 465 900
+        Q395 950 285 920
+        Q195 895 135 835
+        L185 790
+        Q235 845 300 870
+        Q375 900 430 875
+        Q485 850 485 785
+        Q485 730 440 685
+        Q395 640 300 600
+        L230 575
+        Q140 545 95 485
+        Q50 425 50 350
+        Q50 265 100 200
+        Q150 135 220 100
+        Q310 60 400 95
+        Q475 125 525 190
+        L460 195 Z" fill="currentColor"/>
+    </symbol>
+    
+    <!-- T - Crossbar with stem -->
+    <symbol id="ddt-T" viewBox="0 0 580 1000">
+      <path d="M255 160 L255 160
+        L255 850 L325 850
+        L325 160 L560 160
+        L560 100 L20 100
+        L20 160 L255 160 Z" fill="currentColor"/>
+    </symbol>
+    
+    <!-- U - Open bottom -->
+    <symbol id="ddt-U" viewBox="0 0 660 1000">
+      <path d="M80 100 L80 100
+        L150 100 L150 580
+        Q150 690 210 750
+        Q270 810 330 810
+        Q390 810 450 750
+        Q510 690 510 580
+        L510 100 L580 100
+        L580 600
+        Q580 730 500 800
+        Q420 870 330 870
+        Q240 870 160 800
+        Q80 730 80 600
+        L80 100 Z" fill="currentColor"/>
+    </symbol>
+    
+    <!-- V - Inverted apex -->
+    <symbol id="ddt-V" viewBox="0 0 660 1000">
+      <path d="M30 100 L30 100
+        L105 100 L330 720 L555 100
+        L630 100
+        L365 850 L295 850
+        L30 100 Z" fill="currentColor"/>
+    </symbol>
+    
+    <!-- W - Double V -->
+    <symbol id="ddt-W" viewBox="0 0 900 1000">
+      <path d="M30 100 L30 100
+        L100 100 L225 680 L390 140
+        L460 140 L625 680 L750 100
+        L820 100
+        L670 850 L600 850 L435 290 L270 850
+        L200 850 L30 100 Z" fill="currentColor"/>
+    </symbol>
+    
+    <!-- X - Crossed diagonals -->
+    <symbol id="ddt-X" viewBox="0 0 620 1000">
+      <path d="M30 100 L30 100
+        L110 100 L310 420 L510 100
+        L590 100
+        L355 465 L610 850
+        L525 850 L310 510 L95 850
+        L10 850 L265 465
+        L30 100 Z" fill="currentColor"/>
+    </symbol>
+    
+    <!-- Y - V with descender -->
+    <symbol id="ddt-Y" viewBox="0 0 620 1000">
+      <path d="M30 100 L30 100
+        L110 100 L310 460 L510 100
+        L590 100
+        L345 530 L345 850
+        L275 850 L275 530
+        L30 100 Z" fill="currentColor"/>
+    </symbol>
+    
+    <!-- Z - Diagonal with bars -->
+    <symbol id="ddt-Z" viewBox="0 0 560 1000">
+      <path d="M50 100 L50 100
+        L530 100 L530 160
+        L130 790 L540 790
+        L540 850 L40 850
+        L40 790 L440 160
+        L50 160 L50 100 Z" fill="currentColor"/>
+    </symbol>
+  </defs>
+</svg>

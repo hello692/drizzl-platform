@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+  <defs>
+    <!-- DRIZZL DIDONE TYPEFACE - Uppercase A-Z -->
+    <!-- Design: High contrast Didone with hairline serifs, vertical stress -->
+    <!-- Units: 1000 UPM (units per em), baseline at y=800 -->
+    
+    <!-- A - Apex with hairline crossbar -->
+    <symbol id="dd-A" viewBox="0 0 720 1000">
+      <path d="M360 100 L40 800 L40 820 L100 820 L100 800 L180 800 L280 560 L440 560 L540 800 L620 800 L620 820 L680 820 L680 800 L360 100 Z M300 520 L360 340 L420 520 L300 520 Z" fill="currentColor"/>
+      <rect x="40" y="800" width="60" height="20" fill="currentColor"/>
+      <rect x="620" y="800" width="60" height="20" fill="currentColor"/>
+    </symbol>
+    
+    <!-- B - Bowl contrast with vertical stems -->
+    <symbol id="dd-B" viewBox="0 0 640 1000">
+      <path d="M80 100 L80 800 L380 800 C520 800 580 720 580 640 C580 560 540 500 460 480 C520 460 560 400 560 340 C560 240 500 100 360 100 L80 100 Z M160 140 L340 140 C440 140 480 200 480 280 C480 360 440 420 340 420 L160 420 L160 140 Z M160 460 L360 460 C480 460 500 540 500 620 C500 700 460 760 360 760 L160 760 L160 460 Z" fill="currentColor"/>
+      <rect x="40" y="100" width="120" height="16" fill="currentColor"/>
+      <rect x="40" y="800" width="120" height="16" fill="currentColor"/>
+    </symbol>
+    
+    <!-- C - Open bowl with terminal serifs -->
+    <symbol id="dd-C" viewBox="0 0 680 1000">
+      <path d="M580 240 C520 140 440 100 340 100 C160 100 60 260 60 450 C60 640 160 800 340 800 C440 800 520 760 580 660 L520 640 C480 720 420 760 340 760 C200 760 140 620 140 450 C140 280 200 140 340 140 C420 140 480 180 520 260 L580 240 Z" fill="currentColor"/>
+      <rect x="520" y="220" width="80" height="12" fill="currentColor"/>
+      <rect x="520" y="668" width="80" height="12" fill="currentColor"/>
+    </symbol>
+    
+    <!-- D - Bowl with vertical stress -->
+    <symbol id="dd-D" viewBox="0 0 700 1000">
+      <path d="M80 100 L80 800 L320 800 C540 800 640 620 640 450 C640 280 540 100 320 100 L80 100 Z M160 140 L300 140 C480 140 560 280 560 450 C560 620 480 760 300 760 L160 760 L160 140 Z" fill="currentColor"/>
+      <rect x="40" y="100" width="120" height="16" fill="currentColor"/>
+      <rect x="40" y="800" width="120" height="16" fill="currentColor"/>
+    </symbol>
+    
+    <!-- E - Horizontal hairlines with thick verticals -->
+    <symbol id="dd-E" viewBox="0 0 580 1000">
+      <path d="M80 100 L80 800 L520 800 L520 760 L160 760 L160 460 L460 460 L460 420 L160 420 L160 140 L520 140 L520 100 L80 100 Z" fill="currentColor"/>
+      <rect x="40" y="100" width="120" height="16" fill="currentColor"/>
+      <rect x="40" y="800" width="120" height="16" fill="currentColor"/>
+      <rect x="460" y="100" width="80" height="16" fill="currentColor"/>
+      <rect x="460" y="800" width="80" height="16" fill="currentColor"/>
+    </symbol>
+    
+    <!-- F - Like E without bottom bar -->
+    <symbol id="dd-F" viewBox="0 0 560 1000">
+      <path d="M80 100 L80 800 L160 800 L160 460 L440 460 L440 420 L160 420 L160 140 L500 140 L500 100 L80 100 Z" fill="currentColor"/>
+      <rect x="40" y="100" width="120" height="16" fill="currentColor"/>
+      <rect x="40" y="800" width="120" height="16" fill="currentColor"/>
+      <rect x="440" y="100" width="80" height="16" fill="currentColor"/>
+    </symbol>
+    
+    <!-- G - C with crossbar spur -->
+    <symbol id="dd-G" viewBox="0 0 720 1000">
+      <path d="M600 240 C540 140 460 100 360 100 C180 100 80 260 80 450 C80 640 180 800 360 800 C480 800 560 740 620 640 L620 480 L380 480 L380 520 L540 520 L540 620 C500 700 440 760 360 760 C220 760 160 620 160 450 C160 280 220 140 360 140 C440 140 500 180 540 260 L600 240 Z" fill="currentColor"/>
+      <rect x="540" y="220" width="80" height="12" fill="currentColor"/>
+    </symbol>
+    
+    <!-- H - Two verticals with hairline crossbar -->
+    <symbol id="dd-H" viewBox="0 0 720 1000">
+      <path d="M80 100 L80 800 L160 800 L160 460 L560 460 L560 800 L640 800 L640 100 L560 100 L560 420 L160 420 L160 100 L80 100 Z" fill="currentColor"/>
+      <rect x="40" y="100" width="120" height="16" fill="currentColor"/>
+      <rect x="40" y="800" width="120" height="16" fill="currentColor"/>
+      <rect x="560" y="100" width="120" height="16" fill="currentColor"/>
+      <rect x="560" y="800" width="120" height="16" fill="currentColor"/>
+    </symbol>
+    
+    <!-- I - Single stem with serifs -->
+    <symbol id="dd-I" viewBox="0 0 320 1000">
+      <path d="M120 100 L120 800 L200 800 L200 100 L120 100 Z" fill="currentColor"/>
+      <rect x="40" y="100" width="240" height="16" fill="currentColor"/>
+      <rect x="40" y="800" width="240" height="16" fill="currentColor"/>
+    </symbol>
+    
+    <!-- J - Descending hook -->
+    <symbol id="dd-J" viewBox="0 0 480 1000">
+      <path d="M320 100 L320 640 C320 740 260 800 160 800 C100 800 60 780 40 740 L80 720 C100 760 120 780 160 780 C220 780 240 740 240 660 L240 100 L320 100 Z" fill="currentColor"/>
+      <rect x="160" y="100" width="240" height="16" fill="currentColor"/>
+    </symbol>
+    
+    <!-- K - Diagonal arms with contrast -->
+    <symbol id="dd-K" viewBox="0 0 680 1000">
+      <path d="M80 100 L80 800 L160 800 L160 480 L440 100 L540 100 L280 440 L560 800 L640 800 L340 420 L160 420 L160 100 L80 100 Z" fill="currentColor"/>
+      <rect x="40" y="100" width="120" height="16" fill="currentColor"/>
+      <rect x="40" y="800" width="120" height="16" fill="currentColor"/>
+      <rect x="480" y="100" width="80" height="16" fill="currentColor"/>
+      <rect x="580" y="800" width="80" height="16" fill="currentColor"/>
+    </symbol>
+    
+    <!-- L - Vertical with baseline -->
+    <symbol id="dd-L" viewBox="0 0 560 1000">
+      <path d="M80 100 L80 800 L500 800 L500 760 L160 760 L160 100 L80 100 Z" fill="currentColor"/>
+      <rect x="40" y="100" width="120" height="16" fill="currentColor"/>
+      <rect x="440" y="800" width="80" height="16" fill="currentColor"/>
+    </symbol>
+    
+    <!-- M - Double apex with hairline junctions -->
+    <symbol id="dd-M" viewBox="0 0 880 1000">
+      <path d="M80 100 L80 800 L160 800 L160 200 L400 600 L440 600 L680 200 L680 800 L760 800 L760 100 L680 100 L420 520 L160 100 L80 100 Z" fill="currentColor"/>
+      <rect x="40" y="100" width="120" height="16" fill="currentColor"/>
+      <rect x="40" y="800" width="120" height="16" fill="currentColor"/>
+      <rect x="720" y="100" width="120" height="16" fill="currentColor"/>
+      <rect x="720" y="800" width="120" height="16" fill="currentColor"/>
+    </symbol>
+    
+    <!-- N - Diagonal with thick verticals -->
+    <symbol id="dd-N" viewBox="0 0 720 1000">
+      <path d="M80 100 L80 800 L160 800 L160 240 L560 800 L640 800 L640 100 L560 100 L560 660 L160 100 L80 100 Z" fill="currentColor"/>
+      <rect x="40" y="100" width="120" height="16" fill="currentColor"/>
+      <rect x="40" y="800" width="120" height="16" fill="currentColor"/>
+      <rect x="560" y="100" width="120" height="16" fill="currentColor"/>
+      <rect x="560" y="800" width="120" height="16" fill="currentColor"/>
+    </symbol>
+    
+    <!-- O - Perfect oval with vertical stress -->
+    <symbol id="dd-O" viewBox="0 0 740 1000">
+      <path d="M370 100 C160 100 60 260 60 450 C60 640 160 800 370 800 C580 800 680 640 680 450 C680 260 580 100 370 100 Z M370 140 C520 140 600 280 600 450 C600 620 520 760 370 760 C220 760 140 620 140 450 C140 280 220 140 370 140 Z" fill="currentColor"/>
+    </symbol>
+    
+    <!-- P - Bowl with stem -->
+    <symbol id="dd-P" viewBox="0 0 620 1000">
+      <path d="M80 100 L80 800 L160 800 L160 480 L340 480 C520 480 580 360 580 280 C580 180 500 100 340 100 L80 100 Z M160 140 L320 140 C440 140 500 200 500 280 C500 360 440 440 320 440 L160 440 L160 140 Z" fill="currentColor"/>
+      <rect x="40" y="100" width="120" height="16" fill="currentColor"/>
+      <rect x="40" y="800" width="120" height="16" fill="currentColor"/>
+    </symbol>
+    
+    <!-- Q - O with tail -->
+    <symbol id="dd-Q" viewBox="0 0 740 1000">
+      <path d="M370 100 C160 100 60 260 60 450 C60 600 120 720 240 780 L160 880 L200 900 L300 780 C320 790 340 800 370 800 C580 800 680 640 680 450 C680 260 580 100 370 100 Z M370 140 C520 140 600 280 600 450 C600 620 520 760 370 760 C220 760 140 620 140 450 C140 280 220 140 370 140 Z" fill="currentColor"/>
+    </symbol>
+    
+    <!-- R - P with leg -->
+    <symbol id="dd-R" viewBox="0 0 680 1000">
+      <path d="M80 100 L80 800 L160 800 L160 480 L320 480 L500 800 L600 800 L400 460 C520 420 560 340 560 280 C560 180 480 100 320 100 L80 100 Z M160 140 L300 140 C420 140 480 200 480 280 C480 360 420 440 300 440 L160 440 L160 140 Z" fill="currentColor"/>
+      <rect x="40" y="100" width="120" height="16" fill="currentColor"/>
+      <rect x="40" y="800" width="120" height="16" fill="currentColor"/>
+      <rect x="540" y="800" width="80" height="16" fill="currentColor"/>
+    </symbol>
+    
+    <!-- S - Double curve spine -->
+    <symbol id="dd-S" viewBox="0 0 600 1000">
+      <path d="M500 220 C460 140 380 100 280 100 C140 100 60 180 60 280 C60 380 120 440 260 480 L340 500 C440 520 480 560 480 640 C480 720 420 760 320 760 C220 760 160 720 120 640 L60 660 C100 760 200 800 320 800 C480 800 560 720 560 620 C560 520 500 460 360 420 L280 400 C180 380 140 340 140 280 C140 200 200 140 300 140 C380 140 440 180 480 240 L500 220 Z" fill="currentColor"/>
+      <rect x="440" y="208" width="80" height="12" fill="currentColor"/>
+      <rect x="60" y="680" width="80" height="12" fill="currentColor"/>
+    </symbol>
+    
+    <!-- T - Crossbar with central stem -->
+    <symbol id="dd-T" viewBox="0 0 640 1000">
+      <path d="M280 140 L280 800 L360 800 L360 140 L600 140 L600 100 L40 100 L40 140 L280 140 Z" fill="currentColor"/>
+      <rect x="40" y="100" width="80" height="16" fill="currentColor"/>
+      <rect x="520" y="100" width="80" height="16" fill="currentColor"/>
+      <rect x="240" y="800" width="160" height="16" fill="currentColor"/>
+    </symbol>
+    
+    <!-- U - Open base with stems -->
+    <symbol id="dd-U" viewBox="0 0 720 1000">
+      <path d="M80 100 L80 560 C80 720 180 800 360 800 C540 800 640 720 640 560 L640 100 L560 100 L560 560 C560 680 500 760 360 760 C220 760 160 680 160 560 L160 100 L80 100 Z" fill="currentColor"/>
+      <rect x="40" y="100" width="120" height="16" fill="currentColor"/>
+      <rect x="560" y="100" width="120" height="16" fill="currentColor"/>
+    </symbol>
+    
+    <!-- V - Inverted apex -->
+    <symbol id="dd-V" viewBox="0 0 700 1000">
+      <path d="M40 100 L40 120 L100 120 L320 700 L380 700 L600 120 L660 120 L660 100 L380 800 L320 800 L40 100 Z" fill="currentColor"/>
+      <rect x="40" y="100" width="80" height="16" fill="currentColor"/>
+      <rect x="580" y="100" width="80" height="16" fill="currentColor"/>
+    </symbol>
+    
+    <!-- W - Double V -->
+    <symbol id="dd-W" viewBox="0 0 960 1000">
+      <path d="M40 100 L40 120 L100 120 L220 700 L280 700 L440 200 L600 700 L660 700 L780 120 L840 120 L840 100 L660 800 L600 800 L440 300 L280 800 L220 800 L40 100 Z" fill="currentColor"/>
+      <rect x="40" y="100" width="80" height="16" fill="currentColor"/>
+      <rect x="840" y="100" width="80" height="16" fill="currentColor"/>
+    </symbol>
+    
+    <!-- X - Crossed diagonals -->
+    <symbol id="dd-X" viewBox="0 0 680 1000">
+      <path d="M40 100 L40 120 L100 120 L300 400 L100 700 L40 700 L40 720 L100 800 L160 800 L340 500 L520 800 L580 800 L640 720 L640 700 L580 700 L380 400 L580 120 L640 120 L640 100 L580 100 L340 380 L100 100 L40 100 Z" fill="currentColor"/>
+      <rect x="40" y="100" width="80" height="16" fill="currentColor"/>
+      <rect x="560" y="100" width="80" height="16" fill="currentColor"/>
+      <rect x="40" y="800" width="80" height="16" fill="currentColor"/>
+      <rect x="560" y="800" width="80" height="16" fill="currentColor"/>
+    </symbol>
+    
+    <!-- Y - V with descending stem -->
+    <symbol id="dd-Y" viewBox="0 0 680 1000">
+      <path d="M40 100 L40 120 L100 120 L300 400 L300 800 L380 800 L380 400 L580 120 L640 120 L640 100 L580 100 L340 380 L100 100 L40 100 Z" fill="currentColor"/>
+      <rect x="40" y="100" width="80" height="16" fill="currentColor"/>
+      <rect x="560" y="100" width="80" height="16" fill="currentColor"/>
+      <rect x="260" y="800" width="160" height="16" fill="currentColor"/>
+    </symbol>
+    
+    <!-- Z - Diagonal with horizontals -->
+    <symbol id="dd-Z" viewBox="0 0 620 1000">
+      <path d="M60 100 L60 140 L460 140 L60 760 L60 800 L560 800 L560 760 L160 760 L560 140 L560 100 L60 100 Z" fill="currentColor"/>
+      <rect x="60" y="100" width="80" height="16" fill="currentColor"/>
+      <rect x="480" y="100" width="80" height="16" fill="currentColor"/>
+      <rect x="60" y="800" width="80" height="16" fill="currentColor"/>
+      <rect x="480" y="800" width="80" height="16" fill="currentColor"/>
+    </symbol>
+  </defs>
+</svg>
