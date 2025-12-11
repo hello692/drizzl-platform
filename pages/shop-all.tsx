@@ -1,9 +1,17 @@
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
-const allProducts = [
+interface Product {
+  id: string;
+  name: string;
+  price: number;
+  category: string;
+  image: string;
+}
+
+const fallbackProducts: Product[] = [
   { id: '1', name: 'Strawberry + Peach', price: 8.49, category: 'Smoothie', image: '/products/strawberry-peach/gallery-1.png' },
   { id: '9', name: 'Pink Piyata', price: 8.99, category: 'Smoothie', image: '/products/pink-piyata/gallery-1.jpg' },
   { id: '10', name: 'Matcha', price: 9.49, category: 'Smoothie', image: '/products/matcha/gallery-1.jpg' },
@@ -17,13 +25,109 @@ const allProducts = [
 const categories = ['All', 'Smoothie', 'Box'];
 const sortOptions = ['Featured', 'Price: Low to High', 'Price: High to Low', 'Name: A-Z'];
 
+function ProductSkeleton() {
+  return (
+    <div className="product-card skeleton">
+      <div className="product-image-wrapper skeleton-image"></div>
+      <div className="product-info">
+        <div className="skeleton-text skeleton-title"></div>
+        <div className="skeleton-text skeleton-category"></div>
+        <div className="product-footer">
+          <div className="skeleton-text skeleton-price"></div>
+          <div className="skeleton-button"></div>
+        </div>
+      </div>
+      <style jsx>{`
+        .product-card.skeleton {
+          background: #161616;
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          border-radius: 12px;
+          overflow: hidden;
+        }
+        .skeleton-image {
+          width: 100%;
+          padding-bottom: 100%;
+          background: linear-gradient(90deg, #1a1a1a 25%, #252525 50%, #1a1a1a 75%);
+          background-size: 200% 100%;
+          animation: shimmer 1.5s infinite;
+        }
+        .skeleton-text {
+          background: linear-gradient(90deg, #1a1a1a 25%, #252525 50%, #1a1a1a 75%);
+          background-size: 200% 100%;
+          animation: shimmer 1.5s infinite;
+          border-radius: 4px;
+        }
+        .skeleton-title {
+          height: 20px;
+          width: 80%;
+          margin-bottom: 8px;
+        }
+        .skeleton-category {
+          height: 14px;
+          width: 50%;
+          margin-bottom: 12px;
+        }
+        .skeleton-price {
+          height: 20px;
+          width: 60px;
+        }
+        .skeleton-button {
+          height: 44px;
+          width: 60px;
+          background: linear-gradient(90deg, #1a1a1a 25%, #252525 50%, #1a1a1a 75%);
+          background-size: 200% 100%;
+          animation: shimmer 1.5s infinite;
+          border-radius: 8px;
+        }
+        @keyframes shimmer {
+          0% { background-position: 200% 0; }
+          100% { background-position: -200% 0; }
+        }
+      `}</style>
+    </div>
+  );
+}
+
 export default function ShopAll() {
+  const [products, setProducts] = useState<Product[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [sortBy, setSortBy] = useState('Featured');
   const [searchQuery, setSearchQuery] = useState('');
   const [filtersOpen, setFiltersOpen] = useState(false);
 
-  const filteredProducts = allProducts
+  useEffect(() => {
+    async function fetchProducts() {
+      setLoading(true);
+      setError(null);
+      
+      try {
+        const response = await fetch('/api/products');
+        const data = await response.json();
+        
+        if (data.error) {
+          console.warn('API returned error, using fallback data:', data.error);
+          setProducts(fallbackProducts);
+          setError(null);
+        } else if (data.products && data.products.length > 0) {
+          setProducts(data.products);
+        } else {
+          setProducts(fallbackProducts);
+        }
+      } catch (err) {
+        console.error('Failed to fetch products:', err);
+        setProducts(fallbackProducts);
+        setError(null);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchProducts();
+  }, []);
+
+  const filteredProducts = products
     .filter(p => selectedCategory === 'All' || p.category === selectedCategory)
     .filter(p => p.name.toLowerCase().includes(searchQuery.toLowerCase()))
     .sort((a, b) => {
@@ -126,37 +230,45 @@ export default function ShopAll() {
           )}
 
           <div className="products-count">
-            {filteredProducts.length} product{filteredProducts.length !== 1 ? 's' : ''}
+            {loading ? 'Loading...' : `${filteredProducts.length} product${filteredProducts.length !== 1 ? 's' : ''}`}
           </div>
 
-          <div className="products-grid">
-            {filteredProducts.map(p => (
-              <div key={p.id} className="product-card">
-                <Link href={`/products/${p.id}`} className="product-image-link">
-                  <div className="product-image-wrapper">
-                    <img 
-                      src={p.image} 
-                      alt={p.name}
-                      className="product-image"
-                      loading="lazy"
-                    />
-                  </div>
-                </Link>
-                <div className="product-info">
-                  <Link href={`/products/${p.id}`}>
-                    <h3 className="product-name">{p.name}</h3>
+          {loading ? (
+            <div className="products-grid">
+              {[...Array(8)].map((_, i) => (
+                <ProductSkeleton key={i} />
+              ))}
+            </div>
+          ) : (
+            <div className="products-grid">
+              {filteredProducts.map(p => (
+                <div key={p.id} className="product-card">
+                  <Link href={`/products/${p.id}`} className="product-image-link">
+                    <div className="product-image-wrapper">
+                      <img 
+                        src={p.image} 
+                        alt={p.name}
+                        className="product-image"
+                        loading="lazy"
+                      />
+                    </div>
                   </Link>
-                  <p className="product-category">{p.category}</p>
-                  <div className="product-footer">
-                    <span className="product-price">${p.price.toFixed(2)}</span>
-                    <button className="add-to-cart-btn">Add</button>
+                  <div className="product-info">
+                    <Link href={`/products/${p.id}`}>
+                      <h3 className="product-name">{p.name}</h3>
+                    </Link>
+                    <p className="product-category">{p.category}</p>
+                    <div className="product-footer">
+                      <span className="product-price">${p.price.toFixed(2)}</span>
+                      <button className="add-to-cart-btn">Add</button>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
 
-          {filteredProducts.length === 0 && (
+          {!loading && filteredProducts.length === 0 && (
             <div className="no-results">
               <p>No products found matching your criteria.</p>
               <button onClick={() => { setSearchQuery(''); setSelectedCategory('All'); }}>

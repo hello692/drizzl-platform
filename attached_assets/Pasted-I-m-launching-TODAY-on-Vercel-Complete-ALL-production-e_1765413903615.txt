@@ -1,0 +1,115 @@
+I'm launching TODAY on Vercel. Complete ALL production enhancements NOW - no demo mode, fully functional billion-dollar platform.
+
+Execute these 4 tasks IN ORDER, do not stop until complete:
+
+---
+
+## 🔥 TASK 1: SUPABASE DATABASE CONNECTION FOR ALL PRODUCTS
+
+1. Create/verify these Supabase tables exist:
+   - products (id, name, description, price, images, category, stock, vendor_id, status, created_at)
+   - categories (id, name, slug, image, parent_id)
+   - orders (id, user_id, items, total, status, shipping_address, created_at)
+   - order_items (id, order_id, product_id, quantity, price)
+   - users (id, email, name, role, avatar, created_at)
+   - vendors (id, user_id, store_name, logo, description, status)
+   
+2. Replace ALL hardcoded product data with Supabase queries
+3. Connect shop page, product pages, search, and categories to real database
+4. Ensure cart saves to database for logged-in users
+5. Orders save to database on checkout completion
+
+Show me the Supabase connection code and confirm each table is created.
+
+---
+
+## 🔥 TASK 2: FULL ADMIN PRODUCT MANAGEMENT CRUD
+
+In the admin dashboard, build complete product management:
+
+1. **Products List Page** (/admin/products)
+   - Table showing all products from Supabase
+   - Search and filter by category/status
+   - Bulk actions (delete, change status)
+
+2. **Add Product Page** (/admin/products/new)
+   - Form: name, description, price, compare price, cost
+   - Image upload (multiple images)
+   - Category selection (dropdown from categories table)
+   - Inventory/stock quantity
+   - Status (draft/published)
+   - Vendor assignment
+   - SEO fields (meta title, description)
+   - Save to Supabase on submit
+
+3. **Edit Product Page** (/admin/products/[id]/edit)
+   - Pre-populated form with existing data
+   - Update Supabase on save
+   - Delete product option
+
+4. **Category Management** (/admin/categories)
+   - Add/edit/delete categories
+   - Assign parent categories
+   - Category images
+
+5. **Connect to frontend:**
+   - Products created in admin appear on shop instantly
+   - Edits reflect in real-time
+   - Deleted products removed from shop
+
+---
+
+## 🔥 TASK 3: STRIPE PAYMENT INTEGRATION
+
+1. Install Stripe: npm install stripe @stripe/stripe-js @stripe/react-stripe-js
+
+2. Create environment variables:
+   - STRIPE_SECRET_KEY
+   - NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
+   - STRIPE_WEBHOOK_SECRET
+
+3. Create API routes:
+   - /api/checkout/create-session (creates Stripe checkout session)
+   - /api/webhooks/stripe (handles payment confirmation)
+
+4. Update checkout flow:
+   - Cart → Shipping Info → Stripe Checkout → Order Confirmation
+   - On successful payment: create order in Supabase, clear cart, send confirmation
+
+5. Add to admin dashboard:
+   - Orders page showing paid orders
+   - Order status management
+   - Revenue dashboard widget
+
+---
+
+## 🔥 TASK 4: EMAIL SYSTEM SETUP
+
+1. Install Resend: npm install resend
+   (or use Nodemailer with SMTP)
+
+2. Create environment variable:
+   - RESEND_API_KEY
+
+3. Create email templates:
+   - Order confirmation email
+   - Password reset email
+   - Welcome email on signup
+   - Shipping update email
+
+4. Create API routes:
+   - /api/email/send-order-confirmation
+   - /api/email/send-password-reset
+
+5. Connect to flows:
+   - After successful Stripe payment → send order confirmation
+   - Password reset request → send reset link
+   - New user signup → send welcome email
+
+---
+
+## 🔥 TASK 5: VERCEL DEPLOYMENT PREP
+
+1. Create/update vercel.json if needed
+
+2. Verify all environment variables are listed:
