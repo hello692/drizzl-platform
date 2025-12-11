@@ -9,11 +9,14 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@stripe/react-stripe-js": "^5.4.1",
+    "@stripe/stripe-js": "^8.5.3",
     "@supabase/supabase-js": "^2.86.0",
     "@types/bcryptjs": "^2.4.6",
     "bcryptjs": "^3.0.3",
     "googleapis": "^167.0.0",
     "lucide-react": "^0.556.0",
+    "micro": "^10.0.1",
     "next": "^15.2.3",
     "next-intl": "^4.5.7",
     "openai": "^6.9.1",
@@ -21,6 +24,7 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "recharts": "^3.5.1",
+    "stripe-replit-sync": "^1.0.0",
     "tailwindcss": "^4.0.15"
   },
   "devDependencies": {
