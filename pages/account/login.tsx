@@ -149,6 +149,7 @@ export default function CustomerLogin() {
                   placeholder="Enter your password"
                   style={styles.input}
                   required
+                  autoComplete="current-password"
                 />
               </div>
             </div>

@@ -4,6 +4,8 @@ import { useState, useEffect, useRef } from 'react';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import SmoothieCard from '../../components/SmoothieCard';
+import { useCart } from '../../hooks/useCart';
+import { useAuth } from '../../hooks/useAuth';
 
 // Apple-inspired design tokens (light theme - monochrome)
 const apple = {
@@ -539,6 +541,11 @@ export default function ProductPage() {
   const productData = PRODUCT_DATA[productId];
   const product = POPULAR_SMOOTHIES.find(p => p.id === productId);
   
+  const { user } = useAuth();
+  const { addItem } = useCart(user?.id);
+  const [isAddingToCart, setIsAddingToCart] = useState(false);
+  const [addedToCart, setAddedToCart] = useState(false);
+  
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [openSections, setOpenSections] = useState({
     description: false,
@@ -557,6 +564,25 @@ export default function ProductPage() {
     nutrition: false,
     delivery: false,
   });
+
+  const handleAddToCart = async () => {
+    if (!productData || isAddingToCart) return;
+    setIsAddingToCart(true);
+    try {
+      await addItem(productId, 1, {
+        id: productId,
+        name: productData.name,
+        price: productData.price,
+        image_url: productData.image,
+      });
+      setAddedToCart(true);
+      setTimeout(() => setAddedToCart(false), 2000);
+    } catch (error) {
+      console.error('Failed to add to cart:', error);
+    } finally {
+      setIsAddingToCart(false);
+    }
+  };
 
   const toggleSection = (section: keyof typeof openSections) => {
     setOpenSections(prev => ({ ...prev, [section]: !prev[section] }));
@@ -718,20 +744,24 @@ export default function ProductPage() {
               ({productData.rating.count.toLocaleString()} reviews)
             </span>
           </div>
-          <button style={{
-            width: '100%',
-            padding: '16px 32px',
-            backgroundColor: apple.accent,
-            color: '#ffffff',
-            fontSize: '18px',
-            fontWeight: '500',
-            border: 'none',
-            borderRadius: '980px',
-            cursor: 'pointer',
-            transition: 'background-color 0.2s',
-            marginBottom: '16px',
-          }}>
-            Add to Cart
+          <button 
+            onClick={handleAddToCart}
+            disabled={isAddingToCart}
+            style={{
+              width: '100%',
+              padding: '16px 32px',
+              backgroundColor: addedToCart ? '#22c55e' : apple.accent,
+              color: '#ffffff',
+              fontSize: '18px',
+              fontWeight: '500',
+              border: 'none',
+              borderRadius: '980px',
+              cursor: isAddingToCart ? 'wait' : 'pointer',
+              transition: 'background-color 0.2s',
+              marginBottom: '16px',
+              opacity: isAddingToCart ? 0.7 : 1,
+            }}>
+            {isAddingToCart ? 'Adding...' : addedToCart ? '✓ Added to Cart' : 'Add to Cart'}
           </button>
           <Link href="/collections/smoothies" style={{
             display: 'block',
@@ -831,7 +861,14 @@ export default function ProductPage() {
               <span className="lv-review-count">({productData.rating.count.toLocaleString()} reviews)</span>
             </div>
 
-            <button className="lv-add-to-cart">Add to Cart</button>
+            <button 
+              className={`lv-add-to-cart ${addedToCart ? 'added' : ''}`}
+              onClick={handleAddToCart}
+              disabled={isAddingToCart}
+              style={{ opacity: isAddingToCart ? 0.7 : 1, cursor: isAddingToCart ? 'wait' : 'pointer' }}
+            >
+              {isAddingToCart ? 'Adding...' : addedToCart ? '✓ Added to Cart' : 'Add to Cart'}
+            </button>
             
             <Link href="/collections/smoothies" className="lv-view-all">
               View all smoothies →

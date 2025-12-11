@@ -54,13 +54,13 @@ export async function getLowStockProducts(): Promise<Product[]> {
     .eq('is_active', true);
   
   if (error || !data) return [];
-  return data.filter(p => p.stock_quantity <= p.low_stock_threshold);
+  return (data as Product[]).filter(p => p.stock_quantity <= p.low_stock_threshold);
 }
 
 export async function updateProductStock(productId: string, quantity: number): Promise<boolean> {
   const { error } = await supabase
     .from('products')
-    .update({ stock_quantity: quantity })
+    .update({ stock_quantity: quantity } as Partial<Product>)
     .eq('id', productId);
   
   return !error;

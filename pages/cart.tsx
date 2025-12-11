@@ -9,6 +9,43 @@ export default function Cart() {
   const { user } = useAuth();
   const { items, total, loading, removeItem, updateQuantity, clear } = useCart(user?.id);
   const [isCheckingOut, setIsCheckingOut] = useState(false);
+  const [updatingItems, setUpdatingItems] = useState<Set<string>>(new Set());
+  const [isClearing, setIsClearing] = useState(false);
+
+  const handleUpdateQuantity = async (itemId: string, newQuantity: number) => {
+    setUpdatingItems(prev => new Set(prev).add(itemId));
+    try {
+      await updateQuantity(itemId, newQuantity);
+    } finally {
+      setUpdatingItems(prev => {
+        const next = new Set(prev);
+        next.delete(itemId);
+        return next;
+      });
+    }
+  };
+
+  const handleRemoveItem = async (itemId: string) => {
+    setUpdatingItems(prev => new Set(prev).add(itemId));
+    try {
+      await removeItem(itemId);
+    } finally {
+      setUpdatingItems(prev => {
+        const next = new Set(prev);
+        next.delete(itemId);
+        return next;
+      });
+    }
+  };
+
+  const handleClear = async () => {
+    setIsClearing(true);
+    try {
+      await clear();
+    } finally {
+      setIsClearing(false);
+    }
+  };
 
   const handleCheckout = async () => {
     if (items.length === 0) return;
@@ -117,25 +154,30 @@ export default function Cart() {
                     <p className="cart-item-price">${item.product?.price}</p>
                     <div className="cart-item-controls">
                       <button
-                        onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                        onClick={() => handleUpdateQuantity(item.id, item.quantity - 1)}
                         className="cart-qty-btn"
                         aria-label="Decrease quantity"
+                        disabled={updatingItems.has(item.id)}
+                        style={{ opacity: updatingItems.has(item.id) ? 0.5 : 1 }}
                       >
                         −
                       </button>
                       <span className="cart-qty-value">{item.quantity}</span>
                       <button
-                        onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                        onClick={() => handleUpdateQuantity(item.id, item.quantity + 1)}
                         className="cart-qty-btn"
                         aria-label="Increase quantity"
+                        disabled={updatingItems.has(item.id)}
+                        style={{ opacity: updatingItems.has(item.id) ? 0.5 : 1 }}
                       >
                         +
                       </button>
                       <button
-                        onClick={() => removeItem(item.id)}
+                        onClick={() => handleRemoveItem(item.id)}
                         className="cart-remove-btn"
+                        disabled={updatingItems.has(item.id)}
                       >
-                        Remove
+                        {updatingItems.has(item.id) ? 'Removing...' : 'Remove'}
                       </button>
                     </div>
                   </div>
@@ -161,10 +203,11 @@ export default function Cart() {
                 {isCheckingOut ? 'Processing...' : user ? 'Checkout' : 'Sign in to Checkout'}
               </button>
               <button
-                onClick={() => clear()}
+                onClick={handleClear}
                 className="cart-clear-btn"
+                disabled={isClearing}
               >
-                Clear Cart
+                {isClearing ? 'Clearing...' : 'Clear Cart'}
               </button>
             </div>
           </div>

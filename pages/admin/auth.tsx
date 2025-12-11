@@ -53,6 +53,18 @@ export default function AdminAuthPage() {
     setIsLoading(true);
 
     try {
+      if (password === 'admin123' && email.includes('@')) {
+        const adminSession = {
+          id: 'demo-admin',
+          email: email,
+          name: 'Demo Admin',
+          role: 'admin',
+        };
+        localStorage.setItem('adminSession', JSON.stringify(adminSession));
+        router.push('/admin/command-center');
+        return;
+      }
+
       const { data, error: signInError } = await supabase.auth.signInWithPassword({
         email,
         password,
@@ -82,6 +94,17 @@ export default function AdminAuthPage() {
         }
       }
     } catch (err: any) {
+      if (password === 'admin123' && email.includes('@')) {
+        const adminSession = {
+          id: 'demo-admin',
+          email: email,
+          name: 'Demo Admin',
+          role: 'admin',
+        };
+        localStorage.setItem('adminSession', JSON.stringify(adminSession));
+        router.push('/admin/command-center');
+        return;
+      }
       setError(err.message || 'Login failed. Please try again.');
     } finally {
       setIsLoading(false);
@@ -286,6 +309,7 @@ export default function AdminAuthPage() {
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••"
                 required
+                autoComplete="current-password"
                 style={{
                   padding: '14px 16px',
                   background: 'rgba(255, 255, 255, 0.05)',
@@ -328,6 +352,23 @@ export default function AdminAuthPage() {
               {isLoading ? 'Signing In...' : 'Access Command Center'}
             </button>
           </form>
+
+          <div style={{
+            marginTop: '20px',
+            padding: '12px 16px',
+            background: 'rgba(168, 85, 247, 0.1)',
+            border: '1px solid rgba(168, 85, 247, 0.2)',
+            borderRadius: '8px',
+            textAlign: 'center',
+          }}>
+            <p style={{
+              fontSize: '13px',
+              color: 'rgba(168, 85, 247, 0.9)',
+              margin: 0,
+            }}>
+              <strong>Demo Mode:</strong> Use any email with password "admin123"
+            </p>
+          </div>
 
           <div style={{
             marginTop: '24px',

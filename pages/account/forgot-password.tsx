@@ -44,9 +44,9 @@ export default function ForgotPassword() {
         await supabase.from('password_reset_tokens').insert({
           email: customer.email,
           token,
-          user_type: 'customer',
+          user_type: 'customer' as const,
           expires_at: expiresAt.toISOString(),
-        });
+        } as any);
       }
 
       setSubmitted(true);

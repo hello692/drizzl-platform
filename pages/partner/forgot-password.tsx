@@ -40,9 +40,9 @@ export default function ForgotPassword() {
           .insert({
             email: partner.email,
             token,
-            user_type: 'partner',
+            user_type: 'partner' as const,
             expires_at: expiresAt.toISOString(),
-          });
+          } as any);
       }
 
       setSuccess(true);

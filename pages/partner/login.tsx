@@ -134,6 +134,7 @@ export default function PartnerLogin() {
                   placeholder="Enter your password"
                   style={styles.input}
                   required
+                  autoComplete="current-password"
                 />
               </div>
             </div>

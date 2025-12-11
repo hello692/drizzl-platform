@@ -176,6 +176,7 @@ export default function CustomerSignup() {
                   placeholder="Create a password"
                   style={styles.input}
                   required
+                  autoComplete="new-password"
                 />
               </div>
               {strength.text && (
@@ -197,6 +198,7 @@ export default function CustomerSignup() {
                   placeholder="Confirm your password"
                   style={styles.input}
                   required
+                  autoComplete="new-password"
                 />
                 {formData.confirmPassword && formData.password === formData.confirmPassword && (
                   <Check size={18} style={{ position: 'absolute', right: 14, color: NEON_GREEN }} />

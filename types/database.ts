@@ -263,6 +263,19 @@ export interface Database {
         Insert: Partial<Database['public']['Tables']['admin_users']['Row']>;
         Update: Partial<Database['public']['Tables']['admin_users']['Row']>;
       };
+      password_reset_tokens: {
+        Row: {
+          id: string;
+          email: string;
+          token: string;
+          user_type: 'customer' | 'partner' | 'admin' | 'sales';
+          expires_at: string;
+          used_at: string | null;
+          created_at: string;
+        };
+        Insert: Partial<Database['public']['Tables']['password_reset_tokens']['Row']>;
+        Update: Partial<Database['public']['Tables']['password_reset_tokens']['Row']>;
+      };
     };
     Views: {};
     Functions: {};

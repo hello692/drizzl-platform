@@ -96,6 +96,7 @@ export default function SalesLogin() {
                   placeholder="Enter your password"
                   style={{...styles.input, paddingRight: 44}}
                   required
+                  autoComplete="current-password"
                 />
                 <button
                   type="button"
