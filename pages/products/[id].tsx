@@ -628,6 +628,7 @@ export default function ProductPage() {
             <img
               src={productData.gallery[selectedImageIndex]}
               alt={productData.name}
+              loading="eager"
               style={{
                 width: '100%',
                 maxHeight: '500px',
@@ -661,6 +662,7 @@ export default function ProductPage() {
                 <img
                   src={img}
                   alt={`${productData.name} view ${index + 1}`}
+                  loading="lazy"
                   style={{
                     width: '100%',
                     height: '100%',
@@ -807,6 +809,7 @@ export default function ProductPage() {
                 src={img}
                 alt={`${productData.name} - View ${index + 1}`}
                 className="lv-gallery-image"
+                loading={index === 0 ? "eager" : "lazy"}
               />
             </div>
           ))}
@@ -1040,6 +1043,7 @@ export default function ProductPage() {
         <img
           src={productData.gallery[selectedImageIndex]}
           alt={productData.name}
+          loading="eager"
           style={{
             width: '100%',
             maxHeight: '700px',
@@ -1076,6 +1080,7 @@ export default function ProductPage() {
             <img
               src={img}
               alt={`${productData.name} view ${index + 1}`}
+              loading="lazy"
               style={{
                 width: '100%',
                 height: '100%',
@@ -1108,7 +1113,7 @@ export default function ProductPage() {
             <div className="lifestyle-track" id="lifestyle-track">
               {(productData?.lifestyleGallery || DEFAULT_LIFESTYLE_GALLERY).map((slide, index) => (
                 <div key={index} className="lifestyle-card">
-                  <img src={slide.src} alt={slide.alt} />
+                  <img src={slide.src} alt={slide.alt} loading="lazy" />
                 </div>
               ))}
             </div>

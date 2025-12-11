@@ -76,6 +76,7 @@ export default function SmoothieCard({
             src={isHovered && hoverImage ? hoverImage : image}
             alt={name}
             className="smoothie-card-dh-image"
+            loading="lazy"
             draggable={false}
           />
           <button className="smoothie-card-dh-zoom" aria-label="Quick view">

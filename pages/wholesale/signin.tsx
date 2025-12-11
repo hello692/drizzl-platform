@@ -18,7 +18,6 @@ export default function WholesaleSignIn() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Sign in attempt:', { email, password });
   };
 
   return (

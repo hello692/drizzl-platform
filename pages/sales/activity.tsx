@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import SalesLayout from '../../components/sales/SalesLayout';
 import {
   Plus,
@@ -203,12 +203,10 @@ export default function SalesActivityPage() {
   };
 
   const handleLogActivity = () => {
-    console.log('Logging activity:', quickLog);
     setQuickLog({ who: '', what: '', outcome: '', nextStep: '', notes: '' });
   };
 
   const handleCreateActivity = () => {
-    console.log('Creating activity:', newActivity);
     setShowAddModal(false);
     setNewActivity({ type: '', lead: '', date: '', time: '', duration: '', location: '', notes: '' });
   };

@@ -18,8 +18,10 @@ interface NotificationResult {
 
 export async function sendEmail(options: EmailOptions): Promise<boolean> {
   if (!RESEND_API_KEY) {
-    console.log('[Email] Resend not configured. Would send email to:', options.to);
-    console.log('[Email] Subject:', options.subject);
+    if (process.env.NODE_ENV === 'development') {
+      console.log('[Email] Resend not configured. Would send email to:', options.to);
+      console.log('[Email] Subject:', options.subject);
+    }
     return true;
   }
 
@@ -45,7 +47,9 @@ export async function sendEmail(options: EmailOptions): Promise<boolean> {
       return false;
     }
 
-    console.log('[Email] Sent successfully to:', options.to);
+    if (process.env.NODE_ENV === 'development') {
+      console.log('[Email] Sent successfully to:', options.to);
+    }
     return true;
   } catch (error) {
     console.error('[Email] Error sending:', error);

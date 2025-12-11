@@ -131,7 +131,9 @@ export async function sendAgreement(
             .eq('id', agreement.id);
         }
       } catch (docuError) {
-        console.log('[DocuSign] API not configured, using demo mode');
+        if (process.env.NODE_ENV === 'development') {
+          console.log('[DocuSign] API not configured, using demo mode');
+        }
       }
     }
 
@@ -335,7 +337,9 @@ async function triggerOnboarding(envelopeId: string): Promise<void> {
     })
     .eq('id', agreement.partner_id);
 
-  console.log(`[DocuSign] Partner ${agreement.partner_id} onboarding triggered`);
+  if (process.env.NODE_ENV === 'development') {
+    console.log(`[DocuSign] Partner ${agreement.partner_id} onboarding triggered`);
+  }
 }
 
 export async function voidEnvelope(
@@ -364,7 +368,9 @@ export async function voidEnvelope(
       );
 
       if (!response.ok) {
-        console.log('[DocuSign] API void failed, updating local record only');
+        if (process.env.NODE_ENV === 'development') {
+          console.log('[DocuSign] API void failed, updating local record only');
+        }
       }
     }
 

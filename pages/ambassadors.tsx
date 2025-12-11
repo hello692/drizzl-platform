@@ -31,7 +31,6 @@ export default function Ambassadors() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Ambassador application:', formData);
     setSubmitted(true);
   };
 

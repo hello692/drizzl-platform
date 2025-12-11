@@ -14,7 +14,6 @@ import {
   DollarSign,
   Clock,
   Filter,
-  Flame,
 } from 'lucide-react';
 
 const NEON_GREEN = '#00FF85';
@@ -215,7 +214,6 @@ export default function SalesLeadsPage() {
   });
 
   const handleAddLead = () => {
-    console.log('Adding lead:', newLead);
     setShowAddModal(false);
     setNewLead({
       companyName: '',

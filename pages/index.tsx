@@ -340,6 +340,7 @@ export default function Home() {
                 src="/drizzl-lips.gif" 
                 alt="Drizzl Wellness Kiss" 
                 className="drizzl-kiss-gif"
+                loading="lazy"
               />
             </div>
             <div className="drizzl-kiss-text">
@@ -380,6 +381,9 @@ export default function Home() {
               <img 
                 src="/products/strawberry-peach/lifestyle-1.jpg" 
                 alt="Drizzl Smoothie"
+                loading="lazy"
+                width="800"
+                height="600"
                 style={{
                   width: '100%',
                   height: '100%',
