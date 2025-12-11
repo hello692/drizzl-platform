@@ -1,0 +1,91 @@
+{
+  "nav": {
+    "search": "検索",
+    "selectLanguage": "言語を選択"
+  },
+  "home": {
+    "hero": {
+      "title": "フレーバーを感じて",
+      "subtitle": "フレッシュ。フローズン。ファンタスティック。笑顔になれるスムージー。",
+      "cta": "ブレンドしよう！"
+    },
+    "categories": {
+      "title": "カテゴリーで買い物",
+      "smoothies": "スムージー",
+      "smoothiesDesc": "フレッシュフローズンブレンド",
+      "bowls": "ボウル",
+      "bowlsDesc": "栄養たっぷり",
+      "juices": "ジュース",
+      "juicesDesc": "コールドプレス",
+      "wellness": "ウェルネス",
+      "wellnessDesc": "ヘルスブースター"
+    },
+    "fanFavorites": {
+      "title": "ファンのお気に入り",
+      "subtitle": "みんなが夢中になっているブレンド。数千人が愛しているものを試してみて！"
+    },
+    "cta": {
+      "shopAll": "すべての商品を見る",
+      "freeShipping": "50ドル以上のご注文で送料無料"
+    }
+  },
+  "menu": {
+    "products": "製品",
+    "smoothies": "スムージー",
+    "smoothiesDesc": "フレッシュフローズンブレンド",
+    "bowls": "ボウル",
+    "bowlsDesc": "栄養たっぷり",
+    "juices": "ジュース",
+    "juicesDesc": "コールドプレス",
+    "wellness": "ウェルネス",
+    "wellnessDesc": "ヘルスブースター",
+    "company": "会社",
+    "about": "私たちについて",
+    "sustainability": "サステナビリティ",
+    "careers": "キャリア",
+    "blog": "ブログ",
+    "support": "サポート",
+    "contact": "お問い合わせ",
+    "faq": "よくある質問",
+    "shipping": "配送",
+    "returns": "返品"
+  },
+  "pages": {
+    "smoothies": {
+      "badge": "ベストセラー",
+      "title": "スムージー",
+      "subtitle": "フルーツ、野菜、スーパーフードが詰まったフレッシュフローズンブレンド。液体を加えてブレンドするだけ。",
+      "allTitle": "すべてのスムージー",
+      "allSubtitle": "あなたのフレーバーアドベンチャーを選んで"
+    },
+    "bowls": {
+      "badge": "朝食のお気に入り",
+      "title": "朝食ボウル",
+      "subtitle": "栄養たっぷりで一日をスタート。私たちのボウルはスーパーフードでいっぱいです。",
+      "allTitle": "すべてのボウル",
+      "allSubtitle": "朝に活力を与える栄養ボウル"
+    },
+    "about": {
+      "badge": "私たちの物語",
+      "title": "私たちはDrizzl",
+      "subtitle": "ウェルネスをおいしく感じさせる使命を持って。",
+      "storyTitle": "すべては一つの質問から始まった",
+      "storyP1": "なぜ健康食品は段ボールの味がしなければならないのか？私たちはその妥協を受け入れることを拒否しました。",
+      "storyP2": "2020年、私たちはすべてを手に入れられることを証明しようとしました：鮮やかなフレーバー、クリーンな材料、そして本当の便利さ。",
+      "storyP3": "今日、私たちはウェルネスがおいしいことを発見した何千人もの満足したお客様にサービスを提供することを誇りに思います。",
+      "valuesTitle": "私たちの価値観",
+      "valuesSubtitle": "私たちのすべての行動を導く原則",
+      "teamTitle": "チームに会う",
+      "teamSubtitle": "Drizzlの背後にいる人々"
+    }
+  },
+  "common": {
+    "reviews": "レビュー",
+    "addToCart": "カートに追加",
+    "readyTo": "準備はいい",
+    "blend": "ブレンド",
+    "fuelUp": "パワーアップ",
+    "movement": "ムーブメント",
+    "difference": "違い"
+  }
+}

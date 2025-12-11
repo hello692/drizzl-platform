@@ -1,0 +1,91 @@
+{
+  "nav": {
+    "search": "Suchen",
+    "selectLanguage": "Sprache Wählen"
+  },
+  "home": {
+    "hero": {
+      "title": "SPÜRE DEN GESCHMACK",
+      "subtitle": "Frisch. Gefroren. Fantastisch. Smoothies, die dich lächeln lassen.",
+      "cta": "Los Mixen!"
+    },
+    "categories": {
+      "title": "Nach Kategorie Einkaufen",
+      "smoothies": "Smoothies",
+      "smoothiesDesc": "Frisch gefrorene Mischungen",
+      "bowls": "Bowls",
+      "bowlsDesc": "Voller Nährstoffe",
+      "juices": "Säfte",
+      "juicesDesc": "Kaltgepresst",
+      "wellness": "Wellness",
+      "wellnessDesc": "Gesundheits-Booster"
+    },
+    "fanFavorites": {
+      "title": "Fan-Favoriten",
+      "subtitle": "Die Mischungen, die alle lieben. Probiere, was Tausende bereits genießen!"
+    },
+    "cta": {
+      "shopAll": "Alle Produkte Ansehen",
+      "freeShipping": "Kostenloser Versand bei Bestellungen über 50$"
+    }
+  },
+  "menu": {
+    "products": "Produkte",
+    "smoothies": "Smoothies",
+    "smoothiesDesc": "Frisch Gefrorene Mischungen",
+    "bowls": "Bowls",
+    "bowlsDesc": "Voller Nährstoffe",
+    "juices": "Säfte",
+    "juicesDesc": "Kaltgepresst",
+    "wellness": "Wellness",
+    "wellnessDesc": "Gesundheits-Booster",
+    "company": "Unternehmen",
+    "about": "Über Uns",
+    "sustainability": "Nachhaltigkeit",
+    "careers": "Karriere",
+    "blog": "Blog",
+    "support": "Support",
+    "contact": "Kontakt",
+    "faq": "FAQ",
+    "shipping": "Versand",
+    "returns": "Rückgabe"
+  },
+  "pages": {
+    "smoothies": {
+      "badge": "Unsere Bestseller",
+      "title": "Smoothies",
+      "subtitle": "Frisch gefrorene Mischungen voller Früchte, Gemüse und Superfoods. Einfach Flüssigkeit hinzufügen und mixen.",
+      "allTitle": "Alle Smoothies",
+      "allSubtitle": "Wähle dein Geschmacksabenteuer"
+    },
+    "bowls": {
+      "badge": "Frühstücks-Favoriten",
+      "title": "Frühstücks-Bowls",
+      "subtitle": "Starte deinen Tag mit einem Energieschub. Unsere Bowls sind voller Superfoods.",
+      "allTitle": "Alle Bowls",
+      "allSubtitle": "Nährstoffreiche Bowls für deinen Morgen"
+    },
+    "about": {
+      "badge": "Unsere Geschichte",
+      "title": "Wir sind Drizzl",
+      "subtitle": "Auf der Mission, Wellness so gut schmecken zu lassen, wie es sich anfühlt.",
+      "storyTitle": "Es begann mit einer Frage",
+      "storyP1": "Warum muss gesundes Essen nach Pappe schmecken? Wir weigerten uns, diesen Kompromiss zu akzeptieren.",
+      "storyP2": "2020 haben wir uns vorgenommen zu beweisen, dass man alles haben kann: lebendige Aromen, saubere Zutaten und echte Bequemlichkeit.",
+      "storyP3": "Heute sind wir stolz darauf, Tausenden von zufriedenen Kunden zu dienen, die entdeckt haben, dass Wellness köstlich sein kann.",
+      "valuesTitle": "Unsere Werte",
+      "valuesSubtitle": "Die Prinzipien, die alles leiten, was wir tun",
+      "teamTitle": "Lerne das Team Kennen",
+      "teamSubtitle": "Die Menschen hinter Drizzl"
+    }
+  },
+  "common": {
+    "reviews": "Bewertungen",
+    "addToCart": "In den Warenkorb",
+    "readyTo": "Bereit zum",
+    "blend": "Mixen",
+    "fuelUp": "Auftanken",
+    "movement": "Bewegung",
+    "difference": "Unterschied"
+  }
+}
