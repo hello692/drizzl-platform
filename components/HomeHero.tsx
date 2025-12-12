@@ -16,22 +16,21 @@ function useRotatingWord(words: typeof DYNAMIC_WORDS, interval = 2000) {
   const [isVisible, setIsVisible] = useState(true);
 
   useEffect(() => {
-    const fadeOutTimer = setInterval(() => {
+    const timer = setInterval(() => {
       setIsVisible(false);
-      
       setTimeout(() => {
         setCurrentIndex((prev) => (prev + 1) % words.length);
         setIsVisible(true);
       }, 400);
     }, interval);
 
-    return () => clearInterval(fadeOutTimer);
+    return () => clearInterval(timer);
   }, [words.length, interval]);
 
-  return { 
-    currentWord: words[currentIndex].word, 
+  return {
+    currentWord: words[currentIndex].word,
     currentColor: words[currentIndex].color,
-    isVisible 
+    isVisible,
   };
 }
 
@@ -42,7 +41,7 @@ export default function HomeHero() {
   return (
     <section className="lv-hero">
       <Navbar />
-      
+
       <video
         ref={videoRef}
         className="lv-hero-video"
@@ -51,31 +50,35 @@ export default function HomeHero() {
         loop
         playsInline
       >
-        <source src="https://pgjrfwogbwhclkvgqedi.supabase.co/storage/v1/object/public/media/DrizzlLove_v3%20(2)_nyx3%20mp4.mp4"
-  type="video/quicktime" />
+        <source
+          src="https://pgjrfwogbwhclkvgqedi.supabase.co/storage/v1/object/public/media/DrizzlLove_v3%20(2)_nyx3%20mp4.mp4"
+          type="video/mp4"
+        />
       </video>
+
       <div className="lv-hero-overlay" />
 
       <div className="lv-hero-copy">
-        <h1 className="lv-hero-title">
-          Smoothies You'll Want to Kiss
-        </h1>
+        <h1 className="lv-hero-title">Smoothies You'll Want to Kiss</h1>
+
         <h2 className="lv-hero-title lv-hero-title-line2">
           And feel{' '}
-          <span 
+          <span
             className={`lv-hero-dynamic-word ${isVisible ? 'visible' : ''}`}
-            style={{ 
+            style={{
               color: currentColor,
-              textShadow: `0 4px 24px ${currentColor}40`
+              textShadow: `0 4px 24px ${currentColor}40`,
             }}
           >
             {currentWord}
           </span>
           .
         </h2>
+
         <p className="lv-hero-sub">
-          Because being healthy shouldn't suck—Drizzl Wellness makes it worth craving.
+          Because being healthy shouldn&apos;t suck—Drizzl Wellness makes it worth craving.
         </p>
+
         <a href="/products" className="lv-hero-cta">
           Smooch it on
         </a>
