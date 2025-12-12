@@ -51,7 +51,8 @@ export default function HomeHero() {
         loop
         playsInline
       >
-        <source src="/videos/hero-video.mp4" type="video/mp4" />
+        <source src="PASTE_YOUR_SUPABASE_PUBLIC_URL_HERE"
+  type="video/quicktime" />
       </video>
       <div className="lv-hero-overlay" />
 
