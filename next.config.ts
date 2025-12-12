@@ -3,6 +3,7 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   // Enable standalone output for minimal production build
   output: 'standalone',
+    assetPrefix: "/_next",
   // Handle dev origins safely - only in development
   ...(process.env.REPLIT_DOMAINS && {
     allowedDevOrigins: [process.env.REPLIT_DOMAINS.split(",")[0]],
