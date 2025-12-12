@@ -51,7 +51,7 @@ export default function HomeHero() {
         loop
         playsInline
       >
-        <source src="PASTE_YOUR_SUPABASE_PUBLIC_URL_HERE"
+        <source src="https://pgjrfwogbwhclkvgqedi.supabase.co/storage/v1/object/public/media/DrizzlLove_v3%20(2)_nyx3%20mp4.mp4"
   type="video/quicktime" />
       </video>
       <div className="lv-hero-overlay" />
