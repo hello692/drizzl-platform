@@ -283,7 +283,7 @@ export default function ShopAll() {
       <style jsx>{`
         .shop-page {
           min-height: 60vh;
-          padding: clamp(40px, 8vw, 60px) clamp(16px, 4vw, 40px);
+          padding: clamp(100px, 12vw, 140px) clamp(16px, 4vw, 40px) clamp(40px, 8vw, 60px);
           background: #000;
         }
 
