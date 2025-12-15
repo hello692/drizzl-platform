@@ -558,6 +558,9 @@ export default function ProductPage() {
   const [selectedIngredient, setSelectedIngredient] = useState(0);
   const [activeCardIndex, setActiveCardIndex] = useState(0);
   
+  // Ref for lifestyle carousel drag-to-scroll
+  const lifestyleTrackRef = useRef<HTMLDivElement>(null);
+  
   // Accordion state for LV-style product info sections
   const [infoSections, setInfoSections] = useState({
     about: true,
@@ -589,9 +592,9 @@ export default function ProductPage() {
     setOpenSections(prev => ({ ...prev, [section]: !prev[section] }));
   };
 
-  // Drag-to-slide for lifestyle track (no scroll hijacking)
+  // Drag-to-slide for lifestyle track (no scroll hijacking) - using ref
   useEffect(() => {
-    const track = document.querySelector('.lifestyle-track') as HTMLElement;
+    const track = lifestyleTrackRef.current;
     if (!track) return;
 
     let isDown = false;
@@ -657,7 +660,7 @@ export default function ProductPage() {
       track.removeEventListener('touchstart', handleTouchStart);
       track.removeEventListener('touchmove', handleTouchMove);
     };
-  }, []);
+  }, [productData]);
 
   if (!product || !productData) {
     return (
@@ -1199,7 +1202,7 @@ export default function ProductPage() {
             <p className="lifestyle-subtitle">Real nourishment. Real moments. Real life.</p>
           </div>
           <div className="lifestyle-wrapper">
-            <div className="lifestyle-track" id="lifestyle-track">
+            <div className="lifestyle-track" id="lifestyle-track" ref={lifestyleTrackRef}>
               {(productData?.lifestyleGallery || DEFAULT_LIFESTYLE_GALLERY).slice(0, 6).map((slide, index) => (
                 <div key={index} className="lifestyle-card">
                   <Image 
