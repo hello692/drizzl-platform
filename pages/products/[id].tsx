@@ -22,6 +22,29 @@ const apple = {
   divider: 'rgba(0,0,0,0.1)',
 };
 
+interface NutritionFact {
+  label: string;
+  value: string;
+  dv?: number | null;
+  indent?: boolean;
+  subIndent?: boolean;
+}
+
+interface NutritionHighlight {
+  label: string;
+  value: string;
+  percent: number;
+  color: string;
+}
+
+interface EnhancedNutrition {
+  servingSize: string;
+  servingsPerContainer: number;
+  calories: number;
+  facts: NutritionFact[];
+  highlights: NutritionHighlight[];
+}
+
 interface ProductData {
   id: string;
   name: string;
@@ -34,7 +57,7 @@ interface ProductData {
   lifestyleGallery: { src: string; alt: string }[];
   description: string;
   ingredients: string;
-  nutrition: { label: string; value: string }[];
+  nutrition: { label: string; value: string }[] | EnhancedNutrition;
   keyIngredients: { name: string; benefit: string; image: string }[];
   badges: string[];
 }
@@ -75,14 +98,28 @@ const PRODUCT_DATA: Record<string, ProductData> = {
     ],
     description: "This smoothie doesn't play by the rules. Juicy peach, sassy strawberry, and tangy raspberry bring the flavor chaos, while banana and oats keep it smooth and satisfying. And those goji berries? They're the antioxidant badasses your body didn't know it needed. Sip loud, live bold.",
     ingredients: 'Organic peaches, bananas, raspberries, gluten-free whole grain oats, and goji berries—all certified organic. For precise nutrition, ingredient, and allergen details, check the product label.',
-    nutrition: [
-      { label: 'Calories', value: '140' },
-      { label: 'Total Fat', value: '1.5g' },
-      { label: 'Carbs', value: '32g' },
-      { label: 'Fiber', value: '6g' },
-      { label: 'Sugars', value: '18g' },
-      { label: 'Protein', value: '3g' },
-    ],
+    nutrition: {
+      servingSize: '209g',
+      servingsPerContainer: 1,
+      calories: 180,
+      facts: [
+        { label: 'Total Fat', value: '3g', dv: 4 },
+        { label: 'Saturated Fat', value: '0.4g', dv: 2, indent: true },
+        { label: 'Trans Fat', value: '0g', dv: null, indent: true },
+        { label: 'Cholesterol', value: '0mg', dv: 0 },
+        { label: 'Sodium', value: '5mg', dv: 0 },
+        { label: 'Total Carbohydrate', value: '35g', dv: 13 },
+        { label: 'Dietary Fiber', value: '5g', dv: 21, indent: true },
+        { label: 'Total Sugars', value: '19g', dv: null, indent: true },
+        { label: 'Incl. Added Sugars', value: '0g', dv: 0, indent: true, subIndent: true },
+        { label: 'Protein', value: '4g', dv: 8 },
+      ],
+      highlights: [
+        { label: 'Fiber', value: '5g', percent: 21, color: '#10b981' },
+        { label: 'Protein', value: '4g', percent: 8, color: '#8b5cf6' },
+        { label: 'Carbs', value: '35g', percent: 13, color: '#f59e0b' },
+      ]
+    },
     keyIngredients: [
       { name: 'Strawberry', benefit: 'Bursting with vitamin C, fiber, and folate—your antioxidant BFF.', image: '/ingredients/strawberry.png' },
       { name: 'Banana', benefit: 'The potassium powerhouse that keeps things smooth and sweet.', image: '/ingredients/banana.png' },
@@ -918,21 +955,78 @@ export default function ProductPage() {
                   onClick={() => toggleSection('nutrition')}
                 >
                   <div>
-                    <span className="lv-accordion-title">Nutrition</span>
+                    <span className="lv-accordion-title">Nutrition Facts</span>
                     <span className="lv-accordion-subtitle">What you put in matters</span>
                   </div>
                   <span className="lv-accordion-icon">{openSections.nutrition ? '−' : '+'}</span>
                 </button>
                 {openSections.nutrition && (
                   <div className="lv-accordion-content">
-                    <div className="lv-nutrition-grid">
-                      {productData.nutrition.map((item, idx) => (
-                        <div key={idx} className="lv-nutrition-item">
-                          <span className="lv-nutrition-label">{item.label}</span>
-                          <span className="lv-nutrition-value">{item.value}</span>
+                    {Array.isArray(productData.nutrition) ? (
+                      <div className="lv-nutrition-grid">
+                        {productData.nutrition.map((item, idx) => (
+                          <div key={idx} className="lv-nutrition-item">
+                            <span className="lv-nutrition-label">{item.label}</span>
+                            <span className="lv-nutrition-value">{item.value}</span>
+                          </div>
+                        ))}
+                      </div>
+                    ) : (
+                      <div className="nutrition-facts-panel">
+                        {/* Visual Highlights Section */}
+                        <div className="nutrition-highlights">
+                          {productData.nutrition.highlights.map((h, idx) => (
+                            <div key={idx} className="highlight-card">
+                              <div className="highlight-ring" style={{ '--ring-color': h.color, '--ring-percent': h.percent } as React.CSSProperties}>
+                                <svg viewBox="0 0 36 36" className="circular-chart">
+                                  <path className="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                                  <path className="circle" strokeDasharray={`${h.percent}, 100`} style={{ stroke: h.color }} d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                                </svg>
+                                <div className="highlight-value">{h.percent}%</div>
+                              </div>
+                              <div className="highlight-label">{h.label}</div>
+                              <div className="highlight-amount">{h.value}</div>
+                            </div>
+                          ))}
                         </div>
-                      ))}
-                    </div>
+
+                        {/* Serving Info */}
+                        <div className="serving-info">
+                          <span>Serving Size: <strong>{productData.nutrition.servingSize}</strong></span>
+                          <span>Servings: <strong>{productData.nutrition.servingsPerContainer}</strong></span>
+                        </div>
+
+                        {/* Calories Hero */}
+                        <div className="calories-hero">
+                          <span className="calories-label">Calories</span>
+                          <span className="calories-value">{productData.nutrition.calories}</span>
+                        </div>
+
+                        {/* Detailed Facts Table */}
+                        <div className="facts-table">
+                          <div className="facts-header">
+                            <span>Amount Per Serving</span>
+                            <span>% DV*</span>
+                          </div>
+                          {productData.nutrition.facts.map((fact, idx) => (
+                            <div key={idx} className={`fact-row ${fact.indent ? 'indent' : ''} ${fact.subIndent ? 'sub-indent' : ''}`}>
+                              <span className="fact-label">{fact.label}</span>
+                              <span className="fact-value">{fact.value}</span>
+                              <span className="fact-dv">
+                                {fact.dv !== null && fact.dv !== undefined ? (
+                                  <span className="dv-badge" style={{ 
+                                    background: fact.dv >= 20 ? 'rgba(16, 185, 129, 0.15)' : fact.dv >= 5 ? 'rgba(245, 158, 11, 0.15)' : 'rgba(107, 114, 128, 0.1)',
+                                    color: fact.dv >= 20 ? '#10b981' : fact.dv >= 5 ? '#f59e0b' : '#6b7280'
+                                  }}>{fact.dv}%</span>
+                                ) : '—'}
+                              </span>
+                            </div>
+                          ))}
+                        </div>
+
+                        <p className="dv-footnote">*Percent Daily Values (DV) are based on a 2,000 calorie diet.</p>
+                      </div>
+                    )}
                   </div>
                 )}
               </div>

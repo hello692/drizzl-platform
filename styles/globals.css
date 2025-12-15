@@ -6826,6 +6826,240 @@ svg {
   color: #111111;
 }
 
+/* Sophisticated Nutrition Facts Panel */
+.nutrition-facts-panel {
+  background: linear-gradient(135deg, #fafafa 0%, #ffffff 100%);
+  border-radius: 16px;
+  padding: 24px;
+  border: 1px solid rgba(0,0,0,0.06);
+}
+
+/* Circular Progress Highlights */
+.nutrition-highlights {
+  display: flex;
+  justify-content: space-around;
+  gap: 16px;
+  margin-bottom: 24px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid rgba(0,0,0,0.08);
+}
+
+.highlight-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+}
+
+.highlight-ring {
+  position: relative;
+  width: 70px;
+  height: 70px;
+}
+
+.circular-chart {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.circle-bg {
+  fill: none;
+  stroke: #eee;
+  stroke-width: 3;
+}
+
+.circle {
+  fill: none;
+  stroke-width: 3;
+  stroke-linecap: round;
+  animation: progress 1s ease-out forwards;
+}
+
+@keyframes progress {
+  0% { stroke-dasharray: 0 100; }
+}
+
+.highlight-value {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 14px;
+  font-weight: 600;
+  color: #111;
+}
+
+.highlight-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #333;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.highlight-amount {
+  font-size: 11px;
+  color: #666;
+}
+
+/* Serving Info */
+.serving-info {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(0,0,0,0.08);
+  font-size: 12px;
+  color: #666;
+}
+
+.serving-info strong {
+  color: #111;
+  font-weight: 600;
+}
+
+/* Calories Hero */
+.calories-hero {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 0;
+  border-bottom: 3px solid #111;
+}
+
+.calories-label {
+  font-size: 16px;
+  font-weight: 700;
+  color: #111;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.calories-value {
+  font-size: 48px;
+  font-weight: 800;
+  color: #111;
+  line-height: 1;
+}
+
+/* Facts Table */
+.facts-table {
+  margin-top: 16px;
+}
+
+.facts-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  font-size: 10px;
+  font-weight: 600;
+  color: #999;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-bottom: 1px solid rgba(0,0,0,0.08);
+}
+
+.fact-row {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  gap: 12px;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+  transition: background 0.2s ease;
+}
+
+.fact-row:hover {
+  background: rgba(0,0,0,0.02);
+  margin: 0 -12px;
+  padding: 10px 12px;
+}
+
+.fact-row.indent .fact-label {
+  padding-left: 16px;
+  font-weight: 400;
+}
+
+.fact-row.sub-indent .fact-label {
+  padding-left: 32px;
+  font-size: 11px;
+}
+
+.fact-label {
+  font-size: 13px;
+  font-weight: 500;
+  color: #333;
+}
+
+.fact-value {
+  font-size: 13px;
+  font-weight: 600;
+  color: #111;
+  min-width: 50px;
+  text-align: right;
+}
+
+.fact-dv {
+  min-width: 48px;
+  text-align: right;
+}
+
+.dv-badge {
+  display: inline-block;
+  padding: 3px 8px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.dv-footnote {
+  margin-top: 16px;
+  font-size: 10px;
+  color: #999;
+  line-height: 1.5;
+}
+
+/* Responsive adjustments for nutrition panel */
+@media (max-width: 480px) {
+  .nutrition-facts-panel {
+    padding: 16px;
+  }
+  
+  .nutrition-highlights {
+    gap: 8px;
+  }
+  
+  .highlight-ring {
+    width: 56px;
+    height: 56px;
+  }
+  
+  .highlight-value {
+    font-size: 12px;
+  }
+  
+  .highlight-label {
+    font-size: 10px;
+  }
+  
+  .calories-value {
+    font-size: 36px;
+  }
+  
+  .fact-row {
+    grid-template-columns: 1fr auto;
+  }
+  
+  .fact-dv {
+    display: none;
+  }
+  
+  .facts-header span:last-child {
+    display: none;
+  }
+}
+
 /* Badges */
 .lv-badges {
   display: flex;
