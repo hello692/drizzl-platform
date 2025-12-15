@@ -1,0 +1,266 @@
+# DRIZZL WELLNESS — UI CLARITY SYSTEM
+
+## Purpose
+Transform the Drizzl Wellness website into a premium, calm, high-converting experience using **hierarchy, spacing, and emphasis only** — without removing any fonts, content, or features.
+
+---
+
+## CORE PRINCIPLE
+
+**Re-orchestrate, don't redesign.**
+
+You are changing:
+- Visual dominance
+- Spacing rhythm
+- Content sequencing
+- Interaction timing
+
+You are NOT changing:
+- Fonts
+- Content
+- Images
+- Features
+
+---
+
+## PART 1: TYPOGRAPHY HIERARCHY
+
+### The Problem
+Most websites fail because everything has equal visual weight — everything "shouts" at once.
+
+### The Solution: Three-Tier Content System
+
+| Tier | Content Type | Treatment |
+|------|--------------|-----------|
+| **Tier 1 — Primary** | Hero headline, main subline, primary CTA | Full contrast, largest size, normal weight |
+| **Tier 2 — Supporting** | Benefits, ingredients, lifestyle copy | Same font, smaller size OR lighter color |
+| **Tier 3 — Reference** | Nutrition facts, secondary CTAs, footer | Same font, 70–80% opacity |
+
+### Font Role Assignment
+Each font gets ONE job:
+- **Font A** → Emotional headlines
+- **Font B** → Functional body copy  
+- **Font C** → Utility (labels, buttons, data)
+
+If the same font serves multiple roles, differentiate through **size + spacing**, not by adding new fonts.
+
+---
+
+## PART 2: VERTICAL SPACING SYSTEM
+
+Spacing creates the "premium" feel. Use a fixed scale — never eyeball.
+
+| Element | Spacing |
+|---------|---------|
+| Between major sections | 96–120px |
+| Between content blocks | 48–64px |
+| Between heading + paragraph | 16–24px |
+| Line height | 1.5–1.6x |
+| Max paragraph width | 640–720px |
+
+**Rule:** Consistent spacing beats clever design.
+
+---
+
+## PART 3: VISUAL CONTRAST GRADIENT
+
+Most sites use maximum contrast everywhere. Premium brands don't.
+
+| Page Position | Contrast Level |
+|---------------|----------------|
+| Hero (above fold) | 100% |
+| Mid-page content | 85–90% |
+| Reference/footer | 70–75% |
+
+Same fonts. Same content. Different perceptual weight.
+
+---
+
+## PART 4: HERO SECTION
+
+### Requirements
+- One clear message
+- One clear action
+- One dominant image
+
+### Specifications
+- Hero headline: **largest text on site**
+- Subheadline: lighter weight, smaller size
+- **ONE primary CTA** — solid, high contrast
+- Secondary CTAs: outline style or reduced opacity
+- Alignment: choose center OR left — stay consistent
+
+---
+
+## PART 5: CTA PRIORITY RULE
+
+At any scroll position, the user should face:
+- **One question**
+- **One decision**
+
+### Button Hierarchy
+| Type | Style |
+|------|-------|
+| Primary | Solid background, high contrast |
+| Secondary | Outline only |
+| Utility | Text link, no background |
+
+**Never show multiple "loud" buttons at once.**
+
+---
+
+## PART 6: CONTENT SEQUENCING
+
+Arrange content like a conversation:
+
+1. **Identity** — "What is Drizzl?"
+2. **Promise** — "What does it do for me?"
+3. **Proof** — Ingredients, benefits, nutrition
+4. **Action** — Buy / Subscribe / Find Near You
+
+You already have this content. Space it across the scroll journey.
+
+---
+
+## PART 7: INTERFACE SILENCING
+
+Reduce visual noise without removing elements:
+
+| Element | Treatment |
+|---------|-----------|
+| Secondary buttons | Outline only |
+| Icons | Lighter color / reduced opacity |
+| Badges | Smaller size, tighter padding |
+| Emphasis | Hover reveals, not permanent |
+
+**The interface should wait for the user.**
+
+---
+
+## PART 8: IMAGE RULES
+
+- Hero: ONE dominant image
+- Product images: consistent size and spacing
+- Breathing room: 48–64px above and below images
+- No tight stacking
+
+**Images support text — they don't compete with it.**
+
+---
+
+## PART 9: MOBILE RESPONSIVENESS
+
+| Rule | Specification |
+|------|---------------|
+| Layout | Single column |
+| Text width | Respect max-width |
+| Button height | Minimum 44px |
+| Padding | Adequate for touch |
+| Spacing | Scale down proportionally, don't collapse |
+
+---
+
+## PART 10: FRICTION REMOVAL
+
+Remove friction, not features:
+
+- ✅ Auto-focus email input on subscription forms
+- ✅ Keep cart visible but not dominant
+- ✅ Smooth transitions between sections
+- ❌ No modal interruptions
+- ❌ No autoplay video with sound
+- ❌ No aggressive shadows or animations
+
+---
+
+## PART 11: PERFORMANCE
+
+- No layout shifts during load
+- No blocking loaders
+- Smooth scroll and interactions
+- Maintain logical focus flow (inputs → CTAs)
+
+**Perceived smoothness > visual effects.**
+
+---
+
+## QUALITY CHECKLIST
+
+Before marking complete, verify:
+
+- [ ] Page feels calmer without losing content
+- [ ] Eye naturally flows top → bottom
+- [ ] Brand feels premium and confident
+- [ ] User understands Drizzl in **5 seconds**
+- [ ] No element feels like it's "shouting"
+- [ ] One clear CTA at every scroll position
+- [ ] Spacing is systematic, not arbitrary
+
+---
+
+## THE LITMUS TEST
+
+> "Can someone understand Drizzl in 5 seconds without reading everything?"
+
+If yes, you succeeded.
+
+---
+
+## SUMMARY
+
+| DO | DON'T |
+|----|-------|
+| Enforce hierarchy | Delete fonts |
+| Systemize spacing | Delete content |
+| Control emphasis | Rebuild the site |
+| Sequence information | Add new elements |
+| Respect attention | Over-explain |
+
+---
+
+## REPLIT EXECUTION PROMPT
+
+Copy and paste this to Replit:
+
+```
+TASK: UI CLARITY PASS — DRIZZL WELLNESS
+
+Apply these changes WITHOUT removing fonts, content, or features:
+
+1. TYPOGRAPHY
+   - Hero headline: largest on site
+   - Section headers: 70-75% of hero size
+   - Body: line-height 1.5-1.6, max-width 640-720px
+   - Reference text: 70-80% opacity
+
+2. SPACING (use exact values)
+   - Major sections: 96-120px
+   - Content blocks: 48-64px
+   - Heading to paragraph: 16-24px
+
+3. CTA HIERARCHY
+   - ONE primary button per viewport (solid, high contrast)
+   - Secondary: outline only
+   - Utility: text links
+
+4. CONTRAST GRADIENT
+   - Hero: 100%
+   - Mid-page: 85-90%
+   - Footer/reference: 70-75%
+
+5. MOBILE
+   - Single column
+   - 44px minimum button height
+   - Proportional spacing scale-down
+
+6. INTERFACE
+   - Reduce icon/badge opacity
+   - No autoplay media
+   - Hover reveals instead of permanent emphasis
+
+OUTPUT: Same content, same fonts, premium ChatGPT-level clarity.
+```
+
+---
+
+*This system can be applied to all Drizzl pages: D2C, B2B, and Admin portals.*

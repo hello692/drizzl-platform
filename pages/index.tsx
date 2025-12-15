@@ -220,26 +220,26 @@ export default function Home() {
   }, [currentWordIndex]);
 
   const sectionStyles = {
-    padding: 'clamp(80px, 10vw, 100px) clamp(24px, 5vw, 60px)',
+    padding: 'var(--section-gap) clamp(24px, 5vw, 60px)',
     maxWidth: '1320px',
     margin: '0 auto',
   };
 
   const headingStyles = {
-    fontSize: 'clamp(1.6rem, 3.5vw, 2.2rem)',
+    fontSize: 'var(--fs-section-header)',
     fontWeight: 300,
     lineHeight: 1.15,
     letterSpacing: '-0.025em',
     color: '#ffffff',
-    marginBottom: 'clamp(16px, 2vw, 24px)',
+    marginBottom: 'var(--heading-gap)',
   };
 
   const subheadingStyles = {
-    fontSize: 'clamp(0.9rem, 1.3vw, 1rem)',
+    fontSize: '1rem',
     fontWeight: 400,
-    lineHeight: 1.75,
-    color: 'rgba(255,255,255,0.6)',
-    maxWidth: '660px',
+    lineHeight: 'var(--line-height-body)',
+    color: 'rgba(255,255,255,0.88)',
+    maxWidth: 'var(--max-paragraph-width)',
   };
 
   return (
@@ -362,7 +362,7 @@ export default function Home() {
       {/* 3. Why Drizzl Section */}
       <section style={{
         background: '#000000',
-        padding: 'var(--linear-section-sub) clamp(20px, 4vw, 48px)',
+        padding: 'var(--section-gap) clamp(20px, 4vw, 48px)',
       }}>
         <div style={{
           maxWidth: '1100px',
@@ -481,14 +481,14 @@ export default function Home() {
       {/* 4. Benefits Grid */}
       <section style={{
         background: '#0a0a0a',
-        padding: 'var(--linear-section-sub) clamp(20px, 4vw, 40px)',
+        padding: 'var(--section-gap) clamp(20px, 4vw, 40px)',
       }}>
         <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
           <AnimatedSection animation="fadeUp">
-            <div style={{ textAlign: 'center', marginBottom: 'clamp(28px, 4vw, 40px)' }}>
+            <div style={{ textAlign: 'center', marginBottom: 'var(--block-gap)' }}>
               <h2 style={{
                 ...headingStyles,
-                marginBottom: 'var(--space-after-h2)',
+                marginBottom: 'var(--heading-gap)',
               }}>
                 What's Inside Matters
               </h2>
@@ -563,14 +563,14 @@ export default function Home() {
       {/* 5. How It Works */}
       <section style={{
         background: '#000000',
-        padding: 'var(--linear-section-major) var(--section-padding-x)',
+        padding: 'var(--section-gap) var(--section-padding-x)',
       }}>
         <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
           <AnimatedSection animation="fadeUp">
-            <div style={{ textAlign: 'center', marginBottom: 'clamp(48px, 6vw, 64px)' }}>
+            <div style={{ textAlign: 'center', marginBottom: 'var(--block-gap)' }}>
               <h2 style={{
                 ...headingStyles,
-                marginBottom: 'var(--space-after-h2)',
+                marginBottom: 'var(--heading-gap)',
               }}>
                 How It Works
               </h2>

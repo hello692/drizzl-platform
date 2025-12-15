@@ -265,6 +265,39 @@
   --transition-fast: 0.15s ease;
   --transition-normal: 0.2s ease;
   --transition-smooth: 0.3s ease;
+
+  /* ============================================
+     UI CLARITY SYSTEM
+     Premium spacing, typography, and contrast
+     ============================================ */
+  
+  /* Section Spacing - UI Clarity */
+  --section-gap: 96px;
+  --section-gap-lg: 120px;
+  --block-gap: 48px;
+  --block-gap-lg: 64px;
+  --heading-gap: 16px;
+  --heading-gap-lg: 24px;
+  
+  /* Body Typography - UI Clarity */
+  --line-height-body: 1.55;
+  --max-paragraph-width: 680px;
+  
+  /* Contrast Levels - UI Clarity */
+  --contrast-hero: 1;
+  --contrast-mid: 0.88;
+  --contrast-footer: 0.72;
+  
+  /* Typography Hierarchy - UI Clarity */
+  --fs-hero: clamp(3rem, 6vw, 4rem);
+  --fs-section-header: clamp(1.8rem, 4vw, 2.2rem);
+  --fs-body-clarity: 1rem;
+  --lh-body-clarity: 1.55;
+  
+  /* Interface Silencing */
+  --badge-opacity: 0.85;
+  --icon-color-silent: rgba(255, 255, 255, 0.6);
+  --icon-color-hover: rgba(255, 255, 255, 1);
 }
 
 /* ============================================
@@ -825,6 +858,190 @@ input:focus, textarea:focus, select:focus {
 .section-header .text-lead {
   margin-left: auto;
   margin-right: auto;
+}
+
+/* ============================================
+   UI CLARITY SYSTEM - UTILITY CLASSES
+   Premium spacing, typography hierarchy, contrast
+   ============================================ */
+
+/* Hero Typography - Largest on site */
+.clarity-hero-heading {
+  font-size: var(--fs-hero);
+  font-weight: 300;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  color: #ffffff;
+  opacity: var(--contrast-hero);
+}
+
+/* Section Headers - 70-75% of hero */
+.clarity-section-heading {
+  font-size: var(--fs-section-header);
+  font-weight: 300;
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+  color: #ffffff;
+  margin-bottom: var(--heading-gap);
+}
+
+@media (min-width: 1024px) {
+  .clarity-section-heading {
+    margin-bottom: var(--heading-gap-lg);
+  }
+}
+
+/* Body Text - UI Clarity */
+.clarity-body-text {
+  font-size: var(--fs-body-clarity);
+  font-weight: 400;
+  line-height: var(--line-height-body);
+  color: rgba(255, 255, 255, var(--contrast-mid));
+  max-width: var(--max-paragraph-width);
+}
+
+/* Supporting Text - Mid-page contrast */
+.clarity-supporting-text {
+  opacity: var(--contrast-mid);
+}
+
+/* Reference/Footer Text */
+.clarity-reference-text {
+  opacity: var(--contrast-footer);
+}
+
+/* Section Spacing - UI Clarity */
+.clarity-section {
+  padding-top: var(--section-gap);
+  padding-bottom: var(--section-gap);
+}
+
+@media (min-width: 1024px) {
+  .clarity-section {
+    padding-top: var(--section-gap-lg);
+    padding-bottom: var(--section-gap-lg);
+  }
+}
+
+/* Block Spacing */
+.clarity-block-gap {
+  margin-bottom: var(--block-gap);
+}
+
+@media (min-width: 1024px) {
+  .clarity-block-gap {
+    margin-bottom: var(--block-gap-lg);
+  }
+}
+
+/* Heading to Paragraph Gap */
+.clarity-heading-gap {
+  margin-bottom: var(--heading-gap);
+}
+
+@media (min-width: 1024px) {
+  .clarity-heading-gap {
+    margin-bottom: var(--heading-gap-lg);
+  }
+}
+
+/* CTA Button Hierarchy */
+.clarity-cta-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 16px 32px;
+  background: #ffffff;
+  color: #000000;
+  border: none;
+  border-radius: 980px;
+  font-size: 17px;
+  font-weight: 500;
+  letter-spacing: -0.022em;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  text-decoration: none;
+}
+
+.clarity-cta-primary:hover {
+  background: rgba(255, 255, 255, 0.85);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.clarity-cta-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 16px 32px;
+  background: transparent;
+  color: #ffffff;
+  border: 1.5px solid rgba(255, 255, 255, 0.4);
+  border-radius: 980px;
+  font-size: 17px;
+  font-weight: 500;
+  letter-spacing: -0.022em;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  text-decoration: none;
+}
+
+.clarity-cta-secondary:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.6);
+}
+
+.clarity-utility-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 0;
+  background: transparent;
+  color: #ffffff;
+  border: none;
+  font-size: 15px;
+  font-weight: 400;
+  letter-spacing: -0.022em;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.clarity-utility-link:hover {
+  opacity: 0.7;
+}
+
+/* Interface Silencing */
+.clarity-badge {
+  opacity: var(--badge-opacity);
+  transition: opacity 0.2s ease;
+}
+
+.clarity-badge:hover {
+  opacity: 1;
+}
+
+.clarity-icon {
+  color: var(--icon-color-silent);
+  transition: color 0.2s ease;
+}
+
+.clarity-icon:hover {
+  color: var(--icon-color-hover);
+}
+
+/* Contrast Gradient Classes */
+.contrast-hero { opacity: var(--contrast-hero); }
+.contrast-mid { opacity: var(--contrast-mid); }
+.contrast-footer { opacity: var(--contrast-footer); }
+
+/* Paragraph Width Constraint */
+.clarity-paragraph {
+  max-width: var(--max-paragraph-width);
+  line-height: var(--line-height-body);
 }
 
 /* ============================================
