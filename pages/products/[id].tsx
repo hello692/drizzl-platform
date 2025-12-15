@@ -84,12 +84,12 @@ const PRODUCT_DATA: Record<string, ProductData> = {
       { label: 'Protein', value: '3g' },
     ],
     keyIngredients: [
-      { name: 'Strawberry', benefit: 'One cup of strawberries is high in antioxidant vitamin C and provides a good source of fiber, copper and folate.', image: '/ingredients/strawberry.png' },
-      { name: 'Banana', benefit: 'One large banana is a good source of potassium and vitamin C.', image: '/ingredients/banana.png' },
-      { name: 'Peach', benefit: 'Peaches are rich in vitamins A and C, supporting immune health and glowing skin.', image: '/ingredients/peach.png' },
-      { name: 'Raspberry', benefit: 'Raspberries are high in fiber and antioxidants for gut and heart health.', image: '/ingredients/raspberry.png' },
-      { name: 'Oats', benefit: 'Oats provide heart-healthy whole grains for sustained energy throughout the day.', image: '/ingredients/oats.png' },
-      { name: 'Goji Berry', benefit: 'Goji berries are a superfood rich in amino acids and beta-carotene.', image: '/ingredients/goji.png' },
+      { name: 'Strawberry', benefit: 'Bursting with vitamin C, fiber, and folate—your antioxidant BFF.', image: '/ingredients/strawberry.png' },
+      { name: 'Banana', benefit: 'The potassium powerhouse that keeps things smooth and sweet.', image: '/ingredients/banana.png' },
+      { name: 'Peach', benefit: 'Vitamins A and C for immune boosts and that lit-from-within glow.', image: '/ingredients/peach.png' },
+      { name: 'Raspberry', benefit: 'Fiber and antioxidants to keep your gut and heart doing happy dances.', image: '/ingredients/raspberry.png' },
+      { name: 'Oats', benefit: "Heart-healthy grains for energy that doesn't quit.", image: '/ingredients/oats.png' },
+      { name: 'Goji Berry', benefit: 'The superfood rebel, loaded with amino acids and beta-carotene.', image: '/ingredients/goji.png' },
     ],
     badges: ['Gluten-Free', 'Dairy-Free', 'Made from Plants', 'No Sugar Added'],
   },
@@ -945,7 +945,7 @@ export default function ProductPage() {
                 >
                   <div>
                     <span className="lv-accordion-title">Key Ingredients</span>
-                    <span className="lv-accordion-subtitle">The power behind every sip</span>
+                    <span className="lv-accordion-subtitle">The flavor-packed power players</span>
                   </div>
                   <span className="lv-accordion-icon">{openSections.keyIngredients ? '−' : '+'}</span>
                 </button>
@@ -966,15 +966,15 @@ export default function ProductPage() {
                 >
                   <div>
                     <span className="lv-accordion-title">How to Prepare</span>
-                    <span className="lv-accordion-subtitle">Ready in 60 seconds</span>
+                    <span className="lv-accordion-subtitle">Smoothie joy in 60 seconds</span>
                   </div>
                   <span className="lv-accordion-icon">{openSections.howToPrep ? '−' : '+'}</span>
                 </button>
                 {openSections.howToPrep && (
                   <div className="lv-accordion-content">
-                    <p><strong>1. Add liquid:</strong> Fill cup to top with water, oat milk, or coconut water.</p>
-                    <p><strong>2. Blend:</strong> Pour into a blender and blend until silky smooth.</p>
-                    <p><strong>3. Enjoy:</strong> Pour back into your cup. Sip. Smile. Repeat.</p>
+                    <p><strong>Add liquid:</strong> Fill to the top with water, oat milk, or coconut water—your call.</p>
+                    <p><strong>Blend:</strong> Toss it in the blender and let the magic happen.</p>
+                    <p><strong>Enjoy:</strong> Pour it back, sip it up, and feel unstoppable.</p>
                   </div>
                 )}
               </div>
@@ -987,15 +987,17 @@ export default function ProductPage() {
                 >
                   <div>
                     <span className="lv-accordion-title">Delivery & Returns</span>
-                    <span className="lv-accordion-subtitle">Free shipping on orders over $50</span>
+                    <span className="lv-accordion-subtitle">Smoothies, delivered fast and stress-free</span>
                   </div>
                   <span className="lv-accordion-icon">{infoSections.delivery ? '−' : '+'}</span>
                 </button>
                 {infoSections.delivery && (
                   <div className="lv-accordion-content">
-                    <p>Standard delivery: 3-5 business days</p>
-                    <p>Express delivery: 1-2 business days</p>
-                    <p>We accept returns within 30 days of purchase for unopened products.</p>
+                    <p><strong>Free shipping:</strong> Orders over $50? We've got you.</p>
+                    <p><strong>Standard delivery:</strong> 3-5 business days—easy peasy.</p>
+                    <p><strong>Express delivery:</strong> 1-2 business days—because you can't wait.</p>
+                    <p><strong>Returns:</strong> Changed your mind? Send unopened products back within 30 days.</p>
+                    <p style={{marginTop: '12px', fontStyle: 'italic'}}>Because life's too short for boring smoothies.</p>
                   </div>
                 )}
               </div>
