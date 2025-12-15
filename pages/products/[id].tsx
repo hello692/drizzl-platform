@@ -1150,7 +1150,15 @@ export default function ProductPage() {
             <div className="lifestyle-track" id="lifestyle-track">
               {(productData?.lifestyleGallery || DEFAULT_LIFESTYLE_GALLERY).map((slide, index) => (
                 <div key={index} className="lifestyle-card">
-                  <img src={slide.src} alt={slide.alt} loading="lazy" />
+                  <img 
+                    src={slide.src} 
+                    alt={slide.alt} 
+                    loading="lazy"
+                    decoding="async"
+                    width="400"
+                    height="500"
+                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                  />
                 </div>
               ))}
             </div>
