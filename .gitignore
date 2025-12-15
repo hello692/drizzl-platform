@@ -127,4 +127,7 @@ dist
 .yarn/unplugged
 .yarn/build-state.yml
 .yarn/install-state.gz
-.pnp.*
+.pnp.*# Large/binary files (do not commit)
+public/videos/*.mp4
+attached_assets/
+*.zip
