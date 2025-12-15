@@ -1045,6 +1045,77 @@ input:focus, textarea:focus, select:focus {
 }
 
 /* ============================================
+   UI CLARITY MOBILE RESPONSIVENESS
+   44px touch targets, proportional spacing
+   ============================================ */
+
+@media (max-width: 768px) {
+  /* Mobile spacing adjustments */
+  :root {
+    --section-gap: 64px;
+    --section-gap-lg: 80px;
+    --block-gap: 32px;
+    --block-gap-lg: 40px;
+    --heading-gap: 12px;
+    --heading-gap-lg: 16px;
+  }
+  
+  /* Mobile CTA sizing - 44px minimum touch target */
+  .clarity-cta-primary,
+  .clarity-cta-secondary {
+    min-height: 44px;
+    padding: 12px 24px;
+    font-size: 15px;
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .clarity-utility-link {
+    min-height: 44px;
+    padding: 12px 0;
+  }
+  
+  /* Mobile typography scaling */
+  .clarity-hero-heading {
+    font-size: clamp(2rem, 8vw, 3rem);
+  }
+  
+  .clarity-section-heading {
+    font-size: clamp(1.5rem, 5vw, 1.8rem);
+  }
+  
+  /* Single column grid on mobile */
+  .clarity-grid {
+    grid-template-columns: 1fr !important;
+    gap: var(--block-gap);
+  }
+}
+
+@media (max-width: 480px) {
+  /* Small mobile adjustments */
+  :root {
+    --section-gap: 48px;
+    --section-gap-lg: 64px;
+    --block-gap: 24px;
+    --block-gap-lg: 32px;
+  }
+  
+  .clarity-cta-primary,
+  .clarity-cta-secondary {
+    padding: 14px 20px;
+    font-size: 16px;
+  }
+  
+  .clarity-hero-heading {
+    font-size: clamp(1.75rem, 10vw, 2.5rem);
+  }
+  
+  .clarity-section-heading {
+    font-size: clamp(1.25rem, 6vw, 1.5rem);
+  }
+}
+
+/* ============================================
    ANIMATIONS
    ============================================ */
 
