@@ -6458,10 +6458,12 @@ svg {
   overflow-x: auto;
   overflow-y: hidden;
   padding: 0 4vw 1.5rem;
-  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
   -ms-overflow-style: none;
+  cursor: grab;
+  user-select: none;
 }
 
 .lifestyle-track::-webkit-scrollbar {

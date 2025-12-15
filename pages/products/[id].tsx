@@ -589,22 +589,73 @@ export default function ProductPage() {
     setOpenSections(prev => ({ ...prev, [section]: !prev[section] }));
   };
 
-  // Horizontal mouse wheel scroll for lifestyle track
+  // Drag-to-slide for lifestyle track (no scroll hijacking)
   useEffect(() => {
-    const track = document.querySelector('.lifestyle-track');
+    const track = document.querySelector('.lifestyle-track') as HTMLElement;
     if (!track) return;
 
-    const handleWheel = (e: WheelEvent) => {
-      if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
-        e.preventDefault();
-        track.scrollLeft += e.deltaY;
+    let isDown = false;
+    let startX: number;
+    let scrollLeftStart: number;
+
+    const handleMouseDown = (e: MouseEvent) => {
+      isDown = true;
+      track.style.cursor = 'grabbing';
+      startX = e.pageX - track.offsetLeft;
+      scrollLeftStart = track.scrollLeft;
+    };
+
+    const handleMouseLeave = () => {
+      isDown = false;
+      track.style.cursor = 'grab';
+    };
+
+    const handleMouseUp = () => {
+      isDown = false;
+      track.style.cursor = 'grab';
+    };
+
+    const handleMouseMove = (e: MouseEvent) => {
+      if (!isDown) return;
+      e.preventDefault();
+      const x = e.pageX - track.offsetLeft;
+      const walk = (x - startX) * 1.5;
+      track.scrollLeft = scrollLeftStart - walk;
+    };
+
+    // Touch events for mobile drag
+    let touchStartX: number;
+    let touchScrollStart: number;
+
+    const handleTouchStart = (e: TouchEvent) => {
+      touchStartX = e.touches[0].pageX;
+      touchScrollStart = track.scrollLeft;
+    };
+
+    const handleTouchMove = (e: TouchEvent) => {
+      const touchX = e.touches[0].pageX;
+      const deltaX = touchStartX - touchX;
+      // Only scroll carousel if horizontal swipe is dominant
+      if (Math.abs(deltaX) > 10) {
+        track.scrollLeft = touchScrollStart + deltaX;
       }
     };
 
-    track.addEventListener('wheel', handleWheel as EventListener, { passive: false });
+    track.style.cursor = 'grab';
+    track.addEventListener('mousedown', handleMouseDown);
+    track.addEventListener('mouseleave', handleMouseLeave);
+    track.addEventListener('mouseup', handleMouseUp);
+    track.addEventListener('mousemove', handleMouseMove);
+    track.addEventListener('touchstart', handleTouchStart, { passive: true });
+    track.addEventListener('touchmove', handleTouchMove, { passive: true });
     
     return () => {
-      track.removeEventListener('wheel', handleWheel as EventListener);
+      track.removeEventListener('mousedown', handleMouseDown);
+      track.removeEventListener('mouseleave', handleMouseLeave);
+      track.removeEventListener('mouseup', handleMouseUp);
+      track.removeEventListener('mousemove', handleMouseMove);
+      track.removeEventListener('touchstart', handleTouchStart);
+      track.removeEventListener('touchmove', handleTouchMove);
     };
   }, []);
 
