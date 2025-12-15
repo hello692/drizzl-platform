@@ -6686,6 +6686,15 @@ svg {
   color: #666666;
 }
 
+.lv-fan-favorite {
+  font-size: 12px;
+  color: #333;
+  font-weight: 500;
+  margin-left: 8px;
+  padding-left: 8px;
+  border-left: 1px solid #ddd;
+}
+
 .lv-add-to-cart {
   width: 100%;
   padding: 18px 32px;

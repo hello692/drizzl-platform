@@ -893,6 +893,7 @@ export default function ProductPage() {
                 ))}
               </div>
               <span className="lv-review-count">({productData.rating.count.toLocaleString()} reviews)</span>
+              <span className="lv-fan-favorite">💛 Fan Favorite</span>
             </div>
 
             <button 
