@@ -73,7 +73,7 @@ const PRODUCT_DATA: Record<string, ProductData> = {
       { src: '/products/strawberry-peach/lifestyle/5.jpg', alt: 'Strawberry Peach Lifestyle 5' },
       { src: '/products/strawberry-peach/lifestyle/6.jpg', alt: 'Strawberry Peach Lifestyle 6' },
     ],
-    description: "If a peach could dream, it'd dream of this smoothie. Sweet strawberries, juicy peaches, and a pop of tart raspberries meet creamy banana, hearty oats, and a hint of goji berry magic. Pure, sippable perfection.",
+    description: "This smoothie doesn't play by the rules. Juicy peach, sassy strawberry, and tangy raspberry bring the flavor chaos, while banana and oats keep it smooth and satisfying. And those goji berries? They're the antioxidant badasses your body didn't know it needed. Sip loud, live bold.",
     ingredients: 'organic strawberries, organic bananas, organic peaches, organic raspberries, organic gluten-free whole grain oats, organic flax seeds, organic goji berries',
     nutrition: [
       { label: 'Calories', value: '140' },
