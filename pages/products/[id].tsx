@@ -7,6 +7,7 @@ import Footer from '../../components/Footer';
 import SmoothieCard from '../../components/SmoothieCard';
 import { useCart } from '../../hooks/useCart';
 import { useAuth } from '../../hooks/useAuth';
+import { useAutoScroll } from '../../hooks/useAutoScroll';
 
 // Apple-inspired design tokens (light theme - monochrome)
 const apple = {
@@ -558,8 +559,13 @@ export default function ProductPage() {
   const [selectedIngredient, setSelectedIngredient] = useState(0);
   const [activeCardIndex, setActiveCardIndex] = useState(0);
   
-  // Ref for lifestyle carousel drag-to-scroll
-  const lifestyleTrackRef = useRef<HTMLDivElement>(null);
+  // Auto-scroll for lifestyle carousel with infinite loop
+  const { trackRef: lifestyleTrackRef } = useAutoScroll({
+    speed: 35,
+    pauseOnInteraction: true,
+    resumeDelay: 1500,
+    direction: 'left',
+  });
   
   // Accordion state for LV-style product info sections
   const [infoSections, setInfoSections] = useState({
@@ -591,76 +597,6 @@ export default function ProductPage() {
   const toggleSection = (section: keyof typeof openSections) => {
     setOpenSections(prev => ({ ...prev, [section]: !prev[section] }));
   };
-
-  // Drag-to-slide for lifestyle track (no scroll hijacking) - using ref
-  useEffect(() => {
-    const track = lifestyleTrackRef.current;
-    if (!track) return;
-
-    let isDown = false;
-    let startX: number;
-    let scrollLeftStart: number;
-
-    const handleMouseDown = (e: MouseEvent) => {
-      isDown = true;
-      track.style.cursor = 'grabbing';
-      startX = e.pageX - track.offsetLeft;
-      scrollLeftStart = track.scrollLeft;
-    };
-
-    const handleMouseLeave = () => {
-      isDown = false;
-      track.style.cursor = 'grab';
-    };
-
-    const handleMouseUp = () => {
-      isDown = false;
-      track.style.cursor = 'grab';
-    };
-
-    const handleMouseMove = (e: MouseEvent) => {
-      if (!isDown) return;
-      e.preventDefault();
-      const x = e.pageX - track.offsetLeft;
-      const walk = (x - startX) * 1.5;
-      track.scrollLeft = scrollLeftStart - walk;
-    };
-
-    // Touch events for mobile drag
-    let touchStartX: number;
-    let touchScrollStart: number;
-
-    const handleTouchStart = (e: TouchEvent) => {
-      touchStartX = e.touches[0].pageX;
-      touchScrollStart = track.scrollLeft;
-    };
-
-    const handleTouchMove = (e: TouchEvent) => {
-      const touchX = e.touches[0].pageX;
-      const deltaX = touchStartX - touchX;
-      // Only scroll carousel if horizontal swipe is dominant
-      if (Math.abs(deltaX) > 10) {
-        track.scrollLeft = touchScrollStart + deltaX;
-      }
-    };
-
-    track.style.cursor = 'grab';
-    track.addEventListener('mousedown', handleMouseDown);
-    track.addEventListener('mouseleave', handleMouseLeave);
-    track.addEventListener('mouseup', handleMouseUp);
-    track.addEventListener('mousemove', handleMouseMove);
-    track.addEventListener('touchstart', handleTouchStart, { passive: true });
-    track.addEventListener('touchmove', handleTouchMove, { passive: true });
-    
-    return () => {
-      track.removeEventListener('mousedown', handleMouseDown);
-      track.removeEventListener('mouseleave', handleMouseLeave);
-      track.removeEventListener('mouseup', handleMouseUp);
-      track.removeEventListener('mousemove', handleMouseMove);
-      track.removeEventListener('touchstart', handleTouchStart);
-      track.removeEventListener('touchmove', handleTouchMove);
-    };
-  }, [productData]);
 
   if (!product || !productData) {
     return (
