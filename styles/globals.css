@@ -6348,9 +6348,9 @@ svg {
 .lv-product-info {
   flex: 0 0 42%;
   position: sticky;
-  top: 80px;
+  top: 60px;
   align-self: flex-start;
-  padding: 40px 48px 48px 32px;
+  padding: 20px 48px 48px 32px;
   background: #ffffff;
   z-index: 10;
 }
