@@ -146,7 +146,14 @@ const PRODUCT_DATA: Record<string, ProductData> = {
       '/products/pink-piyata/5.png',
       '/products/pink-piyata/6.png',
     ],
-    lifestyleGallery: DEFAULT_LIFESTYLE_GALLERY,
+    lifestyleGallery: [
+      { src: '/products/pink-piyata/lifestyle/1.jpg', alt: 'Pink Piyata Lifestyle 1' },
+      { src: '/products/pink-piyata/lifestyle/2.jpg', alt: 'Pink Piyata Lifestyle 2' },
+      { src: '/products/pink-piyata/lifestyle/3.jpg', alt: 'Pink Piyata Lifestyle 3' },
+      { src: '/products/pink-piyata/lifestyle/4.jpg', alt: 'Pink Piyata Lifestyle 4' },
+      { src: '/products/pink-piyata/lifestyle/5.jpg', alt: 'Pink Piyata Lifestyle 5' },
+      { src: '/products/pink-piyata/lifestyle/6.jpg', alt: 'Pink Piyata Lifestyle 6' },
+    ],
     description: 'Transport yourself to a tropical oasis with every sip. Vibrant dragon fruit meets sweet pineapple and creamy coconut for a smoothie that tastes like vacation. Packed with antioxidants and natural electrolytes to keep you feeling refreshed and energized.',
     ingredients: 'organic dragon fruit, organic pineapple, organic coconut cream, organic banana, organic mango, organic chia seeds',
     nutrition: [
