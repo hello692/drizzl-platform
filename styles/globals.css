@@ -4083,47 +4083,34 @@ svg {
   right: clamp(16px, 4vw, 40px);
 }
 
-/* Unified track styles - CSS Grid for perfect 5-card alignment */
+/* Unified track styles - Flex for horizontal auto-scroll */
 .carousel-track,
 .video-carousel-track {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  display: flex;
+  flex-wrap: nowrap;
   gap: var(--card-gap);
   padding: 8px 0;
-  width: 100%;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
-/* Responsive carousel grid - collapse columns on smaller screens */
-@media (max-width: 1024px) {
+/* Fixed card widths for horizontal scroll */
+.video-carousel-track > * {
+  flex: 0 0 auto;
+  width: clamp(200px, 20vw, 260px);
+}
+
+/* Respect prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
   .carousel-track,
   .video-carousel-track {
-    grid-template-columns: repeat(4, 1fr);
+    scroll-behavior: auto;
   }
 }
 
-@media (max-width: 768px) {
-  .carousel-track,
-  .video-carousel-track {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-@media (max-width: 540px) {
-  .carousel-track,
-  .video-carousel-track {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 380px) {
-  .carousel-track,
-  .video-carousel-track {
-    grid-template-columns: repeat(2, 1fr);
-    gap: clamp(6px, 2vw, 10px);
-  }
-}
-
-/* Hide scrollbar (kept for compatibility) */
+/* Hide scrollbar */
 .carousel-track::-webkit-scrollbar,
 .video-carousel-track::-webkit-scrollbar {
   display: none;
