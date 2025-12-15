@@ -69,7 +69,15 @@ const PRODUCT_DATA: Record<string, ProductData> = {
       '/products/strawberry-peach/gallery-6.png',
       '/products/strawberry-peach/gallery-7.png',
     ],
-    lifestyleGallery: DEFAULT_LIFESTYLE_GALLERY,
+    lifestyleGallery: [
+      { src: '/products/strawberry-peach/gallery-1.png', alt: 'Strawberry Peach lifestyle 1' },
+      { src: '/products/strawberry-peach/gallery-2.png', alt: 'Strawberry Peach lifestyle 2' },
+      { src: '/products/strawberry-peach/gallery-3.png', alt: 'Strawberry Peach lifestyle 3' },
+      { src: '/products/strawberry-peach/gallery-4.png', alt: 'Strawberry Peach lifestyle 4' },
+      { src: '/products/strawberry-peach/gallery-5.png', alt: 'Strawberry Peach lifestyle 5' },
+      { src: '/products/strawberry-peach/gallery-6.png', alt: 'Strawberry Peach lifestyle 6' },
+      { src: '/products/strawberry-peach/gallery-7.png', alt: 'Strawberry Peach lifestyle 7' },
+    ],
     description: 'If you asked a peach what it wanted to be when it grew up, it would tell you: THIS SMOOTHIE. Sweet strawberries, bright raspberries, and a hint of tartness from goji berries round out that irresistibly juicy peach flavor. Bananas, oats, and flax seeds make the whole thing creamy and satisfying.',
     ingredients: 'organic strawberries, organic bananas, organic peaches, organic raspberries, organic gluten-free whole grain oats, organic flax seeds, organic goji berries',
     nutrition: [
@@ -117,7 +125,13 @@ const PRODUCT_DATA: Record<string, ProductData> = {
       '/products/pink-piyata/gallery-16.jpg',
       '/products/pink-piyata/gallery-17.jpg',
     ],
-    lifestyleGallery: DEFAULT_LIFESTYLE_GALLERY,
+    lifestyleGallery: [
+      { src: '/products/pink-piyata/lifestyle-1.jpg', alt: 'Pink Piyata lifestyle 1' },
+      { src: '/products/pink-piyata/lifestyle-2.jpg', alt: 'Pink Piyata lifestyle 2' },
+      { src: '/products/pink-piyata/lifestyle-3.jpg', alt: 'Pink Piyata lifestyle 3' },
+      { src: '/products/pink-piyata/lifestyle-4.jpg', alt: 'Pink Piyata lifestyle 4' },
+      { src: '/products/pink-piyata/lifestyle-5.jpg', alt: 'Pink Piyata lifestyle 5' },
+    ],
     description: 'Transport yourself to a tropical oasis with every sip. Vibrant dragon fruit meets sweet pineapple and creamy coconut for a smoothie that tastes like vacation. Packed with antioxidants and natural electrolytes to keep you feeling refreshed and energized.',
     ingredients: 'organic dragon fruit, organic pineapple, organic coconut cream, organic banana, organic mango, organic chia seeds',
     nutrition: [
@@ -163,7 +177,13 @@ const PRODUCT_DATA: Record<string, ProductData> = {
       '/products/matcha/gallery-14.jpg',
       '/products/matcha/gallery-15.jpg',
     ],
-    lifestyleGallery: DEFAULT_LIFESTYLE_GALLERY,
+    lifestyleGallery: [
+      { src: '/products/matcha/lifestyle-1.jpg', alt: 'Matcha lifestyle 1' },
+      { src: '/products/matcha/lifestyle-2.jpg', alt: 'Matcha lifestyle 2' },
+      { src: '/products/matcha/lifestyle-3.jpg', alt: 'Matcha lifestyle 3' },
+      { src: '/products/matcha/lifestyle-4.jpg', alt: 'Matcha lifestyle 4' },
+      { src: '/products/matcha/lifestyle-5.jpg', alt: 'Matcha lifestyle 5' },
+    ],
     description: 'Find your zen with this ceremonial-grade matcha blend. The earthy sweetness of premium Japanese matcha is perfectly balanced with creamy banana and a hint of vanilla. A gentle caffeine boost without the jitters, plus L-theanine for calm, focused energy.',
     ingredients: 'organic ceremonial matcha, organic banana, organic almond butter, organic vanilla extract, organic spinach, organic hemp seeds',
     nutrition: [
@@ -208,7 +228,12 @@ const PRODUCT_DATA: Record<string, ProductData> = {
       '/products/mocha/gallery-13.jpg',
       '/products/mocha/gallery-14.jpg',
     ],
-    lifestyleGallery: DEFAULT_LIFESTYLE_GALLERY,
+    lifestyleGallery: [
+      { src: '/products/mocha/lifestyle-1.jpg', alt: 'Mocha lifestyle 1' },
+      { src: '/products/mocha/lifestyle-2.jpg', alt: 'Mocha lifestyle 2' },
+      { src: '/products/mocha/lifestyle-3.jpg', alt: 'Mocha lifestyle 3' },
+      { src: '/products/mocha/lifestyle-4.jpg', alt: 'Mocha lifestyle 4' },
+    ],
     description: 'Indulge in the perfect marriage of rich chocolate and smooth espresso. This creamy mocha blend delivers coffeehouse vibes without leaving home. Made with organic cold brew, raw cacao, and banana for natural sweetness that satisfies your cravings guilt-free.',
     ingredients: 'organic cold brew coffee, organic cacao powder, organic banana, organic almond butter, organic dates, organic oat milk, organic vanilla extract',
     nutrition: [
@@ -245,7 +270,11 @@ const PRODUCT_DATA: Record<string, ProductData> = {
       '/products/mushroom-coffee/DSC07777-2.png',
       '/products/mushroom-coffee/DSC07787.png',
     ],
-    lifestyleGallery: DEFAULT_LIFESTYLE_GALLERY,
+    lifestyleGallery: [
+      { src: '/products/coffee-mushroom/lifestyle-1.jpg', alt: 'Coffee Mushroom lifestyle 1' },
+      { src: '/products/coffee-mushroom/lifestyle-2.jpg', alt: 'Coffee Mushroom lifestyle 2' },
+      { src: '/products/coffee-mushroom/lifestyle-3.jpg', alt: 'Coffee Mushroom lifestyle 3' },
+    ],
     description: 'Your morning coffee just got a serious upgrade. Cold brew meets adaptogenic mushrooms for sustained energy without the crash. Lions mane for focus, chaga for immunity, and reishi for stress relief. Blended with creamy oat milk and a touch of maple.',
     ingredients: 'organic cold brew coffee, organic lions mane mushroom, organic chaga mushroom, organic reishi mushroom, organic oat milk, organic maple syrup, organic cacao',
     nutrition: [
@@ -282,7 +311,11 @@ const PRODUCT_DATA: Record<string, ProductData> = {
       '/products/chocolate-berry/Chocolate Berry-5.png',
       '/products/chocolate-berry/Chocolate Berry-6.png',
     ],
-    lifestyleGallery: DEFAULT_LIFESTYLE_GALLERY,
+    lifestyleGallery: [
+      { src: '/products/chocolate-berry/lifestyle-1.jpg', alt: 'Chocolate Berry lifestyle 1' },
+      { src: '/products/chocolate-berry/lifestyle-2.jpg', alt: 'Chocolate Berry lifestyle 2' },
+      { src: '/products/chocolate-berry/lifestyle-3.jpg', alt: 'Chocolate Berry lifestyle 3' },
+    ],
     description: 'Satisfy your chocolate cravings without the guilt. Rich organic cacao meets antioxidant-packed berries in this decadent yet nutritious blend. Dark chocolate depth balanced with bright berry notes, creamy almond butter, and a hint of vanilla. Dessert for breakfast? Yes, please.',
     ingredients: 'organic cacao powder, organic raspberries, organic strawberries, organic blueberries, organic almond butter, organic banana, organic vanilla, organic almond milk',
     nutrition: [
@@ -319,7 +352,11 @@ const PRODUCT_DATA: Record<string, ProductData> = {
       '/products/almond/Almond-5.png',
       '/products/almond/Almond-6.png',
     ],
-    lifestyleGallery: DEFAULT_LIFESTYLE_GALLERY,
+    lifestyleGallery: [
+      { src: '/products/almond/lifestyle-1.jpg', alt: 'Almond lifestyle 1' },
+      { src: '/products/almond/lifestyle-2.jpg', alt: 'Almond lifestyle 2' },
+      { src: '/products/almond/lifestyle-3.jpg', alt: 'Almond lifestyle 3' },
+    ],
     description: 'Experience the pure, creamy goodness of almonds in every sip. This smooth and satisfying blend combines rich almond butter with vanilla, a touch of honey, and warming spices. Perfect for those who love the simple pleasures of nutty, wholesome ingredients.',
     ingredients: 'organic almond butter, organic almond milk, organic banana, organic honey, organic vanilla, organic cinnamon, organic dates, organic flax seeds',
     nutrition: [
@@ -356,7 +393,11 @@ const PRODUCT_DATA: Record<string, ProductData> = {
       '/products/acai/Acai-5.png',
       '/products/acai/Acai-6.png',
     ],
-    lifestyleGallery: DEFAULT_LIFESTYLE_GALLERY,
+    lifestyleGallery: [
+      { src: '/products/acai/lifestyle-1.jpg', alt: 'Acai lifestyle 1' },
+      { src: '/products/acai/lifestyle-2.jpg', alt: 'Acai lifestyle 2' },
+      { src: '/products/acai/lifestyle-3.jpg', alt: 'Acai lifestyle 3' },
+    ],
     description: 'The legendary Amazonian superfruit takes center stage in this antioxidant-rich blend. Wild-harvested acai berries combined with mixed berries, banana, and a hint of guarana for natural energy. Deep purple, deeply delicious, deeply nutritious.',
     ingredients: 'organic acai berries, organic blueberries, organic banana, organic strawberries, organic guarana, organic hemp hearts, organic coconut water',
     nutrition: [
@@ -415,7 +456,12 @@ const PRODUCT_DATA: Record<string, ProductData> = {
       '/products/nutty-monkey/gallery-27.jpg',
       '/products/nutty-monkey/gallery-28.jpg',
     ],
-    lifestyleGallery: DEFAULT_LIFESTYLE_GALLERY,
+    lifestyleGallery: [
+      { src: '/products/nutty-monkey/lifestyle-1.jpg', alt: 'Nutty Monkey lifestyle 1' },
+      { src: '/products/nutty-monkey/lifestyle-2.jpg', alt: 'Nutty Monkey lifestyle 2' },
+      { src: '/products/nutty-monkey/lifestyle-3.jpg', alt: 'Nutty Monkey lifestyle 3' },
+      { src: '/products/nutty-monkey/lifestyle-4.jpg', alt: 'Nutty Monkey lifestyle 4' },
+    ],
     description: 'The beloved peanut butter and banana combo, elevated to smoothie perfection. Creamy organic peanut butter meets ripe bananas, a touch of cacao, and a drizzle of honey. Protein-packed and utterly satisfying for breakfast or post-workout fuel.',
     ingredients: 'organic peanut butter, organic banana, organic cacao nibs, organic honey, organic oat milk, organic vanilla, organic flax seeds',
     nutrition: [
@@ -452,7 +498,14 @@ const PRODUCT_DATA: Record<string, ProductData> = {
       '/products/mango-jackfruit/Mango Jackfruit-5.png',
       '/products/mango-jackfruit/Mango Jackfruit-6.png',
     ],
-    lifestyleGallery: DEFAULT_LIFESTYLE_GALLERY,
+    lifestyleGallery: [
+      { src: '/products/mango-jackfruit/Mango Jackfruit-1.png', alt: 'Mango Jackfruit lifestyle 1' },
+      { src: '/products/mango-jackfruit/Mango Jackfruit-2.png', alt: 'Mango Jackfruit lifestyle 2' },
+      { src: '/products/mango-jackfruit/Mango Jackfruit-3.png', alt: 'Mango Jackfruit lifestyle 3' },
+      { src: '/products/mango-jackfruit/Mango Jackfruit-4.png', alt: 'Mango Jackfruit lifestyle 4' },
+      { src: '/products/mango-jackfruit/Mango Jackfruit-5.png', alt: 'Mango Jackfruit lifestyle 5' },
+      { src: '/products/mango-jackfruit/Mango Jackfruit-6.png', alt: 'Mango Jackfruit lifestyle 6' },
+    ],
     description: 'Transport yourself to a tropical paradise with this exotic blend of sun-ripened mangoes and sweet jackfruit. Each sip delivers a burst of golden sunshine, balanced with creamy coconut and a hint of lime for the ultimate island escape.',
     ingredients: 'organic mango, organic jackfruit, organic coconut milk, organic lime juice, organic turmeric, organic ginger, organic coconut water',
     nutrition: [
