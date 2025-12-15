@@ -12,7 +12,7 @@ interface Product {
 }
 
 const fallbackProducts: Product[] = [
-  { id: '1', name: 'Strawberry + Peach', price: 8.49, category: 'Smoothie', image: '/products/strawberry-peach/1.png' },
+  { id: '1', name: 'Strawberry + Peachy', price: 8.49, category: 'Smoothie', image: '/products/strawberry-peach/1.png' },
   { id: '9', name: 'Pink Piyata', price: 8.99, category: 'Smoothie', image: '/products/pink-piyata/gallery-1.jpg' },
   { id: '10', name: 'Matcha', price: 9.49, category: 'Smoothie', image: '/products/matcha/gallery-1.jpg' },
   { id: '14', name: 'Coffee Mushroom', price: 9.99, category: 'Smoothie', image: '/products/coffee-mushroom/gallery-1.jpg' },

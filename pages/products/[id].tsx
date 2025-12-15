@@ -51,11 +51,11 @@ const DEFAULT_LIFESTYLE_GALLERY = [
 const PRODUCT_DATA: Record<string, ProductData> = {
   '1': {
     id: '1',
-    name: 'Strawberry + Peach',
+    name: 'Strawberry + Peachy',
     price: 8.49,
     image: '/products/strawberry-peach/1.png',
-    shortDescription: 'Creamy strawberry bliss',
-    tagline: 'a scoop of strawberry-banana sorbet',
+    shortDescription: 'Big flavor energy: juicy strawberries, lush peaches, pure magic.',
+    tagline: 'Big flavor energy: juicy strawberries, lush peaches, pure magic.',
     rating: { average: 4.5, count: 4619 },
     gallery: [
       '/products/strawberry-peach/1.png',
@@ -530,7 +530,7 @@ const PRODUCT_DATA: Record<string, ProductData> = {
 };
 
 const POPULAR_SMOOTHIES = [
-  { id: '1', name: 'Strawberry + Peach', price: 8.49, image: '/products/strawberry-peach/1.png', hoverImage: '/products/strawberry-peach/2.png', badge: 'BEST SELLER', rating: 4.5, reviews: 4619 },
+  { id: '1', name: 'Strawberry + Peachy', price: 8.49, image: '/products/strawberry-peach/1.png', hoverImage: '/products/strawberry-peach/2.png', badge: 'BEST SELLER', rating: 4.5, reviews: 4619 },
   { id: '9', name: 'Pink Piyata', price: 8.99, image: '/products/pink-piyata/gallery-1.jpg', hoverImage: '/products/pink-piyata/gallery-2.jpg', badge: 'NEW', rating: 4.7, reviews: 127 },
   { id: '10', name: 'Matcha', price: 9.49, image: '/products/matcha/gallery-1.jpg', hoverImage: '/products/matcha/gallery-2.jpg', badge: 'BEST SELLER', rating: 4.8, reviews: 312 },
   { id: '11', name: 'Mocha', price: 9.49, image: '/products/mocha/gallery-1.jpg', hoverImage: '/products/mocha/gallery-2.jpg', badge: 'BEST SELLER', rating: 4.6, reviews: 245 },
@@ -716,7 +716,7 @@ export default function ProductPage() {
             margin: '0 0 24px',
             lineHeight: '1.5',
           }}>
-            Inspired by {productData.tagline}
+            {productData.tagline}
           </p>
           <p style={{
             fontSize: '28px',
@@ -846,7 +846,7 @@ export default function ProductPage() {
         <div className="lv-product-info">
           <div className="lv-product-info-inner">
             <h1 className="lv-product-name">{productData.name}</h1>
-            <p className="lv-product-subtitle">Inspired by {productData.tagline}</p>
+            <p className="lv-product-subtitle">{productData.tagline}</p>
             <p className="lv-product-price">${productData.price.toFixed(2)}</p>
             
             <div className="lv-product-rating">
@@ -1038,7 +1038,7 @@ export default function ProductPage() {
         maxWidth: '600px',
         lineHeight: '1.5',
       }}>
-        Inspired by {productData.tagline}
+        {productData.tagline}
       </p>
       <div style={{
         display: 'flex',

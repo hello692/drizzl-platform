@@ -20,7 +20,7 @@ interface Product {
 const products: Product[] = [
   { 
     id: '1', 
-    name: 'Strawberry + Peach', 
+    name: 'Strawberry + Peachy', 
     price: 8.49, 
     reviews: 4619,
     rating: 4.5,
