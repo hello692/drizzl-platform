@@ -441,7 +441,6 @@ const PRODUCT_DATA: Record<string, ProductData> = {
       { src: '/products/nutty-monkey/lifestyle/lifestyle-12.webp', alt: 'Nutty Monkey lifestyle 12' },
       { src: '/products/nutty-monkey/lifestyle/lifestyle-13.webp', alt: 'Nutty Monkey lifestyle 13' },
       { src: '/products/nutty-monkey/lifestyle/lifestyle-14.webp', alt: 'Nutty Monkey lifestyle 14' },
-      { src: '/products/nutty-monkey/lifestyle/lifestyle-15.webp', alt: 'Nutty Monkey lifestyle 15' },
       { src: '/products/nutty-monkey/lifestyle/lifestyle-16.webp', alt: 'Nutty Monkey lifestyle 16' },
       { src: '/products/nutty-monkey/lifestyle/lifestyle-17.webp', alt: 'Nutty Monkey lifestyle 17' },
     ],
@@ -481,7 +480,9 @@ const PRODUCT_DATA: Record<string, ProductData> = {
       '/products/mango-jackfruit/Mango Jackfruit-5.png',
       '/products/mango-jackfruit/Mango Jackfruit-6.png',
     ],
-    lifestyleGallery: DEFAULT_LIFESTYLE_GALLERY,
+    lifestyleGallery: [
+      { src: '/products/mango-jackfruit/lifestyle/lifestyle-1.webp', alt: 'Mango Jackfruit lifestyle 1' },
+    ],
     description: 'Transport yourself to a tropical paradise with this exotic blend of sun-ripened mangoes and sweet jackfruit. Each sip delivers a burst of golden sunshine, balanced with creamy coconut and a hint of lime for the ultimate island escape.',
     ingredients: 'organic mango, organic jackfruit, organic coconut milk, organic lime juice, organic turmeric, organic ginger, organic coconut water',
     nutrition: [
