@@ -49,12 +49,6 @@ const DEFAULT_LIFESTYLE_GALLERY = [
   { src: '/carousel/carousel-7.webp', alt: 'Lifestyle 7' },
   { src: '/carousel/carousel-8.webp', alt: 'Lifestyle 8' },
   { src: '/carousel/carousel-9.webp', alt: 'Lifestyle 9' },
-  { src: '/carousel/carousel-10.webp', alt: 'Lifestyle 10' },
-  { src: '/carousel/carousel-11.webp', alt: 'Lifestyle 11' },
-  { src: '/carousel/carousel-12.webp', alt: 'Lifestyle 12' },
-  { src: '/carousel/carousel-13.webp', alt: 'Lifestyle 13' },
-  { src: '/carousel/carousel-14.webp', alt: 'Lifestyle 14' },
-  { src: '/carousel/carousel-15.webp', alt: 'Lifestyle 15' },
 ];
 
 const PRODUCT_DATA: Record<string, ProductData> = {

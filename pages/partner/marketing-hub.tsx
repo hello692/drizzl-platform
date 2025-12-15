@@ -182,7 +182,7 @@ const mockAssets: MarketingAsset[] = [
     category: 'Print Materials',
     format: 'PDF',
     product: 'All Products',
-    thumbnail: '/carousel/carousel-10.webp',
+    thumbnail: '/carousel/carousel-7.webp',
     fileSize: '5.2 MB',
     dimensions: '11x17 inches',
   },
@@ -194,7 +194,7 @@ const seasonalCampaigns: SeasonalCampaign[] = [
     name: 'Summer Smoothie Season',
     description: 'Complete marketing kit for summer promotions including posters, social templates, and in-store signage.',
     assetsCount: 24,
-    thumbnail: '/carousel/carousel-11.webp',
+    thumbnail: '/carousel/carousel-8.webp',
     icon: <Sun size={24} />,
   },
   {
@@ -202,7 +202,7 @@ const seasonalCampaigns: SeasonalCampaign[] = [
     name: 'New Year New You',
     description: 'Health-focused campaign materials perfect for January wellness promotions and resolutions.',
     assetsCount: 18,
-    thumbnail: '/carousel/carousel-12.webp',
+    thumbnail: '/carousel/carousel-9.webp',
     icon: <Sparkles size={24} />,
   },
 ];
