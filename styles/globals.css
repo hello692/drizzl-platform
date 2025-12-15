@@ -4083,31 +4083,30 @@ svg {
   right: clamp(16px, 4vw, 40px);
 }
 
-/* Video carousel track - Grid layout for arrow-based navigation */
+/* Unified track styles - Flex for horizontal auto-scroll */
+.carousel-track,
 .video-carousel-track {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  display: flex;
+  flex-wrap: nowrap;
   gap: var(--card-gap);
   padding: 8px 0;
-  width: 100%;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
-/* Responsive carousel grid - collapse columns on smaller screens */
-@media (max-width: 1024px) {
-  .video-carousel-track {
-    grid-template-columns: repeat(4, 1fr);
-  }
+/* Fixed card widths for horizontal scroll */
+.video-carousel-track > * {
+  flex: 0 0 auto;
+  width: clamp(200px, 20vw, 260px);
 }
 
-@media (max-width: 768px) {
+/* Respect prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  .carousel-track,
   .video-carousel-track {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-@media (max-width: 540px) {
-  .video-carousel-track {
-    grid-template-columns: repeat(2, 1fr);
+    scroll-behavior: auto;
   }
 }
 
@@ -4483,7 +4482,7 @@ svg {
 .smoothie-card-dh-image-container {
   position: relative;
   width: 100%;
-  aspect-ratio: 3 / 4;
+  aspect-ratio: 1 / 1;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -4492,14 +4491,13 @@ svg {
 }
 
 .smoothie-card-dh-image {
-  width: 100%;
-  height: 100%;
+  width: 130%;
+  height: 130%;
   object-fit: contain;
-  object-position: center;
   transition: opacity 0.3s ease;
+  margin-top: -24px;
   position: relative;
   z-index: 5;
-  padding: 10px;
 }
 
 .smoothie-card-dh-zoom {

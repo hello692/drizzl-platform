@@ -45,16 +45,6 @@ export function useScrollAnimation<T extends HTMLElement>(
 
     observer.observe(element);
 
-    // Check immediately if element is already in viewport on mount
-    const rect = element.getBoundingClientRect();
-    const isInViewport = rect.top < window.innerHeight && rect.bottom > 0;
-    if (isInViewport) {
-      setIsVisible(true);
-      if (triggerOnce) {
-        observer.unobserve(element);
-      }
-    }
-
     return () => observer.disconnect();
   }, [threshold, rootMargin, triggerOnce, isMounted]);
 

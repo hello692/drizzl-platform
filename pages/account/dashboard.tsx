@@ -24,8 +24,8 @@ const mockRecentOrders = [
     id: 'ORD-78542', 
     date: 'Dec 8, 2025', 
     items: [
-      { name: 'Strawberry Peach Smoothie', quantity: 2, image: '/products/strawberry-peach/Strawbery peach-TG-1.webp' },
-      { name: 'Mango Jackfruit Blend', quantity: 1, image: '/products/mango-jackfruit/Mango Jackfruit-1.webp' },
+      { name: 'Strawberry Peach Smoothie', quantity: 2, image: '/products/strawberry-peach/Strawbery peach-TG-1.jpg' },
+      { name: 'Mango Jackfruit Blend', quantity: 1, image: '/products/mango-jackfruit/Mango Jackfruit-1.png' },
     ],
     total: 89.97, 
     status: 'Delivered' 
@@ -34,7 +34,7 @@ const mockRecentOrders = [
     id: 'ORD-78401', 
     date: 'Dec 3, 2025', 
     items: [
-      { name: 'Coffee Mushroom Blend', quantity: 3, image: '/products/coffee-mushroom/Coffee Mushroom-1.webp' },
+      { name: 'Coffee Mushroom Blend', quantity: 3, image: '/products/coffee-mushroom/Coffee Mushroom-1.png' },
     ],
     total: 44.97, 
     status: 'Shipped' 
@@ -43,7 +43,7 @@ const mockRecentOrders = [
     id: 'ORD-78256', 
     date: 'Nov 28, 2025', 
     items: [
-      { name: 'Açai Berry Bowl Mix', quantity: 4, image: '/products/acai/Acai-1.webp' },
+      { name: 'Açai Berry Bowl Mix', quantity: 4, image: '/products/acai/Acai-1.png' },
     ],
     total: 59.96, 
     status: 'Delivered' 
@@ -107,8 +107,8 @@ export default function CustomerDashboard() {
               items: ((order as any).items as any[])?.map((item: any) => ({
                 name: item.product?.name || item.product_name || 'Product',
                 quantity: item.quantity || 1,
-                image: item.product?.hero_image_url || '/products/acai/Acai-1.webp',
-              })) || [{ name: 'Product', quantity: 1, image: '/products/acai/Acai-1.webp' }],
+                image: item.product?.hero_image_url || '/products/acai/Acai-1.png',
+              })) || [{ name: 'Product', quantity: 1, image: '/products/acai/Acai-1.png' }],
               total: order.total / 100,
               status: order.status?.charAt(0).toUpperCase() + order.status?.slice(1) || 'Processing',
             }));

@@ -38,7 +38,7 @@ const mockSubscriptions: Subscription[] = [
     id: 'SUB-1001',
     product: {
       name: 'Strawberry Peach Smoothie',
-      image: '/products/strawberry-peach/Strawbery peach-TG-1.webp',
+      image: '/products/strawberry-peach/Strawbery peach-TG-1.jpg',
       price: 29.99,
     },
     frequency: 'Every 2 weeks',
@@ -51,7 +51,7 @@ const mockSubscriptions: Subscription[] = [
     id: 'SUB-1002',
     product: {
       name: 'Coffee Mushroom Blend',
-      image: '/products/coffee-mushroom/Coffee Mushroom-1.webp',
+      image: '/products/coffee-mushroom/Coffee Mushroom-1.png',
       price: 14.99,
     },
     frequency: 'Monthly',
@@ -99,7 +99,7 @@ export default function CustomerSubscriptions() {
                 id: sub.id,
                 product: {
                   name: (sub.items as any)?.[0]?.product_name || 'Smoothie Subscription',
-                  image: (sub.items as any)?.[0]?.image || '/products/acai/Acai-1.webp',
+                  image: (sub.items as any)?.[0]?.image || '/products/acai/Acai-1.png',
                   price: ((sub.items as any)?.[0]?.price_cents || 1499) / 100,
                 },
                 frequency: frequencyMap[sub.frequency] || sub.frequency || 'Monthly',

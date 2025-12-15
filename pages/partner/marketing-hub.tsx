@@ -52,7 +52,7 @@ const mockAssets: MarketingAsset[] = [
     category: 'Product Images',
     format: 'JPG',
     product: 'Strawberry Peach',
-    thumbnail: '/products/strawberry-peach/gallery-1.webp',
+    thumbnail: '/products/strawberry-peach/gallery-1.jpg',
     fileSize: '4.2 MB',
     dimensions: '3000x3000',
   },
@@ -62,7 +62,7 @@ const mockAssets: MarketingAsset[] = [
     category: 'Product Images',
     format: 'JPG',
     product: 'Mango Jackfruit',
-    thumbnail: '/carousel/carousel-1.webp',
+    thumbnail: '/lifestyle/mango-jackfruit/Copy of 890A5348_out1.jpg',
     fileSize: '5.1 MB',
     dimensions: '4000x2667',
   },
@@ -72,7 +72,7 @@ const mockAssets: MarketingAsset[] = [
     category: 'Posters & Signage',
     format: 'PDF',
     product: 'Açai Berry',
-    thumbnail: '/products/acai/gallery-1.webp',
+    thumbnail: '/products/acai/gallery-1.jpg',
     fileSize: '8.5 MB',
     dimensions: '24x36 inches',
   },
@@ -82,7 +82,7 @@ const mockAssets: MarketingAsset[] = [
     category: 'Posters & Signage',
     format: 'AI',
     product: 'All Products',
-    thumbnail: '/carousel/carousel-2.webp',
+    thumbnail: '/lifestyle/DSC09073-1-2.jpg',
     fileSize: '12.3 MB',
     dimensions: '36x48 inches',
   },
@@ -92,7 +92,7 @@ const mockAssets: MarketingAsset[] = [
     category: 'Social Media',
     format: 'PSD',
     product: 'Multiple',
-    thumbnail: '/carousel/carousel-3.webp',
+    thumbnail: '/lifestyle/DSC08827.jpg',
     fileSize: '15.2 MB',
     dimensions: '1080x1920',
   },
@@ -102,7 +102,7 @@ const mockAssets: MarketingAsset[] = [
     category: 'Social Media',
     format: 'PNG',
     product: 'Wellness Collection',
-    thumbnail: '/carousel/carousel-4.webp',
+    thumbnail: '/lifestyle/wellness.jpg',
     fileSize: '2.1 MB',
     dimensions: '1200x630',
   },
@@ -112,7 +112,7 @@ const mockAssets: MarketingAsset[] = [
     category: 'Videos',
     format: 'MP4',
     product: 'Brand Overview',
-    thumbnail: '/carousel/carousel-5.webp',
+    thumbnail: '/lifestyle/DSC09048-1.jpg',
     fileSize: '45 MB',
     duration: '0:30',
   },
@@ -122,7 +122,7 @@ const mockAssets: MarketingAsset[] = [
     category: 'Videos',
     format: 'MP4',
     product: 'Coffee Mushroom',
-    thumbnail: '/carousel/carousel-6.webp',
+    thumbnail: '/lifestyle/coffee-lifestyle-1.png',
     fileSize: '78 MB',
     duration: '1:15',
   },
@@ -132,7 +132,7 @@ const mockAssets: MarketingAsset[] = [
     category: 'Print Materials',
     format: 'PDF',
     product: 'All Products',
-    thumbnail: '/carousel/carousel-7.webp',
+    thumbnail: '/lifestyle/DSC08836.jpg',
     fileSize: '3.4 MB',
     dimensions: '8.5x11 inches',
   },
@@ -142,7 +142,7 @@ const mockAssets: MarketingAsset[] = [
     category: 'Print Materials',
     format: 'PDF',
     product: 'Featured Products',
-    thumbnail: '/carousel/carousel-8.webp',
+    thumbnail: '/lifestyle/DSC09091.jpg',
     fileSize: '2.8 MB',
     dimensions: '4x6 inches',
   },
@@ -152,7 +152,7 @@ const mockAssets: MarketingAsset[] = [
     category: 'Product Images',
     format: 'PNG',
     product: 'Almond',
-    thumbnail: '/products/almond/gallery-1.webp',
+    thumbnail: '/products/almond/gallery-1.jpg',
     fileSize: '6.7 MB',
     dimensions: '3000x3000',
   },
@@ -162,7 +162,7 @@ const mockAssets: MarketingAsset[] = [
     category: 'Social Media',
     format: 'PSD',
     product: 'Multiple',
-    thumbnail: '/carousel/carousel-9.webp',
+    thumbnail: '/lifestyle/DSC08825.jpg',
     fileSize: '18.5 MB',
     dimensions: '1080x1920',
   },
@@ -172,7 +172,7 @@ const mockAssets: MarketingAsset[] = [
     category: 'Product Images',
     format: 'JPG',
     product: 'Chocolate Berry',
-    thumbnail: '/products/chocolate-berry/gallery-1.webp',
+    thumbnail: '/products/chocolate-berry/gallery-1.jpg',
     fileSize: '4.8 MB',
     dimensions: '3000x3000',
   },
@@ -182,7 +182,7 @@ const mockAssets: MarketingAsset[] = [
     category: 'Print Materials',
     format: 'PDF',
     product: 'All Products',
-    thumbnail: '/carousel/carousel-7.webp',
+    thumbnail: '/lifestyle/DSC09118.jpg',
     fileSize: '5.2 MB',
     dimensions: '11x17 inches',
   },
@@ -194,7 +194,7 @@ const seasonalCampaigns: SeasonalCampaign[] = [
     name: 'Summer Smoothie Season',
     description: 'Complete marketing kit for summer promotions including posters, social templates, and in-store signage.',
     assetsCount: 24,
-    thumbnail: '/carousel/carousel-8.webp',
+    thumbnail: '/lifestyle/beach.jpg',
     icon: <Sun size={24} />,
   },
   {
@@ -202,7 +202,7 @@ const seasonalCampaigns: SeasonalCampaign[] = [
     name: 'New Year New You',
     description: 'Health-focused campaign materials perfect for January wellness promotions and resolutions.',
     assetsCount: 18,
-    thumbnail: '/carousel/carousel-9.webp',
+    thumbnail: '/lifestyle/wellness.jpg',
     icon: <Sparkles size={24} />,
   },
 ];
@@ -362,7 +362,7 @@ export default function MarketingHub() {
                     alt={asset.name}
                     style={styles.thumbnail}
                     onError={(e) => {
-                      (e.target as HTMLImageElement).src = '/carousel/carousel-1.webp';
+                      (e.target as HTMLImageElement).src = '/lifestyle/DSC09048-1.jpg';
                     }}
                   />
                   <div style={styles.thumbnailOverlay}>
@@ -455,7 +455,7 @@ export default function MarketingHub() {
                     alt={campaign.name}
                     style={styles.campaignImage}
                     onError={(e) => {
-                      (e.target as HTMLImageElement).src = '/carousel/carousel-1.webp';
+                      (e.target as HTMLImageElement).src = '/lifestyle/DSC09048-1.jpg';
                     }}
                   />
                   <div style={styles.campaignOverlay}>

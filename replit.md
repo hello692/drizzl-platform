@@ -122,7 +122,6 @@ Drizzl Wellness is a full-stack e-commerce platform for a smoothie and wellness 
 3. **Admin Product CRUD**: Full product management at `/admin/products` (list, add, edit, delete)
 4. **Shop Database Connection**: `/shop-all` and collection pages fetch from Supabase with graceful fallbacks
 5. **Vercel Configuration**: Production-ready `next.config.ts` and `vercel.json` with security headers
-6. **Unified Carousel System**: All lifestyle/carousel images consolidated in `public/carousel/` (9 unique WebP images, carousel-1.webp through carousel-9.webp, duplicates removed). All carousels use the `useAutoScroll` hook with horizontal infinite scrolling, pause on interaction, and 1.5s resume delay.
 
 ### Demo Credentials
 - Customer Portal: any email + password "customer123"
