@@ -65,7 +65,14 @@ const PRODUCT_DATA: Record<string, ProductData> = {
       '/products/strawberry-peach/5.png',
       '/products/strawberry-peach/6.png',
     ],
-    lifestyleGallery: DEFAULT_LIFESTYLE_GALLERY,
+    lifestyleGallery: [
+      { src: '/products/strawberry-peach/lifestyle/1.jpg', alt: 'Strawberry Peach Lifestyle 1' },
+      { src: '/products/strawberry-peach/lifestyle/2.jpg', alt: 'Strawberry Peach Lifestyle 2' },
+      { src: '/products/strawberry-peach/lifestyle/3.jpg', alt: 'Strawberry Peach Lifestyle 3' },
+      { src: '/products/strawberry-peach/lifestyle/4.jpg', alt: 'Strawberry Peach Lifestyle 4' },
+      { src: '/products/strawberry-peach/lifestyle/5.jpg', alt: 'Strawberry Peach Lifestyle 5' },
+      { src: '/products/strawberry-peach/lifestyle/6.jpg', alt: 'Strawberry Peach Lifestyle 6' },
+    ],
     description: 'If you asked a peach what it wanted to be when it grew up, it would tell you: THIS SMOOTHIE. Sweet strawberries, bright raspberries, and a hint of tartness from goji berries round out that irresistibly juicy peach flavor. Bananas, oats, and flax seeds make the whole thing creamy and satisfying.',
     ingredients: 'organic strawberries, organic bananas, organic peaches, organic raspberries, organic gluten-free whole grain oats, organic flax seeds, organic goji berries',
     nutrition: [
