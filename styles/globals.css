@@ -6478,7 +6478,6 @@ svg {
   border-radius: 24px;
   overflow: hidden;
   background: #ffffff;
-  scroll-snap-align: center;
 }
 
 .lifestyle-card img {
