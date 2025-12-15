@@ -69,15 +69,7 @@ const PRODUCT_DATA: Record<string, ProductData> = {
       '/products/strawberry-peach/gallery-6.png',
       '/products/strawberry-peach/gallery-7.png',
     ],
-    lifestyleGallery: [
-      { src: '/products/strawberry-peach/gallery-1.png', alt: 'Strawberry Peach lifestyle 1' },
-      { src: '/products/strawberry-peach/gallery-2.png', alt: 'Strawberry Peach lifestyle 2' },
-      { src: '/products/strawberry-peach/gallery-3.png', alt: 'Strawberry Peach lifestyle 3' },
-      { src: '/products/strawberry-peach/gallery-4.png', alt: 'Strawberry Peach lifestyle 4' },
-      { src: '/products/strawberry-peach/gallery-5.png', alt: 'Strawberry Peach lifestyle 5' },
-      { src: '/products/strawberry-peach/gallery-6.png', alt: 'Strawberry Peach lifestyle 6' },
-      { src: '/products/strawberry-peach/gallery-7.png', alt: 'Strawberry Peach lifestyle 7' },
-    ],
+    lifestyleGallery: DEFAULT_LIFESTYLE_GALLERY,
     description: 'If you asked a peach what it wanted to be when it grew up, it would tell you: THIS SMOOTHIE. Sweet strawberries, bright raspberries, and a hint of tartness from goji berries round out that irresistibly juicy peach flavor. Bananas, oats, and flax seeds make the whole thing creamy and satisfying.',
     ingredients: 'organic strawberries, organic bananas, organic peaches, organic raspberries, organic gluten-free whole grain oats, organic flax seeds, organic goji berries',
     nutrition: [
@@ -498,14 +490,7 @@ const PRODUCT_DATA: Record<string, ProductData> = {
       '/products/mango-jackfruit/Mango Jackfruit-5.png',
       '/products/mango-jackfruit/Mango Jackfruit-6.png',
     ],
-    lifestyleGallery: [
-      { src: '/products/mango-jackfruit/Mango Jackfruit-1.png', alt: 'Mango Jackfruit lifestyle 1' },
-      { src: '/products/mango-jackfruit/Mango Jackfruit-2.png', alt: 'Mango Jackfruit lifestyle 2' },
-      { src: '/products/mango-jackfruit/Mango Jackfruit-3.png', alt: 'Mango Jackfruit lifestyle 3' },
-      { src: '/products/mango-jackfruit/Mango Jackfruit-4.png', alt: 'Mango Jackfruit lifestyle 4' },
-      { src: '/products/mango-jackfruit/Mango Jackfruit-5.png', alt: 'Mango Jackfruit lifestyle 5' },
-      { src: '/products/mango-jackfruit/Mango Jackfruit-6.png', alt: 'Mango Jackfruit lifestyle 6' },
-    ],
+    lifestyleGallery: DEFAULT_LIFESTYLE_GALLERY,
     description: 'Transport yourself to a tropical paradise with this exotic blend of sun-ripened mangoes and sweet jackfruit. Each sip delivers a burst of golden sunshine, balanced with creamy coconut and a hint of lime for the ultimate island escape.',
     ingredients: 'organic mango, organic jackfruit, organic coconut milk, organic lime juice, organic turmeric, organic ginger, organic coconut water',
     nutrition: [
