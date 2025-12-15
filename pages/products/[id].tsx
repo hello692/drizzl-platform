@@ -40,12 +40,21 @@ interface ProductData {
 }
 
 const DEFAULT_LIFESTYLE_GALLERY = [
-  { src: '/lifestyle/DSC09048-1.jpg', alt: 'Lifestyle 1' },
-  { src: '/lifestyle/DSC09063.jpg', alt: 'Lifestyle 2' },
-  { src: '/lifestyle/DSC09073-1-2.jpg', alt: 'Lifestyle 3' },
-  { src: '/lifestyle/DSC09091.jpg', alt: 'Lifestyle 4' },
-  { src: '/lifestyle/DSC09092.jpg', alt: 'Lifestyle 5' },
-  { src: '/lifestyle/DSC09108-2.jpg', alt: 'Lifestyle 6' },
+  { src: '/carousel/carousel-1.webp', alt: 'Lifestyle 1' },
+  { src: '/carousel/carousel-2.webp', alt: 'Lifestyle 2' },
+  { src: '/carousel/carousel-3.webp', alt: 'Lifestyle 3' },
+  { src: '/carousel/carousel-4.webp', alt: 'Lifestyle 4' },
+  { src: '/carousel/carousel-5.webp', alt: 'Lifestyle 5' },
+  { src: '/carousel/carousel-6.webp', alt: 'Lifestyle 6' },
+  { src: '/carousel/carousel-7.webp', alt: 'Lifestyle 7' },
+  { src: '/carousel/carousel-8.webp', alt: 'Lifestyle 8' },
+  { src: '/carousel/carousel-9.webp', alt: 'Lifestyle 9' },
+  { src: '/carousel/carousel-10.webp', alt: 'Lifestyle 10' },
+  { src: '/carousel/carousel-11.webp', alt: 'Lifestyle 11' },
+  { src: '/carousel/carousel-12.webp', alt: 'Lifestyle 12' },
+  { src: '/carousel/carousel-13.webp', alt: 'Lifestyle 13' },
+  { src: '/carousel/carousel-14.webp', alt: 'Lifestyle 14' },
+  { src: '/carousel/carousel-15.webp', alt: 'Lifestyle 15' },
 ];
 
 const PRODUCT_DATA: Record<string, ProductData> = {
@@ -242,19 +251,7 @@ const PRODUCT_DATA: Record<string, ProductData> = {
       '/products/mushroom-coffee/DSC07777-2.png',
       '/products/mushroom-coffee/DSC07787.png',
     ],
-    lifestyleGallery: [
-      { src: '/lifestyle/coffee-mushroom-1.jpg', alt: 'Coffee Mushroom lifestyle 1' },
-      { src: '/lifestyle/coffee-mushroom-2.jpg', alt: 'Coffee Mushroom lifestyle 2' },
-      { src: '/lifestyle/coffee-mushroom-3.jpg', alt: 'Coffee Mushroom lifestyle 3' },
-      { src: '/lifestyle/coffee-mushroom-4.jpg', alt: 'Coffee Mushroom lifestyle 4' },
-      { src: '/lifestyle/coffee-mushroom-5.jpg', alt: 'Coffee Mushroom lifestyle 5' },
-      { src: '/lifestyle/coffee-mushroom-6.jpg', alt: 'Coffee Mushroom lifestyle 6' },
-      { src: '/lifestyle/coffee-mushroom-7.png', alt: 'Coffee Mushroom lifestyle 7' },
-      { src: '/lifestyle/coffee-mushroom-8.png', alt: 'Coffee Mushroom lifestyle 8' },
-      { src: '/lifestyle/coffee-mushroom-9.jpg', alt: 'Coffee Mushroom lifestyle 9' },
-      { src: '/lifestyle/coffee-mushroom-10.jpg', alt: 'Coffee Mushroom lifestyle 10' },
-      { src: '/lifestyle/coffee-mushroom-11.jpg', alt: 'Coffee Mushroom lifestyle 11' },
-    ],
+    lifestyleGallery: DEFAULT_LIFESTYLE_GALLERY,
     description: 'Your morning coffee just got a serious upgrade. Cold brew meets adaptogenic mushrooms for sustained energy without the crash. Lions mane for focus, chaga for immunity, and reishi for stress relief. Blended with creamy oat milk and a touch of maple.',
     ingredients: 'organic cold brew coffee, organic lions mane mushroom, organic chaga mushroom, organic reishi mushroom, organic oat milk, organic maple syrup, organic cacao',
     nutrition: [
@@ -291,13 +288,7 @@ const PRODUCT_DATA: Record<string, ProductData> = {
       '/products/chocolate-berry/Chocolate Berry-5.png',
       '/products/chocolate-berry/Chocolate Berry-6.png',
     ],
-    lifestyleGallery: [
-      { src: '/lifestyle/DSC09048-1Chocolate Berry.jpg', alt: 'Chocolate Berry lifestyle 1' },
-      { src: '/lifestyle/DSC08472.jpg', alt: 'Chocolate Berry lifestyle 2' },
-      { src: '/lifestyle/DSC09073-1-2Chocolate berry.jpg', alt: 'Chocolate Berry lifestyle 3' },
-      { src: '/lifestyle/DSC09300.jpg', alt: 'Chocolate Berry lifestyle 4' },
-      { src: '/lifestyle/DSC09302.jpg', alt: 'Chocolate Berry lifestyle 5' },
-    ],
+    lifestyleGallery: DEFAULT_LIFESTYLE_GALLERY,
     description: 'Satisfy your chocolate cravings without the guilt. Rich organic cacao meets antioxidant-packed berries in this decadent yet nutritious blend. Dark chocolate depth balanced with bright berry notes, creamy almond butter, and a hint of vanilla. Dessert for breakfast? Yes, please.',
     ingredients: 'organic cacao powder, organic raspberries, organic strawberries, organic blueberries, organic almond butter, organic banana, organic vanilla, organic almond milk',
     nutrition: [
@@ -334,15 +325,7 @@ const PRODUCT_DATA: Record<string, ProductData> = {
       '/products/almond/Almond-5.png',
       '/products/almond/Almond-6.png',
     ],
-    lifestyleGallery: [
-      { src: '/lifestyle/DSC08818.jpg', alt: 'Almond lifestyle 1' },
-      { src: '/lifestyle/DSC08825.jpg', alt: 'Almond lifestyle 2' },
-      { src: '/lifestyle/DSC08827.jpg', alt: 'Almond lifestyle 3' },
-      { src: '/lifestyle/DSC08836.jpg', alt: 'Almond lifestyle 4' },
-      { src: '/lifestyle/DSC08837.jpg', alt: 'Almond lifestyle 5' },
-      { src: '/lifestyle/DSC09048-1Almond.jpg', alt: 'Almond lifestyle 6' },
-      { src: '/lifestyle/DSC09073-1-2Almond.jpg', alt: 'Almond lifestyle 7' },
-    ],
+    lifestyleGallery: DEFAULT_LIFESTYLE_GALLERY,
     description: 'Experience the pure, creamy goodness of almonds in every sip. This smooth and satisfying blend combines rich almond butter with vanilla, a touch of honey, and warming spices. Perfect for those who love the simple pleasures of nutty, wholesome ingredients.',
     ingredients: 'organic almond butter, organic almond milk, organic banana, organic honey, organic vanilla, organic cinnamon, organic dates, organic flax seeds',
     nutrition: [
@@ -379,15 +362,7 @@ const PRODUCT_DATA: Record<string, ProductData> = {
       '/products/acai/Acai-5.png',
       '/products/acai/Acai-6.png',
     ],
-    lifestyleGallery: [
-      { src: '/lifestyle/DSC09048-1.jpg', alt: 'Acai lifestyle 1' },
-      { src: '/lifestyle/DSC09063.jpg', alt: 'Acai lifestyle 2' },
-      { src: '/lifestyle/DSC09073-1-2.jpg', alt: 'Acai lifestyle 3' },
-      { src: '/lifestyle/DSC09091.jpg', alt: 'Acai lifestyle 4' },
-      { src: '/lifestyle/DSC09092.jpg', alt: 'Acai lifestyle 5' },
-      { src: '/lifestyle/DSC09108-2.jpg', alt: 'Acai lifestyle 6' },
-      { src: '/lifestyle/DSC09118.jpg', alt: 'Acai lifestyle 7' },
-    ],
+    lifestyleGallery: DEFAULT_LIFESTYLE_GALLERY,
     description: 'The legendary Amazonian superfruit takes center stage in this antioxidant-rich blend. Wild-harvested acai berries combined with mixed berries, banana, and a hint of guarana for natural energy. Deep purple, deeply delicious, deeply nutritious.',
     ingredients: 'organic acai berries, organic blueberries, organic banana, organic strawberries, organic guarana, organic hemp hearts, organic coconut water',
     nutrition: [
@@ -483,23 +458,7 @@ const PRODUCT_DATA: Record<string, ProductData> = {
       '/products/mango-jackfruit/Mango Jackfruit-5.png',
       '/products/mango-jackfruit/Mango Jackfruit-6.png',
     ],
-    lifestyleGallery: [
-      { src: '/lifestyle/mango-jackfruit/optimized/Copy of 890A4590_out1.webp', alt: 'Mango Jackfruit lifestyle' },
-      { src: '/lifestyle/mango-jackfruit/optimized/Copy of 890A4611_out1.webp', alt: 'Mango Jackfruit lifestyle' },
-      { src: '/lifestyle/mango-jackfruit/optimized/Copy of 890A5348_out1.webp', alt: 'Mango Jackfruit lifestyle' },
-      { src: '/lifestyle/mango-jackfruit/optimized/Copy of 890A5363_out1.webp', alt: 'Mango Jackfruit lifestyle' },
-      { src: '/lifestyle/mango-jackfruit/optimized/Copy of 890A5382_out1.webp', alt: 'Mango Jackfruit lifestyle' },
-      { src: '/lifestyle/mango-jackfruit/optimized/Copy of 890A5405_out1.webp', alt: 'Mango Jackfruit lifestyle' },
-      { src: '/lifestyle/mango-jackfruit/optimized/Copy of 890A5435_out1.webp', alt: 'Mango Jackfruit lifestyle' },
-      { src: '/lifestyle/mango-jackfruit/optimized/Copy of 890A5450_out1.webp', alt: 'Mango Jackfruit lifestyle' },
-      { src: '/lifestyle/mango-jackfruit/optimized/Copy of 890A5454_out1.webp', alt: 'Mango Jackfruit lifestyle' },
-      { src: '/lifestyle/mango-jackfruit/optimized/Copy of 890A5458_out1.webp', alt: 'Mango Jackfruit lifestyle' },
-      { src: '/lifestyle/mango-jackfruit/optimized/Copy of 890A5484_out1.webp', alt: 'Mango Jackfruit lifestyle' },
-      { src: '/lifestyle/mango-jackfruit/optimized/Copy of 890A5536_out1.webp', alt: 'Mango Jackfruit lifestyle' },
-      { src: '/lifestyle/mango-jackfruit/optimized/DSC08704.webp', alt: 'Mango Jackfruit lifestyle' },
-      { src: '/lifestyle/mango-jackfruit/optimized/DSC09048-1Mango Jackfruit.webp', alt: 'Mango Jackfruit lifestyle' },
-      { src: '/lifestyle/mango-jackfruit/optimized/DSC09073-1-2Mango Jackfruit.webp', alt: 'Mango Jackfruit lifestyle' },
-    ],
+    lifestyleGallery: DEFAULT_LIFESTYLE_GALLERY,
     description: 'Transport yourself to a tropical paradise with this exotic blend of sun-ripened mangoes and sweet jackfruit. Each sip delivers a burst of golden sunshine, balanced with creamy coconut and a hint of lime for the ultimate island escape.',
     ingredients: 'organic mango, organic jackfruit, organic coconut milk, organic lime juice, organic turmeric, organic ginger, organic coconut water',
     nutrition: [
@@ -1138,7 +1097,7 @@ export default function ProductPage() {
           </div>
           <div className="lifestyle-wrapper">
             <div className="lifestyle-track" id="lifestyle-track" ref={lifestyleTrackRef}>
-              {(productData?.lifestyleGallery || DEFAULT_LIFESTYLE_GALLERY).slice(0, 6).map((slide, index) => (
+              {(productData?.lifestyleGallery || DEFAULT_LIFESTYLE_GALLERY).map((slide, index) => (
                 <div key={index} className="lifestyle-card">
                   <Image 
                     src={slide.src} 

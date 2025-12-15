@@ -62,7 +62,7 @@ const mockAssets: MarketingAsset[] = [
     category: 'Product Images',
     format: 'JPG',
     product: 'Mango Jackfruit',
-    thumbnail: '/lifestyle/mango-jackfruit/Copy of 890A5348_out1.jpg',
+    thumbnail: '/carousel/carousel-1.webp',
     fileSize: '5.1 MB',
     dimensions: '4000x2667',
   },
@@ -82,7 +82,7 @@ const mockAssets: MarketingAsset[] = [
     category: 'Posters & Signage',
     format: 'AI',
     product: 'All Products',
-    thumbnail: '/lifestyle/DSC09073-1-2.jpg',
+    thumbnail: '/carousel/carousel-2.webp',
     fileSize: '12.3 MB',
     dimensions: '36x48 inches',
   },
@@ -92,7 +92,7 @@ const mockAssets: MarketingAsset[] = [
     category: 'Social Media',
     format: 'PSD',
     product: 'Multiple',
-    thumbnail: '/lifestyle/DSC08827.jpg',
+    thumbnail: '/carousel/carousel-3.webp',
     fileSize: '15.2 MB',
     dimensions: '1080x1920',
   },
@@ -102,7 +102,7 @@ const mockAssets: MarketingAsset[] = [
     category: 'Social Media',
     format: 'PNG',
     product: 'Wellness Collection',
-    thumbnail: '/lifestyle/wellness.jpg',
+    thumbnail: '/carousel/carousel-4.webp',
     fileSize: '2.1 MB',
     dimensions: '1200x630',
   },
@@ -112,7 +112,7 @@ const mockAssets: MarketingAsset[] = [
     category: 'Videos',
     format: 'MP4',
     product: 'Brand Overview',
-    thumbnail: '/lifestyle/DSC09048-1.jpg',
+    thumbnail: '/carousel/carousel-5.webp',
     fileSize: '45 MB',
     duration: '0:30',
   },
@@ -122,7 +122,7 @@ const mockAssets: MarketingAsset[] = [
     category: 'Videos',
     format: 'MP4',
     product: 'Coffee Mushroom',
-    thumbnail: '/lifestyle/coffee-lifestyle-1.png',
+    thumbnail: '/carousel/carousel-6.webp',
     fileSize: '78 MB',
     duration: '1:15',
   },
@@ -132,7 +132,7 @@ const mockAssets: MarketingAsset[] = [
     category: 'Print Materials',
     format: 'PDF',
     product: 'All Products',
-    thumbnail: '/lifestyle/DSC08836.jpg',
+    thumbnail: '/carousel/carousel-7.webp',
     fileSize: '3.4 MB',
     dimensions: '8.5x11 inches',
   },
@@ -142,7 +142,7 @@ const mockAssets: MarketingAsset[] = [
     category: 'Print Materials',
     format: 'PDF',
     product: 'Featured Products',
-    thumbnail: '/lifestyle/DSC09091.jpg',
+    thumbnail: '/carousel/carousel-8.webp',
     fileSize: '2.8 MB',
     dimensions: '4x6 inches',
   },
@@ -162,7 +162,7 @@ const mockAssets: MarketingAsset[] = [
     category: 'Social Media',
     format: 'PSD',
     product: 'Multiple',
-    thumbnail: '/lifestyle/DSC08825.jpg',
+    thumbnail: '/carousel/carousel-9.webp',
     fileSize: '18.5 MB',
     dimensions: '1080x1920',
   },
@@ -182,7 +182,7 @@ const mockAssets: MarketingAsset[] = [
     category: 'Print Materials',
     format: 'PDF',
     product: 'All Products',
-    thumbnail: '/lifestyle/DSC09118.jpg',
+    thumbnail: '/carousel/carousel-10.webp',
     fileSize: '5.2 MB',
     dimensions: '11x17 inches',
   },
@@ -194,7 +194,7 @@ const seasonalCampaigns: SeasonalCampaign[] = [
     name: 'Summer Smoothie Season',
     description: 'Complete marketing kit for summer promotions including posters, social templates, and in-store signage.',
     assetsCount: 24,
-    thumbnail: '/lifestyle/beach.jpg',
+    thumbnail: '/carousel/carousel-11.webp',
     icon: <Sun size={24} />,
   },
   {
@@ -202,7 +202,7 @@ const seasonalCampaigns: SeasonalCampaign[] = [
     name: 'New Year New You',
     description: 'Health-focused campaign materials perfect for January wellness promotions and resolutions.',
     assetsCount: 18,
-    thumbnail: '/lifestyle/wellness.jpg',
+    thumbnail: '/carousel/carousel-12.webp',
     icon: <Sparkles size={24} />,
   },
 ];
@@ -362,7 +362,7 @@ export default function MarketingHub() {
                     alt={asset.name}
                     style={styles.thumbnail}
                     onError={(e) => {
-                      (e.target as HTMLImageElement).src = '/lifestyle/DSC09048-1.jpg';
+                      (e.target as HTMLImageElement).src = '/carousel/carousel-1.webp';
                     }}
                   />
                   <div style={styles.thumbnailOverlay}>
@@ -455,7 +455,7 @@ export default function MarketingHub() {
                     alt={campaign.name}
                     style={styles.campaignImage}
                     onError={(e) => {
-                      (e.target as HTMLImageElement).src = '/lifestyle/DSC09048-1.jpg';
+                      (e.target as HTMLImageElement).src = '/carousel/carousel-1.webp';
                     }}
                   />
                   <div style={styles.campaignOverlay}>

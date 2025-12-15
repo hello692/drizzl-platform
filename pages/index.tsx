@@ -364,7 +364,7 @@ export default function Home() {
               aspectRatio: '4/3',
             }}>
               <img 
-                src="/products/strawberry-peach/lifestyle-1.jpg" 
+                src="/carousel/carousel-1.webp" 
                 alt="Drizzl Smoothie"
                 loading="lazy"
                 width="800"
