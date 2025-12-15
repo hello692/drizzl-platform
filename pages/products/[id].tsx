@@ -481,7 +481,7 @@ const PRODUCT_DATA: Record<string, ProductData> = {
       '/products/mango-jackfruit/Mango Jackfruit-3.png',
       '/products/mango-jackfruit/Mango Jackfruit-4.png',
       '/products/mango-jackfruit/Mango Jackfruit-5.png',
-      '/products/mango-jackfruit/Mango Jackfruit-5 (2).png',
+      '/products/mango-jackfruit/Mango Jackfruit-6.png',
     ],
     lifestyleGallery: [
       { src: '/lifestyle/mango-jackfruit/Copy of 890A4590_out1.jpg', alt: 'Mango Jackfruit lifestyle' },
