@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useState, useEffect, useRef } from 'react';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
@@ -1148,15 +1149,16 @@ export default function ProductPage() {
           </div>
           <div className="lifestyle-wrapper">
             <div className="lifestyle-track" id="lifestyle-track">
-              {(productData?.lifestyleGallery || DEFAULT_LIFESTYLE_GALLERY).map((slide, index) => (
+              {(productData?.lifestyleGallery || DEFAULT_LIFESTYLE_GALLERY).slice(0, 6).map((slide, index) => (
                 <div key={index} className="lifestyle-card">
-                  <img 
+                  <Image 
                     src={slide.src} 
                     alt={slide.alt} 
-                    loading="lazy"
-                    decoding="async"
-                    width="400"
-                    height="500"
+                    width={400}
+                    height={500}
+                    quality={75}
+                    priority={index < 3}
+                    sizes="(max-width: 768px) 80vw, 400px"
                     style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                   />
                 </div>
