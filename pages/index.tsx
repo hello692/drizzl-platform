@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { GetStaticPropsContext } from 'next';
 import { useTranslations } from 'next-intl';
@@ -8,7 +8,6 @@ import SmoothieCard from '../components/SmoothieCard';
 import HomeHero from '../components/HomeHero';
 import { AnimatedSection, AnimatedText, StaggeredGrid } from '../components/ScrollAnimations';
 import { getMessages } from '../lib/getMessages';
-import { useAutoScroll } from '../hooks/useAutoScroll';
 
 interface Product {
   id: string;
@@ -136,32 +135,15 @@ export default function Home() {
   const [featuredProducts, setFeaturedProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [expertPosition, setExpertPosition] = useState(0);
+  const [productPosition, setProductPosition] = useState(0);
+  const [customerPosition, setCustomerPosition] = useState(0);
   const [unMutedExpert, setUnMutedExpert] = useState<string | null>(null);
   const [unMutedCustomer, setUnMutedCustomer] = useState<string | null>(null);
-  
-  const { trackRef: productTrackRef, pauseScroll: pauseProductScroll, resumeScroll: resumeProductScroll } = useAutoScroll({
-    speed: 35,
-    pauseOnInteraction: true,
-    resumeDelay: 1500,
-    direction: 'left',
-  });
-  
-  const { trackRef: customerTrackRef, pauseScroll: pauseCustomerScroll, resumeScroll: resumeCustomerScroll } = useAutoScroll({
-    speed: 35,
-    pauseOnInteraction: true,
-    resumeDelay: 1500,
-    direction: 'left',
-  });
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
   const [displayedText, setDisplayedText] = useState('');
   const [isTyping, setIsTyping] = useState(true);
   
-  let t: ReturnType<typeof useTranslations>;
-  try {
-    t = useTranslations('home');
-  } catch {
-    t = ((key: string) => key) as any;
-  }
+  const t = useTranslations('home');
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -638,13 +620,7 @@ export default function Home() {
 
           <div className="video-carousel-wrapper">
             <button
-              onClick={() => {
-                pauseProductScroll();
-                if (productTrackRef.current) {
-                  productTrackRef.current.scrollBy({ left: -280, behavior: 'smooth' });
-                }
-                resumeProductScroll();
-              }}
+              onClick={() => setProductPosition(prev => (prev - 1 + POPULAR_SMOOTHIES.length) % POPULAR_SMOOTHIES.length)}
               className="carousel-arrow carousel-arrow-left"
             >
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -652,8 +628,8 @@ export default function Home() {
               </svg>
             </button>
 
-            <div className="video-carousel-track" ref={productTrackRef}>
-              {POPULAR_SMOOTHIES.map((product, index) => (
+            <div className="video-carousel-track">
+              {[...POPULAR_SMOOTHIES, ...POPULAR_SMOOTHIES].slice(productPosition, productPosition + 5).map((product, index) => (
                 <SmoothieCard
                   key={`${product.id}-${index}`}
                   id={product.id}
@@ -669,13 +645,7 @@ export default function Home() {
             </div>
 
             <button
-              onClick={() => {
-                pauseProductScroll();
-                if (productTrackRef.current) {
-                  productTrackRef.current.scrollBy({ left: 280, behavior: 'smooth' });
-                }
-                resumeProductScroll();
-              }}
+              onClick={() => setProductPosition(prev => (prev + 1) % POPULAR_SMOOTHIES.length)}
               className="carousel-arrow carousel-arrow-right"
             >
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -772,13 +742,7 @@ export default function Home() {
 
           <div className="video-carousel-wrapper">
             <button
-              onClick={() => {
-                pauseCustomerScroll();
-                if (customerTrackRef.current) {
-                  customerTrackRef.current.scrollBy({ left: -280, behavior: 'smooth' });
-                }
-                resumeCustomerScroll();
-              }}
+              onClick={() => setCustomerPosition(prev => (prev - 1 + CUSTOMERS.length) % CUSTOMERS.length)}
               className="carousel-arrow carousel-arrow-left"
             >
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -786,8 +750,8 @@ export default function Home() {
               </svg>
             </button>
 
-            <div className="video-carousel-track" ref={customerTrackRef}>
-              {CUSTOMERS.map((customer, idx) => (
+            <div className="video-carousel-track">
+              {[...CUSTOMERS, ...CUSTOMERS].slice(customerPosition, customerPosition + 5).map((customer, idx) => (
                 <div 
                   key={`${customer.id}-${idx}`} 
                   className="video-card"
@@ -826,13 +790,7 @@ export default function Home() {
             </div>
 
             <button
-              onClick={() => {
-                pauseCustomerScroll();
-                if (customerTrackRef.current) {
-                  customerTrackRef.current.scrollBy({ left: 280, behavior: 'smooth' });
-                }
-                resumeCustomerScroll();
-              }}
+              onClick={() => setCustomerPosition(prev => (prev + 1) % CUSTOMERS.length)}
               className="carousel-arrow carousel-arrow-right"
             >
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
