@@ -12,14 +12,14 @@ interface Product {
 }
 
 const fallbackProducts: Product[] = [
-  { id: '1', name: 'Strawberry + Peach', price: 8.49, category: 'Smoothie', image: '/products/strawberry-peach/gallery-1.png' },
-  { id: '9', name: 'Pink Piyata', price: 8.99, category: 'Smoothie', image: '/products/pink-piyata/gallery-1.jpg' },
-  { id: '10', name: 'Matcha', price: 9.49, category: 'Smoothie', image: '/products/matcha/gallery-1.jpg' },
-  { id: '14', name: 'Coffee Mushroom', price: 9.99, category: 'Smoothie', image: '/products/coffee-mushroom/gallery-1.jpg' },
-  { id: '2', name: 'Acai Berry', price: 9.49, category: 'Smoothie', image: '/products/acai/gallery-1.jpg' },
-  { id: '3', name: 'Mango Jackfruit', price: 8.99, category: 'Smoothie', image: '/products/mango-jackfruit/Mango Jackfruit-1.png' },
-  { id: '4', name: 'Chocolate Berry', price: 9.49, category: 'Smoothie', image: '/products/chocolate-berry/gallery-1.jpg' },
-  { id: 'box1', name: 'The Starter Box', price: 59.99, category: 'Box', image: '/products/acai/gallery-2.jpg' },
+  { id: '1', name: 'Strawberry + Peach', price: 8.49, category: 'Smoothie', image: '/products/strawberry-peach/gallery-1.webp' },
+  { id: '9', name: 'Pink Piyata', price: 8.99, category: 'Smoothie', image: '/products/pink-piyata/gallery-1.webp' },
+  { id: '10', name: 'Matcha', price: 9.49, category: 'Smoothie', image: '/products/matcha/gallery-1.webp' },
+  { id: '14', name: 'Coffee Mushroom', price: 9.99, category: 'Smoothie', image: '/products/coffee-mushroom/gallery-1.webp' },
+  { id: '2', name: 'Acai Berry', price: 9.49, category: 'Smoothie', image: '/products/acai/gallery-1.webp' },
+  { id: '3', name: 'Mango Jackfruit', price: 8.99, category: 'Smoothie', image: '/products/mango-jackfruit/Mango Jackfruit-1.webp' },
+  { id: '4', name: 'Chocolate Berry', price: 9.49, category: 'Smoothie', image: '/products/chocolate-berry/gallery-1.webp' },
+  { id: 'box1', name: 'The Starter Box', price: 59.99, category: 'Box', image: '/products/acai/gallery-2.webp' },
 ];
 
 const categories = ['All', 'Smoothie', 'Box'];
