@@ -1144,8 +1144,9 @@ export default function ProductPage() {
                     width={400}
                     height={500}
                     quality={75}
-                    priority={index < 3}
-                    sizes="(max-width: 768px) 80vw, 400px"
+                    priority={index < 2}
+                    loading={index >= 2 ? "lazy" : undefined}
+                    sizes="(max-width: 768px) 100vw, 400px"
                     style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                   />
                 </div>
@@ -1206,7 +1207,7 @@ export default function ProductPage() {
               </button>
 
               <div className="video-carousel-track">
-                {POPULAR_SMOOTHIES.slice(0, 5).map((item) => (
+                {POPULAR_SMOOTHIES.slice(0, 5).map((item, index) => (
                   <SmoothieCard
                     key={item.id}
                     id={item.id}
@@ -1217,6 +1218,7 @@ export default function ProductPage() {
                     price={item.price}
                     rating={item.rating}
                     reviews={item.reviews}
+                    priority={index < 2}
                   />
                 ))}
               </div>

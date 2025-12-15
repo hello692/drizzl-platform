@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { useState } from 'react';
 
 interface SmoothieCardProps {
@@ -11,6 +12,7 @@ interface SmoothieCardProps {
   rating?: number;
   reviews?: number;
   showPrice?: boolean;
+  priority?: boolean;
 }
 
 export default function SmoothieCard({ 
@@ -22,7 +24,8 @@ export default function SmoothieCard({
   price = 9.49,
   rating = 4.5,
   reviews = 186,
-  showPrice = true 
+  showPrice = true,
+  priority = false
 }: SmoothieCardProps) {
   const [isHovered, setIsHovered] = useState(false);
   
@@ -72,12 +75,17 @@ export default function SmoothieCard({
       
       <Link href={`/products/${id}`} className="smoothie-card-dh-image-link">
         <div className="smoothie-card-dh-image-container">
-          <img
+          <Image
             src={isHovered && hoverImage ? hoverImage : image}
             alt={name}
+            width={300}
+            height={400}
             className="smoothie-card-dh-image"
-            loading="lazy"
+            priority={priority}
+            loading={priority ? undefined : "lazy"}
+            sizes="(max-width: 768px) 100vw, 400px"
             draggable={false}
+            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
           />
           <button className="smoothie-card-dh-zoom" aria-label="Quick view">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">

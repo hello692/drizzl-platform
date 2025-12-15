@@ -640,6 +640,7 @@ export default function Home() {
                   price={product.price}
                   rating={product.rating}
                   reviews={product.reviews}
+                  priority={index < 2}
                 />
               ))}
             </div>
