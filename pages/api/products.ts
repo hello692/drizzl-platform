@@ -82,7 +82,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       description: product.description,
       category: product.category,
       price: product.price_cents / 100,
-      image: product.hero_image_url || '/products/acai/gallery-1.jpg'
+      image: product.hero_image_url || '/products/acai/gallery-1.webp'
     }));
 
     return res.status(200).json({ products });

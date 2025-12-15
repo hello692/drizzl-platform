@@ -39,7 +39,7 @@ const mockWishlistItems: WishlistItem[] = [
       id: 'prod-1',
       name: 'Strawberry Peach Smoothie',
       price_cents: 2999,
-      hero_image_url: '/products/strawberry-peach/Strawbery peach-TG-1.jpg',
+      hero_image_url: '/products/strawberry-peach/Strawbery peach-TG-1.webp',
       slug: 'strawberry-peach',
     },
   },
@@ -50,7 +50,7 @@ const mockWishlistItems: WishlistItem[] = [
       id: 'prod-2',
       name: 'Mango Jackfruit Blend',
       price_cents: 2999,
-      hero_image_url: '/products/mango-jackfruit/Mango Jackfruit-1.png',
+      hero_image_url: '/products/mango-jackfruit/Mango Jackfruit-1.webp',
       slug: 'mango-jackfruit',
     },
   },
@@ -61,7 +61,7 @@ const mockWishlistItems: WishlistItem[] = [
       id: 'prod-3',
       name: 'Coffee Mushroom Blend',
       price_cents: 1499,
-      hero_image_url: '/products/coffee-mushroom/Coffee Mushroom-1.png',
+      hero_image_url: '/products/coffee-mushroom/Coffee Mushroom-1.webp',
       slug: 'coffee-mushroom',
     },
   },
@@ -72,7 +72,7 @@ const mockWishlistItems: WishlistItem[] = [
       id: 'prod-4',
       name: 'Açai Berry Bowl Mix',
       price_cents: 1499,
-      hero_image_url: '/products/acai/Acai-1.png',
+      hero_image_url: '/products/acai/Acai-1.webp',
       slug: 'acai',
     },
   },
@@ -264,7 +264,7 @@ export default function Wishlist() {
                   <Link href={`/product/${item.product.slug}`} style={styles.productImageLink}>
                     <div style={styles.productImage}>
                       <img
-                        src={item.product.hero_image_url || '/products/acai/Acai-1.png'}
+                        src={item.product.hero_image_url || '/products/acai/Acai-1.webp'}
                         alt={item.product.name}
                         style={styles.image}
                       />
