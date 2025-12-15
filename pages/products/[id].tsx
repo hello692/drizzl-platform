@@ -892,7 +892,6 @@ export default function ProductPage() {
                   <span key={i} className={i < Math.floor(productData.rating.average) ? 'filled' : ''}>★</span>
                 ))}
               </div>
-              <span className="lv-review-count">({productData.rating.count.toLocaleString()} reviews)</span>
               <span className="lv-fan-favorite">💛 Fan Favorite</span>
             </div>
 
