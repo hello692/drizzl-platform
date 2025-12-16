@@ -264,11 +264,11 @@ const PRODUCT_DATA: Record<string, ProductData> = {
   },
   '11': {
     id: '11',
-    name: 'Mocha',
+    name: 'Mocha Protein Fuel',
     price: 9.49,
     image: '/products/mocha/gallery-1.jpg',
     shortDescription: 'Chocolate coffee bliss',
-    tagline: 'rich chocolate meets smooth espresso',
+    tagline: 'When Espresso and Chocolate Swipe Right',
     rating: { average: 4.8, count: 2847 },
     gallery: [
       '/products/mocha/gallery-1.jpg',
@@ -605,7 +605,7 @@ const POPULAR_SMOOTHIES = [
   { id: '1', name: 'Strawberry + Peachy', price: 8.49, image: '/products/strawberry-peach/1.png', hoverImage: '/products/strawberry-peach/2.png', badge: 'BEST SELLER', rating: 4.5, reviews: 4619 },
   { id: '9', name: 'Pink Piyata Punch', price: 8.99, image: '/products/pink-piyata/1.png', hoverImage: '/products/pink-piyata/2.png', badge: 'NEW', rating: 4.7, reviews: 127 },
   { id: '10', name: 'Matcha Madness', price: 9.49, image: '/products/matcha/1.png', hoverImage: '/products/matcha/2.png', badge: 'BEST SELLER', rating: 4.8, reviews: 312 },
-  { id: '11', name: 'Mocha', price: 9.49, image: '/products/mocha/gallery-1.jpg', hoverImage: '/products/mocha/gallery-2.jpg', badge: 'BEST SELLER', rating: 4.6, reviews: 245 },
+  { id: '11', name: 'Mocha Protein Fuel', price: 9.49, image: '/products/mocha/gallery-1.jpg', hoverImage: '/products/mocha/gallery-2.jpg', badge: 'BEST SELLER', rating: 4.6, reviews: 245 },
   { id: '14', name: 'Coffee Mushroom', price: 9.99, image: '/products/coffee-mushroom/gallery-1.jpg', hoverImage: '/products/coffee-mushroom/gallery-2.jpg', badge: 'BEST SELLER', rating: 4.8, reviews: 203 },
   { id: '17', name: 'Acai', price: 9.49, image: '/products/acai/Acai-1.png', hoverImage: '/products/acai/Acai-2.png', badge: 'BEST SELLER', rating: 4.9, reviews: 487 },
   { id: '12', name: 'Nutty Monkey', price: 8.99, image: '/products/nutty-monkey/gallery-1.jpg', hoverImage: '/products/nutty-monkey/gallery-2.jpg', badge: 'BEST SELLER', rating: 4.7, reviews: 389 },
