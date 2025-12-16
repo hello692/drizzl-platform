@@ -132,11 +132,11 @@ const PRODUCT_DATA: Record<string, ProductData> = {
   },
   '9': {
     id: '9',
-    name: 'Pink Piyata',
+    name: 'Pink Piyata Punch',
     price: 8.99,
     image: '/products/pink-piyata/1.png',
-    shortDescription: 'Tropical dragon fruit',
-    tagline: 'a tropical paradise in every sip',
+    shortDescription: 'A Tropical Paradise in Every Sip',
+    tagline: 'A Tropical Paradise in Every Sip',
     rating: { average: 4.8, count: 3842 },
     gallery: [
       '/products/pink-piyata/1.png',
@@ -154,7 +154,7 @@ const PRODUCT_DATA: Record<string, ProductData> = {
       { src: '/products/pink-piyata/lifestyle/5.jpg', alt: 'Pink Piyata Lifestyle 5' },
       { src: '/products/pink-piyata/lifestyle/6.jpg', alt: 'Pink Piyata Lifestyle 6' },
     ],
-    description: 'Escape to a tropical paradise with every sip! Our Pink Piyata blends vibrant dragon fruit, sweet pineapple, and creamy coconut for a smoothie that\'s pure vacation in a cup. Bursting with antioxidants and natural electrolytes, it\'s the ultimate refreshment to keep you energized and glowing.',
+    description: 'Picture this: sun, sand, and a tropical breeze. That\'s the vibe in every sip of Pink Piyata Punch. Bursting with dragon fruit, pineapple, and creamy coconut, it\'s a getaway in a glass. Packed with antioxidants and electrolytes, it\'s your daily dose of paradise and power.',
     ingredients: 'Organic Pitaya, Organic Strawberry, Organic Raspberry, Organic Spinach, Organic Chia Seeds, Organic Goji Berries, Organic Medjool Dates, Organic Lemon Juice, Organic Maca Powder — because you deserve the best.',
     nutrition: {
       servingSize: '283g',
@@ -582,7 +582,7 @@ const PRODUCT_DATA: Record<string, ProductData> = {
 
 const POPULAR_SMOOTHIES = [
   { id: '1', name: 'Strawberry + Peachy', price: 8.49, image: '/products/strawberry-peach/1.png', hoverImage: '/products/strawberry-peach/2.png', badge: 'BEST SELLER', rating: 4.5, reviews: 4619 },
-  { id: '9', name: 'Pink Piyata', price: 8.99, image: '/products/pink-piyata/gallery-1.jpg', hoverImage: '/products/pink-piyata/gallery-2.jpg', badge: 'NEW', rating: 4.7, reviews: 127 },
+  { id: '9', name: 'Pink Piyata Punch', price: 8.99, image: '/products/pink-piyata/gallery-1.jpg', hoverImage: '/products/pink-piyata/gallery-2.jpg', badge: 'NEW', rating: 4.7, reviews: 127 },
   { id: '10', name: 'Matcha', price: 9.49, image: '/products/matcha/gallery-1.jpg', hoverImage: '/products/matcha/gallery-2.jpg', badge: 'BEST SELLER', rating: 4.8, reviews: 312 },
   { id: '11', name: 'Mocha', price: 9.49, image: '/products/mocha/gallery-1.jpg', hoverImage: '/products/mocha/gallery-2.jpg', badge: 'BEST SELLER', rating: 4.6, reviews: 245 },
   { id: '14', name: 'Coffee Mushroom', price: 9.99, image: '/products/coffee-mushroom/gallery-1.jpg', hoverImage: '/products/coffee-mushroom/gallery-2.jpg', badge: 'BEST SELLER', rating: 4.8, reviews: 203 },
