@@ -5,8 +5,8 @@ import { useState } from 'react';
 
 const products = [
   { id: '1', name: 'Strawberry + Peachy', type: 'Smoothie', price: 8.49, reviews: 4619, rating: 4.5, badge: 'BEST SELLER', image: '/products/strawberry-peach/1.png' },
-  { id: '9', name: 'Pink Piyata', type: 'Smoothie', price: 8.99, reviews: 127, rating: 4.8, badge: 'NEW', image: '/products/pink-piyata/gallery-1.jpg' },
-  { id: '10', name: 'Matcha', type: 'Smoothie', price: 9.49, reviews: 312, rating: 4.7, badge: 'NEW', image: '/products/matcha/gallery-1.jpg' },
+  { id: '9', name: 'Pink Piyata Punch', type: 'Smoothie', price: 8.99, reviews: 127, rating: 4.8, badge: 'NEW', image: '/products/pink-piyata/1.png' },
+  { id: '10', name: 'Matcha Madness', type: 'Smoothie', price: 9.49, reviews: 312, rating: 4.7, badge: 'BEST SELLER', image: '/products/matcha/1.png' },
   { id: '11', name: 'Mocha', type: 'Smoothie', price: 9.49, reviews: 245, rating: 4.8, badge: 'NEW', image: '/products/mocha/gallery-1.jpg' },
   { id: '12', name: 'Nutty Monkey', type: 'Smoothie', price: 8.99, reviews: 389, rating: 4.9, badge: 'BEST SELLER', image: '/products/nutty-monkey/gallery-1.jpg' },
   { id: '13', name: 'Mango Jackfruit', type: 'Smoothie', price: 8.99, reviews: 156, rating: 4.8, badge: 'NEW', image: '/products/mango-jackfruit/Mango Jackfruit-1.png' },
