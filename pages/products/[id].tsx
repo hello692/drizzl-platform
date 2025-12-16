@@ -1273,8 +1273,8 @@ export default function ProductPage() {
         {/* Lifestyle Film-Strip Section */}
         <section className="lifestyle-section">
           <div className="lifestyle-header">
-            <h2 className="lifestyle-title">Your Everyday — Powered Naturally.</h2>
-            <p className="lifestyle-subtitle">Real nourishment. Real moments. Real life.</p>
+            <h2 className="lifestyle-title">Conquer Your Day — Naturally.</h2>
+            <p className="lifestyle-subtitle">Real Fuel. Zero Nonsense.</p>
           </div>
           <div className="lifestyle-wrapper">
             <div className="lifestyle-track" id="lifestyle-track">
