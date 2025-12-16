@@ -1334,44 +1334,30 @@ export default function ProductPage() {
           </div>
         </section>
 
-        {/* The Lineup Section - Exact clone from landing page */}
-        <section className="video-section" style={{ background: '#0a0a0a' }}>
-          <div className="video-section-container">
-            <h2 className="video-section-title">
-              The lineup
-            </h2>
-            <p className="video-section-subtitle">
-              These are the ones people can't stop reordering.
-            </p>
-
-            <div className="video-carousel-wrapper">
-              <button className="carousel-arrow carousel-arrow-left">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <polyline points="15 18 9 12 15 6" />
-                </svg>
-              </button>
-
-              <div className="video-carousel-track">
-                {POPULAR_SMOOTHIES.slice(0, 5).map((item) => (
-                  <SmoothieCard
-                    key={item.id}
-                    id={item.id}
-                    name={item.name}
-                    image={item.image}
-                    hoverImage={item.hoverImage}
-                    badge={item.badge}
-                    price={item.price}
-                    rating={item.rating}
-                    reviews={item.reviews}
-                  />
-                ))}
-              </div>
-
-              <button className="carousel-arrow carousel-arrow-right">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <polyline points="9 18 15 12 9 6" />
-                </svg>
-              </button>
+        {/* The Lineup Section - Infinite scroll carousel */}
+        <section className="lineup-section">
+          <div className="lineup-header">
+            <h2 className="lineup-title">The lineup</h2>
+            <p className="lineup-subtitle">These are the ones people can't stop reordering.</p>
+          </div>
+          <div className="lineup-wrapper">
+            <div className="lineup-track">
+              {[...Array(2)].map((_, setIndex) => (
+                POPULAR_SMOOTHIES.map((item) => (
+                  <div key={`${setIndex}-${item.id}`} className="lineup-card">
+                    <SmoothieCard
+                      id={item.id}
+                      name={item.name}
+                      image={item.image}
+                      hoverImage={item.hoverImage}
+                      badge={item.badge}
+                      price={item.price}
+                      rating={item.rating}
+                      reviews={item.reviews}
+                    />
+                  </div>
+                ))
+              ))}
             </div>
           </div>
         </section>

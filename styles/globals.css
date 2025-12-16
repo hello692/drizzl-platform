@@ -6555,6 +6555,84 @@ svg {
 }
 
 /* ============================================
+   LINEUP SECTION - Infinite scroll product carousel
+   ============================================ */
+
+.lineup-section {
+  background: #000000;
+  padding: 60px 0 80px;
+  overflow: hidden;
+}
+
+.lineup-header {
+  text-align: center;
+  padding: 0 24px 40px;
+}
+
+.lineup-title {
+  font-size: clamp(28px, 4vw, 42px);
+  font-weight: 600;
+  color: #ffffff;
+  margin: 0 0 12px;
+  letter-spacing: -0.02em;
+}
+
+.lineup-subtitle {
+  font-size: clamp(14px, 1.5vw, 16px);
+  color: rgba(255, 255, 255, 0.6);
+  margin: 0;
+}
+
+.lineup-wrapper {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+}
+
+.lineup-track {
+  display: flex;
+  gap: 16px;
+  width: max-content;
+  animation: lineup-scroll 40s linear infinite;
+}
+
+.lineup-track:hover {
+  animation-play-state: paused;
+}
+
+@keyframes lineup-scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.lineup-card {
+  flex: 0 0 auto;
+  width: clamp(180px, 18vw, 240px);
+}
+
+@media (max-width: 768px) {
+  .lineup-section {
+    padding: 40px 0 60px;
+  }
+  
+  .lineup-header {
+    padding: 0 16px 32px;
+  }
+  
+  .lineup-track {
+    gap: 12px;
+  }
+  
+  .lineup-card {
+    width: clamp(160px, 42vw, 200px);
+  }
+}
+
+/* ============================================
    LV-INSPIRED LUXURY PRODUCT PAGE LAYOUT
    ============================================ */
 
