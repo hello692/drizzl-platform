@@ -8,7 +8,7 @@ const products = [
   { id: '12', name: 'Nutty Monkey', price: 8.99, reviews: 389, badge: 'Best Seller' },
   { id: '16', name: 'Almond', price: 8.99, reviews: 312, badge: 'New' },
   { id: '15', name: 'Chocolate Berry', price: 8.99, reviews: 278, badge: 'New' },
-  { id: '17', name: 'Acai', price: 9.49, reviews: 487, badge: 'Best Seller' },
+  { id: '17', name: 'Acai Passionfruit', price: 9.49, reviews: 487, badge: 'Best Seller' },
 ];
 
 export default function HighProtein() {

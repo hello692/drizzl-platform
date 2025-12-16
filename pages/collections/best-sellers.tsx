@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 const bestSellers = [
   { id: '1', name: 'Strawberry + Peach', price: 8.49, category: 'Smoothie', reviews: 4619 },
-  { id: '17', name: 'Acai', price: 9.49, category: 'Smoothie', reviews: 487 },
+  { id: '17', name: 'Acai Passionfruit', price: 9.49, category: 'Smoothie', reviews: 487 },
   { id: '12', name: 'Nutty Monkey', price: 8.99, category: 'Smoothie', reviews: 389 },
   { id: '10', name: 'Matcha', price: 9.49, category: 'Smoothie', reviews: 312 },
   { id: '15', name: 'Chocolate Berry', price: 8.99, category: 'Smoothie', reviews: 278 },

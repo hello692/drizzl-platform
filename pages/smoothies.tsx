@@ -15,7 +15,7 @@ const SMOOTHIES = [
   { id: '14', name: 'Coffee Mushroom', price: 9.99, image: '/products/coffee-mushroom/gallery-1.jpg', hoverImage: '/products/coffee-mushroom/gallery-2.jpg', category: 'Energy', rating: 4.8, reviews: 203 },
   { id: '15', name: 'Chocolate Berry', price: 8.99, image: '/products/chocolate-berry/gallery-1.jpg', hoverImage: '/products/chocolate-berry/gallery-2.jpg', category: 'Indulgent', rating: 4.8, reviews: 278 },
   { id: '16', name: 'Almond', price: 8.99, image: '/products/almond/gallery-1.jpg', hoverImage: '/products/almond/gallery-2.jpg', category: 'Nutty', rating: 4.7, reviews: 187 },
-  { id: '17', name: 'Acai', price: 9.49, image: '/products/acai/gallery-1.jpg', hoverImage: '/products/acai/gallery-2.jpg', category: 'Antioxidant', rating: 4.9, reviews: 487 },
+  { id: '17', name: 'Acai Passionfruit', price: 9.49, image: '/products/acai/gallery-1.jpg', hoverImage: '/products/acai/gallery-2.jpg', category: 'Antioxidant', rating: 4.9, reviews: 487 },
 ];
 
 export default function Smoothies() {

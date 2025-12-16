@@ -410,8 +410,8 @@ const smoothies: { [key: string]: any } = {
   },
   '17': {
     id: '17',
-    name: 'Acai',
-    tagline: 'Amazonian superfruit power',
+    name: 'Acai Passionfruit',
+    tagline: 'Sip the Jungle. Feel the Power.',
     price: 9.49,
     reviews: 487,
     rating: 4.9,

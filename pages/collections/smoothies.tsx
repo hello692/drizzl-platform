@@ -128,7 +128,7 @@ const products: Product[] = [
   },
   { 
     id: '17', 
-    name: 'Acai', 
+    name: 'Acai Passionfruit', 
     price: 9.49, 
     reviews: 487,
     rating: 4.9,
