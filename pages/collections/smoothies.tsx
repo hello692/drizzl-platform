@@ -56,7 +56,7 @@ const products: Product[] = [
   },
   { 
     id: '11', 
-    name: 'Mocha', 
+    name: 'Mocha Protein Fuel', 
     price: 9.49, 
     reviews: 245,
     rating: 4.6,

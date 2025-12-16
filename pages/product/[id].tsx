@@ -140,8 +140,8 @@ const smoothies: { [key: string]: any } = {
   },
   '11': {
     id: '11',
-    name: 'Mocha',
-    tagline: 'Rich espresso meets creamy chocolate indulgence',
+    name: 'Mocha Protein Fuel',
+    tagline: 'When Espresso and Chocolate Swipe Right',
     price: 9.49,
     reviews: 245,
     rating: 4.8,
