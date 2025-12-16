@@ -147,12 +147,16 @@ const PRODUCT_DATA: Record<string, ProductData> = {
       '/products/pink-piyata/6.png',
     ],
     lifestyleGallery: [
-      { src: '/products/pink-piyata/lifestyle/1.jpg', alt: 'Pink Piyata Lifestyle 1' },
-      { src: '/products/pink-piyata/lifestyle/2.jpg', alt: 'Pink Piyata Lifestyle 2' },
-      { src: '/products/pink-piyata/lifestyle/3.jpg', alt: 'Pink Piyata Lifestyle 3' },
-      { src: '/products/pink-piyata/lifestyle/4.jpg', alt: 'Pink Piyata Lifestyle 4' },
-      { src: '/products/pink-piyata/lifestyle/5.jpg', alt: 'Pink Piyata Lifestyle 5' },
-      { src: '/products/pink-piyata/lifestyle/6.jpg', alt: 'Pink Piyata Lifestyle 6' },
+      { src: '/products/pink-piyata/lifestyle/1.jpg', alt: 'Pink Piyata Punch Lifestyle 1' },
+      { src: '/products/pink-piyata/lifestyle/2.jpg', alt: 'Pink Piyata Punch Lifestyle 2' },
+      { src: '/products/pink-piyata/lifestyle/3.jpg', alt: 'Pink Piyata Punch Lifestyle 3' },
+      { src: '/products/pink-piyata/lifestyle/4.jpg', alt: 'Pink Piyata Punch Lifestyle 4' },
+      { src: '/products/pink-piyata/lifestyle/5.jpg', alt: 'Pink Piyata Punch Lifestyle 5' },
+      { src: '/products/pink-piyata/lifestyle/6.jpg', alt: 'Pink Piyata Punch Lifestyle 6' },
+      { src: '/products/pink-piyata/lifestyle/7.jpg', alt: 'Pink Piyata Punch Lifestyle 7' },
+      { src: '/products/pink-piyata/lifestyle/8.jpg', alt: 'Pink Piyata Punch Lifestyle 8' },
+      { src: '/products/pink-piyata/lifestyle/9.jpg', alt: 'Pink Piyata Punch Lifestyle 9' },
+      { src: '/products/pink-piyata/lifestyle/10.jpg', alt: 'Pink Piyata Punch Lifestyle 10' },
     ],
     description: 'Picture this: sun, sand, and a tropical breeze. That\'s the vibe in every sip of Pink Piyata Punch. Bursting with dragon fruit, pineapple, and creamy coconut, it\'s a getaway in a glass. Packed with antioxidants and electrolytes, it\'s your daily dose of paradise and power.',
     ingredients: 'Organic Pitaya, Organic Strawberry, Organic Raspberry, Organic Spinach, Organic Chia Seeds, Organic Goji Berries, Organic Medjool Dates, Organic Lemon Juice, Organic Maca Powder — because you deserve the best.',
@@ -1260,7 +1264,7 @@ export default function ProductPage() {
           <div className="lifestyle-wrapper">
             <div className="lifestyle-track" id="lifestyle-track">
               {[...Array(2)].map((_, setIndex) => (
-                (productData?.lifestyleGallery || DEFAULT_LIFESTYLE_GALLERY).slice(0, 6).map((slide, index) => (
+                (productData?.lifestyleGallery || DEFAULT_LIFESTYLE_GALLERY).map((slide, index) => (
                   <div key={`${setIndex}-${index}`} className="lifestyle-card">
                     <Image 
                       src={slide.src} 
