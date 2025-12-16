@@ -201,11 +201,11 @@ const PRODUCT_DATA: Record<string, ProductData> = {
   },
   '10': {
     id: '10',
-    name: 'Matcha',
+    name: 'Matcha Madness',
     price: 9.49,
     image: '/products/matcha/gallery-1.jpg',
-    shortDescription: 'Zen in a cup',
-    tagline: 'calm focus meets creamy indulgence',
+    shortDescription: 'Calm Focus Meets Creamy Indulgence',
+    tagline: 'Calm Focus Meets Creamy Indulgence',
     rating: { average: 4.7, count: 2156 },
     gallery: [
       '/products/matcha/gallery-1.jpg',
@@ -225,8 +225,8 @@ const PRODUCT_DATA: Record<string, ProductData> = {
       '/products/matcha/gallery-15.jpg',
     ],
     lifestyleGallery: DEFAULT_LIFESTYLE_GALLERY,
-    description: 'Find your zen with this ceremonial-grade matcha blend. The earthy sweetness of premium Japanese matcha is perfectly balanced with creamy banana and a hint of vanilla. A gentle caffeine boost without the jitters, plus L-theanine for calm, focused energy.',
-    ingredients: 'organic ceremonial matcha, organic banana, organic almond butter, organic vanilla extract, organic spinach, organic hemp seeds',
+    description: 'Matcha Madness is your daily escape. Ceremonial-grade matcha blends with tropical pineapple, creamy banana, zesty lemon, and a kick of ginger for a bold, refreshing boost. Packed with spinach and powered by L-theanine, it delivers calm, focused energy without the crash. One sip, and you\'re unstoppable.',
+    ingredients: 'Ceremonial Matcha*, Pineapple*, Spinach*, Banana*, Lemon*, Ginger* — *Organic, because you deserve the best.',
     nutrition: [
       { label: 'Calories', value: '180' },
       { label: 'Total Fat', value: '6g' },
