@@ -268,7 +268,7 @@ export default function Home() {
         >
           {[...Array(3)].map((_, repeatIndex) => (
             <div key={repeatIndex} style={{ display: 'flex', alignItems: 'center' }}>
-              {['BORN ORGANIC, BUILT DIFFERENT', 'DAIRY? NOT IN OUR DICTIONARY', 'SWEET ENOUGH, NO SUGAR NEEDED', 'NON-GMO, NON-STOP', 'VEGAN AND LOVING IT', 'GLUTEN? WHO\'S THAT?'].map((text, idx) => (
+              {['BORN ORGANIC, BUILT TO SLAY', 'DAIRY? WE MOO-VED ON', 'SWEET ENOUGH, NO SUGAR NEEDED', 'NON-GMO, NON-STOP', 'PLANT POWERED, WORLD READY', 'VEGAN AND EXTRA', 'GLUTEN? NOT ON THE LIST'].map((text, idx) => (
                 <span 
                   key={`${repeatIndex}-${idx}`}
                   style={{
