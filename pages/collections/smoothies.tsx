@@ -104,7 +104,7 @@ const products: Product[] = [
   },
   { 
     id: '15', 
-    name: 'Chocolate Berry', 
+    name: 'Chocolate Berry Protein', 
     price: 8.99, 
     reviews: 278,
     rating: 4.8,

@@ -7,7 +7,7 @@ const bestSellers = [
   { id: '17', name: 'Acai Passionfruit', price: 9.49, category: 'Smoothie', reviews: 487 },
   { id: '12', name: 'Nutty Monkey', price: 8.99, category: 'Smoothie', reviews: 389 },
   { id: '10', name: 'Matcha', price: 9.49, category: 'Smoothie', reviews: 312 },
-  { id: '15', name: 'Chocolate Berry', price: 8.99, category: 'Smoothie', reviews: 278 },
+  { id: '15', name: 'Chocolate Berry Protein', price: 8.99, category: 'Smoothie', reviews: 278 },
   { id: '11', name: 'Mocha Protein Fuel', price: 9.49, category: 'Smoothie', reviews: 245 },
 ];
 

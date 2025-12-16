@@ -18,7 +18,7 @@ const fallbackProducts: Product[] = [
   { id: '14', name: 'Coffee Mushroom', price: 9.99, category: 'Smoothie', image: '/products/coffee-mushroom/gallery-1.jpg' },
   { id: '2', name: 'Acai Berry', price: 9.49, category: 'Smoothie', image: '/products/acai/gallery-1.jpg' },
   { id: '3', name: 'Mango Jackfruit', price: 8.99, category: 'Smoothie', image: '/products/mango-jackfruit/Mango Jackfruit-1.png' },
-  { id: '4', name: 'Chocolate Berry', price: 9.49, category: 'Smoothie', image: '/products/chocolate-berry/gallery-1.jpg' },
+  { id: '4', name: 'Chocolate Berry Protein', price: 9.49, category: 'Smoothie', image: '/products/chocolate-berry/gallery-1.jpg' },
   { id: 'box1', name: 'The Starter Box', price: 59.99, category: 'Box', image: '/products/acai/gallery-2.jpg' },
 ];
 
