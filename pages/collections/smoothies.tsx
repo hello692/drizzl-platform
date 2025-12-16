@@ -873,14 +873,17 @@ export default function Smoothies() {
               Smoothies
             </h1>
             <p className="page-description">
-              Healthy made simple.
+              Plant-Powered. Rule-Breaking. Smile-Making.
             </p>
-            <ul className="features-list">
-              <li>Always gluten-free + dairy-free</li>
-              <li>Whole fruits + vegetables in every cup</li>
-              <li>Frozen fresh and portioned for you</li>
-              <li>Blend. Enjoy. Done.</li>
-            </ul>
+            <p className="page-description" style={{ marginTop: '16px', maxWidth: '700px', fontSize: '16px' }}>
+              No gluten. No dairy. No B.S. Just whole fruits, veggies, and plants doing what they do best—fueling you like the legend you are.
+            </p>
+            <p className="page-description" style={{ marginTop: '16px', maxWidth: '700px', fontSize: '16px' }}>
+              In 60 seconds, you're blending up a cup of pure joy. Creamy, dreamy, and so good it feels like a little indulgence (but your body's loving every second).
+            </p>
+            <p className="page-description" style={{ marginTop: '16px', fontWeight: '600' }}>
+              Blend. Sip. Thrive. Shine.
+            </p>
           </div>
 
           <div className="filter-bar">

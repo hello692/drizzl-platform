@@ -42,23 +42,17 @@ export default function Smoothies() {
 
             <h1 className="page-title">Smoothies</h1>
             <p className="page-description">
-              Healthy made simple.
+              Plant-Powered. Rule-Breaking. Smile-Making.
             </p>
-
-            <div className="features-grid">
-              <div className="feature-item">
-                <p>Always gluten-free + dairy-free</p>
-              </div>
-              <div className="feature-item">
-                <p>Whole fruits + vegetables in every cup</p>
-              </div>
-              <div className="feature-item">
-                <p>Frozen fresh and portioned for you</p>
-              </div>
-              <div className="feature-item">
-                <p>Blend. Enjoy. Done.</p>
-              </div>
-            </div>
+            <p className="page-description" style={{ marginTop: '16px', maxWidth: '700px' }}>
+              No gluten. No dairy. No B.S. Just whole fruits, veggies, and plants doing what they do best—fueling you like the legend you are.
+            </p>
+            <p className="page-description" style={{ marginTop: '16px', maxWidth: '700px' }}>
+              In 60 seconds, you're blending up a cup of pure joy. Creamy, dreamy, and so good it feels like a little indulgence (but your body's loving every second).
+            </p>
+            <p className="page-description" style={{ marginTop: '16px', fontWeight: '600' }}>
+              Blend. Sip. Thrive. Shine.
+            </p>
 
             <div className="filter-bar">
               <span className="filter-label">FILTER & SORT</span>
