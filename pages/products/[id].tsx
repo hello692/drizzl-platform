@@ -278,7 +278,13 @@ const PRODUCT_DATA: Record<string, ProductData> = {
       '/products/mocha/gallery-5.jpg',
       '/products/mocha/gallery-6.jpg',
     ],
-    lifestyleGallery: DEFAULT_LIFESTYLE_GALLERY,
+    lifestyleGallery: [
+      { src: '/lifestyle/mocha/DSC09186.jpg', alt: 'Mocha Lifestyle 1' },
+      { src: '/lifestyle/mocha/DSC09048-1Matcha.jpg', alt: 'Mocha Lifestyle 2' },
+      { src: '/lifestyle/mocha/DSC09073-1-2mocha.jpg', alt: 'Mocha Lifestyle 3' },
+      { src: '/lifestyle/mocha/DSC09159.jpg', alt: 'Mocha Lifestyle 4' },
+      { src: '/lifestyle/mocha/DSC09161.jpg', alt: 'Mocha Lifestyle 5' },
+    ],
     description: 'Indulge in the perfect marriage of rich chocolate and smooth espresso. This creamy mocha blend delivers coffeehouse vibes without leaving home. Made with organic cold brew, raw cacao, and banana for natural sweetness that satisfies your cravings guilt-free.',
     ingredients: 'organic cold brew coffee, organic cacao powder, organic banana, organic almond butter, organic dates, organic oat milk, organic vanilla extract',
     nutrition: [
