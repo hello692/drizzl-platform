@@ -154,8 +154,8 @@ const PRODUCT_DATA: Record<string, ProductData> = {
       { src: '/products/pink-piyata/lifestyle/5.jpg', alt: 'Pink Piyata Lifestyle 5' },
       { src: '/products/pink-piyata/lifestyle/6.jpg', alt: 'Pink Piyata Lifestyle 6' },
     ],
-    description: 'Transport yourself to a tropical oasis with every sip. Vibrant dragon fruit meets sweet pineapple and creamy coconut for a smoothie that tastes like vacation. Packed with antioxidants and natural electrolytes to keep you feeling refreshed and energized.',
-    ingredients: 'organic dragon fruit, organic pineapple, organic coconut cream, organic banana, organic mango, organic chia seeds',
+    description: 'Escape to a tropical paradise with every sip! Our Pink Piyata blends vibrant dragon fruit, sweet pineapple, and creamy coconut for a smoothie that\'s pure vacation in a cup. Bursting with antioxidants and natural electrolytes, it\'s the ultimate refreshment to keep you energized and glowing.',
+    ingredients: 'Pitaya*, Raspberry*, Pineapple*, Spinach*, Chia Seeds*, Goji Berries*, Medjool Dates*, Lemon*, Maca Powder* — *Organic, because you deserve the best.',
     nutrition: [
       { label: 'Calories', value: '160' },
       { label: 'Total Fat', value: '3g' },
