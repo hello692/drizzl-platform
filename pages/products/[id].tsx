@@ -331,9 +331,9 @@ const PRODUCT_DATA: Record<string, ProductData> = {
       '/products/mushroom-coffee/Coffr Mushroom-TG-1.png',
       '/products/mushroom-coffee/Coffr Mushroom-TG-2.png',
       '/products/mushroom-coffee/Coffr Mushroom-TG-3.png',
-      '/products/mushroom-coffee/DSC07772.png',
-      '/products/mushroom-coffee/DSC07777-2.png',
-      '/products/mushroom-coffee/DSC07787.png',
+      '/products/mushroom-coffee/Coffr Mushroom-TG-4.png',
+      '/products/mushroom-coffee/Coffr Mushroom-TG-5.png',
+      '/products/mushroom-coffee/Coffr Mushroom-TG-6.png',
     ],
     lifestyleGallery: [
       { src: '/lifestyle/coffee-mushroom-1.jpg', alt: 'Coffee Mushroom lifestyle 1' },
