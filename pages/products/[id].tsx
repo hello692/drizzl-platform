@@ -215,7 +215,15 @@ const PRODUCT_DATA: Record<string, ProductData> = {
       '/products/matcha/5.png',
       '/products/matcha/6.png',
     ],
-    lifestyleGallery: DEFAULT_LIFESTYLE_GALLERY,
+    lifestyleGallery: [
+      '/products/matcha/lifestyle/DSC08937.jpg',
+      '/products/matcha/lifestyle/DSC08964.jpg',
+      '/products/matcha/lifestyle/DSC08991.jpg',
+      '/products/matcha/lifestyle/DSC09048-1Matcha.jpg',
+      '/products/matcha/lifestyle/DSC09073-1-2Amatcha.jpg',
+      '/products/matcha/lifestyle/Copy of 890A4669_out1.jpg',
+      '/products/matcha/lifestyle/Copy of 890A4687_out1.jpg',
+    ],
     description: 'Matcha Madness is your daily escape. Ceremonial-grade matcha blends with tropical pineapple, creamy banana, zesty lemon, and a kick of ginger for a bold, refreshing boost. Packed with spinach and powered by L-theanine, it delivers calm, focused energy without the crash. One sip, and you\'re unstoppable.',
     ingredients: 'Organic Ceremonial Matcha, Organic Pineapple, Organic Spinach, Organic Banana, Organic Lemon Juice, Organic Ginger — because you deserve the best.',
     nutrition: {
