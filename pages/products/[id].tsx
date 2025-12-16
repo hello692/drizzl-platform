@@ -1237,20 +1237,22 @@ export default function ProductPage() {
             <p className="lifestyle-subtitle">Real nourishment. Real moments. Real life.</p>
           </div>
           <div className="lifestyle-wrapper">
-            <div className="lifestyle-track" id="lifestyle-track" ref={lifestyleTrackRef}>
-              {(productData?.lifestyleGallery || DEFAULT_LIFESTYLE_GALLERY).slice(0, 6).map((slide, index) => (
-                <div key={index} className="lifestyle-card">
-                  <Image 
-                    src={slide.src} 
-                    alt={slide.alt} 
-                    width={400}
-                    height={500}
-                    quality={75}
-                    priority={index < 3}
-                    sizes="(max-width: 768px) 80vw, 400px"
-                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                  />
-                </div>
+            <div className="lifestyle-track" id="lifestyle-track">
+              {[...Array(2)].map((_, setIndex) => (
+                (productData?.lifestyleGallery || DEFAULT_LIFESTYLE_GALLERY).slice(0, 6).map((slide, index) => (
+                  <div key={`${setIndex}-${index}`} className="lifestyle-card">
+                    <Image 
+                      src={slide.src} 
+                      alt={slide.alt} 
+                      width={400}
+                      height={500}
+                      quality={75}
+                      priority={setIndex === 0 && index < 3}
+                      sizes="(max-width: 768px) 80vw, 400px"
+                      style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                    />
+                  </div>
+                ))
               ))}
             </div>
             <div className="lifestyle-arrows">

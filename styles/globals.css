@@ -6437,19 +6437,28 @@ svg {
 
 .lifestyle-wrapper {
   position: relative;
+  overflow: hidden;
 }
 
 .lifestyle-track {
   display: flex;
   gap: 24px;
-  overflow-x: scroll;
-  overflow-y: hidden;
   padding: 0 4vw 1.5rem;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-  cursor: grab;
-  user-select: none;
+  width: max-content;
+  animation: lifestyle-scroll 30s linear infinite;
+}
+
+.lifestyle-track:hover {
+  animation-play-state: paused;
+}
+
+@keyframes lifestyle-scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
 }
 
 .lifestyle-track::-webkit-scrollbar {
