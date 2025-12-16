@@ -630,10 +630,10 @@ export default function Home() {
       <section className="video-section" style={{ background: '#0a0a0a' }}>
         <div className="video-section-container">
           <h2 className="video-section-title">
-            The lineup
+            The Lineup
           </h2>
           <p className="video-section-subtitle">
-            The blends everyone's hooked on. These are the ones they keep coming back for.
+            Smoothies So Addictive, They Break Repeat Buttons.
           </p>
 
           <div className="video-carousel-wrapper">

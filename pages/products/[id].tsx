@@ -1348,8 +1348,8 @@ export default function ProductPage() {
         {/* The Lineup Section - Infinite scroll carousel */}
         <section className="lineup-section">
           <div className="lineup-header">
-            <h2 className="lineup-title">The lineup</h2>
-            <p className="lineup-subtitle">These are the ones people can't stop reordering.</p>
+            <h2 className="lineup-title">The Lineup</h2>
+            <p className="lineup-subtitle">Smoothies So Addictive, They Break Repeat Buttons.</p>
           </div>
           <div className="lineup-wrapper">
             <div className="lineup-track">
