@@ -8,7 +8,7 @@ const newArrivals = [
   { id: '11', name: 'Mocha Protein Fuel', price: 9.49, category: 'Smoothie', isNew: true },
   { id: '13', name: 'Mango Jackfruit', price: 8.99, category: 'Smoothie', isNew: true },
   { id: '14', name: 'Coffee Mushroom', price: 9.99, category: 'Smoothie', isNew: true },
-  { id: '16', name: 'Almond', price: 8.99, category: 'Smoothie', isNew: true },
+  { id: '16', name: 'Almond Luvly', price: 8.99, category: 'Smoothie', isNew: true },
 ];
 
 export default function NewArrivals() {

@@ -116,7 +116,7 @@ const products: Product[] = [
   },
   { 
     id: '16', 
-    name: 'Almond', 
+    name: 'Almond Luvly', 
     price: 8.99, 
     reviews: 187,
     rating: 4.7,
