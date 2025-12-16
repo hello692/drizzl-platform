@@ -392,7 +392,7 @@ const PRODUCT_DATA: Record<string, ProductData> = {
       { src: '/lifestyle/DSC09302.jpg', alt: 'Chocolate Berry lifestyle 5' },
     ],
     description: "One sip, and you're in the jungle. Rich cacao seduces your taste buds, creamy banana keeps it smooth, and a trio of warming spices wraps you in a chocolatey embrace. It's indulgence that fuels your body, sharpens your mind, and leaves you wanting more.",
-    ingredients: 'Organic Brewed Coffee, Organic Rolled Oats, Organic Dates, Organic Banana, Organic Cacao Nibs & Powder, Organic Maca Extract, Organic Turmeric, Organic Cinnamon, Organic Black Pepper, Organic Chia Seeds. Contains: Tree nuts. Dietary: Plant-based, dairy-free.',
+    ingredients: 'Organic Brewed Coffee, Organic Bananas, Organic Rolled Oats, Organic Young Coconut Meat, Organic Dates, Organic Vanilla Extract, Organic Cinnamon, Organic Almond Milk, Organic 10 Mushroom Blend (Turkey Tail, Lion\'s Mane, Cordyceps, Chaga, Shiitake, Maitake, Red Reishi, Agaricus Blazei, Tremella, Poria), Organic Chocolate Protein Powder (Pea Protein), Pumpkin Seed Protein, Monk Fruit Extract, Chia Seed Protein, Alkalized Cocoa, Vanilla Powder. Contains: Tree nuts. Dietary: Plant-based, dairy-free.',
     nutrition: {
       servingSize: '253 g',
       servingsPerContainer: 1,

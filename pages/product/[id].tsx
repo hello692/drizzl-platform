@@ -341,7 +341,7 @@ const smoothies: { [key: string]: any } = {
       '/products/chocolate-berry/detail-1.jpg',
     ],
     description: "One sip, and you're in the jungle. Rich cacao seduces your taste buds, creamy banana keeps it smooth, and a trio of warming spices wraps you in a chocolatey embrace. It's indulgence that fuels your body, sharpens your mind, and leaves you wanting more.",
-    ingredients: ['organic brewed coffee', 'organic rolled oats', 'organic dates', 'organic banana', 'organic cacao nibs', 'organic cacao powder', 'organic maca extract', 'organic turmeric', 'organic cinnamon', 'organic black pepper', 'organic chia seeds'],
+    ingredients: ['organic brewed coffee', 'organic bananas', 'organic rolled oats', 'organic young coconut meat', 'organic dates', 'organic vanilla extract', 'organic cinnamon', 'organic almond milk', 'organic 10 mushroom blend', 'organic chocolate protein powder', 'pumpkin seed protein', 'monk fruit extract', 'chia seed protein', 'alkalized cocoa', 'vanilla powder'],
     nutrition: {
       calories: '270',
       fat: '9g',
