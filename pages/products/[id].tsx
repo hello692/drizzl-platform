@@ -183,14 +183,17 @@ const PRODUCT_DATA: Record<string, ProductData> = {
       ]
     },
     keyIngredients: [
-      { name: 'Dragon Fruit', benefit: 'Rich in antioxidants and supports healthy digestion with prebiotics.', image: '/ingredients/dragonfruit.png' },
-      { name: 'Pineapple', benefit: 'Contains bromelain for digestive health and vitamin C for immunity.', image: '/ingredients/pineapple.png' },
-      { name: 'Coconut', benefit: 'Natural electrolytes for hydration and healthy medium-chain fats.', image: '/ingredients/coconut.png' },
-      { name: 'Mango', benefit: 'High in vitamin C and beta-carotene for skin and eye health.', image: '/ingredients/mango.png' },
-      { name: 'Banana', benefit: 'Natural energy boost with potassium for muscle recovery.', image: '/ingredients/banana.png' },
-      { name: 'Chia Seeds', benefit: 'Omega-3 fatty acids and plant-based protein for sustained energy.', image: '/ingredients/chia.png' },
+      { name: 'Pitaya (Dragon Fruit)', benefit: 'A vibrant superfruit loaded with antioxidants and prebiotic fiber to boost digestion and vitality.', image: '/ingredients/dragonfruit.png' },
+      { name: 'Strawberry', benefit: 'Bursting with vitamin C and polyphenols to support glowing skin and a strong immune system.', image: '/ingredients/strawberry.png' },
+      { name: 'Raspberry', benefit: 'A fiber-rich berry packed with antioxidants for gut health and cellular protection.', image: '/ingredients/raspberry.png' },
+      { name: 'Spinach', benefit: 'A powerhouse green full of essential vitamins and minerals to keep you balanced.', image: '/ingredients/spinach.png' },
+      { name: 'Chia Seeds', benefit: 'Tiny but mighty, packed with omega-3s and plant-based protein for lasting energy.', image: '/ingredients/chia.png' },
+      { name: 'Goji Berries', benefit: 'An antioxidant-rich superfruit known for supporting immunity and longevity.', image: '/ingredients/goji.png' },
+      { name: 'Medjool Dates', benefit: 'Naturally sweet and full of fiber and minerals for a gentle energy boost.', image: '/ingredients/dates.png' },
+      { name: 'Lemon', benefit: 'Zesty and refreshing, loaded with vitamin C to brighten your day and your smoothie.', image: '/ingredients/lemon.png' },
+      { name: 'Maca Powder', benefit: 'An adaptogenic root that helps balance mood, stamina, and energy.', image: '/ingredients/maca.png' },
     ],
-    badges: ['Gluten-Free', 'Dairy-Free', 'Made from Plants', 'No Sugar Added'],
+    badges: ['Gluten-Free', 'Dairy-Free', 'Plant-Based', 'No Added Sugar'],
   },
   '10': {
     id: '10',
@@ -1081,9 +1084,9 @@ export default function ProductPage() {
                 </button>
                 {openSections.howToPrep && (
                   <div className="lv-accordion-content">
-                    <p><strong>Add liquid:</strong> Fill to the top with water, oat milk, or coconut water—your call.</p>
-                    <p><strong>Blend:</strong> Toss it in the blender and let the magic happen.</p>
-                    <p><strong>Enjoy:</strong> Pour it back, sip it up, and feel unstoppable.</p>
+                    <p><strong>Add Liquid:</strong> Fill your cup with water, almond milk, oat milk, or coconut water—your call.</p>
+                    <p><strong>Blend:</strong> Blend until smooth, creamy, and vibrant.</p>
+                    <p><strong>Enjoy:</strong> Sip, savor, and feel the tropical refreshment fuel your day.</p>
                   </div>
                 )}
               </div>
@@ -1102,10 +1105,10 @@ export default function ProductPage() {
                 </button>
                 {infoSections.delivery && (
                   <div className="lv-accordion-content">
-                    <p><strong>Free shipping:</strong> Orders over $50? We've got you.</p>
-                    <p><strong>Standard delivery:</strong> 3-5 business days—easy peasy.</p>
-                    <p><strong>Express delivery:</strong> 1-2 business days—because you can't wait.</p>
-                    <p><strong>Returns:</strong> Changed your mind? Send unopened products back within 30 days.</p>
+                    <p><strong>Free Shipping:</strong> Enjoy free shipping on orders over $50.</p>
+                    <p><strong>Standard Delivery:</strong> Get your smoothies in 3–5 business days.</p>
+                    <p><strong>Express Delivery:</strong> Need it now? Choose 1–2 day express shipping.</p>
+                    <p><strong>Hassle-Free Returns:</strong> Unopened products can be returned within 30 days.</p>
                     <p style={{marginTop: '12px', fontStyle: 'italic'}}>Because life's too short for boring smoothies.</p>
                   </div>
                 )}
