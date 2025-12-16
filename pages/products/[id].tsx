@@ -156,14 +156,28 @@ const PRODUCT_DATA: Record<string, ProductData> = {
     ],
     description: 'Escape to a tropical paradise with every sip! Our Pink Piyata blends vibrant dragon fruit, sweet pineapple, and creamy coconut for a smoothie that\'s pure vacation in a cup. Bursting with antioxidants and natural electrolytes, it\'s the ultimate refreshment to keep you energized and glowing.',
     ingredients: 'Pitaya*, Raspberry*, Pineapple*, Spinach*, Chia Seeds*, Goji Berries*, Medjool Dates*, Lemon*, Maca Powder* — *Organic, because you deserve the best.',
-    nutrition: [
-      { label: 'Calories', value: '160' },
-      { label: 'Total Fat', value: '3g' },
-      { label: 'Carbs', value: '28g' },
-      { label: 'Fiber', value: '5g' },
-      { label: 'Sugars', value: '16g' },
-      { label: 'Protein', value: '2g' },
-    ],
+    nutrition: {
+      servingSize: '210g',
+      servingsPerContainer: 1,
+      calories: 160,
+      facts: [
+        { label: 'Total Fat', value: '3g', dv: 4 },
+        { label: 'Saturated Fat', value: '0.5g', dv: 3, indent: true },
+        { label: 'Trans Fat', value: '0g', dv: null, indent: true },
+        { label: 'Cholesterol', value: '0mg', dv: 0 },
+        { label: 'Sodium', value: '10mg', dv: 0 },
+        { label: 'Total Carbohydrate', value: '28g', dv: 10 },
+        { label: 'Dietary Fiber', value: '5g', dv: 18, indent: true },
+        { label: 'Total Sugars', value: '16g', dv: null, indent: true },
+        { label: 'Incl. Added Sugars', value: '0g', dv: 0, indent: true, subIndent: true },
+        { label: 'Protein', value: '2g', dv: 4 },
+      ],
+      highlights: [
+        { label: 'Fiber', value: '5g', percent: 18, color: '#10b981' },
+        { label: 'Protein', value: '2g', percent: 4, color: '#8b5cf6' },
+        { label: 'Carbs', value: '28g', percent: 10, color: '#f59e0b' },
+      ]
+    },
     keyIngredients: [
       { name: 'Dragon Fruit', benefit: 'Rich in antioxidants and supports healthy digestion with prebiotics.', image: '/ingredients/dragonfruit.png' },
       { name: 'Pineapple', benefit: 'Contains bromelain for digestive health and vitamin C for immunity.', image: '/ingredients/pineapple.png' },
