@@ -6442,10 +6442,9 @@ svg {
 .lifestyle-track {
   display: flex;
   gap: 24px;
-  overflow-x: auto;
+  overflow-x: scroll;
   overflow-y: hidden;
   padding: 0 4vw 1.5rem;
-  scroll-behavior: smooth;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
   -ms-overflow-style: none;
