@@ -393,7 +393,7 @@ export default function Home() {
                 marginBottom: '12px',
                 display: 'block',
               }}>
-                WHY WE EXIST
+                WHY WAIT FOR THE GOOD STUFF?
               </span>
               <h2 style={{
                 fontSize: 'clamp(1.8rem, 4vw, 2.6rem)',
@@ -403,7 +403,7 @@ export default function Home() {
                 color: '#ffffff',
                 marginBottom: 'var(--space-after-h2)',
               }}>
-                We were over the fake promises.
+                We broke up with boring wellness.
               </h2>
               <p style={{
                 fontSize: 'var(--fs-body)',
@@ -412,16 +412,25 @@ export default function Home() {
                 color: 'var(--color-text-secondary)',
                 marginBottom: 'var(--space-after-p)',
               }}>
-                "Healthy" smoothies packed with hidden sugars. Wellness brands chasing profits over people. Powdered mixes that taste like regret. Drizzl was born because we couldn't find a single smoothie brand that actually cared.
+                We were done with the "healthy" catfish—bland smoothies ghosting on flavor and sugar bombs pretending to be your friend. We wanted a relationship with food that felt electric. Something that tasted like a cheat day but fueled us like a superfood.
               </p>
               <p style={{
                 fontSize: 'var(--fs-body)',
                 fontWeight: 500,
                 lineHeight: 1.7,
                 color: '#ffffff',
+                marginBottom: '12px',
+              }}>
+                So, we made Drizzl.
+              </p>
+              <p style={{
+                fontSize: 'var(--fs-body)',
+                fontWeight: 400,
+                lineHeight: 1.7,
+                color: 'var(--color-text-secondary)',
                 marginBottom: '24px',
               }}>
-                So, we made one. Chef-crafted recipes. Real, organic ingredients. Flash-frozen at their absolute peak. No shortcuts, no compromises, no BS.
+                Think of us as your freezer's best-kept secret. We take chef-crafted recipes, jam-pack them with real, organic ingredients, and flash-freeze them at their absolute peak. It's a flavor obsession with zero baggage.
               </p>
               <div style={{
                 display: 'grid',
@@ -433,17 +442,28 @@ export default function Home() {
               }}>
                 <div>
                   <p style={{ fontSize: 'var(--fs-h3)', fontWeight: 600, color: '#ffffff', marginBottom: '4px' }}>0g</p>
-                  <p style={{ fontSize: 'var(--fs-small)', color: 'var(--color-text-tertiary)' }}>Added sugar</p>
+                  <p style={{ fontSize: 'var(--fs-small)', color: 'var(--color-text-tertiary)' }}>Added Sugar</p>
+                  <p style={{ fontSize: '11px', color: 'var(--color-text-tertiary)', marginTop: '2px', fontStyle: 'italic' }}>Sweet enough without the drama</p>
                 </div>
                 <div>
                   <p style={{ fontSize: 'var(--fs-h3)', fontWeight: 600, color: '#ffffff', marginBottom: '4px' }}>90%+</p>
-                  <p style={{ fontSize: 'var(--fs-small)', color: 'var(--color-text-tertiary)' }}>Organic ingredients</p>
+                  <p style={{ fontSize: 'var(--fs-small)', color: 'var(--color-text-tertiary)' }}>Organic Ingredients</p>
+                  <p style={{ fontSize: '11px', color: 'var(--color-text-tertiary)', marginTop: '2px', fontStyle: 'italic' }}>Nature's VIP list</p>
                 </div>
                 <div>
                   <p style={{ fontSize: 'var(--fs-h3)', fontWeight: 600, color: '#ffffff', marginBottom: '4px' }}>Peak</p>
-                  <p style={{ fontSize: 'var(--fs-small)', color: 'var(--color-text-tertiary)' }}>Frozen for freshness</p>
+                  <p style={{ fontSize: 'var(--fs-small)', color: 'var(--color-text-tertiary)' }}>Frozen for Freshness</p>
+                  <p style={{ fontSize: '11px', color: 'var(--color-text-tertiary)', marginTop: '2px', fontStyle: 'italic' }}>Locked in at the perfect moment</p>
                 </div>
               </div>
+              <p style={{
+                fontSize: 'var(--fs-body)',
+                fontWeight: 600,
+                color: '#ffffff',
+                marginBottom: '16px',
+              }}>
+                Stop settling. Start craving.
+              </p>
               <Link href="/our-story" style={{
                 display: 'inline-flex',
                 alignItems: 'center',
