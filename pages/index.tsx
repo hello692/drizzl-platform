@@ -19,16 +19,16 @@ interface Product {
 }
 
 const POPULAR_SMOOTHIES = [
+  { id: '17', name: 'Acai Passionfruit', price: 9.49, image: '/products/acai/Acai-1.png', hoverImage: '/products/acai/Acai-2.png', badge: 'BEST SELLER', rating: 4.9, reviews: 487 },
   { id: '1', name: 'Strawberry + Peachy', price: 8.49, image: '/products/strawberry-peach/1.png', hoverImage: '/products/strawberry-peach/2.png', badge: 'BEST SELLER', rating: 4.5, reviews: 4619 },
-  { id: '9', name: 'Pink Piyata', price: 8.99, image: '/products/pink-piyata/gallery-1.jpg', hoverImage: '/products/pink-piyata/gallery-2.jpg', badge: 'NEW', rating: 4.7, reviews: 127 },
-  { id: '10', name: 'Matcha', price: 9.49, image: '/products/matcha/gallery-1.jpg', hoverImage: '/products/matcha/gallery-2.jpg', badge: 'BEST SELLER', rating: 4.8, reviews: 312 },
+  { id: '9', name: 'Pink Piyata', price: 8.99, image: '/products/pink-piyata/1.png', hoverImage: '/products/pink-piyata/2.png', badge: 'NEW', rating: 4.7, reviews: 127 },
+  { id: '10', name: 'Matcha', price: 9.49, image: '/products/matcha/1.png', hoverImage: '/products/matcha/2.png', badge: 'BEST SELLER', rating: 4.8, reviews: 312 },
   { id: '11', name: 'Mocha Protein Fuel', price: 9.49, image: '/products/mocha/gallery-1.jpg', hoverImage: '/products/mocha/gallery-2.jpg', badge: 'BEST SELLER', rating: 4.6, reviews: 245 },
-  { id: '12', name: 'Nutty Monkey', price: 8.99, image: '/products/nutty-monkey/gallery-1.jpg', hoverImage: '/products/nutty-monkey/gallery-2.jpg', badge: 'BEST SELLER', rating: 4.7, reviews: 389 },
+  { id: '12', name: 'Nutty Monkey', price: 8.99, image: '/products/nutty-monkey/Nutty Monkey-1.png', hoverImage: '/products/nutty-monkey/Nutty Monkey-2.png', badge: 'BEST SELLER', rating: 4.7, reviews: 389 },
   { id: '13', name: 'Mango Jackfruit', price: 8.99, image: '/products/mango-jackfruit/Mango Jackfruit-1.png', hoverImage: '/products/mango-jackfruit/Mango Jackfruit-2.png', badge: 'NEW', rating: 4.8, reviews: 156 },
   { id: '14', name: 'Coffee Mushroom', price: 9.99, image: '/products/coffee-mushroom/gallery-1.jpg', hoverImage: '/products/coffee-mushroom/gallery-2.jpg', badge: 'BEST SELLER', rating: 4.8, reviews: 203 },
   { id: '15', name: 'Chocolate Berry Protein', price: 8.99, image: '/products/chocolate-berry/gallery-1.jpg', hoverImage: '/products/chocolate-berry/gallery-2.jpg', badge: 'BEST SELLER', rating: 4.8, reviews: 278 },
-  { id: '16', name: 'Almond Luvly', price: 8.99, image: '/products/almond/gallery-1.jpg', hoverImage: '/products/almond/gallery-2.jpg', badge: 'BEST SELLER', rating: 4.7, reviews: 187 },
-  { id: '17', name: 'Acai Passionfruit', price: 9.49, image: '/products/acai/gallery-1.jpg', hoverImage: '/products/acai/gallery-2.jpg', badge: 'BEST SELLER', rating: 4.9, reviews: 487 },
+  { id: '16', name: 'Almond Luvly', price: 8.99, image: '/products/almond/Almond-1.png', hoverImage: '/products/almond/Almond-2.png', badge: 'BEST SELLER', rating: 4.7, reviews: 187 },
 ];
 
 const EXPERTS = [
@@ -139,12 +139,6 @@ export default function Home() {
   const [unMutedExpert, setUnMutedExpert] = useState<string | null>(null);
   const [unMutedCustomer, setUnMutedCustomer] = useState<string | null>(null);
   
-  const { trackRef: productTrackRef, pauseScroll: pauseProductScroll, resumeScroll: resumeProductScroll } = useAutoScroll({
-    speed: 35,
-    pauseOnInteraction: true,
-    resumeDelay: 1500,
-    direction: 'left',
-  });
   
   const { trackRef: customerTrackRef, pauseScroll: pauseCustomerScroll, resumeScroll: resumeCustomerScroll } = useAutoScroll({
     speed: 35,
@@ -626,62 +620,30 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 6. Product Carousel */}
-      <section className="video-section" style={{ background: '#0a0a0a' }}>
-        <div className="video-section-container">
-          <h2 className="video-section-title">
-            The Lineup
-          </h2>
-          <p className="video-section-subtitle">
-            Smoothies So Addictive, They Break Repeat Buttons.
-          </p>
-
-          <div className="video-carousel-wrapper">
-            <button
-              onClick={() => {
-                pauseProductScroll();
-                if (productTrackRef.current) {
-                  productTrackRef.current.scrollBy({ left: -280, behavior: 'smooth' });
-                }
-                resumeProductScroll();
-              }}
-              className="carousel-arrow carousel-arrow-left"
-            >
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <polyline points="15 18 9 12 15 6" />
-              </svg>
-            </button>
-
-            <div className="video-carousel-track" ref={productTrackRef}>
-              {POPULAR_SMOOTHIES.map((product, index) => (
-                <SmoothieCard
-                  key={`${product.id}-${index}`}
-                  id={product.id}
-                  name={product.name}
-                  image={product.image}
-                  hoverImage={product.hoverImage}
-                  badge={product.badge}
-                  price={product.price}
-                  rating={product.rating}
-                  reviews={product.reviews}
-                />
-              ))}
-            </div>
-
-            <button
-              onClick={() => {
-                pauseProductScroll();
-                if (productTrackRef.current) {
-                  productTrackRef.current.scrollBy({ left: 280, behavior: 'smooth' });
-                }
-                resumeProductScroll();
-              }}
-              className="carousel-arrow carousel-arrow-right"
-            >
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <polyline points="9 18 15 12 9 6" />
-              </svg>
-            </button>
+      {/* 6. The Lineup - Infinite scroll carousel */}
+      <section className="lineup-section">
+        <div className="lineup-header">
+          <h2 className="lineup-title">The Lineup</h2>
+          <p className="lineup-subtitle">Smoothies So Addictive, They Break Repeat Buttons.</p>
+        </div>
+        <div className="lineup-wrapper">
+          <div className="lineup-track">
+            {[...Array(3)].map((_, setIndex) => (
+              POPULAR_SMOOTHIES.map((item) => (
+                <div key={`${setIndex}-${item.id}`} className="lineup-card">
+                  <SmoothieCard
+                    id={item.id}
+                    name={item.name}
+                    image={item.image}
+                    hoverImage={item.hoverImage}
+                    badge={item.badge}
+                    price={item.price}
+                    rating={item.rating}
+                    reviews={item.reviews}
+                  />
+                </div>
+              ))
+            ))}
           </div>
         </div>
       </section>
