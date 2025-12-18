@@ -8,7 +8,6 @@ import SmoothieCard from '../components/SmoothieCard';
 import HomeHero from '../components/HomeHero';
 import { AnimatedSection, AnimatedText, StaggeredGrid } from '../components/ScrollAnimations';
 import { getMessages } from '../lib/getMessages';
-import { useAutoScroll } from '../hooks/useAutoScroll';
 
 interface Product {
   id: string;
@@ -137,14 +136,6 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
   const [unMutedExpert, setUnMutedExpert] = useState<string | null>(null);
   const [unMutedCustomer, setUnMutedCustomer] = useState<string | null>(null);
-  
-  
-  const { trackRef: customerTrackRef, pauseScroll: pauseCustomerScroll, resumeScroll: resumeCustomerScroll } = useAutoScroll({
-    speed: 35,
-    pauseOnInteraction: true,
-    resumeDelay: 1500,
-    direction: 'left',
-  });
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
   const [displayedText, setDisplayedText] = useState('');
   const [isTyping, setIsTyping] = useState(true);
@@ -703,85 +694,44 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Customer Reviews Section */}
-      <section className="video-section">
-        <div className="video-section-container">
-          <h2 className="video-section-title">
-            A Fan Favorite
-          </h2>
-          <p className="video-section-subtitle">
-            Because being loved this much should be illegal.
-          </p>
-
-          <div className="video-carousel-wrapper">
-            <button
-              onClick={() => {
-                pauseCustomerScroll();
-                if (customerTrackRef.current) {
-                  customerTrackRef.current.scrollBy({ left: -280, behavior: 'smooth' });
-                }
-                resumeCustomerScroll();
-              }}
-              className="carousel-arrow carousel-arrow-left"
-            >
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <polyline points="15 18 9 12 15 6" />
-              </svg>
-            </button>
-
-            <div className="video-carousel-track" ref={customerTrackRef}>
-              {CUSTOMERS.map((customer, idx) => (
+      {/* Customer Reviews Section - Infinite scroll like Experts */}
+      <section className="reviews-section">
+        <div className="reviews-header">
+          <h2 className="reviews-title">A Fan Favorite</h2>
+          <p className="reviews-subtitle">Because being loved this much should be illegal.</p>
+        </div>
+        <div className="reviews-wrapper">
+          <div className="reviews-track">
+            {[...Array(3)].map((_, setIndex) => (
+              CUSTOMERS.map((customer) => (
                 <div 
-                  key={`${customer.id}-${idx}`} 
-                  className="video-card"
-                  onClick={() => {
-                    setUnMutedCustomer(unMutedCustomer === customer.id ? null : customer.id);
-                  }}
+                  key={`${setIndex}-${customer.id}`} 
+                  className="reviews-card"
+                  onClick={() => setUnMutedCustomer(unMutedCustomer === customer.id ? null : customer.id)}
                 >
-                  <div className="video-card-header">
-                    <p className="video-card-label video-card-label-customer">
-                      CUSTOMER REVIEW
-                    </p>
-                    <h3 className="video-card-name">
-                      {customer.name}
-                    </h3>
-                    <p className="video-card-quote">
-                      "{customer.quote}"
-                    </p>
+                  <div className="reviews-card-header">
+                    <p className="reviews-card-label">CUSTOMER REVIEW</p>
+                    <h3 className="reviews-card-name">{customer.name}</h3>
+                    <p className="reviews-card-quote">"{customer.quote}"</p>
                   </div>
-                  <div className="video-card-video-container">
+                  <div className="reviews-card-video-container">
                     <video
                       src={customer.video}
-                      className="video-card-video"
+                      className="reviews-card-video"
                       loop
                       autoPlay
                       muted={unMutedCustomer !== customer.id}
                       playsInline
                     />
-                    <div className="video-card-play-btn">
+                    <div className="reviews-card-play-btn">
                       <svg width="16" height="16" viewBox="0 0 24 24" fill="white">
                         <polygon points="8 5 19 12 8 19 8 5" />
                       </svg>
                     </div>
                   </div>
                 </div>
-              ))}
-            </div>
-
-            <button
-              onClick={() => {
-                pauseCustomerScroll();
-                if (customerTrackRef.current) {
-                  customerTrackRef.current.scrollBy({ left: 280, behavior: 'smooth' });
-                }
-                resumeCustomerScroll();
-              }}
-              className="carousel-arrow carousel-arrow-right"
-            >
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <polyline points="9 18 15 12 9 6" />
-              </svg>
-            </button>
+              ))
+            ))}
           </div>
         </div>
       </section>
