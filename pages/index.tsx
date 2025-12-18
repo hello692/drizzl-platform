@@ -412,7 +412,7 @@ export default function Home() {
                 color: 'var(--color-text-secondary)',
                 marginBottom: 'var(--space-after-p)',
               }}>
-                We were done with the "healthy" catfish—bland smoothies ghosting on flavor and sugar bombs pretending to be your friend. We wanted a relationship with food that felt electric. Something that tasted like a cheat day but fueled us like a superfood.
+                We were done with the "healthy" imposters—bland smoothies ghosting on flavor and sugar bombs pretending to be your friend. We wanted a relationship with food that felt electric. Something that tasted like a cheat day but fueled us like a superfood.
               </p>
               <p style={{
                 fontSize: 'var(--fs-body)',
@@ -421,7 +421,7 @@ export default function Home() {
                 color: '#ffffff',
                 marginBottom: '12px',
               }}>
-                So, we made Drizzl.
+                So, we made Drizzl Wellness.
               </p>
               <p style={{
                 fontSize: 'var(--fs-body)',
