@@ -135,7 +135,6 @@ const HOW_IT_WORKS = [
 export default function Home() {
   const [featuredProducts, setFeaturedProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
-  const [expertPosition, setExpertPosition] = useState(0);
   const [unMutedExpert, setUnMutedExpert] = useState<string | null>(null);
   const [unMutedCustomer, setUnMutedCustomer] = useState<string | null>(null);
   
@@ -174,13 +173,6 @@ export default function Home() {
     };
 
     fetchProducts();
-  }, []);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setExpertPosition(prev => (prev + 1) % EXPERTS.length);
-    }, 3000);
-    return () => clearInterval(interval);
   }, []);
 
   useEffect(() => {
@@ -648,76 +640,45 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 7. Social Proof - Experts Section */}
-      <section className="video-section">
-        <div className="video-section-container">
-          <p className="video-section-eyebrow">
-            Over 50K Five-Star Reviews
-          </p>
-          <h2 className="video-section-title">
-            Trusted by Experts and Wellness Leaders
-          </h2>
-          <p className="video-section-subtitle">
-            Discover why healthcare pros, fitness coaches, and wellness enthusiasts swear by us.
-          </p>
-
-          <div className="video-carousel-wrapper">
-            <button
-              onClick={() => setExpertPosition(prev => (prev - 1 + EXPERTS.length) % EXPERTS.length)}
-              className="carousel-arrow carousel-arrow-left"
-            >
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <polyline points="15 18 9 12 15 6" />
-              </svg>
-            </button>
-
-            <div className="video-carousel-track">
-              {[...EXPERTS, ...EXPERTS].slice(expertPosition, expertPosition + 5).map((expert, idx) => (
+      {/* 7. Social Proof - Experts Reviews Carousel */}
+      <section className="reviews-section">
+        <div className="reviews-header">
+          <p className="reviews-eyebrow">Over 50K Five-Star Reviews</p>
+          <h2 className="reviews-title">Trusted by Experts and Wellness Leaders</h2>
+          <p className="reviews-subtitle">Discover why healthcare pros, fitness coaches, and wellness enthusiasts swear by us.</p>
+        </div>
+        <div className="reviews-wrapper">
+          <div className="reviews-track">
+            {[...Array(3)].map((_, setIndex) => (
+              EXPERTS.map((expert) => (
                 <div 
-                  key={`${expert.id}-${idx}`} 
-                  className="video-card"
-                  onClick={() => {
-                    setUnMutedExpert(unMutedExpert === expert.id ? null : expert.id);
-                  }}
+                  key={`${setIndex}-${expert.id}`} 
+                  className="reviews-card"
+                  onClick={() => setUnMutedExpert(unMutedExpert === expert.id ? null : expert.id)}
                 >
-                  <div className="video-card-header">
-                    <p className="video-card-label video-card-label-expert">
-                      EXPERT REVIEW
-                    </p>
-                    <h3 className="video-card-name">
-                      {expert.name}
-                    </h3>
-                    <p className="video-card-quote">
-                      "{expert.quote}"
-                    </p>
+                  <div className="reviews-card-header">
+                    <p className="reviews-card-label">EXPERT REVIEW</p>
+                    <h3 className="reviews-card-name">{expert.name}</h3>
+                    <p className="reviews-card-quote">"{expert.quote}"</p>
                   </div>
-                  <div className="video-card-video-container">
+                  <div className="reviews-card-video-container">
                     <video
                       src={expert.video}
-                      className="video-card-video"
+                      className="reviews-card-video"
                       loop
                       autoPlay
                       muted={unMutedExpert !== expert.id}
                       playsInline
                     />
-                    <div className="video-card-play-btn">
+                    <div className="reviews-card-play-btn">
                       <svg width="16" height="16" viewBox="0 0 24 24" fill="white">
                         <polygon points="8 5 19 12 8 19 8 5" />
                       </svg>
                     </div>
                   </div>
                 </div>
-              ))}
-            </div>
-
-            <button
-              onClick={() => setExpertPosition(prev => (prev + 1) % EXPERTS.length)}
-              className="carousel-arrow carousel-arrow-right"
-            >
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <polyline points="9 18 15 12 9 6" />
-              </svg>
-            </button>
+              ))
+            ))}
           </div>
         </div>
       </section>
