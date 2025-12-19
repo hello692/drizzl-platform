@@ -4,19 +4,18 @@ import Link from 'next/link';
 import { AnimatedSection } from '../components/ScrollAnimations';
 
 const VALUES = [
-  { title: 'Human First', description: 'We believe in real connections. Every smoothie is crafted with love for real people.' },
-  { title: 'Flavor Obsessed', description: 'Life is too short for boring food. We make every sip an explosion of natural taste.' },
-  { title: 'Health Driven', description: 'Clean ingredients, no compromises. Your body deserves the best nature has to offer.' },
-  { title: 'Energy Packed', description: 'Power your day with nutrients that actually work. Feel the difference in every blend.' },
-  { title: 'Fun Always', description: 'Wellness should be joyful. We bring the party to your daily nutrition routine.' },
-  { title: 'Sustainability', description: 'We care for the planet as much as we care for you. Every choice matters.' },
+  { title: 'Human First', description: 'Made for you, not some marketing spreadsheet.' },
+  { title: 'Flavor Obsessed', description: 'If it\'s not delicious, it\'s dead to us.' },
+  { title: 'Clean Ingredients Only', description: 'No shady secrets, just pure goodness.' },
+  { title: 'Energy-Packed', description: 'Fuel that makes you feel unstoppable.' },
+  { title: 'Fun Always', description: 'Wellness should be a vibe, not a chore.' },
+  { title: 'Planet-Loving', description: 'Sustainability is sexy, and we\'re all about it.' },
 ];
 
 const STATS = [
-  { number: '50K+', label: 'Happy Customers' },
-  { number: '1M+', label: 'Smoothies Shipped' },
-  { number: '100%', label: 'Organic Ingredients' },
-  { number: '4.9', label: 'Average Rating' },
+  { number: '100%', label: 'Organic', detail: 'Because you\'re a whole snack and deserve the best' },
+  { number: '50K+', label: 'Reviews', detail: 'Hotter than your ex\'s texts (and way more reliable)' },
+  { number: '✨', label: 'Crafted', detail: 'By flavor-obsessed perfectionists who live for your glow-up' },
 ];
 
 export default function About() {
@@ -51,7 +50,7 @@ export default function About() {
                 color: '#ffffff',
                 marginBottom: '16px',
               }}>
-                We're Drizzl
+                The Glow Up You Deserve
               </h1>
               <p style={{
                 fontSize: 'var(--fs-body)',
@@ -60,7 +59,7 @@ export default function About() {
                 color: 'var(--color-text-secondary)',
                 maxWidth: '560px',
               }}>
-                On a mission to make wellness feel as good as it tastes.
+                We're Drizzl Wellness. Your new obsession. The ultimate breakup from boring, blah, basic food.
               </p>
             </div>
           </AnimatedSection>
@@ -81,7 +80,7 @@ export default function About() {
                   marginBottom: '24px',
                   lineHeight: 1.3,
                 }}>
-                  It started with a question
+                  POV: You're done settling
                 </h2>
                 <p style={{
                   fontSize: 'var(--fs-body)',
@@ -89,7 +88,7 @@ export default function About() {
                   lineHeight: 1.8,
                   marginBottom: '20px',
                 }}>
-                  Why does healthy food have to taste like cardboard? We refused to accept that trade-off.
+                  You're done settling for salads that taste like sadness and smoothies that scream "cardboard chic."
                 </p>
                 <p style={{
                   fontSize: 'var(--fs-body)',
@@ -97,125 +96,29 @@ export default function About() {
                   lineHeight: 1.8,
                   marginBottom: '20px',
                 }}>
-                  In 2020, our founder was tired of choosing between convenience and nutrition. Every morning was the same struggle—grab something quick that tasted good but wasn't great for you, or spend an hour prepping something healthy that... well, let's just say it was an acquired taste.
+                  Bland? Sugary? Fake? Yeah, no thanks. We're here to spice up your plate and your life.
                 </p>
                 <p style={{
                   fontSize: 'var(--fs-body)',
-                  color: 'var(--color-text-secondary)',
+                  color: '#ffffff',
+                  fontWeight: 500,
                   lineHeight: 1.8,
                 }}>
-                  There had to be a better way. And that's when Drizzl was born.
+                  We wanted better—better taste, better vibes, better fuel for your glow-up era. So, guess what? We made it. Welcome to wellness that slaps.
                 </p>
               </div>
             </AnimatedSection>
             <AnimatedSection animation="fadeUp" delay={100}>
               <div style={{
                 aspectRatio: '4/3',
-                background: 'linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02))',
+                background: 'linear-gradient(135deg, rgba(236,72,153,0.2), rgba(139,92,246,0.2))',
                 borderRadius: '14px',
-                border: '1px solid rgba(255,255,255,0.06)',
+                border: '1px solid rgba(255,255,255,0.1)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
               }}>
-                <span style={{ fontSize: '64px', opacity: 0.3 }}>🥤</span>
-              </div>
-            </AnimatedSection>
-          </div>
-        </section>
-
-        <section style={{
-          background: '#0a0a0a',
-          padding: 'clamp(40px, 6vw, 64px) clamp(20px, 4vw, 48px)',
-        }}>
-          <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
-            <AnimatedSection animation="fadeUp">
-              <div style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(4, 1fr)',
-                gap: '24px',
-                textAlign: 'center',
-              }}>
-                {STATS.map((stat) => (
-                  <div key={stat.label}>
-                    <p style={{
-                      fontSize: 'clamp(2rem, 4vw, 3rem)',
-                      fontWeight: 300,
-                      color: '#ffffff',
-                      marginBottom: '8px',
-                    }}>
-                      {stat.number}
-                    </p>
-                    <p style={{
-                      fontSize: 'var(--fs-small)',
-                      color: 'var(--color-text-tertiary)',
-                      letterSpacing: '0.05em',
-                    }}>
-                      {stat.label}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </AnimatedSection>
-          </div>
-        </section>
-
-        <section style={{
-          background: '#000000',
-          padding: 'clamp(40px, 6vw, 64px) clamp(20px, 4vw, 48px)',
-        }}>
-          <div style={{ maxWidth: '900px', margin: '0 auto' }}>
-            <AnimatedSection animation="fadeUp">
-              <div style={{
-                background: 'rgba(255,255,255,0.02)',
-                borderRadius: '14px',
-                padding: '32px',
-                marginBottom: '48px',
-                border: '1px solid rgba(255,255,255,0.06)',
-              }}>
-                <h2 style={{
-                  fontSize: 'var(--fs-h3)',
-                  fontWeight: 500,
-                  color: '#ffffff',
-                  marginBottom: '16px',
-                }}>
-                  The Mission
-                </h2>
-                <p style={{
-                  fontSize: 'var(--fs-body)',
-                  color: 'var(--color-text-secondary)',
-                  lineHeight: 1.8,
-                }}>
-                  We set out to create smoothies that you'd actually crave. Not tolerate. Not choke down because they're "good for you." Actually look forward to drinking. We source the freshest organic ingredients, partner with local farms, and obsess over every flavor profile until it's absolutely perfect.
-                </p>
-              </div>
-            </AnimatedSection>
-
-            <AnimatedSection animation="fadeUp" delay={100}>
-              <div style={{ marginBottom: '48px' }}>
-                <h2 style={{
-                  fontSize: 'var(--fs-h3)',
-                  fontWeight: 500,
-                  color: '#ffffff',
-                  marginBottom: '16px',
-                }}>
-                  Where We Are Today
-                </h2>
-                <p style={{
-                  fontSize: 'var(--fs-body)',
-                  color: 'var(--color-text-secondary)',
-                  lineHeight: 1.8,
-                  marginBottom: '24px',
-                }}>
-                  Today, we serve thousands of happy customers across the country. Our smoothies are in gyms, offices, and refrigerators from coast to coast. But we're still that same team of flavor fanatics who refuse to compromise on taste or quality.
-                </p>
-                <p style={{
-                  fontSize: 'var(--fs-body)',
-                  color: 'var(--color-text-secondary)',
-                  lineHeight: 1.8,
-                }}>
-                  Every smoothie we make is still crafted with the same love and attention as day one. Because being healthy shouldn't suck. And neither should your smoothie.
-                </p>
+                <span style={{ fontSize: '64px' }}>✨💋</span>
               </div>
             </AnimatedSection>
           </div>
@@ -234,13 +137,80 @@ export default function About() {
                   color: '#ffffff',
                   marginBottom: '12px',
                 }}>
-                  Our Values
+                  The Hype? Oh, It's Very Real.
                 </h2>
                 <p style={{
                   fontSize: 'var(--fs-body)',
                   color: 'var(--color-text-secondary)',
                 }}>
-                  The principles that guide everything we do
+                  We're not just blending fruit; we're blending energy, joy, and a little bit of magic.
+                </p>
+              </div>
+            </AnimatedSection>
+            <AnimatedSection animation="fadeUp" delay={100}>
+              <div style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(3, 1fr)',
+                gap: '24px',
+                textAlign: 'center',
+              }}>
+                {STATS.map((stat) => (
+                  <div key={stat.label} style={{
+                    background: 'rgba(255,255,255,0.03)',
+                    borderRadius: '14px',
+                    padding: '32px 20px',
+                    border: '1px solid rgba(255,255,255,0.06)',
+                  }}>
+                    <p style={{
+                      fontSize: 'clamp(2rem, 4vw, 3rem)',
+                      fontWeight: 300,
+                      color: '#ffffff',
+                      marginBottom: '8px',
+                    }}>
+                      {stat.number}
+                    </p>
+                    <p style={{
+                      fontSize: 'var(--fs-body)',
+                      fontWeight: 500,
+                      color: '#ffffff',
+                      marginBottom: '8px',
+                    }}>
+                      {stat.label}
+                    </p>
+                    <p style={{
+                      fontSize: 'var(--fs-small)',
+                      color: 'var(--color-text-tertiary)',
+                      lineHeight: 1.5,
+                    }}>
+                      {stat.detail}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </AnimatedSection>
+          </div>
+        </section>
+
+        <section style={{
+          background: '#000000',
+          padding: 'clamp(40px, 6vw, 64px) clamp(20px, 4vw, 48px)',
+        }}>
+          <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
+            <AnimatedSection animation="fadeUp">
+              <div style={{ textAlign: 'center', marginBottom: '40px' }}>
+                <h2 style={{
+                  fontSize: 'clamp(1.5rem, 3vw, 2rem)',
+                  fontWeight: 300,
+                  color: '#ffffff',
+                  marginBottom: '12px',
+                }}>
+                  Vibe Check: Our Values
+                </h2>
+                <p style={{
+                  fontSize: 'var(--fs-body)',
+                  color: 'var(--color-text-secondary)',
+                }}>
+                  We don't do basic. We do BOLD.
                 </p>
               </div>
             </AnimatedSection>
@@ -258,6 +228,7 @@ export default function About() {
                     borderRadius: '14px',
                     padding: '24px 20px',
                     textAlign: 'center',
+                    transition: 'all 0.2s ease',
                   }}>
                     <h3 style={{
                       fontSize: 'var(--fs-h4)',
@@ -282,41 +253,42 @@ export default function About() {
         </section>
 
         <section style={{
-          background: '#000000',
-          padding: 'clamp(40px, 6vw, 64px) clamp(20px, 4vw, 48px)',
+          background: 'linear-gradient(135deg, #0a0a0a, #1a0a1a)',
+          padding: 'clamp(60px, 8vw, 100px) clamp(20px, 4vw, 48px)',
         }}>
-          <div style={{ maxWidth: '600px', margin: '0 auto', textAlign: 'center' }}>
+          <div style={{ maxWidth: '700px', margin: '0 auto', textAlign: 'center' }}>
             <AnimatedSection animation="fadeUp">
               <h2 style={{
-                fontSize: 'clamp(1.5rem, 3vw, 2rem)',
+                fontSize: 'clamp(1.8rem, 4vw, 2.5rem)',
                 fontWeight: 300,
                 color: '#ffffff',
                 marginBottom: '16px',
               }}>
-                Join the Journey
+                Ready to ditch the dull?
               </h2>
               <p style={{
                 fontSize: 'var(--fs-body)',
                 color: 'var(--color-text-secondary)',
-                marginBottom: '24px',
-                lineHeight: 1.6,
+                marginBottom: '32px',
+                lineHeight: 1.7,
               }}>
-                Ready to taste the difference? Start your wellness journey today.
+                Stop scrolling. Start glowing. Taste the difference, feel the buzz, and let's get this glow-up party started.
               </p>
               <Link 
                 href="/collections/smoothies"
                 style={{
                   display: 'inline-block',
-                  padding: '16px 40px',
+                  padding: '18px 48px',
                   background: '#ffffff',
                   color: '#000000',
                   borderRadius: '50px',
-                  fontWeight: 500,
+                  fontWeight: 600,
                   fontSize: 'var(--fs-body)',
                   textDecoration: 'none',
+                  transition: 'all 0.2s ease',
                 }}
               >
-                Taste the Difference
+                Start Glowing
               </Link>
             </AnimatedSection>
           </div>
