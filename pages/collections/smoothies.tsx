@@ -870,19 +870,22 @@ export default function Smoothies() {
         <div className="page-container">
           <div className="hero-wrapper">
             <h1 className="page-title">
-              Smoothies
+              High Protein Smoothies
             </h1>
             <p className="page-description">
-              Plant-Powered. Rule-Breaking. Smile-Making.
+              Fuel Your Body, Elevate Your Day.
             </p>
             <p className="page-description" style={{ marginTop: '16px', maxWidth: '700px', fontSize: '16px' }}>
-              No gluten. No dairy. No B.S. Just whole fruits, veggies, and plants doing what they do best—fueling you like the legend you are.
+              This isn't just protein—it's a game-changer. Each bottle is packed with everything you need to power through your day and feel great doing it.
             </p>
-            <p className="page-description" style={{ marginTop: '16px', maxWidth: '700px', fontSize: '16px' }}>
-              In 60 seconds, you're blending up a cup of pure joy. Creamy, dreamy, and so good it feels like a little indulgence (but your body's loving every second).
-            </p>
-            <p className="page-description" style={{ marginTop: '16px', fontWeight: '600' }}>
-              Blend. Sip. Thrive. Shine.
+            <ul className="features-list" style={{ marginTop: '24px', maxWidth: '700px' }}>
+              <li><strong>20g Pea Protein:</strong> Smooth, plant-based fuel to keep you strong, lean, and satisfied—without the grit.</li>
+              <li><strong>Organic & Clean:</strong> No pesticides, no shortcuts—just pure, wholesome ingredients.</li>
+              <li><strong>Gluten-Free & Dairy-Free:</strong> Easy on your body, free of heaviness. Enjoy without the bloat.</li>
+              <li><strong>No Artificial Additives:</strong> No fake sweeteners or chemicals—only real ingredients that support your health.</li>
+            </ul>
+            <p className="page-description" style={{ marginTop: '24px', fontWeight: '600' }}>
+              Satisfy your hunger. Nourish your glow.
             </p>
           </div>
 
