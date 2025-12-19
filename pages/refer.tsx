@@ -78,16 +78,16 @@ export default function Refer() {
               {STEPS.map((step) => (
                 <div key={step.step} style={{ textAlign: 'center' }}>
                   <div style={{
-                    width: '56px',
-                    height: '56px',
+                    width: '48px',
+                    height: '48px',
                     borderRadius: '50%',
-                    background: 'linear-gradient(135deg, rgba(236,72,153,0.2), rgba(139,92,246,0.2))',
-                    border: '1px solid rgba(255,255,255,0.15)',
+                    background: 'transparent',
+                    border: '1px solid rgba(255,255,255,0.25)',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                     margin: '0 auto 20px',
-                    fontSize: 'var(--fs-h4)',
+                    fontSize: 'var(--fs-body)',
                     fontWeight: 500,
                     color: '#ffffff',
                   }}>
@@ -116,11 +116,11 @@ export default function Refer() {
 
           <AnimatedSection animation="fadeUp" delay={150}>
             <div style={{
-              background: 'linear-gradient(135deg, #0a0a0a, #1a0a1a)',
+              background: '#0a0a0a',
               borderRadius: '14px',
               padding: '48px 40px',
               textAlign: 'center',
-              border: '1px solid rgba(255,255,255,0.06)',
+              border: '1px solid rgba(255,255,255,0.08)',
             }}>
               <h2 style={{
                 fontSize: 'var(--fs-h3)',
