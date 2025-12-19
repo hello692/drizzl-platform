@@ -4,25 +4,41 @@ import Link from 'next/link';
 import { AnimatedSection } from '../components/ScrollAnimations';
 
 const INGREDIENTS = [
-  { name: 'Organic Spinach', source: 'California, USA', benefits: 'Rich in iron, vitamins A & K, and antioxidants for energy and immunity.' },
-  { name: 'Wild Blueberries', source: 'Maine, USA', benefits: 'Packed with anthocyanins for brain health and anti-aging properties.' },
-  { name: 'Grass-Fed Whey', source: 'New Zealand', benefits: 'Premium protein for muscle recovery with no artificial hormones.' },
-  { name: 'Coconut Water', source: 'Thailand', benefits: 'Natural electrolytes for hydration without added sugars.' },
-  { name: 'Chia Seeds', source: 'Peru', benefits: 'Omega-3 fatty acids, fiber, and protein for sustained energy.' },
-  { name: 'Organic Mango', source: 'Mexico', benefits: 'Vitamin C and digestive enzymes for gut health.' },
-  { name: 'Almond Butter', source: 'California, USA', benefits: 'Healthy fats and vitamin E for heart health and satiety.' },
-  { name: 'Acai Berries', source: 'Brazil', benefits: 'Super antioxidant for skin health and cellular protection.' },
-  { name: 'Raw Cacao', source: 'Ecuador', benefits: 'Mood-boosting flavonoids and natural energy without the crash.' },
-  { name: 'Turmeric', source: 'India', benefits: 'Anti-inflammatory curcumin for joint health and recovery.' },
-  { name: 'Organic Banana', source: 'Costa Rica', benefits: 'Natural potassium and prebiotics for digestive health.' },
-  { name: 'Greek Yogurt', source: 'Vermont, USA', benefits: 'Probiotics and protein for gut health and muscle building.' },
+  { name: 'Organic Spinach', source: 'California, USA', benefits: 'Your secret weapon for that lit-from-within glow. Packed with iron, vitamins A & K, and antioxidants that keep your energy high and your immune system unshakable.' },
+  { name: 'Wild Blueberries', source: 'Maine, USA', benefits: 'Tiny but mighty brain boosters. These little gems are loaded with anthocyanins that keep your mind sharp and your skin looking ageless.' },
+  { name: 'Organic Pea Protein', source: 'Montana, USA', benefits: 'Plant-based muscle fuel. 20g of clean protein per serving for recovery, strength, and that satisfying fullness without any bloat.' },
+  { name: 'Coconut Water', source: 'Thailand', benefits: 'Nature\'s sports drink. Pure hydration with natural electrolytes and zero added sugars—just refreshing goodness.' },
+  { name: 'Chia Seeds', source: 'Peru', benefits: 'Small seeds, big energy. Omega-3s, fiber, and plant protein team up to keep you fueled and focused all day.' },
+  { name: 'Organic Mango', source: 'Mexico', benefits: 'Tropical sunshine in every sip. Vitamin C and digestive enzymes that love your gut as much as you love that sweet, juicy flavor.' },
+  { name: 'Almond Butter', source: 'California, USA', benefits: 'Creamy, dreamy, and so satisfying. Healthy fats and vitamin E for heart health and that "I\'m actually full" feeling.' },
+  { name: 'Acai Berries', source: 'Brazil', benefits: 'The OG superfood. Antioxidant royalty for glowing skin and cellular protection that fights aging at the source.' },
+  { name: 'Raw Cacao', source: 'Ecuador', benefits: 'Chocolate that loves you back. Mood-boosting flavonoids and natural energy without the caffeine crash.' },
+  { name: 'Turmeric', source: 'India', benefits: 'Golden magic for your body. Anti-inflammatory curcumin that keeps your joints happy and recovery on point.' },
+  { name: 'Organic Banana', source: 'Costa Rica', benefits: 'The MVP of smoothie bases. Natural potassium for muscle function and prebiotics for a happy gut microbiome.' },
+  { name: 'Organic Strawberries', source: 'California, USA', benefits: 'Sweet, juicy, and bursting with vitamin C and antioxidants. Your skin will thank you for every sip.' },
+  { name: 'Organic Peaches', source: 'Georgia, USA', benefits: 'Summer vibes year-round. Vitamins A and C with natural sweetness that makes every blend taste like sunshine.' },
+  { name: 'Organic Raspberries', source: 'Washington, USA', benefits: 'Tiny flavor bombs with fiber for days. Ellagic acid and antioxidants for that youthful, radiant glow.' },
+  { name: 'Dragon Fruit', source: 'Vietnam', benefits: 'Insta-worthy AND nutritious. Prebiotic fiber, vitamin C, and that stunning pink color that proves wellness can be gorgeous.' },
+  { name: 'Passion Fruit', source: 'Colombia', benefits: 'Tropical tang that hits different. Iron, vitamin C, and potassium with a flavor profile that screams vacation.' },
+  { name: 'Organic Pineapple', source: 'Costa Rica', benefits: 'Bromelain-rich and oh-so-tropical. Digestive enzymes that break down protein and reduce inflammation naturally.' },
+  { name: 'Goji Berries', source: 'China', benefits: 'Ancient superfood energy. Beta-carotene, amino acids, and adaptogens that help your body handle stress like a boss.' },
+  { name: 'Ceremonial Matcha', source: 'Japan', benefits: 'Zen focus in every sip. L-theanine for calm alertness and antioxidants that outshine green tea by 10x.' },
+  { name: 'Cold Brew Coffee', source: 'Colombia', benefits: 'Smooth caffeine without the acid. Less bitter, more mellow, with sustained energy that won\'t leave you jittery.' },
+  { name: 'Organic Oats', source: 'Montana, USA', benefits: 'Gluten-free whole grains for lasting energy. Beta-glucan fiber keeps you full and your cholesterol in check.' },
+  { name: 'Flax Seeds', source: 'Canada', benefits: 'Omega-3 powerhouse for brain and heart health. Ground fresh for maximum absorption of those good fats.' },
+  { name: 'Hemp Seeds', source: 'Colorado, USA', benefits: 'Complete plant protein with all essential amino acids. Omega-3s and 6s in the perfect ratio for your body.' },
+  { name: 'Organic Dates', source: 'California, USA', benefits: 'Nature\'s candy meets nutrition. Natural caramel sweetness with fiber, potassium, and antioxidants.' },
+  { name: 'Jackfruit', source: 'Thailand', benefits: 'The tropical MVP you didn\'t know you needed. Vitamin C, B vitamins, and a unique flavor that\'s part mango, part pineapple, all delicious.' },
+  { name: 'Organic Coconut Milk', source: 'Philippines', benefits: 'Creamy, dairy-free perfection. MCTs for quick energy and that luscious texture that makes everything better.' },
+  { name: 'Organic Vanilla', source: 'Madagascar', benefits: 'The flavor that ties everything together. Pure vanilla bean adds warmth and depth without any artificial nonsense.' },
+  { name: 'Organic Agave', source: 'Mexico', benefits: 'Low-glycemic sweetness when you need a touch more. Gentle on blood sugar, big on flavor.' },
 ];
 
 const PROMISES = [
-  { title: 'No Artificial Flavors', description: 'Only real ingredients that you can pronounce.' },
-  { title: 'No Added Sugars', description: 'Natural sweetness from real fruits only.' },
-  { title: 'No Preservatives', description: 'Flash-frozen to lock in freshness naturally.' },
-  { title: 'Non-GMO Verified', description: 'All ingredients are certified non-GMO.' },
+  { title: 'No Artificial Flavors', description: 'Only real ingredients that you can actually pronounce. If your grandma wouldn\'t recognize it, neither do we.' },
+  { title: 'No Added Sugars', description: 'All the sweetness comes from real fruits. Mother Nature did the work—we just blended it.' },
+  { title: 'No Preservatives', description: 'Flash-frozen at peak freshness to lock in nutrients naturally. Science, not chemicals.' },
+  { title: 'Non-GMO Verified', description: 'Every single ingredient is certified non-GMO. We\'re picky so you don\'t have to be.' },
 ];
 
 export default function Ingredients() {
@@ -64,25 +80,26 @@ export default function Ingredients() {
                 fontWeight: 400,
                 lineHeight: 1.7,
                 color: 'var(--color-text-secondary)',
-                maxWidth: '560px',
+                maxWidth: '600px',
               }}>
-                We believe you deserve to know exactly what you're putting in your body. Every Drizzl smoothie starts with ingredients we'd serve to our own families.
+                We believe you deserve to know exactly what you're putting in your body. Every Drizzl Wellness smoothie starts with ingredients we'd serve to our own families—because transparency is the ultimate flex.
               </p>
             </div>
           </AnimatedSection>
 
           <div style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 280px), 1fr))',
+            gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 320px), 1fr))',
             gap: '16px',
           }}>
             {INGREDIENTS.map((ingredient, index) => (
-              <AnimatedSection key={ingredient.name} animation="fadeUp" delay={index * 40}>
+              <AnimatedSection key={ingredient.name} animation="fadeUp" delay={index * 30}>
                 <div style={{
                   background: 'transparent',
                   border: '1px solid rgba(255,255,255,0.06)',
                   borderRadius: '14px',
                   padding: '24px 20px',
+                  height: '100%',
                 }}>
                   <h3 style={{
                     fontSize: 'var(--fs-h4)',
@@ -132,14 +149,14 @@ export default function Ingredients() {
                   fontSize: 'var(--fs-body)',
                   color: 'var(--color-text-secondary)',
                 }}>
-                  The Drizzl commitment
+                  The Drizzl Wellness commitment
                 </p>
               </div>
             </AnimatedSection>
             
             <div style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(4, 1fr)',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 240px), 1fr))',
               gap: '24px',
             }}>
               {PROMISES.map((promise, index) => (
@@ -235,7 +252,7 @@ export default function Ingredients() {
                 color: 'var(--color-text-secondary)',
                 marginBottom: '24px',
               }}>
-                Ready to fuel your day with real ingredients?
+                Ready to fuel your day with ingredients that actually do something?
               </p>
               <Link 
                 href="/collections/smoothies"
