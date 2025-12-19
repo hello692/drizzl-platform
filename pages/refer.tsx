@@ -4,9 +4,21 @@ import Link from 'next/link';
 import { AnimatedSection } from '../components/ScrollAnimations';
 
 const STEPS = [
-  { step: '1', title: 'Share Your Link', description: 'Get your unique referral link from your account dashboard.' },
-  { step: '2', title: 'Friend Orders', description: 'Your friend places their first order using your link.' },
-  { step: '3', title: 'You Both Save', description: 'You get $10 off, they get $10 off. Everybody wins.' },
+  { 
+    step: '1', 
+    title: 'Spill the Tea (or Smoothie)', 
+    description: 'Grab your unique link from your dashboard. It\'s basically your invitation to the exclusive smoothie inner circle.' 
+  },
+  { 
+    step: '2', 
+    title: 'Witness the Obsession', 
+    description: 'Your friend orders their first Drizzl. Boom—instant convert. They\'ll finally understand why you won\'t shut up about it.' 
+  },
+  { 
+    step: '3', 
+    title: 'Bask in the Rewards', 
+    description: 'You get $10 off. They get $10 off. Everyone\'s happy. It\'s like a dopamine hit wrapped in a delicious health glow.' 
+  },
 ];
 
 export default function Refer() {
@@ -17,7 +29,7 @@ export default function Refer() {
       <main style={{ background: '#000000', minHeight: '100vh', paddingTop: '120px' }}>
         <section style={{
           padding: 'clamp(40px, 6vw, 64px) clamp(20px, 4vw, 48px)',
-          maxWidth: '800px',
+          maxWidth: '900px',
           margin: '0 auto',
         }}>
           <AnimatedSection animation="fadeUp">
@@ -31,7 +43,7 @@ export default function Refer() {
                 marginBottom: '12px',
                 display: 'block',
               }}>
-                REFERRAL PROGRAM
+                SHARE THE OBSESSION
               </span>
               <h1 style={{
                 fontSize: 'clamp(2rem, 5vw, 3rem)',
@@ -41,17 +53,17 @@ export default function Refer() {
                 color: '#ffffff',
                 marginBottom: '16px',
               }}>
-                Give $10, Get $10
+                Give $10, Get $10.
               </h1>
               <p style={{
                 fontSize: 'var(--fs-body)',
                 fontWeight: 400,
                 lineHeight: 1.7,
                 color: 'var(--color-text-secondary)',
-                maxWidth: '480px',
+                maxWidth: '560px',
                 margin: '0 auto',
               }}>
-                Share the love of wellness and you both save.
+                Glow-ups aren't meant to be a solo act. Don't let your friends suffer through basic, boring smoothies. Put them on Drizzl—because real friends share the good stuff.
               </p>
             </div>
           </AnimatedSection>
@@ -60,21 +72,22 @@ export default function Refer() {
             <div style={{
               display: 'grid',
               gridTemplateColumns: 'repeat(3, 1fr)',
-              gap: '24px',
-              marginBottom: '48px',
+              gap: '32px',
+              marginBottom: '56px',
             }}>
-              {STEPS.map((step, index) => (
+              {STEPS.map((step) => (
                 <div key={step.step} style={{ textAlign: 'center' }}>
                   <div style={{
-                    width: '48px',
-                    height: '48px',
+                    width: '56px',
+                    height: '56px',
                     borderRadius: '50%',
-                    border: '1px solid rgba(255,255,255,0.2)',
+                    background: 'linear-gradient(135deg, rgba(236,72,153,0.2), rgba(139,92,246,0.2))',
+                    border: '1px solid rgba(255,255,255,0.15)',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    margin: '0 auto 16px',
-                    fontSize: 'var(--fs-body)',
+                    margin: '0 auto 20px',
+                    fontSize: 'var(--fs-h4)',
                     fontWeight: 500,
                     color: '#ffffff',
                   }}>
@@ -84,14 +97,15 @@ export default function Refer() {
                     fontSize: 'var(--fs-body)',
                     fontWeight: 500,
                     color: '#ffffff',
-                    marginBottom: '8px',
+                    marginBottom: '12px',
+                    lineHeight: 1.3,
                   }}>
                     {step.title}
                   </h3>
                   <p style={{
                     fontSize: 'var(--fs-small)',
                     color: 'var(--color-text-tertiary)',
-                    lineHeight: 1.5,
+                    lineHeight: 1.6,
                   }}>
                     {step.description}
                   </p>
@@ -102,10 +116,11 @@ export default function Refer() {
 
           <AnimatedSection animation="fadeUp" delay={150}>
             <div style={{
-              background: '#0a0a0a',
+              background: 'linear-gradient(135deg, #0a0a0a, #1a0a1a)',
               borderRadius: '14px',
-              padding: '40px',
+              padding: '48px 40px',
               textAlign: 'center',
+              border: '1px solid rgba(255,255,255,0.06)',
             }}>
               <h2 style={{
                 fontSize: 'var(--fs-h3)',
@@ -113,29 +128,32 @@ export default function Refer() {
                 color: '#ffffff',
                 marginBottom: '16px',
               }}>
-                Ready to Start Sharing?
+                Ready to be the hero of their smoothie dreams?
               </h2>
               <p style={{
                 fontSize: 'var(--fs-body)',
                 color: 'var(--color-text-secondary)',
-                marginBottom: '24px',
+                marginBottom: '28px',
+                maxWidth: '400px',
+                margin: '0 auto 28px',
               }}>
-                Sign in to your account to get your unique referral link.
+                Sign in to grab your unique referral link and start spreading the glow.
               </p>
               <Link
                 href="/auth"
                 style={{
                   display: 'inline-block',
-                  padding: '16px 40px',
+                  padding: '18px 48px',
                   background: '#ffffff',
                   color: '#000000',
                   borderRadius: '50px',
                   fontSize: 'var(--fs-body)',
-                  fontWeight: 500,
+                  fontWeight: 600,
                   textDecoration: 'none',
+                  transition: 'all 0.2s ease',
                 }}
               >
-                Sign In
+                Let's Go!
               </Link>
             </div>
           </AnimatedSection>
