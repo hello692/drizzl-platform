@@ -5,8 +5,8 @@ import { AnimatedSection } from '../components/ScrollAnimations';
 
 const INGREDIENT_CATEGORIES = [
   {
-    title: 'The Flavor Heroes',
-    subtitle: 'Fruits',
+    title: 'Fruits',
+    tagline: 'The Flavor Heroes',
     description: "Nature's candy, but better. Sweet, vibrant, and packed with \"why does this taste so good?\" energy.",
     ingredients: [
       { name: 'Organic Banana', benefits: 'Creamy texture and potassium for natural muscle recovery.' },
@@ -22,17 +22,17 @@ const INGREDIENT_CATEGORIES = [
     ],
   },
   {
-    title: 'The Glow Crew',
-    subtitle: 'Greens',
-    description: 'Leafy powerhouses that make your body feel like it just did yoga (without you actually doing yoga).',
+    title: 'Greens',
+    tagline: 'The Glow Crew',
+    description: 'Leafy powerhouses that make your body feel like it just did yoga.',
     ingredients: [
       { name: 'Organic Spinach & Baby Spinach', benefits: 'Iron-rich fatigue fighters to keep you energized.' },
       { name: 'Organic Kale', benefits: 'The ultimate detoxifier, packed with vitamins K, A, and C.' },
     ],
   },
   {
-    title: 'The Satisfaction Squad',
-    subtitle: 'Grains',
+    title: 'Grains',
+    tagline: 'The Satisfaction Squad',
     description: "Slow-burning fuel so you can crush your day without the hunger pangs.",
     ingredients: [
       { name: 'Organic Rolled Oats', benefits: 'Complex carbs for steady energy and heart health.' },
@@ -40,8 +40,8 @@ const INGREDIENT_CATEGORIES = [
     ],
   },
   {
-    title: 'The Creamy MVPs',
-    subtitle: 'Nuts & Seeds',
+    title: 'Nuts & Seeds',
+    tagline: 'The Creamy MVPs',
     description: 'Healthy fats and velvety textures. The reason your smoothie feels like a meal.',
     ingredients: [
       { name: 'Organic Almonds & Almond Butter', benefits: 'Vitamin E for heart health and skin elasticity.' },
@@ -52,8 +52,8 @@ const INGREDIENT_CATEGORIES = [
     ],
   },
   {
-    title: 'The Mood Lifters',
-    subtitle: 'Cacao & Coffee',
+    title: 'Cacao & Coffee',
+    tagline: 'The Mood Lifters',
     description: 'Focus, flavor, and just enough edge to feel productive without the panic.',
     ingredients: [
       { name: 'Organic Cacao Powder & Nibs', benefits: 'Flavonoids for bliss, focus, and a natural mood boost.' },
@@ -61,8 +61,8 @@ const INGREDIENT_CATEGORIES = [
     ],
   },
   {
-    title: 'The Secret Weapons',
-    subtitle: 'Mushrooms',
+    title: 'Mushrooms',
+    tagline: 'The Secret Weapons',
     description: 'Ancient wisdom for a modern glow. Brain support, immune strength, and calm energy.',
     ingredients: [
       { name: "Organic Lion's Mane", benefits: 'The brain mushroom—for razor-sharp mental clarity.' },
@@ -71,8 +71,8 @@ const INGREDIENT_CATEGORIES = [
     ],
   },
   {
-    title: 'The Wellness Flex',
-    subtitle: 'Botanicals',
+    title: 'Botanicals',
+    tagline: 'The Wellness Flex',
     description: 'Adaptogenic balance and warming spices to set the vibe.',
     ingredients: [
       { name: 'Organic Maca Root', benefits: 'An adaptogen for hormone balance, energy, and libido.' },
@@ -82,8 +82,8 @@ const INGREDIENT_CATEGORIES = [
     ],
   },
   {
-    title: 'The Finish',
-    subtitle: 'Enhancers',
+    title: 'Enhancers',
+    tagline: 'The Finish',
     description: 'Small touches, massive impact.',
     ingredients: [
       { name: 'Organic Lemon Juice', benefits: 'Alkaline balance to detoxify and brighten.' },
@@ -91,8 +91,8 @@ const INGREDIENT_CATEGORIES = [
     ],
   },
   {
-    title: 'The Canvas',
-    subtitle: 'Base Liquids',
+    title: 'Base Liquids',
+    tagline: 'The Canvas',
     description: 'Choose your vibe—creamy, light, or tropical.',
     ingredients: [
       { name: 'Organic Almond, Oat, or Coconut Milk', benefits: 'Dairy-free creaminess.' },
@@ -100,8 +100,8 @@ const INGREDIENT_CATEGORIES = [
     ],
   },
   {
-    title: 'The Power Source',
-    subtitle: 'Protein',
+    title: 'Protein',
+    tagline: 'The Power Source',
     description: 'Lean, clean, and mean. Build muscle and stay satisfied.',
     ingredients: [
       { name: 'Organic Pea Protein', benefits: 'Complete plant-based amino acids for recovery.' },
@@ -111,10 +111,10 @@ const INGREDIENT_CATEGORIES = [
 ];
 
 const PROMISES = [
-  { title: 'No Artificial Flavors', description: "Only real ingredients that you can actually pronounce. If your grandma wouldn't recognize it, neither do we." },
-  { title: 'No Added Sugars', description: "All the sweetness comes from real fruits. Mother Nature did the work—we just blended it." },
-  { title: 'No Preservatives', description: 'Flash-frozen at peak freshness to lock in nutrients naturally. Science, not chemicals.' },
-  { title: 'Non-GMO Verified', description: "Every single ingredient is certified non-GMO. We're picky so you don't have to be." },
+  { title: 'No Artificial Flavors', description: "Only real ingredients you can pronounce." },
+  { title: 'No Added Sugars', description: "All sweetness comes from real fruits." },
+  { title: 'No Preservatives', description: 'Flash-frozen at peak freshness.' },
+  { title: 'Non-GMO Verified', description: "Every ingredient is certified non-GMO." },
 ];
 
 export default function Ingredients() {
@@ -124,136 +124,157 @@ export default function Ingredients() {
       
       <main style={{ background: '#000000', minHeight: '100vh', paddingTop: '120px' }}>
         <section style={{
-          padding: 'clamp(40px, 6vw, 64px) clamp(20px, 4vw, 48px)',
-          maxWidth: '1100px',
+          padding: 'clamp(60px, 8vw, 100px) clamp(20px, 4vw, 48px)',
+          maxWidth: '1200px',
           margin: '0 auto',
         }}>
           <AnimatedSection animation="fadeUp">
-            <div style={{ marginBottom: 'clamp(48px, 6vw, 64px)', textAlign: 'center' }}>
+            <div style={{ marginBottom: 'clamp(60px, 8vw, 80px)', textAlign: 'center' }}>
               <span style={{
-                fontSize: 'var(--fs-label)',
-                fontWeight: 500,
-                letterSpacing: '0.08em',
+                fontSize: '12px',
+                fontWeight: 600,
+                letterSpacing: '0.15em',
                 textTransform: 'uppercase',
-                color: 'var(--color-text-tertiary)',
-                marginBottom: '12px',
+                color: 'rgba(255,255,255,0.4)',
+                marginBottom: '16px',
                 display: 'block',
               }}>
                 THE INGREDIENT LIST
               </span>
               <h1 style={{
-                fontSize: 'clamp(2rem, 5vw, 3rem)',
+                fontSize: 'clamp(2.5rem, 6vw, 4rem)',
                 fontWeight: 300,
-                lineHeight: 1.1,
+                lineHeight: 1.05,
                 letterSpacing: '-0.03em',
                 color: '#ffffff',
-                marginBottom: '16px',
+                marginBottom: '20px',
               }}>
-                Full Transparency. Pure Obsession.
+                Full Transparency.<br />Pure Obsession.
               </h1>
               <p style={{
-                fontSize: 'var(--fs-body)',
+                fontSize: 'clamp(1rem, 1.5vw, 1.125rem)',
                 fontWeight: 400,
-                lineHeight: 1.7,
-                color: 'var(--color-text-secondary)',
-                maxWidth: '600px',
+                lineHeight: 1.6,
+                color: 'rgba(255,255,255,0.6)',
+                maxWidth: '540px',
                 margin: '0 auto',
               }}>
-                We don't do secrets. We do potent, premium ingredients that love your body back. Here's exactly what's fueling your glow.
+                We don't do secrets. We do potent, premium ingredients that love your body back.
               </p>
             </div>
           </AnimatedSection>
 
-          {INGREDIENT_CATEGORIES.map((category, categoryIndex) => (
-            <AnimatedSection key={category.title} animation="fadeUp" delay={categoryIndex * 50}>
-              <div style={{
-                marginBottom: 'clamp(40px, 5vw, 56px)',
-              }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '48px' }}>
+            {INGREDIENT_CATEGORIES.map((category, categoryIndex) => (
+              <AnimatedSection key={category.title} animation="fadeUp" delay={categoryIndex * 30}>
                 <div style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '8px',
-                  marginBottom: '8px',
+                  background: categoryIndex % 2 === 0 ? 'rgba(255,255,255,0.02)' : 'transparent',
+                  borderRadius: '20px',
+                  padding: 'clamp(28px, 4vw, 40px)',
+                  border: '1px solid rgba(255,255,255,0.04)',
                 }}>
-                  <h2 style={{
-                    fontSize: 'clamp(1.25rem, 2.5vw, 1.5rem)',
-                    fontWeight: 500,
-                    color: '#ffffff',
+                  <div style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '4px',
+                    marginBottom: '24px',
+                    borderBottom: '1px solid rgba(255,255,255,0.06)',
+                    paddingBottom: '20px',
                   }}>
-                    {category.title}
-                  </h2>
-                  <span style={{
-                    fontSize: 'var(--fs-small)',
-                    color: 'var(--color-text-tertiary)',
-                    fontWeight: 400,
-                  }}>
-                    ({category.subtitle})
-                  </span>
-                </div>
-                <p style={{
-                  fontSize: 'var(--fs-small)',
-                  color: 'var(--color-text-secondary)',
-                  marginBottom: '20px',
-                  maxWidth: '600px',
-                }}>
-                  {category.description}
-                </p>
-                <div style={{
-                  display: 'grid',
-                  gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 300px), 1fr))',
-                  gap: '12px',
-                }}>
-                  {category.ingredients.map((ingredient, index) => (
-                    <div
-                      key={ingredient.name}
-                      style={{
-                        background: 'transparent',
-                        border: '1px solid rgba(255,255,255,0.06)',
-                        borderRadius: '12px',
-                        padding: '16px 18px',
-                      }}
-                    >
-                      <h3 style={{
-                        fontSize: 'var(--fs-body)',
+                    <div style={{
+                      display: 'flex',
+                      alignItems: 'baseline',
+                      gap: '12px',
+                      flexWrap: 'wrap',
+                    }}>
+                      <h2 style={{
+                        fontSize: 'clamp(1.5rem, 3vw, 1.75rem)',
                         fontWeight: 500,
                         color: '#ffffff',
-                        marginBottom: '6px',
+                        letterSpacing: '-0.02em',
                       }}>
-                        {ingredient.name}
-                      </h3>
-                      <p style={{
-                        fontSize: 'var(--fs-small)',
-                        color: 'var(--color-text-secondary)',
-                        lineHeight: 1.5,
+                        {category.title}
+                      </h2>
+                      <span style={{
+                        fontSize: '13px',
+                        color: 'rgba(255,255,255,0.35)',
+                        fontWeight: 400,
+                        fontStyle: 'italic',
                       }}>
-                        {ingredient.benefits}
-                      </p>
+                        {category.tagline}
+                      </span>
                     </div>
-                  ))}
+                    <p style={{
+                      fontSize: '14px',
+                      color: 'rgba(255,255,255,0.5)',
+                      lineHeight: 1.5,
+                      marginTop: '8px',
+                    }}>
+                      {category.description}
+                    </p>
+                  </div>
+                  
+                  <div style={{
+                    display: 'grid',
+                    gap: '1px',
+                    background: 'rgba(255,255,255,0.04)',
+                    borderRadius: '12px',
+                    overflow: 'hidden',
+                  }}>
+                    {category.ingredients.map((ingredient, index) => (
+                      <div
+                        key={ingredient.name}
+                        style={{
+                          display: 'grid',
+                          gridTemplateColumns: 'minmax(180px, 1fr) 2fr',
+                          gap: '24px',
+                          padding: '16px 20px',
+                          background: '#000000',
+                          alignItems: 'center',
+                        }}
+                      >
+                        <h3 style={{
+                          fontSize: '15px',
+                          fontWeight: 500,
+                          color: '#ffffff',
+                        }}>
+                          {ingredient.name}
+                        </h3>
+                        <p style={{
+                          fontSize: '14px',
+                          color: 'rgba(255,255,255,0.55)',
+                          lineHeight: 1.5,
+                        }}>
+                          {ingredient.benefits}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
                 </div>
-              </div>
-            </AnimatedSection>
-          ))}
+              </AnimatedSection>
+            ))}
+          </div>
         </section>
 
         <section style={{
-          background: '#0a0a0a',
-          padding: 'clamp(40px, 6vw, 64px) clamp(20px, 4vw, 48px)',
+          background: 'linear-gradient(180deg, #000000 0%, #0a0a0a 100%)',
+          padding: 'clamp(60px, 8vw, 100px) clamp(20px, 4vw, 48px)',
         }}>
-          <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
+          <div style={{ maxWidth: '1000px', margin: '0 auto' }}>
             <AnimatedSection animation="fadeUp">
-              <div style={{ textAlign: 'center', marginBottom: '40px' }}>
+              <div style={{ textAlign: 'center', marginBottom: '48px' }}>
                 <h2 style={{
-                  fontSize: 'clamp(1.5rem, 3vw, 2rem)',
+                  fontSize: 'clamp(1.75rem, 3.5vw, 2.25rem)',
                   fontWeight: 300,
                   color: '#ffffff',
                   marginBottom: '12px',
+                  letterSpacing: '-0.02em',
                 }}>
                   Our Promise to You
                 </h2>
                 <p style={{
-                  fontSize: 'var(--fs-body)',
-                  color: 'var(--color-text-secondary)',
+                  fontSize: '15px',
+                  color: 'rgba(255,255,255,0.5)',
                 }}>
                   The Drizzl Wellness commitment
                 </p>
@@ -262,37 +283,45 @@ export default function Ingredients() {
             
             <div style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 240px), 1fr))',
-              gap: '24px',
+              gridTemplateColumns: 'repeat(4, 1fr)',
+              gap: '2px',
+              background: 'rgba(255,255,255,0.06)',
+              borderRadius: '16px',
+              overflow: 'hidden',
             }}>
               {PROMISES.map((promise, index) => (
-                <AnimatedSection key={promise.title} animation="fadeUp" delay={index * 100}>
-                  <div style={{ textAlign: 'center' }}>
+                <AnimatedSection key={promise.title} animation="fadeUp" delay={index * 80}>
+                  <div style={{
+                    textAlign: 'center',
+                    padding: '32px 20px',
+                    background: '#0a0a0a',
+                  }}>
                     <div style={{
-                      width: '48px',
-                      height: '48px',
+                      width: '40px',
+                      height: '40px',
                       borderRadius: '50%',
-                      border: '1px solid rgba(255,255,255,0.2)',
+                      border: '1px solid rgba(255,255,255,0.15)',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
                       margin: '0 auto 16px',
-                      fontSize: '20px',
+                      fontSize: '16px',
                       color: '#ffffff',
                     }}>
                       ✓
                     </div>
                     <h3 style={{
-                      fontSize: 'var(--fs-body)',
-                      fontWeight: 500,
+                      fontSize: '14px',
+                      fontWeight: 600,
                       color: '#ffffff',
                       marginBottom: '8px',
+                      letterSpacing: '0.01em',
                     }}>
                       {promise.title}
                     </h3>
                     <p style={{
-                      fontSize: 'var(--fs-small)',
-                      color: 'var(--color-text-tertiary)',
+                      fontSize: '13px',
+                      color: 'rgba(255,255,255,0.45)',
                       lineHeight: 1.5,
                     }}>
                       {promise.description}
@@ -306,32 +335,66 @@ export default function Ingredients() {
 
         <section style={{
           background: '#000000',
-          padding: 'clamp(40px, 6vw, 64px) clamp(20px, 4vw, 48px)',
+          padding: 'clamp(60px, 8vw, 80px) clamp(20px, 4vw, 48px)',
         }}>
           <div style={{ maxWidth: '700px', margin: '0 auto' }}>
             <AnimatedSection animation="fadeUp">
               <div style={{
-                border: '1px solid rgba(255,255,255,0.1)',
-                borderRadius: '14px',
-                padding: '32px',
+                background: 'rgba(255,255,255,0.02)',
+                border: '1px solid rgba(255,255,255,0.06)',
+                borderRadius: '20px',
+                padding: 'clamp(28px, 4vw, 40px)',
               }}>
                 <h2 style={{
-                  fontSize: 'var(--fs-h3)',
+                  fontSize: 'clamp(1.25rem, 2.5vw, 1.5rem)',
                   fontWeight: 500,
                   color: '#ffffff',
-                  marginBottom: '16px',
+                  marginBottom: '20px',
                   textAlign: 'center',
                 }}>
                   Allergen Information
                 </h2>
-                <div style={{ fontSize: 'var(--fs-small)', color: 'var(--color-text-secondary)', lineHeight: 1.8 }}>
-                  <p style={{ marginBottom: '12px' }}><strong style={{ color: '#ffffff' }}>May Contain:</strong> Tree nuts (almonds, cashews, hazelnuts), soy</p>
-                  <p style={{ marginBottom: '12px' }}><strong style={{ color: '#ffffff' }}>Gluten-Free Options:</strong> All smoothies except Coffee Kick are certified gluten-free.</p>
-                  <p style={{ marginBottom: '20px' }}><strong style={{ color: '#ffffff' }}>Vegan Options:</strong> All smoothies are 100% plant-based.</p>
-                  <p>
-                    Questions about specific allergens?{' '}
+                <div style={{
+                  display: 'grid',
+                  gap: '16px',
+                }}>
+                  <div style={{
+                    display: 'grid',
+                    gridTemplateColumns: '140px 1fr',
+                    gap: '16px',
+                    alignItems: 'start',
+                  }}>
+                    <span style={{ fontSize: '14px', fontWeight: 500, color: '#ffffff' }}>May Contain</span>
+                    <span style={{ fontSize: '14px', color: 'rgba(255,255,255,0.55)', lineHeight: 1.5 }}>Tree nuts (almonds, cashews, hazelnuts), soy</span>
+                  </div>
+                  <div style={{
+                    display: 'grid',
+                    gridTemplateColumns: '140px 1fr',
+                    gap: '16px',
+                    alignItems: 'start',
+                  }}>
+                    <span style={{ fontSize: '14px', fontWeight: 500, color: '#ffffff' }}>Gluten-Free</span>
+                    <span style={{ fontSize: '14px', color: 'rgba(255,255,255,0.55)', lineHeight: 1.5 }}>All smoothies except Coffee Kick are certified gluten-free</span>
+                  </div>
+                  <div style={{
+                    display: 'grid',
+                    gridTemplateColumns: '140px 1fr',
+                    gap: '16px',
+                    alignItems: 'start',
+                  }}>
+                    <span style={{ fontSize: '14px', fontWeight: 500, color: '#ffffff' }}>Vegan</span>
+                    <span style={{ fontSize: '14px', color: 'rgba(255,255,255,0.55)', lineHeight: 1.5 }}>All smoothies are 100% plant-based</span>
+                  </div>
+                </div>
+                <div style={{
+                  marginTop: '24px',
+                  paddingTop: '20px',
+                  borderTop: '1px solid rgba(255,255,255,0.06)',
+                  textAlign: 'center',
+                }}>
+                  <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.5)' }}>
+                    Questions about allergens?{' '}
                     <Link href="/contact" style={{ color: '#ffffff', textDecoration: 'underline' }}>Contact us</Link>
-                    {' '}and we'll help you find the perfect smoothie for your needs.
                   </p>
                 </div>
               </div>
@@ -341,22 +404,23 @@ export default function Ingredients() {
 
         <section style={{
           background: '#0a0a0a',
-          padding: 'clamp(40px, 6vw, 64px) clamp(20px, 4vw, 48px)',
+          padding: 'clamp(60px, 8vw, 100px) clamp(20px, 4vw, 48px)',
         }}>
           <div style={{ maxWidth: '600px', margin: '0 auto', textAlign: 'center' }}>
             <AnimatedSection animation="fadeUp">
               <h2 style={{
-                fontSize: 'clamp(1.5rem, 3vw, 2rem)',
+                fontSize: 'clamp(1.75rem, 3.5vw, 2.25rem)',
                 fontWeight: 300,
                 color: '#ffffff',
                 marginBottom: '16px',
+                letterSpacing: '-0.02em',
               }}>
                 Taste the Difference
               </h2>
               <p style={{
-                fontSize: 'var(--fs-body)',
-                color: 'var(--color-text-secondary)',
-                marginBottom: '24px',
+                fontSize: '16px',
+                color: 'rgba(255,255,255,0.5)',
+                marginBottom: '32px',
               }}>
                 Ready to fuel your day with ingredients that actually do something?
               </p>
@@ -364,13 +428,14 @@ export default function Ingredients() {
                 href="/collections/smoothies"
                 style={{
                   display: 'inline-block',
-                  padding: '16px 40px',
+                  padding: '18px 48px',
                   background: '#ffffff',
                   color: '#000000',
                   borderRadius: '50px',
                   fontWeight: 500,
-                  fontSize: 'var(--fs-body)',
+                  fontSize: '15px',
                   textDecoration: 'none',
+                  letterSpacing: '0.01em',
                 }}
               >
                 Shop Smoothies
@@ -381,6 +446,14 @@ export default function Ingredients() {
       </main>
 
       <Footer />
+
+      <style jsx>{`
+        @media (max-width: 768px) {
+          div[style*="gridTemplateColumns: 'minmax(180px, 1fr) 2fr'"] {
+            grid-template-columns: 1fr !important;
+          }
+        }
+      `}</style>
     </>
   );
 }
