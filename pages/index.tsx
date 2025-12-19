@@ -664,28 +664,21 @@ export default function Home() {
               EXPERTS.map((expert) => (
                 <div 
                   key={`${setIndex}-${expert.id}`} 
-                  className="reviews-card"
+                  className="reviews-card-v2"
                   onClick={() => setUnMutedExpert(unMutedExpert === expert.id ? null : expert.id)}
                 >
-                  <div className="reviews-card-header">
-                    <p className="reviews-card-label">EXPERT REVIEW</p>
-                    <h3 className="reviews-card-name">{expert.name}</h3>
-                    <p className="reviews-card-quote">"{expert.quote}"</p>
-                  </div>
-                  <div className="reviews-card-video-container">
-                    <video
-                      src={expert.video}
-                      className="reviews-card-video"
-                      loop
-                      autoPlay
-                      muted={unMutedExpert !== expert.id}
-                      playsInline
-                    />
-                    <div className="reviews-card-play-btn">
-                      <svg width="18" height="18" viewBox="0 0 24 24" fill="white">
-                        <polygon points="8 5 19 12 8 19 8 5" />
-                      </svg>
-                    </div>
+                  <video
+                    src={expert.video}
+                    className="reviews-card-v2-video"
+                    loop
+                    autoPlay
+                    muted={unMutedExpert !== expert.id}
+                    playsInline
+                  />
+                  <div className="reviews-card-v2-play-btn">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="white">
+                      <polygon points="8 5 19 12 8 19 8 5" />
+                    </svg>
                   </div>
                 </div>
               ))
@@ -706,28 +699,21 @@ export default function Home() {
               CUSTOMERS.map((customer) => (
                 <div 
                   key={`${setIndex}-${customer.id}`} 
-                  className="reviews-card"
+                  className="reviews-card-v2"
                   onClick={() => setUnMutedCustomer(unMutedCustomer === customer.id ? null : customer.id)}
                 >
-                  <div className="reviews-card-header">
-                    <p className="reviews-card-label">CUSTOMER REVIEW</p>
-                    <h3 className="reviews-card-name">{customer.name}</h3>
-                    <p className="reviews-card-quote">"{customer.quote}"</p>
-                  </div>
-                  <div className="reviews-card-video-container">
-                    <video
-                      src={customer.video}
-                      className="reviews-card-video"
-                      loop
-                      autoPlay
-                      muted={unMutedCustomer !== customer.id}
-                      playsInline
-                    />
-                    <div className="reviews-card-play-btn">
-                      <svg width="18" height="18" viewBox="0 0 24 24" fill="white">
-                        <polygon points="8 5 19 12 8 19 8 5" />
-                      </svg>
-                    </div>
+                  <video
+                    src={customer.video}
+                    className="reviews-card-v2-video"
+                    loop
+                    autoPlay
+                    muted={unMutedCustomer !== customer.id}
+                    playsInline
+                  />
+                  <div className="reviews-card-v2-play-btn">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="white">
+                      <polygon points="8 5 19 12 8 19 8 5" />
+                    </svg>
                   </div>
                 </div>
               ))
