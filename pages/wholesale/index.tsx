@@ -5,12 +5,12 @@ import { useRouter } from 'next/router';
 import { AnimatedSection } from '../../components/ScrollAnimations';
 
 const BENEFITS = [
-  { title: 'Competitive Margins', description: 'Attractive wholesale pricing designed to maximize your profit potential.' },
-  { title: 'Reliable Delivery', description: 'Consistent, on-time delivery to keep your shelves stocked.' },
-  { title: 'Marketing Support', description: 'Free POS materials, samples, and co-marketing opportunities.' },
-  { title: 'Dedicated Rep', description: 'Personal account manager for all your partnership needs.' },
-  { title: 'Training & Support', description: 'Staff training and product knowledge sessions.' },
-  { title: 'Exclusive Products', description: 'Access to partner-only SKUs and limited editions.' },
+  { title: 'Maximize Profits', description: 'Competitive margins that boost your bottom line while keeping your customers happy.' },
+  { title: 'Always Stocked', description: 'Reliable delivery you can count on, every time.' },
+  { title: 'Effortless Marketing', description: 'Stunning materials, samples, and co-branding to make selling a breeze.' },
+  { title: 'Dedicated Support', description: 'A personal rep who\'s got your back every step of the way.' },
+  { title: 'Expert Training', description: 'We\'ll train your team to become Drizzl experts and wow your customers.' },
+  { title: 'Exclusive Perks', description: 'Get partner-only products and limited editions your customers can\'t find anywhere else.' },
 ];
 
 const NAV_ITEMS = [
@@ -133,7 +133,7 @@ export default function Wholesale() {
                 marginBottom: '12px',
                 display: 'block',
               }}>
-                PARTNER WITH US
+                WELLNESS THAT SELLS ITSELF
               </span>
               <h1 style={{
                 fontSize: 'clamp(2rem, 5vw, 3rem)',
@@ -150,18 +150,29 @@ export default function Wholesale() {
                 fontWeight: 400,
                 lineHeight: 1.7,
                 color: 'var(--color-text-secondary)',
-                maxWidth: '560px',
+                maxWidth: '600px',
               }}>
-                Join the Drizzl family and bring wellness to your customers. We make it easy to succeed together.
+                Ready to create loyal customers who can't get enough? Partner with Drizzl and bring irresistible wellness to your business. We're more than a product; we're a way of life. And we want YOU to be part of it.
               </p>
             </div>
+          </AnimatedSection>
+
+          <AnimatedSection animation="fadeUp" delay={50}>
+            <h2 style={{
+              fontSize: 'var(--fs-h4)',
+              fontWeight: 500,
+              color: '#ffffff',
+              marginBottom: '24px',
+            }}>
+              Why Partner With Drizzl Wellness?
+            </h2>
           </AnimatedSection>
 
           <div style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 300px), 1fr))',
             gap: '16px',
-            marginBottom: '48px',
+            marginBottom: '32px',
           }}>
             {BENEFITS.map((benefit, index) => (
               <AnimatedSection key={benefit.title} animation="fadeUp" delay={index * 80}>
@@ -192,6 +203,14 @@ export default function Wholesale() {
           </div>
 
           <AnimatedSection animation="fadeUp" delay={500}>
+            <p style={{
+              fontSize: 'var(--fs-body)',
+              fontWeight: 400,
+              color: 'var(--color-text-secondary)',
+              marginBottom: '24px',
+            }}>
+              Don't wait—wellness this good doesn't happen by chance.
+            </p>
             <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
               <Link
                 href="/wholesale/apply"
