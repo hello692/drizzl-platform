@@ -25,7 +25,7 @@ export default function Sustainability() {
               marginBottom: '12px',
               display: 'block',
             }}>
-              SUSTAINABILITY
+              GOOD FOR YOU, GOOD FOR THE PLANET.
             </span>
             <h1 style={{
               fontSize: 'clamp(2rem, 5vw, 3rem)',
@@ -35,8 +35,18 @@ export default function Sustainability() {
               color: '#ffffff',
               marginBottom: '24px',
             }}>
-              Our Commitment to the Planet
+              We believe sexy is sustainable.
             </h1>
+            
+            <p style={{
+              fontSize: 'var(--fs-body)',
+              color: 'var(--color-text-secondary)',
+              lineHeight: 1.7,
+              maxWidth: '560px',
+              margin: '0 auto 48px',
+            }}>
+              We're obsessed with making you feel good, and that includes feeling good about our impact. We're crafting a commitment to the planet that's as meaningful as our ingredients.
+            </p>
             
             <div style={{
               width: '80px',
@@ -46,21 +56,12 @@ export default function Sustainability() {
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              margin: '48px auto',
+              margin: '0 auto 48px',
               fontSize: '32px',
             }}>
               🌱
             </div>
             
-            <p style={{
-              fontSize: 'clamp(1.25rem, 2.5vw, 1.5rem)',
-              fontWeight: 300,
-              color: 'var(--color-text-secondary)',
-              lineHeight: 1.6,
-              marginBottom: '16px',
-            }}>
-              Coming Soon
-            </p>
             <p style={{
               fontSize: 'var(--fs-body)',
               color: 'var(--color-text-tertiary)',
@@ -68,7 +69,7 @@ export default function Sustainability() {
               maxWidth: '480px',
               margin: '0 auto 48px',
             }}>
-              We're working on something meaningful. Our sustainability initiatives and environmental commitments will be shared here soon.
+              The details are coming soon. Get ready for a glow-up that goes deeper.
             </p>
             
             <Link 
