@@ -87,7 +87,7 @@ export default function Locations() {
                 marginBottom: '12px',
                 display: 'block',
               }}>
-                STORE LOCATOR
+                FIND INSTANT GRATIFICATION
               </span>
               <h1 style={{
                 fontSize: 'clamp(2rem, 5vw, 3rem)',
@@ -97,7 +97,7 @@ export default function Locations() {
                 color: '#ffffff',
                 marginBottom: '16px',
               }}>
-                Find Us Near You
+                Near You
               </h1>
               <p style={{
                 fontSize: 'var(--fs-body)',
@@ -105,13 +105,31 @@ export default function Locations() {
                 lineHeight: 1.7,
                 color: 'var(--color-text-secondary)',
                 maxWidth: '560px',
+                marginBottom: '16px',
               }}>
                 Pick up your favorite Drizzl smoothies at a retailer near you.
+              </p>
+              <p style={{
+                fontSize: 'var(--fs-body)',
+                fontWeight: 400,
+                lineHeight: 1.7,
+                color: 'var(--color-text-secondary)',
+                maxWidth: '560px',
+              }}>
+                Your cravings don't do patience. We're waiting in the freezer aisle, looking good and ready to go home with you. Make your grocery run the hottest part of your week.
               </p>
             </div>
           </AnimatedSection>
 
           <AnimatedSection animation="fadeUp" delay={50}>
+            <p style={{
+              fontSize: 'var(--fs-h4)',
+              fontWeight: 500,
+              color: '#ffffff',
+              marginBottom: '16px',
+            }}>
+              Secure the goods.
+            </p>
             <div style={{
               display: 'flex',
               gap: '12px',
@@ -149,7 +167,7 @@ export default function Locations() {
                   whiteSpace: 'nowrap',
                 }}
               >
-                Search
+                Find a Store
               </button>
             </div>
           </AnimatedSection>
