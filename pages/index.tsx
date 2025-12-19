@@ -682,7 +682,7 @@ export default function Home() {
                       playsInline
                     />
                     <div className="reviews-card-play-btn">
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="white">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="white">
                         <polygon points="8 5 19 12 8 19 8 5" />
                       </svg>
                     </div>
@@ -724,7 +724,7 @@ export default function Home() {
                       playsInline
                     />
                     <div className="reviews-card-play-btn">
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="white">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="white">
                         <polygon points="8 5 19 12 8 19 8 5" />
                       </svg>
                     </div>

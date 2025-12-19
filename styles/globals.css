@@ -6678,7 +6678,7 @@ svg {
 
 .reviews-track {
   display: flex;
-  gap: 20px;
+  gap: 24px;
   width: max-content;
   animation: reviews-scroll 50s linear infinite;
 }
@@ -6698,9 +6698,9 @@ svg {
 
 .reviews-card {
   flex: 0 0 auto;
-  width: clamp(200px, 16vw, 240px);
+  width: clamp(280px, 22vw, 340px);
   background: #ffffff;
-  border-radius: 24px;
+  border-radius: 28px;
   overflow: hidden;
   cursor: pointer;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -6714,28 +6714,28 @@ svg {
 }
 
 .reviews-card-header {
-  padding: 16px 16px 12px;
+  padding: 20px 20px 16px;
   background: #ffffff;
 }
 
 .reviews-card-label {
-  font-size: 9px;
+  font-size: 10px;
   letter-spacing: 0.15em;
   text-transform: uppercase;
   color: #ec4899;
-  margin: 0 0 6px;
+  margin: 0 0 8px;
   font-weight: 600;
 }
 
 .reviews-card-name {
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 600;
   color: #000000;
-  margin: 0 0 4px;
+  margin: 0 0 6px;
 }
 
 .reviews-card-quote {
-  font-size: 12px;
+  font-size: 13px;
   color: rgba(0, 0, 0, 0.6);
   margin: 0;
   font-style: italic;
@@ -6745,7 +6745,7 @@ svg {
   position: relative;
   width: 100%;
   flex: 1;
-  min-height: 280px;
+  min-height: 380px;
   aspect-ratio: 9 / 14;
   background: #f5f5f5;
 }
@@ -6761,8 +6761,8 @@ svg {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 44px;
-  height: 44px;
+  width: 52px;
+  height: 52px;
   background: rgba(0, 0, 0, 0.6);
   border-radius: 50%;
   display: flex;
@@ -6790,11 +6790,23 @@ svg {
   }
   
   .reviews-card {
-    width: clamp(160px, 45vw, 200px);
+    width: clamp(200px, 50vw, 260px);
   }
   
   .reviews-card-video-container {
-    min-height: 220px;
+    min-height: 280px;
+  }
+  
+  .reviews-card-header {
+    padding: 16px 16px 12px;
+  }
+  
+  .reviews-card-name {
+    font-size: 14px;
+  }
+  
+  .reviews-card-quote {
+    font-size: 12px;
   }
 }
 
