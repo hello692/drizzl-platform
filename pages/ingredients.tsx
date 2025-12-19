@@ -8,7 +8,6 @@ const INGREDIENT_CATEGORIES = [
     title: 'The Flavor Heroes',
     subtitle: 'Fruits',
     description: "Nature's candy, but better. Sweet, vibrant, and packed with \"why does this taste so good?\" energy.",
-    emoji: '🍓',
     ingredients: [
       { name: 'Organic Banana', benefits: 'Creamy texture and potassium for natural muscle recovery.' },
       { name: 'Organic Strawberry', benefits: 'A Vitamin C kiss for radiant, glowing skin.' },
@@ -26,7 +25,6 @@ const INGREDIENT_CATEGORIES = [
     title: 'The Glow Crew',
     subtitle: 'Greens',
     description: 'Leafy powerhouses that make your body feel like it just did yoga (without you actually doing yoga).',
-    emoji: '🥬',
     ingredients: [
       { name: 'Organic Spinach & Baby Spinach', benefits: 'Iron-rich fatigue fighters to keep you energized.' },
       { name: 'Organic Kale', benefits: 'The ultimate detoxifier, packed with vitamins K, A, and C.' },
@@ -36,7 +34,6 @@ const INGREDIENT_CATEGORIES = [
     title: 'The Satisfaction Squad',
     subtitle: 'Grains',
     description: "Slow-burning fuel so you can crush your day without the hunger pangs.",
-    emoji: '🌾',
     ingredients: [
       { name: 'Organic Rolled Oats', benefits: 'Complex carbs for steady energy and heart health.' },
       { name: 'Organic Oat Fiber', benefits: 'The secret to feeling full and keeping digestion smooth.' },
@@ -46,7 +43,6 @@ const INGREDIENT_CATEGORIES = [
     title: 'The Creamy MVPs',
     subtitle: 'Nuts & Seeds',
     description: 'Healthy fats and velvety textures. The reason your smoothie feels like a meal.',
-    emoji: '🥜',
     ingredients: [
       { name: 'Organic Almonds & Almond Butter', benefits: 'Vitamin E for heart health and skin elasticity.' },
       { name: 'Organic Hazelnuts', benefits: 'Decadent flavor matched with brain-boosting nutrients.' },
@@ -59,7 +55,6 @@ const INGREDIENT_CATEGORIES = [
     title: 'The Mood Lifters',
     subtitle: 'Cacao & Coffee',
     description: 'Focus, flavor, and just enough edge to feel productive without the panic.',
-    emoji: '🍫',
     ingredients: [
       { name: 'Organic Cacao Powder & Nibs', benefits: 'Flavonoids for bliss, focus, and a natural mood boost.' },
       { name: 'Organic Brewed Coffee & Extract', benefits: 'Clean caffeine for clarity without the jitters.' },
@@ -69,7 +64,6 @@ const INGREDIENT_CATEGORIES = [
     title: 'The Secret Weapons',
     subtitle: 'Mushrooms',
     description: 'Ancient wisdom for a modern glow. Brain support, immune strength, and calm energy.',
-    emoji: '🍄',
     ingredients: [
       { name: "Organic Lion's Mane", benefits: 'The brain mushroom—for razor-sharp mental clarity.' },
       { name: 'Organic Chaga', benefits: 'A powerhouse shield for your immune system.' },
@@ -80,7 +74,6 @@ const INGREDIENT_CATEGORIES = [
     title: 'The Wellness Flex',
     subtitle: 'Botanicals',
     description: 'Adaptogenic balance and warming spices to set the vibe.',
-    emoji: '🌿',
     ingredients: [
       { name: 'Organic Maca Root', benefits: 'An adaptogen for hormone balance, energy, and libido.' },
       { name: 'Organic Ginger', benefits: 'A spicy kick to soothe digestion and boost immunity.' },
@@ -92,7 +85,6 @@ const INGREDIENT_CATEGORIES = [
     title: 'The Finish',
     subtitle: 'Enhancers',
     description: 'Small touches, massive impact.',
-    emoji: '🍋',
     ingredients: [
       { name: 'Organic Lemon Juice', benefits: 'Alkaline balance to detoxify and brighten.' },
       { name: 'Organic Sea Salt', benefits: 'Essential minerals for superior hydration.' },
@@ -102,7 +94,6 @@ const INGREDIENT_CATEGORIES = [
     title: 'The Canvas',
     subtitle: 'Base Liquids',
     description: 'Choose your vibe—creamy, light, or tropical.',
-    emoji: '🥛',
     ingredients: [
       { name: 'Organic Almond, Oat, or Coconut Milk', benefits: 'Dairy-free creaminess.' },
       { name: 'Filtered Water', benefits: 'Clean, pure hydration.' },
@@ -112,7 +103,6 @@ const INGREDIENT_CATEGORIES = [
     title: 'The Power Source',
     subtitle: 'Protein',
     description: 'Lean, clean, and mean. Build muscle and stay satisfied.',
-    emoji: '🧬',
     ingredients: [
       { name: 'Organic Pea Protein', benefits: 'Complete plant-based amino acids for recovery.' },
       { name: 'Organic Chia Protein', benefits: 'Fiber-dense protein to keep you full for hours.' },
@@ -182,10 +172,9 @@ export default function Ingredients() {
                 <div style={{
                   display: 'flex',
                   alignItems: 'center',
-                  gap: '12px',
+                  gap: '8px',
                   marginBottom: '8px',
                 }}>
-                  <span style={{ fontSize: '24px' }}>{category.emoji}</span>
                   <h2 style={{
                     fontSize: 'clamp(1.25rem, 2.5vw, 1.5rem)',
                     fontWeight: 500,
