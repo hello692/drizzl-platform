@@ -283,7 +283,7 @@ export default function Wholesale() {
                   gap: '12px',
                 }}>
                   <a 
-                    href="mailto:wholesale@drizzlwellness.com"
+                    href="mailto:hello@drizzlwellness.com"
                     style={{
                       fontSize: 'var(--fs-body)',
                       fontWeight: 400,
@@ -292,19 +292,7 @@ export default function Wholesale() {
                       transition: 'color 0.2s ease',
                     }}
                   >
-                    wholesale@drizzlwellness.com
-                  </a>
-                  <a 
-                    href="tel:1-800-DRIZZL-1"
-                    style={{
-                      fontSize: 'var(--fs-body)',
-                      fontWeight: 400,
-                      color: 'var(--color-text-secondary)',
-                      textDecoration: 'none',
-                      transition: 'color 0.2s ease',
-                    }}
-                  >
-                    1-800-DRIZZL-1
+                    hello@drizzlwellness.com
                   </a>
                 </div>
               </div>
