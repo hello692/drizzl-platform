@@ -4,12 +4,12 @@ import { useState } from 'react';
 import { AnimatedSection } from '../components/ScrollAnimations';
 
 const BENEFITS = [
-  { title: '15% Commission', description: 'Earn on every sale made through your unique referral link.' },
-  { title: 'Free Products', description: 'Monthly smoothie drops to keep you fueled and inspired.' },
-  { title: 'Exclusive Discount Code', description: 'Your own code to share with your community (they save 20%).' },
-  { title: 'Marketing Materials', description: 'Professional photos, graphics, and content to share.' },
-  { title: 'Community Access', description: 'Join our private ambassador community for support and tips.' },
-  { title: 'Early Access', description: 'Be the first to try and promote new flavors.' },
+  { title: '15% Commission', description: 'Cash rolls in every time someone shops with your link. Cha-ching. Effort? Minimal.' },
+  { title: 'VIP Treatment', description: 'Sneak peeks at new product drops, exclusive gifts, and secret surprises—because you\'re THAT special.' },
+  { title: 'Share the Love', description: 'Your friends score 20% off their first order, and you get to be their wellness rockstar.' },
+  { title: 'Free Products', description: 'Monthly smoothie drops to keep you fueled, glowing, and always inspired.' },
+  { title: 'Community Access', description: 'Join our private ambassador squad for support, tips, and all the glow-up vibes.' },
+  { title: 'Early Access', description: 'Be the first to try and promote new flavors before anyone else.' },
 ];
 
 const AMBASSADORS = [
@@ -74,7 +74,7 @@ export default function Ambassadors() {
                 marginBottom: '12px',
                 display: 'block',
               }}>
-                JOIN THE TEAM
+                BECOME A DRIZZL AMBASSADOR
               </span>
               <h1 style={{
                 fontSize: 'clamp(2rem, 5vw, 3rem)',
@@ -84,17 +84,30 @@ export default function Ambassadors() {
                 color: '#ffffff',
                 marginBottom: '16px',
               }}>
-                Spread the Crave
+                Glow Hard. Earn Big. Look Amazing.
               </h1>
               <p style={{
                 fontSize: 'var(--fs-body)',
                 fontWeight: 400,
                 lineHeight: 1.7,
                 color: 'var(--color-text-secondary)',
-                maxWidth: '560px',
+                maxWidth: '640px',
               }}>
-                Become a Drizzl Ambassador and turn your passion into profit. Share what you love, earn what you deserve.
+                Obsessed with Drizzl? Ready to turn your love for all things glow-worthy into cold, hard perks? Join the Drizzl Ambassador Program and let's make magic together—because you deserve to shine (and get paid for it).
               </p>
+            </div>
+          </AnimatedSection>
+
+          <AnimatedSection animation="fadeUp" delay={50}>
+            <div style={{ marginBottom: '32px' }}>
+              <h2 style={{
+                fontSize: 'clamp(1.3rem, 3vw, 1.8rem)',
+                fontWeight: 400,
+                color: '#ffffff',
+                marginBottom: '8px',
+              }}>
+                Here's Why You'll Love It:
+              </h2>
             </div>
           </AnimatedSection>
 
@@ -137,6 +150,33 @@ export default function Ambassadors() {
           background: '#0a0a0a',
           padding: 'clamp(40px, 6vw, 64px) clamp(20px, 4vw, 48px)',
         }}>
+          <div style={{ maxWidth: '800px', margin: '0 auto', textAlign: 'center' }}>
+            <AnimatedSection animation="fadeUp">
+              <h2 style={{
+                fontSize: 'clamp(1.5rem, 3vw, 2rem)',
+                fontWeight: 300,
+                color: '#ffffff',
+                marginBottom: '16px',
+              }}>
+                Who's It For?
+              </h2>
+              <p style={{
+                fontSize: 'var(--fs-body)',
+                color: 'var(--color-text-secondary)',
+                lineHeight: 1.8,
+                maxWidth: '600px',
+                margin: '0 auto',
+              }}>
+                If you live for glowing skin, wellness vibes, and being the go-to for all the coolest finds, we want YOU. Confidence, charm, and a love for the Drizzl Wellness life are your golden tickets.
+              </p>
+            </AnimatedSection>
+          </div>
+        </section>
+
+        <section style={{
+          background: '#000000',
+          padding: 'clamp(40px, 6vw, 64px) clamp(20px, 4vw, 48px)',
+        }}>
           <div style={{ maxWidth: '900px', margin: '0 auto' }}>
             <AnimatedSection animation="fadeUp">
               <div style={{ textAlign: 'center', marginBottom: '40px' }}>
@@ -174,7 +214,7 @@ export default function Ambassadors() {
                       width: '64px',
                       height: '64px',
                       borderRadius: '50%',
-                      background: 'rgba(255,255,255,0.1)',
+                      background: 'linear-gradient(135deg, rgba(236,72,153,0.3), rgba(139,92,246,0.3))',
                       margin: '0 auto 16px',
                       display: 'flex',
                       alignItems: 'center',
@@ -201,7 +241,7 @@ export default function Ambassadors() {
         </section>
 
         <section style={{
-          background: '#000000',
+          background: '#0a0a0a',
           padding: 'clamp(40px, 6vw, 64px) clamp(20px, 4vw, 48px)',
         }}>
           <div style={{
@@ -220,7 +260,7 @@ export default function Ambassadors() {
                   color: '#ffffff',
                   marginBottom: '16px',
                 }}>
-                  Ready to Join?
+                  Ready to Make Waves?
                 </h2>
                 <p style={{
                   fontSize: 'var(--fs-body)',
@@ -228,7 +268,7 @@ export default function Ambassadors() {
                   lineHeight: 1.7,
                   marginBottom: '24px',
                 }}>
-                  We review all applications within 5 business days. If you're a good fit, we'll reach out with next steps.
+                  Sign up now, flaunt your faves, and start earning while spreading serious glow-up vibes. We review all applications within 5 business days.
                 </p>
                 
                 <p style={{ fontSize: 'var(--fs-body)', color: '#ffffff', fontWeight: 500, marginBottom: '12px' }}>
@@ -259,13 +299,30 @@ export default function Ambassadors() {
               }}>
                 {submitted ? (
                   <div style={{ textAlign: 'center', padding: '40px 0' }}>
-                    <h3 style={{ fontSize: 'var(--fs-h3)', fontWeight: 500, color: '#ffffff', marginBottom: '12px' }}>Application Received</h3>
+                    <div style={{
+                      width: '64px',
+                      height: '64px',
+                      background: 'linear-gradient(135deg, #22c55e, #16a34a)',
+                      borderRadius: '50%',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      margin: '0 auto 24px',
+                    }}>
+                      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                        <polyline points="20 6 9 17 4 12"></polyline>
+                      </svg>
+                    </div>
+                    <h3 style={{ fontSize: 'var(--fs-h3)', fontWeight: 500, color: '#ffffff', marginBottom: '12px' }}>You're In!</h3>
                     <p style={{ color: 'var(--color-text-secondary)', lineHeight: 1.6 }}>
-                      We'll review your application and get back to you within 5 business days.
+                      We'll review your application and get back to you within 5 business days. Get ready to glow!
                     </p>
                   </div>
                 ) : (
                   <form onSubmit={handleSubmit}>
+                    <h3 style={{ fontSize: 'var(--fs-h4)', fontWeight: 500, color: '#ffffff', marginBottom: '24px', textAlign: 'center' }}>
+                      Join the Ambassador Program
+                    </h3>
                     <div style={{ marginBottom: '20px' }}>
                       <label style={labelStyles}>Full Name</label>
                       <input
@@ -327,7 +384,7 @@ export default function Ambassadors() {
                       </select>
                     </div>
                     <div style={{ marginBottom: '24px' }}>
-                      <label style={labelStyles}>Why Drizzl?</label>
+                      <label style={labelStyles}>Why Drizzl Wellness?</label>
                       <textarea
                         required
                         value={formData.why}
@@ -349,9 +406,10 @@ export default function Ambassadors() {
                         fontSize: 'var(--fs-body)',
                         fontWeight: 500,
                         cursor: 'pointer',
+                        transition: 'all 0.2s ease',
                       }}
                     >
-                      Submit Application
+                      Join the Ambassador Program
                     </button>
                   </form>
                 )}
