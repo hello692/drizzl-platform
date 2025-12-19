@@ -27,12 +27,21 @@ export default function HighProtein() {
               />
             </div>
             <h1 style={{ marginBottom: '16px', fontSize: '48px' }}>High Protein Smoothies</h1>
-            <ul style={{ fontSize: '14px', color: '#666', marginTop: '24px', marginLeft: '20px' }}>
-              <li style={{ marginBottom: '8px' }}>100% plant-based</li>
-              <li style={{ marginBottom: '8px' }}>20g of pea protein—no whey or nuts</li>
-              <li style={{ marginBottom: '8px' }}>Gluten-free + USDA certified organic</li>
-              <li>No artificial sweeteners or flavors</li>
+            <p style={{ fontSize: '24px', color: '#333', fontWeight: '500', marginBottom: '16px' }}>
+              Fuel Your Body, Elevate Your Day.
+            </p>
+            <p style={{ fontSize: '16px', color: '#666', marginBottom: '24px', maxWidth: '700px', lineHeight: '1.7' }}>
+              This isn't just protein—it's a game-changer. Each bottle is packed with everything you need to power through your day and feel great doing it.
+            </p>
+            <ul style={{ fontSize: '15px', color: '#666', marginTop: '24px', marginLeft: '20px', lineHeight: '1.8' }}>
+              <li style={{ marginBottom: '12px' }}><strong>20g Pea Protein:</strong> Smooth, plant-based fuel to keep you strong, lean, and satisfied—without the grit.</li>
+              <li style={{ marginBottom: '12px' }}><strong>Organic & Clean:</strong> No pesticides, no shortcuts—just pure, wholesome ingredients.</li>
+              <li style={{ marginBottom: '12px' }}><strong>Gluten-Free & Dairy-Free:</strong> Easy on your body, free of heaviness. Enjoy without the bloat.</li>
+              <li style={{ marginBottom: '12px' }}><strong>No Artificial Additives:</strong> No fake sweeteners or chemicals—only real ingredients that support your health.</li>
             </ul>
+            <p style={{ fontSize: '18px', color: '#333', fontWeight: '600', marginTop: '24px' }}>
+              Satisfy your hunger. Nourish your glow.
+            </p>
           </div>
 
           {/* Products Grid */}
