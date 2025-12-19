@@ -5,107 +5,163 @@ import { AnimatedSection } from '../components/ScrollAnimations';
 
 const INGREDIENT_CATEGORIES = [
   {
-    title: 'Fruits',
-    tagline: 'The Flavor Heroes',
-    description: "Nature's candy, but better. Sweet, vibrant, and packed with \"why does this taste so good?\" energy.",
+    title: 'Fruits & Exotic Fruits',
+    tagline: 'The flavor. The antioxidants. The pure joy.',
     ingredients: [
-      { name: 'Organic Banana', benefits: 'Creamy texture and potassium for natural muscle recovery.' },
-      { name: 'Organic Strawberry', benefits: 'A Vitamin C kiss for radiant, glowing skin.' },
-      { name: 'Organic Orange', benefits: 'Bright citrus energy to wake up your immunity.' },
-      { name: 'Organic Raspberry', benefits: 'Fiber-rich tartness to keep digestion happy.' },
-      { name: 'Organic Blueberry', benefits: 'Tiny antioxidants for brain health and sharp focus.' },
-      { name: 'Organic Mango', benefits: 'Digestive enzymes wrapped in tropical sunshine.' },
-      { name: 'Organic Pineapple', benefits: 'Anti-inflammatory sweetness that fights bloat.' },
-      { name: 'Organic Passion Fruit', benefits: 'Exotic flavor loaded with vitamins A & C.' },
-      { name: 'Organic Acai Berry', benefits: 'The beauty berry—cellular protection for deep health.' },
-      { name: 'Organic Dates', benefits: 'Natural caramel sweetness for sustained, crash-free energy.' },
+      { name: 'Organic Banana', benefits: 'Creamy comfort fuel for natural energy.' },
+      { name: 'Organic Strawberry', benefits: 'A sweet, blushing kiss of Vitamin C.' },
+      { name: 'Organic Raspberry', benefits: 'Tangy, fiber-rich love for your gut.' },
+      { name: 'Organic Blueberry', benefits: 'Tiny, brilliant antioxidants for a sharp mind.' },
+      { name: 'Organic Blackberry', benefits: 'Deep, dark berry power for skin that glows.' },
+      { name: 'Organic Mango', benefits: 'Tropical sunshine in every sip.' },
+      { name: 'Organic Pineapple', benefits: 'Juicy, golden enzymes to banish the bloat.' },
+      { name: 'Organic Orange', benefits: 'A bright citrus wake-up call for your immunity.' },
+      { name: 'Organic Passion Fruit', benefits: 'Tart, exotic energy that pops.' },
+      { name: 'Organic Acai Berry', benefits: 'Antioxidant royalty for a deep, cellular glow.' },
+      { name: 'Organic Dates', benefits: "Nature's caramel. Sweetness without the crash." },
+      { name: 'Organic Watermelon', benefits: 'Refreshing, hydrating, and effortlessly cool.' },
+      { name: 'Organic Dragon Fruit (Pitaya)', benefits: 'Vibrant pink fiber for a happy belly.' },
+      { name: 'Organic Acerola Cherry', benefits: 'A potent Vitamin C powerhouse.' },
+      { name: 'Organic Goji Berry', benefits: 'The longevity fruit for bright eyes and skin.' },
+      { name: 'Organic Golden Berry', benefits: 'A tart little jewel packed with antioxidants.' },
+      { name: 'Organic Pomegranate', benefits: 'Ruby-red gems for serious heart support.' },
+      { name: 'Organic Papaya', benefits: 'Tropical ease for a calm, happy digestion.' },
+      { name: 'Organic Guava', benefits: 'A tropical overload of fiber and Vitamin C.' },
+      { name: 'Organic Fig', benefits: 'Gentle sweetness and deep gut support.' },
+      { name: 'Organic Cherry', benefits: 'Your post-workout recovery treat.' },
+      { name: 'Organic Apple', benefits: 'Crisp, familiar sweetness and fiber balance.' },
+      { name: 'Organic Pear', benefits: 'Soft, juicy, and kind to your system.' },
+      { name: 'Organic Lemon', benefits: 'A bright, acidic pop of Vitamin C.' },
+      { name: 'Organic Lime', benefits: 'Clean, zesty lift to keep things fresh.' },
     ],
   },
   {
-    title: 'Greens',
-    tagline: 'The Glow Crew',
-    description: 'Leafy powerhouses that make your body feel like it just did yoga.',
+    title: 'Vegetables & Greens',
+    tagline: 'The glow crew.',
     ingredients: [
-      { name: 'Organic Spinach & Baby Spinach', benefits: 'Iron-rich fatigue fighters to keep you energized.' },
-      { name: 'Organic Kale', benefits: 'The ultimate detoxifier, packed with vitamins K, A, and C.' },
+      { name: 'Organic Spinach', benefits: 'Your daily dose of iron-rich strength.' },
+      { name: 'Organic Baby Spinach', benefits: 'Gentle greens for easy, invisible nutrition.' },
+      { name: 'Organic Kale', benefits: 'The nutrient-dense detox queen.' },
+      { name: 'Organic Cauliflower', benefits: 'The secret to a creamy texture and a fiber boost.' },
+      { name: 'Organic Zucchini', benefits: 'Light, hydrating body for a smooth sip.' },
+      { name: 'Organic Sweet Potato', benefits: 'Complex carbs for energy that stays with you.' },
+      { name: 'Organic Carrot', benefits: 'Beta-carotene for a glow that starts within.' },
+      { name: 'Organic Beet', benefits: 'Earthy sweetness for better circulation.' },
+      { name: 'Organic Celery', benefits: 'Crisp mineral hydration.' },
+      { name: 'Organic Cucumber', benefits: 'The ultimate cooling hydrator.' },
     ],
   },
   {
-    title: 'Grains',
-    tagline: 'The Satisfaction Squad',
-    description: "Slow-burning fuel so you can crush your day without the hunger pangs.",
+    title: 'Grains, Fiber & Legumes',
+    tagline: 'Stay-full fuel.',
     ingredients: [
-      { name: 'Organic Rolled Oats', benefits: 'Complex carbs for steady energy and heart health.' },
-      { name: 'Organic Oat Fiber', benefits: 'The secret to feeling full and keeping digestion smooth.' },
+      { name: 'Organic Rolled Oats', benefits: 'Slow-release energy to power your day.' },
+      { name: 'Organic Oat Fiber', benefits: 'The secret to total gut happiness.' },
+      { name: 'Organic Quinoa', benefits: 'A complete plant protein for holistic fuel.' },
+      { name: 'Organic Brown Rice', benefits: 'Clean, gentle carbs for steady energy.' },
+      { name: 'Organic Chickpeas', benefits: 'Creamy protein and fiber that satisfies.' },
     ],
   },
   {
-    title: 'Nuts & Seeds',
-    tagline: 'The Creamy MVPs',
-    description: 'Healthy fats and velvety textures. The reason your smoothie feels like a meal.',
+    title: 'Nuts, Seeds & Butters',
+    tagline: 'Creamy MVPs.',
     ingredients: [
-      { name: 'Organic Almonds & Almond Butter', benefits: 'Vitamin E for heart health and skin elasticity.' },
-      { name: 'Organic Hazelnuts', benefits: 'Decadent flavor matched with brain-boosting nutrients.' },
-      { name: 'Organic Coconut Meat', benefits: 'MCTs for a metabolism boost and instant hydration.' },
-      { name: 'Organic Chia Seeds', benefits: 'Omega-3 powerhouses for hydration and endurance.' },
-      { name: 'Organic Pumpkin Seeds', benefits: 'Zinc and magnesium for mood balance and immunity.' },
+      { name: 'Organic Almonds', benefits: 'Vitamin E support for skin that shines.' },
+      { name: 'Organic Almond Butter', benefits: 'Smooth energy and healthy fats.' },
+      { name: 'Organic Cashews', benefits: 'Rich, creamy, and undeniably decadent.' },
+      { name: 'Organic Hazelnuts', benefits: 'Heart-friendly fats with a luxe flavor.' },
+      { name: 'Organic Coconut Meat', benefits: 'Clean tropical fats for a metabolism boost.' },
+      { name: 'Organic Chia Seeds', benefits: 'A tiny powerhouse of fiber and omega-3s.' },
+      { name: 'Organic Flax Seeds', benefits: 'Essential support for hormones and digestion.' },
+      { name: 'Organic Hemp Seeds', benefits: 'Complete plant protein for effortless strength.' },
+      { name: 'Organic Pumpkin Seeds', benefits: 'Zinc and mineral strength for a mood lift.' },
+      { name: 'Organic Sunflower Seeds', benefits: 'Simply sunny Vitamin E support.' },
     ],
   },
   {
-    title: 'Cacao & Coffee',
-    tagline: 'The Mood Lifters',
-    description: 'Focus, flavor, and just enough edge to feel productive without the panic.',
+    title: 'Cacao, Coffee & Tea',
+    tagline: 'Mood + Focus.',
     ingredients: [
-      { name: 'Organic Cacao Powder & Nibs', benefits: 'Flavonoids for bliss, focus, and a natural mood boost.' },
-      { name: 'Organic Brewed Coffee & Extract', benefits: 'Clean caffeine for clarity without the jitters.' },
+      { name: 'Organic Cacao Powder', benefits: 'A mood lift that feels like a crush.' },
+      { name: 'Organic Cacao Nibs', benefits: 'Crunchy antioxidants for pure heart health.' },
+      { name: 'Organic Brewed Coffee', benefits: 'Smooth alertness to get you moving.' },
+      { name: 'Organic Coffee Extract', benefits: 'Clean, concentrated energy.' },
+      { name: 'Organic Ceremonial Matcha', benefits: 'Calm, steady focus for a zen mind.' },
     ],
   },
   {
-    title: 'Mushrooms',
-    tagline: 'The Secret Weapons',
-    description: 'Ancient wisdom for a modern glow. Brain support, immune strength, and calm energy.',
+    title: 'Functional Mushrooms',
+    tagline: 'The Drizzl Stack.',
     ingredients: [
-      { name: "Organic Lion's Mane", benefits: 'The brain mushroom—for razor-sharp mental clarity.' },
-      { name: 'Organic Chaga', benefits: 'A powerhouse shield for your immune system.' },
-      { name: 'Organic Reishi', benefits: 'The chill pill of nature for stress relief and balance.' },
+      { name: "Organic Lion's Mane", benefits: 'Razor-sharp focus and clarity.' },
+      { name: 'Organic Chaga', benefits: 'Your daily immune defense shield.' },
+      { name: 'Organic Reishi', benefits: 'The "chill pill" for calm recovery.' },
+      { name: 'Organic Cordyceps', benefits: 'Natural stamina for breathless moments.' },
+      { name: 'Organic Turkey Tail', benefits: 'Harmony for your gut and immunity.' },
+      { name: 'Organic Maitake', benefits: 'Balance for your metabolism.' },
+      { name: 'Organic Shiitake', benefits: 'Support for a happy heart.' },
+      { name: 'Organic Tremella (Snow Mushroom)', benefits: 'Deep hydration for dewy skin.' },
+      { name: 'Organic Agaricus Blazei', benefits: 'Resilience for your immune system.' },
+      { name: 'Organic Enoki', benefits: 'Antioxidant support for a deep detox.' },
     ],
   },
   {
-    title: 'Botanicals',
-    tagline: 'The Wellness Flex',
-    description: 'Adaptogenic balance and warming spices to set the vibe.',
+    title: 'Botanicals, Roots & Adaptogens',
+    tagline: 'The wellness flex.',
     ingredients: [
-      { name: 'Organic Maca Root', benefits: 'An adaptogen for hormone balance, energy, and libido.' },
-      { name: 'Organic Ginger', benefits: 'A spicy kick to soothe digestion and boost immunity.' },
-      { name: 'Organic Cinnamon', benefits: 'Warming spice that helps balance blood sugar.' },
-      { name: 'Organic Vanilla Extract', benefits: 'Aromatic calm that soothes the senses.' },
+      { name: 'Organic Maca Root', benefits: 'Balanced energy and a little fire.' },
+      { name: 'Organic Ginger', benefits: 'Spicy warmth to soothe digestion.' },
+      { name: 'Organic Cinnamon', benefits: 'Sweet spice for blood sugar balance.' },
+      { name: 'Organic Turmeric', benefits: 'Golden support for inflammation balance.' },
+      { name: 'Organic Ashwagandha', benefits: 'Stress support for a calmer you.' },
+      { name: 'Organic Ginseng', benefits: 'Mental stamina for the long haul.' },
+      { name: 'Organic Vanilla Extract', benefits: 'Aromatic comfort and sweetness.' },
+      { name: 'Organic Mint', benefits: 'Cooling freshness that lingers.' },
     ],
   },
   {
-    title: 'Enhancers',
-    tagline: 'The Finish',
-    description: 'Small touches, massive impact.',
+    title: 'Natural Acids & Minerals',
+    tagline: 'The finishing touch.',
     ingredients: [
-      { name: 'Organic Lemon Juice', benefits: 'Alkaline balance to detoxify and brighten.' },
-      { name: 'Organic Sea Salt', benefits: 'Essential minerals for superior hydration.' },
+      { name: 'Organic Lemon Juice', benefits: 'A pop of flavor to brighten the blend.' },
+      { name: 'Organic Sea Salt', benefits: 'Essential minerals for balance.' },
     ],
   },
   {
     title: 'Base Liquids',
-    tagline: 'The Canvas',
-    description: 'Choose your vibe—creamy, light, or tropical.',
+    tagline: 'The canvas.',
     ingredients: [
-      { name: 'Organic Almond, Oat, or Coconut Milk', benefits: 'Dairy-free creaminess.' },
-      { name: 'Filtered Water', benefits: 'Clean, pure hydration.' },
+      { name: 'Organic Almond Milk', benefits: 'Creamy, dairy-free perfection.' },
+      { name: 'Organic Oat Milk', benefits: 'Smooth, mild, and comforting.' },
+      { name: 'Organic Coconut Milk', benefits: 'Rich, tropical body.' },
+      { name: 'Filtered Water', benefits: 'Pure, clean hydration.' },
     ],
   },
   {
-    title: 'Protein',
-    tagline: 'The Power Source',
-    description: 'Lean, clean, and mean. Build muscle and stay satisfied.',
+    title: 'Protein & Functional Add-Ins',
+    tagline: 'The power source.',
     ingredients: [
-      { name: 'Organic Pea Protein', benefits: 'Complete plant-based amino acids for recovery.' },
-      { name: 'Organic Chia Protein', benefits: 'Fiber-dense protein to keep you full for hours.' },
+      { name: 'Organic Pea Protein', benefits: 'Clean plant fuel for your muscles.' },
+      { name: 'Organic Brown Rice Protein', benefits: 'Gentle, complete protein.' },
+      { name: 'Organic Chia Protein', benefits: 'Fiber-rich fullness that lasts.' },
+      { name: 'Organic Pumpkin Seed Protein', benefits: 'Mineral-dense strength.' },
+    ],
+  },
+  {
+    title: 'Superfoods (Full Stack)',
+    tagline: 'The extra magic.',
+    ingredients: [
+      { name: 'Organic Acai', benefits: 'For an antioxidant glow.' },
+      { name: 'Organic Matcha', benefits: 'For calm, collected alertness.' },
+      { name: 'Organic Maca', benefits: 'For energy that feels balanced.' },
+      { name: 'Organic Cacao', benefits: 'To elevate your mood naturally.' },
+      { name: 'Organic Chia', benefits: 'For essential omega-3 support.' },
+      { name: 'Organic Goji', benefits: 'For longevity and vitality.' },
+      { name: 'Organic Acerola', benefits: 'For a massive Vitamin C boost.' },
+      { name: 'Organic Dragon Fruit', benefits: 'For gut-friendly fiber and color.' },
+      { name: 'Organic Turmeric', benefits: 'For golden, anti-inflammatory balance.' },
+      { name: 'Organic Ginger', benefits: 'For digestive comfort.' },
+      { name: 'Organic Cinnamon', benefits: 'For metabolic support.' },
     ],
   },
 ];
@@ -139,7 +195,7 @@ export default function Ingredients() {
                 marginBottom: '16px',
                 display: 'block',
               }}>
-                THE INGREDIENT LIST
+                THE GLOSSARY OF GLOW
               </span>
               <h1 style={{
                 fontSize: 'clamp(2.5rem, 6vw, 4rem)',
@@ -156,10 +212,10 @@ export default function Ingredients() {
                 fontWeight: 400,
                 lineHeight: 1.6,
                 color: 'rgba(255,255,255,0.6)',
-                maxWidth: '540px',
+                maxWidth: '600px',
                 margin: '0 auto',
               }}>
-                We don't do secrets. We do potent, premium ingredients that love your body back.
+                We're obsessed with what's inside. That's why we've curated a library of the world's most potent, beautiful, and delicious whole-food ingredients. This isn't just a list; it's our love language.
               </p>
             </div>
           </AnimatedSection>
@@ -195,22 +251,15 @@ export default function Ingredients() {
                       }}>
                         {category.title}
                       </h2>
-                      <span style={{
-                        fontSize: '13px',
-                        color: 'rgba(255,255,255,0.35)',
-                        fontWeight: 400,
-                        fontStyle: 'italic',
-                      }}>
-                        {category.tagline}
-                      </span>
                     </div>
                     <p style={{
                       fontSize: '14px',
                       color: 'rgba(255,255,255,0.5)',
                       lineHeight: 1.5,
                       marginTop: '8px',
+                      fontStyle: 'italic',
                     }}>
-                      {category.description}
+                      {category.tagline}
                     </p>
                   </div>
                   
@@ -226,7 +275,7 @@ export default function Ingredients() {
                         key={ingredient.name}
                         style={{
                           display: 'grid',
-                          gridTemplateColumns: 'minmax(180px, 1fr) 2fr',
+                          gridTemplateColumns: 'minmax(200px, 1fr) 2fr',
                           gap: '24px',
                           padding: '16px 20px',
                           background: '#000000',
@@ -446,14 +495,6 @@ export default function Ingredients() {
       </main>
 
       <Footer />
-
-      <style jsx>{`
-        @media (max-width: 768px) {
-          div[style*="gridTemplateColumns: 'minmax(180px, 1fr) 2fr'"] {
-            grid-template-columns: 1fr !important;
-          }
-        }
-      `}</style>
     </>
   );
 }
