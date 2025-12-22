@@ -24,7 +24,7 @@ export default function Privacy() {
                 marginBottom: '12px',
                 display: 'block',
               }}>
-                LEGAL
+                THE BORING (BUT IMPORTANT) STUFF
               </span>
               <h1 style={{
                 fontSize: 'clamp(2rem, 5vw, 3rem)',
@@ -34,7 +34,7 @@ export default function Privacy() {
                 color: '#ffffff',
                 marginBottom: '16px',
               }}>
-                Privacy Policy
+                Our Privacy Promise
               </h1>
               <p style={{
                 fontSize: 'var(--fs-small)',
@@ -48,11 +48,8 @@ export default function Privacy() {
           <div style={{ color: 'var(--color-text-secondary)', lineHeight: 1.8 }}>
             <AnimatedSection animation="fadeUp" delay={100}>
               <div style={{ marginBottom: '32px' }}>
-                <h2 style={{ fontSize: 'var(--fs-h4)', fontWeight: 500, color: '#ffffff', marginBottom: '16px' }}>
-                  Introduction
-                </h2>
                 <p style={{ marginBottom: '16px' }}>
-                  At Drizzl Wellness, we are committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website or make a purchase.
+                  At Drizzl Wellness, your trust is everything. We're committed to protecting your privacy, and this policy explains how we handle your information when you visit our site or buy our products. We believe in transparency, so let's get into it.
                 </p>
               </div>
             </AnimatedSection>
@@ -60,16 +57,16 @@ export default function Privacy() {
             <AnimatedSection animation="fadeUp" delay={150}>
               <div style={{ marginBottom: '32px' }}>
                 <h2 style={{ fontSize: 'var(--fs-h4)', fontWeight: 500, color: '#ffffff', marginBottom: '16px' }}>
-                  Information We Collect
+                  What We Collect
                 </h2>
                 <p style={{ marginBottom: '16px' }}>
-                  We collect information you provide directly, such as when you create an account, make a purchase, subscribe to our newsletter, or contact us for support. This may include:
+                  To make your experience seamless, we collect information you give us directly. This happens when you create an account, place an order, sign up for emails, or reach out for help. This includes:
                 </p>
                 <ul style={{ paddingLeft: '20px', marginBottom: '16px' }}>
-                  <li style={{ marginBottom: '8px' }}>Name and contact information</li>
-                  <li style={{ marginBottom: '8px' }}>Billing and shipping addresses</li>
-                  <li style={{ marginBottom: '8px' }}>Payment information</li>
-                  <li style={{ marginBottom: '8px' }}>Order history and preferences</li>
+                  <li style={{ marginBottom: '8px' }}>Your name and contact details</li>
+                  <li style={{ marginBottom: '8px' }}>Billing and shipping information</li>
+                  <li style={{ marginBottom: '8px' }}>Payment details</li>
+                  <li style={{ marginBottom: '8px' }}>Your order history and product preferences</li>
                 </ul>
               </div>
             </AnimatedSection>
@@ -77,17 +74,17 @@ export default function Privacy() {
             <AnimatedSection animation="fadeUp" delay={200}>
               <div style={{ marginBottom: '32px' }}>
                 <h2 style={{ fontSize: 'var(--fs-h4)', fontWeight: 500, color: '#ffffff', marginBottom: '16px' }}>
-                  How We Use Your Information
+                  How We Use It
                 </h2>
                 <p style={{ marginBottom: '16px' }}>
-                  We use your information to:
+                  We use your information to make things run smoothly. Specifically, we use it to:
                 </p>
                 <ul style={{ paddingLeft: '20px', marginBottom: '16px' }}>
-                  <li style={{ marginBottom: '8px' }}>Process and fulfill your orders</li>
-                  <li style={{ marginBottom: '8px' }}>Communicate with you about your orders and account</li>
-                  <li style={{ marginBottom: '8px' }}>Send promotional emails (with your consent)</li>
-                  <li style={{ marginBottom: '8px' }}>Improve our products and services</li>
-                  <li style={{ marginBottom: '8px' }}>Comply with legal obligations</li>
+                  <li style={{ marginBottom: '8px' }}>Process and ship your orders.</li>
+                  <li style={{ marginBottom: '8px' }}>Keep you updated on your orders and account status.</li>
+                  <li style={{ marginBottom: '8px' }}>Send you promotional emails (only if you say yes).</li>
+                  <li style={{ marginBottom: '8px' }}>Make our products and services even better.</li>
+                  <li style={{ marginBottom: '8px' }}>Meet our legal requirements.</li>
                 </ul>
               </div>
             </AnimatedSection>
@@ -95,10 +92,10 @@ export default function Privacy() {
             <AnimatedSection animation="fadeUp" delay={250}>
               <div style={{ marginBottom: '32px' }}>
                 <h2 style={{ fontSize: 'var(--fs-h4)', fontWeight: 500, color: '#ffffff', marginBottom: '16px' }}>
-                  Data Security
+                  Keeping Your Data Safe
                 </h2>
                 <p>
-                  We implement appropriate technical and organizational measures to protect your personal information against unauthorized access, alteration, disclosure, or destruction.
+                  Your privacy is not a small thing to us. We use strong technical and organizational measures to protect your personal information from being accessed, altered, or shared without permission.
                 </p>
               </div>
             </AnimatedSection>
@@ -106,10 +103,13 @@ export default function Privacy() {
             <AnimatedSection animation="fadeUp" delay={300}>
               <div style={{ marginBottom: '32px' }}>
                 <h2 style={{ fontSize: 'var(--fs-h4)', fontWeight: 500, color: '#ffffff', marginBottom: '16px' }}>
-                  Contact Us
+                  Questions?
                 </h2>
                 <p>
-                  If you have any questions about this Privacy Policy, please contact us at privacy@drizzlwellness.com.
+                  If you have any questions about this policy or your privacy, please get in touch with us at{' '}
+                  <a href="mailto:hello@drizzlwellness.com" style={{ color: '#ffffff', textDecoration: 'underline' }}>
+                    hello@drizzlwellness.com
+                  </a>.
                 </p>
               </div>
             </AnimatedSection>
