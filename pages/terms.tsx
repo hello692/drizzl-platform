@@ -24,7 +24,7 @@ export default function TermsOfService() {
                 marginBottom: '12px',
                 display: 'block',
               }}>
-                LEGAL
+                THE RULES OF ENGAGEMENT
               </span>
               <h1 style={{
                 fontSize: 'clamp(2rem, 5vw, 3rem)',
@@ -48,30 +48,14 @@ export default function TermsOfService() {
           <div style={{ color: 'var(--color-text-secondary)', lineHeight: 1.8 }}>
             <AnimatedSection animation="fadeUp" delay={100}>
               <div style={{ marginBottom: '32px' }}>
-                <p style={{ marginBottom: '16px' }}>
-                  These Terms of Service ("Terms") govern your access to and use of the websites, mobile applications, digital platforms, content, products, subscriptions, and services operated by Drizzl Wellness, Inc., a brand operated by Plantonica Inc., together with its subsidiaries and affiliates (collectively, "Drizzl Wellness," "we," "us," or "our").
+                <p style={{ marginBottom: '16px', fontSize: '1.1em', color: '#ffffff' }}>
+                  Welcome to the inner circle.
                 </p>
-                <div style={{
-                  background: 'rgba(255, 255, 255, 0.03)',
-                  padding: '20px',
-                  borderRadius: '8px',
-                  marginBottom: '16px',
-                  border: '1px solid rgba(255, 255, 255, 0.06)',
-                }}>
-                  <p style={{ marginBottom: '12px' }}>
-                    <strong style={{ color: '#ffffff' }}>Corporate Address:</strong><br />
-                    Plantonica Inc.<br />
-                    1395 Brickell Avenue<br />
-                    Miami, FL 33131 USA
-                  </p>
-                  <p style={{ margin: 0 }}>
-                    <strong style={{ color: '#ffffff' }}>Official Support Contacts:</strong><br />
-                    hello@drizzlwellness.com<br />
-                    hello@plantonica.com
-                  </p>
-                </div>
+                <p style={{ marginBottom: '16px' }}>
+                  These Terms govern your relationship with Drizzl Wellness (operated by Plantonica Inc.). By accessing our site, sipping our smoothies, or joining the club, you're agreeing to do business our way.
+                </p>
                 <p style={{ fontStyle: 'italic' }}>
-                  By accessing, browsing, purchasing from, or using any part of the Services, you legally agree to be bound by these Terms.
+                  If you don't agree with these terms, we can't be together. Please discontinue use immediately.
                 </p>
               </div>
             </AnimatedSection>
@@ -79,12 +63,14 @@ export default function TermsOfService() {
             <AnimatedSection animation="fadeUp" delay={150}>
               <div style={{ marginBottom: '32px' }}>
                 <h2 style={{ fontSize: 'var(--fs-h4)', fontWeight: 500, color: '#ffffff', marginBottom: '16px' }}>
-                  1. Legal Age, Capacity & Household Use
+                  1. Who Can Join (The Guest List)
                 </h2>
+                <p style={{ marginBottom: '16px' }}>
+                  To play with us, you must be at least 18 years old.
+                </p>
                 <ul style={{ paddingLeft: '20px', marginBottom: '16px' }}>
-                  <li style={{ marginBottom: '8px' }}>You must be at least 18 years of age to use the Services or purchase any Products.</li>
-                  <li style={{ marginBottom: '8px' }}>If you purchase Products for others in your household, you confirm that you have authority to accept these Terms on their behalf, including the binding arbitration and class-action waiver.</li>
-                  <li>If you use the Services on behalf of a business entity, you represent that you are authorized to bind that entity.</li>
+                  <li style={{ marginBottom: '8px' }}><strong style={{ color: '#ffffff' }}>Household Use:</strong> If you're buying for your household, you represent that you have the authority to bind everyone under your roof to these terms.</li>
+                  <li><strong style={{ color: '#ffffff' }}>Business Use:</strong> If you're buying for a business, you confirm you are authorized to make these decisions for the company.</li>
                 </ul>
               </div>
             </AnimatedSection>
@@ -92,42 +78,21 @@ export default function TermsOfService() {
             <AnimatedSection animation="fadeUp" delay={200}>
               <div style={{ marginBottom: '32px' }}>
                 <h2 style={{ fontSize: 'var(--fs-h4)', fontWeight: 500, color: '#ffffff', marginBottom: '16px' }}>
-                  2. Age-Restricted Supplement Commerce
+                  2. Supplement Safety (Know Your Body)
                 </h2>
-                <p style={{ marginBottom: '12px' }}>
-                  Certain Products offered by Drizzl Wellness may be classified as dietary supplements. By purchasing supplements, you expressly certify:
+                <p style={{ marginBottom: '16px' }}>
+                  We sell potent wellness products. By purchasing our supplements, you promise us that:
                 </p>
-                <ul style={{ paddingLeft: '20px', marginBottom: '16px' }}>
-                  <li style={{ marginBottom: '8px' }}>You are at least 18 years old</li>
-                  <li style={{ marginBottom: '8px' }}>You are not pregnant or nursing</li>
-                  <li style={{ marginBottom: '8px' }}>You have no medical condition that would make consumption unsafe</li>
-                  <li style={{ marginBottom: '8px' }}>You understand supplements are not intended to diagnose, treat, cure, or prevent disease</li>
-                  <li>You have consulted a licensed healthcare professional if you have any uncertainty</li>
+                <ul style={{ paddingLeft: '20px' }}>
+                  <li style={{ marginBottom: '8px' }}>You are 18+.</li>
+                  <li style={{ marginBottom: '8px' }}>You are not pregnant or nursing (or have consulted a doctor first).</li>
+                  <li style={{ marginBottom: '8px' }}>You don't have medical conditions that make these ingredients unsafe.</li>
+                  <li>You understand these products are not intended to diagnose, treat, cure, or prevent disease.</li>
                 </ul>
-                <p>
-                  Drizzl Wellness reserves the right to refuse, cancel, or restrict supplement sales at its sole discretion.
-                </p>
               </div>
             </AnimatedSection>
 
             <AnimatedSection animation="fadeUp" delay={250}>
-              <div style={{ marginBottom: '32px' }}>
-                <h2 style={{ fontSize: 'var(--fs-h4)', fontWeight: 500, color: '#ffffff', marginBottom: '16px' }}>
-                  3. Incorporated Policies
-                </h2>
-                <p style={{ marginBottom: '12px' }}>
-                  These Terms incorporate by reference:
-                </p>
-                <ul style={{ paddingLeft: '20px' }}>
-                  <li style={{ marginBottom: '8px' }}>Our Privacy Policy</li>
-                  <li style={{ marginBottom: '8px' }}>Our Cookie Policy</li>
-                  <li style={{ marginBottom: '8px' }}>Subscription, referral, promotional, loyalty, and gift card terms</li>
-                  <li>Any policies displayed during checkout or digital use</li>
-                </ul>
-              </div>
-            </AnimatedSection>
-
-            <AnimatedSection animation="fadeUp" delay={300}>
               <div style={{
                 marginBottom: '32px',
                 background: 'rgba(255, 200, 100, 0.05)',
@@ -136,127 +101,124 @@ export default function TermsOfService() {
                 border: '1px solid rgba(255, 200, 100, 0.1)',
               }}>
                 <h2 style={{ fontSize: 'var(--fs-h4)', fontWeight: 500, color: '#ffffff', marginBottom: '16px' }}>
-                  4. Binding Arbitration & Class Action Waiver
+                  3. Binding Arbitration (Let's Keep It Civil)
                 </h2>
                 <p style={{ marginBottom: '16px', fontWeight: 600, color: '#ffffff' }}>
-                  ALL DISPUTES MUST BE RESOLVED BY INDIVIDUAL BINDING ARBITRATION, NOT IN COURT.
+                  IMPORTANT: We believe in resolving issues efficiently.
                 </p>
-                <ul style={{ paddingLeft: '20px', marginBottom: '16px' }}>
-                  <li style={{ marginBottom: '8px' }}>Administered by JAMS</li>
-                  <li style={{ marginBottom: '8px' }}>Governed by the Federal Arbitration Act</li>
-                  <li style={{ marginBottom: '8px' }}>No class actions</li>
-                  <li style={{ marginBottom: '8px' }}>No jury trials</li>
-                  <li>30-day right to opt-out by mailing written notice to: Plantonica Inc., 1395 Brickell Avenue, Miami, FL 33131 USA</li>
+                <p style={{ marginBottom: '16px' }}>
+                  By using Drizzl Wellness, you agree that all disputes will be resolved by individual binding arbitration administered by JAMS, not in court.
+                </p>
+                <ul style={{ paddingLeft: '20px' }}>
+                  <li style={{ marginBottom: '8px' }}><strong style={{ color: '#ffffff' }}>No Judge or Jury:</strong> An arbitrator will decide.</li>
+                  <li style={{ marginBottom: '8px' }}><strong style={{ color: '#ffffff' }}>No Class Actions:</strong> We handle things one-on-one.</li>
+                  <li><strong style={{ color: '#ffffff' }}>Opt-Out:</strong> You have 30 days to opt-out by writing to us at: Plantonica Inc., 1395 Brickell Avenue, Miami, FL 33131 USA.</li>
                 </ul>
+              </div>
+            </AnimatedSection>
+
+            <AnimatedSection animation="fadeUp" delay={300}>
+              <div style={{ marginBottom: '32px' }}>
+                <h2 style={{ fontSize: 'var(--fs-h4)', fontWeight: 500, color: '#ffffff', marginBottom: '16px' }}>
+                  4. What We Offer
+                </h2>
+                <p>
+                  We provide premium frozen plant-based smoothies, functional beverages, and wellness content. We deliver them to your door. We reserve the right to change our menu, pricing, or services at any time. Evolution is natural.
+                </p>
               </div>
             </AnimatedSection>
 
             <AnimatedSection animation="fadeUp" delay={350}>
               <div style={{ marginBottom: '32px' }}>
                 <h2 style={{ fontSize: 'var(--fs-h4)', fontWeight: 500, color: '#ffffff', marginBottom: '16px' }}>
-                  5. Modifications
+                  5. Money Matters (Billing & Subscriptions)
                 </h2>
-                <p>
-                  We may update these Terms at any time. Continued use constitutes acceptance. If you do not agree, you must discontinue use immediately.
-                </p>
+                <ul style={{ paddingLeft: '20px' }}>
+                  <li style={{ marginBottom: '8px' }}><strong style={{ color: '#ffffff' }}>Subscriptions:</strong> If you subscribe, you authorize us to charge you automatically until you cancel. It's a relationship, but you can leave anytime.</li>
+                  <li><strong style={{ color: '#ffffff' }}>Payments:</strong> Prices, taxes, and shipping are subject to change. If a payment fails, we may pause your shipments.</li>
+                </ul>
               </div>
             </AnimatedSection>
 
             <AnimatedSection animation="fadeUp" delay={400}>
               <div style={{ marginBottom: '32px' }}>
                 <h2 style={{ fontSize: 'var(--fs-h4)', fontWeight: 500, color: '#ffffff', marginBottom: '16px' }}>
-                  6. Description of Services
+                  6. Handle with Care (Shipping & Safety)
                 </h2>
-                <p style={{ marginBottom: '12px' }}>
-                  Drizzl Wellness provides:
+                <p style={{ marginBottom: '16px' }}>
+                  Our products arrive frozen.
                 </p>
-                <ul style={{ paddingLeft: '20px', marginBottom: '16px' }}>
-                  <li style={{ marginBottom: '8px' }}>Frozen plant-based smoothies</li>
-                  <li style={{ marginBottom: '8px' }}>Functional wellness beverages</li>
-                  <li style={{ marginBottom: '8px' }}>Dietary supplements</li>
-                  <li style={{ marginBottom: '8px' }}>One-time and subscription purchases</li>
-                  <li style={{ marginBottom: '8px' }}>Digital nutritional content and education</li>
-                  <li>Home delivery fulfillment</li>
+                <ul style={{ paddingLeft: '20px' }}>
+                  <li style={{ marginBottom: '8px' }}><strong style={{ color: '#ffffff' }}>Dry Ice Warning:</strong> Your box may contain dry ice. It is -109°F. Do not touch it with bare hands.</li>
+                  <li style={{ marginBottom: '8px' }}><strong style={{ color: '#ffffff' }}>Storage:</strong> Move your cups to the freezer immediately.</li>
+                  <li><strong style={{ color: '#ffffff' }}>Allergens:</strong> We use nuts, seeds, and soy in our facility. Cross-contact may occur. You are responsible for reading labels and managing your own allergies.</li>
                 </ul>
-                <p>
-                  We may modify, substitute, or discontinue Products or Services at any time.
-                </p>
               </div>
             </AnimatedSection>
 
             <AnimatedSection animation="fadeUp" delay={450}>
               <div style={{ marginBottom: '32px' }}>
                 <h2 style={{ fontSize: 'var(--fs-h4)', fontWeight: 500, color: '#ffffff', marginBottom: '16px' }}>
-                  7. Account Responsibility & Security
+                  7. Intellectual Property (Don't Steal Our Glow)
                 </h2>
-                <p style={{ marginBottom: '12px' }}>
-                  You are responsible for:
+                <p>
+                  Everything you see—our recipes, branding, logos, and vibe—belongs to Drizzl Wellness or our licensors. You can look, buy, and share on social, but you cannot copy or use our assets for commercial purposes without permission.
                 </p>
-                <ul style={{ paddingLeft: '20px' }}>
-                  <li style={{ marginBottom: '8px' }}>Safeguarding login credentials</li>
-                  <li style={{ marginBottom: '8px' }}>All account activity</li>
-                  <li>Immediately reporting unauthorized use</li>
-                </ul>
               </div>
             </AnimatedSection>
 
             <AnimatedSection animation="fadeUp" delay={500}>
               <div style={{ marginBottom: '32px' }}>
                 <h2 style={{ fontSize: 'var(--fs-h4)', fontWeight: 500, color: '#ffffff', marginBottom: '16px' }}>
-                  8. Electronic & SMS Communications
+                  8. User Content
                 </h2>
-                <p style={{ marginBottom: '12px' }}>
-                  You consent to receive:
-                </p>
-                <ul style={{ paddingLeft: '20px', marginBottom: '16px' }}>
-                  <li style={{ marginBottom: '8px' }}>Transactional emails</li>
-                  <li style={{ marginBottom: '8px' }}>Account notices</li>
-                  <li style={{ marginBottom: '8px' }}>Support communications</li>
-                  <li style={{ marginBottom: '8px' }}>Promotional communications (opt-out available)</li>
-                  <li>SMS alerts (message rates may apply)</li>
-                </ul>
                 <p>
-                  Reply STOP at any time to opt-out of SMS.
+                  If you send us feedback, photos, or love letters, you grant us a perpetual, worldwide license to use that content. We love showing you off.
                 </p>
               </div>
             </AnimatedSection>
 
             <AnimatedSection animation="fadeUp" delay={550}>
-              <div style={{ marginBottom: '32px' }}>
+              <div style={{
+                marginBottom: '32px',
+                background: 'rgba(255, 200, 100, 0.05)',
+                padding: '20px',
+                borderRadius: '8px',
+                border: '1px solid rgba(255, 200, 100, 0.1)',
+              }}>
                 <h2 style={{ fontSize: 'var(--fs-h4)', fontWeight: 500, color: '#ffffff', marginBottom: '16px' }}>
-                  9. Purchases, Subscriptions & Billing
+                  9. The "As Is" Clause (Disclaimers)
                 </h2>
-                <ul style={{ paddingLeft: '20px' }}>
-                  <li style={{ marginBottom: '8px' }}>Subscriptions renew automatically unless canceled</li>
-                  <li style={{ marginBottom: '8px' }}>You authorize recurring billing</li>
-                  <li style={{ marginBottom: '8px' }}>Prices, taxes, shipping, and availability may change</li>
-                  <li>Failed payments may result in suspension or cancellation</li>
-                </ul>
+                <p style={{ marginBottom: '16px' }}>
+                  We strive for perfection, but legally, we must state:
+                </p>
+                <p style={{ marginBottom: '16px', fontWeight: 600, color: '#ffffff' }}>
+                  Our services and products are provided "As Is" and "As Available."
+                </p>
+                <p>
+                  We disclaim warranties of merchantability, fitness for a particular purpose, and non-infringement. Our content is for educational purposes and is not medical advice.
+                </p>
               </div>
             </AnimatedSection>
 
             <AnimatedSection animation="fadeUp" delay={600}>
               <div style={{ marginBottom: '32px' }}>
                 <h2 style={{ fontSize: 'var(--fs-h4)', fontWeight: 500, color: '#ffffff', marginBottom: '16px' }}>
-                  10. Shipping, Delivery & Food Safety
+                  10. Limitation of Liability
                 </h2>
-                <ul style={{ paddingLeft: '20px' }}>
-                  <li style={{ marginBottom: '8px' }}>Products ship frozen</li>
-                  <li style={{ marginBottom: '8px' }}>Must be stored below 0°F immediately upon delivery</li>
-                  <li style={{ marginBottom: '8px' }}>Products may contain allergens and cross-contact may occur</li>
-                  <li style={{ marginBottom: '8px' }}>Dry ice is hazardous and must not be handled directly</li>
-                  <li>You assume full responsibility for preparation, storage, and consumption</li>
-                </ul>
+                <p>
+                  To the maximum extent permitted by law, we are not liable for indirect or consequential damages. Our total liability is limited to the greater of $250 or what you paid us in the last 30 days.
+                </p>
               </div>
             </AnimatedSection>
 
             <AnimatedSection animation="fadeUp" delay={650}>
               <div style={{ marginBottom: '32px' }}>
                 <h2 style={{ fontSize: 'var(--fs-h4)', fontWeight: 500, color: '#ffffff', marginBottom: '16px' }}>
-                  11. No Resale
+                  11. Indemnification
                 </h2>
                 <p>
-                  Products are for personal use only. Commercial resale is prohibited.
+                  You agree to hold Drizzl Wellness and Plantonica Inc. harmless from claims arising from your use of our products, your account activity, or your violation of these terms.
                 </p>
               </div>
             </AnimatedSection>
@@ -264,120 +226,15 @@ export default function TermsOfService() {
             <AnimatedSection animation="fadeUp" delay={700}>
               <div style={{ marginBottom: '32px' }}>
                 <h2 style={{ fontSize: 'var(--fs-h4)', fontWeight: 500, color: '#ffffff', marginBottom: '16px' }}>
-                  12. Returns & Accommodations
+                  12. Governing Law
                 </h2>
                 <p>
-                  All accommodations are issued at our sole discretion. Contact: hello@drizzlwellness.com
+                  These terms are governed by the Federal Arbitration Act and the laws of the State of New York.
                 </p>
               </div>
             </AnimatedSection>
 
             <AnimatedSection animation="fadeUp" delay={750}>
-              <div style={{ marginBottom: '32px' }}>
-                <h2 style={{ fontSize: 'var(--fs-h4)', fontWeight: 500, color: '#ffffff', marginBottom: '16px' }}>
-                  13. Intellectual Property
-                </h2>
-                <p style={{ marginBottom: '12px' }}>
-                  All branding, logos, designs, recipes, software, visuals, text, and trademarks are the exclusive property of Drizzl Wellness or its licensors.
-                </p>
-                <p>
-                  Unauthorized use is prohibited.
-                </p>
-              </div>
-            </AnimatedSection>
-
-            <AnimatedSection animation="fadeUp" delay={800}>
-              <div style={{ marginBottom: '32px' }}>
-                <h2 style={{ fontSize: 'var(--fs-h4)', fontWeight: 500, color: '#ffffff', marginBottom: '16px' }}>
-                  14. User Content & Feedback
-                </h2>
-                <p>
-                  You grant Drizzl Wellness a perpetual, irrevocable, royalty-free, fully sublicensable worldwide license to use all content and feedback you submit for any purpose.
-                </p>
-              </div>
-            </AnimatedSection>
-
-            <AnimatedSection animation="fadeUp" delay={850}>
-              <div style={{
-                marginBottom: '32px',
-                background: 'rgba(255, 200, 100, 0.05)',
-                padding: '20px',
-                borderRadius: '8px',
-                border: '1px solid rgba(255, 200, 100, 0.1)',
-              }}>
-                <h2 style={{ fontSize: 'var(--fs-h4)', fontWeight: 500, color: '#ffffff', marginBottom: '16px' }}>
-                  15. Global Disclaimers (Food + Supplements)
-                </h2>
-                <p style={{ marginBottom: '16px', fontWeight: 600, color: '#ffffff' }}>
-                  ALL PRODUCTS AND SERVICES ARE PROVIDED "AS IS" AND "AS AVAILABLE."
-                </p>
-                <p style={{ marginBottom: '12px' }}>
-                  We disclaim all warranties including:
-                </p>
-                <ul style={{ paddingLeft: '20px', marginBottom: '16px' }}>
-                  <li style={{ marginBottom: '8px' }}>MERCHANTABILITY</li>
-                  <li style={{ marginBottom: '8px' }}>FITNESS FOR A PARTICULAR PURPOSE</li>
-                  <li>NON-INFRINGEMENT</li>
-                </ul>
-                <p>
-                  Nutritional and supplement information is for informational purposes only and does not constitute medical advice.
-                </p>
-              </div>
-            </AnimatedSection>
-
-            <AnimatedSection animation="fadeUp" delay={900}>
-              <div style={{
-                marginBottom: '32px',
-                background: 'rgba(255, 200, 100, 0.05)',
-                padding: '20px',
-                borderRadius: '8px',
-                border: '1px solid rgba(255, 200, 100, 0.1)',
-              }}>
-                <h2 style={{ fontSize: 'var(--fs-h4)', fontWeight: 500, color: '#ffffff', marginBottom: '16px' }}>
-                  16. Limitation of Liability
-                </h2>
-                <p style={{ marginBottom: '12px', fontWeight: 600, color: '#ffffff' }}>
-                  TO THE MAXIMUM EXTENT PERMITTED BY LAW:
-                </p>
-                <ul style={{ paddingLeft: '20px' }}>
-                  <li style={{ marginBottom: '8px' }}>We are not liable for any indirect, incidental, consequential, special, exemplary, or punitive damages</li>
-                  <li style={{ marginBottom: '8px' }}>Total liability shall not exceed the greater of $250 or the amount paid in the prior 30 days</li>
-                  <li>You waive all rights under California Civil Code §1542</li>
-                </ul>
-              </div>
-            </AnimatedSection>
-
-            <AnimatedSection animation="fadeUp" delay={950}>
-              <div style={{ marginBottom: '32px' }}>
-                <h2 style={{ fontSize: 'var(--fs-h4)', fontWeight: 500, color: '#ffffff', marginBottom: '16px' }}>
-                  17. Indemnification
-                </h2>
-                <p style={{ marginBottom: '12px' }}>
-                  You agree to indemnify and hold harmless Drizzl Wellness and Plantonica Inc. from all claims arising from:
-                </p>
-                <ul style={{ paddingLeft: '20px' }}>
-                  <li style={{ marginBottom: '8px' }}>Product misuse</li>
-                  <li style={{ marginBottom: '8px' }}>Account use</li>
-                  <li style={{ marginBottom: '8px' }}>Violations of law</li>
-                  <li>User content submissions</li>
-                </ul>
-              </div>
-            </AnimatedSection>
-
-            <AnimatedSection animation="fadeUp" delay={1000}>
-              <div style={{ marginBottom: '32px' }}>
-                <h2 style={{ fontSize: 'var(--fs-h4)', fontWeight: 500, color: '#ffffff', marginBottom: '16px' }}>
-                  18. Governing Law & Venue
-                </h2>
-                <ul style={{ paddingLeft: '20px' }}>
-                  <li style={{ marginBottom: '8px' }}>Governed by the Federal Arbitration Act</li>
-                  <li style={{ marginBottom: '8px' }}>Substantive law: State of New York</li>
-                  <li>Venue for non-arbitrable claims: New York County, NY</li>
-                </ul>
-              </div>
-            </AnimatedSection>
-
-            <AnimatedSection animation="fadeUp" delay={1050}>
               <div style={{
                 marginBottom: '32px',
                 borderTop: '1px solid rgba(255, 255, 255, 0.1)',
@@ -386,29 +243,36 @@ export default function TermsOfService() {
                 <h2 style={{ fontSize: 'var(--fs-h3)', fontWeight: 500, color: '#ffffff', marginBottom: '16px' }}>
                   Cookie Policy
                 </h2>
-                <p style={{ marginBottom: '12px' }}>
-                  Drizzl Wellness uses cookies and similar technologies to:
-                </p>
-                <ul style={{ paddingLeft: '20px', marginBottom: '16px' }}>
-                  <li style={{ marginBottom: '8px' }}>Operate and secure the website</li>
-                  <li style={{ marginBottom: '8px' }}>Enhance user experience</li>
-                  <li style={{ marginBottom: '8px' }}>Perform analytics and performance tracking</li>
-                  <li>Support marketing and personalization</li>
-                </ul>
                 <p>
-                  You can manage cookie preferences through your browser settings. Note that disabling certain cookies may limit functionality.
+                  We use cookies to make our site work smoothly, remember your preferences, and show you things you actually like. You can manage these in your browser settings, but turning them off might kill the vibe (and site functionality).
                 </p>
               </div>
             </AnimatedSection>
 
-            <AnimatedSection animation="fadeUp" delay={1100}>
+            <AnimatedSection animation="fadeUp" delay={800}>
               <div style={{ marginBottom: '32px' }}>
                 <h2 style={{ fontSize: 'var(--fs-h4)', fontWeight: 500, color: '#ffffff', marginBottom: '16px' }}>
                   Contact Us
                 </h2>
-                <p>
-                  If you have any questions about these Terms of Service, please contact us at hello@drizzlwellness.com.
+                <p style={{ marginBottom: '16px' }}>
+                  Questions? We're here for you.
                 </p>
+                <div style={{
+                  background: 'rgba(255, 255, 255, 0.03)',
+                  padding: '20px',
+                  borderRadius: '8px',
+                  border: '1px solid rgba(255, 255, 255, 0.06)',
+                }}>
+                  <p style={{ marginBottom: '8px' }}>
+                    <strong style={{ color: '#ffffff' }}>Email:</strong>{' '}
+                    <a href="mailto:hello@drizzlwellness.com" style={{ color: '#ffffff', textDecoration: 'underline' }}>
+                      hello@drizzlwellness.com
+                    </a>
+                  </p>
+                  <p style={{ margin: 0 }}>
+                    <strong style={{ color: '#ffffff' }}>Address:</strong> Plantonica Inc., 1395 Brickell Avenue, Miami, FL 33131 USA
+                  </p>
+                </div>
               </div>
             </AnimatedSection>
           </div>
