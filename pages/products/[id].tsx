@@ -60,6 +60,7 @@ interface ProductData {
   nutrition: { label: string; value: string }[] | EnhancedNutrition;
   keyIngredients: { name: string; benefit: string; image: string }[];
   badges: string[];
+  heroVideo?: string;
 }
 
 const DEFAULT_LIFESTYLE_GALLERY = [
@@ -507,6 +508,7 @@ const PRODUCT_DATA: Record<string, ProductData> = {
     shortDescription: 'The Amazon in a Cup',
     tagline: 'The Amazon in a Cup',
     rating: { average: 4.9, count: 5234 },
+    heroVideo: '/videos/acai-video.mp4',
     gallery: [
       '/products/acai/Acai-1.png',
       '/products/acai/Acai-2.png',
@@ -994,13 +996,27 @@ export default function ProductPage() {
       <div className="lv-product-main">
         {/* Left Column - Vertical Scrolling Image Gallery */}
         <div className="lv-product-gallery">
-          {productData.gallery.slice(0, 8).map((img, index) => (
+          {productData.heroVideo && (
+            <div className="lv-gallery-image-wrapper">
+              <video
+                autoPlay
+                muted
+                loop
+                playsInline
+                className="lv-gallery-image"
+                style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+              >
+                <source src={productData.heroVideo} type="video/mp4" />
+              </video>
+            </div>
+          )}
+          {productData.gallery.slice(0, productData.heroVideo ? 7 : 8).map((img, index) => (
             <div key={index} className="lv-gallery-image-wrapper">
               <img
                 src={img}
                 alt={`${productData.name} - View ${index + 1}`}
                 className="lv-gallery-image"
-                loading={index === 0 ? "eager" : "lazy"}
+                loading={index === 0 && !productData.heroVideo ? "eager" : "lazy"}
               />
             </div>
           ))}
