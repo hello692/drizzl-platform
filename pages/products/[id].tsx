@@ -1015,7 +1015,6 @@ export default function ProductPage() {
                 loop
                 playsInline
                 className="lv-gallery-image"
-                style={{ width: '100%', height: '100%', objectFit: 'contain' }}
               >
                 <source src={productData.heroVideo} type="video/mp4" />
               </video>
