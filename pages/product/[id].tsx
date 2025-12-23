@@ -540,25 +540,14 @@ export default function ProductDetail() {
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
+    if (!product?.heroVideo || currentImageIndex !== 0) return;
+    
     const video = videoRef.current;
     if (!video) return;
 
     video.muted = true;
-    
-    const attemptPlay = () => {
-      video.play().catch(() => {
-        const retryPlay = () => {
-          video.play();
-          document.removeEventListener('click', retryPlay);
-          document.removeEventListener('touchstart', retryPlay);
-        };
-        document.addEventListener('click', retryPlay, { once: true });
-        document.addEventListener('touchstart', retryPlay, { once: true });
-      });
-    };
-
-    attemptPlay();
-  }, [currentImageIndex]);
+    video.play().catch(() => {});
+  }, [product, currentImageIndex]);
 
   if (!product) {
     return (
@@ -636,41 +625,28 @@ export default function ProductDetail() {
                 onMouseLeave={() => product.hoverImage && setIsMainImageHovered(false)}
               >
                 {product.heroVideo && currentImageIndex === 0 ? (
-                  <div style={{ position: 'relative', display: 'inline-block', width: '100%', height: '100%' }}>
-                    <img
-                      src={product.heroImage || product.images[0]}
-                      alt={product.name}
-                      style={{
-                        visibility: 'hidden',
-                        display: 'block',
-                        width: '100%',
-                        height: '100%',
-                        objectFit: 'contain',
-                      }}
-                    />
-                    <video
-                      ref={videoRef}
-                      autoPlay
-                      loop
-                      muted
-                      playsInline
-                      preload="auto"
-                      disablePictureInPicture
-                      poster={product.heroImage || product.images[0]}
-                      style={{
-                        position: 'absolute',
-                        top: 0,
-                        left: 0,
-                        width: '100%',
-                        height: '100%',
-                        objectFit: 'contain',
-                        objectPosition: 'center',
-                        pointerEvents: 'none',
-                      }}
-                    >
-                      <source src={product.heroVideo} type="video/mp4" />
-                    </video>
-                  </div>
+                  <video
+                    ref={videoRef}
+                    src={product.heroVideo}
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    preload="auto"
+                    poster={product.heroImage || product.images[0]}
+                    style={{
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'contain',
+                      objectPosition: 'center',
+                      background: '#1a1a1a',
+                    }}
+                    onLoadedData={(e) => {
+                      const video = e.currentTarget;
+                      video.muted = true;
+                      video.play().catch(() => {});
+                    }}
+                  />
                 ) : (
                   <img
                     src={
