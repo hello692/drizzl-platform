@@ -425,6 +425,7 @@ const smoothies: { [key: string]: any } = {
     badge: 'BEST SELLER',
     image: '/products/acai/Acai-TG-1.jpg',
     hoverImage: '/products/acai/Acai-TG-2.jpg',
+    heroVideo: '/videos/acai-video.mp4',
     images: [
       '/products/acai/Acai-TG-1.jpg',
       '/products/acai/Acai-TG-2.jpg',
@@ -611,21 +612,37 @@ export default function ProductDetail() {
                 onMouseEnter={() => product.hoverImage && setIsMainImageHovered(true)}
                 onMouseLeave={() => product.hoverImage && setIsMainImageHovered(false)}
               >
-                <img
-                  src={
-                    isMainImageHovered && product.hoverImage && currentImageIndex === 0
-                      ? product.hoverImage
-                      : (product.images ? product.images[currentImageIndex] : product.image)
-                  }
-                  alt={product.name}
-                  style={{
-                    width: '100%',
-                    height: '100%',
-                    objectFit: 'contain',
-                    transition: 'all 0.4s ease',
-                    transform: isMainImageHovered && currentImageIndex === 0 ? 'scale(1.02)' : 'scale(1)',
-                  }}
-                />
+                {product.heroVideo && currentImageIndex === 0 ? (
+                  <video
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    style={{
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'contain',
+                    }}
+                  >
+                    <source src={product.heroVideo} type="video/mp4" />
+                  </video>
+                ) : (
+                  <img
+                    src={
+                      isMainImageHovered && product.hoverImage && currentImageIndex === 0
+                        ? product.hoverImage
+                        : (product.images ? product.images[currentImageIndex] : product.image)
+                    }
+                    alt={product.name}
+                    style={{
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'contain',
+                      transition: 'all 0.4s ease',
+                      transform: isMainImageHovered && currentImageIndex === 0 ? 'scale(1.02)' : 'scale(1)',
+                    }}
+                  />
+                )}
                 
                 {/* Navigation Arrows */}
                 {product.images && product.images.length > 1 && (
