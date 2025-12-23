@@ -996,8 +996,19 @@ export default function ProductPage() {
       <div className="lv-product-main">
         {/* Left Column - Vertical Scrolling Image Gallery */}
         <div className="lv-product-gallery">
+          {productData.gallery.slice(0, 2).map((img, index) => (
+            <div key={`img-${index}`} className="lv-gallery-image-wrapper">
+              <img
+                src={img}
+                alt={`${productData.name} - View ${index + 1}`}
+                className="lv-gallery-image"
+                loading={index === 0 ? 'eager' : 'lazy'}
+              />
+            </div>
+          ))}
+
           {productData.heroVideo && (
-            <div className="lv-gallery-image-wrapper">
+            <div key="hero-video" className="lv-gallery-image-wrapper">
               <video
                 autoPlay
                 muted
@@ -1010,13 +1021,14 @@ export default function ProductPage() {
               </video>
             </div>
           )}
-          {productData.gallery.slice(0, productData.heroVideo ? 7 : 8).map((img, index) => (
-            <div key={index} className="lv-gallery-image-wrapper">
+
+          {productData.gallery.slice(2, 8).map((img, index) => (
+            <div key={`img-${index + 2}`} className="lv-gallery-image-wrapper">
               <img
                 src={img}
-                alt={`${productData.name} - View ${index + 1}`}
+                alt={`${productData.name} - View ${index + 3}`}
                 className="lv-gallery-image"
-                loading={index === 0 && !productData.heroVideo ? "eager" : "lazy"}
+                loading="lazy"
               />
             </div>
           ))}
