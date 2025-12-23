@@ -614,7 +614,7 @@ export default function ProductDetail() {
                 onMouseEnter={() => product.hoverImage && setIsMainImageHovered(true)}
                 onMouseLeave={() => product.hoverImage && setIsMainImageHovered(false)}
               >
-                {product.heroVideo && currentImageIndex === 0 ? (
+                {product.heroVideo && (
                   <video
                     ref={videoRef}
                     className="product-hero-video"
@@ -622,26 +622,36 @@ export default function ProductDetail() {
                     muted
                     loop
                     playsInline
-                  >
-                    <source src={product.heroVideo} type="video/mp4" />
-                  </video>
-                ) : (
-                  <img
-                    src={
-                      isMainImageHovered && product.hoverImage && currentImageIndex === 0
-                        ? product.hoverImage
-                        : (product.images ? product.images[currentImageIndex] : product.image)
-                    }
-                    alt={product.name}
                     style={{
+                      position: 'absolute',
+                      inset: 0,
                       width: '100%',
                       height: '100%',
                       objectFit: 'contain',
-                      transition: 'all 0.4s ease',
-                      transform: isMainImageHovered && currentImageIndex === 0 ? 'scale(1.02)' : 'scale(1)',
+                      zIndex: currentImageIndex === 0 ? 1 : 0,
+                      opacity: currentImageIndex === 0 ? 1 : 0,
+                      transition: 'opacity 0.3s ease',
                     }}
-                  />
+                  >
+                    <source src={product.heroVideo} type="video/mp4" />
+                  </video>
                 )}
+                <img
+                  src={
+                    isMainImageHovered && product.hoverImage && currentImageIndex === 0
+                      ? product.hoverImage
+                      : (product.images ? product.images[currentImageIndex] : product.image)
+                  }
+                  alt={product.name}
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'contain',
+                    transition: 'all 0.4s ease',
+                    transform: isMainImageHovered && currentImageIndex === 0 ? 'scale(1.02)' : 'scale(1)',
+                    opacity: product.heroVideo && currentImageIndex === 0 ? 0 : 1,
+                  }}
+                />
                 
                 {/* Navigation Arrows */}
                 {product.images && product.images.length > 1 && (
