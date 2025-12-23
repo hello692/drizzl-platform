@@ -1008,13 +1008,19 @@ export default function ProductPage() {
           ))}
 
           {productData.heroVideo && (
-            <div key="hero-video" className="lv-gallery-image-wrapper">
+            <div key="hero-video" className="lv-gallery-image-wrapper" style={{ 
+              display: 'flex', 
+              alignItems: 'center', 
+              justifyContent: 'center',
+              minHeight: '600px',
+            }}>
               <video
                 autoPlay
                 muted
                 loop
                 playsInline
                 className="lv-gallery-image"
+                style={{ maxHeight: '600px', width: 'auto', maxWidth: '100%' }}
               >
                 <source src={productData.heroVideo} type="video/mp4" />
               </video>
