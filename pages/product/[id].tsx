@@ -426,8 +426,9 @@ const smoothies: { [key: string]: any } = {
     image: '/products/acai/Acai-TG-1.jpg',
     hoverImage: '/products/acai/Acai-TG-2.jpg',
     heroVideo: '/videos/acai-video.mp4',
+    heroImage: '/products/acai/acai-drip.png',
     images: [
-      '/products/acai/Acai-TG-1.jpg',
+      '/products/acai/acai-drip.png',
       '/products/acai/Acai-TG-2.jpg',
       '/products/acai/Acai-TG-3.jpg',
       '/products/acai/DSC07934-1.jpg',
@@ -613,19 +614,37 @@ export default function ProductDetail() {
                 onMouseLeave={() => product.hoverImage && setIsMainImageHovered(false)}
               >
                 {product.heroVideo && currentImageIndex === 0 ? (
-                  <video
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                    style={{
-                      width: '100%',
-                      height: '100%',
-                      objectFit: 'contain',
-                    }}
-                  >
-                    <source src={product.heroVideo} type="video/mp4" />
-                  </video>
+                  <div style={{ position: 'relative', display: 'inline-block', width: '100%', height: '100%' }}>
+                    <img
+                      src={product.heroImage || product.images[0]}
+                      alt={product.name}
+                      style={{
+                        visibility: 'hidden',
+                        display: 'block',
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'contain',
+                      }}
+                    />
+                    <video
+                      autoPlay
+                      loop
+                      muted
+                      playsInline
+                      poster={product.heroImage || product.images[0]}
+                      style={{
+                        position: 'absolute',
+                        top: 0,
+                        left: 0,
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'contain',
+                        objectPosition: 'center',
+                      }}
+                    >
+                      <source src={product.heroVideo} type="video/mp4" />
+                    </video>
+                  </div>
                 ) : (
                   <img
                     src={
