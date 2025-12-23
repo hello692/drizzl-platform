@@ -1008,20 +1008,30 @@ export default function ProductPage() {
           ))}
 
           {productData.heroVideo && (
-            <div key="hero-video" className="lv-gallery-image-wrapper lv-gallery-video-wrapper">
-              <video
-                autoPlay
-                muted
-                loop
-                playsInline
-                className="lv-gallery-video"
-              >
-                <source src={productData.heroVideo} type="video/mp4" />
-              </video>
-            </div>
+            <>
+              <div key="hero-video" className="lv-gallery-image-wrapper lv-gallery-video-wrapper">
+                <video
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  className="lv-gallery-video"
+                >
+                  <source src={productData.heroVideo} type="video/mp4" />
+                </video>
+              </div>
+              <div key="hidden-ref-image" className="lv-gallery-image-wrapper" style={{ display: 'none' }}>
+                <img
+                  src={productData.gallery[2]}
+                  alt={`${productData.name} - Reference`}
+                  className="lv-gallery-image"
+                  loading="lazy"
+                />
+              </div>
+            </>
           )}
 
-          {productData.gallery.slice(2, 8).map((img, index) => (
+          {productData.gallery.slice(3, 8).map((img, index) => (
             <div key={`img-${index + 2}`} className="lv-gallery-image-wrapper">
               <img
                 src={img}
