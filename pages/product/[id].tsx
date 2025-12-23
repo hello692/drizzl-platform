@@ -425,7 +425,7 @@ const smoothies: { [key: string]: any } = {
     badge: 'BEST SELLER',
     image: '/products/acai/Acai-TG-1.jpg',
     hoverImage: '/products/acai/Acai-TG-2.jpg',
-    heroVideo: '/videos/acai-video.mp4',
+    heroVideo: '/videos/hero-video.mp4',
     heroImage: '/products/acai/acai-drip.png',
     images: [
       '/products/acai/acai-drip.png',
@@ -537,38 +537,7 @@ export default function ProductDetail() {
   const [relatedScrollPosition, setRelatedScrollPosition] = useState(0);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isMainImageHovered, setIsMainImageHovered] = useState(false);
-  const [showPlayButton, setShowPlayButton] = useState(false);
-  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
-
-  useEffect(() => {
-    if (!product?.heroVideo || currentImageIndex !== 0) return;
-    
-    const video = videoRef.current;
-    if (!video) return;
-
-    video.muted = true;
-    video.play()
-      .then(() => {
-        setIsVideoPlaying(true);
-        setShowPlayButton(false);
-      })
-      .catch(() => {
-        setShowPlayButton(true);
-      });
-  }, [product, currentImageIndex]);
-
-  const handlePlayClick = () => {
-    const video = videoRef.current;
-    if (!video) return;
-    video.muted = true;
-    video.play()
-      .then(() => {
-        setIsVideoPlaying(true);
-        setShowPlayButton(false);
-      })
-      .catch(() => {});
-  };
 
   if (!product) {
     return (
@@ -646,70 +615,16 @@ export default function ProductDetail() {
                 onMouseLeave={() => product.hoverImage && setIsMainImageHovered(false)}
               >
                 {product.heroVideo && currentImageIndex === 0 ? (
-                  <>
-                    <video
-                      ref={videoRef}
-                      src={product.heroVideo}
-                      autoPlay
-                      loop
-                      muted
-                      playsInline
-                      preload="auto"
-                      poster={product.heroImage || product.images[0]}
-                      style={{
-                        width: '100%',
-                        height: '100%',
-                        objectFit: 'contain',
-                        objectPosition: 'center',
-                        background: '#1a1a1a',
-                      }}
-                      onLoadedData={(e) => {
-                        const video = e.currentTarget;
-                        video.muted = true;
-                        video.play()
-                          .then(() => {
-                            setIsVideoPlaying(true);
-                            setShowPlayButton(false);
-                          })
-                          .catch(() => {
-                            setShowPlayButton(true);
-                          });
-                      }}
-                    />
-                    {showPlayButton && !isVideoPlaying && (
-                      <button
-                        onClick={handlePlayClick}
-                        style={{
-                          position: 'absolute',
-                          top: '50%',
-                          left: '50%',
-                          transform: 'translate(-50%, -50%)',
-                          width: '80px',
-                          height: '80px',
-                          borderRadius: '50%',
-                          background: 'rgba(255, 255, 255, 0.95)',
-                          border: 'none',
-                          cursor: 'pointer',
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          zIndex: 20,
-                          boxShadow: '0 4px 20px rgba(0, 0, 0, 0.3)',
-                          transition: 'transform 0.2s ease, background 0.2s ease',
-                        }}
-                        onMouseEnter={(e) => {
-                          e.currentTarget.style.transform = 'translate(-50%, -50%) scale(1.1)';
-                        }}
-                        onMouseLeave={(e) => {
-                          e.currentTarget.style.transform = 'translate(-50%, -50%)';
-                        }}
-                      >
-                        <svg width="32" height="32" viewBox="0 0 24 24" fill="#000">
-                          <path d="M8 5v14l11-7z"/>
-                        </svg>
-                      </button>
-                    )}
-                  </>
+                  <video
+                    ref={videoRef}
+                    className="product-hero-video"
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                  >
+                    <source src={product.heroVideo} type="video/mp4" />
+                  </video>
                 ) : (
                   <img
                     src={
