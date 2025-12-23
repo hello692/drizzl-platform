@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 import Link from 'next/link';
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 
@@ -537,8 +537,28 @@ export default function ProductDetail() {
   const [relatedScrollPosition, setRelatedScrollPosition] = useState(0);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isMainImageHovered, setIsMainImageHovered] = useState(false);
-  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    video.muted = true;
+    
+    const attemptPlay = () => {
+      video.play().catch(() => {
+        const retryPlay = () => {
+          video.play();
+          document.removeEventListener('click', retryPlay);
+          document.removeEventListener('touchstart', retryPlay);
+        };
+        document.addEventListener('click', retryPlay, { once: true });
+        document.addEventListener('touchstart', retryPlay, { once: true });
+      });
+    };
+
+    attemptPlay();
+  }, [currentImageIndex]);
 
   if (!product) {
     return (
@@ -616,20 +636,7 @@ export default function ProductDetail() {
                 onMouseLeave={() => product.hoverImage && setIsMainImageHovered(false)}
               >
                 {product.heroVideo && currentImageIndex === 0 ? (
-                  <div 
-                    style={{ position: 'relative', display: 'inline-block', width: '100%', height: '100%', cursor: 'pointer' }}
-                    onClick={() => {
-                      if (videoRef.current) {
-                        if (isVideoPlaying) {
-                          videoRef.current.pause();
-                          setIsVideoPlaying(false);
-                        } else {
-                          videoRef.current.play();
-                          setIsVideoPlaying(true);
-                        }
-                      }
-                    }}
-                  >
+                  <div style={{ position: 'relative', display: 'inline-block', width: '100%', height: '100%' }}>
                     <img
                       src={product.heroImage || product.images[0]}
                       alt={product.name}
@@ -647,9 +654,9 @@ export default function ProductDetail() {
                       loop
                       muted
                       playsInline
+                      preload="auto"
+                      disablePictureInPicture
                       poster={product.heroImage || product.images[0]}
-                      onPlay={() => setIsVideoPlaying(true)}
-                      onPause={() => setIsVideoPlaying(false)}
                       style={{
                         position: 'absolute',
                         top: 0,
@@ -658,31 +665,11 @@ export default function ProductDetail() {
                         height: '100%',
                         objectFit: 'contain',
                         objectPosition: 'center',
+                        pointerEvents: 'none',
                       }}
                     >
                       <source src={product.heroVideo} type="video/mp4" />
                     </video>
-                    {!isVideoPlaying && (
-                      <div style={{
-                        position: 'absolute',
-                        top: '50%',
-                        left: '50%',
-                        transform: 'translate(-50%, -50%)',
-                        width: '80px',
-                        height: '80px',
-                        background: 'rgba(0, 0, 0, 0.6)',
-                        borderRadius: '50%',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        zIndex: 10,
-                        transition: 'all 0.3s ease',
-                      }}>
-                        <svg width="32" height="32" viewBox="0 0 24 24" fill="white">
-                          <path d="M8 5v14l11-7z"/>
-                        </svg>
-                      </div>
-                    )}
                   </div>
                 ) : (
                   <img
