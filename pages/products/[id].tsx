@@ -328,6 +328,7 @@ const PRODUCT_DATA: Record<string, ProductData> = {
     shortDescription: 'Good Morning, Gorgeous',
     tagline: 'Good Morning, Gorgeous',
     rating: { average: 4.6, count: 1893 },
+    heroVideo: '/videos/coffee-mushroom-video.mp4',
     gallery: [
       '/products/mushroom-coffee/Coffr Mushroom-TG-1.png',
       '/products/mushroom-coffee/Coffr Mushroom-TG-2.png',
