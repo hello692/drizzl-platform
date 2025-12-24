@@ -449,6 +449,7 @@ const PRODUCT_DATA: Record<string, ProductData> = {
     shortDescription: 'Love at First Sip',
     tagline: 'Love at First Sip',
     rating: { average: 4.7, count: 1876 },
+    heroVideo: '/videos/almond-video.mp4',
     gallery: [
       '/products/almond/Almond-1.png',
       '/products/almond/Almond-2.png',
