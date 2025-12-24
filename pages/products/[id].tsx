@@ -391,6 +391,7 @@ const PRODUCT_DATA: Record<string, ProductData> = {
     shortDescription: 'Indulgence Meets Wellness',
     tagline: 'Indulgence Meets Wellness',
     rating: { average: 4.8, count: 2891 },
+    heroVideo: '/videos/choco-berry-video.mp4',
     gallery: [
       '/products/chocolate-berry/Chocolate Berry-1.png',
       '/products/chocolate-berry/Chocolate Berry-2.png',
