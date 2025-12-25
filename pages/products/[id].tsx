@@ -75,7 +75,7 @@ const DEFAULT_LIFESTYLE_GALLERY = [
 const PRODUCT_DATA: Record<string, ProductData> = {
   '1': {
     id: '1',
-    name: 'Strawberry + Peachy',
+    name: 'Strawberry Peachy',
     price: 8.49,
     image: '/products/strawberry-peach/1.png',
     shortDescription: 'Big flavor energy: juicy strawberries, lush peaches, pure magic.',
@@ -705,7 +705,7 @@ const PRODUCT_DATA: Record<string, ProductData> = {
 };
 
 const POPULAR_SMOOTHIES = [
-  { id: '1', name: 'Strawberry + Peachy', price: 8.49, image: '/products/strawberry-peach/1.png', hoverImage: '/products/strawberry-peach/2.png', badge: 'BEST SELLER', rating: 4.5, reviews: 4619 },
+  { id: '1', name: 'Strawberry Peachy', price: 8.49, image: '/products/strawberry-peach/1.png', hoverImage: '/products/strawberry-peach/2.png', badge: 'BEST SELLER', rating: 4.5, reviews: 4619 },
   { id: '9', name: 'Pink Piyata Punch', price: 8.99, image: '/products/pink-piyata/1.png', hoverImage: '/products/pink-piyata/2.png', badge: 'NEW', rating: 4.7, reviews: 127 },
   { id: '10', name: 'Matcha Madness', price: 9.49, image: '/products/matcha/1.png', hoverImage: '/products/matcha/2.png', badge: 'BEST SELLER', rating: 4.8, reviews: 312 },
   { id: '11', name: 'Mocha Protein Fuel', price: 9.49, image: '/products/mocha/gallery-1.jpg', hoverImage: '/products/mocha/gallery-2.jpg', badge: 'BEST SELLER', rating: 4.6, reviews: 245 },
