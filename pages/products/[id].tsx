@@ -636,6 +636,7 @@ const PRODUCT_DATA: Record<string, ProductData> = {
     shortDescription: 'Sunshine in Every Sip',
     tagline: 'Sunshine in Every Sip',
     rating: { average: 4.8, count: 2134 },
+    heroVideo: '/videos/mango-jackfruit-video.mp4',
     gallery: [
       '/products/mango-jackfruit/Mango Jackfruit-1.png',
       '/products/mango-jackfruit/Mango Jackfruit-2.png',
