@@ -3,6 +3,7 @@ import Footer from '../components/Footer';
 import Link from 'next/link';
 import { AnimatedSection } from '../components/ScrollAnimations';
 import { MorphingTextReveal } from '../components/ui/morphing-text-reveal';
+import { InfiniteSlider } from '../components/ui/infinite-slider';
 
 const VALUES = [
   { title: 'Human First', description: 'Made for you, not some marketing spreadsheet.' },
@@ -45,6 +46,73 @@ export default function OurStory() {
                 glitchOnHover={true}
               />
             </div>
+          </div>
+        </section>
+
+        {/* Press Mentions - Top Slider */}
+        <section style={{
+          background: '#000000',
+          padding: '20px 0',
+          borderTop: '1px solid rgba(255,255,255,0.06)',
+          borderBottom: '1px solid rgba(255,255,255,0.06)',
+        }}>
+          <div style={{
+            overflow: 'hidden',
+            maskImage: 'linear-gradient(to right, transparent, black 10%, black 90%, transparent)',
+            WebkitMaskImage: 'linear-gradient(to right, transparent, black 10%, black 90%, transparent)',
+          }}>
+            <InfiniteSlider gap={60} speed={35} speedOnHover={80}>
+              {['SUGAR NEEDED', 'NON-GMO, NON-STOP', 'PLANT POWERED, WORLD READY', 'VEGAN AND EXTRA', "GLUTEN? NOT ON THE LIST", 'BORN ORGANIC, BUILT TO SLAY', "DAIRY? WE DON'T KNOW HER"].map((text) => (
+                <span key={text} style={{
+                  fontSize: 'clamp(11px, 1.5vw, 13px)',
+                  fontWeight: 500,
+                  letterSpacing: '0.12em',
+                  textTransform: 'uppercase',
+                  color: 'rgba(255,255,255,0.5)',
+                  whiteSpace: 'nowrap',
+                }}>
+                  {text}
+                </span>
+              ))}
+            </InfiniteSlider>
+          </div>
+        </section>
+
+        {/* Press Logos - Bottom Slider */}
+        <section style={{
+          background: '#000000',
+          padding: '24px 0',
+          borderBottom: '1px solid rgba(255,255,255,0.06)',
+        }}>
+          <div style={{
+            overflow: 'hidden',
+            maskImage: 'linear-gradient(to right, transparent, black 10%, black 90%, transparent)',
+            WebkitMaskImage: 'linear-gradient(to right, transparent, black 10%, black 90%, transparent)',
+          }}>
+            <InfiniteSlider gap={80} speed={45} speedOnHover={90} reverse>
+              {[
+                { name: 'BUSINESS INSIDER', style: 'serif' },
+                { name: 'Forbes', style: 'italic' },
+                { name: 'The Guardian', style: 'serif' },
+                { name: 'Inc. Best Workplaces', style: 'normal' },
+                { name: 'TODAY', style: 'bold' },
+                { name: 'BUSINESS INSIDER', style: 'serif' },
+                { name: 'Forbes', style: 'italic' },
+                { name: 'The Guardian', style: 'serif' },
+              ].map((press, i) => (
+                <span key={`${press.name}-${i}`} style={{
+                  fontSize: 'clamp(14px, 2vw, 18px)',
+                  fontWeight: press.style === 'bold' ? 700 : press.style === 'italic' ? 400 : 400,
+                  fontStyle: press.style === 'italic' ? 'italic' : 'normal',
+                  fontFamily: press.style === 'serif' ? 'Georgia, serif' : 'var(--font-primary)',
+                  letterSpacing: press.style === 'serif' ? '0.02em' : '0.05em',
+                  color: 'rgba(255,255,255,0.7)',
+                  whiteSpace: 'nowrap',
+                }}>
+                  {press.name}
+                </span>
+              ))}
+            </InfiniteSlider>
           </div>
         </section>
 
