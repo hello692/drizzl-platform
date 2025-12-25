@@ -570,6 +570,7 @@ const PRODUCT_DATA: Record<string, ProductData> = {
     shortDescription: 'The Classic Combo, Perfected',
     tagline: 'The Classic Combo, Perfected',
     rating: { average: 4.8, count: 3567 },
+    heroVideo: '/videos/nutty-monkey-video.mp4',
     gallery: [
       '/products/nutty-monkey/Nutty Monkey-1.png',
       '/products/nutty-monkey/Nutty Monkey-2.png',
