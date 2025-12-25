@@ -2,8 +2,6 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import Link from 'next/link';
 import { AnimatedSection } from '../components/ScrollAnimations';
-import { WordHeroPage } from '../components/ui/scroll-hero-section';
-import { DaybreakLogo } from '../components/ui/daybreak-text-reveal';
 
 const VALUES = [
   { title: 'Human First', description: 'Made for you, not some marketing spreadsheet.' },
@@ -26,16 +24,21 @@ export default function About() {
       <Navbar />
       
       <main style={{ background: '#000000', minHeight: '100vh' }}>
-        <WordHeroPage 
-          items={['Sip.', 'Swoon.', 'Obsess.']}
-          theme="dark"
-          animate
-          hue={340}
-          startVh={50}
-          spaceVh={50}
-          showFooter={false}
-          taglineHTML={`Wellness, turned on.<br /><span style="color: hsl(340 90% 65%)">DRIZZL</span>.`}
-        />
+        <section className="about-manifesto">
+          <div className="manifesto-content">
+            <h1 className="manifesto-title">We are Drizzl.</h1>
+            <div className="manifesto-lines">
+              <p>We exist to make your biology blush.</p>
+              <p>We exist to turn wellness into an obsession.</p>
+              <p>We exist to capture nature at its climax.</p>
+              <p>We exist to flash-freeze flavor at its peak.</p>
+              <p>We exist to blend functional foods that flirt with your cells.</p>
+              <p>We exist to serve vibrancy, not just calories.</p>
+              <p>We exist to make you feel unstoppable.</p>
+              <p className="manifesto-highlight">We exist to be craved.</p>
+            </div>
+          </div>
+        </section>
 
         <section style={{
           background: '#0a0a0a',
