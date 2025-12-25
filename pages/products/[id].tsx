@@ -271,6 +271,7 @@ const PRODUCT_DATA: Record<string, ProductData> = {
     shortDescription: 'Rich chocolate. Smooth espresso. Pure bliss.',
     tagline: 'When Espresso and Chocolate Swipe Right',
     rating: { average: 4.8, count: 2847 },
+    heroVideo: '/videos/mocha-protein-video.mp4',
     gallery: [
       '/products/mocha/gallery-1.jpg',
       '/products/mocha/gallery-2.jpg',
