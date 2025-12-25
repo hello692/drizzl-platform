@@ -139,6 +139,7 @@ const PRODUCT_DATA: Record<string, ProductData> = {
     shortDescription: 'A Tropical Paradise in Every Sip',
     tagline: 'A Tropical Paradise in Every Sip',
     rating: { average: 4.8, count: 3842 },
+    heroVideo: '/videos/pink-pitaya-video.mp4',
     gallery: [
       '/products/pink-piyata/1.png',
       '/products/pink-piyata/2.png',
