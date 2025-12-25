@@ -6903,6 +6903,9 @@ svg {
   background: transparent;
   padding: 0;
   margin: 0 0 4vh 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .lv-gallery-image-wrapper:first-child {
@@ -6926,10 +6929,14 @@ svg {
   position: relative;
   width: 100%;
   overflow: visible;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .lv-gallery-video {
-  width: 100%;
+  width: auto;
+  max-width: 100%;
   height: auto;
   display: block;
   object-fit: contain;
