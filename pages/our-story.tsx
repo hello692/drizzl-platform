@@ -118,102 +118,105 @@ export default function OurStory() {
 
         <section style={{
           background: '#0a0a0a',
-          padding: 'clamp(40px, 6vw, 64px) clamp(20px, 4vw, 48px)',
+          padding: 'clamp(60px, 8vw, 100px) clamp(20px, 4vw, 48px)',
         }}>
-          <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
+          <div style={{ maxWidth: '900px', margin: '0 auto' }}>
             <AnimatedSection animation="fadeUp">
-              <div style={{ marginBottom: 'clamp(48px, 8vw, 80px)' }}>
-                <span style={{
-                  fontSize: 'var(--fs-label)',
-                  fontWeight: 500,
-                  letterSpacing: '0.08em',
-                  textTransform: 'uppercase',
-                  color: 'var(--color-text-tertiary)',
-                  marginBottom: '12px',
-                  display: 'block',
-                }}>
-                  ABOUT US
-                </span>
+              <div style={{ marginBottom: 'clamp(48px, 6vw, 72px)' }}>
                 <h1 style={{
                   fontSize: 'clamp(2rem, 5vw, 3rem)',
                   fontWeight: 300,
-                  lineHeight: 1.1,
+                  lineHeight: 1.2,
                   letterSpacing: '-0.03em',
                   color: '#ffffff',
-                  marginBottom: '16px',
+                  marginBottom: '24px',
                 }}>
-                  The Glow Up You Deserve
+                  Welcome to Drizzl. Cold, upgraded.
                 </h1>
                 <p style={{
-                  fontSize: 'var(--fs-body)',
+                  fontSize: 'clamp(16px, 2vw, 18px)',
                   fontWeight: 400,
-                  lineHeight: 1.7,
+                  lineHeight: 1.8,
                   color: 'var(--color-text-secondary)',
-                  maxWidth: '560px',
                 }}>
-                  We're Drizzl Wellness. Your new obsession. The ultimate breakup from boring, blah, basic food.
+                  We believe wellness should feel like a reward, not a chore. Forget wilting spinach and chalky powders. We're here to prove that "dessert" and "superfood" aren't just compatible—they're soulmates.
                 </p>
               </div>
             </AnimatedSection>
 
-            <div style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 480px), 1fr))',
-              gap: 'clamp(32px, 5vw, 60px)',
-              alignItems: 'center',
-              marginBottom: 'clamp(48px, 8vw, 80px)',
-            }}>
-              <AnimatedSection animation="fadeUp">
-                <div>
-                  <h2 style={{
-                    fontSize: 'clamp(1.5rem, 3vw, 2rem)',
-                    fontWeight: 300,
-                    color: '#ffffff',
-                    marginBottom: '24px',
-                    lineHeight: 1.3,
-                  }}>
-                    POV: You're done settling
-                  </h2>
-                  <p style={{
-                    fontSize: 'var(--fs-body)',
-                    color: 'var(--color-text-secondary)',
-                    lineHeight: 1.8,
-                    marginBottom: '20px',
-                  }}>
-                    You're done settling for salads that taste like sadness and smoothies that scream "cardboard chic."
-                  </p>
-                  <p style={{
-                    fontSize: 'var(--fs-body)',
-                    color: 'var(--color-text-secondary)',
-                    lineHeight: 1.8,
-                    marginBottom: '20px',
-                  }}>
-                    Bland? Sugary? Fake? Yeah, no thanks. We're here to spice up your plate and your life.
-                  </p>
-                  <p style={{
-                    fontSize: 'var(--fs-body)',
-                    color: '#ffffff',
-                    fontWeight: 500,
-                    lineHeight: 1.8,
-                  }}>
-                    We wanted better—better taste, better vibes, better fuel for your glow-up era. So, guess what? We made it. Welcome to wellness that slaps.
-                  </p>
-                </div>
-              </AnimatedSection>
-              <AnimatedSection animation="fadeUp" delay={100}>
-                <div style={{
-                  aspectRatio: '4/3',
-                  background: 'linear-gradient(135deg, rgba(236,72,153,0.2), rgba(139,92,246,0.2))',
-                  borderRadius: '14px',
-                  border: '1px solid rgba(255,255,255,0.1)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
+            <AnimatedSection animation="fadeUp" delay={100}>
+              <div style={{ marginBottom: 'clamp(48px, 6vw, 72px)' }}>
+                <h2 style={{
+                  fontSize: 'clamp(1.5rem, 3vw, 2rem)',
+                  fontWeight: 300,
+                  color: '#ffffff',
+                  marginBottom: '20px',
+                  lineHeight: 1.3,
                 }}>
-                  <span style={{ fontSize: '64px' }}>✨💋</span>
-                </div>
-              </AnimatedSection>
-            </div>
+                  The Smoothie, Reinvented.
+                </h2>
+                <p style={{
+                  fontSize: 'clamp(16px, 2vw, 18px)',
+                  color: 'var(--color-text-secondary)',
+                  lineHeight: 1.8,
+                  marginBottom: '24px',
+                }}>
+                  Drizzl is the love child of indulgence and function. Our team of flavor fanatics and wellness rebels flash-freeze plant-based blends at peak deliciousness. Each functional smoothie is packed with vitamins, protein, and superfoods to fuel your fire and calm your chaos. No sad salads, just pure, frozen power.
+                </p>
+                <p style={{
+                  fontSize: 'clamp(18px, 2.5vw, 22px)',
+                  color: '#ffffff',
+                  fontWeight: 500,
+                  lineHeight: 1.6,
+                  fontStyle: 'italic',
+                  borderLeft: '3px solid rgba(236,72,153,0.6)',
+                  paddingLeft: '20px',
+                }}>
+                  This isn't just a smoothie—it's a flavor bomb that high-fives your brain and body.
+                </p>
+              </div>
+            </AnimatedSection>
+
+            <AnimatedSection animation="fadeUp" delay={200}>
+              <div style={{ marginBottom: 'clamp(48px, 6vw, 72px)' }}>
+                <h2 style={{
+                  fontSize: 'clamp(1.5rem, 3vw, 2rem)',
+                  fontWeight: 300,
+                  color: '#ffffff',
+                  marginBottom: '20px',
+                  lineHeight: 1.3,
+                }}>
+                  Why We Exist
+                </h2>
+                <p style={{
+                  fontSize: 'clamp(16px, 2vw, 18px)',
+                  color: 'var(--color-text-secondary)',
+                  lineHeight: 1.8,
+                }}>
+                  We got tired of the trade-off between healthy and happy. So we created Drizzl to make you thrive. We exist for the thrill of turning the freezer aisle into your personal wellness playground.
+                </p>
+              </div>
+            </AnimatedSection>
+
+            <AnimatedSection animation="fadeUp" delay={300}>
+              <div style={{
+                background: 'linear-gradient(135deg, rgba(236,72,153,0.15), rgba(139,92,246,0.15))',
+                borderRadius: '16px',
+                padding: 'clamp(32px, 4vw, 48px)',
+                textAlign: 'center',
+                border: '1px solid rgba(255,255,255,0.08)',
+              }}>
+                <p style={{
+                  fontSize: 'clamp(20px, 3vw, 28px)',
+                  color: '#ffffff',
+                  fontWeight: 400,
+                  lineHeight: 1.4,
+                  letterSpacing: '-0.01em',
+                }}>
+                  This is Drizzl. Welcome to the freeze revolution.
+                </p>
+              </div>
+            </AnimatedSection>
           </div>
         </section>
 
