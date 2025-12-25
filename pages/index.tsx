@@ -19,7 +19,7 @@ interface Product {
 
 const POPULAR_SMOOTHIES = [
   { id: '17', name: 'Acai Passionfruit', price: 9.49, image: '/products/acai/Acai-1.png', hoverImage: '/products/acai/Acai-2.png', badge: 'BEST SELLER', rating: 4.9, reviews: 487 },
-  { id: '1', name: 'Strawberry + Peachy', price: 8.49, image: '/products/strawberry-peach/1.png', hoverImage: '/products/strawberry-peach/2.png', badge: 'BEST SELLER', rating: 4.5, reviews: 4619 },
+  { id: '1', name: 'Strawberry Peachy', price: 8.49, image: '/products/strawberry-peach/1.png', hoverImage: '/products/strawberry-peach/2.png', badge: 'BEST SELLER', rating: 4.5, reviews: 4619 },
   { id: '9', name: 'Pink Piyata', price: 8.99, image: '/products/pink-piyata/1.png', hoverImage: '/products/pink-piyata/2.png', badge: 'NEW', rating: 4.7, reviews: 127 },
   { id: '10', name: 'Matcha', price: 9.49, image: '/products/matcha/1.png', hoverImage: '/products/matcha/2.png', badge: 'BEST SELLER', rating: 4.8, reviews: 312 },
   { id: '11', name: 'Mocha Protein Fuel', price: 9.49, image: '/products/mocha/gallery-1.jpg', hoverImage: '/products/mocha/gallery-2.jpg', badge: 'BEST SELLER', rating: 4.6, reviews: 245 },
