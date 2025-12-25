@@ -208,6 +208,7 @@ const PRODUCT_DATA: Record<string, ProductData> = {
     shortDescription: 'Calm Focus Meets Creamy Indulgence',
     tagline: 'Calm Focus Meets Creamy Indulgence',
     rating: { average: 4.7, count: 2156 },
+    heroVideo: '/videos/matcha-madness-video.mp4',
     gallery: [
       '/products/matcha/1.png',
       '/products/matcha/2.png',
