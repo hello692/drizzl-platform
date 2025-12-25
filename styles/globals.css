@@ -6927,6 +6927,7 @@ svg {
   width: 100%;
   aspect-ratio: 4 / 5;
   overflow: hidden;
+  max-height: 700px;
 }
 
 .lv-gallery-video {
@@ -6935,6 +6936,7 @@ svg {
   display: block;
   object-fit: cover;
   object-position: center center;
+  max-height: 700px;
 }
 
 /* Fine-tune gallery alignment on large screens */
