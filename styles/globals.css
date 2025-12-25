@@ -593,29 +593,41 @@ input:focus, textarea:focus, select:focus {
 }
 
 /* ============================================
-   UNIVERSAL DYNAMIC HEADER - Responsive Styles
+   UNIVERSAL DYNAMIC HEADER - Vercel Style
+   Clean, minimal design with smooth 150ms transitions
    ============================================ */
 
-/* Header hover effects */
+/* Base header button styles */
+.header-btn,
+.nav-icon,
+.nav-link {
+  transition: color 150ms ease;
+  opacity: 1;
+}
+
+/* Header hover effects - Vercel style */
 .header-btn:hover,
 .nav-icon:hover,
 .nav-link:hover {
-  opacity: 0.7;
+  opacity: 1;
 }
 
+/* Subtle icon animation on hover */
 .header-btn:hover svg,
 .nav-icon:hover svg {
-  transform: scale(1.08);
+  transform: none;
 }
 
+/* Logo hover - subtle fade */
 .nav-logo:hover img {
-  opacity: 0.85;
+  opacity: 0.8;
+  transition: opacity 150ms ease;
 }
 
 /* Smooth transitions for all header elements */
 .header-btn svg,
 .nav-icon svg {
-  transition: transform 0.2s ease;
+  transition: transform 150ms ease;
 }
 
 /* Hide button text labels on tablet and below */
@@ -7952,100 +7964,83 @@ a:focus-visible:active,
    Premium underline draw + micro-interactions
    ============================================ */
 
-/* Nav Link Base - Underline Draw Effect */
+/* Nav Link - Vercel Style */
 .nav-link {
   position: relative;
-  color: #ffffff;
+  color: inherit;
   text-decoration: none;
-  transition: opacity var(--timing-fast) var(--ease-out);
+  transition: color 150ms ease;
 }
 
 .nav-link::after {
-  content: '';
-  position: absolute;
-  bottom: -2px;
-  left: 0;
-  width: 0;
-  height: 1px;
-  background: #ffffff;
-  transition: width var(--timing-medium) var(--ease-out);
-}
-
-.nav-link:hover::after {
-  width: 100%;
+  display: none;
 }
 
 .nav-link:hover {
-  opacity: 0.9;
+  opacity: 1;
 }
 
-/* Nav Icon Hover - Subtle Scale */
+/* Nav Icon - Vercel Style */
 .nav-icon {
-  transition: transform var(--timing-fast) var(--ease-out), 
-              opacity var(--timing-fast) var(--ease-out);
+  transition: color 150ms ease;
 }
 
 .nav-icon:hover {
-  transform: scale(1.1);
-  opacity: 0.85;
+  transform: none;
+  opacity: 1;
 }
 
-/* Header Button Hover - Menu/Search */
+/* Header Button - Vercel Style */
 .header-btn {
-  transition: opacity var(--timing-fast) var(--ease-out);
+  transition: color 150ms ease;
 }
 
 .header-btn:hover {
-  opacity: 0.75;
+  opacity: 1;
 }
 
 .header-btn:hover svg {
-  transform: scale(1.05);
-  transition: transform var(--timing-fast) var(--ease-out);
+  transform: none;
 }
 
-/* Full-Screen Menu Item Hover */
+/* Full-Screen Menu Item Hover - Vercel Style */
 .menu-item-title {
-  transition: color var(--timing-fast) var(--ease-out),
-              transform var(--timing-fast) var(--ease-out);
+  transition: color 150ms ease;
 }
 
 .menu-item-title:hover {
-  color: rgba(255, 255, 255, 0.85);
-  transform: translateX(4px);
+  color: #ffffff;
+  transform: none;
 }
 
-/* Submenu Item Hover */
+/* Submenu Item Hover - Vercel Style */
 .submenu-item {
-  transition: color var(--timing-fast) var(--ease-out),
-              padding-left var(--timing-fast) var(--ease-out);
+  transition: color 150ms ease;
 }
 
 .submenu-item:hover {
   color: #ffffff;
-  padding-left: 28px;
+  padding-left: 20px;
 }
 
-/* Logo Hover - Subtle Glow */
+/* Logo Hover - Vercel Style */
 .nav-logo {
-  transition: opacity var(--timing-fast) var(--ease-out),
-              filter var(--timing-medium) var(--ease-out);
+  transition: opacity 150ms ease;
 }
 
 .nav-logo:hover {
-  opacity: 0.9;
-  filter: brightness(1.1);
+  opacity: 0.8;
+  filter: none;
 }
 
-/* CTA Button in Nav - Premium Lift */
+/* CTA Button in Nav - Vercel Style */
 .nav-cta {
-  transition: transform var(--timing-fast) var(--ease-out),
-              box-shadow var(--timing-fast) var(--ease-out);
+  transition: background 150ms ease;
 }
 
 .nav-cta:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
+  transform: none;
+  box-shadow: none;
 }
 
 /* ============================================
