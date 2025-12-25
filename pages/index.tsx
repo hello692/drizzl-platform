@@ -7,6 +7,7 @@ import Footer from '../components/Footer';
 import SmoothieCard from '../components/SmoothieCard';
 import HomeHero from '../components/HomeHero';
 import { AnimatedSection, AnimatedText, StaggeredGrid } from '../components/ScrollAnimations';
+import { ThreeDProductCarousel } from '../components/ui/3d-carousel';
 import { getMessages } from '../lib/getMessages';
 
 interface Product {
@@ -623,11 +624,35 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 6. The Lineup - Infinite scroll carousel */}
-      <section className="lineup-section">
+      {/* 6. The Lineup - 3D Interactive Carousel */}
+      <section className="lineup-section" style={{ overflow: 'hidden' }}>
         <div className="lineup-header">
           <h2 className="lineup-title">The Lineup</h2>
           <p className="lineup-subtitle">Smoothies So Addictive, They Break Repeat Buttons.</p>
+          <p style={{
+            fontSize: '14px',
+            color: 'rgba(255,255,255,0.5)',
+            marginTop: '12px',
+          }}>
+            Drag to explore • Click to view
+          </p>
+        </div>
+        <ThreeDProductCarousel 
+          products={POPULAR_SMOOTHIES.map(item => ({
+            id: item.id,
+            name: item.name,
+            price: item.price,
+            image: item.image,
+            badge: item.badge,
+          }))}
+        />
+      </section>
+
+      {/* 6b. The Lineup - Infinite scroll carousel */}
+      <section className="lineup-section">
+        <div className="lineup-header">
+          <h2 className="lineup-title">Browse All Flavors</h2>
+          <p className="lineup-subtitle">Scroll through our full collection.</p>
         </div>
         <div className="lineup-wrapper">
           <div className="lineup-track">
