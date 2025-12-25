@@ -217,6 +217,29 @@ export default function OurStory() {
                 </p>
               </div>
             </AnimatedSection>
+
+            <AnimatedSection animation="fadeUp" delay={400}>
+              <div style={{
+                marginTop: 'clamp(48px, 6vw, 72px)',
+                borderRadius: '20px',
+                overflow: 'hidden',
+                border: '1px solid rgba(255,255,255,0.08)',
+              }}>
+                <video
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  style={{
+                    width: '100%',
+                    height: 'auto',
+                    display: 'block',
+                  }}
+                >
+                  <source src="/videos/bowling-drizzl.mp4" type="video/mp4" />
+                </video>
+              </div>
+            </AnimatedSection>
           </div>
         </section>
 
