@@ -2,6 +2,8 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import Link from 'next/link';
 import { AnimatedSection } from '../components/ScrollAnimations';
+import { WordHeroPage } from '../components/ui/scroll-hero-section';
+import { DaybreakLogo } from '../components/ui/daybreak-text-reveal';
 
 const VALUES = [
   { title: 'Human First', description: 'Made for you, not some marketing spreadsheet.' },
@@ -23,109 +25,121 @@ export default function About() {
     <>
       <Navbar />
       
-      <main style={{ background: '#000000', minHeight: '100vh', paddingTop: '120px' }}>
-        <section style={{
-          padding: 'clamp(40px, 6vw, 64px) clamp(20px, 4vw, 48px)',
-          maxWidth: '1100px',
-          margin: '0 auto',
-        }}>
-          <AnimatedSection animation="fadeUp">
-            <div style={{ marginBottom: 'clamp(48px, 8vw, 80px)' }}>
-              <span style={{
-                fontSize: 'var(--fs-label)',
-                fontWeight: 500,
-                letterSpacing: '0.08em',
-                textTransform: 'uppercase',
-                color: 'var(--color-text-tertiary)',
-                marginBottom: '12px',
-                display: 'block',
-              }}>
-                ABOUT US
-              </span>
-              <h1 style={{
-                fontSize: 'clamp(2rem, 5vw, 3rem)',
-                fontWeight: 300,
-                lineHeight: 1.1,
-                letterSpacing: '-0.03em',
-                color: '#ffffff',
-                marginBottom: '16px',
-              }}>
-                The Glow Up You Deserve
-              </h1>
-              <p style={{
-                fontSize: 'var(--fs-body)',
-                fontWeight: 400,
-                lineHeight: 1.7,
-                color: 'var(--color-text-secondary)',
-                maxWidth: '560px',
-              }}>
-                We're Drizzl Wellness. Your new obsession. The ultimate breakup from boring, blah, basic food.
-              </p>
-            </div>
-          </AnimatedSection>
+      <main style={{ background: '#000000', minHeight: '100vh' }}>
+        <WordHeroPage 
+          items={['sip.', 'blend.', 'glow.', 'thrive.', 'vibe.', 'drizzl.']}
+          theme="dark"
+          animate
+          hue={340}
+          startVh={50}
+          spaceVh={50}
+          showFooter={false}
+          taglineHTML={`wellness that actually slaps.<br /><span style="color: hsl(340 90% 65%)">drizzl wellness</span>.`}
+        />
 
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 480px), 1fr))',
-            gap: 'clamp(32px, 5vw, 60px)',
-            alignItems: 'center',
-            marginBottom: 'clamp(48px, 8vw, 80px)',
-          }}>
+        <section style={{
+          background: '#0a0a0a',
+          padding: 'clamp(40px, 6vw, 64px) clamp(20px, 4vw, 48px)',
+        }}>
+          <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
             <AnimatedSection animation="fadeUp">
-              <div>
-                <h2 style={{
-                  fontSize: 'clamp(1.5rem, 3vw, 2rem)',
-                  fontWeight: 300,
-                  color: '#ffffff',
-                  marginBottom: '24px',
-                  lineHeight: 1.3,
-                }}>
-                  POV: You're done settling
-                </h2>
-                <p style={{
-                  fontSize: 'var(--fs-body)',
-                  color: 'var(--color-text-secondary)',
-                  lineHeight: 1.8,
-                  marginBottom: '20px',
-                }}>
-                  You're done settling for salads that taste like sadness and smoothies that scream "cardboard chic."
-                </p>
-                <p style={{
-                  fontSize: 'var(--fs-body)',
-                  color: 'var(--color-text-secondary)',
-                  lineHeight: 1.8,
-                  marginBottom: '20px',
-                }}>
-                  Bland? Sugary? Fake? Yeah, no thanks. We're here to spice up your plate and your life.
-                </p>
-                <p style={{
-                  fontSize: 'var(--fs-body)',
-                  color: '#ffffff',
+              <div style={{ marginBottom: 'clamp(48px, 8vw, 80px)' }}>
+                <span style={{
+                  fontSize: 'var(--fs-label)',
                   fontWeight: 500,
-                  lineHeight: 1.8,
+                  letterSpacing: '0.08em',
+                  textTransform: 'uppercase',
+                  color: 'var(--color-text-tertiary)',
+                  marginBottom: '12px',
+                  display: 'block',
                 }}>
-                  We wanted better—better taste, better vibes, better fuel for your glow-up era. So, guess what? We made it. Welcome to wellness that slaps.
+                  ABOUT US
+                </span>
+                <h1 style={{
+                  fontSize: 'clamp(2rem, 5vw, 3rem)',
+                  fontWeight: 300,
+                  lineHeight: 1.1,
+                  letterSpacing: '-0.03em',
+                  color: '#ffffff',
+                  marginBottom: '16px',
+                }}>
+                  The Glow Up You Deserve
+                </h1>
+                <p style={{
+                  fontSize: 'var(--fs-body)',
+                  fontWeight: 400,
+                  lineHeight: 1.7,
+                  color: 'var(--color-text-secondary)',
+                  maxWidth: '560px',
+                }}>
+                  We're Drizzl Wellness. Your new obsession. The ultimate breakup from boring, blah, basic food.
                 </p>
               </div>
             </AnimatedSection>
-            <AnimatedSection animation="fadeUp" delay={100}>
-              <div style={{
-                aspectRatio: '4/3',
-                background: 'linear-gradient(135deg, rgba(236,72,153,0.2), rgba(139,92,246,0.2))',
-                borderRadius: '14px',
-                border: '1px solid rgba(255,255,255,0.1)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}>
-                <span style={{ fontSize: '64px' }}>✨💋</span>
-              </div>
-            </AnimatedSection>
+
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 480px), 1fr))',
+              gap: 'clamp(32px, 5vw, 60px)',
+              alignItems: 'center',
+              marginBottom: 'clamp(48px, 8vw, 80px)',
+            }}>
+              <AnimatedSection animation="fadeUp">
+                <div>
+                  <h2 style={{
+                    fontSize: 'clamp(1.5rem, 3vw, 2rem)',
+                    fontWeight: 300,
+                    color: '#ffffff',
+                    marginBottom: '24px',
+                    lineHeight: 1.3,
+                  }}>
+                    POV: You're done settling
+                  </h2>
+                  <p style={{
+                    fontSize: 'var(--fs-body)',
+                    color: 'var(--color-text-secondary)',
+                    lineHeight: 1.8,
+                    marginBottom: '20px',
+                  }}>
+                    You're done settling for salads that taste like sadness and smoothies that scream "cardboard chic."
+                  </p>
+                  <p style={{
+                    fontSize: 'var(--fs-body)',
+                    color: 'var(--color-text-secondary)',
+                    lineHeight: 1.8,
+                    marginBottom: '20px',
+                  }}>
+                    Bland? Sugary? Fake? Yeah, no thanks. We're here to spice up your plate and your life.
+                  </p>
+                  <p style={{
+                    fontSize: 'var(--fs-body)',
+                    color: '#ffffff',
+                    fontWeight: 500,
+                    lineHeight: 1.8,
+                  }}>
+                    We wanted better—better taste, better vibes, better fuel for your glow-up era. So, guess what? We made it. Welcome to wellness that slaps.
+                  </p>
+                </div>
+              </AnimatedSection>
+              <AnimatedSection animation="fadeUp" delay={100}>
+                <div style={{
+                  aspectRatio: '4/3',
+                  background: 'linear-gradient(135deg, rgba(236,72,153,0.2), rgba(139,92,246,0.2))',
+                  borderRadius: '14px',
+                  border: '1px solid rgba(255,255,255,0.1)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}>
+                  <span style={{ fontSize: '64px' }}>✨💋</span>
+                </div>
+              </AnimatedSection>
+            </div>
           </div>
         </section>
 
         <section style={{
-          background: '#0a0a0a',
+          background: '#000000',
           padding: 'clamp(40px, 6vw, 64px) clamp(20px, 4vw, 48px)',
         }}>
           <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
@@ -192,7 +206,7 @@ export default function About() {
         </section>
 
         <section style={{
-          background: '#000000',
+          background: '#0a0a0a',
           padding: 'clamp(40px, 6vw, 64px) clamp(20px, 4vw, 48px)',
         }}>
           <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
