@@ -81,6 +81,7 @@ const PRODUCT_DATA: Record<string, ProductData> = {
     shortDescription: 'Big flavor energy: juicy strawberries, lush peaches, pure magic.',
     tagline: 'Big flavor energy: juicy strawberries, lush peaches, pure magic.',
     rating: { average: 4.5, count: 4619 },
+    heroVideo: '/videos/strawberry-peachy-video.mp4',
     gallery: [
       '/products/strawberry-peach/1.png',
       '/products/strawberry-peach/2.png',
