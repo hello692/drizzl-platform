@@ -27,14 +27,14 @@ export default function About() {
       
       <main style={{ background: '#000000', minHeight: '100vh' }}>
         <WordHeroPage 
-          items={['sip.', 'blend.', 'glow.', 'thrive.', 'vibe.', 'drizzl.']}
+          items={['Sip.', 'Swoon.', 'Obsess.']}
           theme="dark"
           animate
           hue={340}
           startVh={50}
           spaceVh={50}
           showFooter={false}
-          taglineHTML={`wellness that actually slaps.<br /><span style="color: hsl(340 90% 65%)">drizzl wellness</span>.`}
+          taglineHTML={`Wellness, turned on.<br /><span style="color: hsl(340 90% 65%)">DRIZZL</span>.`}
         />
 
         <section style={{

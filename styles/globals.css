@@ -8802,12 +8802,12 @@ code, pre, kbd {
   --font-level: 4;
   position: sticky;
   top: calc((var(--count, 7) - 1) * -1lh);
-  line-height: 1.2;
+  line-height: 1.1;
   display: flex;
   align-items: flex-start;
   width: 100%;
   margin-bottom: var(--space);
-  font-size: clamp(56px, 12vw, 120px);
+  font-size: clamp(72px, 18vw, 180px);
 }
 
 .scroll-hero-section-inner {

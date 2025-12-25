@@ -48,9 +48,8 @@ function WordHeroPage({
     >
       <header className="scroll-hero-header">
         <section className="scroll-hero-section-inner">
-          <h1 className="scroll-hero-h1">
-            <span aria-hidden="true">you can&nbsp;</span>
-            <span className="sr-only">you can ship things.</span>
+          <h1 className="scroll-hero-h1" style={{ display: 'none' }}>
+            <span className="sr-only">Sip. Swoon. Obsess.</span>
           </h1>
 
           <ul aria-hidden="true" className="scroll-hero-list">
