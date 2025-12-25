@@ -27,7 +27,7 @@ export default function About() {
       <main style={{ background: '#000000', minHeight: '100vh' }}>
         <section className="about-manifesto">
           <div className="manifesto-content">
-            <h1 className="manifesto-title">We are Drizzl.</h1>
+            <h1 className="manifesto-title">Crave the Science. Taste the Obsession.</h1>
             <div className="manifesto-morphing">
               <span className="manifesto-prefix">We exist to </span>
               <MorphingTextReveal 
