@@ -8810,31 +8810,123 @@ code, pre, kbd {
   line-height: 1;
 }
 
-.manifesto-lines {
-  display: flex;
-  flex-direction: column;
-  gap: clamp(16px, 3vw, 28px);
-}
-
-.manifesto-lines p {
-  font-size: clamp(18px, 3vw, 32px);
+.manifesto-morphing {
+  font-size: clamp(24px, 5vw, 48px);
   font-weight: 400;
-  color: rgba(255, 255, 255, 0.6);
-  margin: 0;
   line-height: 1.4;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0;
+}
+
+.manifesto-prefix {
+  color: rgba(255, 255, 255, 0.5);
+  margin-right: 0.3em;
+}
+
+.manifesto-morphing .morphing-text-container {
+  display: inline;
+}
+
+.manifesto-morphing .morphing-text {
+  font-family: var(--font-primary);
+  font-size: inherit;
+  font-weight: 500;
   letter-spacing: -0.01em;
-  transition: color 0.3s ease;
 }
 
-.manifesto-lines p:hover {
-  color: rgba(255, 255, 255, 1);
+/* ============================================
+   MORPHING TEXT REVEAL
+   ============================================ */
+
+.morphing-text-container {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  user-select: none;
 }
 
-.manifesto-highlight {
-  color: hsl(340 90% 65%) !important;
-  font-weight: 600 !important;
-  font-size: clamp(24px, 4vw, 42px) !important;
-  margin-top: clamp(16px, 3vw, 32px) !important;
+.morphing-text {
+  font-family: var(--font-mono);
+  color: #fff;
+  transition: all 0.3s ease;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.05em;
+}
+
+.morphing-text:hover {
+  color: hsl(340 90% 65%);
+}
+
+.morphing-char {
+  display: inline-block;
+}
+
+.morphing-char.morph-char {
+  animation: morphChar 0.4s ease-out forwards;
+}
+
+.morphing-cursor {
+  display: inline-block;
+  width: 2px;
+  height: 1em;
+  background: hsl(340 90% 65%);
+  margin-left: 4px;
+  opacity: 0.3;
+  transition: opacity 0.5s ease;
+  animation: pulse 2s ease-in-out infinite;
+  vertical-align: middle;
+}
+
+.morphing-cursor.active {
+  opacity: 1;
+}
+
+.glitch-effect {
+  animation: glitch 0.3s ease-out;
+}
+
+@keyframes morphChar {
+  0% {
+    opacity: 0;
+    transform: translateY(20px) scale(0.8);
+  }
+  50% {
+    opacity: 0.7;
+    transform: translateY(-5px) scale(1.1);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes glitch {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  20% {
+    transform: translateX(-2px);
+  }
+  40% {
+    transform: translateX(2px);
+  }
+  60% {
+    transform: translateX(-1px);
+  }
+  80% {
+    transform: translateX(1px);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 1;
+  }
 }
 
 /* ============================================

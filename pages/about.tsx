@@ -2,6 +2,7 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import Link from 'next/link';
 import { AnimatedSection } from '../components/ScrollAnimations';
+import { MorphingTextReveal } from '../components/ui/morphing-text-reveal';
 
 const VALUES = [
   { title: 'Human First', description: 'Made for you, not some marketing spreadsheet.' },
@@ -27,15 +28,22 @@ export default function About() {
         <section className="about-manifesto">
           <div className="manifesto-content">
             <h1 className="manifesto-title">We are Drizzl.</h1>
-            <div className="manifesto-lines">
-              <p>We exist to make your biology blush.</p>
-              <p>We exist to turn wellness into an obsession.</p>
-              <p>We exist to capture nature at its climax.</p>
-              <p>We exist to flash-freeze flavor at its peak.</p>
-              <p>We exist to blend functional foods that flirt with your cells.</p>
-              <p>We exist to serve vibrancy, not just calories.</p>
-              <p>We exist to make you feel unstoppable.</p>
-              <p className="manifesto-highlight">We exist to be craved.</p>
+            <div className="manifesto-morphing">
+              <span className="manifesto-prefix">We exist to </span>
+              <MorphingTextReveal 
+                texts={[
+                  "make your biology blush.",
+                  "turn wellness into an obsession.",
+                  "capture nature at its climax.",
+                  "flash-freeze flavor at its peak.",
+                  "blend functional foods that flirt with your cells.",
+                  "serve vibrancy, not just calories.",
+                  "make you feel unstoppable.",
+                  "be craved."
+                ]}
+                interval={3500}
+                glitchOnHover={true}
+              />
             </div>
           </div>
         </section>
