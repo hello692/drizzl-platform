@@ -63,8 +63,8 @@ export default function Footer() {
           <div className="footer-section">
             <h4 className="footer-section-title">Discover</h4>
             <nav className="footer-links" aria-label="Discover links">
-              <Link href="/about" className="footer-link">
-                About Us
+              <Link href="/our-story" className="footer-link">
+                Our Story
               </Link>
               <Link href="/blog" className="footer-link">
                 Blog & Recipes

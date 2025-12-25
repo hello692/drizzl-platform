@@ -19,7 +19,7 @@ const SEARCHABLE_CONTENT: SearchItem[] = [
   { title: 'Smoothie Kits', description: 'Curated smoothie boxes and bundles', url: '/collections/smoothie-boxes', type: 'category' },
   { title: 'Gift Guide', description: 'Perfect gifts for smoothie lovers', url: '/collections/gift-guide', type: 'category' },
   { title: 'All Products', description: 'View all our products', url: '/products', type: 'page' },
-  { title: 'About Us', description: 'Learn about Drizzl Wellness and our mission', url: '/about', type: 'page' },
+  { title: 'Our Story', description: 'Learn about Drizzl Wellness and our mission', url: '/our-story', type: 'page' },
   { title: 'Blog & Recipes', description: 'Tips, recipes, and wellness inspiration', url: '/blog', type: 'page' },
   { title: 'Store Locator', description: 'Find Drizzl products near you', url: '/locations', type: 'page' },
   { title: 'Sustainability', description: 'Our commitment to the planet', url: '/sustainability', type: 'page' },
@@ -230,7 +230,7 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                   { title: 'All Smoothies', url: '/collections/smoothies' },
                   { title: 'Best Sellers', url: '/collections/best-sellers' },
                   { title: 'New Arrivals', url: '/collections/new-arrivals' },
-                  { title: 'About Us', url: '/about' },
+                  { title: 'Our Story', url: '/our-story' },
                 ].map((link) => (
                   <button
                     key={link.url}

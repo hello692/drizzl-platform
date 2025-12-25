@@ -23,7 +23,6 @@ const MENU_SECTIONS = [
     subtitle: 'Learn about Drizzl',
     items: [
       { name: 'Our Story (Spoiler: It\'s Delicious)', href: '/our-story' },
-      { name: 'About Us', href: '/about' },
       { name: 'Blog & Recipes (Sip, Blend, Repeat)', href: '/blog' },
       { name: 'Store Locator (Find Us Near You)', href: '/locations' },
       { name: 'Sustainability', href: '/sustainability' },

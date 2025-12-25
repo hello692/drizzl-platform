@@ -12,7 +12,7 @@ const MENU_ITEMS = [
   { 
     title: 'About', 
     subtitle: 'The Drizzl story',
-    href: '/about',
+    href: '/our-story',
     items: ['Our Story', 'Our Mission', 'Sustainability', 'Meet the Team'] 
   },
   { 
