@@ -7,6 +7,7 @@ import Footer from '../components/Footer';
 import SmoothieCard from '../components/SmoothieCard';
 import HomeHero from '../components/HomeHero';
 import { AnimatedSection, AnimatedText, StaggeredGrid } from '../components/ScrollAnimations';
+import { LayeredText } from '../components/ui/layered-text';
 import { getMessages } from '../lib/getMessages';
 
 interface Product {
@@ -311,7 +312,7 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Drizzl Kiss Section - Brand Signature */}
+      {/* Drizzl Kiss Section - Brand Signature with Layered Text */}
       <section className="drizzl-kiss-section">
         <div className="drizzl-kiss-container">
           <div className="drizzl-kiss-content">
@@ -324,9 +325,20 @@ export default function Home() {
               />
             </div>
             <div className="drizzl-kiss-text">
-              <h2 className="drizzl-kiss-title">
-                One Sip. Pure Bliss.
-              </h2>
+              <LayeredText 
+                lines={[
+                  { top: "\u00A0", bottom: "SIP" },
+                  { top: "SIP", bottom: "BLEND" },
+                  { top: "BLEND", bottom: "GLOW" },
+                  { top: "GLOW", bottom: "THRIVE" },
+                  { top: "THRIVE", bottom: "DRIZZL" },
+                  { top: "DRIZZL", bottom: "\u00A0" },
+                ]}
+                fontSize="56px"
+                fontSizeMd="32px"
+                lineHeight={50}
+                lineHeightMd={30}
+              />
               <p className="drizzl-kiss-subtitle">
                 Close your eyes. Take a sip. Feel it. That luscious burst of flavor, the velvety calm, the quiet thrill that says, "This is exactly what I've been craving." This isn't just a smoothie—it's your escape. Your glow-up. Your daily dose of indulgence, served with a wink.
               </p>
