@@ -148,14 +148,21 @@ For Vercel deployment, add these secrets in Vercel project settings:
 - `schema_migrations.sql` - SQL to create all required tables
 - `.env.example` - Environment template
 
-### Audit Scores
+### Audit Scores (Updated December 26, 2025)
 - Shopping Cart: 90% (well-implemented with localStorage + Supabase sync)
 - Checkout/Payments: 85% (Stripe integration working)
-- Authentication: 60% (needs unification - dual systems exist)
-- Products: 50% (needs migration from hardcoded data to database)
+- Authentication: 95% (FIXED - unified to Supabase Auth with getSession())
+- Products: 85% (FIXED - database-first with PRODUCT_DATA fallback for rich content)
 
-### Known Issues Requiring Attention
-1. **Dual Auth Systems**: `/auth` uses Supabase, `/account/login` uses localStorage only
-2. **Hardcoded Products**: Product pages use static data instead of `lib/api/products.ts`
-3. **Duplicate Success Pages**: Both `/checkout-success` and `/checkout/success` exist
-4. **Password Reset Emails**: Token generation works but emails not sent
+### Issues Fixed (December 26, 2025)
+1. **FIXED - Dual Auth Systems**: Customer login/signup/dashboard now use Supabase Auth exclusively with `getSession()` for session persistence
+2. **FIXED - Hardcoded Products**: Shop pages now fetch from `lib/api/products.ts` with database-first approach
+3. **FIXED - Duplicate Success Pages**: Removed `/checkout-success.tsx`, kept `/checkout/success.tsx` with real order data
+4. **FIXED - Password Reset Emails**: Connected to Resend API with proper error handling
+5. **FIXED - Contact/Wholesale Forms**: Now submit to database via API endpoints with email confirmations
+6. **FIXED - Admin Dashboard**: Fetches real metrics from Supabase (orders, partners, products)
+
+### Remaining Recommendations
+- Remove `mockRecentOrders` once real order data is seeded
+- Add end-to-end test coverage for login/reset flows
+- Consider consolidating `lib/supabase.ts` and `lib/supabaseClient.ts` into single module
