@@ -1,99 +1,74 @@
-import type { NextApiRequest, NextApiResponse } from 'next';
-import { getUncachableStripeClient } from '../../../lib/stripeClient';
+import type { NextApiRequest, NextApiResponse } from "next";
+import Stripe from "stripe";
 
-interface CartItem {
+type CartItem = {
   productId: string;
   name: string;
   priceCents: number;
   qty: number;
-  imageUrl?: string;
+};
+
+function getStripe(): Stripe {
+  const key = process.env.STRIPE_SECRET_KEY;
+  if (!key) throw new Error("Missing STRIPE_SECRET_KEY in environment");
+  return new Stripe(key, { apiVersion: "2024-06-20" });
 }
 
-interface ShippingData {
-  firstName: string;
-  lastName: string;
-  email: string;
-  address: string;
-  city: string;
-  state: string;
-  zip: string;
+function isValidItems(items: any): items is CartItem[] {
+  return (
+    Array.isArray(items) &&
+    items.length > 0 &&
+    items.every(
+      (i) =>
+        i &&
+        typeof i.productId === "string" &&
+        typeof i.name === "string" &&
+        Number.isFinite(i.priceCents) &&
+        Number.isFinite(i.qty) &&
+        i.qty >= 1 &&
+        i.priceCents >= 0,
+    )
+  );
 }
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  if (req.method !== 'POST') {
-    return res.status(405).json({ error: 'Method not allowed' });
-  }
-
   try {
-    const stripe = await getUncachableStripeClient();
-    const { items, shipping, customerEmail } = req.body as {
-      items: CartItem[];
-      shipping?: ShippingData;
-      customerEmail?: string;
-    };
+    if (req.method !== "POST") return res.status(405).json({ error: "Method not allowed" });
 
-    if (!items || !Array.isArray(items) || items.length === 0) {
-      return res.status(400).json({ error: 'No items provided' });
-    }
+    const { items } = req.body ?? {};
+    if (!isValidItems(items)) return res.status(400).json({ error: "Invalid cart items" });
 
-    const domain = process.env.REPLIT_DOMAINS?.split(',')[0] || 'localhost:5000';
-    const protocol = domain.includes('localhost') ? 'http' : 'https';
+    const origin =
+      (req.headers.origin as string | undefined) ||
+      (process.env.NEXT_PUBLIC_SITE_URL as string | undefined) ||
+      "http://localhost:3000";
 
-    const lineItems = items.map((item) => ({
-      price_data: {
-        currency: 'usd',
-        product_data: {
-          name: item.name,
-          images: item.imageUrl ? [`${protocol}://${domain}${item.imageUrl}`] : [],
+    const stripe = getStripe();
+
+    const session = await stripe.checkout.sessions.create({
+      mode: "payment",
+      payment_method_types: ["card"],
+      success_url: `${origin}/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${origin}/checkout/cancel`,
+      line_items: items.map((i) => ({
+        quantity: i.qty,
+        price_data: {
+          currency: "usd",
+          unit_amount: Math.round(i.priceCents),
+          product_data: {
+            name: i.name,
+            metadata: { productId: i.productId },
+          },
         },
-        unit_amount: item.priceCents,
-      },
-      quantity: item.qty,
-    }));
-
-    const itemsForMetadata = items.map((item) => ({
-      productId: item.productId,
-      name: item.name,
-      priceCents: item.priceCents,
-      qty: item.qty,
-    }));
-
-    const email = shipping?.email || customerEmail;
-
-    const sessionParams: any = {
-      payment_method_types: ['card'],
-      line_items: lineItems,
-      mode: 'payment',
-      success_url: `${protocol}://${domain}/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${protocol}://${domain}/checkout/cancel`,
+      })),
       metadata: {
-        items: JSON.stringify(itemsForMetadata),
-        shipping_first_name: shipping?.firstName || '',
-        shipping_last_name: shipping?.lastName || '',
-        shipping_address: shipping?.address || '',
-        shipping_city: shipping?.city || '',
-        shipping_state: shipping?.state || '',
-        shipping_zip: shipping?.zip || '',
+        cart: JSON.stringify(items.map((i) => ({ productId: i.productId, qty: i.qty }))),
       },
-    };
+    });
 
-    if (email) {
-      sessionParams.customer_email = email;
-    }
-
-    if (!shipping?.address) {
-      sessionParams.shipping_address_collection = {
-        allowed_countries: ['US', 'CA'],
-      };
-    }
-
-    sessionParams.billing_address_collection = 'required';
-
-    const session = await stripe.checkout.sessions.create(sessionParams);
-
-    res.status(200).json({ url: session.url, sessionId: session.id });
-  } catch (error: any) {
-    console.error('Stripe checkout error:', error);
-    res.status(500).json({ error: error.message || 'Failed to create checkout session' });
+    return res.status(200).json({ url: session.url });
+  } catch (err: any) {
+    console.error("create-checkout-session error:", err);
+    return res.status(500).json({ error: err?.message ?? "Server error creating checkout session" });
   }
 }
