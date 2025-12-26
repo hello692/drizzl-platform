@@ -779,13 +779,9 @@ export default function ProductPage() {
   } : fallbackData || null;
   
   const { user } = useAuth();
-  const { addItem, setUserId } = useCart();
+  const { addItem } = useCart();
   const [isAddingToCart, setIsAddingToCart] = useState(false);
   const [addedToCart, setAddedToCart] = useState(false);
-  
-  useEffect(() => {
-    setUserId(user?.id || null);
-  }, [user?.id, setUserId]);
   
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [openSections, setOpenSections] = useState({
@@ -812,17 +808,18 @@ export default function ProductPage() {
     delivery: false,
   });
 
-  const handleAddToCart = async () => {
+  const handleAddToCart = () => {
     if (!productData || isAddingToCart) return;
     setIsAddingToCart(true);
     // Always prefer the database UUID if available
     const actualProductId = dbProduct?.id || productData.id;
     try {
-      await addItem(actualProductId, 1, {
-        id: actualProductId,
+      addItem({
+        productId: actualProductId,
         name: productData.name,
-        price: productData.price,
-        image_url: productData.image,
+        priceCents: Math.round(productData.price * 100),
+        imageUrl: productData.image,
+        qty: 1,
       });
       setAddedToCart(true);
       setTimeout(() => setAddedToCart(false), 2000);

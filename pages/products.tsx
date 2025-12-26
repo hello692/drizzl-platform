@@ -4,7 +4,6 @@ import Link from 'next/link';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { useCart } from '../contexts/CartContext';
-import { useAuth } from '../hooks/useAuth';
 
 interface Product {
   id: string;
@@ -18,12 +17,7 @@ interface Product {
 export default function Products() {
   const router = useRouter();
   const { category } = router.query;
-  const { user } = useAuth();
-  const { addItem, setUserId } = useCart();
-  
-  useEffect(() => {
-    setUserId(user?.id || null);
-  }, [user?.id, setUserId]);
+  const { addItem } = useCart();
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -48,12 +42,13 @@ export default function Products() {
     fetchProducts();
   }, [category, router.isReady]);
 
-  const handleAddToCart = async (product: Product) => {
-    await addItem(product.id, 1, {
-      id: product.id,
+  const handleAddToCart = (product: Product) => {
+    addItem({
+      productId: product.id,
       name: product.name,
-      price: product.price,
-      image_url: product.image_url,
+      priceCents: Math.round(product.price * 100),
+      imageUrl: product.image_url,
+      qty: 1,
     });
     alert('Added to cart!');
   };

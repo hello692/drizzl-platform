@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Link from 'next/link';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
@@ -7,53 +7,36 @@ import { useAuth } from '../hooks/useAuth';
 
 export default function Cart() {
   const { user } = useAuth();
-  const { items, total, loading, removeItem, updateQuantity, clear, setUserId } = useCart();
+  const { items, subtotalCents, itemCount, removeItem, setQty, clear, hydrated } = useCart();
   
-  useEffect(() => {
-    console.log('[CartPage] Mount, user:', user?.id, 'items:', items.length);
-    setUserId(user?.id || null);
-  }, [user?.id, setUserId]);
-  
-  useEffect(() => {
-    console.log('[CartPage] Items changed:', items);
-  }, [items]);
   const [isCheckingOut, setIsCheckingOut] = useState(false);
   const [updatingItems, setUpdatingItems] = useState<Set<string>>(new Set());
   const [isClearing, setIsClearing] = useState(false);
 
-  const handleUpdateQuantity = async (itemId: string, newQuantity: number) => {
-    setUpdatingItems(prev => new Set(prev).add(itemId));
-    try {
-      await updateQuantity(itemId, newQuantity);
-    } finally {
-      setUpdatingItems(prev => {
-        const next = new Set(prev);
-        next.delete(itemId);
-        return next;
-      });
-    }
+  const handleUpdateQuantity = (productId: string, newQuantity: number) => {
+    setUpdatingItems(prev => new Set(prev).add(productId));
+    setQty(productId, newQuantity);
+    setUpdatingItems(prev => {
+      const next = new Set(prev);
+      next.delete(productId);
+      return next;
+    });
   };
 
-  const handleRemoveItem = async (itemId: string) => {
-    setUpdatingItems(prev => new Set(prev).add(itemId));
-    try {
-      await removeItem(itemId);
-    } finally {
-      setUpdatingItems(prev => {
-        const next = new Set(prev);
-        next.delete(itemId);
-        return next;
-      });
-    }
+  const handleRemoveItem = (productId: string) => {
+    setUpdatingItems(prev => new Set(prev).add(productId));
+    removeItem(productId);
+    setUpdatingItems(prev => {
+      const next = new Set(prev);
+      next.delete(productId);
+      return next;
+    });
   };
 
-  const handleClear = async () => {
+  const handleClear = () => {
     setIsClearing(true);
-    try {
-      await clear();
-    } finally {
-      setIsClearing(false);
-    }
+    clear();
+    setIsClearing(false);
   };
 
   const handleCheckout = async () => {
@@ -71,11 +54,11 @@ export default function Cart() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           items: items.map(item => ({
-            product_id: item.product_id,
-            quantity: item.quantity,
-            price: item.product?.price || 0,
+            product_id: item.productId,
+            quantity: item.qty,
+            price: item.priceCents / 100,
           })),
-          total,
+          total: subtotalCents / 100,
         }),
       }).then(r => r.json());
 
@@ -90,7 +73,7 @@ export default function Cart() {
     }
   };
 
-  if (loading) return (
+  if (!hydrated) return (
     <div style={{ 
       background: '#000000', 
       minHeight: '100vh', 
@@ -119,6 +102,8 @@ export default function Cart() {
     </div>
   );
 
+  const total = subtotalCents / 100;
+
   return (
     <>
       <Navbar />
@@ -138,7 +123,7 @@ export default function Cart() {
               <p className="empty-cart-tagline">
                 Your <span className="highlight">wellness love affair</span> starts with <span className="highlight">one irresistible sip</span>.
               </p>
-              <Link href="/smoothies" className="empty-cart-btn">
+              <Link href="/collections/smoothies" className="empty-cart-btn">
                 <span>Start Shopping</span>
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M5 12h14M12 5l7 7-7 7" />
@@ -150,43 +135,46 @@ export default function Cart() {
           <div className="cart-grid">
             <div className="cart-items">
               {items.map(item => (
-                <div key={item.id} className="cart-item">
-                  {item.product?.image_url && (
+                <div key={item.productId} className="cart-item">
+                  {item.imageUrl && (
                     <img
-                      src={item.product.image_url}
-                      alt={item.product.name}
+                      src={item.imageUrl}
+                      alt={item.name}
                       className="cart-item-image"
                     />
                   )}
                   <div className="cart-item-content">
-                    <h3 className="cart-item-name">{item.product?.name}</h3>
-                    <p className="cart-item-price">${item.product?.price}</p>
+                    <h3 className="cart-item-name">{item.name}</h3>
+                    <p className="cart-item-price">${(item.priceCents / 100).toFixed(2)}</p>
                     <div className="cart-item-controls">
                       <button
-                        onClick={() => handleUpdateQuantity(item.id, item.quantity - 1)}
+                        type="button"
+                        onClick={() => handleUpdateQuantity(item.productId, item.qty - 1)}
                         className="cart-qty-btn"
                         aria-label="Decrease quantity"
-                        disabled={updatingItems.has(item.id)}
-                        style={{ opacity: updatingItems.has(item.id) ? 0.5 : 1 }}
+                        disabled={updatingItems.has(item.productId)}
+                        style={{ opacity: updatingItems.has(item.productId) ? 0.5 : 1 }}
                       >
                         −
                       </button>
-                      <span className="cart-qty-value">{item.quantity}</span>
+                      <span className="cart-qty-value">{item.qty}</span>
                       <button
-                        onClick={() => handleUpdateQuantity(item.id, item.quantity + 1)}
+                        type="button"
+                        onClick={() => handleUpdateQuantity(item.productId, item.qty + 1)}
                         className="cart-qty-btn"
                         aria-label="Increase quantity"
-                        disabled={updatingItems.has(item.id)}
-                        style={{ opacity: updatingItems.has(item.id) ? 0.5 : 1 }}
+                        disabled={updatingItems.has(item.productId)}
+                        style={{ opacity: updatingItems.has(item.productId) ? 0.5 : 1 }}
                       >
                         +
                       </button>
                       <button
-                        onClick={() => handleRemoveItem(item.id)}
+                        type="button"
+                        onClick={() => handleRemoveItem(item.productId)}
                         className="cart-remove-btn"
-                        disabled={updatingItems.has(item.id)}
+                        disabled={updatingItems.has(item.productId)}
                       >
-                        {updatingItems.has(item.id) ? 'Removing...' : 'Remove'}
+                        {updatingItems.has(item.productId) ? 'Removing...' : 'Remove'}
                       </button>
                     </div>
                   </div>
@@ -197,7 +185,7 @@ export default function Cart() {
             <div className="cart-summary">
               <h3 className="cart-summary-title">Order Summary</h3>
               <div className="cart-summary-row">
-                <span>Subtotal</span>
+                <span>Subtotal ({itemCount} items)</span>
                 <span>${total.toFixed(2)}</span>
               </div>
               <div className="cart-summary-total">
@@ -205,6 +193,7 @@ export default function Cart() {
                 <span>${total.toFixed(2)}</span>
               </div>
               <button
+                type="button"
                 onClick={handleCheckout}
                 disabled={isCheckingOut}
                 className="cart-checkout-btn"
@@ -212,6 +201,7 @@ export default function Cart() {
                 {isCheckingOut ? 'Processing...' : user ? 'Checkout' : 'Sign in to Checkout'}
               </button>
               <button
+                type="button"
                 onClick={handleClear}
                 className="cart-clear-btn"
                 disabled={isClearing}

@@ -9,11 +9,8 @@ import { logEvent } from '../lib/analytics';
 export default function Checkout() {
   const router = useRouter();
   const { user, loading: authLoading } = useRequireAuth();
-  const { items, total, clear, setUserId } = useCart();
-  
-  useEffect(() => {
-    setUserId(user?.id || null);
-  }, [user?.id, setUserId]);
+  const { items, subtotalCents, clear } = useCart();
+  const total = subtotalCents / 100;
   const [step, setStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [summaryCollapsed, setSummaryCollapsed] = useState(true);
@@ -44,10 +41,10 @@ export default function Checkout() {
     setIsSubmitting(true);
     try {
       const checkoutItems = items.map(item => ({
-        name: item.product?.name || 'Product',
-        price: item.product?.price || 0,
-        quantity: item.quantity,
-        image: item.product?.image || '',
+        name: item.name,
+        price: item.priceCents / 100,
+        quantity: item.qty,
+        image: item.imageUrl || '',
       }));
 
       const res = await fetch('/api/stripe/checkout', {
@@ -297,12 +294,12 @@ export default function Checkout() {
               
               <div className="checkout-summary-items">
                 {items.map(item => (
-                  <div key={item.id} className="checkout-summary-item">
+                  <div key={item.productId} className="checkout-summary-item">
                     <span className="checkout-summary-item-name">
-                      {item.product?.name || 'Product'} × {item.quantity}
+                      {item.name} × {item.qty}
                     </span>
                     <span className="checkout-summary-item-price">
-                      ${((item.product?.price || 0) * item.quantity).toFixed(2)}
+                      ${((item.priceCents / 100) * item.qty).toFixed(2)}
                     </span>
                   </div>
                 ))}
