@@ -4,31 +4,49 @@ import Link from 'next/link';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import { CheckCircle, Package, Mail, ArrowRight } from 'lucide-react';
+import { useCart } from '../../contexts/CartContext';
+
+interface OrderItem {
+  id?: string;
+  name: string;
+  price_cents: number;
+  qty: number;
+}
 
 interface OrderDetails {
-  id: string;
-  customerEmail: string;
-  amountTotal: number;
+  id: string | null;
+  stripe_session_id: string;
+  email: string;
+  amount_total: number;
   currency: string;
-  lineItems: any[];
+  status: string;
+  shipping_name?: string;
+  shipping_address?: string;
+  shipping_city?: string;
+  shipping_state?: string;
+  shipping_postal_code?: string;
+  items: OrderItem[];
+  pending_webhook?: boolean;
 }
 
 export default function CheckoutSuccess() {
   const router = useRouter();
   const { session_id } = router.query;
+  const { clear } = useCart();
   const [orderDetails, setOrderDetails] = useState<OrderDetails | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
   useEffect(() => {
     if (session_id && typeof session_id === 'string') {
+      clear();
       fetchOrderDetails(session_id);
     }
   }, [session_id]);
 
   async function fetchOrderDetails(sessionId: string) {
     try {
-      const res = await fetch(`/api/stripe/session/${sessionId}`);
+      const res = await fetch(`/api/orders/by-session?session_id=${sessionId}`);
       if (!res.ok) throw new Error('Failed to fetch order details');
       const data = await res.json();
       setOrderDetails(data);
@@ -69,16 +87,33 @@ export default function CheckoutSuccess() {
 
               {orderDetails && (
                 <div className="order-summary">
+                  {orderDetails.id && (
+                    <div className="summary-row">
+                      <span>Order ID</span>
+                      <span className="order-id">{orderDetails.id.slice(0, 8)}...</span>
+                    </div>
+                  )}
                   <div className="summary-row">
                     <span>Order Total</span>
                     <span className="amount">
-                      ${((orderDetails.amountTotal || 0) / 100).toFixed(2)}
+                      ${((orderDetails.amount_total || 0) / 100).toFixed(2)}
                     </span>
                   </div>
-                  {orderDetails.customerEmail && (
+                  {orderDetails.email && (
                     <div className="summary-row">
                       <span>Confirmation sent to</span>
-                      <span>{orderDetails.customerEmail}</span>
+                      <span>{orderDetails.email}</span>
+                    </div>
+                  )}
+                  {orderDetails.items && orderDetails.items.length > 0 && (
+                    <div className="items-list">
+                      <div className="items-header">Items</div>
+                      {orderDetails.items.map((item, idx) => (
+                        <div key={idx} className="item-row">
+                          <span>{item.name} x {item.qty}</span>
+                          <span>${(item.price_cents / 100).toFixed(2)}</span>
+                        </div>
+                      ))}
                     </div>
                   )}
                 </div>
@@ -193,6 +228,32 @@ export default function CheckoutSuccess() {
           color: #f5f5f7;
           font-weight: 600;
           font-size: 1.25rem;
+        }
+
+        .summary-row .order-id {
+          color: #f5f5f7;
+          font-family: monospace;
+        }
+
+        .items-list {
+          margin-top: 16px;
+          padding-top: 16px;
+          border-top: 1px solid rgba(255, 255, 255, 0.1);
+          text-align: left;
+        }
+
+        .items-header {
+          font-weight: 600;
+          color: #f5f5f7;
+          margin-bottom: 12px;
+        }
+
+        .item-row {
+          display: flex;
+          justify-content: space-between;
+          padding: 8px 0;
+          color: #86868b;
+          font-size: 0.9375rem;
         }
 
         .next-steps {

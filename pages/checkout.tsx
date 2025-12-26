@@ -41,17 +41,19 @@ export default function Checkout() {
     setIsSubmitting(true);
     try {
       const checkoutItems = items.map(item => ({
+        productId: item.productId,
         name: item.name,
-        price: item.priceCents / 100,
-        quantity: item.qty,
-        image: item.imageUrl || '',
+        priceCents: item.priceCents,
+        qty: item.qty,
+        imageUrl: item.imageUrl || '',
       }));
 
-      const res = await fetch('/api/stripe/checkout', {
+      const res = await fetch('/api/stripe/create-checkout-session', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           items: checkoutItems,
+          shipping: shippingData,
           customerEmail: shippingData.email,
         }),
       });
