@@ -8,6 +8,8 @@ import SmoothieCard from '../../components/SmoothieCard';
 import { useCart } from '../../hooks/useCart';
 import { useAuth } from '../../hooks/useAuth';
 import { useAutoScroll } from '../../hooks/useAutoScroll';
+import { getProductById } from '../../lib/api/products';
+import type { Product as DBProduct } from '../../types/database';
 
 // Apple-inspired design tokens (light theme - monochrome)
 const apple = {
@@ -721,8 +723,60 @@ export default function ProductPage() {
   const router = useRouter();
   const { id } = router.query;
   const productId = typeof id === 'string' ? id : '';
-  const productData = PRODUCT_DATA[productId];
+  
+  const [loading, setLoading] = useState(true);
+  const [dbProduct, setDbProduct] = useState<DBProduct | null>(null);
+  const [notFound, setNotFound] = useState(false);
+  
+  const fallbackData = PRODUCT_DATA[productId];
   const product = POPULAR_SMOOTHIES.find(p => p.id === productId);
+  
+  useEffect(() => {
+    async function fetchProduct() {
+      if (!productId) return;
+      
+      setLoading(true);
+      setNotFound(false);
+      
+      try {
+        const fetchedProduct = await getProductById(productId);
+        if (fetchedProduct) {
+          setDbProduct(fetchedProduct);
+        } else {
+          if (!fallbackData) {
+            setNotFound(true);
+          }
+        }
+      } catch (err) {
+        console.error('Failed to fetch product:', err);
+        if (!fallbackData) {
+          setNotFound(true);
+        }
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchProduct();
+  }, [productId, fallbackData]);
+
+  const productData: ProductData | null = dbProduct ? {
+    id: dbProduct.id,
+    name: dbProduct.name,
+    price: dbProduct.price_cents / 100,
+    image: dbProduct.hero_image_url || fallbackData?.image || '/products/acai/gallery-1.jpg',
+    shortDescription: dbProduct.description || fallbackData?.shortDescription || '',
+    tagline: fallbackData?.tagline || dbProduct.description || '',
+    rating: fallbackData?.rating || { average: 4.5, count: 100 },
+    gallery: fallbackData?.gallery || [dbProduct.hero_image_url || '/products/acai/gallery-1.jpg'],
+    lifestyleGallery: fallbackData?.lifestyleGallery || DEFAULT_LIFESTYLE_GALLERY,
+    description: dbProduct.description || fallbackData?.description || '',
+    ingredients: fallbackData?.ingredients || 'Organic ingredients. For precise nutrition, ingredient, and allergen details, check the product label.',
+    nutrition: fallbackData?.nutrition || [],
+    keyIngredients: fallbackData?.keyIngredients || [],
+    badges: fallbackData?.badges || ['Gluten-Free', 'Dairy-Free', 'Plant-Based'],
+    heroVideo: fallbackData?.heroVideo,
+  } : fallbackData || null;
   
   const { user } = useAuth();
   const { addItem } = useCart(user?.id);
@@ -740,7 +794,6 @@ export default function ProductPage() {
   const [selectedIngredient, setSelectedIngredient] = useState(0);
   const [activeCardIndex, setActiveCardIndex] = useState(0);
   
-  // Auto-scroll for lifestyle carousel with infinite loop
   const { trackRef: lifestyleTrackRef } = useAutoScroll({
     speed: 35,
     pauseOnInteraction: true,
@@ -748,7 +801,6 @@ export default function ProductPage() {
     direction: 'left',
   });
   
-  // Accordion state for LV-style product info sections
   const [infoSections, setInfoSections] = useState({
     about: true,
     prepare: false,
@@ -779,7 +831,29 @@ export default function ProductPage() {
     setOpenSections(prev => ({ ...prev, [section]: !prev[section] }));
   };
 
-  if (!product || !productData) {
+  if (loading) {
+    return (
+      <div style={{ backgroundColor: apple.bgPrimary, minHeight: '100vh' }}>
+        <Navbar variant="dynamic" />
+        <div style={{ padding: '200px 24px', textAlign: 'center' }}>
+          <div style={{ 
+            width: '40px', 
+            height: '40px', 
+            border: '3px solid #e8e8ed', 
+            borderTop: '3px solid #000', 
+            borderRadius: '50%', 
+            animation: 'spin 1s linear infinite',
+            margin: '0 auto 24px',
+          }} />
+          <p style={{ fontSize: '18px', color: apple.textSecondary }}>Loading product...</p>
+          <style>{`@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }`}</style>
+        </div>
+        <Footer />
+      </div>
+    );
+  }
+
+  if (notFound || !productData) {
     return (
       <div style={{ backgroundColor: apple.bgPrimary, minHeight: '100vh' }}>
         <Navbar />
@@ -787,12 +861,15 @@ export default function ProductPage() {
           <h1 style={{ fontSize: '48px', fontWeight: '600', color: apple.textPrimary, marginBottom: '24px' }}>
             Product not found
           </h1>
-          <Link href="/collections/smoothies" style={{ 
+          <p style={{ fontSize: '18px', color: apple.textSecondary, marginBottom: '32px' }}>
+            Sorry, we couldn't find the product you're looking for.
+          </p>
+          <Link href="/shop-all" style={{ 
             color: apple.accent, 
             fontSize: '21px',
             textDecoration: 'none',
           }}>
-            Back to Smoothies &rarr;
+            Browse All Products &rarr;
           </Link>
         </div>
         <Footer />

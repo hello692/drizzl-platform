@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import CommandCenterLayout from '../../../components/admin/CommandCenterLayout';
+import { supabase } from '../../../lib/supabaseClient';
 import {
   DollarSign,
   ShoppingCart,
@@ -31,6 +32,7 @@ import {
   MessageSquare,
   ArrowRight,
   Bell,
+  Loader2,
 } from 'lucide-react';
 import {
   AreaChart,
@@ -48,6 +50,16 @@ import {
 const NEON_GREEN = '#00FF85';
 const CARD_BG = 'rgba(255,255,255,0.03)';
 const CARD_BORDER = 'rgba(255,255,255,0.08)';
+
+interface DashboardStats {
+  todayRevenue: number;
+  todayOrders: number;
+  totalPartners: number;
+  pipelineValue: number;
+  activeDeals: number;
+  totalProducts: number;
+  lowStockProducts: number;
+}
 
 interface KPICard {
   id: string;
@@ -536,6 +548,104 @@ function getActivityColor(type: string): string {
 }
 
 export default function CommandCenterDashboard() {
+  const [loading, setLoading] = useState(true);
+  const [stats, setStats] = useState<DashboardStats>({
+    todayRevenue: 0,
+    todayOrders: 0,
+    totalPartners: 0,
+    pipelineValue: 0,
+    activeDeals: 0,
+    totalProducts: 0,
+    lowStockProducts: 0,
+  });
+
+  const fetchDashboardStats = useCallback(async () => {
+    setLoading(true);
+    try {
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      const todayIso = today.toISOString();
+
+      const [ordersRes, partnersRes, productsRes, leadsRes] = await Promise.all([
+        supabase.from('orders').select('id, total_cents, total_amount, created_at', { count: 'exact' }),
+        supabase.from('retail_partners').select('id', { count: 'exact' }),
+        supabase.from('products').select('id, stock_quantity, is_active'),
+        supabase.from('leads').select('id, estimated_value, pipeline_stage'),
+      ]);
+
+      const orders = (ordersRes.data as any[]) || [];
+      const todayOrders = orders.filter(o => o.created_at && new Date(o.created_at) >= today);
+      const todayRevenue = todayOrders.reduce((sum, o) => {
+        const amount = o.total_cents ? o.total_cents / 100 : (o.total_amount || 0);
+        return sum + amount;
+      }, 0);
+
+      const partners = (partnersRes.data as any[]) || [];
+      const products = (productsRes.data as any[]) || [];
+      const leads = (leadsRes.data as any[]) || [];
+
+      const activeLeads = leads.filter(l => !['closed_won', 'closed_lost'].includes(l.pipeline_stage || ''));
+      const pipelineValue = activeLeads.reduce((sum, l) => sum + (l.estimated_value || 0), 0);
+
+      const lowStockProducts = products.filter(p => p.is_active && (p.stock_quantity || 0) < 20);
+
+      setStats({
+        todayRevenue,
+        todayOrders: todayOrders.length,
+        totalPartners: partners.length,
+        pipelineValue,
+        activeDeals: activeLeads.length,
+        totalProducts: products.filter(p => p.is_active).length,
+        lowStockProducts: lowStockProducts.length,
+      });
+    } catch (error) {
+      console.error('Error fetching dashboard stats:', error);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchDashboardStats();
+  }, [fetchDashboardStats]);
+
+  const dynamicKpiCards: KPICard[] = [
+    {
+      id: 'revenue',
+      label: "Today's Revenue",
+      value: loading ? '...' : formatCurrency(stats.todayRevenue),
+      subtitle: 'from orders',
+      icon: <DollarSign size={20} />,
+    },
+    {
+      id: 'orders',
+      label: 'Orders Today',
+      value: loading ? '...' : stats.todayOrders.toString(),
+      icon: <ShoppingCart size={20} />,
+    },
+    {
+      id: 'partners',
+      label: 'Active Partners',
+      value: loading ? '...' : stats.totalPartners.toString(),
+      subtitle: 'retail partners',
+      icon: <Users size={20} />,
+    },
+    {
+      id: 'pipeline',
+      label: 'B2B Pipeline Value',
+      value: loading ? '...' : formatCurrency(stats.pipelineValue),
+      subtitle: `${stats.activeDeals} active deals`,
+      icon: <Briefcase size={20} />,
+    },
+    {
+      id: 'products',
+      label: 'Active Products',
+      value: loading ? '...' : stats.totalProducts.toString(),
+      subtitle: stats.lowStockProducts > 0 ? `${stats.lowStockProducts} low stock` : 'all stocked',
+      icon: <Package size={20} />,
+    },
+  ];
+
   return (
     <CommandCenterLayout title="Dashboard">
       <div style={styles.container}>
@@ -545,13 +655,17 @@ export default function CommandCenterDashboard() {
             <p style={styles.date}>{formatDate()}</p>
           </div>
           <div style={styles.liveIndicator}>
-            <span style={styles.liveDot} />
-            <span style={styles.liveText}>LIVE</span>
+            {loading ? (
+              <Loader2 size={14} style={{ animation: 'spin 1s linear infinite' }} color={NEON_GREEN} />
+            ) : (
+              <span style={styles.liveDot} />
+            )}
+            <span style={styles.liveText}>{loading ? 'LOADING' : 'LIVE'}</span>
           </div>
         </header>
 
         <section className="cc-kpi-section" style={styles.kpiSection}>
-          {kpiCards.map((card) => (
+          {dynamicKpiCards.map((card) => (
             <div key={card.id} className="cc-kpi-card" style={styles.kpiCard}>
               <div style={styles.kpiIcon}>{card.icon}</div>
               <div style={styles.kpiContent}>

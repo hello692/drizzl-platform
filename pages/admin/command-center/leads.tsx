@@ -327,22 +327,27 @@ export default function LeadsPage() {
 
   const fetchLeads = useCallback(async () => {
     setLoading(true);
+    setError(null);
     try {
       const { data, error: fetchError } = await supabase
         .from('leads')
         .select('*')
         .order('created_at', { ascending: false });
 
-      if (fetchError) throw fetchError;
-
-      if (data && data.length > 0) {
-        setLeads(data as Lead[]);
-      } else {
-        setLeads(MOCK_LEADS);
+      if (fetchError) {
+        if (fetchError.code === '42P01') {
+          setError('Leads table not found. Please run database migrations.');
+          setLeads([]);
+          return;
+        }
+        throw fetchError;
       }
+
+      setLeads((data as Lead[]) || []);
     } catch (err) {
       console.error('Error fetching leads:', err);
-      setLeads(MOCK_LEADS);
+      setError('Failed to load leads. Please try again.');
+      setLeads([]);
     } finally {
       setLoading(false);
     }
@@ -356,16 +361,16 @@ export default function LeadsPage() {
         .eq('lead_id', leadId)
         .order('created_at', { ascending: false });
 
-      if (fetchError) throw fetchError;
-
-      if (data && data.length > 0) {
-        setActivities(data as LeadActivity[]);
-      } else {
-        setActivities(MOCK_ACTIVITIES.filter(a => a.lead_id === leadId));
+      if (fetchError) {
+        console.error('Error fetching activities:', fetchError);
+        setActivities([]);
+        return;
       }
+
+      setActivities((data as LeadActivity[]) || []);
     } catch (err) {
       console.error('Error fetching activities:', err);
-      setActivities(MOCK_ACTIVITIES.filter(a => a.lead_id === leadId));
+      setActivities([]);
     }
   }, []);
 

@@ -6,10 +6,33 @@ import { AnimatedSection } from '../components/ScrollAnimations';
 export default function Contact() {
   const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' });
   const [submitted, setSubmitted] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
+    setIsLoading(true);
+    setError(null);
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to submit contact form');
+      }
+
+      setSubmitted(true);
+    } catch (err: any) {
+      setError(err.message || 'Something went wrong. Please try again.');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const inputStyles = {
@@ -89,6 +112,19 @@ export default function Contact() {
                 </div>
               ) : (
                 <form onSubmit={handleSubmit}>
+                  {error && (
+                    <div style={{
+                      background: 'rgba(255, 59, 48, 0.1)',
+                      border: '1px solid rgba(255, 59, 48, 0.3)',
+                      borderRadius: '8px',
+                      padding: '12px 16px',
+                      marginBottom: '20px',
+                      color: '#ff3b30',
+                      fontSize: 'var(--fs-small)',
+                    }}>
+                      {error}
+                    </div>
+                  )}
                   <div style={{ marginBottom: '20px' }}>
                     <label style={labelStyles}>Name</label>
                     <input
@@ -98,6 +134,7 @@ export default function Contact() {
                       onChange={(e) => setFormData({...formData, name: e.target.value})}
                       style={inputStyles}
                       placeholder="Your name"
+                      disabled={isLoading}
                     />
                   </div>
                   <div style={{ marginBottom: '20px' }}>
@@ -109,6 +146,7 @@ export default function Contact() {
                       onChange={(e) => setFormData({...formData, email: e.target.value})}
                       style={inputStyles}
                       placeholder="you@email.com"
+                      disabled={isLoading}
                     />
                   </div>
                   <div style={{ marginBottom: '20px' }}>
@@ -118,6 +156,7 @@ export default function Contact() {
                       value={formData.subject}
                       onChange={(e) => setFormData({...formData, subject: e.target.value})}
                       style={{ ...inputStyles, cursor: 'pointer' }}
+                      disabled={isLoading}
                     >
                       <option value="" style={{ background: '#1a1a1a' }}>Select a topic...</option>
                       <option value="order" style={{ background: '#1a1a1a' }}>Order Question</option>
@@ -136,23 +175,25 @@ export default function Contact() {
                       rows={5}
                       style={{ ...inputStyles, resize: 'vertical' }}
                       placeholder="How can we help?"
+                      disabled={isLoading}
                     />
                   </div>
                   <button
                     type="submit"
+                    disabled={isLoading}
                     style={{
                       width: '100%',
                       padding: '16px',
-                      background: '#ffffff',
+                      background: isLoading ? 'rgba(255,255,255,0.5)' : '#ffffff',
                       color: '#000000',
                       border: 'none',
                       borderRadius: '50px',
                       fontSize: 'var(--fs-body)',
                       fontWeight: 500,
-                      cursor: 'pointer',
+                      cursor: isLoading ? 'not-allowed' : 'pointer',
                     }}
                   >
-                    Send Message
+                    {isLoading ? 'Sending...' : 'Send Message'}
                   </button>
                 </form>
               )}

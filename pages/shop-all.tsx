@@ -2,6 +2,8 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
+import { getAllProducts } from '../lib/api/products';
+import type { Product as DBProduct } from '../types/database';
 
 interface Product {
   id: string;
@@ -10,17 +12,6 @@ interface Product {
   category: string;
   image: string;
 }
-
-const fallbackProducts: Product[] = [
-  { id: '1', name: 'Strawberry Peachy', price: 8.49, category: 'Smoothie', image: '/products/strawberry-peach/1.png' },
-  { id: '9', name: 'Pink Piyata', price: 8.99, category: 'Smoothie', image: '/products/pink-piyata/gallery-1.jpg' },
-  { id: '10', name: 'Matcha', price: 9.49, category: 'Smoothie', image: '/products/matcha/gallery-1.jpg' },
-  { id: '14', name: 'Coffee Mushroom', price: 9.99, category: 'Smoothie', image: '/products/coffee-mushroom/gallery-1.jpg' },
-  { id: '2', name: 'Acai Berry', price: 9.49, category: 'Smoothie', image: '/products/acai/gallery-1.jpg' },
-  { id: '3', name: 'Mango Jackfruit', price: 8.99, category: 'Smoothie', image: '/products/mango-jackfruit/Mango Jackfruit-1.png' },
-  { id: '4', name: 'Chocolate Berry Protein', price: 9.49, category: 'Smoothie', image: '/products/chocolate-berry/gallery-1.jpg' },
-  { id: 'box1', name: 'The Starter Box', price: 59.99, category: 'Box', image: '/products/acai/gallery-2.jpg' },
-];
 
 const categories = ['All', 'Smoothie', 'Box'];
 const sortOptions = ['Featured', 'Price: Low to High', 'Price: High to Low', 'Name: A-Z'];
@@ -103,22 +94,25 @@ export default function ShopAll() {
       setError(null);
       
       try {
-        const response = await fetch('/api/products');
-        const data = await response.json();
+        const dbProducts = await getAllProducts();
         
-        if (data.error) {
-          console.warn('API returned error, using fallback data:', data.error);
-          setProducts(fallbackProducts);
-          setError(null);
-        } else if (data.products && data.products.length > 0) {
-          setProducts(data.products);
+        if (dbProducts && dbProducts.length > 0) {
+          const mappedProducts: Product[] = dbProducts.map((p: DBProduct) => ({
+            id: p.id,
+            name: p.name,
+            price: p.price_cents / 100,
+            category: p.category || 'Smoothie',
+            image: p.hero_image_url || '/products/acai/gallery-1.jpg',
+          }));
+          setProducts(mappedProducts);
         } else {
-          setProducts(fallbackProducts);
+          setError('No products available at the moment. Please check back later.');
+          setProducts([]);
         }
       } catch (err) {
         console.error('Failed to fetch products:', err);
-        setProducts(fallbackProducts);
-        setError(null);
+        setError('Unable to load products. Please try again later.');
+        setProducts([]);
       } finally {
         setLoading(false);
       }
@@ -268,7 +262,16 @@ export default function ShopAll() {
             </div>
           )}
 
-          {!loading && filteredProducts.length === 0 && (
+          {!loading && error && (
+            <div className="no-results">
+              <p>{error}</p>
+              <button onClick={() => window.location.reload()}>
+                Try again
+              </button>
+            </div>
+          )}
+
+          {!loading && !error && filteredProducts.length === 0 && (
             <div className="no-results">
               <p>No products found matching your criteria.</p>
               <button onClick={() => { setSearchQuery(''); setSelectedCategory('All'); }}>

@@ -14,6 +14,7 @@ import {
   Loader2,
 } from 'lucide-react';
 import { getCustomerById, getCustomerOrders, getCustomerSubscriptions } from '../../lib/api/customers';
+import { supabase } from '../../lib/supabaseClient';
 
 const NEON_GREEN = '#00FF85';
 const CARD_BG = 'rgba(255, 255, 255, 0.02)';
@@ -78,17 +79,46 @@ export default function CustomerDashboard() {
 
   useEffect(() => {
     const loadData = async () => {
-      const session = localStorage.getItem('customerSession');
-      if (!session) {
-        router.push('/account/login');
-        return;
+      let session = localStorage.getItem('customerSession');
+      let parsedSession: CustomerSession | null = session ? JSON.parse(session) : null;
+
+      if (!parsedSession) {
+        try {
+          const { data: { session } } = await supabase.auth.getSession();
+          
+          if (!session?.user) {
+            router.push('/account/login');
+            return;
+          }
+          const user = session.user;
+
+          const { data: profile } = await supabase
+            .from('profiles')
+            .select('*')
+            .eq('id', user.id)
+            .single();
+
+          parsedSession = {
+            id: user.id,
+            email: user.email || '',
+            firstName: profile?.full_name?.split(' ')[0] || profile?.name?.split(' ')[0] || user.email?.split('@')[0] || '',
+            lastName: profile?.full_name?.split(' ').slice(1).join(' ') || profile?.name?.split(' ').slice(1).join(' ') || '',
+            loyaltyPoints: profile?.loyalty_points || 100,
+            loyaltyTier: profile?.loyalty_tier || 'bronze',
+            memberSince: profile?.created_at || user.created_at,
+          };
+          localStorage.setItem('customerSession', JSON.stringify(parsedSession));
+        } catch (err) {
+          console.error('Auth check error:', err);
+          router.push('/account/login');
+          return;
+        }
       }
       
-      const parsedSession = JSON.parse(session);
       setCustomer(parsedSession);
 
       try {
-        if (parsedSession.id && parsedSession.id !== 'demo-customer') {
+        if (parsedSession.id) {
           const [customerData, orders, subscriptions] = await Promise.all([
             getCustomerById(parsedSession.id),
             getCustomerOrders(parsedSession.id),

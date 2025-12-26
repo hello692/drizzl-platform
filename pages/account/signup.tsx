@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import Head from 'next/head';
 import Link from 'next/link';
 import { Mail, Lock, User, ArrowRight, AlertCircle, X, Check } from 'lucide-react';
+import { supabase } from '../../lib/supabaseClient';
 
 const NEON_GREEN = '#00FF85';
 const CARD_BG = 'rgba(255, 255, 255, 0.02)';
@@ -19,13 +20,22 @@ export default function CustomerSignup() {
   });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [checkingAuth, setCheckingAuth] = useState(true);
   const [toast, setToast] = useState('');
 
   useEffect(() => {
-    const session = localStorage.getItem('customerSession');
-    if (session) {
-      router.replace('/account/dashboard');
-    }
+    const checkAuth = async () => {
+      try {
+        const { data: { user } } = await supabase.auth.getUser();
+        if (user) {
+          router.replace('/account/dashboard');
+        }
+      } catch (err) {
+        console.error('Auth check error:', err);
+      }
+      setCheckingAuth(false);
+    };
+    checkAuth();
   }, [router]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -47,18 +57,76 @@ export default function CustomerSignup() {
     }
 
     setLoading(true);
-    await new Promise(resolve => setTimeout(resolve, 1000));
 
-    const customerSession = {
-      id: 'cust-' + Date.now(),
-      email: formData.email,
-      firstName: formData.firstName,
-      lastName: formData.lastName,
-      loyaltyPoints: 100,
-      memberSince: new Date().toISOString().split('T')[0],
-    };
-    localStorage.setItem('customerSession', JSON.stringify(customerSession));
-    router.push('/account/dashboard');
+    try {
+      const fullName = `${formData.firstName} ${formData.lastName}`.trim();
+      
+      const { data, error: signUpError } = await supabase.auth.signUp({
+        email: formData.email,
+        password: formData.password,
+        options: {
+          data: {
+            name: fullName,
+            full_name: fullName,
+          },
+          emailRedirectTo: undefined,
+        },
+      });
+
+      if (signUpError) {
+        setError(signUpError.message);
+        setLoading(false);
+        return;
+      }
+
+      if (data.user) {
+        const profileData = {
+          id: data.user.id,
+          email: formData.email,
+          name: fullName,
+          full_name: fullName,
+          role: 'customer',
+          account_type: 'customer',
+          loyalty_points: 100,
+          loyalty_tier: 'bronze',
+          created_at: new Date().toISOString(),
+          updated_at: new Date().toISOString(),
+        };
+
+        const { error: profileError } = await supabase
+          .from('profiles')
+          .upsert(profileData, { onConflict: 'id' });
+
+        if (profileError) {
+          console.error('Profile creation error:', profileError);
+        }
+
+        const customerSession = {
+          id: data.user.id,
+          email: formData.email,
+          firstName: formData.firstName,
+          lastName: formData.lastName,
+          loyaltyPoints: 100,
+          loyaltyTier: 'bronze',
+          memberSince: new Date().toISOString(),
+        };
+        localStorage.setItem('customerSession', JSON.stringify(customerSession));
+
+        if (data.session) {
+          router.push('/account/dashboard');
+        } else {
+          setToast('Account created! Please check your email to verify, then sign in.');
+          setTimeout(() => {
+            router.push('/account/login');
+          }, 3000);
+        }
+      }
+    } catch (err: any) {
+      console.error('Signup error:', err);
+      setError(err.message || 'Signup failed. Please try again.');
+    }
+
+    setLoading(false);
   };
 
   const handleSocialSignup = (provider: string) => {
@@ -78,6 +146,14 @@ export default function CustomerSignup() {
   };
 
   const strength = passwordStrength();
+
+  if (checkingAuth) {
+    return (
+      <div style={styles.container}>
+        <div style={{ color: '#FFFFFF', fontSize: 14 }}>Loading...</div>
+      </div>
+    );
+  }
 
   return (
     <>

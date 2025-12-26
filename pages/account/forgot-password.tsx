@@ -47,6 +47,27 @@ export default function ForgotPassword() {
           user_type: 'customer' as const,
           expires_at: expiresAt.toISOString(),
         } as any);
+
+        const domain = typeof window !== 'undefined' 
+          ? window.location.origin 
+          : process.env.NEXT_PUBLIC_SITE_URL || 'https://drizzl.com';
+        const resetLink = `${domain}/account/reset-password?token=${token}`;
+
+        const emailResponse = await fetch('/api/email/send-password-reset', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            to: customer.email,
+            resetLink: resetLink,
+          }),
+        });
+
+        if (!emailResponse.ok) {
+          console.error('Failed to send password reset email');
+          setError('Unable to send reset email. Please try again later.');
+          setLoading(false);
+          return;
+        }
       }
 
       setSubmitted(true);

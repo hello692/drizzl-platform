@@ -85,6 +85,8 @@ export default function WholesaleApply() {
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState<FormData>(initialFormData);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const updateFormData = (field: keyof FormData, value: string | boolean) => {
     setFormData(prev => ({ ...prev, [field]: value }));
@@ -117,9 +119,49 @@ export default function WholesaleApply() {
     }
   };
 
-  const handleSubmit = () => {
-    if (formData.agreeToTerms) {
+  const handleSubmit = async () => {
+    if (!formData.agreeToTerms) return;
+    
+    setIsLoading(true);
+    setError(null);
+
+    try {
+      const response = await fetch('/api/wholesale/apply', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          accountType: formData.accountType,
+          fullName: formData.fullName,
+          email: formData.email,
+          password: formData.password,
+          businessName: formData.businessName,
+          dba: formData.dba,
+          businessType: formData.businessType,
+          address: formData.address,
+          city: formData.city,
+          state: formData.state,
+          zip: formData.zip,
+          phone: formData.phone,
+          taxId: formData.taxId,
+          numberOfLocations: formData.numberOfLocations,
+          yearsInBusiness: formData.yearsInBusiness,
+          expectedVolume: formData.expectedVolume,
+          website: formData.website,
+          referralSource: formData.referralSource,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to submit application');
+      }
+
       setIsSubmitted(true);
+    } catch (err: any) {
+      setError(err.message || 'Something went wrong. Please try again.');
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -750,6 +792,19 @@ export default function WholesaleApply() {
                     Review Your Application
                   </h3>
 
+                  {error && (
+                    <div style={{
+                      background: 'rgba(255, 59, 48, 0.1)',
+                      border: '1px solid rgba(255, 59, 48, 0.3)',
+                      borderRadius: '8px',
+                      padding: '12px 16px',
+                      color: '#ff3b30',
+                      fontSize: 'var(--fs-small)',
+                    }}>
+                      {error}
+                    </div>
+                  )}
+
                   <div style={{
                     display: 'grid',
                     gap: '20px',
@@ -976,20 +1031,20 @@ export default function WholesaleApply() {
                   <button
                     type="button"
                     onClick={handleSubmit}
-                    disabled={!formData.agreeToTerms}
+                    disabled={!formData.agreeToTerms || isLoading}
                     style={{
                       padding: '14px 32px',
-                      background: formData.agreeToTerms ? '#ffffff' : 'rgba(255,255,255,0.1)',
-                      color: formData.agreeToTerms ? '#000000' : 'rgba(255,255,255,0.3)',
+                      background: (formData.agreeToTerms && !isLoading) ? '#ffffff' : 'rgba(255,255,255,0.1)',
+                      color: (formData.agreeToTerms && !isLoading) ? '#000000' : 'rgba(255,255,255,0.3)',
                       border: 'none',
                       borderRadius: '50px',
                       fontSize: 'var(--fs-body)',
                       fontWeight: 500,
-                      cursor: formData.agreeToTerms ? 'pointer' : 'not-allowed',
+                      cursor: (formData.agreeToTerms && !isLoading) ? 'pointer' : 'not-allowed',
                       transition: 'all 0.2s ease',
                     }}
                   >
-                    Submit Application
+                    {isLoading ? 'Submitting...' : 'Submit Application'}
                   </button>
                 )}
               </div>

@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import Head from 'next/head';
 import Link from 'next/link';
 import { Mail, Lock, ArrowRight, AlertCircle, X } from 'lucide-react';
-import { authenticateCustomer } from '../../lib/api/customers';
+import { supabase } from '../../lib/supabaseClient';
 
 const NEON_GREEN = '#00FF85';
 const CARD_BG = 'rgba(255, 255, 255, 0.02)';
@@ -15,13 +15,22 @@ export default function CustomerLogin() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [checkingAuth, setCheckingAuth] = useState(true);
   const [toast, setToast] = useState('');
 
   useEffect(() => {
-    const session = localStorage.getItem('customerSession');
-    if (session) {
-      router.replace('/account/dashboard');
-    }
+    const checkAuth = async () => {
+      try {
+        const { data: { user } } = await supabase.auth.getUser();
+        if (user) {
+          router.replace('/account/dashboard');
+        }
+      } catch (err) {
+        console.error('Auth check error:', err);
+      }
+      setCheckingAuth(false);
+    };
+    checkAuth();
   }, [router]);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -30,52 +39,39 @@ export default function CustomerLogin() {
     setLoading(true);
 
     try {
-      const customer = await authenticateCustomer(email, password);
-      
-      if (customer) {
+      const { data, error: signInError } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
+
+      if (signInError) {
+        setError(signInError.message);
+        setLoading(false);
+        return;
+      }
+
+      if (data.user) {
+        const { data: profile } = await supabase
+          .from('profiles')
+          .select('*')
+          .eq('id', data.user.id)
+          .single();
+
         const customerSession = {
-          id: customer.id,
-          email: customer.email,
-          firstName: customer.first_name,
-          lastName: customer.last_name,
-          loyaltyPoints: customer.loyalty_points,
-          loyaltyTier: customer.loyalty_tier,
-          memberSince: customer.created_at,
+          id: data.user.id,
+          email: data.user.email || email,
+          firstName: profile?.full_name?.split(' ')[0] || profile?.name?.split(' ')[0] || email.split('@')[0],
+          lastName: profile?.full_name?.split(' ').slice(1).join(' ') || profile?.name?.split(' ').slice(1).join(' ') || '',
+          loyaltyPoints: profile?.loyalty_points || 100,
+          loyaltyTier: profile?.loyalty_tier || 'bronze',
+          memberSince: profile?.created_at || new Date().toISOString(),
         };
         localStorage.setItem('customerSession', JSON.stringify(customerSession));
         router.push('/account/dashboard');
-      } else {
-        if (password === 'customer123' && email.includes('@')) {
-          const customerSession = {
-            id: 'demo-customer',
-            email: email,
-            firstName: email.split('@')[0].charAt(0).toUpperCase() + email.split('@')[0].slice(1),
-            lastName: 'Customer',
-            loyaltyPoints: 1240,
-            memberSince: new Date().toISOString(),
-          };
-          localStorage.setItem('customerSession', JSON.stringify(customerSession));
-          router.push('/account/dashboard');
-        } else {
-          setError('Invalid email or password. For demo, use any email with password "customer123"');
-        }
       }
-    } catch (err) {
+    } catch (err: any) {
       console.error('Login error:', err);
-      if (password === 'customer123' && email.includes('@')) {
-        const customerSession = {
-          id: 'demo-customer',
-          email: email,
-          firstName: email.split('@')[0].charAt(0).toUpperCase() + email.split('@')[0].slice(1),
-          lastName: 'Customer',
-          loyaltyPoints: 1240,
-          memberSince: new Date().toISOString(),
-        };
-        localStorage.setItem('customerSession', JSON.stringify(customerSession));
-        router.push('/account/dashboard');
-      } else {
-        setError('Login failed. Please try again.');
-      }
+      setError(err.message || 'Login failed. Please try again.');
     }
 
     setLoading(false);
@@ -85,6 +81,14 @@ export default function CustomerLogin() {
     setToast(`${provider} login coming soon!`);
     setTimeout(() => setToast(''), 3000);
   };
+
+  if (checkingAuth) {
+    return (
+      <div style={styles.container}>
+        <div style={{ color: '#FFFFFF', fontSize: 14 }}>Loading...</div>
+      </div>
+    );
+  }
 
   return (
     <>
@@ -203,10 +207,6 @@ export default function CustomerLogin() {
             <Link href="/account/signup" style={styles.signupLink}>
               Create one
             </Link>
-          </div>
-
-          <div style={styles.demoNotice}>
-            <strong>Demo Mode:</strong> Use any email with password "customer123"
           </div>
         </div>
       </div>
@@ -396,15 +396,5 @@ const styles: Record<string, React.CSSProperties> = {
     color: NEON_GREEN,
     fontWeight: 600,
     textDecoration: 'none',
-  },
-  demoNotice: {
-    marginTop: 20,
-    padding: '12px 16px',
-    backgroundColor: 'rgba(0, 255, 133, 0.05)',
-    border: `1px solid rgba(0, 255, 133, 0.1)`,
-    borderRadius: 8,
-    color: '#999999',
-    fontSize: 13,
-    textAlign: 'center',
   },
 };

@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import CommandCenterLayout from '../../../components/admin/CommandCenterLayout';
+import { supabase } from '../../../lib/supabaseClient';
 import {
   Handshake,
   DollarSign,
@@ -21,6 +22,8 @@ import {
   MessageSquare,
   Video,
   CheckCircle2,
+  Loader2,
+  AlertCircle,
 } from 'lucide-react';
 import {
   BarChart,
@@ -183,24 +186,108 @@ function getStatusColor(status: string) {
   }
 }
 
+function mapPipelineStage(stage: string | undefined): DealStage {
+  switch (stage) {
+    case 'new':
+    case 'contacted':
+      return 'lead';
+    case 'qualified':
+    case 'demo':
+      return 'qualified';
+    case 'proposal':
+      return 'proposal';
+    case 'negotiation':
+      return 'negotiation';
+    case 'closed_won':
+      return 'closed';
+    case 'closed_lost':
+      return 'closed';
+    default:
+      return 'lead';
+  }
+}
+
+function getTemperatureFromScore(score: number): DealTemperature {
+  if (score >= 70) return 'hot';
+  if (score >= 40) return 'warm';
+  return 'cold';
+}
+
 export default function B2BPipelinePage() {
   const [searchQuery, setSearchQuery] = useState('');
+  const [loading, setLoading] = useState(true);
+  const [partners, setPartners] = useState<any[]>([]);
+  const [leads, setLeads] = useState<any[]>([]);
+  const [orders, setOrders] = useState<any[]>([]);
+
+  const fetchB2BData = useCallback(async () => {
+    setLoading(true);
+    try {
+      const [partnersRes, leadsRes, ordersRes] = await Promise.all([
+        supabase.from('retail_partners').select('*').order('created_at', { ascending: false }),
+        supabase.from('leads').select('*').order('created_at', { ascending: false }),
+        supabase.from('orders').select('*').eq('order_type', 'b2b').order('created_at', { ascending: false }),
+      ]);
+
+      setPartners((partnersRes.data as any[]) || []);
+      setLeads((leadsRes.data as any[]) || []);
+      setOrders((ordersRes.data as any[]) || []);
+    } catch (error) {
+      console.error('Error fetching B2B data:', error);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchB2BData();
+  }, [fetchB2BData]);
+
+  const pipelineDealsFromDB: Deal[] = leads.map((lead, index) => ({
+    id: lead.id || String(index),
+    company: lead.company_name || 'Unknown Company',
+    value: lead.estimated_value || 0,
+    contact: `${lead.first_name || ''} ${lead.last_name || ''}`.trim() || 'No contact',
+    daysInStage: Math.floor((Date.now() - new Date(lead.created_at || Date.now()).getTime()) / (1000 * 60 * 60 * 24)),
+    stage: mapPipelineStage(lead.pipeline_stage),
+    temperature: getTemperatureFromScore(lead.score || 50),
+    probability: lead.probability || 50,
+    expectedClose: lead.expected_close_date ? new Date(lead.expected_close_date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : 'TBD',
+  }));
+
+  const contactsFromDB: Contact[] = leads.map((lead, index) => ({
+    id: lead.id || String(index),
+    name: `${lead.first_name || ''} ${lead.last_name || ''}`.trim() || 'No name',
+    company: lead.company_name || 'Unknown Company',
+    title: lead.metadata?.title || 'Contact',
+    email: lead.email || 'No email',
+    phone: lead.phone || 'No phone',
+    lastContact: lead.last_contacted_at ? new Date(lead.last_contacted_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : 'Never',
+    dealValue: lead.estimated_value || 0,
+  }));
 
   const getDealsForStage = (stage: DealStage) => {
-    return pipelineDeals.filter((d) => d.stage === stage);
+    return pipelineDealsFromDB.filter((d) => d.stage === stage);
   };
 
-  const hotDeals = pipelineDeals
+  const hotDeals = pipelineDealsFromDB
     .filter(d => d.stage !== 'closed')
     .sort((a, b) => b.probability - a.probability)
     .slice(0, 5);
 
-  const filteredContacts = contacts.filter(
+  const filteredContacts = contactsFromDB.filter(
     (c) =>
       c.company.toLowerCase().includes(searchQuery.toLowerCase()) ||
       c.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       c.email.toLowerCase().includes(searchQuery.toLowerCase())
   );
+
+  const totalPipelineValue = pipelineDealsFromDB.filter(d => d.stage !== 'closed').reduce((sum, d) => sum + d.value, 0);
+  const activeDealsCount = pipelineDealsFromDB.filter(d => d.stage !== 'closed').length;
+  const closedDeals = pipelineDealsFromDB.filter(d => d.stage === 'closed');
+  const wonThisMonth = closedDeals.reduce((sum, d) => sum + d.value, 0);
+  const avgDealSize = pipelineDealsFromDB.length > 0 ? Math.round(pipelineDealsFromDB.reduce((sum, d) => sum + d.value, 0) / pipelineDealsFromDB.length) : 0;
+  const winRate = pipelineDealsFromDB.length > 0 ? Math.round((closedDeals.length / pipelineDealsFromDB.length) * 100) : 0;
 
   return (
     <CommandCenterLayout title="B2B Pipeline">
@@ -214,6 +301,7 @@ export default function B2BPipelinePage() {
             <h1 style={styles.title}>B2B Pipeline</h1>
             <p style={styles.subtitle}>Wholesale deals, contacts, and sales funnel</p>
           </div>
+          {loading && <Loader2 size={20} color={NEON_GREEN} style={{ marginLeft: 'auto', animation: 'spin 1s linear infinite' }} />}
         </header>
 
         {/* Quick Actions Bar */}
@@ -237,28 +325,28 @@ export default function B2BPipelinePage() {
           <div style={styles.kpiCard}>
             <DollarSign size={20} color={NEON_GREEN} />
             <span style={styles.kpiLabel}>Total Pipeline Value</span>
-            <span style={styles.kpiValue}>$1.2M</span>
+            <span style={styles.kpiValue}>{loading ? '...' : formatCurrency(totalPipelineValue)}</span>
           </div>
           <div style={styles.kpiCard}>
             <Target size={20} color={NEON_GREEN} />
             <span style={styles.kpiLabel}>Active Deals</span>
-            <span style={styles.kpiValue}>14</span>
+            <span style={styles.kpiValue}>{loading ? '...' : activeDealsCount}</span>
           </div>
           <div style={styles.kpiCard}>
             <CheckCircle2 size={20} color={NEON_GREEN} />
             <span style={styles.kpiLabel}>Won This Month</span>
-            <span style={styles.kpiValue}>$180K</span>
-            <span style={styles.kpiSubtext}>3 deals</span>
+            <span style={styles.kpiValue}>{loading ? '...' : formatCurrency(wonThisMonth)}</span>
+            <span style={styles.kpiSubtext}>{closedDeals.length} deals</span>
           </div>
           <div style={styles.kpiCard}>
             <BarChart3 size={20} color={NEON_GREEN} />
             <span style={styles.kpiLabel}>Avg Deal Size</span>
-            <span style={styles.kpiValue}>$85K</span>
+            <span style={styles.kpiValue}>{loading ? '...' : formatCurrency(avgDealSize)}</span>
           </div>
           <div style={styles.kpiCard}>
             <TrendingUp size={20} color={NEON_GREEN} />
             <span style={styles.kpiLabel}>Win Rate</span>
-            <span style={styles.kpiValue}>32%</span>
+            <span style={styles.kpiValue}>{loading ? '...' : `${winRate}%`}</span>
           </div>
         </div>
 
@@ -308,32 +396,40 @@ export default function B2BPipelinePage() {
             <Flame size={20} color="#ef4444" style={{ marginRight: 8 }} />
             Hot Deals - Most Likely to Close
           </h2>
-          <div style={styles.hotDealsTable}>
-            <div style={styles.tableHeader}>
-              <span style={{ flex: 2 }}>Company</span>
-              <span style={{ flex: 1 }}>Value</span>
-              <span style={{ flex: 1 }}>Stage</span>
-              <span style={{ flex: 1 }}>Probability</span>
-              <span style={{ flex: 1.5 }}>Expected Close</span>
+          {hotDeals.length === 0 ? (
+            <div style={styles.emptyState}>
+              <AlertCircle size={32} color="rgba(255,255,255,0.3)" />
+              <p style={styles.emptyText}>No active deals found</p>
+              <p style={styles.emptySubtext}>Add leads to see them in the pipeline</p>
             </div>
-            {hotDeals.map((deal) => (
-              <div key={deal.id} style={styles.tableRow}>
-                <span style={{ flex: 2, fontWeight: 500, color: '#fff' }}>{deal.company}</span>
-                <span style={{ flex: 1, color: NEON_GREEN }}>{formatCurrency(deal.value)}</span>
-                <span style={{ flex: 1, textTransform: 'capitalize' }}>{deal.stage}</span>
-                <span style={{ flex: 1 }}>
-                  <span style={{
-                    ...styles.probabilityBadge,
-                    background: deal.probability >= 70 ? 'rgba(0,255,133,0.2)' : 'rgba(245,158,11,0.2)',
-                    color: deal.probability >= 70 ? NEON_GREEN : '#f59e0b',
-                  }}>
-                    {deal.probability}%
-                  </span>
-                </span>
-                <span style={{ flex: 1.5 }}>{deal.expectedClose}</span>
+          ) : (
+            <div style={styles.hotDealsTable}>
+              <div style={styles.tableHeader}>
+                <span style={{ flex: 2 }}>Company</span>
+                <span style={{ flex: 1 }}>Value</span>
+                <span style={{ flex: 1 }}>Stage</span>
+                <span style={{ flex: 1 }}>Probability</span>
+                <span style={{ flex: 1.5 }}>Expected Close</span>
               </div>
-            ))}
-          </div>
+              {hotDeals.map((deal) => (
+                <div key={deal.id} style={styles.tableRow}>
+                  <span style={{ flex: 2, fontWeight: 500, color: '#fff' }}>{deal.company}</span>
+                  <span style={{ flex: 1, color: NEON_GREEN }}>{formatCurrency(deal.value)}</span>
+                  <span style={{ flex: 1, textTransform: 'capitalize' }}>{deal.stage}</span>
+                  <span style={{ flex: 1 }}>
+                    <span style={{
+                      ...styles.probabilityBadge,
+                      background: deal.probability >= 70 ? 'rgba(0,255,133,0.2)' : 'rgba(245,158,11,0.2)',
+                      color: deal.probability >= 70 ? NEON_GREEN : '#f59e0b',
+                    }}>
+                      {deal.probability}%
+                    </span>
+                  </span>
+                  <span style={{ flex: 1.5 }}>{deal.expectedClose}</span>
+                </div>
+              ))}
+            </div>
+          )}
         </section>
 
         {/* Contact Database Table */}
@@ -351,34 +447,42 @@ export default function B2BPipelinePage() {
               style={styles.searchInput}
             />
           </div>
-          <div style={styles.tableContainer}>
-            <table style={styles.table}>
-              <thead>
-                <tr>
-                  <th style={styles.th}>Name</th>
-                  <th style={styles.th}>Company</th>
-                  <th style={styles.th}>Title</th>
-                  <th style={styles.th}>Email</th>
-                  <th style={styles.th}>Phone</th>
-                  <th style={styles.th}>Last Contact</th>
-                  <th style={styles.th}>Deal Value</th>
-                </tr>
-              </thead>
-              <tbody>
-                {filteredContacts.map((contact) => (
-                  <tr key={contact.id} style={styles.tr}>
-                    <td style={{ ...styles.td, fontWeight: 500, color: '#fff' }}>{contact.name}</td>
-                    <td style={styles.td}>{contact.company}</td>
-                    <td style={styles.td}>{contact.title}</td>
-                    <td style={{ ...styles.td, color: NEON_GREEN }}>{contact.email}</td>
-                    <td style={styles.td}>{contact.phone}</td>
-                    <td style={styles.td}>{contact.lastContact}</td>
-                    <td style={{ ...styles.td, color: NEON_GREEN }}>{formatCurrency(contact.dealValue)}</td>
+          {filteredContacts.length === 0 ? (
+            <div style={styles.emptyState}>
+              <Users size={32} color="rgba(255,255,255,0.3)" />
+              <p style={styles.emptyText}>No contacts found</p>
+              <p style={styles.emptySubtext}>Add leads with contact information to populate this list</p>
+            </div>
+          ) : (
+            <div style={styles.tableContainer}>
+              <table style={styles.table}>
+                <thead>
+                  <tr>
+                    <th style={styles.th}>Name</th>
+                    <th style={styles.th}>Company</th>
+                    <th style={styles.th}>Title</th>
+                    <th style={styles.th}>Email</th>
+                    <th style={styles.th}>Phone</th>
+                    <th style={styles.th}>Last Contact</th>
+                    <th style={styles.th}>Deal Value</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+                </thead>
+                <tbody>
+                  {filteredContacts.map((contact) => (
+                    <tr key={contact.id} style={styles.tr}>
+                      <td style={{ ...styles.td, fontWeight: 500, color: '#fff' }}>{contact.name}</td>
+                      <td style={styles.td}>{contact.company}</td>
+                      <td style={styles.td}>{contact.title}</td>
+                      <td style={{ ...styles.td, color: NEON_GREEN }}>{contact.email}</td>
+                      <td style={styles.td}>{contact.phone}</td>
+                      <td style={styles.td}>{contact.lastContact}</td>
+                      <td style={{ ...styles.td, color: NEON_GREEN }}>{formatCurrency(contact.dealValue)}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
         </section>
 
         <div style={styles.twoColumnGrid}>
@@ -843,5 +947,27 @@ const styles: Record<string, React.CSSProperties> = {
     border: `1px solid ${CARD_BORDER}`,
     borderRadius: 12,
     padding: 24,
+  },
+  emptyState: {
+    display: 'flex',
+    flexDirection: 'column' as const,
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 48,
+    gap: 12,
+    backgroundColor: CARD_BG,
+    border: `1px solid ${CARD_BORDER}`,
+    borderRadius: 12,
+  },
+  emptyText: {
+    fontSize: 16,
+    fontWeight: 600,
+    color: 'rgba(255,255,255,0.7)',
+    margin: 0,
+  },
+  emptySubtext: {
+    fontSize: 14,
+    color: 'rgba(255,255,255,0.4)',
+    margin: 0,
   },
 };
