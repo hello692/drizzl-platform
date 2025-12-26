@@ -8,7 +8,6 @@ import SmoothieCard from '../../components/SmoothieCard';
 import { useCart } from '../../contexts/CartContext';
 import { useAuth } from '../../hooks/useAuth';
 import { useAutoScroll } from '../../hooks/useAutoScroll';
-import { getProductByIdOrSlug } from '../../lib/api/products';
 import type { Product as DBProduct } from '../../types/database';
 
 // Apple-inspired design tokens (light theme - monochrome)
@@ -739,13 +738,16 @@ export default function ProductPage() {
       setNotFound(false);
       
       try {
-        const fetchedProduct = await getProductByIdOrSlug(productId);
-        if (fetchedProduct) {
-          setDbProduct(fetchedProduct);
-        } else {
-          if (!fallbackData) {
+        const res = await fetch(`/api/products/${encodeURIComponent(productId)}`);
+        if (res.ok) {
+          const data = await res.json();
+          if (data.product) {
+            setDbProduct(data.product);
+          } else if (!fallbackData) {
             setNotFound(true);
           }
+        } else if (!fallbackData) {
+          setNotFound(true);
         }
       } catch (err) {
         console.error('Failed to fetch product:', err);
