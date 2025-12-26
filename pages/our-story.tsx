@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { AnimatedSection } from '../components/ScrollAnimations';
 import { MorphingTextReveal } from '../components/ui/morphing-text-reveal';
 import { InfiniteSlider } from '../components/ui/infinite-slider';
+import { useRef, useEffect } from 'react';
 
 const VALUES = [
   { title: 'Human First', description: 'Made for you, not some marketing spreadsheet.' },
@@ -21,6 +22,15 @@ const STATS = [
 ];
 
 export default function OurStory() {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (video) {
+      video.play().catch(() => {});
+    }
+  }, []);
+
   return (
     <>
       <Navbar />
@@ -226,6 +236,7 @@ export default function OurStory() {
                 border: '1px solid rgba(255,255,255,0.08)',
               }}>
                 <video
+                  ref={videoRef}
                   autoPlay
                   loop
                   muted
@@ -234,9 +245,12 @@ export default function OurStory() {
                     width: '100%',
                     height: 'auto',
                     display: 'block',
+                    minHeight: '300px',
+                    background: '#111',
                   }}
                 >
                   <source src="/videos/bowling-drizzl.mp4" type="video/mp4" />
+                  Your browser does not support video.
                 </video>
               </div>
             </AnimatedSection>
