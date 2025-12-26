@@ -1,0 +1,41 @@
+{
+  "audit_timestamp": "2025-12-26T01:38:00.000Z",
+  "environment": "development",
+  "results": {
+    "critical": [
+      { "name": "NEXT_PUBLIC_SUPABASE_URL", "status": "PRESENT", "value_preview": "Set in Secrets" },
+      { "name": "NEXT_PUBLIC_SUPABASE_ANON_KEY", "status": "PRESENT", "value_preview": "Set in Secrets" },
+      { "name": "SUPABASE_URL", "status": "PRESENT", "value_preview": "Set in Secrets" },
+      { "name": "SUPABASE_ANON_KEY", "status": "PRESENT", "value_preview": "Set in Secrets" }
+    ],
+    "backend_only": [
+      { "name": "SUPABASE_SERVICE_ROLE_KEY", "status": "PRESENT", "value_preview": "Set in Secrets" },
+      { "name": "STRIPE_SECRET_KEY", "status": "PRESENT", "value_preview": "Set in Secrets" },
+      { "name": "STRIPE_WEBHOOK_SECRET", "status": "NEEDS_VERIFICATION", "note": "May need to be configured in Stripe dashboard" }
+    ],
+    "frontend_safe": [
+      { "name": "NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY", "status": "PRESENT", "value_preview": "Set in Secrets" }
+    ],
+    "email": [
+      { "name": "RESEND_API_KEY", "status": "PRESENT", "value_preview": "Set in Secrets" }
+    ],
+    "session": [
+      { "name": "SESSION_SECRET", "status": "PRESENT", "value_preview": "Set in Secrets" }
+    ],
+    "database": [
+      { "name": "DATABASE_URL", "status": "PRESENT", "value_preview": "Set in Secrets" }
+    ]
+  },
+  "supabase_client_test": {
+    "status": "CONFIGURED",
+    "client_files": ["lib/supabase.ts", "lib/supabaseClient.ts"],
+    "note": "Two client files exist - lib/supabase.ts (typed) and lib/supabaseClient.ts (legacy)"
+  },
+  "recommendations": [
+    "Consider consolidating supabase client files to avoid duplicate instances",
+    "STRIPE_WEBHOOK_SECRET should be verified in Stripe dashboard",
+    "Hydration mismatch warnings observed - should be addressed for production"
+  ],
+  "blocking_issues": [],
+  "phase_status": "PASS"
+}
