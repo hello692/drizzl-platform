@@ -33,7 +33,9 @@ function getGuestCart(): CartItem[] {
   if (typeof window === 'undefined') return [];
   try {
     const saved = localStorage.getItem(GUEST_CART_KEY);
-    return saved ? JSON.parse(saved) : [];
+    const parsed = saved ? JSON.parse(saved) : [];
+    console.log('[Cart] Loading from localStorage:', parsed);
+    return parsed;
   } catch {
     return [];
   }
@@ -42,6 +44,7 @@ function getGuestCart(): CartItem[] {
 function saveGuestCart(items: CartItem[]) {
   if (typeof window === 'undefined') return;
   try {
+    console.log('[Cart] Saving to localStorage:', items);
     localStorage.setItem(GUEST_CART_KEY, JSON.stringify(items));
   } catch {
     console.error('Failed to save cart');
@@ -52,6 +55,17 @@ export function CartProvider({ children }: { children: ReactNode }) {
   const [items, setItems] = useState<CartItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [userId, setUserId] = useState<string | null>(null);
+  const [initialized, setInitialized] = useState(false);
+  
+  useEffect(() => {
+    if (!initialized) {
+      const saved = getGuestCart();
+      console.log('[Cart] Initial load from localStorage:', saved);
+      setItems(saved);
+      setLoading(false);
+      setInitialized(true);
+    }
+  }, [initialized]);
 
   const calculateTotal = useCallback((cartItems: CartItem[]) => {
     return cartItems.reduce((sum, item) => {
@@ -64,20 +78,21 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     const fetchCart = async () => {
+      if (!userId) {
+        return;
+      }
+      
+      console.log('[Cart] fetchCart called for logged-in user:', userId);
       setLoading(true);
       
-      if (userId) {
-        const { data, error } = await supabase
-          .from('cart_items')
-          .select('*, product:product_id(*)')
-          .eq('user_id', userId);
+      const { data, error } = await supabase
+        .from('cart_items')
+        .select('*, product:product_id(*)')
+        .eq('user_id', userId);
 
-        if (!error && data) {
-          setItems(data);
-        }
-      } else {
-        const guestItems = getGuestCart();
-        setItems(guestItems);
+      if (!error && data) {
+        console.log('[Cart] Loaded from DB:', data);
+        setItems(data);
       }
       
       setLoading(false);
@@ -137,9 +152,10 @@ export function CartProvider({ children }: { children: ReactNode }) {
         newItems = [...items, newItem];
       }
 
-      console.log('[Cart] New items:', newItems);
+      console.log('[Cart] New items after add:', newItems);
       setItems(newItems);
       saveGuestCart(newItems);
+      console.log('[Cart] Verify localStorage after save:', localStorage.getItem(GUEST_CART_KEY));
     }
   };
 

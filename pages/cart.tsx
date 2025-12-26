@@ -10,8 +10,13 @@ export default function Cart() {
   const { items, total, loading, removeItem, updateQuantity, clear, setUserId } = useCart();
   
   useEffect(() => {
+    console.log('[CartPage] Mount, user:', user?.id, 'items:', items.length);
     setUserId(user?.id || null);
   }, [user?.id, setUserId]);
+  
+  useEffect(() => {
+    console.log('[CartPage] Items changed:', items);
+  }, [items]);
   const [isCheckingOut, setIsCheckingOut] = useState(false);
   const [updatingItems, setUpdatingItems] = useState<Set<string>>(new Set());
   const [isClearing, setIsClearing] = useState(false);
