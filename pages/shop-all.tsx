@@ -7,6 +7,7 @@ import type { Product as DBProduct } from '../types/database';
 
 interface Product {
   id: string;
+  slug: string;
   name: string;
   price: number;
   category: string;
@@ -99,6 +100,7 @@ export default function ShopAll() {
         if (dbProducts && dbProducts.length > 0) {
           const mappedProducts: Product[] = dbProducts.map((p: DBProduct) => ({
             id: p.id,
+            slug: p.slug,
             name: p.name,
             price: p.price_cents / 100,
             category: p.category || 'Smoothie',
@@ -237,7 +239,7 @@ export default function ShopAll() {
             <div className="products-grid">
               {filteredProducts.map(p => (
                 <div key={p.id} className="product-card">
-                  <Link href={`/products/${p.id}`} className="product-image-link">
+                  <Link href={`/products/${p.slug}`} className="product-image-link">
                     <div className="product-image-wrapper">
                       <img 
                         src={p.image} 
@@ -248,7 +250,7 @@ export default function ShopAll() {
                     </div>
                   </Link>
                   <div className="product-info">
-                    <Link href={`/products/${p.id}`}>
+                    <Link href={`/products/${p.slug}`}>
                       <h3 className="product-name">{p.name}</h3>
                     </Link>
                     <p className="product-category">{p.category}</p>

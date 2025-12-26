@@ -23,6 +23,27 @@ export async function getProductById(id: string): Promise<Product | null> {
   return data;
 }
 
+export async function getProductBySlug(slug: string): Promise<Product | null> {
+  const { data, error } = await supabase
+    .from('products')
+    .select('*')
+    .eq('slug', slug)
+    .single();
+  
+  if (error || !data) return null;
+  return data;
+}
+
+export async function getProductByIdOrSlug(idOrSlug: string): Promise<Product | null> {
+  const isUuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(idOrSlug);
+  
+  if (isUuid) {
+    return getProductById(idOrSlug);
+  }
+  
+  return getProductBySlug(idOrSlug);
+}
+
 export async function getProductsByCategory(category: string): Promise<Product[]> {
   const { data, error } = await supabase
     .from('products')

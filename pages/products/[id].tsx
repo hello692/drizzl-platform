@@ -8,7 +8,7 @@ import SmoothieCard from '../../components/SmoothieCard';
 import { useCart } from '../../hooks/useCart';
 import { useAuth } from '../../hooks/useAuth';
 import { useAutoScroll } from '../../hooks/useAutoScroll';
-import { getProductById } from '../../lib/api/products';
+import { getProductByIdOrSlug } from '../../lib/api/products';
 import type { Product as DBProduct } from '../../types/database';
 
 // Apple-inspired design tokens (light theme - monochrome)
@@ -739,7 +739,7 @@ export default function ProductPage() {
       setNotFound(false);
       
       try {
-        const fetchedProduct = await getProductById(productId);
+        const fetchedProduct = await getProductByIdOrSlug(productId);
         if (fetchedProduct) {
           setDbProduct(fetchedProduct);
         } else {
@@ -811,9 +811,10 @@ export default function ProductPage() {
   const handleAddToCart = async () => {
     if (!productData || isAddingToCart) return;
     setIsAddingToCart(true);
+    const actualProductId = dbProduct?.id || productId;
     try {
-      await addItem(productId, 1, {
-        id: productId,
+      await addItem(actualProductId, 1, {
+        id: actualProductId,
         name: productData.name,
         price: productData.price,
         image_url: productData.image,

@@ -161,8 +161,13 @@ For Vercel deployment, add these secrets in Vercel project settings:
 4. **FIXED - Password Reset Emails**: Connected to Resend API with proper error handling
 5. **FIXED - Contact/Wholesale Forms**: Now submit to database via API endpoints with email confirmations
 6. **FIXED - Admin Dashboard**: Fetches real metrics from Supabase (orders, partners, products)
+7. **FIXED - Shopping Cart**: Created `cart_items` table, seeded 12 products, fixed product ID resolution using slug-based lookups
+
+### Database Seeded Data
+- 12 products seeded (9 smoothies + 3 boxes) with correct image paths and pricing
+- Products use slug-based URLs (e.g., `/products/strawberry-peachy`)
 
 ### Remaining Recommendations
 - Remove `mockRecentOrders` once real order data is seeded
-- Add end-to-end test coverage for login/reset flows
+- Add end-to-end test coverage for login/reset/cart flows
 - Consider consolidating `lib/supabase.ts` and `lib/supabaseClient.ts` into single module
