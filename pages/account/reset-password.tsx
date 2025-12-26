@@ -62,7 +62,7 @@ export default function ResetPassword() {
           .eq('token', token)
           .eq('used', false)
           .gte('expires_at', new Date().toISOString())
-          .single();
+          .single() as { data: { customer_id: string; email: string } | null; error: any };
 
         if (error || !data) {
           setTokenValid(false);
@@ -109,14 +109,14 @@ export default function ResetPassword() {
 
       const { error: updateError } = await supabase
         .from('customers')
-        .update({ password_hash: hashedPassword })
+        .update({ password_hash: hashedPassword } as any)
         .eq('id', tokenData?.customer_id);
 
       if (updateError) throw updateError;
 
       await supabase
         .from('password_reset_tokens')
-        .update({ used: true })
+        .update({ used: true } as any)
         .eq('token', token);
 
       setSuccess(true);

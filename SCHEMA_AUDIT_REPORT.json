@@ -1,0 +1,266 @@
+{
+  "audit_date": "2025-12-26",
+  "database_type": "Supabase (PostgreSQL)",
+  "note": "This project uses SUPABASE external database, not local PostgreSQL. Tables are expected to exist in Supabase.",
+  "tables_defined_in_types": {
+    "source": "types/database.ts",
+    "tables": [
+      {
+        "name": "products",
+        "status": "SCHEMA_DEFINED",
+        "used_in": ["lib/api/products.ts", "lib/db.ts", "pages/api/admin/products.ts", "pages/api/products.ts"],
+        "columns": ["id", "name", "slug", "description", "category", "price_cents", "wholesale_price_cents", "hero_image_url", "is_active", "stock_quantity", "product_type", "sku", "barcode", "price_b2b_tier1_cents", "price_b2b_tier2_cents", "price_b2b_tier3_cents", "cost_cents", "is_subscription_eligible", "low_stock_threshold", "created_at", "updated_at"]
+      },
+      {
+        "name": "customers",
+        "status": "SCHEMA_DEFINED",
+        "used_in": ["lib/api/customers.ts"],
+        "columns": ["id", "email", "password_hash", "first_name", "last_name", "phone", "loyalty_points", "loyalty_tier", "is_active", "email_verified", "created_at", "updated_at"]
+      },
+      {
+        "name": "customer_addresses",
+        "status": "SCHEMA_DEFINED",
+        "used_in": ["lib/api/customers.ts"],
+        "columns": ["id", "customer_id", "label", "address_type", "street_address", "apartment", "city", "state", "zip_code", "country", "is_default", "created_at", "updated_at"]
+      },
+      {
+        "name": "customer_payment_methods",
+        "status": "SCHEMA_DEFINED",
+        "used_in": ["lib/api/customers.ts"],
+        "columns": ["id", "customer_id", "card_type", "last_four", "expiry_month", "expiry_year", "cardholder_name", "is_default", "stripe_payment_method_id", "created_at"]
+      },
+      {
+        "name": "partners",
+        "status": "SCHEMA_DEFINED",
+        "used_in": ["lib/api/partners.ts"],
+        "columns": ["id", "email", "password_hash", "business_name", "contact_name", "phone", "business_type", "tier", "credit_limit", "outstanding_balance", "payment_terms", "tax_id", "is_active", "is_verified", "account_manager", "created_at", "updated_at"]
+      },
+      {
+        "name": "partner_addresses",
+        "status": "SCHEMA_DEFINED",
+        "used_in": ["lib/api/partners.ts"],
+        "columns": ["id", "partner_id", "label", "address_type", "street_address", "city", "state", "zip_code", "country", "is_default", "created_at"]
+      },
+      {
+        "name": "d2c_orders",
+        "status": "SCHEMA_DEFINED",
+        "used_in": ["lib/api/customers.ts"],
+        "columns": ["id", "customer_id", "order_number", "status", "subtotal", "tax", "shipping", "discount", "total", "shipping_address_id", "payment_method_id", "tracking_number", "carrier", "notes", "created_at", "updated_at"]
+      },
+      {
+        "name": "d2c_order_items",
+        "status": "SCHEMA_DEFINED",
+        "used_in": ["lib/api/customers.ts"],
+        "columns": ["id", "order_id", "product_id", "quantity", "unit_price", "total_price", "created_at"]
+      },
+      {
+        "name": "subscriptions",
+        "status": "SCHEMA_DEFINED",
+        "used_in": ["lib/api/customers.ts"],
+        "columns": ["id", "customer_id", "product_id", "status", "frequency", "quantity", "unit_price", "next_delivery_date", "shipping_address_id", "payment_method_id", "created_at", "updated_at"]
+      },
+      {
+        "name": "b2b_orders",
+        "status": "SCHEMA_DEFINED",
+        "used_in": ["lib/api/partners.ts"],
+        "columns": ["id", "partner_id", "order_number", "status", "subtotal", "tax", "shipping", "discount", "total", "shipping_address_id", "po_number", "notes", "created_at", "updated_at"]
+      },
+      {
+        "name": "b2b_order_items",
+        "status": "SCHEMA_DEFINED",
+        "used_in": ["lib/api/partners.ts"],
+        "columns": ["id", "order_id", "product_id", "quantity", "unit_price", "total_price", "created_at"]
+      },
+      {
+        "name": "invoices",
+        "status": "SCHEMA_DEFINED",
+        "used_in": ["lib/api/partners.ts"],
+        "columns": ["id", "partner_id", "order_id", "invoice_number", "status", "subtotal", "tax", "total", "due_date", "paid_date", "payment_method", "notes", "created_at", "updated_at"]
+      },
+      {
+        "name": "loyalty_transactions",
+        "status": "SCHEMA_DEFINED",
+        "used_in": ["lib/api/customers.ts"],
+        "columns": ["id", "customer_id", "points", "transaction_type", "description", "reference_id", "created_at"]
+      },
+      {
+        "name": "admin_users",
+        "status": "SCHEMA_DEFINED",
+        "used_in": [],
+        "columns": ["id", "email", "password_hash", "name", "role", "is_active", "last_login", "created_at", "updated_at"]
+      },
+      {
+        "name": "password_reset_tokens",
+        "status": "SCHEMA_DEFINED",
+        "used_in": [],
+        "columns": ["id", "email", "token", "user_type", "expires_at", "used_at", "created_at"]
+      }
+    ]
+  },
+  "additional_tables_referenced": {
+    "note": "These tables are referenced in the codebase but not defined in types/database.ts",
+    "tables": [
+      {
+        "name": "profiles",
+        "status": "REFERENCED_NOT_TYPED",
+        "used_in": ["lib/auth.ts", "hooks/useRole.ts", "lib/adminAuth.ts", "pages/api/retail/apply.ts", "pages/api/admin/partners/[id].ts", "pages/api/admin/reset-admin.ts", "lib/db.ts"]
+      },
+      {
+        "name": "orders",
+        "status": "REFERENCED_NOT_TYPED",
+        "used_in": ["lib/commandCenterService.ts", "lib/db.ts", "lib/analytics.ts", "lib/orderTrackingService.ts", "lib/partnerIntelService.ts", "pages/api/orders.ts", "pages/api/admin/orders.ts", "pages/api/admin/stats.ts", "pages/api/admin/analytics.ts", "pages/api/admin/order-intel/index.ts"],
+        "note": "Generic orders table - may be used for both D2C and B2B or legacy"
+      },
+      {
+        "name": "order_items",
+        "status": "REFERENCED_NOT_TYPED",
+        "used_in": ["lib/commandCenterService.ts", "lib/analytics.ts", "pages/api/orders.ts", "pages/api/admin/analytics.ts"]
+      },
+      {
+        "name": "cart_items",
+        "status": "REFERENCED_NOT_TYPED",
+        "used_in": ["hooks/useCart.ts"]
+      },
+      {
+        "name": "retail_partners",
+        "status": "REFERENCED_NOT_TYPED",
+        "used_in": ["lib/partnerIntelService.ts", "lib/db.ts", "lib/leadService.ts", "pages/api/retail/apply.ts", "pages/api/retail/status.ts", "pages/api/admin/partners.ts", "pages/api/admin/partners/scoring.ts", "pages/api/admin/partners/[id].ts"]
+      },
+      {
+        "name": "analytics_events",
+        "status": "REFERENCED_NOT_TYPED",
+        "used_in": ["lib/commandCenterService.ts", "lib/analytics.ts", "pages/api/admin/analytics.ts"]
+      },
+      {
+        "name": "leads",
+        "status": "REFERENCED_NOT_TYPED",
+        "used_in": ["lib/leadService.ts"]
+      },
+      {
+        "name": "lead_activities",
+        "status": "REFERENCED_NOT_TYPED",
+        "used_in": ["lib/leadService.ts"]
+      },
+      {
+        "name": "lead_meetings",
+        "status": "REFERENCED_NOT_TYPED",
+        "used_in": ["lib/leadService.ts"]
+      },
+      {
+        "name": "partner_agreements",
+        "status": "REFERENCED_NOT_TYPED",
+        "used_in": ["lib/docusignService.ts"]
+      },
+      {
+        "name": "docusign_events",
+        "status": "REFERENCED_NOT_TYPED",
+        "used_in": ["lib/docusignService.ts"]
+      },
+      {
+        "name": "user_2fa",
+        "status": "REFERENCED_NOT_TYPED",
+        "used_in": ["lib/securityService.ts"]
+      },
+      {
+        "name": "user_sessions",
+        "status": "REFERENCED_NOT_TYPED",
+        "used_in": ["lib/securityService.ts"]
+      },
+      {
+        "name": "audit_logs",
+        "status": "REFERENCED_NOT_TYPED",
+        "used_in": ["lib/securityService.ts"]
+      },
+      {
+        "name": "login_attempts",
+        "status": "REFERENCED_NOT_TYPED",
+        "used_in": ["lib/securityService.ts"]
+      },
+      {
+        "name": "bank_accounts",
+        "status": "REFERENCED_NOT_TYPED",
+        "used_in": ["lib/bankingService.ts"]
+      },
+      {
+        "name": "bank_transactions",
+        "status": "REFERENCED_NOT_TYPED",
+        "used_in": ["lib/bankingService.ts"]
+      },
+      {
+        "name": "financial_snapshots",
+        "status": "REFERENCED_NOT_TYPED",
+        "used_in": ["lib/bankingService.ts"]
+      },
+      {
+        "name": "carriers",
+        "status": "REFERENCED_NOT_TYPED",
+        "used_in": ["lib/orderTrackingService.ts"]
+      },
+      {
+        "name": "shipment_events",
+        "status": "REFERENCED_NOT_TYPED",
+        "used_in": ["lib/orderTrackingService.ts"]
+      },
+      {
+        "name": "delivery_proofs",
+        "status": "REFERENCED_NOT_TYPED",
+        "used_in": ["lib/orderTrackingService.ts"]
+      },
+      {
+        "name": "partner_invoices",
+        "status": "REFERENCED_NOT_TYPED",
+        "used_in": ["lib/partnerIntelService.ts"]
+      },
+      {
+        "name": "partner_deliveries",
+        "status": "REFERENCED_NOT_TYPED",
+        "used_in": ["lib/partnerIntelService.ts"]
+      },
+      {
+        "name": "partner_tickets",
+        "status": "REFERENCED_NOT_TYPED",
+        "used_in": ["lib/partnerIntelService.ts"]
+      },
+      {
+        "name": "partner_documents",
+        "status": "REFERENCED_NOT_TYPED",
+        "used_in": ["lib/partnerIntelService.ts"]
+      },
+      {
+        "name": "testimonials",
+        "status": "REFERENCED_NOT_TYPED",
+        "used_in": ["pages/api/admin/testimonials.ts", "pages/api/admin/testimonials/[id].ts"]
+      },
+      {
+        "name": "experts",
+        "status": "REFERENCED_NOT_TYPED",
+        "used_in": ["pages/api/admin/experts.ts", "pages/api/admin/experts/[id].ts"]
+      },
+      {
+        "name": "product_costs",
+        "status": "REFERENCED_NOT_TYPED",
+        "used_in": ["pages/api/admin/product-intel/[id].ts", "pages/api/admin/product-intel/index.ts"]
+      },
+      {
+        "name": "product_ingredients",
+        "status": "REFERENCED_NOT_TYPED",
+        "used_in": ["pages/api/admin/product-intel/[id].ts"]
+      },
+      {
+        "name": "partner_scoring",
+        "status": "REFERENCED_NOT_TYPED",
+        "used_in": ["pages/api/admin/partners/scoring.ts"]
+      },
+      {
+        "name": "partner_application_logs",
+        "status": "REFERENCED_NOT_TYPED",
+        "used_in": ["pages/api/admin/partners/[id].ts"]
+      }
+    ]
+  },
+  "summary": {
+    "typed_tables": 15,
+    "additional_referenced_tables": 30,
+    "total_tables": 45
+  }
+}

@@ -1,0 +1,480 @@
+{
+  "auditMetadata": {
+    "auditDate": "2025-12-26",
+    "auditType": "Systems Review - Authentication, Cart, Checkout, Products",
+    "phases": ["Phase 4", "Phase 5", "Phase 6", "Phase 7"],
+    "summary": "Core e-commerce systems are partially implemented with several critical inconsistencies requiring attention"
+  },
+  "systems": {
+    "authentication": {
+      "status": "PARTIAL",
+      "overallHealth": "WARNING",
+      "description": "Two separate authentication systems exist causing confusion and potential security issues",
+      "files": {
+        "pages/auth.tsx": {
+          "status": "IMPLEMENTED",
+          "verified": true,
+          "description": "Main auth page with Supabase integration",
+          "features": [
+            "Email/password sign in and sign up",
+            "Supabase auth integration",
+            "Profile creation on signup",
+            "Role-based redirects (admin, partner, customer)",
+            "B2B account type handling",
+            "Query param support for redirects"
+          ],
+          "issues": []
+        },
+        "lib/auth.ts": {
+          "status": "IMPLEMENTED",
+          "verified": true,
+          "description": "Auth utility functions using Supabase",
+          "features": [
+            "getCurrentUser() - fetches user with profile",
+            "signUp() - email/password registration",
+            "signIn() - email/password login",
+            "signInWithMagicLink() - OTP login",
+            "signOut() - logout",
+            "onAuthStateChange() - state listener",
+            "isAdmin() - admin role check",
+            "Auto-creates profile if missing"
+          ],
+          "issues": []
+        },
+        "hooks/useAuth.ts": {
+          "status": "IMPLEMENTED",
+          "verified": true,
+          "description": "React hook for auth state management",
+          "features": [
+            "useAuth() - provides user, loading, error states",
+            "useRequireAuth() - redirects unauthenticated users",
+            "Auth state change listener",
+            "Proper cleanup on unmount"
+          ],
+          "issues": []
+        },
+        "pages/account/login.tsx": {
+          "status": "PARTIAL",
+          "verified": true,
+          "description": "Customer login page using localStorage sessions - NOT Supabase auth",
+          "features": [
+            "Email/password form",
+            "Demo mode fallback (password: customer123)",
+            "Social login buttons (Google, Apple - not implemented)",
+            "Remember session in localStorage"
+          ],
+          "issues": [
+            "CRITICAL: Uses localStorage for sessions instead of Supabase auth",
+            "Social login shows 'coming soon' toast only",
+            "Separate from main /auth page causing dual auth systems"
+          ]
+        },
+        "pages/account/signup.tsx": {
+          "status": "PARTIAL",
+          "verified": true,
+          "description": "Customer signup page - localStorage only, no actual registration",
+          "features": [
+            "Full registration form (name, email, password)",
+            "Password strength indicator",
+            "Password confirmation",
+            "Social signup buttons (not implemented)"
+          ],
+          "issues": [
+            "CRITICAL: Does NOT create users in Supabase - only localStorage",
+            "No email verification",
+            "Social signup shows 'coming soon' toast only"
+          ]
+        },
+        "pages/account/forgot-password.tsx": {
+          "status": "IMPLEMENTED",
+          "verified": true,
+          "description": "Password reset request page",
+          "features": [
+            "Email input for reset request",
+            "Token generation (UUID-based)",
+            "Stores token in password_reset_tokens table",
+            "1-hour expiration",
+            "Success confirmation UI"
+          ],
+          "issues": [
+            "No actual email sending - just stores token",
+            "Queries 'customers' table, not 'profiles'"
+          ]
+        },
+        "pages/account/reset-password.tsx": {
+          "status": "IMPLEMENTED",
+          "verified": true,
+          "description": "Password reset form with token validation",
+          "features": [
+            "Token validation from URL query",
+            "Password strength meter",
+            "Password requirements checklist",
+            "Show/hide password toggle",
+            "bcrypt password hashing",
+            "Marks token as used after reset"
+          ],
+          "issues": [
+            "Updates 'customers' table, not synced with Supabase auth"
+          ]
+        }
+      },
+      "criticalIssues": [
+        {
+          "severity": "CRITICAL",
+          "issue": "Dual Authentication Systems",
+          "description": "pages/auth.tsx uses Supabase auth properly, while pages/account/login.tsx and signup.tsx use localStorage-based sessions. Users registered via /account/signup are NOT created in Supabase.",
+          "impact": "Users created via /account/signup cannot access features requiring Supabase auth",
+          "recommendation": "Unify to single Supabase-based auth system"
+        },
+        {
+          "severity": "HIGH",
+          "issue": "Social Login Not Implemented",
+          "description": "Google and Apple login buttons exist but only show 'coming soon' toast",
+          "impact": "Poor user experience, misleading UI",
+          "recommendation": "Either implement OAuth or remove buttons"
+        },
+        {
+          "severity": "MEDIUM",
+          "issue": "Password Reset Table Mismatch",
+          "description": "forgot-password and reset-password pages use 'customers' table, not 'profiles' table",
+          "impact": "Password reset may not work for all users",
+          "recommendation": "Align with Supabase auth or ensure customers table syncs"
+        }
+      ],
+      "recommendations": [
+        "Remove /account/login.tsx and /account/signup.tsx - redirect to /auth",
+        "Or migrate /account pages to use Supabase auth like /auth does",
+        "Implement actual email sending for password reset using Resend integration",
+        "Add email verification flow",
+        "Implement Google/Apple OAuth or remove buttons"
+      ]
+    },
+    "shoppingCart": {
+      "status": "IMPLEMENTED",
+      "overallHealth": "GOOD",
+      "description": "Cart system is well-implemented with localStorage fallback for guests and Supabase sync for authenticated users",
+      "files": {
+        "hooks/useCart.ts": {
+          "status": "IMPLEMENTED",
+          "verified": true,
+          "description": "Cart hook with dual storage strategy",
+          "features": [
+            "Guest cart via localStorage (GUEST_CART_KEY)",
+            "Authenticated cart via Supabase cart_items table",
+            "addItem() - add products with quantity",
+            "removeItem() - remove by item ID",
+            "updateQuantity() - modify item quantity",
+            "clear() - empty entire cart",
+            "Auto-calculates total",
+            "Handles product data enrichment"
+          ],
+          "issues": [
+            "Guest cart does not merge with user cart on login"
+          ]
+        },
+        "pages/cart.tsx": {
+          "status": "IMPLEMENTED",
+          "verified": true,
+          "description": "Cart page with full functionality",
+          "features": [
+            "Loading state with spinner",
+            "Empty cart messaging",
+            "Quantity adjustment controls",
+            "Item removal",
+            "Clear all cart",
+            "Price display per item and total",
+            "Checkout button with auth redirect for guests",
+            "Responsive styling"
+          ],
+          "issues": []
+        }
+      },
+      "criticalIssues": [],
+      "recommendations": [
+        "Consider merging guest cart with user cart on login",
+        "Add cart persistence timeout for guests",
+        "Add 'Save for Later' functionality"
+      ]
+    },
+    "checkout": {
+      "status": "IMPLEMENTED",
+      "overallHealth": "GOOD",
+      "description": "Checkout flow uses Stripe integration with proper session creation",
+      "files": {
+        "pages/checkout.tsx": {
+          "status": "IMPLEMENTED",
+          "verified": true,
+          "description": "Multi-step checkout page",
+          "features": [
+            "Requires authentication (useRequireAuth)",
+            "Shipping information form",
+            "Order summary with collapsible view",
+            "Stripe checkout session creation",
+            "Analytics event logging",
+            "Empty cart handling"
+          ],
+          "issues": [
+            "No guest checkout option"
+          ]
+        },
+        "lib/stripeClient.ts": {
+          "status": "IMPLEMENTED",
+          "verified": true,
+          "description": "Stripe client configuration using Replit connectors",
+          "features": [
+            "Dynamic credential fetching from Replit connectors",
+            "Environment-aware (dev/production)",
+            "getUncachableStripeClient() for fresh instances",
+            "getStripePublishableKey() for frontend",
+            "getStripeSecretKey() for backend",
+            "getStripeSync() for database sync"
+          ],
+          "issues": []
+        },
+        "pages/api/stripe/checkout.ts": {
+          "status": "IMPLEMENTED",
+          "verified": true,
+          "description": "Stripe checkout session API endpoint",
+          "features": [
+            "POST method validation",
+            "Line items creation from cart",
+            "Dynamic domain detection",
+            "Shipping address collection (US, CA)",
+            "Billing address collection",
+            "Success/cancel URL configuration"
+          ],
+          "issues": [
+            "Images use protocol://domain prefix - may fail for some product images"
+          ]
+        },
+        "pages/checkout-success.tsx": {
+          "status": "PARTIAL",
+          "verified": true,
+          "description": "Basic success page (legacy/simple version)",
+          "features": [
+            "Simple confirmation message",
+            "Home and Continue Shopping links"
+          ],
+          "issues": [
+            "Does not fetch order details from Stripe",
+            "Very basic - may be legacy"
+          ]
+        },
+        "pages/checkout/success.tsx": {
+          "status": "IMPLEMENTED",
+          "verified": true,
+          "description": "Detailed success page with order details",
+          "features": [
+            "Fetches order details from Stripe session",
+            "Displays order total",
+            "Shows customer email",
+            "Next steps guidance (email, tracking)",
+            "Links to orders and continue shopping",
+            "Loading and error states"
+          ],
+          "issues": []
+        }
+      },
+      "criticalIssues": [
+        {
+          "severity": "MEDIUM",
+          "issue": "Duplicate Success Pages",
+          "description": "Two success pages exist: /checkout-success (basic) and /checkout/success (detailed)",
+          "impact": "Confusion and inconsistent user experience",
+          "recommendation": "Remove /checkout-success.tsx, use only /checkout/success.tsx"
+        }
+      ],
+      "recommendations": [
+        "Remove duplicate pages/checkout-success.tsx",
+        "Add webhook handling for order fulfillment",
+        "Clear cart after successful checkout",
+        "Consider adding guest checkout option",
+        "Add order creation in database on successful payment"
+      ]
+    },
+    "products": {
+      "status": "PARTIAL",
+      "overallHealth": "WARNING",
+      "description": "Product display works but relies heavily on hardcoded data instead of API",
+      "files": {
+        "pages/products.tsx": {
+          "status": "IMPLEMENTED",
+          "verified": true,
+          "description": "Products listing page with category filter",
+          "features": [
+            "Fetches from /api/products endpoint",
+            "Category filtering via query param",
+            "Product grid display",
+            "Add to cart functionality",
+            "Loading and empty states"
+          ],
+          "issues": [
+            "Requires auth to add to cart (redirects)"
+          ]
+        },
+        "pages/shop-all.tsx": {
+          "status": "PARTIAL",
+          "verified": true,
+          "description": "Shop all page with fallback products",
+          "features": [
+            "Category tabs (All, Smoothie, Box)",
+            "Sort options (Featured, Price, Name)",
+            "Search functionality",
+            "Skeleton loading states",
+            "Product cards with Add to Cart"
+          ],
+          "issues": [
+            "CRITICAL: Uses hardcoded fallbackProducts array",
+            "Does NOT fetch from API/database",
+            "Product data is static"
+          ]
+        },
+        "pages/products/[id].tsx": {
+          "status": "PARTIAL",
+          "verified": true,
+          "description": "Product detail page with comprehensive UI",
+          "features": [
+            "Image gallery with thumbnails",
+            "Hero video support",
+            "Detailed product descriptions",
+            "Nutrition facts display",
+            "Key ingredients section",
+            "Add to cart with quantity",
+            "Related products carousel",
+            "Lifestyle gallery",
+            "Rating display"
+          ],
+          "issues": [
+            "CRITICAL: Uses hardcoded PRODUCT_DATA object",
+            "Does NOT fetch from API/database",
+            "Product data is static and must be updated in code",
+            "Very large file (500+ lines of product data)"
+          ]
+        },
+        "lib/api/products.ts": {
+          "status": "IMPLEMENTED",
+          "verified": true,
+          "description": "Product API utilities using Supabase",
+          "features": [
+            "getAllProducts() - fetch active products",
+            "getProductById(id) - single product",
+            "getProductsByCategory(category)",
+            "getSubscriptionEligibleProducts()",
+            "getLowStockProducts()",
+            "updateProductStock()",
+            "formatPrice() utility",
+            "getB2BPrice() for tiered pricing"
+          ],
+          "issues": [
+            "Well-implemented but NOT USED by product pages",
+            "Product pages use hardcoded data instead"
+          ]
+        }
+      },
+      "criticalIssues": [
+        {
+          "severity": "CRITICAL",
+          "issue": "Hardcoded Product Data",
+          "description": "pages/products/[id].tsx and pages/shop-all.tsx use hardcoded product data instead of fetching from Supabase via lib/api/products.ts",
+          "impact": "Product updates require code changes and deployments. Database products not displayed.",
+          "recommendation": "Migrate product pages to use lib/api/products.ts functions"
+        },
+        {
+          "severity": "HIGH",
+          "issue": "API Functions Not Utilized",
+          "description": "lib/api/products.ts has comprehensive API functions that are not used by frontend pages",
+          "impact": "Wasted implementation, data inconsistency",
+          "recommendation": "Integrate API functions into product pages"
+        }
+      ],
+      "recommendations": [
+        "Migrate pages/products/[id].tsx to fetch from getProductById()",
+        "Migrate pages/shop-all.tsx to fetch from getAllProducts()",
+        "Move hardcoded product data to Supabase products table",
+        "Add product image URLs to database",
+        "Implement proper product caching with ISR or SWR"
+      ]
+    }
+  },
+  "crossSystemIssues": [
+    {
+      "issue": "Auth System Fragmentation",
+      "affectedSystems": ["authentication", "shoppingCart", "checkout"],
+      "description": "The dual auth systems mean cart behavior differs between /auth and /account/login users",
+      "recommendation": "Unify authentication to single Supabase-based system"
+    },
+    {
+      "issue": "Data Layer Inconsistency",
+      "affectedSystems": ["products", "shoppingCart"],
+      "description": "Products use hardcoded data while cart uses Supabase, causing potential product_id mismatches",
+      "recommendation": "Ensure all product IDs align between hardcoded data and database"
+    }
+  ],
+  "prioritizedRecommendations": [
+    {
+      "priority": 1,
+      "category": "CRITICAL",
+      "action": "Unify Authentication Systems",
+      "description": "Remove or migrate pages/account/login.tsx and signup.tsx to use Supabase auth like pages/auth.tsx",
+      "estimatedEffort": "Medium"
+    },
+    {
+      "priority": 2,
+      "category": "CRITICAL",
+      "action": "Migrate Products to Database",
+      "description": "Update pages/products/[id].tsx and pages/shop-all.tsx to fetch from Supabase using lib/api/products.ts",
+      "estimatedEffort": "Medium"
+    },
+    {
+      "priority": 3,
+      "category": "HIGH",
+      "action": "Remove Duplicate Success Page",
+      "description": "Delete pages/checkout-success.tsx, keep only pages/checkout/success.tsx",
+      "estimatedEffort": "Low"
+    },
+    {
+      "priority": 4,
+      "category": "HIGH",
+      "action": "Implement Password Reset Email",
+      "description": "Use Resend integration to send actual password reset emails",
+      "estimatedEffort": "Low"
+    },
+    {
+      "priority": 5,
+      "category": "MEDIUM",
+      "action": "Add Stripe Webhook Handler",
+      "description": "Create webhook to handle successful payments and create orders in database",
+      "estimatedEffort": "Medium"
+    },
+    {
+      "priority": 6,
+      "category": "MEDIUM",
+      "action": "Cart Merge on Login",
+      "description": "Merge guest localStorage cart with user cart when logging in",
+      "estimatedEffort": "Low"
+    },
+    {
+      "priority": 7,
+      "category": "LOW",
+      "action": "Remove or Implement Social Login",
+      "description": "Either implement Google/Apple OAuth or remove misleading buttons",
+      "estimatedEffort": "High if implementing, Low if removing"
+    }
+  ],
+  "conclusion": {
+    "overallStatus": "PARTIAL",
+    "summaryScores": {
+      "authentication": "60%",
+      "shoppingCart": "90%",
+      "checkout": "85%",
+      "products": "50%"
+    },
+    "keyFindings": [
+      "Shopping cart and checkout systems are well-implemented and functional",
+      "Authentication has critical dual-system issue requiring immediate attention",
+      "Products system bypasses API layer with hardcoded data",
+      "Stripe integration is properly configured using Replit connectors"
+    ],
+    "recommendation": "Focus on unifying authentication and migrating products to database before adding new features"
+  }
+}

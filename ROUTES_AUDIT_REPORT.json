@@ -1,0 +1,220 @@
+{
+  "audit_date": "2025-12-26",
+  "framework": "Next.js (Pages Router)",
+  "total_pages": 113,
+  "total_api_routes": 53,
+  "pages": {
+    "public": [
+      { "route": "/", "file": "pages/index.tsx", "status": "FOUND", "exports_default": true },
+      { "route": "/products", "file": "pages/products.tsx", "status": "FOUND", "exports_default": true },
+      { "route": "/products/[id]", "file": "pages/products/[id].tsx", "status": "FOUND", "exports_default": true },
+      { "route": "/products/smoothies", "file": "pages/products/smoothies.tsx", "status": "FOUND", "exports_default": true },
+      { "route": "/products/high-protein", "file": "pages/products/high-protein.tsx", "status": "FOUND", "exports_default": true },
+      { "route": "/products/gift", "file": "pages/products/gift.tsx", "status": "FOUND", "exports_default": true },
+      { "route": "/product/[id]", "file": "pages/product/[id].tsx", "status": "FOUND", "exports_default": true },
+      { "route": "/shop-all", "file": "pages/shop-all.tsx", "status": "FOUND", "exports_default": true },
+      { "route": "/smoothies", "file": "pages/smoothies.tsx", "status": "FOUND", "exports_default": true },
+      { "route": "/wellness", "file": "pages/wellness.tsx", "status": "FOUND", "exports_default": true },
+      { "route": "/juices", "file": "pages/juices.tsx", "status": "FOUND", "exports_default": true },
+      { "route": "/cart", "file": "pages/cart.tsx", "status": "FOUND", "exports_default": true },
+      { "route": "/our-story", "file": "pages/our-story.tsx", "status": "FOUND", "exports_default": true },
+      { "route": "/contact", "file": "pages/contact.tsx", "status": "FOUND", "exports_default": true },
+      { "route": "/locations", "file": "pages/locations.tsx", "status": "FOUND", "exports_default": true },
+      { "route": "/store-locator", "file": "pages/store-locator.tsx", "status": "FOUND", "exports_default": true },
+      { "route": "/faq", "file": "pages/faq.tsx", "status": "FOUND", "exports_default": true },
+      { "route": "/blog", "file": "pages/blog.tsx", "status": "FOUND", "exports_default": true },
+      { "route": "/careers", "file": "pages/careers.tsx", "status": "FOUND", "exports_default": true },
+      { "route": "/sustainability", "file": "pages/sustainability.tsx", "status": "FOUND", "exports_default": true },
+      { "route": "/ingredients", "file": "pages/ingredients.tsx", "status": "FOUND", "exports_default": true },
+      { "route": "/membership", "file": "pages/membership.tsx", "status": "FOUND", "exports_default": true },
+      { "route": "/refer", "file": "pages/refer.tsx", "status": "FOUND", "exports_default": true },
+      { "route": "/ambassadors", "file": "pages/ambassadors.tsx", "status": "FOUND", "exports_default": true },
+      { "route": "/student-discount", "file": "pages/student-discount.tsx", "status": "FOUND", "exports_default": true },
+      { "route": "/privacy", "file": "pages/privacy.tsx", "status": "FOUND", "exports_default": true },
+      { "route": "/terms", "file": "pages/terms.tsx", "status": "FOUND", "exports_default": true },
+      { "route": "/shipping", "file": "pages/shipping.tsx", "status": "FOUND", "exports_default": true },
+      { "route": "/returns", "file": "pages/returns.tsx", "status": "FOUND", "exports_default": true },
+      { "route": "/supply-chain-transparency", "file": "pages/supply-chain-transparency.tsx", "status": "FOUND", "exports_default": true },
+      { "route": "/supplier-code-of-conduct", "file": "pages/supplier-code-of-conduct.tsx", "status": "FOUND", "exports_default": true }
+    ],
+    "collections": [
+      { "route": "/collections/smoothies", "file": "pages/collections/smoothies.tsx", "status": "FOUND", "exports_default": true },
+      { "route": "/collections/best-sellers", "file": "pages/collections/best-sellers.tsx", "status": "FOUND", "exports_default": true },
+      { "route": "/collections/new-arrivals", "file": "pages/collections/new-arrivals.tsx", "status": "FOUND", "exports_default": true },
+      { "route": "/collections/high-protein", "file": "pages/collections/high-protein.tsx", "status": "FOUND", "exports_default": true },
+      { "route": "/collections/gift-guide", "file": "pages/collections/gift-guide.tsx", "status": "FOUND", "exports_default": true },
+      { "route": "/collections/smoothie-boxes", "file": "pages/collections/smoothie-boxes.tsx", "status": "FOUND", "exports_default": true }
+    ],
+    "auth": [
+      { "route": "/auth", "file": "pages/auth.tsx", "status": "FOUND", "exports_default": true },
+      { "route": "/account/login", "file": "pages/account/login.tsx", "status": "FOUND", "exports_default": true },
+      { "route": "/account/signup", "file": "pages/account/signup.tsx", "status": "FOUND", "exports_default": true },
+      { "route": "/account/forgot-password", "file": "pages/account/forgot-password.tsx", "status": "FOUND", "exports_default": true },
+      { "route": "/account/reset-password", "file": "pages/account/reset-password.tsx", "status": "FOUND", "exports_default": true }
+    ],
+    "customer_account": [
+      { "route": "/account", "file": "pages/account/index.tsx", "status": "FOUND", "exports_default": true },
+      { "route": "/account/dashboard", "file": "pages/account/dashboard.tsx", "status": "FOUND", "exports_default": true },
+      { "route": "/account/orders", "file": "pages/account/orders.tsx", "status": "FOUND", "exports_default": true },
+      { "route": "/account/addresses", "file": "pages/account/addresses.tsx", "status": "FOUND", "exports_default": true },
+      { "route": "/account/payment", "file": "pages/account/payment.tsx", "status": "FOUND", "exports_default": true },
+      { "route": "/account/settings", "file": "pages/account/settings.tsx", "status": "FOUND", "exports_default": true },
+      { "route": "/account/wishlist", "file": "pages/account/wishlist.tsx", "status": "FOUND", "exports_default": true },
+      { "route": "/account/rewards", "file": "pages/account/rewards.tsx", "status": "FOUND", "exports_default": true },
+      { "route": "/account/subscriptions", "file": "pages/account/subscriptions.tsx", "status": "FOUND", "exports_default": true }
+    ],
+    "checkout": [
+      { "route": "/checkout", "file": "pages/checkout.tsx", "status": "FOUND", "exports_default": true },
+      { "route": "/checkout/success", "file": "pages/checkout/success.tsx", "status": "FOUND", "exports_default": true },
+      { "route": "/checkout-success", "file": "pages/checkout-success.tsx", "status": "FOUND", "exports_default": true },
+      { "route": "/order-confirmation", "file": "pages/order-confirmation.tsx", "status": "FOUND", "exports_default": true },
+      { "route": "/orders", "file": "pages/orders.tsx", "status": "FOUND", "exports_default": true },
+      { "route": "/orders/[id]", "file": "pages/orders/[id].tsx", "status": "FOUND", "exports_default": true },
+      { "route": "/dashboard", "file": "pages/dashboard.tsx", "status": "FOUND", "exports_default": true }
+    ],
+    "wholesale": [
+      { "route": "/wholesale", "file": "pages/wholesale/index.tsx", "status": "FOUND", "exports_default": true },
+      { "route": "/wholesale/apply", "file": "pages/wholesale/apply.tsx", "status": "FOUND", "exports_default": true },
+      { "route": "/wholesale/signin", "file": "pages/wholesale/signin.tsx", "status": "FOUND", "exports_default": true },
+      { "route": "/wholesale/pricing", "file": "pages/wholesale/pricing.tsx", "status": "FOUND", "exports_default": true },
+      { "route": "/wholesale/dashboard", "file": "pages/wholesale/dashboard.tsx", "status": "FOUND", "exports_default": true }
+    ],
+    "retail": [
+      { "route": "/retail", "file": "pages/retail.tsx", "status": "FOUND", "exports_default": true },
+      { "route": "/retail/apply", "file": "pages/retail/apply.tsx", "status": "FOUND", "exports_default": true },
+      { "route": "/retail/application-submitted", "file": "pages/retail/application-submitted.tsx", "status": "FOUND", "exports_default": true },
+      { "route": "/retail-partner/dashboard", "file": "pages/retail-partner/dashboard.tsx", "status": "FOUND", "exports_default": true }
+    ],
+    "partner_portal": [
+      { "route": "/partner", "file": "pages/partner/index.tsx", "status": "FOUND", "exports_default": true },
+      { "route": "/partner/login", "file": "pages/partner/login.tsx", "status": "FOUND", "exports_default": true },
+      { "route": "/partner/apply", "file": "pages/partner/apply.tsx", "status": "FOUND", "exports_default": true },
+      { "route": "/partner/forgot-password", "file": "pages/partner/forgot-password.tsx", "status": "FOUND", "exports_default": true },
+      { "route": "/partner/reset-password", "file": "pages/partner/reset-password.tsx", "status": "FOUND", "exports_default": true },
+      { "route": "/partner/dashboard", "file": "pages/partner/dashboard.tsx", "status": "FOUND", "exports_default": true },
+      { "route": "/partner/account", "file": "pages/partner/account.tsx", "status": "FOUND", "exports_default": true },
+      { "route": "/partner/orders", "file": "pages/partner/orders/index.tsx", "status": "FOUND", "exports_default": true },
+      { "route": "/partner/orders/new", "file": "pages/partner/orders/new.tsx", "status": "FOUND", "exports_default": true },
+      { "route": "/partner/track-orders", "file": "pages/partner/track-orders.tsx", "status": "FOUND", "exports_default": true },
+      { "route": "/partner/invoices", "file": "pages/partner/invoices.tsx", "status": "FOUND", "exports_default": true },
+      { "route": "/partner/pricing", "file": "pages/partner/pricing.tsx", "status": "FOUND", "exports_default": true },
+      { "route": "/partner/marketing-hub", "file": "pages/partner/marketing-hub.tsx", "status": "FOUND", "exports_default": true },
+      { "route": "/partner/support", "file": "pages/partner/support.tsx", "status": "FOUND", "exports_default": true },
+      { "route": "/partner/messages", "file": "pages/partner/messages.tsx", "status": "FOUND", "exports_default": true },
+      { "route": "/partner/analytics", "file": "pages/partner/analytics.tsx", "status": "FOUND", "exports_default": true },
+      { "route": "/partner/financing", "file": "pages/partner/financing.tsx", "status": "FOUND", "exports_default": true },
+      { "route": "/partner/integrations", "file": "pages/partner/integrations.tsx", "status": "FOUND", "exports_default": true },
+      { "route": "/partner/how-to-guide", "file": "pages/partner/how-to-guide.tsx", "status": "FOUND", "exports_default": true }
+    ],
+    "sales_portal": [
+      { "route": "/sales", "file": "pages/sales/index.tsx", "status": "FOUND", "exports_default": true },
+      { "route": "/sales/login", "file": "pages/sales/login.tsx", "status": "FOUND", "exports_default": true },
+      { "route": "/sales/forgot-password", "file": "pages/sales/forgot-password.tsx", "status": "FOUND", "exports_default": true },
+      { "route": "/sales/reset-password", "file": "pages/sales/reset-password.tsx", "status": "FOUND", "exports_default": true },
+      { "route": "/sales/dashboard", "file": "pages/sales/dashboard.tsx", "status": "FOUND", "exports_default": true },
+      { "route": "/sales/leads", "file": "pages/sales/leads.tsx", "status": "FOUND", "exports_default": true },
+      { "route": "/sales/leads/[id]", "file": "pages/sales/leads/[id].tsx", "status": "FOUND", "exports_default": true },
+      { "route": "/sales/commission", "file": "pages/sales/commission.tsx", "status": "FOUND", "exports_default": true },
+      { "route": "/sales/messages", "file": "pages/sales/messages.tsx", "status": "FOUND", "exports_default": true },
+      { "route": "/sales/profile", "file": "pages/sales/profile.tsx", "status": "FOUND", "exports_default": true },
+      { "route": "/sales/activity", "file": "pages/sales/activity.tsx", "status": "FOUND", "exports_default": true }
+    ],
+    "admin": [
+      { "route": "/admin", "file": "pages/admin/index.tsx", "status": "FOUND", "exports_default": true },
+      { "route": "/admin/auth", "file": "pages/admin/auth.tsx", "status": "FOUND", "exports_default": true },
+      { "route": "/admin/products", "file": "pages/admin/products/index.tsx", "status": "FOUND", "exports_default": true },
+      { "route": "/admin/products/new", "file": "pages/admin/products/new.tsx", "status": "FOUND", "exports_default": true },
+      { "route": "/admin/products/[id]/edit", "file": "pages/admin/products/[id]/edit.tsx", "status": "FOUND", "exports_default": true },
+      { "route": "/admin/command-center", "file": "pages/admin/command-center/index.tsx", "status": "FOUND", "exports_default": true },
+      { "route": "/admin/command-center/leads", "file": "pages/admin/command-center/leads.tsx", "status": "FOUND", "exports_default": true },
+      { "route": "/admin/command-center/analytics", "file": "pages/admin/command-center/analytics.tsx", "status": "FOUND", "exports_default": true },
+      { "route": "/admin/command-center/finance", "file": "pages/admin/command-center/finance.tsx", "status": "FOUND", "exports_default": true },
+      { "route": "/admin/command-center/b2b-pipeline", "file": "pages/admin/command-center/b2b-pipeline.tsx", "status": "FOUND", "exports_default": true },
+      { "route": "/admin/command-center/production", "file": "pages/admin/command-center/production.tsx", "status": "FOUND", "exports_default": true },
+      { "route": "/admin/command-center/marketing", "file": "pages/admin/command-center/marketing.tsx", "status": "FOUND", "exports_default": true },
+      { "route": "/admin/command-center/supply-chain", "file": "pages/admin/command-center/supply-chain.tsx", "status": "FOUND", "exports_default": true },
+      { "route": "/admin/command-center/messages", "file": "pages/admin/command-center/messages.tsx", "status": "FOUND", "exports_default": true },
+      { "route": "/admin/command-center/tasks", "file": "pages/admin/command-center/tasks.tsx", "status": "FOUND", "exports_default": true },
+      { "route": "/admin/command-center/ai-assistant", "file": "pages/admin/command-center/ai-assistant.tsx", "status": "FOUND", "exports_default": true },
+      { "route": "/admin/command-center/profile", "file": "pages/admin/command-center/profile.tsx", "status": "FOUND", "exports_default": true },
+      { "route": "/admin/command-center/settings", "file": "pages/admin/command-center/settings.tsx", "status": "FOUND", "exports_default": true }
+    ],
+    "special": [
+      { "route": "/_app", "file": "pages/_app.tsx", "status": "FOUND", "exports_default": true, "note": "Next.js app wrapper" },
+      { "route": "/_document", "file": "pages/_document.tsx", "status": "FOUND", "exports_default": true, "note": "Next.js document" }
+    ]
+  },
+  "api_routes": {
+    "core": [
+      { "route": "/api/hello", "file": "pages/api/hello.ts", "status": "FOUND" },
+      { "route": "/api/checkout", "file": "pages/api/checkout.ts", "status": "FOUND" },
+      { "route": "/api/orders", "file": "pages/api/orders.ts", "status": "FOUND" },
+      { "route": "/api/products", "file": "pages/api/products.ts", "status": "FOUND" },
+      { "route": "/api/download-code", "file": "pages/api/download-code.ts", "status": "FOUND" }
+    ],
+    "stripe": [
+      { "route": "/api/stripe/checkout", "file": "pages/api/stripe/checkout.ts", "status": "FOUND" },
+      { "route": "/api/stripe/publishable-key", "file": "pages/api/stripe/publishable-key.ts", "status": "FOUND" },
+      { "route": "/api/stripe/session/[sessionId]", "file": "pages/api/stripe/session/[sessionId].ts", "status": "FOUND" },
+      { "route": "/api/stripe/webhook/[uuid]", "file": "pages/api/stripe/webhook/[uuid].ts", "status": "FOUND" }
+    ],
+    "email": [
+      { "route": "/api/email/send-order-confirmation", "file": "pages/api/email/send-order-confirmation.ts", "status": "FOUND" },
+      { "route": "/api/email/send-welcome", "file": "pages/api/email/send-welcome.ts", "status": "FOUND" },
+      { "route": "/api/email/send-password-reset", "file": "pages/api/email/send-password-reset.ts", "status": "FOUND" },
+      { "route": "/api/email/send-shipping-update", "file": "pages/api/email/send-shipping-update.ts", "status": "FOUND" }
+    ],
+    "retail": [
+      { "route": "/api/retail/apply", "file": "pages/api/retail/apply.ts", "status": "FOUND" },
+      { "route": "/api/retail/status", "file": "pages/api/retail/status.ts", "status": "FOUND" }
+    ],
+    "ai": [
+      { "route": "/api/ai/content", "file": "pages/api/ai/content.ts", "status": "FOUND" }
+    ],
+    "admin": [
+      { "route": "/api/admin/stats", "file": "pages/api/admin/stats.ts", "status": "FOUND" },
+      { "route": "/api/admin/analytics", "file": "pages/api/admin/analytics.ts", "status": "FOUND" },
+      { "route": "/api/admin/orders", "file": "pages/api/admin/orders.ts", "status": "FOUND" },
+      { "route": "/api/admin/orders/tracking", "file": "pages/api/admin/orders/tracking.ts", "status": "FOUND" },
+      { "route": "/api/admin/products", "file": "pages/api/admin/products.ts", "status": "FOUND" },
+      { "route": "/api/admin/partners", "file": "pages/api/admin/partners.ts", "status": "FOUND" },
+      { "route": "/api/admin/partners/[id]", "file": "pages/api/admin/partners/[id].ts", "status": "FOUND" },
+      { "route": "/api/admin/partners/search", "file": "pages/api/admin/partners/search.ts", "status": "FOUND" },
+      { "route": "/api/admin/partners/scoring", "file": "pages/api/admin/partners/scoring.ts", "status": "FOUND" },
+      { "route": "/api/admin/partners/profile/[id]", "file": "pages/api/admin/partners/profile/[id].ts", "status": "FOUND" },
+      { "route": "/api/admin/leads", "file": "pages/api/admin/leads/index.ts", "status": "FOUND" },
+      { "route": "/api/admin/experts", "file": "pages/api/admin/experts.ts", "status": "FOUND" },
+      { "route": "/api/admin/experts/[id]", "file": "pages/api/admin/experts/[id].ts", "status": "FOUND" },
+      { "route": "/api/admin/testimonials", "file": "pages/api/admin/testimonials.ts", "status": "FOUND" },
+      { "route": "/api/admin/testimonials/[id]", "file": "pages/api/admin/testimonials/[id].ts", "status": "FOUND" },
+      { "route": "/api/admin/reset-admin", "file": "pages/api/admin/reset-admin.ts", "status": "FOUND" },
+      { "route": "/api/admin/command-center", "file": "pages/api/admin/command-center/index.ts", "status": "FOUND" },
+      { "route": "/api/admin/ai-assistant/chat", "file": "pages/api/admin/ai-assistant/chat.ts", "status": "FOUND" },
+      { "route": "/api/admin/banking", "file": "pages/api/admin/banking/index.ts", "status": "FOUND" },
+      { "route": "/api/admin/banking/transactions", "file": "pages/api/admin/banking/transactions.ts", "status": "FOUND" },
+      { "route": "/api/admin/calendar", "file": "pages/api/admin/calendar/index.ts", "status": "FOUND" },
+      { "route": "/api/admin/docusign/agreements", "file": "pages/api/admin/docusign/agreements.ts", "status": "FOUND" },
+      { "route": "/api/admin/docusign/send", "file": "pages/api/admin/docusign/send.ts", "status": "FOUND" },
+      { "route": "/api/admin/docusign/webhook", "file": "pages/api/admin/docusign/webhook.ts", "status": "FOUND" },
+      { "route": "/api/admin/factory", "file": "pages/api/admin/factory/index.ts", "status": "FOUND" },
+      { "route": "/api/admin/inventory", "file": "pages/api/admin/inventory/index.ts", "status": "FOUND" },
+      { "route": "/api/admin/order-intel", "file": "pages/api/admin/order-intel/index.ts", "status": "FOUND" },
+      { "route": "/api/admin/product-intel", "file": "pages/api/admin/product-intel/index.ts", "status": "FOUND" },
+      { "route": "/api/admin/product-intel/[id]", "file": "pages/api/admin/product-intel/[id].ts", "status": "FOUND" },
+      { "route": "/api/admin/security/2fa", "file": "pages/api/admin/security/2fa.ts", "status": "FOUND" },
+      { "route": "/api/admin/security/audit-logs", "file": "pages/api/admin/security/audit-logs.ts", "status": "FOUND" },
+      { "route": "/api/admin/security/sessions", "file": "pages/api/admin/security/sessions.ts", "status": "FOUND" },
+      { "route": "/api/admin/social", "file": "pages/api/admin/social/index.ts", "status": "FOUND" },
+      { "route": "/api/admin/social/posts", "file": "pages/api/admin/social/posts.ts", "status": "FOUND" },
+      { "route": "/api/admin/video-manager", "file": "pages/api/admin/video-manager/index.ts", "status": "FOUND" },
+      { "route": "/api/admin/video-manager/[id]", "file": "pages/api/admin/video-manager/[id].ts", "status": "FOUND" }
+    ]
+  },
+  "summary": {
+    "total_page_routes": 113,
+    "total_api_routes": 53,
+    "routes_with_default_export": 113,
+    "routes_missing": 0,
+    "routes_with_errors": 0
+  }
+}

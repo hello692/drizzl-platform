@@ -34,7 +34,7 @@ export default function ForgotPassword() {
         .from('customers')
         .select('id, email')
         .eq('email', email.toLowerCase())
-        .single();
+        .single() as { data: { id: string; email: string } | null };
 
       if (customer) {
         const token = generateResetToken();
