@@ -228,37 +228,121 @@ export default function OurStory() {
               </div>
             </AnimatedSection>
 
-            <AnimatedSection animation="fadeUp" delay={400}>
-              <div style={{
-                marginTop: 'clamp(48px, 6vw, 72px)',
-                borderRadius: '20px',
-                overflow: 'hidden',
-                border: '1px solid rgba(255,255,255,0.08)',
-              }}>
-                <video
-                  ref={videoRef}
-                  autoPlay
-                  loop
-                  muted
-                  playsInline
-                  style={{
-                    width: '100%',
-                    height: 'auto',
+          </div>
+        </section>
+
+        {/* Video + Text Section */}
+        <section style={{
+          background: '#000000',
+          padding: 'clamp(60px, 8vw, 100px) clamp(20px, 4vw, 48px)',
+        }}>
+          <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 400px), 1fr))',
+              gap: 'clamp(40px, 6vw, 80px)',
+              alignItems: 'center',
+            }}>
+              <AnimatedSection animation="fadeUp">
+                <div style={{
+                  borderRadius: '20px',
+                  overflow: 'hidden',
+                  border: '1px solid rgba(255,255,255,0.08)',
+                }}>
+                  <video
+                    ref={videoRef}
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    style={{
+                      width: '100%',
+                      height: 'auto',
+                      display: 'block',
+                      minHeight: '300px',
+                      background: '#111',
+                    }}
+                  >
+                    <source src="/videos/bowling-drizzl.mp4" type="video/mp4" />
+                    Your browser does not support video.
+                  </video>
+                </div>
+              </AnimatedSection>
+
+              <AnimatedSection animation="fadeUp" delay={100}>
+                <div>
+                  <span style={{
+                    fontSize: 'var(--fs-label)',
+                    fontWeight: 500,
+                    letterSpacing: '0.08em',
+                    textTransform: 'uppercase',
+                    color: 'var(--color-text-tertiary)',
+                    marginBottom: '16px',
                     display: 'block',
-                    minHeight: '300px',
-                    background: '#111',
-                  }}
-                >
-                  <source src="/videos/bowling-drizzl.mp4" type="video/mp4" />
-                  Your browser does not support video.
-                </video>
-              </div>
-            </AnimatedSection>
+                  }}>
+                    WHY WAIT FOR THE GOOD STUFF?
+                  </span>
+                  <h2 style={{
+                    fontSize: 'clamp(1.8rem, 4vw, 2.5rem)',
+                    fontWeight: 300,
+                    color: '#ffffff',
+                    marginBottom: '24px',
+                    lineHeight: 1.2,
+                  }}>
+                    We broke up with boring wellness.
+                  </h2>
+                  <p style={{
+                    fontSize: 'clamp(15px, 1.8vw, 17px)',
+                    color: 'var(--color-text-secondary)',
+                    lineHeight: 1.8,
+                    marginBottom: '20px',
+                  }}>
+                    We're done with bland smoothies and sugar bombs pretending to be healthy. We wanted food that's exciting—something that tastes like a cheat day but fuels like a superfood.
+                  </p>
+                  <p style={{
+                    fontSize: 'clamp(15px, 1.8vw, 17px)',
+                    color: '#ffffff',
+                    fontWeight: 500,
+                    lineHeight: 1.6,
+                    marginBottom: '20px',
+                  }}>
+                    So, we made Drizzl Wellness.
+                  </p>
+                  <p style={{
+                    fontSize: 'clamp(15px, 1.8vw, 17px)',
+                    color: 'var(--color-text-secondary)',
+                    lineHeight: 1.8,
+                    marginBottom: '32px',
+                  }}>
+                    Your freezer's new go-to. Chef-crafted recipes, packed with real, organic ingredients, and flash-frozen at their best. Pure flavor, no compromises.
+                  </p>
+
+                  <div style={{
+                    display: 'grid',
+                    gridTemplateColumns: 'repeat(3, 1fr)',
+                    gap: '24px',
+                  }}>
+                    <div>
+                      <p style={{ fontSize: 'clamp(1.5rem, 3vw, 2rem)', fontWeight: 300, color: '#ffffff', marginBottom: '4px' }}>0g</p>
+                      <p style={{ fontSize: 'var(--fs-small)', color: 'var(--color-text-tertiary)' }}>Added Sugar</p>
+                    </div>
+                    <div>
+                      <p style={{ fontSize: 'clamp(1.5rem, 3vw, 2rem)', fontWeight: 300, color: '#ffffff', marginBottom: '4px' }}>90%+</p>
+                      <p style={{ fontSize: 'var(--fs-small)', color: 'var(--color-text-tertiary)' }}>Organic Ingredients</p>
+                    </div>
+                    <div>
+                      <p style={{ fontSize: 'clamp(1.5rem, 3vw, 2rem)', fontWeight: 300, color: '#ffffff', marginBottom: '4px' }}>Peak</p>
+                      <p style={{ fontSize: 'var(--fs-small)', color: 'var(--color-text-tertiary)' }}>Frozen for Freshness</p>
+                    </div>
+                  </div>
+                </div>
+              </AnimatedSection>
+            </div>
           </div>
         </section>
 
         <section style={{
-          background: '#000000',
+          background: '#0a0a0a',
           padding: 'clamp(40px, 6vw, 64px) clamp(20px, 4vw, 48px)',
         }}>
           <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
