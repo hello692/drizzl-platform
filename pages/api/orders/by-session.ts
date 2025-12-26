@@ -14,6 +14,20 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   }
 
   try {
+    const stripe = await getUncachableStripeClient();
+    const stripeSession = await stripe.checkout.sessions.retrieve(session_id, {
+      expand: ['line_items'],
+    });
+    
+    if (stripeSession.payment_status !== 'paid') {
+      return res.status(400).json({ error: 'Payment not completed' });
+    }
+    
+    const sessionEmail = stripeSession.customer_email || stripeSession.customer_details?.email;
+    if (!sessionEmail) {
+      return res.status(400).json({ error: 'Session has no associated email' });
+    }
+
     const supabase = getServiceSupabase();
 
     const { data: order, error } = await supabase
@@ -37,26 +51,23 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           product_id,
           name,
           price_cents,
-          qty
+          qty,
+          quantity,
+          unit_price_cents
         )
       `)
       .eq('stripe_session_id', session_id)
       .single();
 
     if (error || !order) {
-      const stripe = await getUncachableStripeClient();
-      const session = await stripe.checkout.sessions.retrieve(session_id, {
-        expand: ['line_items'],
-      });
-
       return res.status(200).json({
         id: null,
-        stripe_session_id: session.id,
-        email: session.customer_email || session.customer_details?.email,
-        amount_total: session.amount_total,
-        currency: session.currency,
-        status: session.payment_status === 'paid' ? 'paid' : 'pending',
-        items: session.line_items?.data.map((item: any) => ({
+        stripe_session_id: stripeSession.id,
+        email: sessionEmail,
+        amount_total: stripeSession.amount_total,
+        currency: stripeSession.currency,
+        status: 'paid',
+        items: stripeSession.line_items?.data.map((item: any) => ({
           name: item.description,
           price_cents: item.amount_total,
           qty: item.quantity,
@@ -65,9 +76,16 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       });
     }
 
+    const normalizedItems = (order.order_items || []).map((item: any) => ({
+      id: item.id,
+      name: item.name || 'Product',
+      price_cents: item.price_cents || item.unit_price_cents || 0,
+      qty: item.qty || item.quantity || 1,
+    }));
+
     res.status(200).json({
       ...order,
-      items: order.order_items,
+      items: normalizedItems,
       pending_webhook: false,
     });
   } catch (error: any) {

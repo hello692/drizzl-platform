@@ -163,6 +163,8 @@ async function createOrderFromSession(session: Stripe.Checkout.Session) {
       name: item.name,
       price_cents: item.priceCents,
       qty: item.qty,
+      quantity: item.qty,
+      unit_price_cents: item.priceCents,
     }));
 
     const { error: itemsError } = await supabase
