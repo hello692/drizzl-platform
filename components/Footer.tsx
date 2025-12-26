@@ -99,6 +99,9 @@ export default function Footer() {
               <Link href="/wholesale/signin" className="footer-link">
                 Partner Sign In
               </Link>
+              <Link href="/sales/login" className="footer-link">
+                For Sales Reps
+              </Link>
             </nav>
           </div>
 
