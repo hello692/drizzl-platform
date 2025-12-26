@@ -815,7 +815,8 @@ export default function ProductPage() {
   const handleAddToCart = async () => {
     if (!productData || isAddingToCart) return;
     setIsAddingToCart(true);
-    const actualProductId = dbProduct?.id || productId;
+    // Always prefer the database UUID if available
+    const actualProductId = dbProduct?.id || productData.id;
     try {
       await addItem(actualProductId, 1, {
         id: actualProductId,
@@ -999,6 +1000,7 @@ export default function ProductPage() {
             </span>
           </div>
           <button 
+            type="button"
             onClick={handleAddToCart}
             disabled={isAddingToCart}
             style={{
@@ -1152,6 +1154,7 @@ export default function ProductPage() {
             </div>
 
             <button 
+              type="button"
               className={`lv-add-to-cart ${addedToCart ? 'added' : ''}`}
               onClick={handleAddToCart}
               disabled={isAddingToCart}

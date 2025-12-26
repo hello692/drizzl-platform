@@ -1,3 +1,5 @@
+'use client';
+
 import { createContext, useContext, useEffect, useState, useCallback, ReactNode } from 'react';
 import { supabase } from '../lib/supabaseClient';
 
@@ -27,7 +29,11 @@ interface CartContextType {
 
 const CartContext = createContext<CartContextType | null>(null);
 
-const GUEST_CART_KEY = 'drizzl_guest_cart';
+const GUEST_CART_KEY = 'drizzl_cart_v1';
+
+function isValidUUID(id: string): boolean {
+  return /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(id);
+}
 
 function getGuestCart(): CartItem[] {
   if (typeof window === 'undefined') return [];
@@ -102,9 +108,11 @@ export function CartProvider({ children }: { children: ReactNode }) {
   }, [userId]);
 
   const addItem = async (productId: string, quantity: number = 1, productData?: CartItem['product']) => {
-    console.log('[Cart] Adding item:', { productId, quantity, productData });
+    // For logged-in users with valid UUID product IDs, save to database
+    // Otherwise, save to localStorage (guest mode)
+    const useDatabase = userId && isValidUUID(productId);
     
-    if (userId) {
+    if (useDatabase) {
       const existing = items.find(item => item.product_id === productId);
 
       if (existing) {
