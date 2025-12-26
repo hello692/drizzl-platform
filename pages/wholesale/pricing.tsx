@@ -100,7 +100,7 @@ export default function WholesalePricing() {
                   key={item.id}
                   href={item.href}
                   style={{
-                    background: '#00FF85',
+                    background: '#ffffff',
                     color: '#000000',
                     padding: '10px 20px',
                     borderRadius: '50px',
@@ -190,7 +190,7 @@ export default function WholesalePricing() {
               <AnimatedSection key={tier.name} animation="fadeUp" delay={index * 100}>
                 <div style={{
                   background: tier.isPopular ? 'rgba(0, 255, 133, 0.05)' : 'transparent',
-                  border: tier.isPopular ? '2px solid #00FF85' : '1px solid rgba(255,255,255,0.08)',
+                  border: tier.isPopular ? '2px solid #ffffff' : '1px solid rgba(255,255,255,0.08)',
                   borderRadius: '20px',
                   padding: '32px 28px',
                   position: 'relative',
@@ -204,7 +204,7 @@ export default function WholesalePricing() {
                       top: '-12px',
                       left: '50%',
                       transform: 'translateX(-50%)',
-                      background: '#00FF85',
+                      background: '#ffffff',
                       color: '#000000',
                       padding: '6px 16px',
                       borderRadius: '50px',
@@ -241,7 +241,7 @@ export default function WholesalePricing() {
                     <span style={{
                       fontSize: 'clamp(2rem, 4vw, 2.5rem)',
                       fontWeight: 300,
-                      color: tier.isPopular ? '#00FF85' : '#ffffff',
+                      color: tier.isPopular ? '#ffffff' : '#ffffff',
                       letterSpacing: '-0.02em',
                     }}>
                       {tier.discount}
@@ -286,7 +286,7 @@ export default function WholesalePricing() {
                         color: 'var(--color-text-secondary)',
                       }}>
                         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style={{ flexShrink: 0 }}>
-                          <path d="M13.5 4.5L6 12L2.5 8.5" stroke={tier.isPopular ? '#00FF85' : '#ffffff'} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                          <path d="M13.5 4.5L6 12L2.5 8.5" stroke={tier.isPopular ? '#ffffff' : '#ffffff'} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                         </svg>
                         {feature}
                       </li>
@@ -331,7 +331,7 @@ export default function WholesalePricing() {
                   }}>
                     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" style={{ flexShrink: 0 }}>
                       <circle cx="10" cy="10" r="9" stroke="rgba(255,255,255,0.2)" strokeWidth="1.5"/>
-                      <path d="M6 10L9 13L14 7" stroke="#00FF85" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                      <path d="M6 10L9 13L14 7" stroke="#ffffff" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                     </svg>
                     {req}
                   </li>
@@ -346,7 +346,7 @@ export default function WholesalePricing() {
                 href="/wholesale/apply"
                 style={{
                   padding: '18px 40px',
-                  background: '#00FF85',
+                  background: '#ffffff',
                   color: '#000000',
                   border: 'none',
                   borderRadius: '50px',

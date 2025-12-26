@@ -58,7 +58,7 @@ export default function WholesaleSignIn() {
                   key={item.id}
                   href={item.href}
                   style={{
-                    background: '#00FF85',
+                    background: '#ffffff',
                     color: '#000000',
                     padding: '10px 20px',
                     borderRadius: '50px',

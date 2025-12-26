@@ -169,7 +169,7 @@ export default function WholesaleApply() {
                     key={item.id}
                     href={item.href}
                     style={{
-                      background: '#00FF85',
+                      background: '#ffffff',
                       color: '#000000',
                       padding: '10px 20px',
                       borderRadius: '50px',
@@ -225,7 +225,7 @@ export default function WholesaleApply() {
                 margin: '0 auto 32px',
               }}>
                 <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
-                  <path d="M10 20L17 27L30 13" stroke="#00FF85" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/>
+                  <path d="M10 20L17 27L30 13" stroke="#ffffff" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
               </div>
               
@@ -314,7 +314,7 @@ export default function WholesaleApply() {
                   key={item.id}
                   href={item.href}
                   style={{
-                    background: '#00FF85',
+                    background: '#ffffff',
                     color: '#000000',
                     padding: '10px 20px',
                     borderRadius: '50px',
@@ -413,7 +413,7 @@ export default function WholesaleApply() {
                       width: '40px',
                       height: '40px',
                       borderRadius: '50%',
-                      background: currentStep >= step.number ? '#00FF85' : 'rgba(255,255,255,0.08)',
+                      background: currentStep >= step.number ? '#ffffff' : 'rgba(255,255,255,0.08)',
                       color: currentStep >= step.number ? '#000000' : 'rgba(255,255,255,0.4)',
                       display: 'flex',
                       alignItems: 'center',
@@ -443,7 +443,7 @@ export default function WholesaleApply() {
                     <div style={{
                       width: '60px',
                       height: '2px',
-                      background: currentStep > step.number ? '#00FF85' : 'rgba(255,255,255,0.1)',
+                      background: currentStep > step.number ? '#ffffff' : 'rgba(255,255,255,0.1)',
                       margin: '0 12px',
                       marginBottom: '24px',
                       transition: 'all 0.3s ease',
@@ -478,7 +478,7 @@ export default function WholesaleApply() {
                         style={{
                           flex: 1,
                           padding: '12px 20px',
-                          background: formData.accountType === 'customer' ? '#00FF85' : 'transparent',
+                          background: formData.accountType === 'customer' ? '#ffffff' : 'transparent',
                           color: formData.accountType === 'customer' ? '#000000' : 'rgba(255,255,255,0.6)',
                           border: 'none',
                           borderRadius: '10px',
@@ -496,7 +496,7 @@ export default function WholesaleApply() {
                         style={{
                           flex: 1,
                           padding: '12px 20px',
-                          background: formData.accountType === 'retail_partner' ? '#00FF85' : 'transparent',
+                          background: formData.accountType === 'retail_partner' ? '#ffffff' : 'transparent',
                           color: formData.accountType === 'retail_partner' ? '#000000' : 'rgba(255,255,255,0.6)',
                           border: 'none',
                           borderRadius: '10px',
@@ -762,7 +762,7 @@ export default function WholesaleApply() {
                       <h4 style={{
                         fontSize: 'var(--fs-small)',
                         fontWeight: 600,
-                        color: '#00FF85',
+                        color: '#ffffff',
                         marginBottom: '12px',
                         textTransform: 'uppercase',
                         letterSpacing: '0.05em',
@@ -793,7 +793,7 @@ export default function WholesaleApply() {
                       <h4 style={{
                         fontSize: 'var(--fs-small)',
                         fontWeight: 600,
-                        color: '#00FF85',
+                        color: '#ffffff',
                         marginBottom: '12px',
                         textTransform: 'uppercase',
                         letterSpacing: '0.05em',
@@ -840,7 +840,7 @@ export default function WholesaleApply() {
                       <h4 style={{
                         fontSize: 'var(--fs-small)',
                         fontWeight: 600,
-                        color: '#00FF85',
+                        color: '#ffffff',
                         marginBottom: '12px',
                         textTransform: 'uppercase',
                         letterSpacing: '0.05em',
@@ -903,7 +903,7 @@ export default function WholesaleApply() {
                         width: '20px',
                         height: '20px',
                         marginTop: '2px',
-                        accentColor: '#00FF85',
+                        accentColor: '#ffffff',
                         cursor: 'pointer',
                       }}
                     />
@@ -913,11 +913,11 @@ export default function WholesaleApply() {
                       lineHeight: 1.5,
                     }}>
                       I agree to the{' '}
-                      <Link href="/terms" style={{ color: '#00FF85', textDecoration: 'underline' }}>
+                      <Link href="/terms" style={{ color: '#ffffff', textDecoration: 'underline' }}>
                         Terms and Conditions
                       </Link>
                       {' '}and{' '}
-                      <Link href="/privacy" style={{ color: '#00FF85', textDecoration: 'underline' }}>
+                      <Link href="/privacy" style={{ color: '#ffffff', textDecoration: 'underline' }}>
                         Privacy Policy
                       </Link>
                     </span>
@@ -960,7 +960,7 @@ export default function WholesaleApply() {
                     disabled={!canContinue()}
                     style={{
                       padding: '14px 32px',
-                      background: canContinue() ? '#00FF85' : 'rgba(255,255,255,0.1)',
+                      background: canContinue() ? '#ffffff' : 'rgba(255,255,255,0.1)',
                       color: canContinue() ? '#000000' : 'rgba(255,255,255,0.3)',
                       border: 'none',
                       borderRadius: '50px',
@@ -979,7 +979,7 @@ export default function WholesaleApply() {
                     disabled={!formData.agreeToTerms}
                     style={{
                       padding: '14px 32px',
-                      background: formData.agreeToTerms ? '#00FF85' : 'rgba(255,255,255,0.1)',
+                      background: formData.agreeToTerms ? '#ffffff' : 'rgba(255,255,255,0.1)',
                       color: formData.agreeToTerms ? '#000000' : 'rgba(255,255,255,0.3)',
                       border: 'none',
                       borderRadius: '50px',
