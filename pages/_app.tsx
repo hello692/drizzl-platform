@@ -2,6 +2,7 @@ import '../styles/globals.css'
 import type { AppProps } from 'next/app'
 import { NextIntlClientProvider } from 'next-intl'
 import { useRouter } from 'next/router'
+import { CartProvider } from '../contexts/CartContext'
 
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter()
@@ -12,7 +13,9 @@ function MyApp({ Component, pageProps }: AppProps) {
       messages={pageProps.messages}
       timeZone="America/New_York"
     >
-      <Component {...pageProps} />
+      <CartProvider>
+        <Component {...pageProps} />
+      </CartProvider>
     </NextIntlClientProvider>
   )
 }

@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import { useCart } from '../hooks/useCart';
+import { useCart } from '../contexts/CartContext';
 import { useAuth } from '../hooks/useAuth';
 
 interface Product {
@@ -19,7 +19,11 @@ export default function Products() {
   const router = useRouter();
   const { category } = router.query;
   const { user } = useAuth();
-  const { addItem } = useCart(user?.id);
+  const { addItem, setUserId } = useCart();
+  
+  useEffect(() => {
+    setUserId(user?.id || null);
+  }, [user?.id, setUserId]);
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -45,11 +49,12 @@ export default function Products() {
   }, [category, router.isReady]);
 
   const handleAddToCart = async (product: Product) => {
-    if (!user) {
-      router.push('/auth');
-      return;
-    }
-    await addItem(product.id, 1);
+    await addItem(product.id, 1, {
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      image_url: product.image_url,
+    });
     alert('Added to cart!');
   };
 

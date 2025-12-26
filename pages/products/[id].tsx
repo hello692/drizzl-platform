@@ -5,7 +5,7 @@ import { useState, useEffect, useRef } from 'react';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import SmoothieCard from '../../components/SmoothieCard';
-import { useCart } from '../../hooks/useCart';
+import { useCart } from '../../contexts/CartContext';
 import { useAuth } from '../../hooks/useAuth';
 import { useAutoScroll } from '../../hooks/useAutoScroll';
 import { getProductByIdOrSlug } from '../../lib/api/products';
@@ -779,9 +779,13 @@ export default function ProductPage() {
   } : fallbackData || null;
   
   const { user } = useAuth();
-  const { addItem } = useCart(user?.id);
+  const { addItem, setUserId } = useCart();
   const [isAddingToCart, setIsAddingToCart] = useState(false);
   const [addedToCart, setAddedToCart] = useState(false);
+  
+  useEffect(() => {
+    setUserId(user?.id || null);
+  }, [user?.id, setUserId]);
   
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [openSections, setOpenSections] = useState({

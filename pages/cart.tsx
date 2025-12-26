@@ -1,13 +1,17 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import { useCart } from '../hooks/useCart';
+import { useCart } from '../contexts/CartContext';
 import { useAuth } from '../hooks/useAuth';
 
 export default function Cart() {
   const { user } = useAuth();
-  const { items, total, loading, removeItem, updateQuantity, clear } = useCart(user?.id);
+  const { items, total, loading, removeItem, updateQuantity, clear, setUserId } = useCart();
+  
+  useEffect(() => {
+    setUserId(user?.id || null);
+  }, [user?.id, setUserId]);
   const [isCheckingOut, setIsCheckingOut] = useState(false);
   const [updatingItems, setUpdatingItems] = useState<Set<string>>(new Set());
   const [isClearing, setIsClearing] = useState(false);

@@ -3,13 +3,17 @@ import { useRouter } from 'next/router';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { useRequireAuth } from '../hooks/useAuth';
-import { useCart } from '../hooks/useCart';
+import { useCart } from '../contexts/CartContext';
 import { logEvent } from '../lib/analytics';
 
 export default function Checkout() {
   const router = useRouter();
   const { user, loading: authLoading } = useRequireAuth();
-  const { items, total, clear } = useCart(user?.id);
+  const { items, total, clear, setUserId } = useCart();
+  
+  useEffect(() => {
+    setUserId(user?.id || null);
+  }, [user?.id, setUserId]);
   const [step, setStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [summaryCollapsed, setSummaryCollapsed] = useState(true);
