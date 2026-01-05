@@ -705,6 +705,19 @@ const PRODUCT_DATA: Record<string, ProductData> = {
   },
 };
 
+const SLUG_TO_ID: Record<string, string> = {
+  'strawberry-peachy': '1',
+  'pink-piyata-punch': '9',
+  'matcha-madness': '10',
+  'mocha-protein-fuel': '11',
+  'coffee-mushroom-blend': '14',
+  'acai-passionfruit': '17',
+  'nutty-monkey': '12',
+  'mango-jackfruit': '13',
+  'chocolate-berry-protein': '15',
+  'almond-luvly': '16',
+};
+
 const POPULAR_SMOOTHIES = [
   { id: '1', name: 'Strawberry Peachy', price: 8.49, image: '/products/strawberry-peach/1.png', hoverImage: '/products/strawberry-peach/2.png', badge: 'BEST SELLER', rating: 4.5, reviews: 4619 },
   { id: '9', name: 'Pink Piyata Punch', price: 8.99, image: '/products/pink-piyata/1.png', hoverImage: '/products/pink-piyata/2.png', badge: 'NEW', rating: 4.7, reviews: 127 },
@@ -727,8 +740,9 @@ export default function ProductPage() {
   const [dbProduct, setDbProduct] = useState<DBProduct | null>(null);
   const [notFound, setNotFound] = useState(false);
   
-  const fallbackData = PRODUCT_DATA[productId];
-  const product = POPULAR_SMOOTHIES.find(p => p.id === productId);
+  const fallbackId = SLUG_TO_ID[productId] || productId;
+  const fallbackData = PRODUCT_DATA[fallbackId];
+  const product = POPULAR_SMOOTHIES.find(p => p.id === fallbackId);
   
   useEffect(() => {
     async function fetchProduct() {
