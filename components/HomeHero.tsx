@@ -50,15 +50,7 @@ export default function HomeHero() {
         muted
         loop
         playsInline
-        onError={(e) => {
-          // Fallback to a working video if the primary fails
-          const video = e.currentTarget;
-          if (video.src.includes('hero-video.mp4')) {
-            video.src = 'https://res.cloudinary.com/coverr/video/upload/v1701789234/coverr-making-a-smoothie-9Ow1gVRrqA.mp4';
-          }
-        }}
       >
-        <source src="/videos/hero-video.mp4" type="video/mp4" />
         <source src="https://res.cloudinary.com/coverr/video/upload/v1701789234/coverr-making-a-smoothie-9Ow1gVRrqA.mp4" type="video/mp4" />
       </video>
       <div className="lv-hero-overlay" />
