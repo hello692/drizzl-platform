@@ -51,7 +51,7 @@ export default function HomeHero() {
         loop
         playsInline
       >
-        <source src="https://res.cloudinary.com/coverr/video/upload/v1701789234/coverr-making-a-smoothie-9Ow1gVRrqA.mp4" type="video/mp4" />
+        <source src="/videos/hero-video.mp4" type="video/mp4" />
       </video>
       <div className="lv-hero-overlay" />
 
