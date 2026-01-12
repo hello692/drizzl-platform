@@ -651,7 +651,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 7. Social Proof - Experts Reviews Carousel */}
+      {/* 7. Social Proof - Experts Reviews Carousel - Hidden until videos are ready */}
+      {/* 
       <section className="reviews-section">
         <div className="reviews-header">
           <p className="reviews-eyebrow">Over 50K Five-Star Reviews</p>
@@ -686,8 +687,10 @@ export default function Home() {
           </div>
         </div>
       </section>
+      */}
 
-      {/* Customer Reviews Section - Infinite scroll like Experts */}
+      {/* Customer Reviews Section - Hidden until videos are ready */}
+      {/*
       <section className="reviews-section">
         <div className="reviews-header">
           <h2 className="reviews-title">A Fan Favorite</h2>
@@ -721,6 +724,7 @@ export default function Home() {
           </div>
         </div>
       </section>
+      */}
 
       {/* Footer */}
       <Footer />
