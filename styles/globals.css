@@ -7786,8 +7786,9 @@ svg {
   }
 
   .lv-hero-copy {
-    top: 55%;
-    gap: 0.4rem;
+    top: auto;
+    bottom: 12%;
+    gap: 0.3rem;
     padding: 0 1.25rem;
     max-width: 420px;
   }
@@ -7796,35 +7797,37 @@ svg {
     font-size: clamp(1.3rem, 5.5vw, 1.6rem);
     font-weight: 300;
     white-space: nowrap;
+    margin-bottom: 0;
   }
 
   .lv-hero-title-line2 {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0.1rem;
+    gap: 0;
+    margin-top: 0;
   }
 
   .lv-hero-dynamic-word {
     display: block;
     min-width: auto;
-    min-height: 1.4em;
+    min-height: 1.3em;
   }
   
   .lv-hero-rotating-phrase {
     font-size: 1.25rem;
-    margin: 0.3rem 0 0 0;
+    margin: 0.2rem 0 0 0;
   }
   
   .lv-hero-sub {
     font-size: 0.95rem;
-    line-height: 1.45;
-    margin: 0.5rem 0 1rem 0;
+    line-height: 1.4;
+    margin: 0.4rem 0 0.6rem 0;
     white-space: normal;
   }
 
   .lv-hero-cta {
-    margin-top: 12px;
+    margin-top: 8px;
     padding: 12px 28px;
     font-size: 0.8rem;
   }
