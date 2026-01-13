@@ -516,40 +516,7 @@ export default function Home() {
 
       {/* 7. Social Proof - Experts Reviews Carousel - Hidden */}
 
-      {/* Customer Reviews Section */}
-      <section className="reviews-section">
-        <div className="reviews-header">
-          <h2 className="reviews-title">A Fan Favorite</h2>
-          <p className="reviews-subtitle">Because being loved this much should be illegal.</p>
-        </div>
-        <div className="reviews-wrapper">
-          <div className="reviews-track">
-            {[...Array(3)].map((_, setIndex) => (
-              CUSTOMERS.map((customer) => (
-                <div 
-                  key={`${setIndex}-${customer.id}`} 
-                  className="reviews-card-v2"
-                  onClick={() => setUnMutedCustomer(unMutedCustomer === customer.id ? null : customer.id)}
-                >
-                  <video
-                    src={customer.video}
-                    className="reviews-card-v2-video"
-                    loop
-                    autoPlay
-                    muted={unMutedCustomer !== customer.id}
-                    playsInline
-                  />
-                  <div className="reviews-card-v2-play-btn">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="white">
-                      <polygon points="8 5 19 12 8 19 8 5" />
-                    </svg>
-                  </div>
-                </div>
-              ))
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* Customer Reviews Section - Hidden until videos are ready */}
 
       {/* Footer */}
       <Footer />
