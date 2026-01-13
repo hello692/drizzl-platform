@@ -7743,8 +7743,9 @@ svg {
   }
 
   .lv-hero-title {
-    font-size: 1.6rem;
+    font-size: clamp(1.3rem, 5.5vw, 1.6rem);
     font-weight: 300;
+    white-space: nowrap;
   }
 
   .lv-hero-title-line2 {
