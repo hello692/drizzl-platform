@@ -17,8 +17,8 @@ const VALUES = [
 
 const STATS = [
   { number: '90%+', label: 'Organic', detail: 'Because you\'re a whole snack and deserve the best' },
-  { number: '🔥', label: 'Already Turning Heads', detail: 'Hotter than your ex\'s texts (and way more reliable)' },
-  { number: '🧑‍🍳', label: 'Crafted', detail: 'By flavor-obsessed perfectionists who live for your glow-up' },
+  { number: '♡', label: 'Already Turning Heads', detail: 'Hotter than your ex\'s texts (and way more reliable)' },
+  { number: '◆', label: 'Crafted', detail: 'By flavor-obsessed perfectionists who live for your glow-up' },
 ];
 
 export default function OurStory() {
