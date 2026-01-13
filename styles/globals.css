@@ -7747,8 +7747,17 @@ svg {
     font-weight: 300;
   }
 
+  .lv-hero-title-line2 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.1rem;
+  }
+
   .lv-hero-dynamic-word {
-    min-width: 90px;
+    display: block;
+    min-width: auto;
+    min-height: 1.4em;
   }
   
   .lv-hero-rotating-phrase {

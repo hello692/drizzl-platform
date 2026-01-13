@@ -81,8 +81,16 @@ export default function Navbar({ hideCart = false, hideSearch = false }: NavbarP
   const [expandedMenu, setExpandedMenu] = useState<string | null>(null);
   const [isDarkBg, setIsDarkBg] = useState(true);
   const [scrolled, setScrolled] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const headerRef = useRef<HTMLElement>(null);
   const router = useRouter();
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth <= 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -222,7 +230,7 @@ export default function Navbar({ hideCart = false, hideSearch = false }: NavbarP
   const actionTextColor = isDarkBg ? 'rgba(255,255,255,0.8)' : 'rgba(0,0,0,0.8)';
   const borderColor = isHomeTransparent ? 'transparent' : (isDarkBg ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.08)');
   const logoFilter = isDarkBg ? 'none' : 'invert(1)';
-  const logoWidth = scrolled ? 180 : 200;
+  const logoWidth = isMobile ? (scrolled ? 120 : 140) : (scrolled ? 180 : 200);
 
   return (
     <>
@@ -238,7 +246,7 @@ export default function Navbar({ hideCart = false, hideSearch = false }: NavbarP
           alignItems: 'center',
           justifyContent: 'space-between',
           height: `${headerHeight}px`,
-          padding: '0 40px',
+          padding: isMobile ? '0 16px' : '0 40px',
           background: bgStyle,
           backdropFilter: blurStyle,
           WebkitBackdropFilter: blurStyle,
@@ -328,12 +336,12 @@ export default function Navbar({ hideCart = false, hideSearch = false }: NavbarP
           </Link>
         </div>
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: '24px', height: '100%' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: isMobile ? '12px' : '24px', height: '100%' }}>
           <Link 
             href="/wholesale" 
             className="nav-link wholesale-link"
             style={{
-              display: 'inline-flex',
+              display: isMobile ? 'none' : 'inline-flex',
               alignItems: 'center',
               color: textColor,
               textDecoration: 'none',
