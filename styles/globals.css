@@ -3408,20 +3408,22 @@ svg {
   
   .footer-grid {
     grid-template-columns: repeat(2, 1fr);
-    gap: 32px 16px;
+    gap: 24px 16px;
   }
   
   .footer-section {
     text-align: left;
+    margin-bottom: 0;
   }
   
   .footer-section-title {
     font-size: 14px;
     font-weight: 500;
+    margin-bottom: 8px;
   }
   
   .footer-links {
-    gap: 10px;
+    gap: 8px;
   }
   
   .footer-link {
