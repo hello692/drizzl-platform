@@ -19,7 +19,7 @@ const FAQS = [
     questions: [
       { q: 'How long does shipping take?', a: 'Orders typically ship within 1-2 business days and arrive within 3-5 business days depending on location.' },
       { q: 'Do you ship internationally?', a: 'Currently we only ship within the United States. International shipping coming soon.' },
-      { q: 'Is there a minimum order?', a: 'No minimum order required. However, orders over $75 qualify for free shipping.' },
+      { q: 'How many items do I need to order?', a: 'Build your box with a minimum of 6 items. Enjoy free shipping when you order 12 or more.' },
     ]
   },
   {
