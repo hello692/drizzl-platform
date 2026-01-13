@@ -31,21 +31,21 @@ const POPULAR_SMOOTHIES = [
 ];
 
 const EXPERTS = [
-  { id: '1', name: 'Elizabeth Russano', video: '', quote: 'I do is make a' },
-  { id: '2', name: 'Morgan Rackley', video: '', quote: 'Oh, yeah... poof!' },
-  { id: '3', name: 'Nurse Lila', video: '', quote: 'my energy level' },
-  { id: '4', name: 'Dr. Gabriella', video: '', quote: 'I just really love this' },
-  { id: '5', name: 'Dr. Sarah', video: '', quote: 'I do is make a' },
-  { id: '6', name: 'Dr. Michael', video: '', quote: 'perfect for morning' },
+  { id: '1', name: 'Elizabeth Russano', video: '/videos/bowling-drizzl.mp4', quote: 'I do is make a' },
+  { id: '2', name: 'Morgan Rackley', video: '/videos/bowling-drizzl.mp4', quote: 'Oh, yeah... poof!' },
+  { id: '3', name: 'Nurse Lila', video: '/videos/bowling-drizzl.mp4', quote: 'my energy level' },
+  { id: '4', name: 'Dr. Gabriella', video: '/videos/bowling-drizzl.mp4', quote: 'I just really love this' },
+  { id: '5', name: 'Dr. Sarah', video: '/videos/bowling-drizzl.mp4', quote: 'I do is make a' },
+  { id: '6', name: 'Dr. Michael', video: '/videos/bowling-drizzl.mp4', quote: 'perfect for morning' },
 ];
 
 const CUSTOMERS = [
-  { id: '1', name: 'Taylor Kay', video: '', quote: 'I do is make a' },
-  { id: '2', name: 'Brittney A.', video: '', quote: 'Oh, yeah... poof!' },
-  { id: '3', name: 'Lily S.', video: '', quote: 'my energy level' },
-  { id: '4', name: 'Sarah Butler', video: '', quote: 'I just really love this' },
-  { id: '5', name: 'Jessica Chen', video: '', quote: 'I do is make a' },
-  { id: '6', name: 'Emma Wilson', video: '', quote: 'best smoothies ever' },
+  { id: '1', name: 'Taylor Kay', video: '/videos/bowling-drizzl.mp4', quote: 'I do is make a' },
+  { id: '2', name: 'Brittney A.', video: '/videos/bowling-drizzl.mp4', quote: 'Oh, yeah... poof!' },
+  { id: '3', name: 'Lily S.', video: '/videos/bowling-drizzl.mp4', quote: 'my energy level' },
+  { id: '4', name: 'Sarah Butler', video: '/videos/bowling-drizzl.mp4', quote: 'I just really love this' },
+  { id: '5', name: 'Jessica Chen', video: '/videos/bowling-drizzl.mp4', quote: 'I do is make a' },
+  { id: '6', name: 'Emma Wilson', video: '/videos/bowling-drizzl.mp4', quote: 'best smoothies ever' },
 ];
 
 const ROTATING_WORDS = [
@@ -651,8 +651,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 7. Social Proof - Experts Reviews Carousel - Hidden until videos are ready */}
-      {/* 
+      {/* 7. Social Proof - Experts Reviews Carousel */}
       <section className="reviews-section">
         <div className="reviews-header">
           <p className="reviews-eyebrow">Over 50K Five-Star Reviews</p>
@@ -687,10 +686,8 @@ export default function Home() {
           </div>
         </div>
       </section>
-      */}
 
-      {/* Customer Reviews Section - Hidden until videos are ready */}
-      {/*
+      {/* Customer Reviews Section */}
       <section className="reviews-section">
         <div className="reviews-header">
           <h2 className="reviews-title">A Fan Favorite</h2>
@@ -724,7 +721,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-      */}
 
       {/* Footer */}
       <Footer />
