@@ -105,7 +105,7 @@ export default function WholesaleDashboard() {
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 'clamp(12px, 3vw, 32px)' }}>
             <span style={{
-              fontSize: 'clamp(13px, 2.5vw, 16px)',
+              fontSize: 'clamp(14px, 3vw, 16px)',
               fontWeight: 500,
               color: '#ffffff',
               whiteSpace: 'nowrap',
@@ -113,7 +113,7 @@ export default function WholesaleDashboard() {
             }}>
               Wholesale
             </span>
-            <div style={{ display: 'flex', gap: 'clamp(2px, 1vw, 8px)', alignItems: 'center' }}>
+            <div style={{ display: 'flex', gap: 'clamp(4px, 1.5vw, 8px)', alignItems: 'center' }}>
               {NAV_ITEMS.map((item) => (
                 <Link
                   key={item.id}
@@ -121,17 +121,17 @@ export default function WholesaleDashboard() {
                   style={item.isCta ? {
                     background: '#ffffff',
                     color: '#000000',
-                    padding: 'clamp(8px, 1.5vw, 10px) clamp(12px, 2vw, 20px)',
+                    padding: '6px 14px',
                     borderRadius: '6px',
-                    fontSize: 'clamp(11px, 2vw, 14px)',
+                    fontSize: 'clamp(12px, 2.5vw, 14px)',
                     fontWeight: 600,
                     textDecoration: 'none',
                     whiteSpace: 'nowrap',
                     transition: 'all 0.2s ease',
                   } : {
                     background: 'none',
-                    padding: 'clamp(12px, 2vw, 16px) clamp(8px, 1.5vw, 16px)',
-                    fontSize: 'clamp(11px, 2vw, 14px)',
+                    padding: '16px 10px',
+                    fontSize: 'clamp(12px, 2.5vw, 14px)',
                     fontWeight: 400,
                     color: router.pathname === item.href ? '#ffffff' : 'rgba(255,255,255,0.5)',
                     textDecoration: 'none',

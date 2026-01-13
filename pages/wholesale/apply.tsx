@@ -196,7 +196,7 @@ export default function WholesaleApply() {
             scrollbarWidth: 'none',
           }}>
             <span style={{
-              fontSize: 'clamp(13px, 2.5vw, 16px)',
+              fontSize: 'clamp(14px, 3vw, 16px)',
               fontWeight: 500,
               color: '#ffffff',
               whiteSpace: 'nowrap',
@@ -204,7 +204,7 @@ export default function WholesaleApply() {
             }}>
               Wholesale
             </span>
-            <div style={{ display: 'flex', gap: 'clamp(2px, 1vw, 8px)', alignItems: 'center' }}>
+            <div style={{ display: 'flex', gap: 'clamp(4px, 1.5vw, 8px)', alignItems: 'center' }}>
               {NAV_ITEMS.map((item) => (
                 item.isCta ? (
                   <Link
@@ -213,9 +213,9 @@ export default function WholesaleApply() {
                     style={{
                       background: '#ffffff',
                       color: '#000000',
-                      padding: 'clamp(8px, 1.5vw, 10px) clamp(12px, 2vw, 20px)',
-                      borderRadius: '50px',
-                      fontSize: 'clamp(11px, 2vw, 14px)',
+                      padding: '6px 14px',
+                      borderRadius: '6px',
+                      fontSize: 'clamp(12px, 2.5vw, 14px)',
                       fontWeight: 500,
                       textDecoration: 'none',
                       whiteSpace: 'nowrap',
@@ -230,8 +230,8 @@ export default function WholesaleApply() {
                     href={item.href}
                     style={{
                       background: 'none',
-                      padding: 'clamp(12px, 2vw, 16px) clamp(8px, 1.5vw, 16px)',
-                      fontSize: 'clamp(11px, 2vw, 14px)',
+                      padding: '16px 10px',
+                      fontSize: 'clamp(12px, 2.5vw, 14px)',
                       fontWeight: 400,
                       color: 'rgba(255,255,255,0.5)',
                       textDecoration: 'none',
@@ -341,7 +341,7 @@ export default function WholesaleApply() {
           scrollbarWidth: 'none',
         }}>
           <span style={{
-            fontSize: 'clamp(13px, 2.5vw, 16px)',
+            fontSize: 'clamp(14px, 3vw, 16px)',
             fontWeight: 500,
             color: '#ffffff',
             whiteSpace: 'nowrap',
@@ -349,7 +349,7 @@ export default function WholesaleApply() {
           }}>
             Wholesale
           </span>
-          <div style={{ display: 'flex', gap: 'clamp(2px, 1vw, 8px)', alignItems: 'center' }}>
+          <div style={{ display: 'flex', gap: 'clamp(4px, 1.5vw, 8px)', alignItems: 'center' }}>
             {NAV_ITEMS.map((item) => (
               item.isCta ? (
                 <Link
@@ -358,9 +358,9 @@ export default function WholesaleApply() {
                   style={{
                     background: '#ffffff',
                     color: '#000000',
-                    padding: 'clamp(8px, 1.5vw, 10px) clamp(12px, 2vw, 20px)',
-                    borderRadius: '50px',
-                    fontSize: 'clamp(11px, 2vw, 14px)',
+                    padding: '6px 14px',
+                    borderRadius: '6px',
+                    fontSize: 'clamp(12px, 2.5vw, 14px)',
                     fontWeight: 500,
                     textDecoration: 'none',
                     whiteSpace: 'nowrap',
@@ -375,8 +375,8 @@ export default function WholesaleApply() {
                   href={item.href}
                   style={{
                     background: 'none',
-                    padding: 'clamp(12px, 2vw, 16px) clamp(8px, 1.5vw, 16px)',
-                    fontSize: 'clamp(11px, 2vw, 14px)',
+                    padding: '16px 10px',
+                    fontSize: 'clamp(12px, 2.5vw, 14px)',
                     fontWeight: 400,
                     color: router.pathname === item.href ? '#ffffff' : 'rgba(255,255,255,0.5)',
                     textDecoration: 'none',
