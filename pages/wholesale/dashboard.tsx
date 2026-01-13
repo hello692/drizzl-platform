@@ -97,15 +97,15 @@ export default function WholesaleDashboard() {
         <div style={{
           maxWidth: '1100px',
           margin: '0 auto',
-          padding: '0 clamp(20px, 4vw, 48px)',
+          padding: '0 clamp(12px, 3vw, 48px)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
-          gap: '32px',
+          gap: 'clamp(12px, 3vw, 32px)',
         }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '32px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 'clamp(12px, 3vw, 32px)' }}>
             <span style={{
-              fontSize: 'var(--fs-body)',
+              fontSize: 'clamp(13px, 2.5vw, 16px)',
               fontWeight: 500,
               color: '#ffffff',
               whiteSpace: 'nowrap',
@@ -113,7 +113,7 @@ export default function WholesaleDashboard() {
             }}>
               Wholesale
             </span>
-            <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+            <div style={{ display: 'flex', gap: 'clamp(2px, 1vw, 8px)', alignItems: 'center' }}>
               {NAV_ITEMS.map((item) => (
                 <Link
                   key={item.id}
@@ -121,17 +121,17 @@ export default function WholesaleDashboard() {
                   style={item.isCta ? {
                     background: '#ffffff',
                     color: '#000000',
-                    padding: '10px 20px',
+                    padding: 'clamp(8px, 1.5vw, 10px) clamp(12px, 2vw, 20px)',
                     borderRadius: '6px',
-                    fontSize: 'var(--fs-small)',
+                    fontSize: 'clamp(11px, 2vw, 14px)',
                     fontWeight: 600,
                     textDecoration: 'none',
                     whiteSpace: 'nowrap',
                     transition: 'all 0.2s ease',
                   } : {
                     background: 'none',
-                    padding: '16px 16px',
-                    fontSize: 'var(--fs-small)',
+                    padding: 'clamp(12px, 2vw, 16px) clamp(8px, 1.5vw, 16px)',
+                    fontSize: 'clamp(11px, 2vw, 14px)',
                     fontWeight: 400,
                     color: router.pathname === item.href ? '#ffffff' : 'rgba(255,255,255,0.5)',
                     textDecoration: 'none',
@@ -150,8 +150,8 @@ export default function WholesaleDashboard() {
             style={{
               background: 'none',
               border: 'none',
-              padding: '16px 0',
-              fontSize: 'var(--fs-small)',
+              padding: 'clamp(12px, 2vw, 16px) clamp(8px, 1.5vw, 16px)',
+              fontSize: 'clamp(11px, 2vw, 14px)',
               fontWeight: 400,
               color: 'rgba(255,255,255,0.5)',
               cursor: 'pointer',

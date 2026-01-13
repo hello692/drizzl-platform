@@ -131,15 +131,15 @@ export default function WholesalePricing() {
         <div style={{
           maxWidth: '1100px',
           margin: '0 auto',
-          padding: '0 clamp(20px, 4vw, 48px)',
+          padding: '0 clamp(12px, 3vw, 48px)',
           display: 'flex',
           alignItems: 'center',
-          gap: '32px',
+          gap: 'clamp(12px, 3vw, 32px)',
           overflowX: 'auto',
           scrollbarWidth: 'none',
         }}>
           <span style={{
-            fontSize: 'var(--fs-body)',
+            fontSize: 'clamp(13px, 2.5vw, 16px)',
             fontWeight: 500,
             color: '#ffffff',
             whiteSpace: 'nowrap',
@@ -147,7 +147,7 @@ export default function WholesalePricing() {
           }}>
             Wholesale
           </span>
-          <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+          <div style={{ display: 'flex', gap: 'clamp(2px, 1vw, 8px)', alignItems: 'center' }}>
             {NAV_ITEMS.map((item) => (
               item.isCta ? (
                 <Link
@@ -156,9 +156,9 @@ export default function WholesalePricing() {
                   style={{
                     background: '#ffffff',
                     color: '#000000',
-                    padding: '10px 20px',
+                    padding: 'clamp(8px, 1.5vw, 10px) clamp(12px, 2vw, 20px)',
                     borderRadius: '50px',
-                    fontSize: 'var(--fs-small)',
+                    fontSize: 'clamp(11px, 2vw, 14px)',
                     fontWeight: 500,
                     textDecoration: 'none',
                     whiteSpace: 'nowrap',
@@ -173,8 +173,8 @@ export default function WholesalePricing() {
                   href={item.href}
                   style={{
                     background: 'none',
-                    padding: '16px 16px',
-                    fontSize: 'var(--fs-small)',
+                    padding: 'clamp(12px, 2vw, 16px) clamp(8px, 1.5vw, 16px)',
+                    fontSize: 'clamp(11px, 2vw, 14px)',
                     fontWeight: 400,
                     color: router.pathname === item.href ? '#ffffff' : 'rgba(255,255,255,0.5)',
                     textDecoration: 'none',
