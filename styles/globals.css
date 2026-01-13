@@ -3398,7 +3398,7 @@ svg {
 /* Mobile (under 600px) - Single column stacked */
 @media (max-width: 599px) {
   .footer {
-    padding: 48px 0 32px;
+    padding: 40px 0 24px;
   }
   
   .footer-container {
@@ -3408,7 +3408,8 @@ svg {
   
   .footer-grid {
     grid-template-columns: repeat(2, 1fr);
-    gap: 24px 16px;
+    gap: 20px 16px;
+    align-items: start;
   }
   
   .footer-section {
@@ -3417,13 +3418,13 @@ svg {
   }
   
   .footer-section-title {
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 500;
-    margin-bottom: 8px;
+    margin-bottom: 6px;
   }
   
   .footer-links {
-    gap: 8px;
+    gap: 6px;
   }
   
   .footer-link {
