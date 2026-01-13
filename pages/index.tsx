@@ -356,14 +356,15 @@ export default function Home() {
               position: 'relative',
               borderRadius: '24px',
               overflow: 'hidden',
-              aspectRatio: '4/3',
+              aspectRatio: '9/16',
+              maxHeight: '500px',
             }}>
-              <img 
-                src="/products/strawberry-peach/lifestyle-1.jpg" 
-                alt="Drizzl Smoothie"
-                loading="lazy"
-                width="800"
-                height="600"
+              <video 
+                src="/videos/bowling-drizzl.mp4"
+                autoPlay
+                muted
+                loop
+                playsInline
                 style={{
                   width: '100%',
                   height: '100%',
