@@ -2,6 +2,8 @@ import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
+import { supabase } from '../../lib/supabase';
 import { AnimatedSection } from '../../components/ScrollAnimations';
 
 const NAV_ITEMS = [
@@ -61,6 +63,58 @@ const REQUIREMENTS = [
 
 export default function WholesalePricing() {
   const router = useRouter();
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    async function checkAuth() {
+      const { data: { session } } = await supabase.auth.getSession();
+      
+      if (!session) {
+        router.replace('/wholesale/signin?redirect=/wholesale/pricing');
+        return;
+      }
+
+      const { data: profile } = await supabase
+        .from('profiles')
+        .select('role')
+        .eq('id', session.user.id)
+        .single();
+
+      if (!profile || !['partner', 'wholesale', 'admin'].includes(profile.role || '')) {
+        router.replace('/wholesale/signin?redirect=/wholesale/pricing');
+        return;
+      }
+
+      setIsAuthenticated(true);
+      setIsLoading(false);
+    }
+
+    checkAuth();
+  }, [router]);
+
+  if (isLoading) {
+    return (
+      <>
+        <Navbar />
+        <div style={{
+          minHeight: '100vh',
+          background: '#000',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          color: '#fff',
+        }}>
+          <p>Loading...</p>
+        </div>
+        <Footer />
+      </>
+    );
+  }
+
+  if (!isAuthenticated) {
+    return null;
+  }
 
   return (
     <>
