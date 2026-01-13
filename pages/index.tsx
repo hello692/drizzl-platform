@@ -339,37 +339,17 @@ export default function Home() {
       </section>
 
       {/* 3. Why Drizzl Section - Video left, text right */}
-      <section style={{
-        background: '#000000',
-        padding: 'var(--section-gap) clamp(20px, 4vw, 48px)',
-      }}>
-        <div style={{
-          maxWidth: '1100px',
-          margin: '0 auto',
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 420px), 1fr))',
-          gap: 'clamp(32px, 5vw, 48px)',
-          alignItems: 'center',
-        }}>
+      <section className="why-drizzl-section">
+        <div className="why-drizzl-container">
           <AnimatedSection animation="fadeUp">
-            <div style={{
-              position: 'relative',
-              borderRadius: '24px',
-              overflow: 'hidden',
-              aspectRatio: '9/16',
-              maxHeight: '500px',
-            }}>
+            <div className="why-drizzl-video-wrapper">
               <video 
                 src="/videos/bowling-drizzl.mp4"
                 autoPlay
                 muted
                 loop
                 playsInline
-                style={{
-                  width: '100%',
-                  height: '100%',
-                  objectFit: 'cover',
-                }}
+                className="why-drizzl-video"
               />
             </div>
           </AnimatedSection>
