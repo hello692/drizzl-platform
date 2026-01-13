@@ -365,17 +365,17 @@ export default function OurStory() {
               </div>
             </AnimatedSection>
             <AnimatedSection animation="fadeUp" delay={100}>
-              <div style={{
+              <div className="stats-grid" style={{
                 display: 'grid',
-                gridTemplateColumns: 'repeat(3, 1fr)',
-                gap: '24px',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))',
+                gap: '16px',
                 textAlign: 'center',
               }}>
                 {STATS.map((stat) => (
                   <div key={stat.label} style={{
                     background: 'rgba(255,255,255,0.03)',
                     borderRadius: '14px',
-                    padding: '32px 20px',
+                    padding: 'clamp(20px, 4vw, 32px) clamp(16px, 3vw, 20px)',
                     border: '1px solid rgba(255,255,255,0.06)',
                   }}>
                     <p style={{
