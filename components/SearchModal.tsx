@@ -13,11 +13,6 @@ interface SearchItem {
 const SEARCHABLE_CONTENT: SearchItem[] = [
   { title: 'Home', description: 'Welcome to Drizzl Wellness', url: '/', type: 'page' },
   { title: 'All Smoothies', description: 'Browse our full smoothie collection', url: '/collections/smoothies', type: 'category' },
-  { title: 'Protein Power-Ups', description: 'High protein smoothies for muscle recovery', url: '/collections/high-protein', type: 'category' },
-  { title: 'Fan Favorites', description: 'Our best-selling smoothies', url: '/collections/best-sellers', type: 'category' },
-  { title: 'Fresh Drops', description: 'New arrivals and seasonal flavors', url: '/collections/new-arrivals', type: 'category' },
-  { title: 'Smoothie Kits', description: 'Curated smoothie boxes and bundles', url: '/collections/smoothie-boxes', type: 'category' },
-  { title: 'Gift Guide', description: 'Perfect gifts for smoothie lovers', url: '/collections/gift-guide', type: 'category' },
   { title: 'All Products', description: 'View all our products', url: '/products', type: 'page' },
   { title: 'Our Story', description: 'Learn about Drizzl Wellness and our mission', url: '/our-story', type: 'page' },
   { title: 'Blog & Recipes', description: 'Tips, recipes, and wellness inspiration', url: '/blog', type: 'page' },

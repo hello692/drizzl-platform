@@ -42,21 +42,6 @@ export default function Footer() {
               <Link href="/collections/smoothies" className="footer-link">
                 Smoothies
               </Link>
-              <Link href="/collections/high-protein" className="footer-link">
-                Protein Power-Ups
-              </Link>
-              <Link href="/collections/best-sellers" className="footer-link">
-                Fan Favorites
-              </Link>
-              <Link href="/collections/new-arrivals" className="footer-link">
-                Fresh Drops
-              </Link>
-              <Link href="/collections/smoothie-boxes" className="footer-link">
-                Smoothie Kits
-              </Link>
-              <Link href="/collections/gift-guide" className="footer-link">
-                Gifts
-              </Link>
             </nav>
           </div>
 

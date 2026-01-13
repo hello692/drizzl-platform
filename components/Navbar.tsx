@@ -11,11 +11,6 @@ const MENU_SECTIONS = [
     subtitle: 'Explore our smoothie collection',
     items: [
       { name: 'Smoothies', href: '/collections/smoothies' },
-      { name: 'Protein Power-Ups', href: '/collections/high-protein' },
-      { name: 'Fan Favorites', href: '/collections/best-sellers' },
-      { name: 'Fresh Drops (New Arrivals)', href: '/collections/new-arrivals' },
-      { name: 'Smoothie Kits', href: '/collections/smoothie-boxes' },
-      { name: 'Gifts That Blend Joy', href: '/collections/gift-guide' },
     ]
   },
   {
