@@ -514,41 +514,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 7. Social Proof - Experts Reviews Carousel */}
-      <section className="reviews-section">
-        <div className="reviews-header">
-          <p className="reviews-eyebrow">Over 50K Five-Star Reviews</p>
-          <h2 className="reviews-title">Trusted by Experts and Wellness Leaders</h2>
-          <p className="reviews-subtitle">Discover why healthcare pros, fitness coaches, and wellness enthusiasts swear by us.</p>
-        </div>
-        <div className="reviews-wrapper">
-          <div className="reviews-track">
-            {[...Array(3)].map((_, setIndex) => (
-              EXPERTS.map((expert) => (
-                <div 
-                  key={`${setIndex}-${expert.id}`} 
-                  className="reviews-card-v2"
-                  onClick={() => setUnMutedExpert(unMutedExpert === expert.id ? null : expert.id)}
-                >
-                  <video
-                    src={expert.video}
-                    className="reviews-card-v2-video"
-                    loop
-                    autoPlay
-                    muted={unMutedExpert !== expert.id}
-                    playsInline
-                  />
-                  <div className="reviews-card-v2-play-btn">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="white">
-                      <polygon points="8 5 19 12 8 19 8 5" />
-                    </svg>
-                  </div>
-                </div>
-              ))
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* 7. Social Proof - Experts Reviews Carousel - Hidden */}
 
       {/* Customer Reviews Section */}
       <section className="reviews-section">
